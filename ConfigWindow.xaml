@@ -1,0 +1,60 @@
+﻿<Window x:Class="AemulusModManager.ConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager"
+        mc:Ignorable="d"
+        Title="Config" Height="270" Width="550" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+    <Grid Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="18"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="6" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Height="30" Width="140" Content="Unpack data00004.pac" Name="UnpackButton" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MaxWidth="130" Grid.Column="1">
+                <CheckBox Name="KeepSND" Foreground ="White" Checked="SndChecked" Unchecked="SndUnchecked">
+                    <TextBlock TextAlignment="Center">Empty SND
+                    <LineBreak/> Folder
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MaxWidth="130" Grid.Column="2">
+                <CheckBox Name="TblPatchBox" Foreground ="White" Checked="TblChecked" Unchecked="TblUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Enable Table<LineBreak/>
+                        Patches
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+        </Grid>
+        <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"></TextBlock>
+        <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="P4G.exe Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
+        <TextBlock Foreground="#9A2000" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Reloaded-II.exe<LineBreak />Path</TextBlock>
+        <TextBlock Foreground="#9A2000" Text="Setup P4G Launch Shortcut" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="340"/>
+        <TextBox Name="P4GTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="340" Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="ReloadedTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="340" Grid.Row="4" Grid.Column="2"/>
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
+        <Button Height="20" Width="60" Content="Browse" Name="P4GButton" Click="SetupP4GShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ReloadedButton" Click="SetupReloadedShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3"/>
+        
+    </Grid>
+</Window>

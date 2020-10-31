@@ -1,0 +1,50 @@
+﻿<Window x:Class="AemulusModManager.CreatePackage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager"
+        mc:Ignorable="d"
+        Background="#121212"
+        ResizeMode="NoResize"
+        Title="Create New Package" Height="310" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" Grid.Column="0">Name</TextBlock>
+        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0">Author</TextBlock>
+        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="2" Grid.Column="0">ID</TextBlock>
+        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="3" Grid.Column="0">Version</TextBlock>
+        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.Column="0">Link</TextBlock>
+        <TextBlock Foreground="#9A2000" VerticalAlignment="Top" Padding="2" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="6" Grid.Column="0">Description</TextBlock>
+        <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
+        <TextBox Name="AuthorBox" Background="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
+        <TextBox Name="IDBox" Background="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
+        <TextBox Name="VersionBox" Background="White" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
+        <TextBox Name="LinkBox" Background="White" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
+        <TextBox Name="DescBox" AcceptsReturn="True" AcceptsTab="True" Background="White" Grid.Row="6" Grid.Column="1" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Height="65" HorizontalAlignment="Left" Width="365"></TextBox>
+        <Grid Grid.Row="8" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Name="CreateButton" Click="CreateButton_Click" IsEnabled="False" Background="White" Height="25" Width="150"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Create New Package</Button>
+            <Button Name="CancelButton" Click="CancelButton_Click" Background="White" Height="25" Width="75" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">Cancel</Button>
+        </Grid>
+        
+    </Grid>
+</Window>

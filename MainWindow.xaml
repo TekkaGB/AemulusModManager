@@ -1,0 +1,119 @@
+﻿<Window x:Class="AemulusModManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:local="clr-namespace:AemulusModManager" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="Aemulus Package Manager" Height="662" Width="1180" MinHeight="662" MinWidth="1180"
+        
+        Background="#121212">
+    <Window.Resources>
+        <local:UrlConverter x:Key="UrlConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Image Source="Logo.png" Margin="10,7,678,0" VerticalAlignment="Top" Height="98" Width="98"/>
+        <Viewbox Stretch="Uniform" Margin="10,85,678,0" VerticalAlignment="Top" MinHeight="24" MaxHeight="24" MaxWidth="120">
+            <TextBlock Text="v1.3" Foreground ="White" TextAlignment="Center" FontSize="20" Height="24" Width="120"/>
+        </Viewbox>
+        <Button Height="25" MaxWidth="65" Content="Config" Name="ConfigButton" Click="ConfigWdwClick"  VerticalAlignment="Top" Margin="129,27,529,0" Background="White"/>
+        <Button Height="25" MaxWidth="65" Content="Build" Name="MergeButton" Background="White" Click="MergeClick" VerticalAlignment="Top" Margin="329,27,329,0" />
+        <Button Height="25" MaxWidth="65" Content="Refresh" Name="RefreshButton" Background="White" Click="RefreshClick" VerticalAlignment="Top"  Margin="229,27,429,0"/>
+        <Button Height="25" MaxWidth="65" Content="Launch" Name="LaunchButton" Background ="White" Click="LaunchClick" VerticalAlignment="Top" Margin="429,27,229,0" />
+        <Button Height="25" MaxWidth="65" Content="New" Name="NewButton" Background ="White" Click="NewClick" VerticalAlignment="Top" Margin="529,27,129,0" />
+
+        <Image Source="arrow.png" Margin="188,67,449,0" VerticalAlignment="Top" MinHeight="40" MaxHeight="40"/>
+        <Image Source="arrow.png" Margin="449,67,188,0" VerticalAlignment="Top" MinHeight="40" MaxHeight="40"/>
+        <Viewbox Stretch="Uniform" Margin="287,67,287,393" VerticalAlignment="Top" MinHeight="40" MaxHeight="40">
+            <TextBlock Text="Higher Priority" Foreground ="White" TextAlignment="Center" FontSize="15" Height="22" Width="122"/>
+        </Viewbox>
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="38,111,38,200">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="390"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Name="ModGrid" AutoGenerateColumns="False"
+                          EnableColumnVirtualization="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
+                          CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
+                          dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
+                          SelectionChanged="rowSelected" MinWidth="680" SelectionMode="Single"
+                          LoadingRow="ModGrid_LoadingRow"
+                          HorizontalAlignment="Center" Grid.Column="0" Margin="10">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#9A2000"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding enabled, Mode=TwoWay}" IsReadOnly="False" Width="52" MinWidth="52" MaxWidth="52">
+                        <DataGridCheckBoxColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                                <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="IsEditing" Value="True" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridCheckBoxColumn.CellStyle>
+                    </DataGridCheckBoxColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding name, Mode=TwoWay}" IsReadOnly="True" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Author" Binding="{Binding author, Mode=TwoWay}" IsReadOnly="True" Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}"  IsReadOnly="True" Width="50"></DataGridTextColumn>
+                    <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="80">
+                        <DataGridHyperlinkColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <EventSetter Event="Hyperlink.Click" Handler="OnHyperlinkClick" />
+                            </Style>
+                        </DataGridHyperlinkColumn.ElementStyle>
+                        <DataGridHyperlinkColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Resources>
+                                    <Style TargetType="Hyperlink">
+                                        <Setter Property="Foreground" Value="#0bb4c8"></Setter>
+                                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </DataGridHyperlinkColumn.CellStyle>
+                    </DataGridHyperlinkColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="220"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Name="Preview" Source="Preview.png" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
+                <TextBox Name="Description" IsReadOnly="True" Grid.Row="1" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" Background="White">Aemulus means "Rival" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).</TextBox>
+            </Grid>
+        </Grid>
+        <Image Source="arrow.png" Margin="188,0,449,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-180.012"/>
+                    <TranslateTransform X="260" Y="-0.027"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Image Source="arrow.png" Margin="449,0,188,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-180"/>
+                    <TranslateTransform X="-260" Y="0.027"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <Viewbox Stretch="Uniform" Margin="287,309,287,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40">
+            <TextBlock Text="Lower Priority" Foreground ="White" TextAlignment="Center" FontSize="15" Height="22" Width="122"/>
+        </Viewbox>
+        <TextBox x:Name="ConsoleOutput" ClipToBounds="False" Margin="38,0,38,22" VerticalAlignment="Bottom" Height="133" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True" />
+        
+    </Grid>
+
+</Window>
