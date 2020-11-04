@@ -1,17 +1,11 @@
 ﻿using GongSolutions.Wpf.DragDrop.Utilities;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,6 +33,20 @@ namespace AemulusModManager
         public string p4gPath;
         public string reloadedPath;
 
+        public DisplayedMetadata InitDisplayedMetadata(Metadata m)
+        {
+            DisplayedMetadata dm = new DisplayedMetadata();
+            dm.name = m.name;
+            dm.id = m.id;
+            dm.author = m.author;
+            Version v;
+            if (Version.TryParse(m.version, out v))
+                dm.version = m.version;
+            dm.description = m.description;
+            dm.link = m.link;
+            return dm;
+        }
+
         private void OnChecked(object sender, RoutedEventArgs e)
         {
             var checkBox = e.OriginalSource as CheckBox;
@@ -48,15 +56,16 @@ namespace AemulusModManager
             if (package != null)
             {
                 package.enabled = true;
-                foreach (var p in PackageList)
+                foreach (var p in PackageList.ToList())
                 {
-                    if (p.name == package.name)
+                    if (p.path == package.path)
                         p.enabled = true;
                 }
                 updateConfig();
             }
         }
 
+        // Events for Enabled checkboxes
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
             var checkBox = e.OriginalSource as CheckBox;
@@ -66,15 +75,16 @@ namespace AemulusModManager
             if (package != null)
             {
                 package.enabled = false;
-                foreach (var p in PackageList)
+                foreach (var p in PackageList.ToList())
                 {
-                    if (p.name == package.name)
+                    if (p.path == package.path)
                         p.enabled = false;
                 }
                 updateConfig();
             }
         }
 
+        // Hyperlink click event
         private void OnHyperlinkClick(object sender, RoutedEventArgs e)
         {
             var destination = ((Hyperlink)e.OriginalSource).NavigateUri;
@@ -93,11 +103,11 @@ namespace AemulusModManager
             }
         }
 
+        // Autoscrolls to end whenever console updates
         private void ScrollToBottom(object sender, TextChangedEventArgs args)
         {
             ConsoleOutput.ScrollToEnd();
         }
-
 
         public MainWindow()
         {
@@ -113,7 +123,7 @@ namespace AemulusModManager
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
 
-            // Initial image
+            // Retrieve initial thumbnail from embedded resource
             Assembly asm = Assembly.GetExecutingAssembly();
             Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Preview.png");
             BitmapImage bitmap = new BitmapImage();
@@ -122,9 +132,10 @@ namespace AemulusModManager
             bitmap.EndInit();
             Preview.Source = bitmap;
 
+            // Initialize config
             config = new Config();
-            // Construct an instance of the XmlSerializer with the type
-            // of object that is being deserialized.
+
+            // Initialize xml serializers
             xs = new XmlSerializer(typeof(Config));
             xsp = new XmlSerializer(typeof(Metadata));
 
@@ -132,18 +143,26 @@ namespace AemulusModManager
             // Load in Config if it exists
             if (File.Exists(@"Config.xml"))
             {
-                using (FileStream streamWriter = File.Open(@"Config.xml", FileMode.Open))
+                try
                 {
-                    // Call the Deserialize method and cast to the object type.
-                    config = (Config)xs.Deserialize(streamWriter);
-                    reloadedPath = config.reloadedPath;
-                    p4gPath = config.exePath;
-                    modPath = config.modDir;
-                    emptySND = config.emptySND;
-                    PackageList = config.package;
-                    tbl = config.tbl;
+                    using (FileStream streamWriter = File.Open(@"Config.xml", FileMode.Open))
+                    {
+                        // Call the Deserialize method and cast to the object type.
+                        config = (Config)xs.Deserialize(streamWriter);
+                        reloadedPath = config.reloadedPath;
+                        p4gPath = config.exePath;
+                        modPath = config.modDir;
+                        emptySND = config.emptySND;
+                        PackageList = config.package;
+                        tbl = config.tbl;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Invalid Config.xml ({ex.Message})");
                 }
 
+                // Create displayed metadata from packages in PackageList and their respective Package.xml's
                 foreach (var package in PackageList)
                 {
                     string xml = $@"Packages\{package.path}\Package.xml";
@@ -152,39 +171,37 @@ namespace AemulusModManager
                     try
                     {
                         if (File.Exists(xml))
-                    {
-                        m = new Metadata();
-                        
-                            using (FileStream streamWriter = File.Open(xml, FileMode.Open))
+                        {
+                            m = new Metadata();
+                            try
                             {
-                                m = (Metadata)xsp.Deserialize(streamWriter);
-                                dm.name = m.name;
-                                dm.id = m.id;
-                                dm.author = m.author;
-                                Version v;
-                                if (Version.TryParse(m.version, out v))
-                                    dm.version = m.version;
-                                dm.link = m.link;
-                                dm.description = m.description;
-                                foreach (var p in PackageList.ToList())
+                                using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                                 {
-                                    if (p.name == dm.name)
-                                        dm.path = p.path;
+                                    m = (Metadata)xsp.Deserialize(streamWriter);
+                                    dm.name = m.name;
+                                    dm.id = m.id;
+                                    dm.author = m.author;
+                                    dm.version = m.version;
+                                    dm.link = m.link;
+                                    dm.description = m.description;
                                 }
-
                             }
-                        
-                    }
-                    dm.enabled = package.enabled;
-                    DisplayedPackages.Add(dm);
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
+                            }
+                        }
+
+                        dm.path = package.path;
+                        dm.enabled = package.enabled;
+                        DisplayedPackages.Add(dm);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for package {package.name}");
+                        Console.WriteLine($"[ERROR] Invalid Package.xml for package {package.id} ({ex.Message})");
                         continue;
                     }
                 }
-
                 ModGrid.ItemsSource = DisplayedPackages;
             }
 
@@ -198,17 +215,12 @@ namespace AemulusModManager
 
             // Create Packages directory if it doesn't exist
             if (!Directory.Exists("Packages"))
-            {
                 Directory.CreateDirectory("Packages");
-            }
-            
+
             if (!Directory.Exists("Original"))
-            {
                 Directory.CreateDirectory("Original");
-            }
-            
+
             Refresh();
-            checkVersion();
             updateConfig();
 
             // Check if Original Folder is unpacked
@@ -232,9 +244,9 @@ namespace AemulusModManager
                     LaunchButton.IsEnabled = true;
                 });
             }
-            ) ;
+            );
         }
-        
+
         private void LaunchClick(object sender, RoutedEventArgs e)
         {
             if (p4gPath != null && reloadedPath != null)
@@ -279,8 +291,6 @@ namespace AemulusModManager
                     RefreshButton.IsEnabled = false;
                 });
                 Refresh();
-                checkMetadata();
-                checkVersion();
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     updateConfig();
@@ -289,11 +299,11 @@ namespace AemulusModManager
             });
         }
 
-        // Update displayedpackages if xml's are edited while its open
-        private void checkMetadata()
+        private void UpdateMetadata()
         {
+            // Update metadata
             List<DisplayedMetadata> temp = DisplayedPackages.ToList();
-            foreach (var package in PackageList)
+            foreach (var package in temp)
             {
                 if (File.Exists($@"Packages\{package.path}\Package.xml"))
                 {
@@ -301,223 +311,128 @@ namespace AemulusModManager
                     {
                         using (FileStream streamWriter = File.Open($@"Packages\{package.path}\Package.xml", FileMode.Open))
                         {
-                            Metadata m = (Metadata)xsp.Deserialize(streamWriter);
-                            package.name = m.name;
-
-                            foreach (var dm in temp)
-                            {
-                                if (dm.name == package.name)
-                                {
-                                    dm.name = m.name;
-                                    dm.author = m.author;
-                                    Version v;
-                                    if (Version.TryParse(m.version, out v))
-                                        dm.version = m.version;
-                                    dm.id = m.id;
-                                    dm.link = m.link;
-                                    dm.description = m.description;
-                                }
-                            }
+                            Metadata metadata = (Metadata)xsp.Deserialize(streamWriter);
+                            package.name = metadata.name;
+                            package.id = metadata.id;
+                            package.author = metadata.author;
+                            package.version = metadata.version;
+                            package.link = metadata.link;
+                            package.description = metadata.description;
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.name} ({ex.Message}), not updating...");
+                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
                     }
                 }
             }
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
-                ModGrid.ItemsSource = DisplayedPackages;
-                // Trigger select event to refresh
-                ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
-            });
-        }
-
-        private void checkVersion()
-        {
-            List<DisplayedMetadata> temp = DisplayedPackages.ToList();
-            // Group up all 
-            foreach (var t in temp.Where(x => x.version != null && x.version.Length > 0).GroupBy(x => x.id).ToList())
-            {
-                foreach (var tt in t.OrderBy(x => Version.Parse(x.version)).Take(t.Count()-1).ToList())
-                {
-                    Console.WriteLine($"[WARNING] Multiple packages of same ID found, removing {tt.name} v{tt.version}");
-                    temp.Remove(tt);
-                    PackageList.RemoveAt(DisplayedPackages.IndexOf(tt));
-                }
-            }
-            
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
-
-            // Update DisplayedPackages
-            // TODO: Update PackageList as well and/or move to different folder to not keep doing that
-            // Find out why it doesn't use this at startup
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                ModGrid.ItemsSource = DisplayedPackages;
-            });
-            
         }
 
+        // Refresh both PackageList and DisplayedPackages
         private void Refresh()
         {
-            Console.WriteLine($"[INFO] Refreshing...");
-            // Create a modlist based on the directories
-            if (PackageList == null || PackageList.Count == 0)
+            Metadata metadata;
+            // First remove all deleted packages and update package id's to match metadata
+            foreach (var package in PackageList.ToList())
             {
-                // Get all mod names based on their folder
-                foreach (var package in Directory.EnumerateDirectories("Packages"))
+                if (!Directory.Exists($@"Packages\{package.path}"))
                 {
-                    Metadata m;
-                    DisplayedMetadata dm = new DisplayedMetadata();
-                    Package p = new Package();
-                    try { 
-                    if (File.Exists($@"{package}\Package.xml"))
+                    PackageList.Remove(package);
+                    List<DisplayedMetadata> temp = DisplayedPackages.ToList();
+                    temp.RemoveAll(x => x.path == package.path);
+                    DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
+                }
+                if (File.Exists($@"Packages\{package.path}\Package.xml"))
+                {
+                    try
                     {
-                        m = new Metadata();
-                        using (FileStream streamWriter = File.Open($@"{package}\Package.xml", FileMode.Open))
+                        using (FileStream streamWriter = File.Open($@"Packages\{package.path}\Package.xml", FileMode.Open))
                         {
-                            m = (Metadata)xsp.Deserialize(streamWriter);
-                            dm.name = m.name;
-                            dm.author = m.author;
-                            dm.version = m.version;
-                            dm.link = m.link;
-                            dm.id = m.id;
-                            dm.description = m.description;
-                            dm.path = Path.GetFileName(package);
+                            metadata = (Metadata)xsp.Deserialize(streamWriter);
+                            package.id = metadata.id;
                         }
-                        p.name = m.name;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"[WARNING] No Package.xml found in {package}. Creating barebones Package.xml");
-                        p.name = Path.GetFileName(package);
-                        dm.name = p.name;
-                        dm.path = p.name;
-                        m = new Metadata();
-                        m.name = p.name;
-                        m.id = "";
-                        m.author = "";
-                        m.version = "";
-                        m.link = "";
-                        m.description = "";
-                        using (FileStream streamWriter = File.Create($@"{package}\Package.xml"))
-                        {
-                            xsp.Serialize(streamWriter, m);
-                        }
-                    }
-                    Console.WriteLine($"[INFO] Adding {Path.GetFileName(package)}");
-                    p.path = Path.GetFileName(package);
-                    p.enabled = false;
-                    dm.enabled = false;
-                    DisplayedPackages.Add(dm);
-                    PackageList.Add(p);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for package {package} ({ex.Message})");
-                        continue;
+                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
                     }
                 }
             }
-            else
-            {
-                // Add new mods
-                foreach (var package in Directory.EnumerateDirectories("Packages"))
-                {
-                    Package p = new Package();
-                    Metadata n;
-                    if (File.Exists($@"{package}\Package.xml"))
-                    {
-                        try
-                        {
-                            using (FileStream streamWriter = File.Open($@"{package}\Package.xml", FileMode.Open))
-                            {
-                                // Call the Deserialize method and cast to the object type.
-                                n = (Metadata)xsp.Deserialize(streamWriter);
-                            }
-                            // Add to Mods if it doesn't exist
-                            if (!PackageList.Any(p => p.name == n.name))
-                            {
-                                DisplayedMetadata dm = new DisplayedMetadata();
-                                dm.name = n.name;
-                                dm.author = n.author;
-                                dm.version = n.version;
-                                dm.link = n.link;
-                                dm.id = n.id;
-                                dm.description = n.description;
-                                dm.enabled = false;
-                                dm.path = Path.GetFileName(package);
 
-                                p.name = n.name;
-                                p.path = Path.GetFileName(package);
-                                p.enabled = false;
-                                App.Current.Dispatcher.Invoke((Action)delegate
-                                {
-                                    PackageList.Add(p);
-                                    DisplayedPackages.Add(dm);
-                                });
-                            }
-                        }
-                        catch (Exception ex)
+            UpdateMetadata();
+
+            // Get all packages from Packages folder (Adding packages)
+            foreach (var package in Directory.EnumerateDirectories("Packages"))
+            {
+                if (File.Exists($@"{package}\Package.xml"))
+                {
+                    using (FileStream streamWriter = File.Open($@"{package}\Package.xml", FileMode.Open))
+                    {
+                        metadata = (Metadata)xsp.Deserialize(streamWriter);
+                        // Add package to list if it doesn't exist
+                        if (!PackageList.ToList().Any(x => x.path == Path.GetFileName(package))
+                            && !DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package)))
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package} ({ex.Message}), skipping...");
+                            // Add new package to both collections
+                            DisplayedMetadata dm = InitDisplayedMetadata(metadata);
+                            Package p = new Package();
+                            p.enabled = false;
+                            p.id = metadata.id;
+                            p.path = Path.GetFileName(package);
+                            PackageList.Add(p);
+                            dm.enabled = false;
+                            dm.path = Path.GetFileName(package);
+                            DisplayedPackages.Add(dm);
                         }
+                    }
+                }
+                // Create Package.xml
+                else
+                {
+                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating a simple one...");
+                    // Create metadata
+                    Metadata newMetadata = new Metadata();
+                    newMetadata.name = Path.GetFileName(package);
+                    newMetadata.id = newMetadata.name.Replace(" ", "").ToLower();
+                    newMetadata.author = "";
+                    newMetadata.version = "";
+                    newMetadata.link = "";
+                    newMetadata.description = "";
+                    using (FileStream streamWriter = File.Create($@"{package}\Package.xml"))
+                    {
+                        xsp.Serialize(streamWriter, newMetadata);
+                    }
+                    if (!PackageList.ToList().Any(x => x.path == Path.GetFileName(package))
+                            && !DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package)))
+                    {
+                        // Create package
+                        Package newPackage = new Package();
+                        newPackage.enabled = false;
+                        newPackage.path = Path.GetFileName(package);
+                        newPackage.id = newMetadata.id;
+                        PackageList.Add(newPackage);
+                        // Create displayedmetadata
+                        DisplayedMetadata newDisplayedMetadata = InitDisplayedMetadata(newMetadata);
+                        newDisplayedMetadata.enabled = false;
+                        newDisplayedMetadata.path = newPackage.path;
+                        DisplayedPackages.Add(newDisplayedMetadata);
                     }
                     else
                     {
-                        Console.WriteLine($"[WARNING] No Package.xml found in {package}. Creating barebones Package.xml");
-                        p.name = Path.GetFileName(package);
-                        DisplayedMetadata dm = new DisplayedMetadata();
-                        dm.name = p.name;
-                        dm.path = p.name;
-                        n = new Metadata();
-                        n.name = p.name;
-                        n.author = "";
-                        n.version = "";
-                        n.link = "";
-                        n.description = "";
-                        using (FileStream streamWriter = File.Create($@"{package}\Package.xml"))
-                        {
-                            xsp.Serialize(streamWriter, n);
-                        }
-                        Console.WriteLine($"[INFO] Adding {Path.GetFileName(package)}");
-                        p.path = Path.GetFileName(package);
-                        p.enabled = false;
-                        dm.enabled = false;
-                        App.Current.Dispatcher.Invoke((Action)delegate
-                        {
-                            PackageList.Add(p);
-                            DisplayedPackages.Add(dm);
-                        });
-                    }
-                    
-                    
-                }
-                // Remove mods no longer in directory
-                var dirNames = Directory.EnumerateDirectories("Packages");
-                foreach (Package package in PackageList.ToList())
-                {
-                    if (!dirNames.Contains($@"Packages\{package.path}"))
-                    {
-                        App.Current.Dispatcher.Invoke((Action)delegate
-                        {
-                            foreach (var dm in DisplayedPackages.ToList())
-                            {
-                                if (dm.path == package.path)
-                                    DisplayedPackages.Remove(dm);
-                            }
-                            PackageList.Remove(package);
-                        }); 
+                        UpdateMetadata();
                     }
                 }
             }
+
+            // Update DisplayedPackages
             App.Current.Dispatcher.Invoke((Action)delegate
             {
                 ModGrid.ItemsSource = DisplayedPackages;
+                // Trigger select event to refresh description and Preview.png
+                ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
             });
+            Console.WriteLine($"[INFO] Refreshed!");
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -527,7 +442,11 @@ namespace AemulusModManager
             newPackage.ShowDialog();
             if (newPackage.metadata != null)
             {
-                string path = $@"Packages\{newPackage.metadata.name}";
+                string path;
+                if (newPackage.metadata.version != null && newPackage.metadata.version.Length > 0)
+                    path = $@"Packages\{newPackage.metadata.name} {newPackage.metadata.version}";
+                else
+                    path = $@"Packages\{newPackage.metadata.name}";
                 if (!Directory.Exists(path))
                 {
                     try
@@ -538,7 +457,6 @@ namespace AemulusModManager
                             xsp.Serialize(streamWriter, newPackage.metadata);
                         }
                         Refresh();
-                        checkVersion();
                         updateConfig();
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
                         StartInformation.FileName = path;
@@ -582,14 +500,14 @@ namespace AemulusModManager
             RefreshButton.IsEnabled = true;
             MergeButton.IsEnabled = true;
             LaunchButton.IsEnabled = true;
-            
+
         }
 
         private async Task unpackThenMerge()
         {
-            await Task.Run(() => {
+            await Task.Run(() =>
+            {
                 Refresh();
-                checkVersion();
                 List<string> packages = new List<string>();
                 foreach (Package m in PackageList)
                 {
@@ -613,7 +531,7 @@ namespace AemulusModManager
                     {
                         tblPatcher.Patch(packages, modPath);
                     }
-                       
+
                     App.Current.Dispatcher.Invoke((Action)delegate
                     {
                         MessageBoxResult result = MessageBox.Show("Finished Building!",
@@ -621,8 +539,8 @@ namespace AemulusModManager
                                           MessageBoxButton.OK,
                                           MessageBoxImage.Information);
                     });
-                    
-                    
+
+
                 }
             });
         }
@@ -641,10 +559,33 @@ namespace AemulusModManager
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
             if (row != null)
             {
+                // Set description
                 if (row.description != null && row.description.Length > 0)
+                {
+                    //Description.IsReadOnly = false;
                     Description.Text = row.description;
+                }
                 else
+                {
                     Description.Text = "Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).";
+                    //Description.IsReadOnly = true;
+                }
+
+                // Set requirement visibility
+                if (Directory.Exists($@"Packages\{row.path}\patches"))
+                    Inaba.Visibility = Visibility.Visible;
+                else
+                    Inaba.Visibility = Visibility.Collapsed;
+                if (File.Exists($@"Packages\{row.path}\SND\HeeHeeHo.uwus"))
+                    HHH.Visibility = Visibility.Visible;
+                else
+                    HHH.Visibility = Visibility.Collapsed;
+                if (Directory.Exists($@"Packages\{row.path}\patches") || File.Exists($@"Packages\{row.path}\SND\HeeHeeHo.uwus"))
+                    Reqs.Visibility = Visibility.Visible;
+                else
+                    Reqs.Visibility = Visibility.Collapsed;
+
+                // Set image
                 string path = $@"Packages\{row.path}";
                 if (File.Exists($@"{path}\Preview.png"))
                     Preview.Source = new ImageSourceConverter().ConvertFromString($@"{path}\Preview.png") as ImageSource;
@@ -658,7 +599,7 @@ namespace AemulusModManager
                     bitmap.EndInit();
                     Preview.Source = bitmap;
                 }
-                    
+
             }
         }
 
@@ -676,6 +617,96 @@ namespace AemulusModManager
                 }
             }
             updateConfig();
+        }
+
+        private void ModGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            string editedColumn = e.Column.Header.ToString();
+            string editedContent = (e.EditingElement as TextBox).Text;
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (File.Exists($@"Packages\{row.path}\Package.xml"))
+            {
+                Metadata metadata = new Metadata();
+                metadata.name = row.name;
+                metadata.id = row.id;
+                metadata.author = row.author;
+                metadata.version = row.version;
+                metadata.link = row.link;
+                metadata.description = row.description;
+                switch (editedColumn)
+                {
+                    case "Name":
+                        Console.WriteLine($"Changed {metadata.name} to {editedContent}");
+                        metadata.name = editedContent;
+                        break;
+                    case "Author":
+                        Console.WriteLine($"Changed {metadata.author} to {editedContent}");
+                        metadata.author = editedContent;
+                        break;
+                    case "Version":
+                        Console.WriteLine($"Changed {metadata.version} to {editedContent}");
+                        metadata.version = editedContent;
+                        break;
+                }
+                using (FileStream streamWriter = File.Create($@"Packages\{row.path}\Package.xml"))
+                {
+                    xsp.Serialize(streamWriter, metadata);
+                }
+            }
+        }
+
+        private void Inaba_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://gamebanana.com/tools/6872");
+        }
+
+        private void HHH_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("https://gamebanana.com/gamefiles/12806");
+        }
+
+        private void OpenItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (row != null)
+            {
+                if (Directory.Exists($@"Packages\{row.path}"))
+                {
+                    try
+                    {
+                        ProcessStartInfo StartInformation = new ProcessStartInfo();
+                        StartInformation.FileName = $@"Packages\{row.path}";
+                        Process process = Process.Start(StartInformation);
+                        Console.WriteLine($@"[INFO] Opened Packages\{row.path}.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($@"[ERROR] Couldn't open Packages\{row.path} ({ex.Message})");
+                    }
+                }
+            }
+        }
+
+        private void DeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (row != null)
+            {
+                if (Directory.Exists($@"Packages\{row.path}"))
+                {
+                    Console.WriteLine($@"[INFO] Deleted Packages\{row.path}.");
+                    try
+                    {
+                        Directory.Delete($@"Packages\{row.path}", true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($@"[ERROR] Couldn't delete Packages\{row.path} ({ex.Message})");
+                    }
+                    Refresh();
+                    updateConfig();
+                }
+            }
         }
     }
 }

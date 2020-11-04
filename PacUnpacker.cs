@@ -20,7 +20,7 @@ namespace AemulusModManager
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.Arguments = $"\"{directory}" + @"\" + "data00004.pac\"";
             startInfo.RedirectStandardInput = true;
-            Console.WriteLine($@"[INFO] Unpacking files from data00004.pac...");
+            Console.WriteLine($@"[INFO] Unpacking files from data00004.pac... (This part takes a bit)");
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
@@ -43,7 +43,14 @@ namespace AemulusModManager
                 if (!Directory.Exists($@"Original\{Path.GetDirectoryName(simpleDir)}"))
                     Directory.CreateDirectory($@"Original\{Path.GetDirectoryName(simpleDir)}");
                 Console.WriteLine($@"[INFO] Copying {dir} to Original");
-                File.Copy(dir, $@"Original\{simpleDir}", true);
+                try
+                {
+                    File.Copy(dir, $@"Original\{simpleDir}", true);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] {ex.Message}");
+                }
 
             }
 

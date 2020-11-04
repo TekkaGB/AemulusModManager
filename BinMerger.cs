@@ -149,15 +149,14 @@ namespace AemulusModManager
                 {
                     // Copy everything except mods.aem and tblpatch to directory
                     if (Path.GetExtension(file).ToLower() != ".aem" && Path.GetExtension(file).ToLower() != ".tblpatch"
-                        && Path.GetExtension(file).ToLower() != ".xml" && Path.GetExtension(file).ToLower() != ".png")
+                        && Path.GetExtension(file).ToLower() != ".xml" && Path.GetExtension(file).ToLower() != ".png"
+                        && Path.GetExtension(file).ToLower() != ".bat" && Path.GetExtension(file).ToLower() != ".txt")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
                         folders = folders.Skip(idx+1).ToList();
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"Original\{string.Join("\\", folders.ToArray())}";
-
-                        // TODO: Fully unpack if it matches with a vanilla mergeable bin
 
                         if (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".arc"
@@ -167,8 +166,6 @@ namespace AemulusModManager
                         {
                             if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
                             {
-                                
-                                // Does this work?
                                 if (modList.Count == 0)
                                 {
                                     Console.WriteLine($"[WARNING] Using {binPath} as base since nothing was specified in mods.aem");
@@ -258,7 +255,8 @@ namespace AemulusModManager
                             if (!Directory.Exists(Path.GetDirectoryName(binPath)))
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                             File.Copy(file, binPath, true);
-                            
+                            // TODO: Fix async writing to console
+                            // Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                         }
                     }
                 }

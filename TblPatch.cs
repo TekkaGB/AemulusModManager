@@ -65,12 +65,14 @@ namespace AemulusModManager
         public void Patch(List<string> ModList, string modDir)
         {
             Console.WriteLine("Patching .tbl's...");
+            bool noInitFree = false;
             // Check if init_free exists and return if not
             string init_free = $@"{modDir}\data00004\init_free.bin";
             if (!File.Exists(init_free))
             {
                 if (File.Exists($@"Original\data00004\init_free.bin"))
                 {
+                    noInitFree = true;
                     if (!Directory.Exists($@"{modDir}\data00004"))
                         Directory.CreateDirectory($@"{modDir}\data00004");
                     File.Copy($@"Original\data00004\init_free.bin", $@"{modDir}\data00004\init_free.bin", true);
@@ -93,7 +95,7 @@ namespace AemulusModManager
             // Load EnabledPatches in order
             foreach (string dir in ModList)
             {
-                Console.WriteLine($"[INFO] Searching for tblpatches in {dir}...");
+                Console.WriteLine($"[INFO] Searching for/applying tblpatches in {dir}...");
                 IEnumerable<string> files;
                 if (Directory.Exists($@"{dir}\tblpatches"))
                 {
@@ -104,10 +106,9 @@ namespace AemulusModManager
                     files = Directory.EnumerateFiles(dir, "*.tblpatch", SearchOption.TopDirectoryOnly);
                 foreach (var t in files)
                 {
-                    Thread.Sleep(35);
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
-                    Console.WriteLine($"[INFO] Loading {fileName}");
+                    //Console.WriteLine($"[INFO] Loading {fileName}");
                     if (file.Length < 12)
                     {
                         Console.WriteLine("[ERROR] Improper .tblpatch format.");
@@ -175,30 +176,31 @@ namespace AemulusModManager
                     string unpackedTblPath = $@"{tblDir}\{tblName}";
                     byte[] tblBytes = File.ReadAllBytes(unpackedTblPath);
                     fileContents.CopyTo(tblBytes, offset);
-                    File.WriteAllBytes(unpackedTblPath, tblBytes);/*
-                    using (Stream stream = File.Open(unpackedTblPath, FileMode.Open))
-                    {
-                        stream.Position = offset;
-                        stream.Write(fileContents, 0, fileContents.Length);
-                    }*/
-                    Console.WriteLine($"[INFO] Patched {tblName} using {fileName}");
+                    File.WriteAllBytes(unpackedTblPath, tblBytes);
                 }
 
-
-                // Replace each edited TBL's
-                foreach (string u in editedTables)
+                if (files.ToList().Count > 0)
                 {
-                    Console.WriteLine($"[INFO] Replacing {u} in init_free.bin");
-                    repackTbls($@"{tblDir}\{u}", init_free);
+                    Console.WriteLine($"[INFO] Applied patches from {dir}");
                 }
-
-                Console.WriteLine($"[INFO] Deleting temp tbl folder...");
-                // Delete all unpacked files
-                Directory.Delete(tblDir, true);
-
-                Console.WriteLine("[INFO] Finished patching tbl's!");
+                
             }
-            
+            // Replace each edited TBL's
+            foreach (string u in editedTables)
+            {
+                Console.WriteLine($"[INFO] Replacing {u} in init_free.bin");
+                repackTbls($@"{tblDir}\{u}", init_free);
+            }
+
+            Console.WriteLine($"[INFO] Deleting temp tbl folder...");
+            // Delete all unpacked files
+            Directory.Delete(tblDir, true);
+            if (editedTables.Count == 0 && noInitFree)
+            {
+                File.Delete(init_free);
+            }
+
+            Console.WriteLine("[INFO] Finished patching tbl's!");
         }
     }
 

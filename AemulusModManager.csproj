@@ -189,6 +189,8 @@
     <Resource Include="arrow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="HHH.png" />
+    <Resource Include="Inaba.png" />
     <Resource Include="CoolerAemulus.ico" />
     <Content Include="Dependencies\AtlusFileSystemLibrary.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
