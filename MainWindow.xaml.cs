@@ -692,7 +692,11 @@ namespace AemulusModManager
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
             if (row != null)
             {
-                if (Directory.Exists($@"Packages\{row.path}"))
+                MessageBoxResult result = MessageBox.Show($@"Are you sure you want to delete Packages\{row.path}?",
+                                      "Aemulus Package Manager",
+                                      MessageBoxButton.YesNo,
+                                      MessageBoxImage.Warning);
+                if (Directory.Exists($@"Packages\{row.path}") && result == MessageBoxResult.Yes)
                 {
                     Console.WriteLine($@"[INFO] Deleted Packages\{row.path}.");
                     try
