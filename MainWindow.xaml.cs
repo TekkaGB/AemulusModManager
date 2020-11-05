@@ -18,7 +18,7 @@ namespace AemulusModManager
 {
     public partial class MainWindow : Window
     {
-        private TextBoxOutputter outputter;
+        //private TextBoxOutputter outputter;
         public Config config;
         private XmlSerializer xs;
         private XmlSerializer xsp;
@@ -103,6 +103,24 @@ namespace AemulusModManager
             }
         }
 
+        private TextBoxOutputter outputter = new TextBoxOutputter();
+
+        void consoleWriter_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                ConsoleOutput.AppendText($"{e.Value}\n");
+            });
+        }
+
+        void consoleWriter_WriteEvent(object sender, ConsoleWriterEventArgs e)
+        {
+            this.Dispatcher.Invoke(() =>
+            {
+                ConsoleOutput.AppendText(e.Value);
+            });
+        }
+
         // Autoscrolls to end whenever console updates
         private void ScrollToBottom(object sender, TextChangedEventArgs args)
         {
@@ -114,7 +132,11 @@ namespace AemulusModManager
             InitializeComponent();
             DataContext = this;
             // Set stdout to console in window
-            outputter = new TextBoxOutputter(ConsoleOutput);
+            //outputter = new TextBoxOutputter();
+            //Console.SetOut(outputter);
+
+            outputter.WriteEvent += consoleWriter_WriteEvent;
+            outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
             binMerger = new binMerge();
