@@ -3,7 +3,7 @@
 The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC.
 
 ## How to Use
-Make sure you've set up Reloaded-II and the P4G mod loader first and foremost.
+[Make sure you've set up Reloaded-II and the P4G mod loader first and foremost.](https://gamebanana.com/tuts/13379)
 
 ### Pointing to the the mods Folder
 After unzipping the download, just double-click AemulusPackageManager.exe to launch the program.
@@ -62,7 +62,7 @@ In the path, make sure to take out any .bin, .arc, .pak, and .spr extensions (fo
 Make sure to use '\' and not '/' between directory levels. 
 If the file being addressed is a Texture within a .spr file, give it the .tmx extension.
 
-You can find these exact paths using a tool like Amicitia.  For example, SeaGuardian's Bearable Fast Forward mod's mods.aem would look like this:
+You can find these exact paths using a tool like [Amicitia](https://github.com/TGEnigma/Amicitia/releases).  For example, SeaGuardian's Bearable Fast Forward mod's mods.aem would look like this:
 
 <img src="https://i.imgur.com/rxmHvbw.png">
 
@@ -105,7 +105,7 @@ First three bytes of the .tblpatch file is the tbl id, or 3 letters that indicat
 <img src="https://i.imgur.com/69l2DEW.png">
 In this example, we can see that MSG is the tbl id.  So this .tblpatch will be editing MSG.TBL.
 
-Next 8 bytes indicates the offset at which you want to start overwriting the hex.  This will also be in hex rather than decimal.  The offsets will be found in the individual .TBL file you identified in the first three bytes.  You can use a decimal to hex converter like this one if you only know the decimal offset.
+Next 8 bytes indicates the offset at which you want to start overwriting the hex.  This will also be in hex rather than decimal.  The offsets will be found in the individual .TBL file you identified in the first three bytes.  You can use a decimal to hex converter like [this one](https://www.rapidtables.com/convert/number/decimal-to-hex.html) if you only know the decimal offset.
 
 <img src="https://i.imgur.com/9AqwrPw.png">
 Here we can see that the offset is 00 00 00 00 00 00 02 50 (or 592 in decimal).
@@ -115,7 +115,7 @@ Finally, the rest of the bytes will be used to overwrite the hex starting at the
 <img src="https://i.imgur.com/yoCYwAJ.png">
 In this case we'll just be using 57 65 65 62 00 00 00 00 (Weeb 00 00 00 00) to overwrite the hex found at the previously stated offset of 592 in MSG.TBL.
 
-I recommend for you to use 010 Editor and these templates if you want to mess with .tbl files to create .tblpatch's.  Do note that my examples are really small to easily fit in this description but you can overwrite as much bytes as you want so that you don't need to create too many .tblpatch files.  You can also utilize T-Pose Ratkechi's Aemulus TBL Patcher, to easily convert your edited tbl's to .tblpatch's.
+I recommend for you to use [010 Editor](https://www.sweetscape.com/010editor/) and [these templates](https://github.com/TGEnigma/010-Editor-Templates) if you want to mess with .tbl files to create .tblpatch's.  Do note that my examples are really small to easily fit in this description but you can overwrite as much bytes as you want so that you don't need to create too many .tblpatch files.  You can also utilize T-Pose Ratkechi's [Aemulus TBL Patcher](https://gamebanana.com/tools/6876), to easily convert your edited tbl's to .tblpatch's.
 
 ### The Actual Table Patching Process
 Extracts all .tbl files from data00004/init_free.bin.
@@ -162,7 +162,7 @@ selector for the preview.  Choose a png that you want to display as the preview 
 option.  When you create the package, it'll create and open a folder with the mod name and version as well as the Package.xml and preview chosen named as Preview.png inside.  You can now put the contents of the mod/package inside this folder to be used in your Aemulus loadout and/or to distribute.
 
 ## Compatibility with P4G Music Manager
-Since Aemulus Package Manager deletes the entire mods directory everytime you rebuild, it also deletes the mods/SND folder which P4G Music Manager utilizes.  To add compatibility I added a checkbox in the Config menu to Empty SND Folder.  By default, it leaves the SND folder in tact.  Enabling it will delete the SND Folder.
+Since Aemulus Package Manager deletes the entire mods directory everytime you rebuild, it also deletes the mods/SND folder which [P4G Music Manager](https://gamebanana.com/tools/6835) utilizes.  To add compatibility I added a checkbox in the Config menu to Empty SND Folder.  By default, it leaves the SND folder in tact.  Enabling it will delete the SND Folder.
 
 ## Launching the Game from the Manager
 A new QoL feature added in v1.2 is the Launch button.  This is used to be able to launch your modded game straight from the package manager after building your loadout.  You can setup the paths for this to work in the config menu.  Under P4G Launch Shortcut click browse to select P4G.exe and Reloaded-II.exe in their proper spots.  Once you picked valid exe's, the Launch button on the main window will now start the game for you.
