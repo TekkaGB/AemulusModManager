@@ -438,7 +438,7 @@ namespace AemulusModManager
         private void NewClick(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("[INFO] Creating new package!");
-            CreatePackage newPackage = new CreatePackage();
+            CreatePackage newPackage = new CreatePackage(null);
             newPackage.ShowDialog();
             if (newPackage.metadata != null)
             {
@@ -456,6 +456,8 @@ namespace AemulusModManager
                         {
                             xsp.Serialize(streamWriter, newPackage.metadata);
                         }
+                        if (File.Exists(newPackage.thumbnailPath))
+                            File.Copy(newPackage.thumbnailPath, $@"{path}\Preview.png", true);
                         Refresh();
                         updateConfig();
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
@@ -636,16 +638,25 @@ namespace AemulusModManager
                 switch (editedColumn)
                 {
                     case "Name":
-                        Console.WriteLine($"Changed {metadata.name} to {editedContent}");
-                        metadata.name = editedContent;
+                        if (metadata.name != editedContent)
+                        {
+                            Console.WriteLine($"Changed {metadata.name} to {editedContent}");
+                            metadata.name = editedContent;
+                        }
                         break;
                     case "Author":
-                        Console.WriteLine($"Changed {metadata.author} to {editedContent}");
-                        metadata.author = editedContent;
+                        if (metadata.author != editedContent)
+                        {
+                            Console.WriteLine($"Changed {metadata.author} to {editedContent}");
+                            metadata.author = editedContent;
+                        }
                         break;
                     case "Version":
-                        Console.WriteLine($"Changed {metadata.version} to {editedContent}");
-                        metadata.version = editedContent;
+                        if (metadata.version != editedContent)
+                        {
+                            Console.WriteLine($"Changed {metadata.version} to {editedContent}");
+                            metadata.version = editedContent;
+                        }
                         break;
                 }
                 using (FileStream streamWriter = File.Create($@"Packages\{row.path}\Package.xml"))
@@ -706,6 +717,41 @@ namespace AemulusModManager
                     catch (Exception ex)
                     {
                         Console.WriteLine($@"[ERROR] Couldn't delete Packages\{row.path} ({ex.Message})");
+                    }
+                    Refresh();
+                    updateConfig();
+                }
+            }
+        }
+
+        private void EditItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (row != null && File.Exists($@"Packages\{row.path}\Package.xml"))
+            {
+                Metadata m = new Metadata();
+                m.name = row.name;
+                m.author = row.author;
+                m.id = row.id;
+                m.version = row.version;
+                m.link = row.link;
+                m.description = row.description;
+                CreatePackage createPackage = new CreatePackage(m);
+                createPackage.ShowDialog();
+                if (createPackage.metadata != null)
+                {
+                    try
+                    {
+                        using (FileStream streamWriter = File.Create($@"Packages\{row.path}\Package.xml"))
+                        {
+                            xsp.Serialize(streamWriter, createPackage.metadata);
+                        }
+                        if (File.Exists(createPackage.thumbnailPath))
+                            File.Copy(createPackage.thumbnailPath, $@"Packages\{row.path}\Preview.png", true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't edit Package.xml ({ex.Message})");
                     }
                     Refresh();
                     updateConfig();

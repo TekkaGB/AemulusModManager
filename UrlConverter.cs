@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace AemulusModManager
@@ -13,7 +14,7 @@ namespace AemulusModManager
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value == null || value.ToString().Length == 0)
-                return "";
+                return null;
             string url = value.ToString();
             Uri uri;
             if ((Uri.TryCreate(url, UriKind.Absolute, out uri) || Uri.TryCreate("http://" + url, UriKind.Absolute, out uri)) &&
@@ -36,7 +37,7 @@ namespace AemulusModManager
                         return "Other";
                 }
             }
-            return "";
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

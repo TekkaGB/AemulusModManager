@@ -64,8 +64,14 @@
                     <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="80">
                         <DataGridHyperlinkColumn.ElementStyle>
                             <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding link}" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
                                 <EventSetter Event="Hyperlink.Click" Handler="OnHyperlinkClick" />
                             </Style>
+                            
                         </DataGridHyperlinkColumn.ElementStyle>
                         <DataGridHyperlinkColumn.CellStyle>
                             <Style TargetType="DataGridCell">
@@ -81,8 +87,9 @@
                 </DataGrid.Columns>
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Open" IsCheckable="False" Click="OpenItem_Click"/>
-                        <MenuItem Header="Delete" IsCheckable="False" Click="DeleteItem_Click"/>
+                        <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
+                        <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
+                        <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>

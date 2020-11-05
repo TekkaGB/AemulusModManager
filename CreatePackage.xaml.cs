@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,11 +13,26 @@ namespace AemulusModManager
     public partial class CreatePackage : Window
     {
         public Metadata metadata;
+        public string thumbnailPath;
         private bool focused = false;
         private bool edited = false;
-        public CreatePackage()
+        private bool editing = false;
+        public CreatePackage(Metadata m)
         {
             InitializeComponent();
+            if (m != null)
+            {
+                NameBox.Text = m.name;
+                AuthorBox.Text = m.author;
+                IDBox.Text = m.id;
+                VersionBox.Text = m.version;
+                LinkBox.Text = m.link;
+                DescBox.Text = m.description;
+                editing = true;
+                if (IDBox.Text != AuthorBox.Text.Replace(" ", "").ToLower() + "."
+                        + NameBox.Text.Replace(" ", "").ToLower() && IDBox.Text.Length > 0)
+                    edited = true;
+            }
         }
 
         private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -49,46 +66,27 @@ namespace AemulusModManager
                 dirName = $@"Packages\{NameBox.Text} {VersionBox.Text}";
             else
                 dirName = $@"Packages\{NameBox.Text}";
-            if (!Directory.Exists(dirName))
+            if (!Directory.Exists(dirName) || editing)
             {
                 metadata.name = NameBox.Text;
                 if (AuthorBox.Text != null)
-                {
-                    AuthorBox.Text.Replace("&", "&amp;");
                     metadata.author = AuthorBox.Text;
-                }
                 else
                     metadata.author = "";
                 if (VersionBox.Text != null)
-                {
-                    VersionBox.Text.Replace("&", "&amp;");
                     metadata.version = VersionBox.Text;
-                }
                 else
                     metadata.version = "";
                 if (IDBox.Text != null)
-                {
-                    IDBox.Text.Replace("&", "&amp;");
                     metadata.id = IDBox.Text;
-                }
                 else
                     metadata.id = "";
                 if (LinkBox.Text != null)
-                {
-                    LinkBox.Text.Replace("&", "&amp;");
                     metadata.link = LinkBox.Text;
-                }
                 else
                     metadata.link = "";
                 if (DescBox.Text != null)
-                {
-                    // Replace illegal characters
-                    DescBox.Text.Replace("&", "&amp;");
-                    DescBox.Text.Replace("\"", "\\\"");
-                    DescBox.Text.Replace("\\", "\\\\");
-                    DescBox.Text.Replace("\'", "\\\'");
                     metadata.description = DescBox.Text;
-                }
                 else
                     metadata.description = "";
                 Close();
@@ -131,6 +129,20 @@ namespace AemulusModManager
                     IDBox.Text = AuthorBox.Text.Replace(" ", "").ToLower();
                 else
                     IDBox.Text = NameBox.Text.Replace(" ", "").ToLower();
+            }
+        }
+
+        private void PreviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openPng = new CommonOpenFileDialog();
+            openPng.Filters.Add(new CommonFileDialogFilter("Thumbnail", "*.png"));
+            openPng.EnsurePathExists = true;
+            openPng.EnsureValidNames = true;
+            openPng.Title = "Select .png for thumbnail";
+            if (openPng.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                PreviewBox.Text = openPng.FileName;
+                thumbnailPath = openPng.FileName;
             }
         }
     }
