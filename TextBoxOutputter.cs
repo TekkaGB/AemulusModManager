@@ -5,27 +5,32 @@ using System.Windows.Controls;
 
 namespace AemulusModManager
 {
+    public class ConsoleWriterEventArgs : EventArgs
+    {
+        public string Value { get; private set; }
+        public ConsoleWriterEventArgs(string value)
+        {
+            Value = value;
+        }
+    }
+
     public class TextBoxOutputter : TextWriter
     {
-        TextBox textBox = null;
+        public override Encoding Encoding { get { return Encoding.UTF8; } }
 
-        public TextBoxOutputter(TextBox output)
+        public override void Write(string value)
         {
-            textBox = output;
-        }
-
-        public override void Write(char value)
-        {
+            WriteEvent?.Invoke(this, new ConsoleWriterEventArgs(value));
             base.Write(value);
-            textBox.Dispatcher.BeginInvoke(new Action(() =>
-            {
-                textBox.AppendText(value.ToString());
-            }));
         }
 
-        public override Encoding Encoding
+        public override void WriteLine(string value)
         {
-            get { return System.Text.Encoding.UTF8; }
+            WriteLineEvent?.Invoke(this, new ConsoleWriterEventArgs(value));
+            base.WriteLine(value);
         }
+
+        public event EventHandler<ConsoleWriterEventArgs> WriteEvent;
+        public event EventHandler<ConsoleWriterEventArgs> WriteLineEvent;
     }
 }
