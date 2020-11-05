@@ -31,6 +31,7 @@ namespace AemulusModManager
         public bool tbl;
         public string p4gPath;
         public string reloadedPath;
+        private BitmapImage bitmap;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
@@ -144,7 +145,7 @@ namespace AemulusModManager
             // Retrieve initial thumbnail from embedded resource
             Assembly asm = Assembly.GetExecutingAssembly();
             Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Preview.png");
-            BitmapImage bitmap = new BitmapImage();
+            bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.StreamSource = iconStream;
             bitmap.EndInit();
@@ -608,17 +609,25 @@ namespace AemulusModManager
                 // Set image
                 string path = $@"Packages\{row.path}";
                 if (File.Exists($@"{path}\Preview.png"))
-                    Preview.Source = new ImageSourceConverter().ConvertFromString($@"{path}\Preview.png") as ImageSource;
-                else
                 {
-                    Assembly asm = Assembly.GetExecutingAssembly();
-                    Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Preview.png");
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = iconStream;
-                    bitmap.EndInit();
-                    Preview.Source = bitmap;
+                    try
+                    {
+                        byte[] imageBytes = File.ReadAllBytes($@"{path}\Preview.png");
+                        var stream = new MemoryStream(imageBytes);
+                        var img = new BitmapImage();
+
+                        img.BeginInit();
+                        img.StreamSource = stream;
+                        img.EndInit();
+                        Preview.Source = img;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[ERROR] ex.Message");
+                    }
                 }
+                else
+                    Preview.Source = bitmap;
 
             }
         }
@@ -765,11 +774,13 @@ namespace AemulusModManager
                             xsp.Serialize(streamWriter, createPackage.metadata);
                         }
                         if (File.Exists(createPackage.thumbnailPath))
+                        {
                             File.Copy(createPackage.thumbnailPath, $@"Packages\{row.path}\Preview.png", true);
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't edit Package.xml ({ex.Message})");
+                        Console.WriteLine($"[ERROR] {ex.Message}");
                     }
                     Refresh();
                     updateConfig();
