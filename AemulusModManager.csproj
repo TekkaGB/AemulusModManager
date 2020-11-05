@@ -37,7 +37,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>CoolerAemulus.ico</ApplicationIcon>
+    <ApplicationIcon>Aemulus.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -183,15 +183,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Aemulus.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="arrow.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="HHH.png" />
     <Resource Include="Inaba.png" />
-    <Resource Include="CoolerAemulus.ico" />
+    <Resource Include="Aemulus.ico" />
     <Content Include="Dependencies\AtlusFileSystemLibrary.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

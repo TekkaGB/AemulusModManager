@@ -3,7 +3,7 @@
 The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC.
 
 ## How to Use
-Make sure you've set up Reloaded-II and the P4G mod loader first.
+Make sure you've set up Reloaded-II and the P4G mod loader first and foremost.
 
 ### Pointing to the the mods Folder
 After unzipping the download, just double-click AemulusPackageManager.exe to launch the program.
@@ -20,16 +20,18 @@ The image below is what picking the mods folder should look like.
 
 This feature, introduced in Aemulus 1.2, unpacks data00004.pac locally on your system. This way, Aemulus can grab the unchanged assets in files like init_free.bin immediately, which saves a lot of time when building and downloading mods.
 
-You only need to do this once (unless P4G updates data00004.pac in the future).
+You only need to do this once (unless P4G updates data00004.pac in the future).  If you download another update for Aemulus Package Manager, you can just move the contents of the Original folder to the new update's one without having to unpack again.
 
-Open the Config menu and click Unpack Vanilla files, then select your P4G game directory (it will be named either Persona 4 Golden or Day). You'll find the unpacked files for Aemulus (just under 300MB) in your Original folder.
+Open the Config menu and click Unpack data00004.pac, then select your P4G game directory if the prompt comes up (it will be named either Persona 4 Golden or Day). You'll find the unpacked files for Aemulus (just under 300MB) in your Original folder.
 
 ### Adding Packages
 Once you've set up Aemulus, drop your mods/packages into the Packages folder found in the same folder as AemulusPackageManager.exe.
 
 # <img src="https://i.imgur.com/63zWgb5.png">
 
-Once you click Refresh or relaunch the program, you'll see all of your packages in the middle of the Aemelus window.
+Once you click Refresh or relaunch the program, you'll see all of your packages in the middle of the Aemulus window.
+
+As of version 1.3, you can now click the New button on the top right to create a directory along with metadata and a preview.  The directory will pop up when you click confirm and you can drop the contents of the mod inside.
 
 ### Setting Up Your Loadout/Package Priority
 Next, you'll need to set up your package loadout. Packages are disabled by default, so enable the ones you want by checking the box to the left of each package.
@@ -145,28 +147,25 @@ Below is an example of the contents of a Package.xml for one of mods, Persona 5 
 - Description is to describe the package in the box under the thumbnail.  It could be however long you want and include newlines and tabs if you so desire.
 
 ### Creating/Editing Metadata
-There are multiple ways to create/edit these files:
+There are multiple ways to create/edit Package.xml files:
 
 If you place a mod folder in the Packages directory and refresh, it will automatically create a 
 Package.xml with the name as the name of the folder with the rest of the metadata blank.  You can 
-then edit the Name, Author, and Version by double clicking on their cells in the Package grid.
-You can also manually edit the xml file yourself.  You would need to in order to manually edit the
-link and description.  Just make sure when you edit it manually that you change blank entries like
-<author/> to <author>Tekka</author> where Tekka is the author you wanted to add in manually.  Also
-make sure you change `&` to `&amp;` in order for the xml to parse it correctly.
+then edit the Name, Author, and Version by double clicking on their cells in the Package grid.  You
+can modify all parts of the metadata by right clicking the row and selecting Edit Metadata.  A window
+with the current metadata will pop up and you can edit whatever you like here.
 
 I also added a New button on the top right that brings up a window for you to type in the metadata 
 and have the Package.xml be created for you.  When you type in the name and author it autofills a
-suggested ID but you can feel free to change it if you want.  When you create the package, it'll
-create a folder with the mod name and version as well as the Package.xml and will open it for you.
-You can now put the contents of the mod/package inside this folder to be used in your Aemulus loadout
-and/or to distribute.
+suggested ID but you can feel free to change it if you want.  Also included in the window is a file
+selector for the preview.  Choose a png that you want to display as the preview when using this
+option.  When you create the package, it'll create and open a folder with the mod name and version as well as the Package.xml and preview chosen named as Preview.png inside.  You can now put the contents of the mod/package inside this folder to be used in your Aemulus loadout and/or to distribute.
 
 ## Compatibility with P4G Music Manager
 Since Aemulus Package Manager deletes the entire mods directory everytime you rebuild, it also deletes the mods/SND folder which P4G Music Manager utilizes.  To add compatibility I added a checkbox in the Config menu to Empty SND Folder.  By default, it leaves the SND folder in tact.  Enabling it will delete the SND Folder.
 
 ## Launching the Game from the Manager
-A new QoL feature added in v1.2 is the Launch button.  This is used to be able to launch your modded game straight from the package manager after building your loadout.  You can setup the paths for this to work in the config menu.  Click Setup Shortcut to get started.  Two file dialogs will appear after another.  They will prompt you to select P4G.exe and Reloaded-II.exe.  Once you picked valid exe's, the Launch button on the main window will now start the game for you.
+A new QoL feature added in v1.2 is the Launch button.  This is used to be able to launch your modded game straight from the package manager after building your loadout.  You can setup the paths for this to work in the config menu.  Under P4G Launch Shortcut click browse to select P4G.exe and Reloaded-II.exe in their proper spots.  Once you picked valid exe's, the Launch button on the main window will now start the game for you.
 
 ## For Mod Creators - Aemulus Logo Overlay
 If you'd like to include an Aemulus overlay in your mod thumbnails to indicate that it supports Aemulus (which just means having a named folder and a mods.aem if necessary), you can use the file aemulus_overlay.png included in the download.  Thanks to Pixelguin for designing it.
@@ -175,7 +174,21 @@ The overlay looks best on thumbnails that are 1920 x 1080.
 
 ## FAQ
 ### What makes a mod Aemulus Compatible?
-All mods are
+All mods are compatible with Aemulus, some just might need a simple directory change.  The contents of the directory should be in the root folder of the Package.  The folders located in the root directory may include: data00000, data00001, data00002, data00003, data00004, data00005, data00006, movie00000, movie00001, movie00002, SND, and patches.
+
+Also check to see if some of the modded files are located in your unpacked Original folder.  If so, extract the loose files or create a mods.aem to make them mergeable.  Otherwise, it'll just overwrite rather than merge them.
+
+### What about mods that are made for Mod Compendium?
+These mods just need to have a simple directory change to make them work in Aemulus.  You can tell that a mod was prepackaged for Mod Compendium if the structure if the root folder is as follows:
+```
+Data
+Mod.xml
+prebuild.bat
+```
+Simply relocate the contents in the Data folder up to the root folder.  Then delete the empty Data folder, Mod.xml, and prebuild.bat.
+
+### Why is my antivirus is acting up?
+For some reason the latest update triggered some of my testers' antivirus programs.  Simply make AemulusPackageManager.exe an exception in order to use it.  The code base is now open source so feel free to look through it and even build it yourself if you're still worried about the antivirus notification.
 
 ## Future Plans
 I have a lot of ideas in mind to keep on improving Aemulus.  These include the following: 

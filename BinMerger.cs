@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace AemulusModManager
 {
@@ -255,8 +253,7 @@ namespace AemulusModManager
                             if (!Directory.Exists(Path.GetDirectoryName(binPath)))
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                             File.Copy(file, binPath, true);
-                            // TODO: Fix async writing to console
-                            // Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
+                            Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                         }
                     }
                 }

@@ -18,7 +18,6 @@ namespace AemulusModManager
 {
     public partial class MainWindow : Window
     {
-        //private TextBoxOutputter outputter;
         public Config config;
         private XmlSerializer xs;
         private XmlSerializer xsp;
@@ -131,9 +130,6 @@ namespace AemulusModManager
         {
             InitializeComponent();
             DataContext = this;
-            // Set stdout to console in window
-            //outputter = new TextBoxOutputter();
-            //Console.SetOut(outputter);
 
             outputter.WriteEvent += consoleWriter_WriteEvent;
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;

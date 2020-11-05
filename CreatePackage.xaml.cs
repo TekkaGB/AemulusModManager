@@ -2,13 +2,14 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace AemulusModManager
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for CreatePackage.xaml
     /// </summary>
     public partial class CreatePackage : Window
     {
@@ -144,6 +145,8 @@ namespace AemulusModManager
                 PreviewBox.Text = openPng.FileName;
                 thumbnailPath = openPng.FileName;
             }
+            // Bring Create Package window back to foreground after closing dialog
+            this.Activate();
         }
     }
 }

@@ -39,7 +39,6 @@ namespace AemulusModManager
                 .Where(s => s.EndsWith(".bin") || s.EndsWith(".arc") || s.EndsWith(".pack")))
             {
                 var simpleDir = dir.Replace($@"{directory}\", "");
-                Thread.Sleep(150);
                 if (!Directory.Exists($@"Original\{Path.GetDirectoryName(simpleDir)}"))
                     Directory.CreateDirectory($@"Original\{Path.GetDirectoryName(simpleDir)}");
                 Console.WriteLine($@"[INFO] Copying {dir} to Original");

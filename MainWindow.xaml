@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dd="urn:gong-wpf-dragdrop"
-        xmlns:local="clr-namespace:AemulusModManager" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
         Title="Aemulus Package Manager" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
-        
         Background="#121212">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
