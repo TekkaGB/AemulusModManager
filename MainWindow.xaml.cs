@@ -172,7 +172,17 @@ namespace AemulusModManager
                         p4gPath = config.exePath;
                         modPath = config.modDir;
                         emptySND = config.emptySND;
-                        PackageList = config.package;
+                        // Compatibility with old Config.xml
+                        List<Package> temp = config.package.ToList();
+                        foreach (var p in temp)
+                        {
+                            if (p.name != null && p.path == null)
+                            {
+                                p.path = p.name;
+                                p.name = null;
+                            }
+                        }
+                        PackageList = new ObservableCollection<Package>(temp);
                         tbl = config.tbl;
                     }
                 }

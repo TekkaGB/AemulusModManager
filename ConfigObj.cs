@@ -15,6 +15,7 @@ namespace AemulusModManager
     }
     public class Package
     {
+        public string name { get; set; }
         public string path { get; set; }
         public bool enabled { get; set; }
         public string id { get; set; }
