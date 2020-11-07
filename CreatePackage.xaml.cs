@@ -33,6 +33,8 @@ namespace AemulusModManager
                 if (IDBox.Text != AuthorBox.Text.Replace(" ", "").ToLower() + "."
                         + NameBox.Text.Replace(" ", "").ToLower() && IDBox.Text.Length > 0)
                     edited = true;
+                if (IDBox.Text == NameBox.Text.Replace(" ", "").ToLower())
+                    edited = false;
             }
         }
 
