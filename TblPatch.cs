@@ -76,7 +76,7 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine($"[WARNING] {init_free} not found in output directory or Original directory.");
+                    Console.WriteLine(@"[WARNING] data00004\init_free.bin not found in output directory or Original directory.");
                     return;
                 }
             }
