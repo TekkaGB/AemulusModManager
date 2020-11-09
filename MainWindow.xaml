@@ -98,7 +98,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Name="Preview" Source="Preview.png" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
+                <Image Name="Preview" Source="Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
