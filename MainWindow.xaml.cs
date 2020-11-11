@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -593,13 +594,11 @@ namespace AemulusModManager
                 // Set description
                 if (row.description != null && row.description.Length > 0)
                 {
-                    //Description.IsReadOnly = false;
-                    Description.Text = row.description;
+                    Description.Document = ConvertToFlowDocument(row.description);
                 }
                 else
                 {
-                    Description.Text = "Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).";
-                    //Description.IsReadOnly = true;
+                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).");
                 }
 
                 // Set requirement visibility
@@ -633,7 +632,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] ex.Message");
+                        Console.WriteLine($"[ERROR] {ex.Message}");
                     }
                 }
                 else
@@ -658,6 +657,36 @@ namespace AemulusModManager
             updateConfig();
         }
 
+        private FlowDocument ConvertToFlowDocument(string text)
+        {
+            var flowDocument = new FlowDocument();
+
+            var regex = new Regex(@"(https?:\/\/[^\s]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var matches = regex.Matches(text).Cast<Match>().Select(m => m.Value).ToList();
+
+            var paragraph = new Paragraph();
+            flowDocument.Blocks.Add(paragraph);
+
+            foreach (var segment in regex.Split(text))
+            {
+                if (matches.Contains(segment))
+                {
+                    var hyperlink = new Hyperlink(new Run(segment))
+                    {
+                        NavigateUri = new Uri(segment),
+                    };
+                    hyperlink.RequestNavigate += (sender, args) => Process.Start(segment);
+
+                    paragraph.Inlines.Add(hyperlink);
+                }
+                else
+                {
+                    paragraph.Inlines.Add(new Run(segment));
+                }
+            }
+
+            return flowDocument;
+        }
         private void Inaba_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://gamebanana.com/tools/6872");

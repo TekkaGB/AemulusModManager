@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
@@ -122,9 +123,13 @@
                     </Button>
 
                 </Grid>
-                <TextBox Name="Description" IsReadOnly="True" Grid.Row="2" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" Background="White">
-                    Aemulus means "Rival" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).
-                </TextBox>
+                <RichTextBox Name="Description" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" Background="White">
+                    <FlowDocument>
+                        <Paragraph>
+                            Aemulus means "Rival" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
             </Grid>
         </Grid>
         <Image Source="arrow.png" Margin="188,0,449,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40" RenderTransformOrigin="0.5,0.5">
