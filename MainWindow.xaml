@@ -37,7 +37,7 @@
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
                           SelectionChanged="rowSelected" MinWidth="680" SelectionMode="Single"
-                          LoadingRow="ModGrid_LoadingRow" CellEditEnding="ModGrid_CellEditEnding"
+                          LoadingRow="ModGrid_LoadingRow"
                           HorizontalAlignment="Center" Grid.Column="0" Margin="10">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
@@ -57,9 +57,9 @@
                             </Style>
                         </DataGridCheckBoxColumn.CellStyle>
                     </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Header="Name" Binding="{Binding name, Mode=TwoWay}" IsReadOnly="False" Width="1.5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Author" Binding="{Binding author, Mode=TwoWay}" IsReadOnly="False" Width="*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}"  IsReadOnly="False" Width="50"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Name" Binding="{Binding name, Mode=TwoWay}" IsReadOnly="True" Width="1.5*"/>
+                    <DataGridTextColumn Header="Author" Binding="{Binding author, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}" IsReadOnly="True" Width="50"/>
                     <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="80">
                         <DataGridHyperlinkColumn.ElementStyle>
                             <Style TargetType="TextBlock">

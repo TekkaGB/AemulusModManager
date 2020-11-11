@@ -658,51 +658,6 @@ namespace AemulusModManager
             updateConfig();
         }
 
-        private void ModGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            string editedColumn = e.Column.Header.ToString();
-            string editedContent = (e.EditingElement as TextBox).Text;
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (File.Exists($@"Packages\{row.path}\Package.xml"))
-            {
-                Metadata metadata = new Metadata();
-                metadata.name = row.name;
-                metadata.id = row.id;
-                metadata.author = row.author;
-                metadata.version = row.version;
-                metadata.link = row.link;
-                metadata.description = row.description;
-                switch (editedColumn)
-                {
-                    case "Name":
-                        if (metadata.name != editedContent)
-                        {
-                            Console.WriteLine($"Changed {metadata.name} to {editedContent}");
-                            metadata.name = editedContent;
-                        }
-                        break;
-                    case "Author":
-                        if (metadata.author != editedContent)
-                        {
-                            Console.WriteLine($"Changed {metadata.author} to {editedContent}");
-                            metadata.author = editedContent;
-                        }
-                        break;
-                    case "Version":
-                        if (metadata.version != editedContent)
-                        {
-                            Console.WriteLine($"Changed {metadata.version} to {editedContent}");
-                            metadata.version = editedContent;
-                        }
-                        break;
-                }
-                using (FileStream streamWriter = File.Create($@"Packages\{row.path}\Package.xml"))
-                {
-                    xsp.Serialize(streamWriter, metadata);
-                }
-            }
-        }
-
         private void Inaba_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://gamebanana.com/tools/6872");
