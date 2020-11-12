@@ -523,12 +523,14 @@ namespace AemulusModManager
                 return;
             }
 
+            ConfigButton.IsEnabled = false;
             RefreshButton.IsEnabled = false;
             MergeButton.IsEnabled = false;
             LaunchButton.IsEnabled = false;
 
             await unpackThenMerge();
 
+            ConfigButton.IsEnabled = true;
             RefreshButton.IsEnabled = true;
             MergeButton.IsEnabled = true;
             LaunchButton.IsEnabled = true;
