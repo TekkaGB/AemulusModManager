@@ -433,13 +433,13 @@ namespace AemulusModManager
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (dirFiles.Any(x => Path.GetFileName(x).Equals("Mod.xml")) && dirFiles.Any(x => Path.GetFileName(x).Equals("Data")))
                     {
-                        //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...s
+                        //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
                         string modXml = dirFiles.First(x => Path.GetFileName(x).Equals("Mod.xml"));
                         using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
                         {
                             //Deserialize Mod.xml & Use metadata
                             ModXmlMetadata m = (ModXmlMetadata)xsm.Deserialize(streamWriter);
-                            newMetadata.id = m.Author.ToLower().Trim(' ') + "." + m.Title.ToLower().Trim(' ');
+                            newMetadata.id = m.Author.ToLower().Replace(" ","") + "." + m.Title.ToLower().Replace(" ","");
                             newMetadata.author = m.Author;
                             newMetadata.version = m.Version;
                             newMetadata.link = m.Url;
@@ -452,8 +452,10 @@ namespace AemulusModManager
                         //Delete prebuild.bat if exists
                         if (dirFiles.Any(x => Path.GetFileName(x).Equals("prebuild.bat")))
                             File.Delete(dirFiles.First(x => Path.GetFileName(x).Equals("prebuild.bat")));
+                        //Make sure Data folder is gone
                         if (Directory.Exists(dataDir))
                             Directory.Delete(dataDir, true);
+                        //Goodbye old friend
                         File.Delete(modXml);
                     }
                     else
