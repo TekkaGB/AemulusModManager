@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Config" Height="270" Width="550" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Config" Height="270" Width="800" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -27,20 +27,36 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Height="30" Width="140" Content="Unpack data00004.pac" Name="UnpackButton" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MaxWidth="130" Grid.Column="1">
+            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="3" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
+            <ComboBox Name="LanguageBox" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4" Width="135" Height="25">
+                <ComboBoxItem IsSelected="True">English (data_e.cpk)</ComboBoxItem>
+                <ComboBoxItem>Japanese (data.cpk)</ComboBoxItem>
+                <ComboBoxItem>Chinese (data_c.cpk)</ComboBoxItem>
+                <ComboBoxItem>Korean (data_k.cpk)</ComboBoxItem>
+            </ComboBox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MinWidth="90" MaxWidth="90" Grid.Column="0">
                 <CheckBox Name="KeepSND" Foreground ="White" Checked="SndChecked" Unchecked="SndUnchecked">
                     <TextBlock TextAlignment="Center">Empty SND
                     <LineBreak/> Folder
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MaxWidth="130" Grid.Column="2">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MinWidth="100" MaxWidth="100" Grid.Column="1">
                 <CheckBox Name="TblPatchBox" Foreground ="White" Checked="TblChecked" Unchecked="TblUnchecked">
                     <TextBlock TextAlignment="Center">
                         Enable Table<LineBreak/>
                         Patches
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="80" Grid.Column="2">
+                <CheckBox Name="CpkBox" Foreground ="White" Checked="CpkChecked" Unchecked="CpkUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Use CPK<LineBreak/>
+                        Structure
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
@@ -49,9 +65,9 @@
         <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="P4G.exe Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
         <TextBlock Foreground="#9A2000" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Reloaded-II.exe<LineBreak />Path</TextBlock>
         <TextBlock Foreground="#9A2000" Text="Setup P4G Launch Shortcut" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="340"/>
-        <TextBox Name="P4GTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="340" Grid.Row="3" Grid.Column="2"/>
-        <TextBox Name="ReloadedTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="340" Grid.Row="4" Grid.Column="2"/>
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="600"/>
+        <TextBox Name="P4GTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="600" Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="ReloadedTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="600" Grid.Row="4" Grid.Column="2"/>
         <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
         <Button Height="20" Width="60" Content="Browse" Name="P4GButton" Click="SetupP4GShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
         <Button Height="20" Width="60" Content="Browse" Name="ReloadedButton" Click="SetupReloadedShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3"/>

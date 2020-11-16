@@ -58,33 +58,54 @@ namespace AemulusModManager
             File.WriteAllBytes(init_free, ifBytes);
         }
 
-        public void Patch(List<string> ModList, string modDir)
+        public void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang)
         {
             Console.WriteLine("Patching .tbl's...");
-            bool noInitFree = false;
             // Check if init_free exists and return if not
-            string init_free = $@"{modDir}\data00004\init_free.bin";
-            if (!File.Exists(init_free))
+            string init_free;
+            if (useCpk)
+                init_free = $@"{Path.GetFileNameWithoutExtension(cpkLang)}\init_free.bin";
+            else
             {
-                if (File.Exists($@"Original\data00004\init_free.bin"))
+                switch (cpkLang)
                 {
-                    noInitFree = true;
-                    if (!Directory.Exists($@"{modDir}\data00004"))
-                        Directory.CreateDirectory($@"{modDir}\data00004");
-                    File.Copy($@"Original\data00004\init_free.bin", $@"{modDir}\data00004\init_free.bin", true);
+                    case "data_e.cpk":
+                        init_free = $@"data00004\init_free.bin";
+                        break;
+                    case "data.cpk":
+                        init_free = $@"data00001\init_free.bin";
+                        break;
+                    case "data_c.cpk":
+                        init_free = $@"data00006\init_free.bin";
+                        break;
+                    case "data_k.cpk":
+                        init_free = $@"data00005\init_free.bin";
+                        break;
+                    default:
+                        init_free = $@"data00004\init_free.bin";
+                        break;
+                }
+            }
+            if (!File.Exists($@"{modDir}\{init_free}"))
+            {
+                if (File.Exists($@"Original\{init_free}"))
+                {
+                    if (!Directory.Exists($@"{modDir}\{Path.GetDirectoryName(init_free)}"))
+                        Directory.CreateDirectory($@"{modDir}\{Path.GetDirectoryName(init_free)}");
+                    File.Copy($@"Original\{init_free}", $@"{modDir}\{init_free}", true);
                     Console.WriteLine($"[INFO] Copied over init_free.bin from Original directory.");
                 }
                 else
                 {
-                    Console.WriteLine(@"[WARNING] data00004\init_free.bin not found in output directory or Original directory.");
+                    Console.WriteLine($"[WARNING] {init_free} not found in output directory or Original directory.");
                     return;
                 }
             }
-            tblDir = $"{Path.ChangeExtension(init_free, null)}_tbls";
+            tblDir = $@"{modDir}\{Path.ChangeExtension(init_free, null)}_tbls";
             Directory.CreateDirectory(tblDir);
             // Unpack init_free
             Console.WriteLine($"[INFO] Unpacking tbl's from init_free.bin...");
-            unpackTbls(init_free);
+            unpackTbls($@"{modDir}\{init_free}");
             // Keep track of which tables are edited
             List<string> editedTables = new List<string>();
 
@@ -185,16 +206,12 @@ namespace AemulusModManager
             foreach (string u in editedTables)
             {
                 Console.WriteLine($"[INFO] Replacing {u} in init_free.bin");
-                repackTbls($@"{tblDir}\{u}", init_free);
+                repackTbls($@"{tblDir}\{u}", $@"{modDir}\{init_free}");
             }
 
             Console.WriteLine($"[INFO] Deleting temp tbl folder...");
             // Delete all unpacked files
             Directory.Delete(tblDir, true);
-            if (editedTables.Count == 0 && noInitFree)
-            {
-                File.Delete(init_free);
-            }
 
             Console.WriteLine("[INFO] Finished patching tbl's!");
         }

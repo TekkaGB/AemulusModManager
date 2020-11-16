@@ -12,6 +12,8 @@ namespace AemulusModManager
         public string reloadedPath { get; set; }
         public bool emptySND { get; set; }
         public bool tbl { get; set; }
+        public bool useCpk { get; set; }
+        public string cpkLang { get; set; }
     }
     public class Package
     {

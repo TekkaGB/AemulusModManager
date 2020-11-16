@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,51 +12,48 @@ namespace AemulusModManager
 {
     class PacUnpacker
     {
-        public void Unpack(string directory)
+        public void Unpack(string directory, string cpk)
         {
+            List<string> pacs = new List<string>();
+            switch(cpk)
+            {
+                case "data_e.cpk":
+                    pacs.Add("data00004.pac");
+                    break;
+                case "data.cpk":
+                    pacs.Add("data00001.pac");
+                    pacs.Add("data00003.pac");
+                    break;
+                case "data_k.cpk":
+                    pacs.Add("data00005.pac");
+                    break;
+                case "data_c.cpk":
+                    pacs.Add("data00006.pac");
+                    break;
+            }
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.UseShellExecute = false;
-            startInfo.FileName = @"Dependencies\MultiExtractor.exe";
+            startInfo.FileName = @"Dependencies\nr2_unpacker.exe";
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{directory}" + @"\" + "data00004.pac\"";
-            startInfo.RedirectStandardInput = true;
-            Console.WriteLine($@"[INFO] Unpacking files from data00004.pac... (This part takes a bit)");
+            string paclist = "";
+            foreach (var pac in pacs)
+                paclist += $" \"{directory}" + @"\" + $"{pac}\" *.bin;*.arc;*.pac;*.pack";
+            startInfo.Arguments = $"{paclist}";
+            Console.WriteLine($@"[INFO] Unpacking files for {cpk}... (This part takes a bit)");
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                StreamWriter myStreamWriter = process.StandardInput;
-
-                // The following will put an 'Enter' on the first dh_make request for user input
-                myStreamWriter.WriteLine(" ");
-                myStreamWriter.Close();
-                // Add this: wait until process does its work
                 process.WaitForExit();
             }
+            
+            Console.WriteLine("[INFO] Transferring mergeable files to Original directory... (This part might take a bit too)");
 
-            Console.WriteLine("[INFO] Filtering mergeable files...");
-            foreach (var dir in Directory.EnumerateFiles($@"{directory}\data00004", "*", SearchOption.AllDirectories)
-                .Where(s => s.EndsWith(".bin") || s.EndsWith(".arc") || s.EndsWith(".pack")))
+            foreach (var pac in pacs)
             {
-                var simpleDir = dir.Replace($@"{directory}\", "");
-                if (!Directory.Exists($@"Original\{Path.GetDirectoryName(simpleDir)}"))
-                    Directory.CreateDirectory($@"Original\{Path.GetDirectoryName(simpleDir)}");
-                Console.WriteLine($@"[INFO] Copying {dir} to Original");
-                try
-                {
-                    File.Copy(dir, $@"Original\{simpleDir}", true);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[ERROR] {ex.Message}");
-                }
-
+                FileSystem.CopyDirectory($@"{directory}\{Path.GetFileNameWithoutExtension(pac)}", $@"Original\{Path.GetFileNameWithoutExtension(pac)}", true);
+                FileSystem.MoveDirectory($@"{directory}\{Path.GetFileNameWithoutExtension(pac)}", $@"Original\{Path.GetFileNameWithoutExtension(cpk)}", true);
             }
-
-            Console.WriteLine("[INFO] Deleting unpacked folder...");
-            Directory.Delete($@"{directory}\data00004", true);
-
             Console.WriteLine("[INFO] Finished unpacking vanilla files!");
         }
     }

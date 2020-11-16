@@ -12,14 +12,12 @@ namespace AemulusModManager
     public partial class ConfigWindow : Window
     {
         private MainWindow main;
-        private PacUnpacker pacUnpacker;
 
         public ConfigWindow(MainWindow _main)
         {
-            InitializeComponent();
             main = _main;
+            InitializeComponent();
             if (main.modPath != null)
-            
                 OutputTextbox.Text = main.modPath;
             if (main.p4gPath != null)
                 P4GTextbox.Text = main.p4gPath;
@@ -27,7 +25,28 @@ namespace AemulusModManager
                 ReloadedTextbox.Text = main.reloadedPath;
             KeepSND.IsChecked = main.emptySND;
             TblPatchBox.IsChecked = main.tbl;
-            pacUnpacker = new PacUnpacker();
+            CpkBox.IsChecked = main.useCpk;
+            switch (main.cpkLang)
+            {
+                case "data_e.cpk":
+                    LanguageBox.SelectedIndex = 0;
+                    break;
+                case "data.cpk":
+                    LanguageBox.SelectedIndex = 1;
+                    break;
+                case "data_c.cpk":
+                    LanguageBox.SelectedIndex = 2;
+                    break;
+                case "data_k.cpk":
+                    LanguageBox.SelectedIndex = 3;
+                    break;
+                default:
+                    LanguageBox.SelectedIndex = 0;
+                    main.cpkLang = "data_e.cpk";
+                    main.config.cpkLang = "data_e.cpk";
+                    main.updateConfig();
+                    break;
+            }
             Console.WriteLine("[INFO] Config launched");
         }
 
@@ -55,6 +74,19 @@ namespace AemulusModManager
         {
             main.tbl = false;
             main.config.tbl = false;
+            main.updateConfig();
+        }
+
+        private void CpkChecked(object sender, RoutedEventArgs e)
+        {
+            main.useCpk = true;
+            main.config.useCpk = true;
+            main.updateConfig();
+        }
+        private void CpkUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.useCpk = false;
+            main.config.useCpk = false;
             main.updateConfig();
         }
 
@@ -149,7 +181,7 @@ namespace AemulusModManager
                 directory = openPacsFolder();
             if (directory != null)
             {
-                if (File.Exists($@"{directory}\data00004.pac"))
+                if (File.Exists($@"{directory}\{main.cpkLang}"))
                 {
                     UnpackButton.IsEnabled = false;
                     main.ConfigButton.IsEnabled = false;
@@ -160,7 +192,7 @@ namespace AemulusModManager
                     UnpackButton.IsEnabled = true;
                 }
                 else
-                    Console.WriteLine("[ERROR] Invalid folder cannot find data00004.pac");
+                    Console.WriteLine($"[ERROR] Invalid folder cannot find {main.cpkLang}");
             }
         }
 
@@ -179,6 +211,34 @@ namespace AemulusModManager
             }
 
             return null;
+        }
+
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (LanguageBox.SelectedIndex != -1 && IsLoaded)
+            {
+                int index = LanguageBox.SelectedIndex;
+                string selectedLanguage = null;
+                switch (index)
+                {
+                    case 0:
+                        selectedLanguage = "data_e.cpk";
+                        break;
+                    case 1:
+                        selectedLanguage = "data.cpk";
+                        break;
+                    case 2:
+                        selectedLanguage = "data_c.cpk";
+                        break;
+                    case 3:
+                        selectedLanguage = "data_k.cpk";
+                        break;
+                }
+                main.config.cpkLang = selectedLanguage;
+                main.cpkLang = selectedLanguage;
+                main.updateConfig();
+            }
         }
     }
 }

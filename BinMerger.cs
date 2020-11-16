@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AemulusModManager
 {
@@ -131,7 +132,7 @@ namespace AemulusModManager
             }
         }
 
-        public void Unpack(List<string> ModList, string modDir)
+        public void Unpack(List<string> ModList, string modDir, bool useCpk, string cpkLang)
         {
             Console.WriteLine("[INFO] Beginning to unpack...");
             foreach (var mod in ModList)
@@ -164,7 +165,9 @@ namespace AemulusModManager
                         {
                             if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
                             {
-                                if (modList.Count == 0)
+                                //if (modList.Count == 0)
+                                // Check if mods.aem contains the modified parts of a bin
+                                if (!modList.Exists(x => x.Contains(Path.GetFileNameWithoutExtension(binPath))))
                                 {
                                     Console.WriteLine($"[WARNING] Using {binPath} as base since nothing was specified in mods.aem");
                                     if (!Directory.Exists(Path.GetDirectoryName(binPath)))
@@ -234,7 +237,13 @@ namespace AemulusModManager
                                 {
                                     if (File.Exists($@"{mod}\{m}"))
                                     {
-                                        if (!Directory.Exists($@"{modDir}\{Path.GetDirectoryName(m)}"))
+                                        string dir = $@"{modDir}\{Path.GetDirectoryName(m)}";
+                                        if (useCpk)
+                                        {
+                                            dir = Regex.Replace(dir, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
+                                            dir = Regex.Replace(dir, "movie0000[0-2]", "movie");
+                                        }
+                                        if (!Directory.Exists(dir))
                                             Directory.CreateDirectory($@"{modDir}\{Path.GetDirectoryName(m)}");
                                         File.Copy($@"{mod}\{m}", $@"{modDir}\{m}", true);
                                     }
@@ -243,6 +252,11 @@ namespace AemulusModManager
                             }
                             else
                             {
+                                if (useCpk)
+                                {
+                                    binPath = Regex.Replace(binPath, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
+                                    binPath = Regex.Replace(binPath, "movie0000[0-2]", "movie");
+                                }
                                 if (!Directory.Exists(Path.GetDirectoryName(binPath)))
                                     Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                                 File.Copy(file, binPath, true);
@@ -250,6 +264,11 @@ namespace AemulusModManager
                         }
                         else
                         {
+                            if (useCpk)
+                            {
+                                binPath = Regex.Replace(binPath, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
+                                binPath = Regex.Replace(binPath, "movie0000[0-2]", "movie");
+                            }
                             if (!Directory.Exists(Path.GetDirectoryName(binPath)))
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                             File.Copy(file, binPath, true);

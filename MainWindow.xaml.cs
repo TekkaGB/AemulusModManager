@@ -1,4 +1,5 @@
 ﻿using GongSolutions.Wpf.DragDrop.Utilities;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,8 +31,10 @@ namespace AemulusModManager
         private PacUnpacker pacUnpacker;
         public bool emptySND;
         public bool tbl;
+        public bool useCpk;
         public string p4gPath;
         public string reloadedPath;
+        public string cpkLang;
         private BitmapImage bitmap;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
@@ -173,6 +176,14 @@ namespace AemulusModManager
                         p4gPath = config.exePath;
                         modPath = config.modDir;
                         emptySND = config.emptySND;
+                        cpkLang = config.cpkLang;
+                        useCpk = config.useCpk;
+                        // Default
+                        if (cpkLang == null)
+                        {
+                            cpkLang = "data_e.cpk";
+                            config.cpkLang = "data_e.cpk";
+                        }
                         // Compatibility with old Config.xml
                         List<Package> temp = config.package.ToList();
                         foreach (var p in temp)
@@ -265,7 +276,7 @@ namespace AemulusModManager
         {
             return Task.Run(() =>
             {
-                pacUnpacker.Unpack(directory);
+                pacUnpacker.Unpack(directory, cpkLang);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     ConfigButton.IsEnabled = true;
@@ -548,6 +559,12 @@ namespace AemulusModManager
                     if (m.enabled)
                     {
                         packages.Add($@"Packages\{m.path}");
+                        if ((Directory.Exists($@"Packages\{m.path}\{Path.GetFileNameWithoutExtension(cpkLang)}")
+                            || Directory.Exists($@"Packages\{m.path}\movie")) && !useCpk)
+                        {
+                            Console.WriteLine($"[WARNING] {m.path} is using CPK folder paths, setting Use CPK Structure to true");
+                            useCpk = true;
+                        }
                     }
                 }
                 packages.Reverse();
@@ -558,12 +575,13 @@ namespace AemulusModManager
                 else
                 {
                     binMerger.Restart(modPath, emptySND);
-                    binMerger.Unpack(packages, modPath);
+                    binMerger.Unpack(packages, modPath, useCpk, cpkLang);
                     binMerger.Merge(modPath);
 
-                    if (tbl)
+                    // Only run if tblpatching is enabled and tblpatches exists
+                    if (tbl && packages.Exists(x => Directory.GetFiles(x, "*.tblpatch").Length > 0 || Directory.Exists($@"{x}\tblpatches")))
                     {
-                        tblPatcher.Patch(packages, modPath);
+                        tblPatcher.Patch(packages, modPath, useCpk, cpkLang);
                     }
 
                     App.Current.Dispatcher.Invoke((Action)delegate
@@ -617,6 +635,7 @@ namespace AemulusModManager
                 else
                     Reqs.Visibility = Visibility.Collapsed;
 
+                
                 // Set image
                 string path = $@"Packages\{row.path}";
                 if (File.Exists($@"{path}\Preview.png"))
@@ -781,6 +800,53 @@ namespace AemulusModManager
                     Refresh();
                     updateConfig();
                 }
+            }
+        }
+
+        private void ConvertMC_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            FileSystem.MoveDirectory($@"Packages\{row.path}\Data", $@"Packages\{row.path}", true);
+            File.Delete($@"Packages\{row.path}\Mod.xml");
+        }
+
+        private void ModGrid_PreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (row != null)
+            {
+                // Enable/disable convert Mod Compendium Mod
+                if (Directory.Exists($@"Packages\{row.path}\Data")
+                    && File.Exists($@"Packages\{row.path}\Mod.xml"))
+                    ConvertMC.IsEnabled = true;
+                else
+                    ConvertMC.IsEnabled = false;
+
+                // Enable/disable convert to 1.4.0
+                if (!Directory.Exists($@"Packages\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}") 
+                    || !Directory.Exists($@"Packages\{row.path}\movie"))
+                    ConvertCPK.IsEnabled = true;
+                else
+                    ConvertCPK.IsEnabled = false;
+            }
+        }
+
+        private void ConvertCPK_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            foreach (var folder in Directory.EnumerateDirectories($@"Packages\{row.path}"))
+            {
+                if (Path.GetFileName(folder).StartsWith("data0"))
+                    FileSystem.MoveDirectory(folder, $@"Packages\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}", true);
+                else if (Path.GetFileName(folder).StartsWith("movie0"))
+                    FileSystem.MoveDirectory(folder, $@"Packages\{row.path}\movie", true);
+            }
+            // Convert the mods.aem file too
+            if (File.Exists($@"Packages\{row.path}\mods.aem"))
+            {
+                string text = File.ReadAllText($@"Packages\{row.path}\mods.aem");
+                text = Regex.Replace(text, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
+                File.WriteAllText($@"Packages\{row.path}\mods.aem", text);
             }
         }
     }

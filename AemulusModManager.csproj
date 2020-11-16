@@ -94,6 +94,7 @@
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
       <HintPath>packages\gong-wpf-dragdrop.2.3.1\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
@@ -173,6 +174,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json" />
+    <None Include="Dependencies\Preappfile\preappfile.deps.json" />
+    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.dev.json" />
+    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.json" />
+    <None Include="Dependencies\Preappfile\PreappPartnersLib.deps.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -186,22 +192,26 @@
     <Resource Include="arrow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dependencies\Preappfile\Amicitia.IO.dll" />
+    <Content Include="Dependencies\Preappfile\Amicitia.IO.pdb" />
+    <Content Include="Dependencies\Preappfile\CommandLine.dll" />
+    <Content Include="Dependencies\Preappfile\preappfile.dll" />
+    <Content Include="Dependencies\Preappfile\preappfile.exe" />
+    <Content Include="Dependencies\Preappfile\preappfile.pdb" />
+    <Content Include="Dependencies\Preappfile\PreappPartnersLib.dll" />
+    <Content Include="Dependencies\Preappfile\PreappPartnersLib.pdb" />
     <Resource Include="HHH.png" />
     <Resource Include="Inaba.png" />
     <Resource Include="Aemulus.ico" />
     <Content Include="Dependencies\AtlusFileSystemLibrary.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dependencies\File Formats.dll">
+    <Content Include="Dependencies\File Formats.dll" />
+    <Content Include="Dependencies\MultiExtractor.exe" />
+    <Content Include="Dependencies\Neptoolia.DataLayer.Compression.dll" />
+    <Content Include="Dependencies\nr2_unpacker.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dependencies\MultiExtractor.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\Neptoolia.DataLayer.Compression.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\nr2_unpacker.exe" />
     <EmbeddedResource Include="Preview.png" />
     <Resource Include="Logo.png" />
     <Content Include="Dependencies\PAKPack.exe">

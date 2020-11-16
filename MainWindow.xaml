@@ -37,9 +37,11 @@
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
                           SelectionChanged="rowSelected" MinWidth="680" SelectionMode="Single"
-                          LoadingRow="ModGrid_LoadingRow"
+                          LoadingRow="ModGrid_LoadingRow" PreviewMouseRightButtonDown="ModGrid_PreviewMouseRightButtonDown"
                           HorizontalAlignment="Center" Grid.Column="0" Margin="10">
                 <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#9A2000"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                    Color="#9A2000"/>
                 </DataGrid.Resources>
@@ -88,6 +90,8 @@
                     <ContextMenu>
                         <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
                         <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
+                        <MenuItem Name="ConvertCPK" Header="Convert to 1.4.0 CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
+                        <MenuItem Name="ConvertMC" Header="Convert Mod Compendium Mod" IsCheckable="False" IsEnabled="False" Click="ConvertMC_Click"/>
                         <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
