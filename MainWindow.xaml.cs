@@ -269,8 +269,8 @@ namespace AemulusModManager
             // Check if Original Folder is unpacked
             if (!Directory.EnumerateFileSystemEntries("Original").Any())
             {
-                Console.WriteLine("[WARNING] Aemulus can't find your Vanilla files in the Original folder.");
-                Console.WriteLine("Please click the Config button and select \"Unpack data00004.pac\" before building.");
+                Console.WriteLine("[WARNING] Aemulus can't find your base files in the Original folder.");
+                Console.WriteLine("Please click the Config button and select \"Unpack Base Files\" before building.");
             }
         }
 
@@ -905,6 +905,15 @@ namespace AemulusModManager
                 string text = File.ReadAllText($@"Packages\{row.path}\mods.aem");
                 text = Regex.Replace(text, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
                 File.WriteAllText($@"Packages\{row.path}\mods.aem", text);
+            }
+        }
+
+        private void ModGrid_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Space && ModGrid.CurrentColumn.Header.ToString() != "Enabled")
+            {
+                var checkbox = ModGrid.Columns[0].GetCellContent(ModGrid.SelectedItem) as CheckBox;
+                checkbox.IsChecked = !checkbox.IsChecked;
             }
         }
     }

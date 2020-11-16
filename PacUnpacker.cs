@@ -47,7 +47,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             
-            Console.WriteLine("[INFO] Transferring mergeable files to Original directory... (This part might take a bit too)");
+            Console.WriteLine("[INFO] Transferring mergeable files to Original directory... (This part might take a bit longer)");
 
             foreach (var pac in pacs)
             {

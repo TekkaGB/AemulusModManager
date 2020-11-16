@@ -165,7 +165,6 @@ namespace AemulusModManager
                         {
                             if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
                             {
-                                //if (modList.Count == 0)
                                 // Check if mods.aem contains the modified parts of a bin
                                 if (!modList.Exists(x => x.Contains(Path.GetFileNameWithoutExtension(binPath))))
                                 {
