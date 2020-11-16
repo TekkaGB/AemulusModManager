@@ -440,7 +440,7 @@ namespace AemulusModManager
                     newMetadata.id = newMetadata.name.Replace(" ", "").ToLower();
 
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
-                    List<string> dirFolders = Directory.GetDirectories(package, "*", SearchOption.TopDirectoryOnly).ToList();
+                    List<string> dirFolders = Directory.GetDirectories(package, "*", System.IO.SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (dirFiles.Any(x => Path.GetFileName(x).Equals("Mod.xml")) && dirFiles.Any(x => Path.GetFileName(x).Equals("Data")))
                     {
