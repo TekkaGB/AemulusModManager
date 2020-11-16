@@ -23,6 +23,7 @@ namespace AemulusModManager
         public Config config;
         private XmlSerializer xs;
         private XmlSerializer xsp;
+        private XmlSerializer xsm;
         public string modPath;
         private ObservableCollection<Package> PackageList;
         private ObservableCollection<DisplayedMetadata> DisplayedPackages;
@@ -161,6 +162,7 @@ namespace AemulusModManager
             // Initialize xml serializers
             xs = new XmlSerializer(typeof(Config));
             xsp = new XmlSerializer(typeof(Metadata));
+            xsm = new XmlSerializer(typeof(ModXmlMetadata));
 
             Console.WriteLine("[INFO] Initializing packages from Config.xml");
             // Load in Config if it exists
@@ -436,10 +438,44 @@ namespace AemulusModManager
                     Metadata newMetadata = new Metadata();
                     newMetadata.name = Path.GetFileName(package);
                     newMetadata.id = newMetadata.name.Replace(" ", "").ToLower();
-                    newMetadata.author = "";
-                    newMetadata.version = "";
-                    newMetadata.link = "";
-                    newMetadata.description = "";
+
+                    List<string> dirFiles = Directory.GetFiles(package).ToList();
+                    List<string> dirFolders = Directory.GetDirectories(package, "*", SearchOption.TopDirectoryOnly).ToList();
+                    dirFiles = dirFiles.Concat(dirFolders).ToList();
+                    if (dirFiles.Any(x => Path.GetFileName(x).Equals("Mod.xml")) && dirFiles.Any(x => Path.GetFileName(x).Equals("Data")))
+                    {
+                        //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
+                        string modXml = dirFiles.First(x => Path.GetFileName(x).Equals("Mod.xml"));
+                        using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
+                        {
+                            //Deserialize Mod.xml & Use metadata
+                            ModXmlMetadata m = (ModXmlMetadata)xsm.Deserialize(streamWriter);
+                            newMetadata.id = m.Author.ToLower().Replace(" ","") + "." + m.Title.ToLower().Replace(" ","");
+                            newMetadata.author = m.Author;
+                            newMetadata.version = m.Version;
+                            newMetadata.link = m.Url;
+                            newMetadata.description = m.Description;
+                        }
+                        //Move files out of Data folder
+                        string dataDir = dirFiles.First(x => Path.GetFileName(x).Equals("Data"));
+                        if (Directory.Exists(dataDir))
+                            MoveDir(dataDir, Path.GetDirectoryName(dataDir));
+                        //Delete prebuild.bat if exists
+                        if (dirFiles.Any(x => Path.GetFileName(x).Equals("prebuild.bat")))
+                            File.Delete(dirFiles.First(x => Path.GetFileName(x).Equals("prebuild.bat")));
+                        //Make sure Data folder is gone
+                        if (Directory.Exists(dataDir))
+                            Directory.Delete(dataDir, true);
+                        //Goodbye old friend
+                        File.Delete(modXml);
+                    }
+                    else
+                    {
+                        newMetadata.author = "";
+                        newMetadata.version = "";
+                        newMetadata.link = "";
+                        newMetadata.description = "";
+                    }
                     using (FileStream streamWriter = File.Create($@"{package}\Package.xml"))
                     {
                         xsp.Serialize(streamWriter, newMetadata);
@@ -474,6 +510,28 @@ namespace AemulusModManager
                 ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
             });
             Console.WriteLine($"[INFO] Refreshed!");
+        }
+
+        public void MoveDir(string sourceFolder, string destFolder)
+        {
+            if (!Directory.Exists(destFolder))
+                Directory.CreateDirectory(destFolder);
+
+            string[] files = Directory.GetFiles(sourceFolder);
+            foreach (string file in files)
+            {
+                string name = Path.GetFileName(file);
+                string dest = Path.Combine(destFolder, name);
+                File.Move(file, dest);
+            }
+
+            string[] folders = Directory.GetDirectories(sourceFolder);
+            foreach (string folder in folders)
+            {
+                string name = Path.GetFileName(folder);
+                string dest = Path.Combine(destFolder, name);
+                MoveDir(folder, dest);
+            }
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
