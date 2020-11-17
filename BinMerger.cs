@@ -166,9 +166,11 @@ namespace AemulusModManager
                             if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
                             {
                                 // Check if mods.aem contains the modified parts of a bin
-                                if (!modList.Exists(x => x.Contains(Path.GetFileNameWithoutExtension(binPath))))
+                                if (!modList.Exists(x => x.Contains($@"{Path.GetDirectoryName(string.Join("\\", folders.ToArray()))}\{Path.GetFileNameWithoutExtension(binPath)}\")))
                                 {
                                     Console.WriteLine($"[WARNING] Using {binPath} as base since nothing was specified in mods.aem");
+                                    if (useCpk)
+                                        binPath = Regex.Replace(binPath, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
                                     if (!Directory.Exists(Path.GetDirectoryName(binPath)))
                                         Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                                     File.Copy(file, binPath, true);
@@ -236,15 +238,16 @@ namespace AemulusModManager
                                 {
                                     if (File.Exists($@"{mod}\{m}"))
                                     {
-                                        string dir = $@"{modDir}\{Path.GetDirectoryName(m)}";
+                                        string dir = $@"{modDir}\{m}";
                                         if (useCpk)
                                         {
                                             dir = Regex.Replace(dir, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
                                             dir = Regex.Replace(dir, "movie0000[0-2]", "movie");
                                         }
-                                        if (!Directory.Exists(dir))
-                                            Directory.CreateDirectory($@"{modDir}\{Path.GetDirectoryName(m)}");
-                                        File.Copy($@"{mod}\{m}", $@"{modDir}\{m}", true);
+                                        if (!Directory.Exists(Path.GetDirectoryName(dir)))
+                                            Directory.CreateDirectory(Path.GetDirectoryName(dir));
+                                        File.Copy($@"{mod}\{m}", dir, true);
+                                        Console.WriteLine($@"[INFO] Copying over {mod}\{m} as specified by mods.aem");
                                     }
                                 }
 

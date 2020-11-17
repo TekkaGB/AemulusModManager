@@ -36,6 +36,7 @@ namespace AemulusModManager
         public string p4gPath;
         public string reloadedPath;
         public string cpkLang;
+        public FileSystemWatcher watcher;
         private BitmapImage bitmap;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
@@ -272,6 +273,19 @@ namespace AemulusModManager
                 Console.WriteLine("[WARNING] Aemulus can't find your base files in the Original folder.");
                 Console.WriteLine("Please click the Config button and select \"Unpack Base Files\" before building.");
             }
+
+            watcher = new FileSystemWatcher("Packages");
+            watcher.IncludeSubdirectories = true;
+            watcher.Created += Watcher_Changed;
+            watcher.Renamed += Watcher_Changed;
+            watcher.Deleted += Watcher_Changed;
+            watcher.EnableRaisingEvents = true;
+        }
+
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            Refresh();
+            updateConfig();
         }
 
         public Task pacUnpack(string directory)
@@ -282,7 +296,6 @@ namespace AemulusModManager
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     ConfigButton.IsEnabled = true;
-                    RefreshButton.IsEnabled = true;
                     MergeButton.IsEnabled = true;
                     LaunchButton.IsEnabled = true;
                 });
@@ -313,33 +326,11 @@ namespace AemulusModManager
                 Console.WriteLine("[ERROR] Please setup shortcut in config menu.");
         }
 
-        private async void RefreshClick(object sender, RoutedEventArgs e)
-        {
-            await RefreshTask();
-        }
-
         private void ConfigWdwClick(object sender, RoutedEventArgs e)
         {
             ConfigWindow cWindow = new ConfigWindow(this) { Owner = this };
             cWindow.DataContext = this;
             cWindow.ShowDialog();
-        }
-
-        private Task RefreshTask()
-        {
-            return Task.Run(() =>
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    RefreshButton.IsEnabled = false;
-                });
-                Refresh();
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    updateConfig();
-                    RefreshButton.IsEnabled = true;
-                });
-            });
         }
 
         private void UpdateMetadata()
@@ -592,17 +583,17 @@ namespace AemulusModManager
                 return;
             }
 
+            watcher.EnableRaisingEvents = false;
             ConfigButton.IsEnabled = false;
-            RefreshButton.IsEnabled = false;
             MergeButton.IsEnabled = false;
             LaunchButton.IsEnabled = false;
 
             await unpackThenMerge();
 
             ConfigButton.IsEnabled = true;
-            RefreshButton.IsEnabled = true;
             MergeButton.IsEnabled = true;
             LaunchButton.IsEnabled = true;
+            watcher.EnableRaisingEvents = true;
 
         }
 
@@ -861,25 +852,11 @@ namespace AemulusModManager
             }
         }
 
-        private void ConvertMC_Click(object sender, RoutedEventArgs e)
-        {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            FileSystem.MoveDirectory($@"Packages\{row.path}\Data", $@"Packages\{row.path}", true);
-            File.Delete($@"Packages\{row.path}\Mod.xml");
-        }
-
         private void ModGrid_PreviewMouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
             if (row != null)
             {
-                // Enable/disable convert Mod Compendium Mod
-                if (Directory.Exists($@"Packages\{row.path}\Data")
-                    && File.Exists($@"Packages\{row.path}\Mod.xml"))
-                    ConvertMC.IsEnabled = true;
-                else
-                    ConvertMC.IsEnabled = false;
-
                 // Enable/disable convert to 1.4.0
                 if (!Directory.Exists($@"Packages\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}") 
                     || !Directory.Exists($@"Packages\{row.path}\movie"))

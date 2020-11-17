@@ -16,11 +16,10 @@
         <Viewbox Stretch="Uniform" Margin="10,85,678,0" VerticalAlignment="Top" MinHeight="24" MaxHeight="24" MaxWidth="120">
             <TextBlock Text="v1.4.0" Foreground ="White" TextAlignment="Center" FontSize="20" Height="24" Width="120"/>
         </Viewbox>
-        <Button Height="25" MaxWidth="65" Content="Config" Name="ConfigButton" Click="ConfigWdwClick"  VerticalAlignment="Top" Margin="129,27,529,0" Background="White"/>
-        <Button Height="25" MaxWidth="65" Content="Build" Name="MergeButton" Background="White" Click="MergeClick" VerticalAlignment="Top" Margin="329,27,329,0" />
-        <Button Height="25" MaxWidth="65" Content="Refresh" Name="RefreshButton" Background="White" Click="RefreshClick" VerticalAlignment="Top"  Margin="229,27,429,0"/>
-        <Button Height="25" MaxWidth="65" Content="Launch" Name="LaunchButton" Background ="White" Click="LaunchClick" VerticalAlignment="Top" Margin="429,27,229,0" />
-        <Button Height="25" MaxWidth="65" Content="New" Name="NewButton" Background ="White" Click="NewClick" VerticalAlignment="Top" Margin="529,27,129,0" />
+        <Button Height="30" MaxWidth="70" Content="Config" Name="ConfigButton" Click="ConfigWdwClick" VerticalAlignment="Top" Margin="129,27,529,0" Background="White"/>
+        <Button Height="30" MaxWidth="70" Content="Build" Name="MergeButton" Background="White" Click="MergeClick" VerticalAlignment="Top" Margin="262,27,396,0" />
+        <Button Height="30" MaxWidth="70" Content="Launch" Name="LaunchButton" Background ="White" Click="LaunchClick" VerticalAlignment="Top" Margin="395,27,263,0" />
+        <Button Height="30" MaxWidth="70" Content="New" Name="NewButton" Background ="White" Click="NewClick" VerticalAlignment="Top" Margin="529,27,129,0" />
 
         <Image Source="arrow.png" Margin="188,67,449,0" VerticalAlignment="Top" MinHeight="40" MaxHeight="40"/>
         <Image Source="arrow.png" Margin="449,67,188,0" VerticalAlignment="Top" MinHeight="40" MaxHeight="40"/>
@@ -91,7 +90,6 @@
                         <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
                         <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
                         <MenuItem Name="ConvertCPK" Header="Convert to 1.4.0 CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
-                        <MenuItem Name="ConvertMC" Header="Convert Mod Compendium Mod" IsCheckable="False" IsEnabled="False" Click="ConvertMC_Click"/>
                         <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>

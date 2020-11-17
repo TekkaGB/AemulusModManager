@@ -185,7 +185,6 @@ namespace AemulusModManager
                 {
                     UnpackButton.IsEnabled = false;
                     main.ConfigButton.IsEnabled = false;
-                    main.RefreshButton.IsEnabled = false;
                     main.MergeButton.IsEnabled = false;
                     main.LaunchButton.IsEnabled = false;
                     await main.pacUnpack(directory);
