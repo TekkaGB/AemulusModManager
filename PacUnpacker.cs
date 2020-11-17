@@ -15,12 +15,14 @@ namespace AemulusModManager
         public void Unpack(string directory, string cpk)
         {
             List<string> pacs = new List<string>();
+            List<string> globs = new List<string>{"*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack"};
             switch(cpk)
             {
                 case "data_e.cpk":
                     pacs.Add("data00004.pac");
                     break;
                 case "data.cpk":
+                    pacs.Add("data00000.pac");
                     pacs.Add("data00001.pac");
                     pacs.Add("data00003.pac");
                     break;
@@ -36,25 +38,37 @@ namespace AemulusModManager
             startInfo.FileName = @"Dependencies\nr2_unpacker.exe";
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             string paclist = "";
+            Console.WriteLine($"[INFO] Unpacking pac files for {cpk}");
             foreach (var pac in pacs)
                 paclist += $" \"{directory}" + @"\" + $"{pac}\" *.bin;*.arc;*.pac;*.pack";
             startInfo.Arguments = $"{paclist}";
-            Console.WriteLine($@"[INFO] Unpacking files for {cpk}... (This part takes a bit)");
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
             }
-            
-            Console.WriteLine("[INFO] Transferring mergeable files to Original directory... (This part might take a bit longer)");
-
+            Console.WriteLine("[INFO] Transferring mergeable pac files to Original directory... (This part might take a bit for data.cpk)");
+            if (Directory.Exists($@"{directory}\data00000\bustup"))
+                FileSystem.DeleteDirectory($@"{directory}\data00000\bustup", DeleteDirectoryOption.DeleteAllContents);
+            if (Directory.Exists($@"{directory}\data00001\bustup"))
+                FileSystem.DeleteDirectory($@"{directory}\data00001\bustup", DeleteDirectoryOption.DeleteAllContents);
             foreach (var pac in pacs)
+                FileSystem.MoveDirectory($@"{directory}\{Path.GetFileNameWithoutExtension(pac)}", $@"Original\{Path.GetFileNameWithoutExtension(pac)}", true);
+            Console.WriteLine($@"[INFO] Unpacking files for {cpk}...");
+            startInfo.FileName = @"Dependencies\Preappfile\preappfile.exe";
+            foreach (var glob in globs)
             {
-                FileSystem.CopyDirectory($@"{directory}\{Path.GetFileNameWithoutExtension(pac)}", $@"Original\{Path.GetFileNameWithoutExtension(pac)}", true);
-                FileSystem.MoveDirectory($@"{directory}\{Path.GetFileNameWithoutExtension(pac)}", $@"Original\{Path.GetFileNameWithoutExtension(cpk)}", true);
+                startInfo.Arguments = $@"-i ""{directory}\{cpk}"" -o Original\{Path.GetFileNameWithoutExtension(cpk)} --unpack-filter {glob}";
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
             }
             Console.WriteLine("[INFO] Finished unpacking vanilla files!");
+            
         }
     }
 }

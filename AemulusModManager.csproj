@@ -174,11 +174,21 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json" />
-    <None Include="Dependencies\Preappfile\preappfile.deps.json" />
-    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.dev.json" />
-    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.json" />
-    <None Include="Dependencies\Preappfile\PreappPartnersLib.deps.json" />
+    <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\Preappfile\preappfile.deps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.dev.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\Preappfile\PreappPartnersLib.deps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -192,14 +202,33 @@
     <Resource Include="arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dependencies\Preappfile\Amicitia.IO.dll" />
-    <Content Include="Dependencies\Preappfile\Amicitia.IO.pdb" />
-    <Content Include="Dependencies\Preappfile\CommandLine.dll" />
-    <Content Include="Dependencies\Preappfile\preappfile.dll" />
-    <Content Include="Dependencies\Preappfile\preappfile.exe" />
-    <Content Include="Dependencies\Preappfile\preappfile.pdb" />
-    <Content Include="Dependencies\Preappfile\PreappPartnersLib.dll" />
-    <Content Include="Dependencies\Preappfile\PreappPartnersLib.pdb" />
+    <Content Include="Dependencies\Preappfile\Amicitia.IO.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\Amicitia.IO.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\CommandLine.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\Glob.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\preappfile.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\preappfile.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\preappfile.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\PreappPartnersLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\Preappfile\PreappPartnersLib.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="HHH.png" />
     <Resource Include="Inaba.png" />
     <Resource Include="Aemulus.ico" />
