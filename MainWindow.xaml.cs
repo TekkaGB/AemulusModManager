@@ -539,6 +539,7 @@ namespace AemulusModManager
                     path = $@"Packages\{newPackage.metadata.name}";
                 if (!Directory.Exists(path))
                 {
+                    watcher.EnableRaisingEvents = false;
                     try
                     {
                         Directory.CreateDirectory(path);
@@ -559,6 +560,7 @@ namespace AemulusModManager
                     {
                         Console.WriteLine($"[ERROR] Couldn't create directory/Package.xml. ({ex.Message})");
                     }
+                    watcher.EnableRaisingEvents = true;
                 }
                 else
                 {
@@ -800,6 +802,7 @@ namespace AemulusModManager
                                       MessageBoxImage.Warning);
                 if (Directory.Exists($@"Packages\{row.path}") && result == MessageBoxResult.Yes)
                 {
+                    watcher.EnableRaisingEvents = false;
                     Console.WriteLine($@"[INFO] Deleted Packages\{row.path}.");
                     try
                     {
@@ -812,6 +815,7 @@ namespace AemulusModManager
                     Refresh();
                     updateConfig();
                 }
+                watcher.EnableRaisingEvents = true;
             }
         }
 
@@ -831,6 +835,7 @@ namespace AemulusModManager
                 createPackage.ShowDialog();
                 if (createPackage.metadata != null)
                 {
+                    watcher.EnableRaisingEvents = false;
                     try
                     {
                         using (FileStream streamWriter = File.Create($@"Packages\{row.path}\Package.xml"))
@@ -841,13 +846,14 @@ namespace AemulusModManager
                         {
                             File.Copy(createPackage.thumbnailPath, $@"Packages\{row.path}\Preview.png", true);
                         }
+                        Refresh();
+                        updateConfig();
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"[ERROR] {ex.Message}");
                     }
-                    Refresh();
-                    updateConfig();
+                    watcher.EnableRaisingEvents = true;
                 }
             }
         }
