@@ -14,7 +14,7 @@
     <Grid>
         <Image Source="Logo.png" Margin="10,7,678,0" VerticalAlignment="Top" Height="98" Width="98"/>
         <Viewbox Stretch="Uniform" Margin="10,85,678,0" VerticalAlignment="Top" MinHeight="24" MaxHeight="24" MaxWidth="120">
-            <TextBlock Text="v1.4.0" Foreground ="White" TextAlignment="Center" FontSize="20" Height="24" Width="120"/>
+            <TextBlock Text="v1.4.1" Foreground ="White" TextAlignment="Center" FontSize="20" Height="24" Width="120"/>
         </Viewbox>
         <Button Height="30" MaxWidth="70" Content="Config" Name="ConfigButton" Click="ConfigWdwClick" VerticalAlignment="Top" Margin="129,27,529,0" Background="White"/>
         <Button Height="30" MaxWidth="70" Content="Build" Name="MergeButton" Background="White" Click="MergeClick" VerticalAlignment="Top" Margin="262,27,396,0" />
