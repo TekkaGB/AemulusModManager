@@ -13,6 +13,7 @@ namespace AemulusModManager
     /// </summary>
     public partial class App : Application
     {
+        #if DEBUG
         protected override void OnStartup(StartupEventArgs e)
         {
             DispatcherUnhandledException += App_DispatcherUnhandledException;
@@ -26,6 +27,6 @@ namespace AemulusModManager
             e.Handled = true;
         }
 
-        
+        #endif
     }
 }

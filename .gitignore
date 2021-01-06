@@ -338,3 +338,8 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Dependencies/MakeCpk/count.py
+/Dependencies/CpkMake/CpkMaker.dll
+/Dependencies/CpkMake/YACpkTool.exe
+/Dependencies/PersonaPatcher
+/Fonts

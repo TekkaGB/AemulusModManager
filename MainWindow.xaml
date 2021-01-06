@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
         Title="Aemulus Package Manager" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
@@ -12,18 +13,50 @@
         <local:UrlConverter x:Key="UrlConverter"/>
     </Window.Resources>
     <Grid>
-        <Image Source="Logo.png" Margin="10,7,678,0" VerticalAlignment="Top" Height="98" Width="98"/>
-        <Viewbox Stretch="Uniform" Margin="10,85,678,0" VerticalAlignment="Top" MinHeight="24" MaxHeight="24" MaxWidth="120">
-            <TextBlock Text="v1.4.1" Foreground ="White" TextAlignment="Center" FontSize="20" Height="24" Width="120"/>
+        <Image Source="Logo.png" Margin="70,7,100,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="100"/>
+        <Viewbox Stretch="Uniform" Margin="70,90,100,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="100">
+            <TextBlock Text="v1.5.0" Foreground ="White" TextAlignment="Center" FontSize="20" Height="25" Width="100"/>
         </Viewbox>
-        <Button Height="30" MaxWidth="70" Content="Config" Name="ConfigButton" Click="ConfigWdwClick" VerticalAlignment="Top" Margin="129,27,529,0" Background="White"/>
-        <Button Height="30" MaxWidth="70" Content="Build" Name="MergeButton" Background="White" Click="MergeClick" VerticalAlignment="Top" Margin="262,27,396,0" />
-        <Button Height="30" MaxWidth="70" Content="Launch" Name="LaunchButton" Background ="White" Click="LaunchClick" VerticalAlignment="Top" Margin="395,27,263,0" />
-        <Button Height="30" MaxWidth="70" Content="New" Name="NewButton" Background ="White" Click="NewClick" VerticalAlignment="Top" Margin="529,27,129,0" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.3*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1.3*"/>
+            </Grid.ColumnDefinitions>
 
-        <Image Source="arrow.png" Margin="188,67,449,0" VerticalAlignment="Top" MinHeight="40" MaxHeight="40"/>
-        <Image Source="arrow.png" Margin="449,67,188,0" VerticalAlignment="Top" MinHeight="40" MaxHeight="40"/>
-        <Viewbox Stretch="Uniform" Margin="287,67,287,393" VerticalAlignment="Top" MinHeight="40" MaxHeight="40">
+            <Button Height="30" Width="121" Content="Config" Name="ConfigButton" Click="ConfigWdwClick" VerticalAlignment="Top" Grid.Column="2" Grid.Row="1" Background="White"/>
+            <Button Height="30" Width="121" Content="Refresh" Name="RefreshButton" Click="RefreshClick" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" Background="White"/>
+            <Button Height="30" Width="121" Content="Build" Name="MergeButton" Background="White" Click="MergeClick" VerticalAlignment="Top" Grid.Column="4" Grid.Row="1" />
+            <Button Height="30" Width="121" Content="Launch" Name="LaunchButton" Background ="White" Click="LaunchClick" VerticalAlignment="Top" Grid.Column="5" Grid.Row="1" />
+            <Button Height="30" Width="121" Content="New" Name="NewButton" Background ="White" Click="NewClick" VerticalAlignment="Top" Grid.Column="6" Grid.Row="1" />
+
+            <ComboBox Name="GameBox" Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Width="121" Height="30" Grid.Column="1" Grid.Row="1" >
+                <ComboBoxItem>Persona 3 FES</ComboBoxItem>
+                <ComboBoxItem IsSelected="True">Persona 4 Golden</ComboBoxItem>
+                <ComboBoxItem>Persona 5</ComboBoxItem>
+            </ComboBox>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2">
+                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_Coffee" Foreground="White" Width="19"/>
+                <TextBlock VerticalAlignment="Center" Width="105"  Text="Support Me!" Foreground ="White" TextAlignment="Center" FontSize="18"/>
+            </StackPanel>
+                
+        </Grid>
+        <Image Source="arrow.png" Margin="188,67,449,0" VerticalAlignment="Top" Width="70" Height="40"/>
+        <Image Source="arrow.png" Margin="449,67,188,0" VerticalAlignment="Top" Width="70" Height="40"/>
+        <Viewbox Stretch="Uniform" Margin="287,67,287,393" VerticalAlignment="Top" Width="300" Height="40">
             <TextBlock Text="Higher Priority" Foreground ="White" TextAlignment="Center" FontSize="15" Height="22" Width="122"/>
         </Viewbox>
         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="38,111,38,200">
@@ -41,8 +74,7 @@
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#9A2000"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                   Color="#9A2000"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9A2000"/>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding enabled, Mode=TwoWay}" IsReadOnly="False" Width="52" MinWidth="52" MaxWidth="52">
@@ -71,7 +103,7 @@
                                 </Style.Triggers>
                                 <EventSetter Event="Hyperlink.Click" Handler="OnHyperlinkClick" />
                             </Style>
-                            
+
                         </DataGridHyperlinkColumn.ElementStyle>
                         <DataGridHyperlinkColumn.CellStyle>
                             <Style TargetType="DataGridCell">
@@ -124,16 +156,10 @@
                     </Button>
 
                 </Grid>
-                <RichTextBox Name="Description" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" Background="White">
-                    <FlowDocument>
-                        <Paragraph>
-                            Aemulus means "Rival" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).
-                        </Paragraph>
-                    </FlowDocument>
-                </RichTextBox>
+                <RichTextBox Name="Description" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" Background="White"/>
             </Grid>
         </Grid>
-        <Image Source="arrow.png" Margin="188,0,449,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40" RenderTransformOrigin="0.5,0.5">
+        <Image Source="arrow.png" Margin="188,0,449,155" VerticalAlignment="Bottom" Width="70" Height="40" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -143,7 +169,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image Source="arrow.png" Margin="449,0,188,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40" RenderTransformOrigin="0.5,0.5">
+        <Image Source="arrow.png" Margin="449,0,188,155" VerticalAlignment="Bottom" Width="70" Height="40" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -153,11 +179,11 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Viewbox Stretch="Uniform" Margin="287,309,287,155" VerticalAlignment="Bottom" MinHeight="40" MaxHeight="40">
+        <Viewbox Stretch="Uniform" Margin="287,309,287,155" VerticalAlignment="Bottom" Width="300" Height="40">
             <TextBlock Text="Lower Priority" Foreground ="White" TextAlignment="Center" FontSize="15" Height="22" Width="122"/>
         </Viewbox>
-        <TextBox x:Name="ConsoleOutput" ClipToBounds="False" Margin="38,0,38,22" VerticalAlignment="Bottom" Height="133" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True" />
-        
+        <TextBox x:Name="ConsoleOutput" ClipToBounds="False" Margin="38,0,38,35" VerticalAlignment="Bottom" Height="120" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True" />
+
     </Grid>
 
 </Window>

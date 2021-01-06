@@ -9,22 +9,21 @@ namespace AemulusModManager
     /// <summary>
     /// Interaction logic for ConfigWindow.xaml
     /// </summary>
-    public partial class ConfigWindow : Window
+    public partial class ConfigWindowP4G : Window
     {
         private MainWindow main;
 
-        public ConfigWindow(MainWindow _main)
+        public ConfigWindowP4G(MainWindow _main)
         {
             main = _main;
             InitializeComponent();
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
-            if (main.p4gPath != null)
-                P4GTextbox.Text = main.p4gPath;
-            if (main.reloadedPath != null)
-                ReloadedTextbox.Text = main.reloadedPath;
+            if (main.gamePath != null)
+                P4GTextbox.Text = main.gamePath;
+            if (main.launcherPath != null)
+                ReloadedTextbox.Text = main.launcherPath;
             KeepSND.IsChecked = main.emptySND;
-            TblPatchBox.IsChecked = main.tbl;
             CpkBox.IsChecked = main.useCpk;
             switch (main.cpkLang)
             {
@@ -43,7 +42,7 @@ namespace AemulusModManager
                 default:
                     LanguageBox.SelectedIndex = 0;
                     main.cpkLang = "data_e.cpk";
-                    main.config.cpkLang = "data_e.cpk";
+                    main.config.p4gConfig.cpkLang = "data_e.cpk";
                     main.updateConfig();
                     break;
             }
@@ -54,39 +53,39 @@ namespace AemulusModManager
         private void SndChecked(object sender, RoutedEventArgs e)
         {
             main.emptySND = true;
-            main.config.emptySND = true;
+            main.config.p4gConfig.emptySND = true;
             main.updateConfig();
         }
         private void SndUnchecked(object sender, RoutedEventArgs e)
         {
             main.emptySND = false;
-            main.config.emptySND = false;
-            main.updateConfig();
-        }
-
-        private void TblChecked(object sender, RoutedEventArgs e)
-        {
-            main.tbl = true;
-            main.config.tbl = true;
-            main.updateConfig();
-        }
-        private void TblUnchecked(object sender, RoutedEventArgs e)
-        {
-            main.tbl = false;
-            main.config.tbl = false;
+            main.config.p4gConfig.emptySND = false;
             main.updateConfig();
         }
 
         private void CpkChecked(object sender, RoutedEventArgs e)
         {
             main.useCpk = true;
-            main.config.useCpk = true;
+            main.config.p4gConfig.useCpk = true;
             main.updateConfig();
         }
         private void CpkUnchecked(object sender, RoutedEventArgs e)
         {
             main.useCpk = false;
-            main.config.useCpk = false;
+            main.config.p4gConfig.useCpk = false;
+            main.updateConfig();
+        }
+
+        private void NotifChecked(object sender, RoutedEventArgs e)
+        {
+            main.messageBox = true;
+            main.config.p4gConfig.disableMessageBox = true;
+            main.updateConfig();
+        }
+        private void NotifUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.messageBox = false;
+            main.config.p4gConfig.disableMessageBox = false;
             main.updateConfig();
         }
 
@@ -101,9 +100,9 @@ namespace AemulusModManager
             if (directory != null)
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.modDir = directory;
+                main.config.p4gConfig.modDir = directory;
                 main.modPath = directory;
-                main.MergeButton.IsEnabled = true;
+                main.MergeButton.IsHitTestVisible = true;
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
@@ -131,8 +130,8 @@ namespace AemulusModManager
             string p4gExe = selectExe("Select P4G.exe");
             if (Path.GetFileName(p4gExe) == "P4G.exe")
             {
-                main.p4gPath = p4gExe;
-                main.config.exePath = p4gExe;
+                main.gamePath = p4gExe;
+                main.config.p4gConfig.exePath = p4gExe;
                 main.updateConfig();
                 P4GTextbox.Text = p4gExe;
             }
@@ -148,8 +147,8 @@ namespace AemulusModManager
             if (Path.GetFileName(reloadedExe) == "Reloaded-II.exe" ||
                 Path.GetFileName(reloadedExe) == "Reloaded-II32.exe")
             {
-                main.reloadedPath = reloadedExe;
-                main.config.reloadedPath = reloadedExe;
+                main.launcherPath = reloadedExe;
+                main.config.p4gConfig.reloadedPath = reloadedExe;
                 main.updateConfig();
                 ReloadedTextbox.Text = reloadedExe;
             }
@@ -183,12 +182,16 @@ namespace AemulusModManager
             {
                 if (File.Exists($@"{directory}\{main.cpkLang}"))
                 {
-                    UnpackButton.IsEnabled = false;
-                    main.ConfigButton.IsEnabled = false;
-                    main.MergeButton.IsEnabled = false;
-                    main.LaunchButton.IsEnabled = false;
+                    UnpackButton.IsHitTestVisible = false;
+                    main.GameBox.IsHitTestVisible = false;
+                    main.ConfigButton.IsHitTestVisible = false;
+                    main.MergeButton.IsHitTestVisible = false;
+                    main.LaunchButton.IsHitTestVisible = false;
+                    main.RefreshButton.IsHitTestVisible = false;
+                    main.ModGrid.IsHitTestVisible = false;
+                    main.NewButton.IsHitTestVisible = false;
                     await main.pacUnpack(directory);
-                    UnpackButton.IsEnabled = true;
+                    UnpackButton.IsHitTestVisible = true;
                 }
                 else
                     Console.WriteLine($"[ERROR] Invalid folder cannot find {main.cpkLang}");
@@ -234,7 +237,7 @@ namespace AemulusModManager
                         selectedLanguage = "data_k.cpk";
                         break;
                 }
-                main.config.cpkLang = selectedLanguage;
+                main.config.p4gConfig.cpkLang = selectedLanguage;
                 main.cpkLang = selectedLanguage;
                 main.updateConfig();
             }

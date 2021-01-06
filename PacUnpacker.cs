@@ -7,68 +7,175 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace AemulusModManager
 {
     class PacUnpacker
     {
+        // P3F
+        public void Unzip(string iso)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = @"Dependencies\7z\7z.exe";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + @"Original\Persona 3 FES" + "\" BTL.CVM DATA.CVM";
+            Console.WriteLine($"[INFO] Extracting BTL.CVM and DATA.CVM from {iso}");
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                process.WaitForExit();
+            }
+            startInfo.Arguments = "x -y \"" + @"Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + @"Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL -r";
+            Console.WriteLine($"[INFO] Extracting base files from BTL.CVM");
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                process.WaitForExit();
+            }
+            File.Delete(@"Original\Persona 3 FES\BTL.CVM");
+            startInfo.Arguments = "x -y \"" + @"Original\Persona 3 FES\DATA.CVM" + "\" -o\"" + @"Original\Persona 3 FES\DATA" + "\" *.BIN *.PAK *.PAC -r";
+            Console.WriteLine($"[INFO] Extracting base files from DATA.CVM");
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                process.WaitForExit();
+            }
+            File.Delete(@"Original\Persona 3 FES\DATA.CVM");
+            Console.WriteLine($"[INFO] Finished extracting base files!");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
+
+        // P4G
         public void Unpack(string directory, string cpk)
         {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             List<string> pacs = new List<string>();
             List<string> globs = new List<string>{"*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack"};
             switch(cpk)
             {
                 case "data_e.cpk":
                     pacs.Add("data00004.pac");
+                    pacs.Add("data_e.cpk");
                     break;
                 case "data.cpk":
                     pacs.Add("data00000.pac");
                     pacs.Add("data00001.pac");
                     pacs.Add("data00003.pac");
+                    pacs.Add("data.cpk");
                     break;
                 case "data_k.cpk":
                     pacs.Add("data00005.pac");
+                    pacs.Add("data_k.cpk");
                     break;
                 case "data_c.cpk":
                     pacs.Add("data00006.pac");
+                    pacs.Add("data_c.cpk");
                     break;
             }
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = @"Dependencies\nr2_unpacker.exe";
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            string paclist = "";
-            Console.WriteLine($"[INFO] Unpacking pac files for {cpk}");
-            foreach (var pac in pacs)
-                paclist += $" \"{directory}" + @"\" + $"{pac}\" *.bin;*.arc;*.pac;*.pack";
-            startInfo.Arguments = $"{paclist}";
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
-            }
-            Console.WriteLine("[INFO] Transferring mergeable pac files to Original directory... (This part might take a bit for data.cpk)");
-            if (Directory.Exists($@"{directory}\data00000\bustup"))
-                FileSystem.DeleteDirectory($@"{directory}\data00000\bustup", DeleteDirectoryOption.DeleteAllContents);
-            if (Directory.Exists($@"{directory}\data00001\bustup"))
-                FileSystem.DeleteDirectory($@"{directory}\data00001\bustup", DeleteDirectoryOption.DeleteAllContents);
-            foreach (var pac in pacs)
-                FileSystem.MoveDirectory($@"{directory}\{Path.GetFileNameWithoutExtension(pac)}", $@"Original\{Path.GetFileNameWithoutExtension(pac)}", true);
-            Console.WriteLine($@"[INFO] Unpacking files for {cpk}...");
             startInfo.FileName = @"Dependencies\Preappfile\preappfile.exe";
-            foreach (var glob in globs)
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            foreach (var pac in pacs)
             {
-                startInfo.Arguments = $@"-i ""{directory}\{cpk}"" -o Original\{Path.GetFileNameWithoutExtension(cpk)} --unpack-filter {glob}";
+                Console.WriteLine($"[INFO] Unpacking files for {pac}...");
+                foreach (var glob in globs)
+                {
+                    startInfo.Arguments = $@"-i ""{directory}\{pac}"" -o ""Original\Persona 4 Golden\{Path.GetFileNameWithoutExtension(pac)}"" --unpack-filter {glob}";
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                        process.WaitForExit();
+                    }
+                }
+            }
+
+            Console.WriteLine("[INFO] Finished unpacking vanilla files!");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
+
+        public void UnpackCPK(string directory)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+
+            Directory.CreateDirectory(@"Original\Persona 5");
+
+            string[] dataFiles = File.ReadAllLines(@"Dependencies\MakeCpk\filtered_data.csv");
+            string[] ps3Files = File.ReadAllLines(@"Dependencies\MakeCpk\filtered_ps3.csv");
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = @"Dependencies\MakeCpk\YACpkTool.exe";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            
+
+            Console.WriteLine($"[INFO] Extracting data.cpk");
+            foreach (var file in dataFiles)
+            {
+                startInfo.Arguments = $@"-X {file} -i ""{directory}\data.cpk"" -o ""Original\Persona 5""";
+
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
                     process.Start();
+                    Console.WriteLine(process.StandardOutput.ReadToEnd());
                     process.WaitForExit();
                 }
             }
-            Console.WriteLine("[INFO] Finished unpacking vanilla files!");
-            
+
+            Console.WriteLine($"[INFO] Extracting ps3.cpk");
+            foreach (var file in ps3Files)
+            {
+                startInfo.Arguments = $@"-X {file} -i ""{directory}\ps3.cpk"" -o ""Original\Persona 5""";
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    Console.WriteLine(process.StandardOutput.ReadToEnd());
+                    process.WaitForExit();
+                }
+            }
+            Console.WriteLine($"[INFO] Finished extracting base files!");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
         }
     }
 }

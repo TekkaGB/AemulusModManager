@@ -91,6 +91,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesome5, Version=2.0.8.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome5.2.0.8\lib\net472\FontAwesome5.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome5.Net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome5.2.0.8\lib\net472\FontAwesome5.Net.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
       <HintPath>packages\gong-wpf-dragdrop.2.3.1\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
     </Reference>
@@ -122,10 +128,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfigWindowP5.xaml.cs">
+      <DependentUpon>ConfigWindowP5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigWindowP4G.xaml.cs">
+      <DependentUpon>ConfigWindowP4G.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreatePackage.xaml.cs">
       <DependentUpon>CreatePackage.xaml</DependentUpon>
     </Compile>
-    <Page Include="ConfigWindow.xaml">
+    <Page Include="ConfigWindowP5.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ConfigWindowP4G.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ConfigWindowP3F.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,8 +160,8 @@
     <Compile Include="BinMerger.cs" />
     <Compile Include="UrlConverter.cs" />
     <Compile Include="ConfigObj.cs" />
-    <Compile Include="ConfigWindow.xaml.cs">
-      <DependentUpon>ConfigWindow.xaml</DependentUpon>
+    <Compile Include="ConfigWindowP3F.xaml.cs">
+      <DependentUpon>ConfigWindowP3F.xaml</DependentUpon>
     </Compile>
     <Compile Include="PacUnpacker.cs" />
     <Compile Include="SprUtils.cs" />
@@ -174,6 +194,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Dependencies\MakeCpk\filtered_data.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_ps3.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -202,6 +228,18 @@
     <Resource Include="arrow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dependencies\7z\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\7z\7z.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\MakeCpk\CpkMaker.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\MakeCpk\YACpkTool.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dependencies\Preappfile\Amicitia.IO.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -236,11 +274,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Dependencies\File Formats.dll" />
-    <Content Include="Dependencies\MultiExtractor.exe" />
-    <Content Include="Dependencies\Neptoolia.DataLayer.Compression.dll" />
-    <Content Include="Dependencies\nr2_unpacker.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="Preview.png" />
     <Resource Include="Logo.png" />
     <Content Include="Dependencies\PAKPack.exe">

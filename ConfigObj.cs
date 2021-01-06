@@ -5,16 +5,59 @@ using System.Xml.Serialization;
 
 namespace AemulusModManager
 {
+    // Old config
     public class Config
     {
+        // Keep to transfer data to new config
         public ObservableCollection<Package> package { get; set; }
         public string modDir { get; set; }
         public string exePath { get; set; }
         public string reloadedPath { get; set; }
         public bool emptySND { get; set; }
-        public bool tbl { get; set; }
         public bool useCpk { get; set; }
         public string cpkLang { get; set; }
+
+    }
+
+    public class AemulusConfig
+    {
+        public string game { get; set; }
+        public ConfigP3F p3fConfig { get; set; }
+        public ConfigP4G p4gConfig { get; set; }
+        public ConfigP5 p5Config { get; set; }
+
+    }
+
+    public class ConfigP4G
+    {
+        public string modDir { get; set; }
+        public string exePath { get; set; }
+        public string reloadedPath { get; set; }
+        public bool emptySND { get; set; }
+        public bool useCpk { get; set; }
+        public bool disableMessageBox { get; set; }
+        public string cpkLang { get; set; }
+    }
+
+    public class ConfigP3F
+    {
+        public string modDir { get; set; }
+        public string isoPath { get; set; }
+        public string elfPath { get; set; }
+        public string launcherPath { get; set; }
+        public bool disableMessageBox { get; set; }
+    }
+    public class ConfigP5
+    {
+        public string modDir { get; set; }
+        public string gamePath { get; set; }
+        public string launcherPath { get; set; }
+        public bool disableMessageBox { get; set; }
+    }
+
+    public class Packages
+    {
+        public ObservableCollection<Package> packages { get; set; }
     }
     public class Package
     {

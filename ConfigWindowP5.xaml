@@ -1,0 +1,55 @@
+﻿<Window x:Class="AemulusModManager.ConfigWindowP5"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager"
+        mc:Ignorable="d"
+        Title="Persona 5 Config" Height="250" Width="500" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+    <Grid Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="18"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="7" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="1" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="0">
+                <CheckBox Name="NotifBox" Foreground ="White" Checked="NotifChecked" Unchecked="NotifUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Disable<LineBreak/>
+                        MessageBox
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+        </Grid>
+        <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"></TextBlock>
+        <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="P5 EBOOT Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
+        <TextBlock Foreground="#9A2000" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">RPCS3.exe<LineBreak />Path</TextBlock>
+        
+        <TextBlock Foreground="#9A2000" Text="Setup P5 Launch Shortcut" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="280"/>
+        <TextBox Name="EBOOTTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="280" Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="RPCS3Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="280" Grid.Row="4" Grid.Column="2"/>
+        
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
+        <Button Height="20" Width="60" Content="Browse" Name="EBOOTButton" Click="SetupEBOOTShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
+        <Button Height="20" Width="60" Content="Browse" Name="RPCS3Button" Click="SetupRPCS3Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="19,11,18,10"/>
+        
+
+    </Grid>
+</Window>

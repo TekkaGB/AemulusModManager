@@ -28,6 +28,9 @@ namespace AemulusModManager
                     case "www.shrinefox.com":
                     case "shrinefox.com":
                         return "ShrineFox";
+                    case "www.github.com":
+                    case "github.com":
+                        return "GitHub";
                     default:
                         return "Other";
                 }

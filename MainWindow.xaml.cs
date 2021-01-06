@@ -1,4 +1,5 @@
-﻿using GongSolutions.Wpf.DragDrop.Utilities;
+﻿using GongSolutions.Wpf.DragDrop;
+using GongSolutions.Wpf.DragDrop.Utilities;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 
@@ -20,8 +21,14 @@ namespace AemulusModManager
 {
     public partial class MainWindow : Window
     {
-        public Config config;
+        public AemulusConfig config;
+        public ConfigP3F p3fConfig;
+        public ConfigP4G p4gConfig;
+        public ConfigP5 p5Config;
+        public Packages packages;
+        public string game;
         private XmlSerializer xs;
+        private XmlSerializer xp;
         private XmlSerializer xsp;
         private XmlSerializer xsm;
         public string modPath;
@@ -31,12 +38,12 @@ namespace AemulusModManager
         private tblPatch tblPatcher;
         private PacUnpacker pacUnpacker;
         public bool emptySND;
-        public bool tbl;
         public bool useCpk;
-        public string p4gPath;
-        public string reloadedPath;
+        public bool messageBox;
+        public string gamePath;
+        public string launcherPath;
+        public string elfPath;
         public string cpkLang;
-        public FileSystemWatcher watcher;
         private BitmapImage bitmap;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
@@ -67,7 +74,7 @@ namespace AemulusModManager
                     if (p.path == package.path)
                         p.enabled = true;
                 }
-                updateConfig();
+                updatePackages();
             }
         }
 
@@ -86,7 +93,7 @@ namespace AemulusModManager
                     if (p.path == package.path)
                         p.enabled = false;
                 }
-                updateConfig();
+                updatePackages();
             }
         }
 
@@ -138,9 +145,32 @@ namespace AemulusModManager
             InitializeComponent();
             DataContext = this;
 
+            packages = new Packages();
+
             outputter.WriteEvent += consoleWriter_WriteEvent;
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
+
+            Directory.CreateDirectory($@"Packages");
+            Directory.CreateDirectory($@"Original");
+            Directory.CreateDirectory("Config");
+
+            // Transfer all current packages to Persona 4 Golden folder
+            if (!Directory.Exists($@"Packages\Persona 4 Golden") && !Directory.Exists($@"Packages\Persona 3 FES") && !Directory.Exists($@"Packages\Persona 5"))
+            {
+                Console.WriteLine("[INFO] Transferring current packages to Persona 4 Golden subfolder...");
+                FileSystem.MoveDirectory("Packages", "Persona 4 Golden", true);
+                Directory.CreateDirectory("Packages");
+                FileSystem.MoveDirectory("Persona 4 Golden", @"Packages\Persona 4 Golden", true);
+            }
+
+
+            string[] subdirs = Directory.GetDirectories("Original")
+                            .Where(x => Path.GetFileName(x).StartsWith("data"))
+                            .ToArray();
+            Directory.CreateDirectory(@"Original\Persona 4 Golden");
+            foreach (var d in subdirs)
+                FileSystem.MoveDirectory(d, $@"Original\Persona 4 Golden\{Path.GetFileName(d)}", true);
 
             binMerger = new binMerge();
             tblPatcher = new tblPatch();
@@ -157,59 +187,149 @@ namespace AemulusModManager
             bitmap.EndInit();
             Preview.Source = bitmap;
 
+            
             // Initialize config
-            config = new Config();
+            config = new AemulusConfig();
+            p5Config = new ConfigP5();
+            p4gConfig = new ConfigP4G();
+            p3fConfig = new ConfigP3F();
+            config.p4gConfig = p4gConfig;
+            config.p3fConfig = p3fConfig;
+            config.p5Config = p5Config;
 
             // Initialize xml serializers
-            xs = new XmlSerializer(typeof(Config));
+            XmlSerializer oldConfigSerializer = new XmlSerializer(typeof(Config));
+            xs = new XmlSerializer(typeof(AemulusConfig));
+            xp = new XmlSerializer(typeof(Packages));
             xsp = new XmlSerializer(typeof(Metadata));
             xsm = new XmlSerializer(typeof(ModXmlMetadata));
 
-            Console.WriteLine("[INFO] Initializing packages from Config.xml");
+
+            //Console.WriteLine($"[INFO] Initializing packages from {game.Replace(" ", "")}Config.xml");
             // Load in Config if it exists
-            if (File.Exists(@"Config.xml"))
+            
+            string file = @"Config\Config.xml";
+            if (File.Exists(@"Config\Config.xml") || File.Exists(@"Config.xml"))
             {
                 try
                 {
-                    using (FileStream streamWriter = File.Open(@"Config.xml", FileMode.Open))
+                    if (File.Exists(@"Config.xml"))
+                        file = @"Config.xml";
+                    using (FileStream streamWriter = File.Open(file, FileMode.Open))
                     {
                         // Call the Deserialize method and cast to the object type.
-                        config = (Config)xs.Deserialize(streamWriter);
-                        reloadedPath = config.reloadedPath;
-                        p4gPath = config.exePath;
-                        modPath = config.modDir;
-                        emptySND = config.emptySND;
-                        cpkLang = config.cpkLang;
-                        useCpk = config.useCpk;
-                        // Default
-                        if (cpkLang == null)
+                        
+                        if (file == @"Config.xml")
                         {
-                            cpkLang = "data_e.cpk";
-                            config.cpkLang = "data_e.cpk";
+                            Config oldConfig = (Config)oldConfigSerializer.Deserialize(streamWriter);
+                            p4gConfig.reloadedPath = oldConfig.reloadedPath;
+                            p4gConfig.exePath = oldConfig.exePath;
+                            p4gConfig.modDir = oldConfig.modDir;
+                            p4gConfig.emptySND = oldConfig.emptySND;
+                            p4gConfig.cpkLang = oldConfig.cpkLang;
+                            p4gConfig.useCpk = oldConfig.useCpk;
+
+                            config.p4gConfig = p4gConfig;
                         }
-                        // Compatibility with old Config.xml
-                        List<Package> temp = config.package.ToList();
-                        foreach (var p in temp)
+                        else
+                            config = (AemulusConfig)xs.Deserialize(streamWriter);
+                        game = config.game;
+                        if (game == null)
                         {
-                            if (p.name != null && p.path == null)
+                            game = "Persona 4 Golden";
+                            config.game = "Persona 4 Golden";
+                        }
+                        
+                        if (config.p3fConfig != null)
+                            p3fConfig = config.p3fConfig;
+                        if (config.p4gConfig != null)
+                            p4gConfig = config.p4gConfig;
+                        if (config.p5Config != null)
+                            p5Config = config.p5Config;
+
+                        if (game == "Persona 4 Golden")
+                        {
+                            // Default
+                            if (cpkLang == null)
                             {
-                                p.path = p.name;
-                                p.name = null;
+                                cpkLang = "data_e.cpk";
+                                config.p4gConfig.cpkLang = "data_e.cpk";
                             }
+                            modPath = config.p4gConfig.modDir;
+                            gamePath = config.p4gConfig.exePath;
+                            launcherPath = config.p4gConfig.reloadedPath;
+                            emptySND = config.p4gConfig.emptySND;
+                            cpkLang = config.p4gConfig.cpkLang;
+                            useCpk = config.p4gConfig.useCpk;
+                            messageBox = config.p4gConfig.disableMessageBox;
                         }
-                        PackageList = new ObservableCollection<Package>(temp);
-                        tbl = config.tbl;
+                        else if (game == "Persona 3 FES")
+                        {
+                            modPath = config.p3fConfig.modDir;
+                            gamePath = config.p3fConfig.isoPath;
+                            elfPath = config.p3fConfig.elfPath;
+                            launcherPath = config.p3fConfig.launcherPath;
+                            messageBox = config.p3fConfig.disableMessageBox;
+                            useCpk = false;
+                        }
+                        else if (game == "Persona 5")
+                        {
+                            modPath = config.p5Config.modDir;
+                            gamePath = config.p5Config.gamePath;
+                            launcherPath = config.p5Config.launcherPath;
+                            messageBox = config.p5Config.disableMessageBox;
+                            useCpk = false;
+                        }
                     }
+                    if (file == @"Config.xml")
+                        File.Delete(file);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Invalid Config.xml ({ex.Message})");
                 }
 
+                switch (game)
+                {
+                    case "Persona 3 FES":
+                        GameBox.SelectedIndex = 0;
+                        break;
+                    case "Persona 4 Golden":
+                        GameBox.SelectedIndex = 1;
+                        break;
+                    case "Persona 5":
+                        GameBox.SelectedIndex = 2;
+                        break;
+                }
+
+                if (File.Exists($@"Config\{game.Replace(" ", "")}Packages.xml"))
+                {
+                    try
+                    {
+                        using (FileStream streamWriter = File.Open($@"Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                        {
+                            // Call the Deserialize method and cast to the object type.
+                            packages = (Packages)xp.Deserialize(streamWriter);
+                            PackageList = packages.packages;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
+                    }
+                }
+
+                
+                if (!Directory.Exists($@"Packages\{game}"))
+                {
+                    Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                    Directory.CreateDirectory($@"Packages\{game}");
+                }
+
                 // Create displayed metadata from packages in PackageList and their respective Package.xml's
                 foreach (var package in PackageList)
                 {
-                    string xml = $@"Packages\{package.path}\Package.xml";
+                    string xml = $@"Packages\{game}\{package.path}\Package.xml";
                     Metadata m;
                     DisplayedMetadata dm = new DisplayedMetadata();
                     try
@@ -248,14 +368,23 @@ namespace AemulusModManager
                 }
                 ModGrid.ItemsSource = DisplayedPackages;
             }
-
-            if (modPath == null)
+            else // No config found
             {
-                MergeButton.IsEnabled = false;
+                game = "Persona 4 Golden";
+                config.game = "Persona 4 Golden";
+                cpkLang = "data_e.cpk";
+                config.p4gConfig.cpkLang = "data_e.cpk";
             }
 
-            if (config.modDir != null)
-                modPath = config.modDir;
+            if (modPath == null)
+                MergeButton.IsHitTestVisible = false;
+
+            if (game == "Persona 4 Golden" && config.p4gConfig.modDir != null)
+                modPath = config.p4gConfig.modDir;
+            else if (game == "Persona 3 FES" && config.p3fConfig.modDir != null)
+                modPath = config.p3fConfig.modDir;
+            else if (game == "Persona 5" && config.p5Config.modDir != null)
+                modPath = config.p5Config.modDir;
 
             // Create Packages directory if it doesn't exist
             if (!Directory.Exists("Packages"))
@@ -266,6 +395,7 @@ namespace AemulusModManager
 
             Refresh();
             updateConfig();
+            updatePackages();
 
             // Check if Original Folder is unpacked
             if (!Directory.EnumerateFileSystemEntries("Original").Any())
@@ -274,30 +404,29 @@ namespace AemulusModManager
                 Console.WriteLine("Please click the Config button and select \"Unpack Base Files\" before building.");
             }
 
-            watcher = new FileSystemWatcher("Packages");
-            watcher.IncludeSubdirectories = true;
-            watcher.Created += Watcher_Changed;
-            watcher.Renamed += Watcher_Changed;
-            watcher.Deleted += Watcher_Changed;
-            watcher.EnableRaisingEvents = true;
-        }
-
-        private void Watcher_Changed(object sender, FileSystemEventArgs e)
-        {
-            Refresh();
-            updateConfig();
+            Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).\n\nIf you want to help support me go to:\nhttps://www.ko-fi.com/tekka");
+        
         }
 
         public Task pacUnpack(string directory)
         {
             return Task.Run(() =>
             {
-                pacUnpacker.Unpack(directory, cpkLang);
+                if (game == "Persona 4 Golden")
+                    pacUnpacker.Unpack(directory, cpkLang);
+                else if (game == "Persona 3 FES")
+                    pacUnpacker.Unzip(directory);
+                else if (game == "Persona 5")
+                    pacUnpacker.UnpackCPK(directory);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    ConfigButton.IsEnabled = true;
-                    MergeButton.IsEnabled = true;
-                    LaunchButton.IsEnabled = true;
+                    ModGrid.IsHitTestVisible = true;
+                    ConfigButton.IsHitTestVisible = true;
+                    MergeButton.IsHitTestVisible = true;
+                    NewButton.IsHitTestVisible = true;
+                    LaunchButton.IsHitTestVisible = true;
+                    RefreshButton.IsHitTestVisible = true;
+                    GameBox.IsHitTestVisible = true;
                 });
             }
             );
@@ -305,22 +434,41 @@ namespace AemulusModManager
 
         private void LaunchClick(object sender, RoutedEventArgs e)
         {
-            if (p4gPath != null && reloadedPath != null)
+            if (gamePath != null && launcherPath != null)
             {
                 Console.WriteLine("[INFO] Launching game!");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = true;
                 startInfo.UseShellExecute = false;
-                startInfo.FileName = reloadedPath;
+                startInfo.FileName = launcherPath;
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                startInfo.Arguments = "--launch \"" + p4gPath + "\"";
+                if (game == "Persona 4 Golden")
+                    startInfo.Arguments = "--launch \"" + gamePath + "\"";
+                else if (game == "Persona 3 FES")
+                    startInfo.Arguments = $"\"{gamePath}\" --elf=\"{elfPath}\"";
+                else if (game == "Persona 5")
+                    startInfo.Arguments = $"\"{gamePath}\"";
+
+                GameBox.IsHitTestVisible = false;
+                ConfigButton.IsHitTestVisible = false;
+                MergeButton.IsHitTestVisible = false;
+                LaunchButton.IsHitTestVisible = false;
+                NewButton.IsHitTestVisible = false;
+                RefreshButton.IsHitTestVisible = false;
+
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
                     process.Start();
 
-                    process.WaitForExit();
                 }
+
+                GameBox.IsHitTestVisible = true;
+                ConfigButton.IsHitTestVisible = true;
+                MergeButton.IsHitTestVisible = true;
+                LaunchButton.IsHitTestVisible = true;
+                NewButton.IsHitTestVisible = true;
+                RefreshButton.IsHitTestVisible = true;
             }
             else
                 Console.WriteLine("[ERROR] Please setup shortcut in config menu.");
@@ -328,9 +476,25 @@ namespace AemulusModManager
 
         private void ConfigWdwClick(object sender, RoutedEventArgs e)
         {
-            ConfigWindow cWindow = new ConfigWindow(this) { Owner = this };
-            cWindow.DataContext = this;
-            cWindow.ShowDialog();
+
+            if (game == "Persona 4 Golden")
+            {
+                ConfigWindowP4G cWindow = new ConfigWindowP4G(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 3 FES")
+            {
+                ConfigWindowP3F cWindow = new ConfigWindowP3F(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 5")
+            {
+                ConfigWindowP5 cWindow = new ConfigWindowP5(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
         }
 
         private void UpdateMetadata()
@@ -339,11 +503,11 @@ namespace AemulusModManager
             List<DisplayedMetadata> temp = DisplayedPackages.ToList();
             foreach (var package in temp)
             {
-                if (File.Exists($@"Packages\{package.path}\Package.xml"))
+                if (File.Exists($@"Packages\{game}\{package.path}\Package.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = File.Open($@"Packages\{package.path}\Package.xml", FileMode.Open))
+                        using (FileStream streamWriter = File.Open($@"Packages\{game}\{package.path}\Package.xml", FileMode.Open))
                         {
                             Metadata metadata = (Metadata)xsp.Deserialize(streamWriter);
                             package.name = metadata.name;
@@ -370,18 +534,18 @@ namespace AemulusModManager
             // First remove all deleted packages and update package id's to match metadata
             foreach (var package in PackageList.ToList())
             {
-                if (!Directory.Exists($@"Packages\{package.path}"))
+                if (!Directory.Exists($@"Packages\{game}\{package.path}"))
                 {
                     PackageList.Remove(package);
                     List<DisplayedMetadata> temp = DisplayedPackages.ToList();
                     temp.RemoveAll(x => x.path == package.path);
                     DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
                 }
-                if (File.Exists($@"Packages\{package.path}\Package.xml"))
+                if (File.Exists($@"Packages\{game}\{package.path}\Package.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = File.Open($@"Packages\{package.path}\Package.xml", FileMode.Open))
+                        using (FileStream streamWriter = File.Open($@"Packages\{game}\{package.path}\Package.xml", FileMode.Open))
                         {
                             metadata = (Metadata)xsp.Deserialize(streamWriter);
                             package.id = metadata.id;
@@ -397,7 +561,7 @@ namespace AemulusModManager
             UpdateMetadata();
 
             // Get all packages from Packages folder (Adding packages)
-            foreach (var package in Directory.EnumerateDirectories("Packages"))
+            foreach (var package in Directory.EnumerateDirectories($@"Packages\{game}"))
             {
                 if (File.Exists($@"{package}\Package.xml"))
                 {
@@ -430,13 +594,14 @@ namespace AemulusModManager
                     newMetadata.name = Path.GetFileName(package);
                     newMetadata.id = newMetadata.name.Replace(" ", "").ToLower();
 
+                    
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
                     List<string> dirFolders = Directory.GetDirectories(package, "*", System.IO.SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
-                    if (dirFiles.Any(x => Path.GetFileName(x).Equals("Mod.xml")) && dirFiles.Any(x => Path.GetFileName(x).Equals("Data")))
+                    if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
                         //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
-                        string modXml = dirFiles.First(x => Path.GetFileName(x).Equals("Mod.xml"));
+                        string modXml = $@"{package}\Mod.xml";
                         using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
                         {
                             //Deserialize Mod.xml & Use metadata
@@ -448,14 +613,17 @@ namespace AemulusModManager
                             newMetadata.description = m.Description;
                         }
                         //Move files out of Data folder
-                        string dataDir = dirFiles.First(x => Path.GetFileName(x).Equals("Data"));
+                        string dataDir = $@"{package}\Data";
                         if (Directory.Exists(dataDir))
-                            MoveDir(dataDir, Path.GetDirectoryName(dataDir));
+                        {
+                            FileSystem.MoveDirectory(dataDir, $@"{package}\temp", true);
+                            FileSystem.MoveDirectory($@"{package}\temp", package, true);
+                        }
                         //Delete prebuild.bat if exists
-                        if (dirFiles.Any(x => Path.GetFileName(x).Equals("prebuild.bat")))
-                            File.Delete(dirFiles.First(x => Path.GetFileName(x).Equals("prebuild.bat")));
+                        if (File.Exists($@"{package}\prebuild.bat"))
+                            File.Delete($@"{package}\prebuild.bat");
                         //Make sure Data folder is gone
-                        if (Directory.Exists(dataDir))
+                        if (Directory.Exists(dataDir) && !Directory.EnumerateFileSystemEntries(dataDir).Any())
                             Directory.Delete(dataDir, true);
                         //Goodbye old friend
                         File.Delete(modXml);
@@ -503,26 +671,11 @@ namespace AemulusModManager
             Console.WriteLine($"[INFO] Refreshed!");
         }
 
-        public void MoveDir(string sourceFolder, string destFolder)
+        private void RefreshClick(object sender, RoutedEventArgs e)
         {
-            if (!Directory.Exists(destFolder))
-                Directory.CreateDirectory(destFolder);
-
-            string[] files = Directory.GetFiles(sourceFolder);
-            foreach (string file in files)
-            {
-                string name = Path.GetFileName(file);
-                string dest = Path.Combine(destFolder, name);
-                File.Move(file, dest);
-            }
-
-            string[] folders = Directory.GetDirectories(sourceFolder);
-            foreach (string folder in folders)
-            {
-                string name = Path.GetFileName(folder);
-                string dest = Path.Combine(destFolder, name);
-                MoveDir(folder, dest);
-            }
+            Refresh();
+            updateConfig();
+            updatePackages();
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -534,12 +687,11 @@ namespace AemulusModManager
             {
                 string path;
                 if (newPackage.metadata.version != null && newPackage.metadata.version.Length > 0)
-                    path = $@"Packages\{newPackage.metadata.name} {newPackage.metadata.version}";
+                    path = $@"Packages\{game}\{newPackage.metadata.name} {newPackage.metadata.version}";
                 else
-                    path = $@"Packages\{newPackage.metadata.name}";
+                    path = $@"Packages\{game}\{newPackage.metadata.name}";
                 if (!Directory.Exists(path))
                 {
-                    watcher.EnableRaisingEvents = false;
                     try
                     {
                         Directory.CreateDirectory(path);
@@ -548,9 +700,14 @@ namespace AemulusModManager
                             xsp.Serialize(streamWriter, newPackage.metadata);
                         }
                         if (File.Exists(newPackage.thumbnailPath))
-                            File.Copy(newPackage.thumbnailPath, $@"{path}\Preview.png", true);
+                        {
+                            string extension = Path.GetExtension(newPackage.thumbnailPath).ToLower();
+                            if (extension == ".png" || extension == ".jpg")
+                                File.Copy(newPackage.thumbnailPath, $@"{path}\Preview{extension}", true);
+                        }
                         Refresh();
                         updateConfig();
+                        updatePackages();
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
                         StartInformation.FileName = path;
                         Process process = Process.Start(StartInformation);
@@ -560,7 +717,6 @@ namespace AemulusModManager
                     {
                         Console.WriteLine($"[ERROR] Couldn't create directory/Package.xml. ({ex.Message})");
                     }
-                    watcher.EnableRaisingEvents = true;
                 }
                 else
                 {
@@ -574,7 +730,7 @@ namespace AemulusModManager
             if (!Directory.EnumerateFileSystemEntries("Original").Any())
             {
                 Console.WriteLine("[WARNING] Aemulus can't find your Vanilla files in the Original folder.");
-                Console.WriteLine("Please click the Config button and select \"Unpack data00004.pac\" before building.");
+                Console.WriteLine("Please click the Config button and select \"Unpack Base Files\" before building.");
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     MessageBoxResult result = MessageBox.Show("Aemulus can't find your Vanilla files in the Original folder. Please click the Config button and select \"Unpack data00004.pac\" before building.",
@@ -585,18 +741,33 @@ namespace AemulusModManager
                 return;
             }
 
-            watcher.EnableRaisingEvents = false;
-            ConfigButton.IsEnabled = false;
-            MergeButton.IsEnabled = false;
-            LaunchButton.IsEnabled = false;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+            GameBox.IsHitTestVisible = false;
+            ConfigButton.IsHitTestVisible = false;
+            MergeButton.IsHitTestVisible = false;
+            LaunchButton.IsHitTestVisible = false;
+            NewButton.IsHitTestVisible = false;
+            RefreshButton.IsHitTestVisible = false;
+            ModGrid.IsHitTestVisible = false;
 
             await unpackThenMerge();
 
-            ConfigButton.IsEnabled = true;
-            MergeButton.IsEnabled = true;
-            LaunchButton.IsEnabled = true;
-            watcher.EnableRaisingEvents = true;
+            ModGrid.IsHitTestVisible = true;
+            ConfigButton.IsHitTestVisible = true;
+            MergeButton.IsHitTestVisible = true;
+            LaunchButton.IsHitTestVisible = true;
+            NewButton.IsHitTestVisible = true;
+            RefreshButton.IsHitTestVisible = true;
+            GameBox.IsHitTestVisible = true;
 
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
         }
 
         private async Task unpackThenMerge()
@@ -609,9 +780,9 @@ namespace AemulusModManager
                 {
                     if (m.enabled)
                     {
-                        packages.Add($@"Packages\{m.path}");
-                        if ((Directory.Exists($@"Packages\{m.path}\{Path.GetFileNameWithoutExtension(cpkLang)}")
-                            || Directory.Exists($@"Packages\{m.path}\movie")) && !useCpk)
+                        packages.Add($@"Packages\{game}\{m.path}");
+                        if (game == "Persona 4 Golden" && (Directory.Exists($@"Packages\{game}\{m.path}\{Path.GetFileNameWithoutExtension(cpkLang)}")
+                            || Directory.Exists($@"Packages\{game}\{m.path}\movie")) && !useCpk)
                         {
                             Console.WriteLine($"[WARNING] {m.path} is using CPK folder paths, setting Use CPK Structure to true");
                             useCpk = true;
@@ -625,24 +796,36 @@ namespace AemulusModManager
                     Console.WriteLine("[ERROR] Current output folder doesn't exist! Please select it again.");
                 else
                 {
-                    binMerger.Restart(modPath, emptySND);
-                    binMerger.Unpack(packages, modPath, useCpk, cpkLang);
-                    binMerger.Merge(modPath);
+                    string path = modPath;
+                    if (game == "Persona 5")
+                    {
+                        path = $@"{modPath}\mod";
+                        if (!Directory.Exists(path))
+                            Directory.CreateDirectory(path);
+                    }
+                    binMerger.Restart(path, emptySND, game);
+                    binMerger.Unpack(packages, path, useCpk, cpkLang, game);
+                    binMerger.Merge(path, game);
+
+                    if (game == "Persona 5")
+                        binMerger.MakeCpk(path);
 
                     // Only run if tblpatching is enabled and tblpatches exists
-                    if (tbl && packages.Exists(x => Directory.GetFiles(x, "*.tblpatch").Length > 0 || Directory.Exists($@"{x}\tblpatches")))
+                    if (game == "Persona 4 Golden" && packages.Exists(x => Directory.GetFiles(x, "*.tblpatch").Length > 0 || Directory.Exists($@"{x}\tblpatches")))
                     {
                         tblPatcher.Patch(packages, modPath, useCpk, cpkLang);
                     }
 
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    if (!messageBox)
                     {
-                        MessageBoxResult result = MessageBox.Show("Finished Building!",
-                                          "Aemulus Package Manager",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Information);
-                    });
-
+                        App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            MessageBoxResult result = MessageBox.Show("Finished Building!",
+                                              "Aemulus Package Manager",
+                                              MessageBoxButton.OK,
+                                              MessageBoxImage.Information);
+                        });
+                    }
 
                 }
             });
@@ -650,10 +833,18 @@ namespace AemulusModManager
 
         public void updateConfig()
         {
-            config.package = PackageList;
-            using (FileStream streamWriter = File.Create(@"Config.xml"))
+            using (FileStream streamWriter = File.Create($@"Config\Config.xml"))
             {
                 xs.Serialize(streamWriter, config);
+            }
+        }
+
+        public void updatePackages()
+        {
+            packages.packages = PackageList;
+            using (FileStream streamWriter = File.Create($@"Config\{game.Replace(" ", "")}Packages.xml"))
+            {
+                xp.Serialize(streamWriter, packages);
             }
         }
 
@@ -669,31 +860,35 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).");
+                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).\n\nIf you want to help support me go to:\nhttps://www.ko-fi.com/tekka");
                 }
 
                 // Set requirement visibility
-                if (Directory.Exists($@"Packages\{row.path}\patches"))
+                if (Directory.Exists($@"Packages\{game}\{row.path}\patches"))
                     Inaba.Visibility = Visibility.Visible;
                 else
                     Inaba.Visibility = Visibility.Collapsed;
-                if (File.Exists($@"Packages\{row.path}\SND\HeeHeeHo.uwus"))
+                if (File.Exists($@"Packages\{game}\{row.path}\SND\HeeHeeHo.uwus"))
                     HHH.Visibility = Visibility.Visible;
                 else
                     HHH.Visibility = Visibility.Collapsed;
-                if (Directory.Exists($@"Packages\{row.path}\patches") || File.Exists($@"Packages\{row.path}\SND\HeeHeeHo.uwus"))
+                if (Directory.Exists($@"Packages\{game}\{row.path}\patches") || File.Exists($@"Packages\{game}\{row.path}\SND\HeeHeeHo.uwus"))
                     Reqs.Visibility = Visibility.Visible;
                 else
                     Reqs.Visibility = Visibility.Collapsed;
 
                 
                 // Set image
-                string path = $@"Packages\{row.path}";
-                if (File.Exists($@"{path}\Preview.png"))
+                string path = $@"Packages\{game}\{row.path}";
+                if (File.Exists($@"{path}\Preview.png") || File.Exists($@"{path}\Preview.jpg"))
                 {
                     try
                     {
-                        byte[] imageBytes = File.ReadAllBytes($@"{path}\Preview.png");
+                        byte[] imageBytes = null;
+                        if (File.Exists($@"{path}\Preview.png"))
+                            imageBytes = File.ReadAllBytes($@"{path}\Preview.png");
+                        else
+                            imageBytes = File.ReadAllBytes($@"{path}\Preview.jpg");
                         var stream = new MemoryStream(imageBytes);
                         var img = new BitmapImage();
 
@@ -774,18 +969,18 @@ namespace AemulusModManager
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
             if (row != null)
             {
-                if (Directory.Exists($@"Packages\{row.path}"))
+                if (Directory.Exists($@"Packages\{game}\{row.path}"))
                 {
                     try
                     {
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
-                        StartInformation.FileName = $@"Packages\{row.path}";
+                        StartInformation.FileName = $@"Packages\{game}\{row.path}";
                         Process process = Process.Start(StartInformation);
-                        Console.WriteLine($@"[INFO] Opened Packages\{row.path}.");
+                        Console.WriteLine($@"[INFO] Opened Packages\{game}\{row.path}.");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($@"[ERROR] Couldn't open Packages\{row.path} ({ex.Message})");
+                        Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{row.path} ({ex.Message})");
                     }
                 }
             }
@@ -800,29 +995,28 @@ namespace AemulusModManager
                                       "Aemulus Package Manager",
                                       MessageBoxButton.YesNo,
                                       MessageBoxImage.Warning);
-                if (Directory.Exists($@"Packages\{row.path}") && result == MessageBoxResult.Yes)
+                if (Directory.Exists($@"Packages\{game}\{row.path}") && result == MessageBoxResult.Yes)
                 {
-                    watcher.EnableRaisingEvents = false;
-                    Console.WriteLine($@"[INFO] Deleted Packages\{row.path}.");
+                    Console.WriteLine($@"[INFO] Deleted Packages\{game}\{row.path}.");
                     try
                     {
-                        Directory.Delete($@"Packages\{row.path}", true);
+                        Directory.Delete($@"Packages\{game}\{row.path}", true);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($@"[ERROR] Couldn't delete Packages\{row.path} ({ex.Message})");
+                        Console.WriteLine($@"[ERROR] Couldn't delete Packages\{game}\{row.path} ({ex.Message})");
                     }
                     Refresh();
                     updateConfig();
+                    updatePackages();
                 }
-                watcher.EnableRaisingEvents = true;
             }
         }
 
         private void EditItem_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (row != null && File.Exists($@"Packages\{row.path}\Package.xml"))
+            if (row != null && File.Exists($@"Packages\{game}\{row.path}\Package.xml"))
             {
                 Metadata m = new Metadata();
                 m.name = row.name;
@@ -835,25 +1029,27 @@ namespace AemulusModManager
                 createPackage.ShowDialog();
                 if (createPackage.metadata != null)
                 {
-                    watcher.EnableRaisingEvents = false;
                     try
                     {
-                        using (FileStream streamWriter = File.Create($@"Packages\{row.path}\Package.xml"))
+                        using (FileStream streamWriter = File.Create($@"Packages\{game}\{row.path}\Package.xml"))
                         {
                             xsp.Serialize(streamWriter, createPackage.metadata);
                         }
                         if (File.Exists(createPackage.thumbnailPath))
                         {
-                            File.Copy(createPackage.thumbnailPath, $@"Packages\{row.path}\Preview.png", true);
+                            string extension = Path.GetExtension(createPackage.thumbnailPath).ToLower();
+                            if (extension == ".png" || extension == ".jpg")
+                                File.Copy(createPackage.thumbnailPath, $@"Packages\{game}\{row.path}\Preview{extension}", true);
                         }
+
                         Refresh();
                         updateConfig();
+                        updatePackages();
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"[ERROR] {ex.Message}");
                     }
-                    watcher.EnableRaisingEvents = true;
                 }
             }
         }
@@ -864,8 +1060,8 @@ namespace AemulusModManager
             if (row != null)
             {
                 // Enable/disable convert to 1.4.0
-                if (!Directory.Exists($@"Packages\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}") 
-                    || !Directory.Exists($@"Packages\{row.path}\movie"))
+                if (!Directory.Exists($@"Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}") 
+                    || !Directory.Exists($@"Packages\{game}\{row.path}\movie"))
                     ConvertCPK.IsEnabled = true;
                 else
                     ConvertCPK.IsEnabled = false;
@@ -878,16 +1074,16 @@ namespace AemulusModManager
             foreach (var folder in Directory.EnumerateDirectories($@"Packages\{row.path}"))
             {
                 if (Path.GetFileName(folder).StartsWith("data0"))
-                    FileSystem.MoveDirectory(folder, $@"Packages\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}", true);
+                    FileSystem.MoveDirectory(folder, $@"Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}", true);
                 else if (Path.GetFileName(folder).StartsWith("movie0"))
-                    FileSystem.MoveDirectory(folder, $@"Packages\{row.path}\movie", true);
+                    FileSystem.MoveDirectory(folder, $@"Packages\{game}\{row.path}\movie", true);
             }
             // Convert the mods.aem file too
-            if (File.Exists($@"Packages\{row.path}\mods.aem"))
+            if (File.Exists($@"Packages\{game}\{row.path}\mods.aem"))
             {
-                string text = File.ReadAllText($@"Packages\{row.path}\mods.aem");
+                string text = File.ReadAllText($@"Packages\{game}\{row.path}\mods.aem");
                 text = Regex.Replace(text, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
-                File.WriteAllText($@"Packages\{row.path}\mods.aem", text);
+                File.WriteAllText($@"Packages\{game}\{row.path}\mods.aem", text);
             }
         }
 
@@ -898,6 +1094,131 @@ namespace AemulusModManager
                 var checkbox = ModGrid.Columns[0].GetCellContent(ModGrid.SelectedItem) as CheckBox;
                 checkbox.IsChecked = !checkbox.IsChecked;
             }
+        }
+
+        private void GameBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (GameBox.SelectedIndex != -1 && IsLoaded)
+            {
+                int index = GameBox.SelectedIndex;
+                game = null;
+                switch (index)
+                {
+                    case 0:
+                        game = "Persona 3 FES";
+                        modPath = config.p3fConfig.modDir;
+                        gamePath = config.p3fConfig.isoPath;
+                        elfPath = config.p3fConfig.elfPath;
+                        launcherPath = config.p3fConfig.launcherPath;
+                        messageBox = config.p3fConfig.disableMessageBox;
+                        useCpk = false;
+                        break;
+                    case 1:
+                        game = "Persona 4 Golden";
+                        modPath = config.p4gConfig.modDir;
+                        gamePath = config.p4gConfig.exePath;
+                        launcherPath = config.p4gConfig.reloadedPath;
+                        emptySND = config.p4gConfig.emptySND;
+                        cpkLang = config.p4gConfig.cpkLang;
+                        useCpk = config.p4gConfig.useCpk;
+                        messageBox = config.p4gConfig.disableMessageBox;
+                        break;
+                    case 2:
+                        game = "Persona 5";
+                        modPath = config.p5Config.modDir;
+                        gamePath = config.p5Config.gamePath;
+                        launcherPath = config.p5Config.launcherPath;
+                        messageBox = config.p5Config.disableMessageBox;
+                        useCpk = false;
+                        break;
+                }
+                config.game = game;
+                if (!Directory.Exists($@"Packages\{game}"))
+                {
+                    Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                    Directory.CreateDirectory($@"Packages\{game}");
+                }
+                Console.WriteLine($"[INFO] Game set to {game}.");
+
+                if (!Directory.Exists($@"Packages\{game}"))
+                {
+                    Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                    Directory.CreateDirectory($@"Packages\{game}");
+                }
+
+                PackageList.Clear();
+                DisplayedPackages.Clear();
+
+                if (File.Exists($@"Config\{game.Replace(" ", "")}Packages.xml"))
+                {
+                    try
+                    {
+                        using (FileStream streamWriter = File.Open($@"Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                        {
+                            // Call the Deserialize method and cast to the object type.
+                            packages = (Packages)xp.Deserialize(streamWriter);
+                            PackageList = packages.packages;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
+                    }
+                }
+
+                // Create displayed metadata from packages in PackageList and their respective Package.xml's
+                foreach (var package in PackageList)
+                {
+                    string xml = $@"Packages\{game}\{package.path}\Package.xml";
+                    Metadata m;
+                    DisplayedMetadata dm = new DisplayedMetadata();
+                    try
+                    {
+                        if (File.Exists(xml))
+                        {
+                            m = new Metadata();
+                            try
+                            {
+                                using (FileStream streamWriter = File.Open(xml, FileMode.Open))
+                                {
+                                    m = (Metadata)xsp.Deserialize(streamWriter);
+                                    dm.name = m.name;
+                                    dm.id = m.id;
+                                    dm.author = m.author;
+                                    dm.version = m.version;
+                                    dm.link = m.link;
+                                    dm.description = m.description;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
+                            }
+                        }
+
+                        dm.path = package.path;
+                        dm.enabled = package.enabled;
+                        DisplayedPackages.Add(dm);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[ERROR] Invalid Package.xml for package {package.id} ({ex.Message})");
+                        continue;
+                    }
+                }
+                ModGrid.ItemsSource = DisplayedPackages;
+
+                Refresh();
+                updateConfig();
+                updatePackages();
+            }
+
+            
+        }
+
+        private void Kofi_Click(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://www.ko-fi.com/tekka");
         }
     }
 }
