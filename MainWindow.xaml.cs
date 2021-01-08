@@ -34,9 +34,6 @@ namespace AemulusModManager
         public string modPath;
         private ObservableCollection<Package> PackageList;
         private ObservableCollection<DisplayedMetadata> DisplayedPackages;
-        private binMerge binMerger;
-        private tblPatch tblPatcher;
-        private PacUnpacker pacUnpacker;
         public bool emptySND;
         public bool useCpk;
         public bool messageBox;
@@ -172,9 +169,6 @@ namespace AemulusModManager
             foreach (var d in subdirs)
                 FileSystem.MoveDirectory(d, $@"Original\Persona 4 Golden\{Path.GetFileName(d)}", true);
 
-            binMerger = new binMerge();
-            tblPatcher = new tblPatch();
-            pacUnpacker = new PacUnpacker();
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
 
@@ -413,11 +407,11 @@ namespace AemulusModManager
             return Task.Run(() =>
             {
                 if (game == "Persona 4 Golden")
-                    pacUnpacker.Unpack(directory, cpkLang);
+                    PacUnpacker.Unpack(directory, cpkLang);
                 else if (game == "Persona 3 FES")
-                    pacUnpacker.Unzip(directory);
+                    PacUnpacker.Unzip(directory);
                 else if (game == "Persona 5")
-                    pacUnpacker.UnpackCPK(directory);
+                    PacUnpacker.UnpackCPK(directory);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     ModGrid.IsHitTestVisible = true;
@@ -445,9 +439,9 @@ namespace AemulusModManager
                 if (game == "Persona 4 Golden")
                     startInfo.Arguments = "--launch \"" + gamePath + "\"";
                 else if (game == "Persona 3 FES")
-                    startInfo.Arguments = $"\"{gamePath}\" --elf=\"{elfPath}\"";
+                    startInfo.Arguments = $"--nogui --elf=\"{elfPath}\"";
                 else if (game == "Persona 5")
-                    startInfo.Arguments = $"\"{gamePath}\"";
+                    startInfo.Arguments = $"--no-gui \"{gamePath}\"";
 
                 GameBox.IsHitTestVisible = false;
                 ConfigButton.IsHitTestVisible = false;
@@ -800,21 +794,20 @@ namespace AemulusModManager
                     if (game == "Persona 5")
                     {
                         path = $@"{modPath}\mod";
-                        if (!Directory.Exists(path))
-                            Directory.CreateDirectory(path);
+                        Directory.CreateDirectory(path);
                     }
-                    binMerger.Restart(path, emptySND, game);
-                    binMerger.Unpack(packages, path, useCpk, cpkLang, game);
-                    binMerger.Merge(path, game);
-
-                    if (game == "Persona 5")
-                        binMerger.MakeCpk(path);
+                    binMerge.Restart(path, emptySND, game);
+                    binMerge.Unpack(packages, path, useCpk, cpkLang, game);
+                    binMerge.Merge(path, game);
 
                     // Only run if tblpatching is enabled and tblpatches exists
-                    if (game == "Persona 4 Golden" && packages.Exists(x => Directory.GetFiles(x, "*.tblpatch").Length > 0 || Directory.Exists($@"{x}\tblpatches")))
+                    if (packages.Exists(x => Directory.GetFiles(x, "*.tblpatch").Length > 0 || Directory.Exists($@"{x}\tblpatches")))
                     {
-                        tblPatcher.Patch(packages, modPath, useCpk, cpkLang);
+                        tblPatch.Patch(packages, path, useCpk, cpkLang, game);
                     }
+
+                    if (game == "Persona 5")
+                        binMerge.MakeCpk(path);
 
                     if (!messageBox)
                     {

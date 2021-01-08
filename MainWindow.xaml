@@ -13,11 +13,11 @@
         <local:UrlConverter x:Key="UrlConverter"/>
     </Window.Resources>
     <Grid>
-        <Image Source="Logo.png" Margin="70,7,100,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="100"/>
+        <Image Source="Logo.png" Margin="86,16,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="74" Width="74"/>
         <Viewbox Stretch="Uniform" Margin="70,90,100,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="100">
-            <TextBlock Text="v1.5.0" Foreground ="White" TextAlignment="Center" FontSize="20" Height="25" Width="100"/>
+            <TextBlock Text="v2.0.0" Foreground ="White" TextAlignment="Center" FontSize="20" Height="25" Width="100"/>
         </Viewbox>
-        <Grid>
+        <Grid Margin="1,0,-1,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.7*"/>
                 <RowDefinition/>
@@ -52,7 +52,7 @@
                 <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_Coffee" Foreground="White" Width="19"/>
                 <TextBlock VerticalAlignment="Center" Width="105"  Text="Support Me!" Foreground ="White" TextAlignment="Center" FontSize="18"/>
             </StackPanel>
-                
+
         </Grid>
         <Image Source="arrow.png" Margin="188,67,449,0" VerticalAlignment="Top" Width="70" Height="40"/>
         <Image Source="arrow.png" Margin="449,67,188,0" VerticalAlignment="Top" Width="70" Height="40"/>

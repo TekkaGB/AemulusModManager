@@ -12,10 +12,10 @@ using System.Windows.Input;
 
 namespace AemulusModManager
 {
-    class PacUnpacker
+    public static class PacUnpacker
     {
         // P3F
-        public void Unzip(string iso)
+        public static void Unzip(string iso)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -65,7 +65,7 @@ namespace AemulusModManager
         }
 
         // P4G
-        public void Unpack(string directory, string cpk)
+        public static void Unpack(string directory, string cpk)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -123,13 +123,31 @@ namespace AemulusModManager
             });
         }
 
-        public void UnpackCPK(string directory)
+
+        public static void UnpackCPK(string directory)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = Cursors.Wait;
             });
 
+            if (File.Exists($@"{directory}\ps3.cpk.66600") && File.Exists($@"{directory}\ps3.cpk.66601") && File.Exists($@"{directory}\ps3.cpk.66602")
+                   && !File.Exists($@"{directory}\ps3.cpk"))
+            {
+                Console.Write("[INFO] Combining ps3.cpk parts");
+                ProcessStartInfo cmdInfo = new ProcessStartInfo();
+                cmdInfo.CreateNoWindow = true;
+                cmdInfo.FileName = @"CMD.exe";
+                cmdInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                cmdInfo.Arguments = $@"/C copy /b ""{directory}\ps3.cpk.66600"" + ""{directory}\ps3.cpk.66601"" + ""{directory}\ps3.cpk.66602"" ""{directory}\ps3.cpk""";
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo = cmdInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+            }
 
             Directory.CreateDirectory(@"Original\Persona 5");
 

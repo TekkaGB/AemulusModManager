@@ -6,9 +6,9 @@ using System.Text;
 
 namespace AemulusModManager
 {
-    public class sprUtils
+    public static class sprUtils
     {
-        private int Search(byte[] src, byte[] pattern)
+        private static int Search(byte[] src, byte[] pattern)
         {
             int c = src.Length - pattern.Length + 1;
             int j;
@@ -21,7 +21,7 @@ namespace AemulusModManager
             return -1;
         }
 
-        private byte[] SliceArray(byte[] source, int start, int end)
+        private static byte[] SliceArray(byte[] source, int start, int end)
         {
             int length = end - start;
             byte[] dest = new byte[length];
@@ -29,7 +29,7 @@ namespace AemulusModManager
             return dest;
         }
 
-        private string getTmxName(byte[] tmx)
+        private static string getTmxName(byte[] tmx)
         {
             int end = Search(tmx, new byte[] { 0x00 });
             byte[] name = tmx.Take(end).ToArray();
@@ -39,7 +39,7 @@ namespace AemulusModManager
             return Encoding.ASCII.GetString(name);
         }
 
-        public Dictionary<string, int> getTmxNames(string spr)
+        public static Dictionary<string, int> getTmxNames(string spr)
         {
             Dictionary<string, int> tmxNames = new Dictionary<string, int>();
             byte[] sprBytes = File.ReadAllBytes(spr);
@@ -60,7 +60,7 @@ namespace AemulusModManager
             return tmxNames;
         }
 
-        private List<int> getTmxOffsets(string spr)
+        private static List<int> getTmxOffsets(string spr)
         {
             List<int> tmxOffsets = new List<int>();
             byte[] sprBytes = File.ReadAllBytes(spr);
@@ -80,7 +80,7 @@ namespace AemulusModManager
             return tmxOffsets;
         }
 
-        private int findTmx(string spr, string tmxName)
+        private static int findTmx(string spr, string tmxName)
         {
             // Get all tmx names instead to prevent replacing similar names
             if (File.Exists(spr))
@@ -92,7 +92,7 @@ namespace AemulusModManager
             return -1;
         }
 
-        public void replaceTmx(string spr, string tmx)
+        public static void replaceTmx(string spr, string tmx)
         {
             string tmxPattern = Path.GetFileNameWithoutExtension(tmx);
             int offset = findTmx(spr, tmxPattern);
@@ -123,7 +123,7 @@ namespace AemulusModManager
             }
         }
 
-        private void updateOffsets(string spr, List<int> offsets)
+        private static void updateOffsets(string spr, List<int> offsets)
         {
             // Start of tmx offsets
             int pos = 36;
@@ -139,7 +139,7 @@ namespace AemulusModManager
             }
         }
 
-        public byte[] extractTmx(string spr, string tmx)
+        public static byte[] extractTmx(string spr, string tmx)
         {
             string tmxPattern = Path.GetFileNameWithoutExtension(tmx);
             int offset = findTmx(spr, tmxPattern);
