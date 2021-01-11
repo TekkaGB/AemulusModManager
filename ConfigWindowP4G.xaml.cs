@@ -190,6 +190,8 @@ namespace AemulusModManager
                     main.RefreshButton.IsHitTestVisible = false;
                     main.ModGrid.IsHitTestVisible = false;
                     main.NewButton.IsHitTestVisible = false;
+                    main.SwapButton.IsHitTestVisible = false;
+                    main.FolderButton.IsHitTestVisible = false;
                     await main.pacUnpack(directory);
                     UnpackButton.IsHitTestVisible = true;
                 }

@@ -9,7 +9,7 @@ namespace AemulusModManager
 {
     public static class binMerge
     {
-        private static string exePath = @"Dependencies\PAKPack.exe";
+        private static string exePath = @"Dependencies\PAKPack\PAKPack.exe";
 
         // Use PAKPack command
         private static void PAKPackCMD(string args)
@@ -191,13 +191,19 @@ namespace AemulusModManager
                                             }
                                             else if (Path.GetExtension(f2).ToLower() == ".spd")
                                             {
+                                                Console.WriteLine($@"[INFO] Unpacking {f2}...");
                                                 Directory.CreateDirectory(Path.ChangeExtension(f2, null));
                                                 List<DDS> ddsFiles = spdUtils.getDDSFiles(f2);
                                                 foreach (var ddsFile in ddsFiles)
                                                 {
-                                                    Console.WriteLine($@"[INFO] Unpacking {f2}...");
                                                     string spdFolder = Path.ChangeExtension(f2, null);
                                                     File.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
+                                                }
+                                                List<SPDKey> spdKeys = spdUtils.getSPDKeys(f2);
+                                                foreach (var spdKey in spdKeys)
+                                                {
+                                                    string spdFolder = Path.ChangeExtension(f2, null);
+                                                    File.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                                 }
                                             }
                                             else if (Path.GetExtension(f2) == ".spr")
@@ -216,13 +222,19 @@ namespace AemulusModManager
                                     }
                                     else if (Path.GetExtension(f).ToLower() == ".spd")
                                     {
+                                        Console.WriteLine($@"[INFO] Unpacking {f}...");
                                         Directory.CreateDirectory(Path.ChangeExtension(f, null));
                                         List<DDS> ddsFiles = spdUtils.getDDSFiles(f);
                                         foreach (var ddsFile in ddsFiles)
                                         {
-                                            Console.WriteLine($@"[INFO] Unpacking {f}...");
                                             string spdFolder = Path.ChangeExtension(f, null);
                                             File.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
+                                        }
+                                        List<SPDKey> spdKeys = spdUtils.getSPDKeys(f);
+                                        foreach (var spdKey in spdKeys)
+                                        {
+                                            string spdFolder = Path.ChangeExtension(f, null);
+                                            File.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                         }
                                     }
                                     else if (Path.GetExtension(f) == ".spr")
@@ -273,13 +285,19 @@ namespace AemulusModManager
                         {
                             if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
                             {
+                                Console.WriteLine($@"[INFO] Unpacking {file}...");
                                 Directory.CreateDirectory(Path.ChangeExtension(file, null));
                                 List<DDS> ddsFiles = spdUtils.getDDSFiles(file);
                                 foreach (var ddsFile in ddsFiles)
                                 {
-                                    Console.WriteLine($@"[INFO] Unpacking {file}...");
                                     string spdFolder = Path.ChangeExtension(file, null);
                                     File.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
+                                }
+                                List<SPDKey> spdKeys = spdUtils.getSPDKeys(file);
+                                foreach (var spdKey in spdKeys)
+                                {
+                                    string spdFolder = Path.ChangeExtension(file, null);
+                                    File.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                 }
                             }
                             else
@@ -418,8 +436,16 @@ namespace AemulusModManager
                                 int numParFolders = Path.ChangeExtension(file, null).Split(char.Parse("\\")).Length;
                                 List<string> folders = new List<string>(f.Split(char.Parse("\\")));
                                 string binPath = string.Join("/", folders.ToArray().Skip(numParFolders).ToArray());
+
+                                Console.WriteLine(binPath);
+
                                 // Check if more unpacking needs to be done to replace
-                                if (!contents.Contains(binPath))
+                                if (contents.Contains($"../../../{binPath}"))
+                                {
+                                    string args = $"replace \"{bin}\" ../../../{binPath} \"{f}\" \"{bin}\"";
+                                    PAKPackCMD(args);
+                                }
+                                else if (!contents.Contains(binPath))
                                 {
                                     string longestPrefix = "";
                                     int longestPrefixLen = 0;
@@ -486,11 +512,14 @@ namespace AemulusModManager
                                                     PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                                 }
                                             }
-                                            else if (Path.GetExtension(longestPrefix2) == ".spd" && Path.GetExtension(f) == ".dds")
+                                            else if (Path.GetExtension(longestPrefix2) == ".spd" && (Path.GetExtension(f) == ".dds" || Path.GetExtension(f) == ".spdspr"))
                                             {
                                                 PAKPackCMD($"unpack \"{file2}\"");
                                                 string spdPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
-                                                spdUtils.replaceDDS(spdPath, f);
+                                                if (Path.GetExtension(f) == ".dds")
+                                                    spdUtils.replaceDDS(spdPath, f);
+                                                else
+                                                    spdUtils.replaceSPDKey(spdPath, f);
                                                 PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{spdPath}\" \"{file2}\"");
                                                 PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                             }
@@ -504,10 +533,13 @@ namespace AemulusModManager
                                             }
                                         }
                                     }
-                                    else if (Path.GetExtension(longestPrefix) == ".spd" && Path.GetExtension(f) == ".dds")
+                                    else if (Path.GetExtension(longestPrefix) == ".spd" && (Path.GetExtension(f) == ".dds" || Path.GetExtension(f) == ".spdspr"))
                                     {
                                         string spdPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
-                                        spdUtils.replaceDDS(spdPath, f);
+                                        if (Path.GetExtension(f) == ".dds")
+                                            spdUtils.replaceDDS(spdPath, f);
+                                        else
+                                            spdUtils.replaceSPDKey(spdPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{spdPath}\" \"{bin}\"");
                                     }
                                     else if (Path.GetExtension(longestPrefix) == ".spr" && Path.GetExtension(f) == ".tmx")
@@ -532,11 +564,13 @@ namespace AemulusModManager
                         string spdFolder = Path.ChangeExtension(file, null);
                         if (Directory.Exists(spdFolder))
                         {
-                            Console.WriteLine(spdFolder);
-                            foreach (var ddsFile in Directory.GetFiles(spdFolder, "*", SearchOption.AllDirectories))
+                            foreach (var spdFile in Directory.GetFiles(spdFolder, "*", SearchOption.AllDirectories))
                             {
-                                Console.WriteLine($"Replacing {ddsFile} in {file}");
-                                spdUtils.replaceDDS(file, ddsFile);
+                                Console.WriteLine($"Replacing {spdFile} in {file}");
+                                if (Path.GetExtension(spdFile).ToLower() == ".dds")
+                                    spdUtils.replaceDDS(file, spdFile);
+                                else if (Path.GetExtension(spdFile).ToLower() == ".spdspr")
+                                    spdUtils.replaceSPDKey(file, spdFile);
                             }
                         }
                     }

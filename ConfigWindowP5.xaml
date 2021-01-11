@@ -32,7 +32,7 @@
                 <CheckBox Name="NotifBox" Foreground ="White" Checked="NotifChecked" Unchecked="NotifUnchecked">
                     <TextBlock TextAlignment="Center">
                         Disable<LineBreak/>
-                        MessageBox
+                        Notification
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
@@ -40,8 +40,8 @@
         <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"></TextBlock>
         <TextBlock Foreground="#9A2000" TextAlignment="Center" Text="P5 EBOOT Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
         <TextBlock Foreground="#9A2000" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">RPCS3.exe<LineBreak />Path</TextBlock>
-        
-        <TextBlock Foreground="#9A2000" Text="Setup P5 Launch Shortcut" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
+
+        <TextBlock Foreground="#9A2000" Text="P5 Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
         <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="280"/>
         <TextBox Name="EBOOTTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="280" Grid.Row="3" Grid.Column="2"/>
         <TextBox Name="RPCS3Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="280" Grid.Row="4" Grid.Column="2"/>

@@ -136,6 +136,8 @@ namespace AemulusModManager
                 main.GameBox.IsHitTestVisible = false;
                 main.RefreshButton.IsHitTestVisible = false;
                 main.NewButton.IsHitTestVisible = false;
+                main.SwapButton.IsHitTestVisible = false;
+                main.FolderButton.IsHitTestVisible = false;
                 await main.pacUnpack(main.modPath);
                 UnpackButton.IsHitTestVisible = true;
             }

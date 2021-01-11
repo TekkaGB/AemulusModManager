@@ -144,6 +144,9 @@
     <Compile Include="CreatePackage.xaml.cs">
       <DependentUpon>CreatePackage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NotificationBox.xaml.cs">
+      <DependentUpon>NotificationBox.xaml</DependentUpon>
+    </Compile>
     <Page Include="ConfigWindowP5.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,6 +183,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="CreatePackage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NotificationBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,12 +243,16 @@
     <Resource Include="arrow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Aemulus.ico" />
     <Content Include="Dependencies\7z\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Dependencies\7z\7z.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Dependencies\7z\License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Dependencies\MakeCpk\CpkMaker.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -277,14 +288,12 @@
     </Content>
     <Resource Include="HHH.png" />
     <Resource Include="Inaba.png" />
-    <Resource Include="Aemulus.ico" />
-    <Content Include="Dependencies\AtlusFileSystemLibrary.dll">
+    <Content Include="Dependencies\PAKPack\AtlusFileSystemLibrary.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dependencies\File Formats.dll" />
     <EmbeddedResource Include="Preview.png" />
     <Resource Include="Logo.png" />
-    <Content Include="Dependencies\PAKPack.exe">
+    <Content Include="Dependencies\PAKPack\PAKPack.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

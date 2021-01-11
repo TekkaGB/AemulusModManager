@@ -12,6 +12,12 @@ namespace AemulusModManager
         public int size;
         public byte[] file;
     }
+    public class SPDKey
+    {
+        public int id;
+        public int pos;
+        public byte[] file;
+    }
     public class SpdHeaderHelper
     {
         public long offset;
@@ -39,6 +45,45 @@ namespace AemulusModManager
                 pos += 48;
             }
             return ddsNames;
+        }
+
+        public static List<SPDKey> getSPDKeys(string spd)
+        {
+            List<SPDKey> spdKeys = new List<SPDKey>();
+            byte[] spdBytes = File.ReadAllBytes(spd);
+            int numKeys = BitConverter.ToUInt16(spdBytes, 22);
+            int pos = BitConverter.ToInt32(spdBytes, 28);
+            SPDKey spdKey;
+            int tag;
+            for (int i = 0; i < numKeys; i++)
+            {
+                spdKey = new SPDKey();
+                spdKey.pos = pos;
+                spdKey.id = BitConverter.ToInt32(spdBytes, pos);
+                spdKey.file = SliceArray(spdBytes, spdKey.pos, spdKey.pos + 159);
+                spdKeys.Add(spdKey);
+                pos += 160;
+            }
+            return spdKeys;
+        }
+
+        public static void replaceSPDKey(string spd, string spdspr)
+        {
+            List<SPDKey> spdKeys = getSPDKeys(spd);
+            byte[] spdBytes = File.ReadAllBytes(spdspr);
+            foreach (var spdKey in spdKeys)
+            {
+                Console.WriteLine($"Comparing key: {Path.GetFileNameWithoutExtension(spdspr)} and {spdKey.id.ToString()}");
+                if (spdKey.id.ToString() == Path.GetFileNameWithoutExtension(spdspr))
+                {
+                    using (Stream stream = File.Open(spd, FileMode.Open))
+                    {
+                        stream.Position = spdKey.pos;
+                        stream.Write(spdBytes, 0, 160);
+                    }
+                    return;
+                }
+            }
         }
 
         private static byte[] SliceArray(byte[] source, long start, long end)

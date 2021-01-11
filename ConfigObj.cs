@@ -22,6 +22,7 @@ namespace AemulusModManager
     public class AemulusConfig
     {
         public string game { get; set; }
+        public bool bottomUpPriority { get; set; }
         public ConfigP3F p3fConfig { get; set; }
         public ConfigP4G p4gConfig { get; set; }
         public ConfigP5 p5Config { get; set; }

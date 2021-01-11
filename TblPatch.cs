@@ -73,6 +73,11 @@ namespace AemulusModManager
             byte[] pattern = Encoding.ASCII.GetBytes($"{parent}/{Path.GetFileName(tbl)}");
             int offset = Search(archiveBytes, pattern) + 256;
             byte[] tblBytes = File.ReadAllBytes(tbl);
+
+            int tblLength = BitConverter.ToInt32(archiveBytes, offset + 252);
+            if (tblBytes.Length != tblLength)
+                BitConverter.GetBytes(archiveBytes.Length).CopyTo(archiveBytes, offset + 252);
+
             tblBytes.CopyTo(archiveBytes, offset);
             File.WriteAllBytes(archive, archiveBytes);
         }
@@ -135,7 +140,7 @@ namespace AemulusModManager
             }
             // Keep track of which tables are edited
             List<string> editedTables = new List<string>();
-
+            List<NameSection> sections = null;
             // Load EnabledPatches in order
             foreach (string dir in ModList)
             {
@@ -159,13 +164,6 @@ namespace AemulusModManager
 
                     // Name of tbl file
                     string tblName = Encoding.ASCII.GetString(SliceArray(file, 0, 3));
-                    // Offset to start overwriting at
-                    byte[] byteOffset = SliceArray(file, 3, 11);
-                    // Reverse endianess
-                    Array.Reverse(byteOffset, 0, 8);
-                    long offset = BitConverter.ToInt64(byteOffset, 0);
-                    // Contents is what to replace
-                    byte[] fileContents = SliceArray(file, 11, file.Length);
 
                     /*
                     * P4G TBLS:
@@ -350,38 +348,59 @@ namespace AemulusModManager
                             continue;
                     }
 
+                    
+
                     // Keep track of which TBL's were edited
                     if (!editedTables.Contains(tblName))
-                        editedTables.Add(tblName);
-
-                    // TBL file to edit
-                    if (game != "Persona 3 FES")
                     {
-                        string unpackedTblPath = $@"{tblDir}\{tblName}";
-                        byte[] tblBytes = File.ReadAllBytes(unpackedTblPath);
-                        fileContents.CopyTo(tblBytes, offset);
-                        File.WriteAllBytes(unpackedTblPath, tblBytes);
+                        editedTables.Add(tblName);
+                        if (tblName == "NAME.TBL")
+                            sections = getSections($@"{tblDir}\{tblName}");
+                    }
+
+                    if (tblName != "NAME.TBL")
+                    {
+                        // Offset to start overwriting at
+                        byte[] byteOffset = SliceArray(file, 3, 11);
+                        // Reverse endianess
+                        Array.Reverse(byteOffset, 0, 8);
+                        long offset = BitConverter.ToInt64(byteOffset, 0);
+                        // Contents is what to replace
+                        byte[] fileContents = SliceArray(file, 11, file.Length);
+
+                        // TBL file to edit
+                        if (game != "Persona 3 FES")
+                        {
+                            string unpackedTblPath = $@"{tblDir}\{tblName}";
+                            byte[] tblBytes = File.ReadAllBytes(unpackedTblPath);
+                            fileContents.CopyTo(tblBytes, offset);
+                            File.WriteAllBytes(unpackedTblPath, tblBytes);
+                        }
+                        else
+                        {
+                            if (!File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
+                            {
+                                if (File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}") && !File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
+                                {
+                                    Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
+                                    File.Copy($@"Original\{game}\BTL\BATTLE\{tblName}", $@"{modDir}\BTL\BATTLE\{tblName}", true);
+                                    Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
+                                }
+                                else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}") && !File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
+                                {
+                                    Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
+                                    continue;
+                                }
+                                string tblPath = $@"{modDir}\BTL\BATTLE\{tblName}";
+                                byte[] tblBytes = File.ReadAllBytes(tblPath);
+                                fileContents.CopyTo(tblBytes, offset);
+                                File.WriteAllBytes(tblPath, tblBytes);
+                            }
+                        }
                     }
                     else
                     {
-                        if (!File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
-                        {
-                            if (File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}") && !File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
-                            {
-                                Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
-                                File.Copy($@"Original\{game}\BTL\BATTLE\{tblName}", $@"{modDir}\BTL\BATTLE\{tblName}", true);
-                                Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
-                            }
-                            else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}") && !File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
-                            {
-                                Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
-                                continue;
-                            }
-                            string tblPath = $@"{modDir}\BTL\BATTLE\{tblName}";
-                            byte[] tblBytes = File.ReadAllBytes(tblPath);
-                            fileContents.CopyTo(tblBytes, offset);
-                            File.WriteAllBytes(tblPath, tblBytes);
-                        }
+                        sections = replaceName(sections, file);
                     }
                 }
 
@@ -393,6 +412,8 @@ namespace AemulusModManager
                 // Replace each edited TBL's
                 foreach (string u in editedTables)
                 {
+                    if (u == "NAME.TBL")
+                        writeTbl(sections, $@"{tblDir}\{u}");
                     Console.WriteLine($"[INFO] Replacing {u} in {archive}");
                     repackTbls($@"{tblDir}\{u}", $@"{modDir}\{archive}", game);
                 }
@@ -403,6 +424,121 @@ namespace AemulusModManager
             }
             Console.WriteLine("[INFO] Finished patching tbl's!");
         }
+
+        
+
+        // P5's NAME.TBL Expandable support
+        private static List<NameSection> getSections(string tbl)
+        {
+            List<NameSection> sections = new List<NameSection>();
+            byte[] tblBytes = File.ReadAllBytes(tbl);
+            int pos = 0;
+            NameSection section;
+            // 33 sections
+            for (int i = 0; i <= 33; i++)
+            {
+                section = new NameSection();
+                // Get big endian section size
+                section.size = BitConverter.ToInt32(SliceArray(tblBytes, pos, pos + 4).Reverse().ToArray(), 0);
+
+                byte[] segment = SliceArray(tblBytes, pos + 4, pos + 4 + section.size);
+                section.names = new List<byte[]>();
+                List<byte> name = new List<byte>();
+                foreach (var segmentByte in segment)
+                {
+                    if (segmentByte == (byte)0)
+                    {
+                        section.names.Add(name.ToArray());
+                        name = new List<byte>();
+                    }
+                    else
+                    {
+                        name.Add(segmentByte);
+                    }
+
+                }
+                section.names.Add(name.ToArray());
+
+                pos += section.size + 4;
+
+                if ((pos % 16) != 0)
+                {
+                    pos += 16 - (pos % 16);
+                }
+                sections.Add(section);
+            }
+            return sections;
+        }
+
+        private static List<NameSection> replaceName(List<NameSection> sections, byte[] patch)
+        {
+            int section = BitConverter.ToInt32(SliceArray(patch, 3, 7).Reverse().ToArray(), 0);
+            int index = BitConverter.ToInt32(SliceArray(patch, 7, 11).Reverse().ToArray(), 0);
+            // Contents is what to replace
+            byte[] fileContents = SliceArray(patch, 11, patch.Length);
+            int delta = fileContents.Length - sections[section].names[index].Length;
+            sections[section].names[index] = fileContents;
+            sections[section].size += delta;
+            return sections;
+        }
+
+        private static void writeTbl(List<NameSection> sections, string path)
+        {
+            using (FileStream
+            fileStream = new FileStream(path, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fileStream))
+                {
+                    foreach (var section in sections)
+                    {
+                        // Write size
+                        bw.Write(BitConverter.GetBytes(section.size).Reverse().ToArray());
+                        // Write names
+                        byte[] last = section.names.Last();
+                        foreach (var name in section.names)
+                        {
+                            bw.Write(name);
+                            if (name != last)
+                                bw.Write((byte)0);
+                        }
+                        while (bw.BaseStream.Position % 16 != 0)
+                            bw.Write((byte)0);
+                    }
+                }
+            }
+        }
+
+        /* Using the position, start counting after 4 up to desired null bytes passed
+         * At desired replacement, replace and count number of bytes changed.
+         * Update section size at very beginning with that bytes changed found
+         * After all patches are applied, change file size in table.pac or just use pacpack
+         */
+
+        /* Use string or index in header? 4 bytes for section, 4 bytes for index?
+         * ArcanaNames 1
+         * SkillNames 3
+         * UnitNames 5
+         * PersonaNames 7
+         * AccessoryNames 9
+         * ArmorNames 11
+         * ConsumableItemNames 13
+         * KeyItemNames 15
+         * MaterialNames 17
+         * MeleeWeaponNames 19
+         * BattleActionNames 21
+         * OutfitNames 23
+         * SkillCardNames 25
+         * ConfidantNames 27
+         * PartyMemberLastNames 29
+         * PartyMemberFirstNames 31
+         * RangedWeaponNames 33
+         */
+    }
+
+    public class NameSection
+    {
+        public int size;
+        public List<byte[]> names;
     }
 
 }
