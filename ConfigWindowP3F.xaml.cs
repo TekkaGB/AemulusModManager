@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
 
 namespace AemulusModManager
 {
@@ -36,6 +37,7 @@ namespace AemulusModManager
                 main.config.p3fConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
@@ -148,14 +150,12 @@ namespace AemulusModManager
             {
                 main.ModGrid.IsHitTestVisible = false;
                 UnpackButton.IsHitTestVisible = false;
-                main.ConfigButton.IsHitTestVisible = false;
-                main.MergeButton.IsHitTestVisible = false;
-                main.LaunchButton.IsHitTestVisible = false;
+                foreach (var button in main.buttons)
+                {
+                    button.IsHitTestVisible = false;
+                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                }
                 main.GameBox.IsHitTestVisible = false;
-                main.RefreshButton.IsHitTestVisible = false;
-                main.NewButton.IsHitTestVisible = false;
-                main.SwapButton.IsHitTestVisible = false;
-                main.FolderButton.IsHitTestVisible = false;
                 await main.pacUnpack(main.gamePath);
                 UnpackButton.IsHitTestVisible = true;
             }

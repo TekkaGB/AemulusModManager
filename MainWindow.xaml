@@ -33,66 +33,62 @@
                 <ColumnDefinition Width="1.1*"/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Name="ConfigButton" Cursor="Hand" Width="40" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1">
-                <StackPanel.ToolTip>
+            <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Icon="Solid_Cog" Width="35">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Configure Paths and Settings
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_Cog" Foreground="White" Width="35"/>
-            </StackPanel>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
 
-            <StackPanel Width="40" Name="RefreshButton" Cursor="Hand" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1">
-                <StackPanel.ToolTip>
+            <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="3" Grid.Row="1" Width="32">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Refresh Packages in Grid
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome VerticalAlignment="Center" Icon="Solid_SyncAlt" Foreground="White" Width="32"/>
-            </StackPanel>
-            <StackPanel Width="40" Name="MergeButton" Cursor="Hand" PreviewMouseLeftButtonDown="MergeClick" VerticalAlignment="Center" Grid.Column="4" Grid.Row="1">
-                <StackPanel.ToolTip>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
+
+            <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="4" Grid.Row="1" Width="35">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Build and Merge Package Loadout
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Foreground="White" Width="35"/>
-            </StackPanel>
-            <StackPanel Width="40" Name="LaunchButton" Background ="Transparent" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick" VerticalAlignment="Center" Grid.Column="6" Grid.Row="1">
-                <StackPanel.ToolTip>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
+
+            <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="7" Grid.Row="1" Width="32">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Launch Game
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_Rocket" Foreground="White" Width="32"/>
-            </StackPanel>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
 
-            <StackPanel Width="40" Name="FolderButton" Background ="Transparent" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Grid.Column="7" Grid.Row="1">
-                <StackPanel.ToolTip>
+            <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="6" Grid.Row="1" Width="35">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Open Package Folder
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Regular_FolderOpen" Foreground="White" Width="35"/>
-            </StackPanel>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
 
-            <StackPanel Width="40" Name="SwapButton" Background ="Transparent" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Grid.Column="8" Grid.Row="1">
-                <StackPanel.ToolTip>
+            <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="8" Grid.Row="1" Width="23">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Switch Order of Priority
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_Sort" Foreground="White" Width="23"/>
-            </StackPanel>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
 
-            <StackPanel Width="40" Name="NewButton" Background ="Transparent" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1">
-                <StackPanel.ToolTip>
+            <fa5:ImageAwesome Name="NewButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="5" Grid.Row="1" Width="37">
+                <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
                         Create a New Package
                     </ToolTip>
-                </StackPanel.ToolTip>
-                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_FolderPlus" Foreground="White" Width="37"/>
-            </StackPanel>
+                </fa5:ImageAwesome.ToolTip>
+            </fa5:ImageAwesome>
+
 
             <ComboBox Name="GameBox" Background="Black" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="121" Height="30" Grid.Column="1" Grid.Row="1" >
                 <ComboBoxItem >Persona 3 FES</ComboBoxItem>

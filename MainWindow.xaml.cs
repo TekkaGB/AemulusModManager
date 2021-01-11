@@ -16,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 
@@ -46,6 +47,7 @@ namespace AemulusModManager
         public string elfPath;
         public string cpkLang;
         private BitmapImage bitmap;
+        public List<FontAwesome5.ImageAwesome> buttons;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
@@ -207,10 +209,18 @@ namespace AemulusModManager
             xsp = new XmlSerializer(typeof(Metadata));
             xsm = new XmlSerializer(typeof(ModXmlMetadata));
 
+            buttons = new List<FontAwesome5.ImageAwesome>();
+            buttons.Add(NewButton);
+            buttons.Add(SwapButton);
+            buttons.Add(FolderButton);
+            buttons.Add(MergeButton);
+            buttons.Add(ConfigButton);
+            buttons.Add(LaunchButton);
+            buttons.Add(RefreshButton);
 
             //Console.WriteLine($"[INFO] Initializing packages from {game.Replace(" ", "")}Config.xml");
             // Load in Config if it exists
-            
+
             string file = @"Config\Config.xml";
             if (File.Exists(@"Config\Config.xml") || File.Exists(@"Config.xml"))
             {
@@ -267,6 +277,8 @@ namespace AemulusModManager
                             cpkLang = config.p4gConfig.cpkLang;
                             useCpk = config.p4gConfig.useCpk;
                             messageBox = config.p4gConfig.disableMessageBox;
+                            foreach (var button in buttons)
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
                         }
                         else if (game == "Persona 3 FES")
                         {
@@ -276,6 +288,8 @@ namespace AemulusModManager
                             launcherPath = config.p3fConfig.launcherPath;
                             messageBox = config.p3fConfig.disableMessageBox;
                             useCpk = false;
+                            foreach (var button in buttons)
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                         }
                         else if (game == "Persona 5")
                         {
@@ -284,6 +298,8 @@ namespace AemulusModManager
                             launcherPath = config.p5Config.launcherPath;
                             messageBox = config.p5Config.disableMessageBox;
                             useCpk = false;
+                            foreach (var button in buttons)
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                         }
                     }
                     if (file == @"Config.xml")
@@ -374,14 +390,17 @@ namespace AemulusModManager
                 config.p4gConfig.cpkLang = "data_e.cpk";
             }
 
-            if (modPath == null)
+            if (modPath == "")
+            {
                 MergeButton.IsHitTestVisible = false;
+                MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+            }
 
-            if (game == "Persona 4 Golden" && config.p4gConfig.modDir != null)
+            if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "")
                 modPath = config.p4gConfig.modDir;
-            else if (game == "Persona 3 FES" && config.p3fConfig.modDir != null)
+            else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "")
                 modPath = config.p3fConfig.modDir;
-            else if (game == "Persona 5" && config.p5Config.modDir != null)
+            else if (game == "Persona 5" && config.p5Config.modDir != "")
                 modPath = config.p5Config.modDir;
 
             // Create Packages directory if it doesn't exist
@@ -407,6 +426,8 @@ namespace AemulusModManager
                 TopPriority.Text = "Lower Priority";
                 BottomPriority.Text = "Higher Priority";
             }
+
+            LaunchButton.ToolTip = $"Launch {game}";
         }
 
         public Task pacUnpack(string directory)
@@ -423,14 +444,17 @@ namespace AemulusModManager
                 {
                     App.Current.Dispatcher.Invoke((Action)delegate
                     {
+                        foreach (var button in buttons)
+                        {
+                            button.IsHitTestVisible = true;
+                            if (game == "Persona 3 FES")
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                            else if (game == "Persona 4 Golden")
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                            else
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                        }
                         ModGrid.IsHitTestVisible = true;
-                        ConfigButton.IsHitTestVisible = true;
-                        MergeButton.IsHitTestVisible = true;
-                        NewButton.IsHitTestVisible = true;
-                        LaunchButton.IsHitTestVisible = true;
-                        RefreshButton.IsHitTestVisible = true;
-                        SwapButton.IsHitTestVisible = true;
-                        FolderButton.IsHitTestVisible = true;
                         GameBox.IsHitTestVisible = true;
                         if (!messageBox)
                         {
@@ -445,7 +469,7 @@ namespace AemulusModManager
 
         private void LaunchClick(object sender, RoutedEventArgs e)
         {
-            if (gamePath != null && launcherPath != null)
+            if (gamePath != "" && launcherPath != "")
             {
                 Console.WriteLine("[INFO] Launching game!");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -460,14 +484,13 @@ namespace AemulusModManager
                 else if (game == "Persona 5")
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
 
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = false;
+                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                }
                 GameBox.IsHitTestVisible = false;
-                ConfigButton.IsHitTestVisible = false;
-                MergeButton.IsHitTestVisible = false;
-                LaunchButton.IsHitTestVisible = false;
-                NewButton.IsHitTestVisible = false;
-                RefreshButton.IsHitTestVisible = false;
-                SwapButton.IsHitTestVisible = false;
-                FolderButton.IsHitTestVisible = false;
+                ModGrid.IsHitTestVisible = false;
 
                 using (Process process = new Process())
                 {
@@ -476,14 +499,18 @@ namespace AemulusModManager
 
                 }
 
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = true;
+                    if (game == "Persona 3 FES")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                    else if (game == "Persona 4 Golden")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                }
+                ModGrid.IsHitTestVisible = true;
                 GameBox.IsHitTestVisible = true;
-                ConfigButton.IsHitTestVisible = true;
-                MergeButton.IsHitTestVisible = true;
-                LaunchButton.IsHitTestVisible = true;
-                NewButton.IsHitTestVisible = true;
-                RefreshButton.IsHitTestVisible = true;
-                SwapButton.IsHitTestVisible = true;
-                FolderButton.IsHitTestVisible = true;
             }
             else
                 Console.WriteLine("[ERROR] Please setup shortcut in config menu.");
@@ -703,7 +730,7 @@ namespace AemulusModManager
             if (newPackage.metadata != null)
             {
                 string path;
-                if (newPackage.metadata.version != null && newPackage.metadata.version.Length > 0)
+                if (newPackage.metadata.version != "" && newPackage.metadata.version.Length > 0)
                     path = $@"Packages\{game}\{newPackage.metadata.name} {newPackage.metadata.version}";
                 else
                     path = $@"Packages\{game}\{newPackage.metadata.name}";
@@ -762,7 +789,7 @@ namespace AemulusModManager
 
         private async void MergeClick(object sender, RoutedEventArgs e)
         {
-            if ((game == "Persona 4 Golden" && !Directory.Exists($@"Original\{game}\{cpkLang}"))
+            if ((game == "Persona 4 Golden" && !Directory.Exists($@"Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
                     && !Directory.Exists($@"Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"Original\{game}")))
@@ -819,14 +846,12 @@ namespace AemulusModManager
                     Mouse.OverrideCursor = Cursors.Wait;
                 });
 
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = false;
+                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                }
                 GameBox.IsHitTestVisible = false;
-                ConfigButton.IsHitTestVisible = false;
-                MergeButton.IsHitTestVisible = false;
-                LaunchButton.IsHitTestVisible = false;
-                NewButton.IsHitTestVisible = false;
-                RefreshButton.IsHitTestVisible = false;
-                SwapButton.IsHitTestVisible = false;
-                FolderButton.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
 
                 fromMain = true;
@@ -843,26 +868,27 @@ namespace AemulusModManager
                 Mouse.OverrideCursor = Cursors.Wait;
             });
 
+            foreach (var button in buttons)
+            {
+                button.IsHitTestVisible = false;
+                button.Foreground = new SolidColorBrush(Colors.Gray);
+            }
             GameBox.IsHitTestVisible = false;
-            ConfigButton.IsHitTestVisible = false;
-            MergeButton.IsHitTestVisible = false;
-            LaunchButton.IsHitTestVisible = false;
-            NewButton.IsHitTestVisible = false;
-            RefreshButton.IsHitTestVisible = false;
-            SwapButton.IsHitTestVisible = false;
-            FolderButton.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
 
             await unpackThenMerge();
 
             ModGrid.IsHitTestVisible = true;
-            ConfigButton.IsHitTestVisible = true;
-            MergeButton.IsHitTestVisible = true;
-            LaunchButton.IsHitTestVisible = true;
-            NewButton.IsHitTestVisible = true;
-            RefreshButton.IsHitTestVisible = true;
-            SwapButton.IsHitTestVisible = true;
-            FolderButton.IsHitTestVisible = true;
+            foreach (var button in buttons)
+            {
+                button.IsHitTestVisible = true;
+                if (game == "Persona 3 FES")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                else if (game == "Persona 4 Golden")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                else
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+            }
             GameBox.IsHitTestVisible = true;
 
             Application.Current.Dispatcher.Invoke(() =>
@@ -876,6 +902,11 @@ namespace AemulusModManager
             await Task.Run(() =>
             {
                 Refresh();
+                if (!Directory.Exists(modPath))
+                {
+                    Console.WriteLine("[ERROR] Current output folder doesn't exist! Please select it again.");
+                    return;
+                }
                 List<string> packages = new List<string>();
                 foreach (Package m in PackageList)
                 {
@@ -895,8 +926,6 @@ namespace AemulusModManager
                     packages.Reverse();
                 if (packages.Count == 0)
                     Console.WriteLine("[ERROR] No packages to build!");
-                else if (!Directory.Exists(modPath))
-                    Console.WriteLine("[ERROR] Current output folder doesn't exist! Please select it again.");
                 else
                 {
                     string path = modPath;
@@ -1191,7 +1220,7 @@ namespace AemulusModManager
 
         private void ModGrid_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Space && ModGrid.CurrentColumn.Header.ToString() != "Enabled")
+            if (e.Key == Key.Space && ModGrid.CurrentColumn.Header.ToString() != "Enabled")
             {
                 var checkbox = ModGrid.Columns[0].GetCellContent(ModGrid.SelectedItem) as CheckBox;
                 checkbox.IsChecked = !checkbox.IsChecked;
@@ -1215,6 +1244,8 @@ namespace AemulusModManager
                         messageBox = config.p3fConfig.disableMessageBox;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                         break;
                     case 1:
                         game = "Persona 4 Golden";
@@ -1226,6 +1257,8 @@ namespace AemulusModManager
                         useCpk = config.p4gConfig.useCpk;
                         messageBox = config.p4gConfig.disableMessageBox;
                         ConvertCPK.Visibility = Visibility.Visible;
+                        foreach (var button in buttons)
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
                         break;
                     case 2:
                         game = "Persona 5";
@@ -1235,9 +1268,17 @@ namespace AemulusModManager
                         messageBox = config.p5Config.disableMessageBox;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                         break;
                 }
                 config.game = game;
+                if (modPath == "")
+                {
+                    MergeButton.IsHitTestVisible = false;
+                    MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                }
+                LaunchButton.ToolTip = $"Launch {game}";
                 if (!Directory.Exists($@"Packages\{game}"))
                 {
                     Console.WriteLine($@"[INFO] Creating Packages\{game}");
@@ -1369,8 +1410,54 @@ namespace AemulusModManager
             
             config.bottomUpPriority = bottomUpPriority;
             updateConfig();
+            for (int i = 0; i < DisplayedPackages.Count; i++)
+            {
+                DisplayedPackages.Move(DisplayedPackages.Count - 1, i);
+                PackageList.Move(PackageList.Count - 1, i);
+            }
+            updatePackages();
             Console.WriteLine("[INFO] Switched priority.");
 
+        }
+
+        private void MouseEnterColorChange(object sender, MouseEventArgs e)
+        {
+            var button = e.OriginalSource as FontAwesome5.ImageAwesome;
+            if (button.IsHitTestVisible)
+            {
+                switch (game)
+                {
+                    case "Persona 3 FES":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x28, 0x52, 0x80));
+                        break;
+                    case "Persona 4 Golden":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x77, 0x1a));
+                        break;
+                    case "Persona 5":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x00, 0x00));
+                        break;
+                }
+            }
+        }
+
+        private void MouseLeaveColorChange(object sender, MouseEventArgs e)
+        {
+            var button = e.OriginalSource as FontAwesome5.ImageAwesome;
+            if (button.IsHitTestVisible)
+            {
+                switch (game)
+                {
+                    case "Persona 3 FES":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                        break;
+                    case "Persona 4 Golden":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        break;
+                    case "Persona 5":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                        break;
+                }
+            }
         }
     }
 }

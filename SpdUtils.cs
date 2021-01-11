@@ -32,11 +32,10 @@ namespace AemulusModManager
             int numTextures = BitConverter.ToUInt16(spdBytes, 20);
             int pos = 32;
             DDS dds;
-            int tag;
             for (int i = 0; i < numTextures; i++)
             {
                 dds = new DDS();
-                tag = BitConverter.ToInt32(spdBytes, pos);
+                int tag = BitConverter.ToInt32(spdBytes, pos);
                 dds.pos = BitConverter.ToUInt32(spdBytes, pos + 8);
                 dds.size = BitConverter.ToInt32(spdBytes, pos + 12);
                 dds.name = $"{Encoding.ASCII.GetString(SliceArray(spdBytes, pos + 32, pos + 47)).TrimEnd('\0')}[{tag}]";

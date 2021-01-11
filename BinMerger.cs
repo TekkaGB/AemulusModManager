@@ -437,7 +437,6 @@ namespace AemulusModManager
                                 List<string> folders = new List<string>(f.Split(char.Parse("\\")));
                                 string binPath = string.Join("/", folders.ToArray().Skip(numParFolders).ToArray());
 
-                                Console.WriteLine(binPath);
 
                                 // Check if more unpacking needs to be done to replace
                                 if (contents.Contains($"../../../{binPath}"))
