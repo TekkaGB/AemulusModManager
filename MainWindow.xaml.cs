@@ -418,7 +418,9 @@ namespace AemulusModManager
             updateConfig();
             updatePackages();
 
-            Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).\n\nIf you want to help support me go to:\nhttps://www.ko-fi.com/tekka");
+            Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                "the package has no description.)");
 
             if (!bottomUpPriority)
             {
@@ -995,7 +997,9 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).\n\nIf you want to help support me go to:\nhttps://www.ko-fi.com/tekka");
+                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                        "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                        "the package has no description.)");
                 }
 
                 // Set requirement visibility
@@ -1364,7 +1368,9 @@ namespace AemulusModManager
                 bitmap.EndInit();
                 Preview.Source = bitmap;
 
-                Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it sounds cool. (You are seeing this message because no mod package is selected or the package has no description).\n\nIf you want to help support me go to:\nhttps://www.ko-fi.com/tekka");
+                Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                    "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                    "the package has no description.)");
             }
 
             
