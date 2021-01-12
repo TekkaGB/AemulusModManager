@@ -962,7 +962,14 @@ namespace AemulusModManager
                     }
 
                     if (game == "Persona 5")
+                    {
                         binMerge.MakeCpk(path);
+                        if (!File.Exists($@"{modPath}\mod.cpk"))
+                            Console.WriteLine("[ERROR] Failed to build mod.cpk!");
+                    }
+
+                    if (game == "Persona 4 Golden" && File.Exists($@"{modPath}\patches\BGME_Base.patch") && File.Exists($@"{modPath}\patches\BGME_Main.patch"))
+                        Console.WriteLine("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");
 
                     Console.WriteLine("[INFO] Finished Building!");
                     Application.Current.Dispatcher.Invoke(() =>

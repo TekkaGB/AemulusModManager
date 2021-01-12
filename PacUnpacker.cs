@@ -25,6 +25,11 @@ namespace AemulusModManager
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = @"Dependencies\7z\7z.exe";
+            if (!File.Exists(startInfo.FileName))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
@@ -97,6 +102,11 @@ namespace AemulusModManager
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = @"Dependencies\Preappfile\preappfile.exe";
+            if (!File.Exists(startInfo.FileName))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
@@ -157,6 +167,11 @@ namespace AemulusModManager
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = @"Dependencies\MakeCpk\YACpkTool.exe";
+            if (!File.Exists(startInfo.FileName))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
