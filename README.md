@@ -1,9 +1,14 @@
-# AemulusModManager
+# Aemulus Package Manager - Now Supporting P3F and P5!
 ## Introduction
-The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC.
+The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, and Persona 5.
 
 ## How to Use
-[Make sure you've set up Reloaded-II and the P4G mod loader first and foremost.](https://gamebanana.com/tuts/13379)
+### Prerequisites
+For Persona 4 Golden on PC, [make sure you've set up Reloaded-II and the P4G mod loader first and foremost.](https://gamebanana.com/tuts/13379)
+
+For Persona 3 FES, [setup HostFS for mod loading.](https://shrinefox.com/guides/2020/04/10/modding-using-hostfs-on-pcsx2-p3-p4-smt3/)
+
+For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
 ### Pointing to the the mods Folder
 After unzipping the download, just double-click AemulusPackageManager.exe to launch the program.
