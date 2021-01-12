@@ -470,6 +470,11 @@ namespace AemulusModManager
                         }
                     });
                 }
+                if ((game == "Persona 4 Golden" && !Directory.Exists($@"Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
+                    || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
+                    && !Directory.Exists($@"Original\{game}\BTL"))
+                    || (game == "Persona 5" && !Directory.Exists($@"Original\{game}")))
+                    Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have everything in the Dependencies folder and all prerequisites installed!");
             });
         }
 
@@ -867,6 +872,12 @@ namespace AemulusModManager
                 else
                     await pacUnpack(Path.GetDirectoryName(gamePath));
                 fromMain = false;
+
+                if ((game == "Persona 4 Golden" && !Directory.Exists($@"Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
+                    || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
+                    && !Directory.Exists($@"Original\{game}\BTL"))
+                    || (game == "Persona 5" && !Directory.Exists($@"Original\{game}")))
+                    return;
             }
 
             Application.Current.Dispatcher.Invoke(() =>
