@@ -164,7 +164,8 @@ namespace AemulusModManager
             Directory.CreateDirectory("Config");
 
             // Transfer all current packages to Persona 4 Golden folder
-            if (!Directory.Exists($@"Packages\Persona 4 Golden") && !Directory.Exists($@"Packages\Persona 3 FES") && !Directory.Exists($@"Packages\Persona 5"))
+            if (!Directory.Exists($@"Packages\Persona 4 Golden") && !Directory.Exists($@"Packages\Persona 3 FES") && !Directory.Exists($@"Packages\Persona 5")
+                && Directory.Exists("Packages") && Directory.GetDirectories("Packages").Any())
             {
                 Console.WriteLine("[INFO] Transferring current packages to Persona 4 Golden subfolder...");
                 FileSystem.MoveDirectory("Packages", "Persona 4 Golden", true);
@@ -247,7 +248,7 @@ namespace AemulusModManager
                         else
                             config = (AemulusConfig)xs.Deserialize(streamWriter);
                         game = config.game;
-                        if (game == null)
+                        if (game != "Persona 4 Golden" || game != "Persona 3 FES" || game != "Persona 5")
                         {
                             game = "Persona 4 Golden";
                             config.game = "Persona 4 Golden";
@@ -388,27 +389,30 @@ namespace AemulusModManager
                 config.game = "Persona 4 Golden";
                 cpkLang = "data_e.cpk";
                 config.p4gConfig.cpkLang = "data_e.cpk";
+                foreach (var button in buttons)
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
             }
 
-            if (modPath == "")
+
+
+            if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "" && config.p4gConfig.modDir != null)
+                modPath = config.p4gConfig.modDir;
+            else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "" && config.p3fConfig.modDir != null)
+                modPath = config.p3fConfig.modDir;
+            else if (game == "Persona 5" && config.p5Config.modDir != "" && config.p5Config.modDir != null)
+                modPath = config.p5Config.modDir;
+
+            if (modPath == "" || modPath == null)
             {
                 MergeButton.IsHitTestVisible = false;
                 MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
             }
-
-            if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "")
-                modPath = config.p4gConfig.modDir;
-            else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "")
-                modPath = config.p3fConfig.modDir;
-            else if (game == "Persona 5" && config.p5Config.modDir != "")
-                modPath = config.p5Config.modDir;
-
             // Create Packages directory if it doesn't exist
-            if (!Directory.Exists("Packages"))
-                Directory.CreateDirectory("Packages");
-
-            if (!Directory.Exists("Original"))
-                Directory.CreateDirectory("Original");
+            Directory.CreateDirectory("Packages");
+            Directory.CreateDirectory(@"Packages\Persona 3 FES");
+            Directory.CreateDirectory(@"Packages\Persona 4 Golden");
+            Directory.CreateDirectory(@"Packages\Persona 5");
+            Directory.CreateDirectory("Original");
 
             Refresh();
             updateConfig();
@@ -469,7 +473,7 @@ namespace AemulusModManager
 
         private void LaunchClick(object sender, RoutedEventArgs e)
         {
-            if (gamePath != "" && launcherPath != "")
+            if (gamePath != "" && gamePath != null && launcherPath != "" && launcherPath != null)
             {
                 Console.WriteLine("[INFO] Launching game!");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -797,7 +801,7 @@ namespace AemulusModManager
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack base files first.");
 
-                if (gamePath == "")
+                if (gamePath == "" || gamePath == null)
                 {
                     string selectedPath;
                     if (game == "Persona 4 Golden")
@@ -838,7 +842,7 @@ namespace AemulusModManager
                     }
                 }
 
-                if (gamePath == "")
+                if (gamePath == "" || gamePath == null)
                     return;
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -1273,7 +1277,7 @@ namespace AemulusModManager
                         break;
                 }
                 config.game = game;
-                if (modPath == "")
+                if (modPath == "" || modPath == null)
                 {
                     MergeButton.IsHitTestVisible = false;
                     MergeButton.Foreground = new SolidColorBrush(Colors.Gray);

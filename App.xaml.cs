@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace AemulusModManager
@@ -23,12 +24,17 @@ namespace AemulusModManager
             e.Handled = true;
             App.Current.Dispatcher.Invoke((Action)delegate
             {
+                foreach (var button in ((MainWindow)Current.MainWindow).buttons)
+                {
+                    button.IsHitTestVisible = true;
+                    if (((MainWindow)Current.MainWindow).game == "Persona 3 FES")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                    else if (((MainWindow)Current.MainWindow).game == "Persona 4 Golden")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                }
                 ((MainWindow)Current.MainWindow).ModGrid.IsHitTestVisible = true;
-                ((MainWindow)Current.MainWindow).ConfigButton.IsHitTestVisible = true;
-                ((MainWindow)Current.MainWindow).MergeButton.IsHitTestVisible = true;
-                ((MainWindow)Current.MainWindow).NewButton.IsHitTestVisible = true;
-                ((MainWindow)Current.MainWindow).LaunchButton.IsHitTestVisible = true;
-                ((MainWindow)Current.MainWindow).RefreshButton.IsHitTestVisible = true;
                 ((MainWindow)Current.MainWindow).GameBox.IsHitTestVisible = true;
                 Mouse.OverrideCursor = null;
             });
