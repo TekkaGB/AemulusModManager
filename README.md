@@ -1,4 +1,4 @@
-# Aemulus Package Manager P3F/P4G/P5
+# Aemulus Package Manager P3F PS2/P4G PC/P5 PS3
 ## Introduction
 The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, and Persona 5.
 
