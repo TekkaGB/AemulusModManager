@@ -1399,6 +1399,14 @@ namespace AemulusModManager
             Process.Start("https://www.ko-fi.com/tekka");
         }
 
+        private void Setup_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (File.Exists("Aemulus_Setup.pdf"))
+                Process.Start("Aemulus_Setup.pdf");
+            else
+                Console.WriteLine("[ERROR] Aemulus_Setup.pdf not found.");
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             outputter.Close();

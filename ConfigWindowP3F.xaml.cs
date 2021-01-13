@@ -146,19 +146,31 @@ namespace AemulusModManager
         // Use 7zip on iso
         private async void UnpackPacsClick(object sender, RoutedEventArgs e)
         {
-            if (main.gamePath != null)
+            if (main.gamePath == null || main.gamePath == "")
             {
-                main.ModGrid.IsHitTestVisible = false;
-                UnpackButton.IsHitTestVisible = false;
-                foreach (var button in main.buttons)
+                string selectedPath = selectExe("Select P3F's iso to unpack", ".iso");
+                if (selectedPath != null)
                 {
-                    button.IsHitTestVisible = false;
-                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                    main.gamePath = selectedPath;
+                    main.config.p3fConfig.isoPath = main.gamePath;
+                    main.updateConfig();
                 }
-                main.GameBox.IsHitTestVisible = false;
-                await main.pacUnpack(main.gamePath);
-                UnpackButton.IsHitTestVisible = true;
+                else
+                {
+                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                    return;
+                }
             }
+            main.ModGrid.IsHitTestVisible = false;
+            UnpackButton.IsHitTestVisible = false;
+            foreach (var button in main.buttons)
+            {
+                button.IsHitTestVisible = false;
+                button.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            main.GameBox.IsHitTestVisible = false;
+            await main.pacUnpack(main.gamePath);
+            UnpackButton.IsHitTestVisible = true;
         }
 
     }

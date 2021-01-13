@@ -96,7 +96,15 @@
                 <ComboBoxItem>Persona 5</ComboBoxItem>
             </ComboBox>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Setup_Click" Cursor="Hand" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2">
+                <StackPanel.ToolTip>
+                    Open PDF Guide to Get Started!
+                </StackPanel.ToolTip>
+                <fa5:ImageAwesome  VerticalAlignment="Center" Icon="Solid_Question" Foreground="White" Width="15"/>
+                <TextBlock VerticalAlignment="Center" Width="105"  Text="Setup Guide" Foreground ="White" TextAlignment="Center" FontSize="18"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2">
                 <StackPanel.ToolTip>
                     https://www.ko-fi.com/tekka
                 </StackPanel.ToolTip>

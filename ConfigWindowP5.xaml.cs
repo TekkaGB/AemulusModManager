@@ -128,19 +128,32 @@ namespace AemulusModManager
         // Use 7zip on iso
         private async void UnpackPacsClick(object sender, RoutedEventArgs e)
         {
-            if (main.gamePath != null)
+            
+            if (main.gamePath == null || main.gamePath == "")
             {
-                main.ModGrid.IsHitTestVisible = false;
-                UnpackButton.IsHitTestVisible = false;
-                foreach (var button in main.buttons)
+                string selectedPath = selectExe("Select P5's EBOOT.BIN to unpack", ".bin");
+                if (selectedPath != null && Path.GetFileName(selectedPath) == "EBOOT.BIN")
                 {
-                    button.IsHitTestVisible = false;
-                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                    main.gamePath = selectedPath;
+                    main.config.p5Config.gamePath = main.gamePath;
+                    main.updateConfig();
                 }
-                main.GameBox.IsHitTestVisible = false;
-                await main.pacUnpack(main.modPath);
-                UnpackButton.IsHitTestVisible = true;
+                else
+                {
+                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                    return;
+                }
             }
+            main.ModGrid.IsHitTestVisible = false;
+            UnpackButton.IsHitTestVisible = false;
+            foreach (var button in main.buttons)
+            {
+                button.IsHitTestVisible = false;
+                button.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            main.GameBox.IsHitTestVisible = false;
+            await main.pacUnpack(Path.GetDirectoryName(main.gamePath));
+            UnpackButton.IsHitTestVisible = true;
         }
 
     }

@@ -62,7 +62,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             File.Delete(@"Original\Persona 3 FES\DATA.CVM");
-            Console.WriteLine($"[INFO] Finished extracting base files!");
+            Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
@@ -126,7 +126,7 @@ namespace AemulusModManager
                 }
             }
 
-            Console.WriteLine("[INFO] Finished unpacking vanilla files!");
+            Console.WriteLine("[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
@@ -175,36 +175,46 @@ namespace AemulusModManager
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
-            
 
-            Console.WriteLine($"[INFO] Extracting data.cpk");
-            foreach (var file in dataFiles)
+
+            if (File.Exists($@"{directory}\data.cpk"))
             {
-                startInfo.Arguments = $@"-X {file} -i ""{directory}\data.cpk"" -o ""Original\Persona 5""";
-
-                using (Process process = new Process())
+                Console.WriteLine($"[INFO] Extracting data.cpk");
+                foreach (var file in dataFiles)
                 {
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    Console.WriteLine(process.StandardOutput.ReadToEnd());
-                    process.WaitForExit();
+                    startInfo.Arguments = $@"-X {file} -i ""{directory}\data.cpk"" -o ""Original\Persona 5""";
+
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                        process.WaitForExit();
+                    }
                 }
             }
+            else
+                Console.WriteLine($"[ERROR] Couldn't find data.cpk in {directory}.");
 
-            Console.WriteLine($"[INFO] Extracting ps3.cpk");
-            foreach (var file in ps3Files)
+            if (File.Exists($@"{directory}\data.cpk"))
             {
-                startInfo.Arguments = $@"-X {file} -i ""{directory}\ps3.cpk"" -o ""Original\Persona 5""";
-
-                using (Process process = new Process())
+                Console.WriteLine($"[INFO] Extracting ps3.cpk");
+                foreach (var file in ps3Files)
                 {
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    Console.WriteLine(process.StandardOutput.ReadToEnd());
-                    process.WaitForExit();
+                    startInfo.Arguments = $@"-X {file} -i ""{directory}\ps3.cpk"" -o ""Original\Persona 5""";
+
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                        process.WaitForExit();
+                    }
                 }
             }
-            Console.WriteLine($"[INFO] Finished extracting base files!");
+            else
+                Console.WriteLine($"[ERROR] Couldn't find ps3.cpk in {directory}.");
+            Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
