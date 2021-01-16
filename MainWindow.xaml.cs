@@ -248,7 +248,7 @@ namespace AemulusModManager
                         else
                             config = (AemulusConfig)xs.Deserialize(streamWriter);
                         game = config.game;
-                        if (game != "Persona 4 Golden" || game != "Persona 3 FES" || game != "Persona 5")
+                        if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5")
                         {
                             game = "Persona 4 Golden";
                             config.game = "Persona 4 Golden";
@@ -446,30 +446,28 @@ namespace AemulusModManager
                     PacUnpacker.Unzip(directory);
                 else if (game == "Persona 5")
                     PacUnpacker.UnpackCPK(directory);
-                if (!fromMain)
+                
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    foreach (var button in buttons)
                     {
-                        foreach (var button in buttons)
-                        {
-                            button.IsHitTestVisible = true;
-                            if (game == "Persona 3 FES")
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                            else if (game == "Persona 4 Golden")
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                            else
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
-                        }
-                        ModGrid.IsHitTestVisible = true;
-                        GameBox.IsHitTestVisible = true;
-                        if (!messageBox)
-                        {
-                            NotificationBox notification = new NotificationBox("Finished Unpacking!");
-                            notification.ShowDialog();
-                            Activate();
-                        }
-                    });
-                }
+                        button.IsHitTestVisible = true;
+                        if (game == "Persona 3 FES")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                        else if (game == "Persona 4 Golden")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        else
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                    }
+                    ModGrid.IsHitTestVisible = true;
+                    GameBox.IsHitTestVisible = true;
+                    if (!fromMain && !messageBox)
+                    {
+                        NotificationBox notification = new NotificationBox("Finished Unpacking!");
+                        notification.ShowDialog();
+                        Activate();
+                    }
+                });
                 if ((game == "Persona 4 Golden" && !Directory.Exists($@"Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
                     && !Directory.Exists($@"Original\{game}\BTL"))
@@ -480,9 +478,13 @@ namespace AemulusModManager
 
         private void LaunchClick(object sender, RoutedEventArgs e)
         {
-            if (gamePath != "" && gamePath != null && launcherPath != "" && launcherPath != null)
+            if ((gamePath != "" && gamePath != null && launcherPath != "" && launcherPath != null)
+                || (elfPath != "" && elfPath != null && launcherPath != "" && launcherPath != null))
             {
-                Console.WriteLine("[INFO] Launching game!");
+                if (game != "Persona 3 FES")
+                    Console.WriteLine($"[INFO] Launching {gamePath} with {launcherPath}");
+                else
+                    Console.WriteLine($"[INFO] Launching {elfPath} with {launcherPath}");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = true;
                 startInfo.UseShellExecute = false;
@@ -507,7 +509,7 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-
+                    //process.WaitForExit(); // Freezes aemulus
                 }
 
                 foreach (var button in buttons)
@@ -1271,7 +1273,10 @@ namespace AemulusModManager
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
+                        {
                             button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                            button.IsHitTestVisible = true;
+                        }
                         break;
                     case 1:
                         game = "Persona 4 Golden";
@@ -1284,7 +1289,10 @@ namespace AemulusModManager
                         messageBox = config.p4gConfig.disableMessageBox;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
+                        {
                             button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                            button.IsHitTestVisible = true;
+                        }
                         break;
                     case 2:
                         game = "Persona 5";
@@ -1295,7 +1303,10 @@ namespace AemulusModManager
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
+                        {
                             button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                            button.IsHitTestVisible = true;
+                        }
                         break;
                 }
                 config.game = game;

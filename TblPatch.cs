@@ -153,10 +153,11 @@ namespace AemulusModManager
                 foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tblpatch", SearchOption.TopDirectoryOnly).Union
                        (Directory.EnumerateFiles(dir, "*.tblpatch", SearchOption.TopDirectoryOnly)))
                 {
+                    Console.WriteLine($"[INFO] Reading {t}");
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
                     //Console.WriteLine($"[INFO] Loading {fileName}");
-                    if (file.Length < 12)
+                    if (file.Length < 3)
                     {
                         Console.WriteLine("[ERROR] Improper .tblpatch format.");
                         continue;
@@ -360,6 +361,11 @@ namespace AemulusModManager
 
                     if (tblName != "NAME.TBL")
                     {
+                        if (file.Length < 12)
+                        {
+                            Console.WriteLine("[ERROR] Improper .tblpatch format.");
+                            continue;
+                        }
                         // Offset to start overwriting at
                         byte[] byteOffset = SliceArray(file, 3, 11);
                         // Reverse endianess
@@ -400,7 +406,14 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        sections = replaceName(sections, file);
+                        if (file.Length < 6)
+                        {
+                            Console.WriteLine("[ERROR] Improper .tblpatch format.");
+                            continue;
+                        }
+                        var temp = replaceName(sections, file);
+                        if (temp != null)
+                            sections = temp;
                     }
                 }
 
@@ -435,13 +448,32 @@ namespace AemulusModManager
             int pos = 0;
             NameSection section;
             // 33 sections
-            for (int i = 0; i <= 33; i++)
+            for (int i = 0; i <= 16; i++)
             {
                 section = new NameSection();
                 // Get big endian section size
-                section.size = BitConverter.ToInt32(SliceArray(tblBytes, pos, pos + 4).Reverse().ToArray(), 0);
+                section.pointersSize = BitConverter.ToInt32(SliceArray(tblBytes, pos, pos + 4).Reverse().ToArray(), 0);
 
-                byte[] segment = SliceArray(tblBytes, pos + 4, pos + 4 + section.size);
+                // Get pointers
+                byte[] segment = SliceArray(tblBytes, pos + 4, pos + 4 + section.pointersSize);
+                section.pointers = new List<UInt16>();
+                for (int j = 0; j < segment.Length; j += 2)
+                {
+                    section.pointers.Add(BitConverter.ToUInt16(SliceArray(segment, j, j + 2).Reverse().ToArray(), 0));
+                }
+
+                // Get to name section
+                pos += section.pointersSize + 4;
+                if ((pos % 16) != 0)
+                {
+                    pos += 16 - (pos % 16);
+                }
+
+                // Get big endian section size
+                section.namesSize = BitConverter.ToInt32(SliceArray(tblBytes, pos, pos + 4).Reverse().ToArray(), 0);
+
+                // Get names
+                segment = SliceArray(tblBytes, pos + 4, pos + 4 + section.namesSize);
                 section.names = new List<byte[]>();
                 List<byte> name = new List<byte>();
                 foreach (var segmentByte in segment)
@@ -459,8 +491,8 @@ namespace AemulusModManager
                 }
                 section.names.Add(name.ToArray());
 
-                pos += section.size + 4;
-
+                // Get to next section
+                pos += section.namesSize + 4;
                 if ((pos % 16) != 0)
                 {
                     pos += 16 - (pos % 16);
@@ -472,13 +504,28 @@ namespace AemulusModManager
 
         private static List<NameSection> replaceName(List<NameSection> sections, byte[] patch)
         {
-            int section = BitConverter.ToInt32(SliceArray(patch, 3, 7).Reverse().ToArray(), 0);
-            int index = BitConverter.ToInt32(SliceArray(patch, 7, 11).Reverse().ToArray(), 0);
+            int section = Convert.ToInt32(patch[3]);
+            if (section >= sections.Count)
+            {
+                Console.WriteLine($"[ERROR] Section chosen is out of range.");
+                return null;
+            }
+            int index = BitConverter.ToInt16(SliceArray(patch, 4, 6).Reverse().ToArray(), 0);
+
+            if (index >= sections[section].names.Count)
+            {
+                Console.WriteLine($"[ERROR] Index chosen is out of range {sections[section].names.Count}.");
+                return null;
+            }
             // Contents is what to replace
-            byte[] fileContents = SliceArray(patch, 11, patch.Length);
+            byte[] fileContents = SliceArray(patch, 6, patch.Length);
             int delta = fileContents.Length - sections[section].names[index].Length;
             sections[section].names[index] = fileContents;
-            sections[section].size += delta;
+            sections[section].namesSize += delta;
+            for (int i = index + 1; i < sections[section].pointers.Count; i++)
+            {
+                sections[section].pointers[i] += (UInt16)delta;
+            }
             return sections;
         }
 
@@ -491,8 +538,15 @@ namespace AemulusModManager
                 {
                     foreach (var section in sections)
                     {
-                        // Write size
-                        bw.Write(BitConverter.GetBytes(section.size).Reverse().ToArray());
+                        // Write Pointer size
+                        bw.Write(BitConverter.GetBytes(section.pointersSize).Reverse().ToArray());
+                        // Write pointer section
+                        foreach (var pointer in section.pointers)
+                            bw.Write(BitConverter.GetBytes(pointer).Reverse().ToArray());
+                        while (bw.BaseStream.Position % 16 != 0)
+                            bw.Write((byte)0);
+                        // Write names size
+                        bw.Write(BitConverter.GetBytes(section.namesSize).Reverse().ToArray());
                         // Write names
                         byte[] last = section.names.Last();
                         foreach (var name in section.names)
@@ -508,37 +562,34 @@ namespace AemulusModManager
             }
         }
 
-        /* Using the position, start counting after 4 up to desired null bytes passed
-         * At desired replacement, replace and count number of bytes changed.
-         * Update section size at very beginning with that bytes changed found
-         * After all patches are applied, change file size in table.pac or just use pacpack
-         */
 
-        /* Use string or index in header? 4 bytes for section, 4 bytes for index?
-         * ArcanaNames 1
-         * SkillNames 3
-         * UnitNames 5
-         * PersonaNames 7
-         * AccessoryNames 9
-         * ArmorNames 11
-         * ConsumableItemNames 13
-         * KeyItemNames 15
-         * MaterialNames 17
-         * MeleeWeaponNames 19
-         * BattleActionNames 21
-         * OutfitNames 23
-         * SkillCardNames 25
-         * ConfidantNames 27
-         * PartyMemberLastNames 29
-         * PartyMemberFirstNames 31
-         * RangedWeaponNames 33
+        /* 
+         * ArcanaNames 0
+         * SkillNames 1
+         * UnitNames 2
+         * PersonaNames 3
+         * AccessoryNames 4
+         * ArmorNames 5
+         * ConsumableItemNames 6
+         * KeyItemNames 7
+         * MaterialNames 8
+         * MeleeWeaponNames 9
+         * BattleActionNames 10
+         * OutfitNames 11
+         * SkillCardNames 12
+         * ConfidantNames 13
+         * PartyMemberLastNames 14
+         * PartyMemberFirstNames 15
+         * RangedWeaponNames 16
          */
     }
 
     public class NameSection
     {
-        public int size;
+        public int namesSize;
+        public int pointersSize;
         public List<byte[]> names;
+        public List<UInt16> pointers;
     }
 
 }
