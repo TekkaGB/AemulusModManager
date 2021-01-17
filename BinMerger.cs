@@ -339,6 +339,7 @@ namespace AemulusModManager
 
         private static bool resultSpd;
         private static bool resultPac;
+        private static bool resultPacCopied;
 
         public static void Merge(string modDir, string game)
         {
@@ -373,40 +374,37 @@ namespace AemulusModManager
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".arc");
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        if (!Directory.Exists(Path.GetDirectoryName(d)))
-                            Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
                     else if (File.Exists(Path.ChangeExtension(ogPath, ".pac")) && !File.Exists(Path.ChangeExtension(d, ".pac")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pac");
+                        if (Path.GetFileName(ogPath) == "result.pac")
+                            resultPacCopied = true;
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        if (!Directory.Exists(Path.GetDirectoryName(d)))
-                            Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
                     else if (File.Exists(Path.ChangeExtension(ogPath, ".pak")) && !File.Exists(Path.ChangeExtension(d, ".pak")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pak");
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        if (!Directory.Exists(Path.GetDirectoryName(d)))
-                            Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
                     else if (File.Exists(Path.ChangeExtension(ogPath, ".pack")) && !File.Exists(Path.ChangeExtension(d, ".pack")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pack");
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        if (!Directory.Exists(Path.GetDirectoryName(d)))
-                            Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
                     else if (File.Exists(Path.ChangeExtension(ogPath, ".spd")) && !File.Exists(Path.ChangeExtension(d, ".spd")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".spd");
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        if (!Directory.Exists(Path.GetDirectoryName(d)))
-                            Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
                 }
@@ -552,7 +550,7 @@ namespace AemulusModManager
                                     }
                                     else if (Path.GetFileName(file) == "result.spd")
                                         resultSpd = true;
-                                    else if (Path.GetFileName(file) == "result.pac")
+                                    else if (Path.GetFileName(file) == "result.pac" && resultPacCopied)
                                         resultPac = true;
                                 }
                                 else
