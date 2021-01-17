@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 
 namespace AemulusModManager
 {
@@ -34,35 +35,34 @@ namespace AemulusModManager
         
         private static void unpackTbls(string archive, string game)
         {
-            string[] tbls = null;
-            if (game == "Persona 4 Golden")
-                tbls = new string[] { "SKILL.TBL", "UNIT.TBL", "MSG.TBL", "PERSONA.TBL", "ENCOUNT.TBL",
-                    "EFFECT.TBL", "MODEL.TBL", "AICALC.TBL" };
-            else if (game == "Persona 5")
-                tbls = new string[] { "SKILL.TBL", "UNIT.TBL", "TALKINFO.TBL", "PERSONA.TBL", "ENCOUNT.TBL",
-                    "VISUAL.TBL", "AICALC.TBL", "ELSAI.TBL", "EXIST.TBL", "ITEM.TBL", "NAME.TBL", "PLAYER.TBL" };
-            else if (game == "Persona 3 FES")
+            if (game == "Persona 3 FES")
                 return;
-            foreach (var tbl in tbls)
+            PAKPackCMD($@"unpack ""{archive}"" ""{tblDir}""");
+        }
+
+        private static string exePath = @"Dependencies\PAKPack\PAKPack.exe";
+
+        // Use PAKPack command
+        private static void PAKPackCMD(string args)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.UseShellExecute = false;
+            startInfo.FileName = $"\"{exePath}\"";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.Arguments = args;
+            using (Process process = new Process())
             {
-                byte[] archiveBytes = File.ReadAllBytes(archive);
-                byte[] pattern = null;
-                if (game == "Persona 4 Golden")
-                    pattern = Encoding.ASCII.GetBytes($"battle/{tbl}");
-                else if (game == "Persona 5")
-                    pattern = Encoding.ASCII.GetBytes($"table/{tbl}");
-                int nameOffset = Search(archiveBytes, pattern);
-                
-                int tblLength = BitConverter.ToInt32(archiveBytes, nameOffset+252);
-                byte[] tblBytes = SliceArray(archiveBytes, nameOffset + 256, nameOffset + 256 + tblLength);
-                File.WriteAllBytes($@"{tblDir}\{tbl}", tblBytes);
-                Console.WriteLine($"[INFO] Unpacked {tbl}");
+                process.StartInfo = startInfo;
+                process.Start();
+
+                // Add this: wait until process does its work
+                process.WaitForExit();
             }
         }
-        
+
         private static void repackTbls(string tbl, string archive, string game)
         {
-            byte[] archiveBytes = File.ReadAllBytes(archive);
             string parent = null;
             if (game == "Persona 4 Golden")
                 parent = "battle";
@@ -70,21 +70,12 @@ namespace AemulusModManager
                 parent = "table";
             else if (game == "Persona 3 FES")
                 return;
-            byte[] pattern = Encoding.ASCII.GetBytes($"{parent}/{Path.GetFileName(tbl)}");
-            int offset = Search(archiveBytes, pattern) + 256;
-            byte[] tblBytes = File.ReadAllBytes(tbl);
-
-            int tblLength = BitConverter.ToInt32(archiveBytes, offset + 252);
-            if (tblBytes.Length != tblLength)
-                BitConverter.GetBytes(archiveBytes.Length).CopyTo(archiveBytes, offset + 252);
-
-            tblBytes.CopyTo(archiveBytes, offset);
-            File.WriteAllBytes(archive, archiveBytes);
+            PAKPackCMD($@"replace ""{archive}"" {parent}/{Path.GetFileName(tbl)} ""{tbl}""");
         }
 
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
-            Console.WriteLine("Patching .tbl's...");
+            Console.WriteLine("[INFO] Patching .tbl's...");
             // Check if init_free exists and return if not
             string archive = null;
             if (game == "Persona 4 Golden")
@@ -133,8 +124,7 @@ namespace AemulusModManager
                 }
             
                 tblDir = $@"{modDir}\{Path.ChangeExtension(archive, null)}_tbls";
-                Directory.CreateDirectory(tblDir);
-                // Unpack init_free
+                // Unpack archive
                 Console.WriteLine($"[INFO] Unpacking tbl's from {archive}...");
                 unpackTbls($@"{modDir}\{archive}", game);
             }
@@ -153,10 +143,9 @@ namespace AemulusModManager
                 foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tblpatch", SearchOption.TopDirectoryOnly).Union
                        (Directory.EnumerateFiles(dir, "*.tblpatch", SearchOption.TopDirectoryOnly)))
                 {
-                    Console.WriteLine($"[INFO] Reading {t}");
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
-                    //Console.WriteLine($"[INFO] Loading {fileName}");
+                    Console.WriteLine($"[INFO] Loading {fileName}");
                     if (file.Length < 3)
                     {
                         Console.WriteLine("[ERROR] Improper .tblpatch format.");
@@ -356,7 +345,7 @@ namespace AemulusModManager
                     {
                         editedTables.Add(tblName);
                         if (tblName == "NAME.TBL")
-                            sections = getSections($@"{tblDir}\{tblName}");
+                            sections = getSections($@"{tblDir}\table\{tblName}");
                     }
 
                     if (tblName != "NAME.TBL")
@@ -377,7 +366,11 @@ namespace AemulusModManager
                         // TBL file to edit
                         if (game != "Persona 3 FES")
                         {
-                            string unpackedTblPath = $@"{tblDir}\{tblName}";
+                            string unpackedTblPath = null;
+                            if (game == "Persona 4 Golden")
+                                unpackedTblPath = $@"{tblDir}\battle\{tblName}";
+                            else
+                                unpackedTblPath = $@"{tblDir}\table\{tblName}";
                             byte[] tblBytes = File.ReadAllBytes(unpackedTblPath);
                             fileContents.CopyTo(tblBytes, offset);
                             File.WriteAllBytes(unpackedTblPath, tblBytes);
@@ -426,9 +419,12 @@ namespace AemulusModManager
                 foreach (string u in editedTables)
                 {
                     if (u == "NAME.TBL")
-                        writeTbl(sections, $@"{tblDir}\{u}");
+                        writeTbl(sections, $@"{tblDir}\table\{u}");
                     Console.WriteLine($"[INFO] Replacing {u} in {archive}");
-                    repackTbls($@"{tblDir}\{u}", $@"{modDir}\{archive}", game);
+                    if (game == "Persona 5")
+                        repackTbls($@"{tblDir}\table\{u}", $@"{modDir}\{archive}", game);
+                    else
+                        repackTbls($@"{tblDir}\battle\{u}", $@"{modDir}\{archive}", game);
                 }
 
                 Console.WriteLine($"[INFO] Deleting temp tbl folder...");
@@ -489,7 +485,6 @@ namespace AemulusModManager
                     }
 
                 }
-                section.names.Add(name.ToArray());
 
                 // Get to next section
                 pos += section.namesSize + 4;
@@ -511,20 +506,35 @@ namespace AemulusModManager
                 return null;
             }
             int index = BitConverter.ToInt16(SliceArray(patch, 4, 6).Reverse().ToArray(), 0);
+            // Contents is what to replace
+            byte[] fileContents = SliceArray(patch, 6, patch.Length);
 
             if (index >= sections[section].names.Count)
             {
-                Console.WriteLine($"[ERROR] Index chosen is out of range {sections[section].names.Count}.");
-                return null;
+                byte[] dummy = Encoding.ASCII.GetBytes("RESERVE");
+                // Add RESERVE names if index is further down
+                while (sections[section].names.Count < index)
+                {
+                    sections[section].pointers.Add((ushort)(sections[section].pointers.Last() + sections[section].names.Last().Length + 1));
+                    sections[section].names.Add(dummy);
+                    sections[section].pointersSize += 2;
+                    sections[section].namesSize += dummy.Length + 1;
+                }
+                // Add expanded name
+                sections[section].pointers.Add((ushort)(sections[section].pointers.Last() + sections[section].names.Last().Length + 1));
+                sections[section].names.Add(fileContents);
+                sections[section].pointersSize += 2;
+                sections[section].namesSize += fileContents.Length + 1;
             }
-            // Contents is what to replace
-            byte[] fileContents = SliceArray(patch, 6, patch.Length);
-            int delta = fileContents.Length - sections[section].names[index].Length;
-            sections[section].names[index] = fileContents;
-            sections[section].namesSize += delta;
-            for (int i = index + 1; i < sections[section].pointers.Count; i++)
+            else
             {
-                sections[section].pointers[i] += (UInt16)delta;
+                int delta = fileContents.Length - sections[section].names[index].Length;
+                sections[section].names[index] = fileContents;
+                sections[section].namesSize += delta;
+                for (int i = index + 1; i < sections[section].pointers.Count; i++)
+                {
+                    sections[section].pointers[i] += (UInt16)delta;
+                }
             }
             return sections;
         }
@@ -574,13 +584,13 @@ namespace AemulusModManager
          * KeyItemNames 7
          * MaterialNames 8
          * MeleeWeaponNames 9
-         * BattleActionNames 10
-         * OutfitNames 11
-         * SkillCardNames 12
-         * ConfidantNames 13
-         * PartyMemberLastNames 14
-         * PartyMemberFirstNames 15
-         * RangedWeaponNames 16
+         * BattleActionNames 10 A
+         * OutfitNames 11 B
+         * SkillCardNames 12 C
+         * ConfidantNames 13 D
+         * PartyMemberLastNames 14 E
+         * PartyMemberFirstNames 15 F
+         * RangedWeaponNames 16 10
          */
     }
 
