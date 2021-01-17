@@ -56,7 +56,7 @@ namespace AemulusModManager
                 int tblLength = BitConverter.ToInt32(archiveBytes, nameOffset+252);
                 byte[] tblBytes = SliceArray(archiveBytes, nameOffset + 256, nameOffset + 256 + tblLength);
                 File.WriteAllBytes($@"{tblDir}\{tbl}", tblBytes);
-                Console.WriteLine($"Unpacked {tbl}");
+                Console.WriteLine($"[INFO] Unpacked {tbl}");
             }
         }
         

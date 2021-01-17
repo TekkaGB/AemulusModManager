@@ -337,6 +337,9 @@ namespace AemulusModManager
             Console.WriteLine("[INFO] Finished unpacking!");
         }
 
+        private static bool resultSpd;
+        private static bool resultPac;
+
         public static void Merge(string modDir, string game)
         {
             Console.WriteLine("[INFO] Beginning to merge...");
@@ -425,7 +428,7 @@ namespace AemulusModManager
                             // Get contents of init_free
                             List<string> contents = getFileContents(bin);
 
-                            // Unpack init_free for future unpacking
+                            // Unpack archive for future unpacking
                             string temp = $"{binFolder}_temp";
                             PAKPackCMD($"unpack \"{bin}\" \"{temp}\"");
 
@@ -437,12 +440,13 @@ namespace AemulusModManager
                                 string binPath = string.Join("/", folders.ToArray().Skip(numParFolders).ToArray());
 
 
-                                // Check if more unpacking needs to be done to replace
+                                // Case for paths in Persona 5 event paks
                                 if (contents.Contains($"../../../{binPath}"))
                                 {
                                     string args = $"replace \"{bin}\" ../../../{binPath} \"{f}\" \"{bin}\"";
                                     PAKPackCMD(args);
                                 }
+                                // Check if more unpacking needs to be done to replace
                                 else if (!contents.Contains(binPath))
                                 {
                                     string longestPrefix = "";
@@ -546,6 +550,10 @@ namespace AemulusModManager
                                         sprUtils.replaceTmx(sprPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");
                                     }
+                                    else if (Path.GetFileName(file) == "result.spd")
+                                        resultSpd = true;
+                                    else if (Path.GetFileName(file) == "result.pac")
+                                        resultPac = true;
                                 }
                                 else
                                 {
@@ -564,7 +572,7 @@ namespace AemulusModManager
                         {
                             foreach (var spdFile in Directory.GetFiles(spdFolder, "*", SearchOption.AllDirectories))
                             {
-                                Console.WriteLine($"Replacing {spdFile} in {file}");
+                                Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
                                 if (Path.GetExtension(spdFile).ToLower() == ".dds")
                                     spdUtils.replaceDDS(file, spdFile);
                                 else if (Path.GetExtension(spdFile).ToLower() == ".spdspr")
@@ -577,15 +585,21 @@ namespace AemulusModManager
             // Go through mod directory again to delete unpacked files after bringing them in
             foreach (var file in Directory.GetFiles(modDir, "*", SearchOption.AllDirectories))
             {
-                if ((Path.GetExtension(file).ToLower() == ".bin"
+                if (((Path.GetExtension(file).ToLower() == ".bin"
                     || Path.GetExtension(file).ToLower() == ".arc"
                     || Path.GetExtension(file).ToLower() == ".pak"
                     || Path.GetExtension(file).ToLower() == ".pac"
                     || Path.GetExtension(file).ToLower() == ".pack"
                     || Path.GetExtension(file).ToLower() == ".spd")
-                    && Directory.Exists(Path.ChangeExtension(file, null)))
+                    && Directory.Exists(Path.ChangeExtension(file, null))
+                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "result")
+                    || (Path.GetFileName(Path.ChangeExtension(file, null)) == "result" && Path.GetFileName(Path.GetDirectoryName(Path.ChangeExtension(file, null))) == "result"))
                 {
                     DeleteDirectory(Path.ChangeExtension(file, null));
+                }
+                else if ((Path.GetFileName(file) == "result.spd" && resultSpd) || (Path.GetFileName(file) == "result.pac" && resultPac))
+                {
+                    File.Delete(file);
                 }
             }
             Console.WriteLine("[INFO] Finished merging!");
