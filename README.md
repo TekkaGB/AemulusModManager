@@ -72,6 +72,7 @@ One file path per line.
 In the path, make sure to take out any .bin, .arc, .pak, and .spr extensions (for example, "init_free.bin" becomes "init_free"). 
 Make sure to use '\' and not '/' between directory levels. 
 If the file being addressed is a Texture within a .spr file, give it the .tmx extension.
+Also note that for the specific case of file paths inside Persona 5 event paks, if there's ../../../, just ignore that and just use the rest for the file path.
 
 For Persona 5, I implemented custom merging for .spd files. Due to sometimes having duplicate dds names within, I implemented the naming system of <name>[ID].dds.  You can find the ID number at the top of the information shown when viewing the dds texture in Amicitia.  The sprites are also mergeable using .spdspr files. Due to many of them using special encoding for Japanese names, i decided to just have them named <ID>.spdspr.  Again the ID's can be found when viewing the sprite information in Amicitia.
 
@@ -160,26 +161,26 @@ In this case we'll just be using 57 65 65 62 00 00 00 00 (Weeb 00 00 00 00) to o
 
 I recommend for you to use [010 Editor](https://www.sweetscape.com/010editor/) and [these templates](https://github.com/TGEnigma/010-Editor-Templates) if you want to mess with .tbl files to create .tblpatch's.  Do note that my examples are really small to easily fit in this description but you can overwrite as much bytes as you want so that you don't need to create too many .tblpatch files.  You can also utilize (P4G only) T-Pose Ratkechi's [Aemulus TBL Patcher](https://gamebanana.com/tools/6876), to easily convert your edited tbl's to .tblpatch's.
 
-As for NAME.TBL in Persona 5, the file is setup differently so that the 8 bytes used for the offset is instead split into the first 4 bytes for the section number and the next 4 bytes for the index.  In the future, I might refactor the rest of the tblpatches to follow this format.
+As for NAME.TBL in Persona 5, the file is setup differently so that instead of the 8 bytes used for the offset, it is instead split into 1 byte for the section number and the next 2 bytes for the index.  This also supports expanding more entries in NAME.TBL so feel free to use larger indices. In the future, I might refactor the rest of the tblpatches to follow this format.
 
 For reference, here's the section numbers in NAME.TBL:
- * ArcanaNames - 1
- * SkillNames - 3
- * UnitNames - 5
- * PersonaNames - 7
- * AccessoryNames - 9
- * ArmorNames - 11
- * ConsumableItemNames - 13
- * KeyItemNames - 15
- * MaterialNames - 17
- * MeleeWeaponNames - 19
- * BattleActionNames - 21
- * OutfitNames - 23
- * SkillCardNames - 25
- * ConfidantNames - 27
- * PartyMemberLastNames - 29
- * PartyMemberFirstNames - 31
- * RangedWeaponNames - 33
+ * ArcanaNames - 0
+ * SkillNames - 1
+ * UnitNames - 2
+ * PersonaNames - 3
+ * AccessoryNames - 4
+ * ArmorNames - 5
+ * ConsumableItemNames - 6
+ * KeyItemNames - 7
+ * MaterialNames - 8
+ * MeleeWeaponNames - 9
+ * BattleActionNames - 10
+ * OutfitNames - 11
+ * SkillCardNames - 12
+ * ConfidantNames - 13
+ * PartyMemberLastNames - 14
+ * PartyMemberFirstNames - 15
+ * RangedWeaponNames - 16
 
 ### The Actual Table Patching Process
 1. Extracts all .tbl files from init_free.bin or table.pac (unneccesary for Persona 3 FES).
