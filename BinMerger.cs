@@ -119,6 +119,11 @@ namespace AemulusModManager
 
         public static void Unpack(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
+            if (!File.Exists(exePath))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {exePath}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
             Console.WriteLine("[INFO] Beginning to unpack...");
             foreach (var mod in ModList)
             {
@@ -136,7 +141,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".xml" && Path.GetExtension(file).ToLower() != ".png"
                         && Path.GetExtension(file).ToLower() != ".jpg" && Path.GetExtension(file).ToLower() != ".7z"
                         && Path.GetExtension(file).ToLower() != ".bat" && Path.GetExtension(file).ToLower() != ".txt"
-                        && Path.GetExtension(file).ToLower() != ".zip")
+                        && Path.GetExtension(file).ToLower() != ".zip" && Path.GetExtension(file).ToLower() != ".json")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));

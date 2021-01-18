@@ -17,10 +17,11 @@ namespace AemulusModManager
         // P3F
         public static void Unzip(string iso)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            if (!File.Exists(iso))
             {
-                Mouse.OverrideCursor = Cursors.Wait;
-            });
+                Console.WriteLine($"[ERROR] Couldn't find {iso}. Please correct the file path in config.");
+                return;
+            }
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -30,6 +31,12 @@ namespace AemulusModManager
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
@@ -72,10 +79,11 @@ namespace AemulusModManager
         // P4G
         public static void Unpack(string directory, string cpk)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            if (!Directory.Exists(directory))
             {
-                Mouse.OverrideCursor = Cursors.Wait;
-            });
+                Console.WriteLine($"[ERROR] Couldn't find {directory}. Please correct the file path in config.");
+                return;
+            }
             List<string> pacs = new List<string>();
             List<string> globs = new List<string>{"*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack"};
             switch(cpk)
@@ -107,6 +115,11 @@ namespace AemulusModManager
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
@@ -136,6 +149,11 @@ namespace AemulusModManager
 
         public static void UnpackCPK(string directory)
         {
+            if (!Directory.Exists(directory))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {directory}. Please correct the file path in config.");
+                return;
+            }
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = Cursors.Wait;
@@ -170,6 +188,10 @@ namespace AemulusModManager
             if (!File.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
                 return;
             }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;

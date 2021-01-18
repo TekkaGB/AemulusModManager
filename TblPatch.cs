@@ -75,6 +75,11 @@ namespace AemulusModManager
 
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
+            if (!File.Exists(exePath))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {exePath}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
             Console.WriteLine("[INFO] Patching .tbl's...");
             // Check if init_free exists and return if not
             string archive = null;

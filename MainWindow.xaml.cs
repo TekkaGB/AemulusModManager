@@ -489,13 +489,40 @@ namespace AemulusModManager
                 startInfo.CreateNoWindow = true;
                 startInfo.UseShellExecute = false;
                 startInfo.FileName = launcherPath;
+                if (!File.Exists(launcherPath))
+                {
+                    Console.WriteLine($"[ERROR] Couldn't find {launcherPath}. Please correct the file path in config.");
+                    return;
+                }
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (game == "Persona 4 Golden")
+                {
+                    if (!File.Exists(gamePath))
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        return;
+                    }
                     startInfo.Arguments = "--launch \"" + gamePath + "\"";
+                }
                 else if (game == "Persona 3 FES")
+                {
+                    if (!File.Exists(elfPath))
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't find {elfPath}. Please correct the file path in config.");
+                        return;
+                    }
                     startInfo.Arguments = $"--nogui --elf=\"{elfPath}\"";
+                }
                 else if (game == "Persona 5")
+                {
+                    if (!File.Exists(gamePath))
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        return;
+                    }
+                    Console.WriteLine($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
+                }
 
                 foreach (var button in buttons)
                 {
