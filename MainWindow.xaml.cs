@@ -347,7 +347,7 @@ namespace AemulusModManager
                     Console.WriteLine($@"[INFO] Creating Packages\{game}");
                     Directory.CreateDirectory($@"Packages\{game}");
                 }
-
+                
                 // Create displayed metadata from packages in PackageList and their respective Package.xml's
                 foreach (var package in PackageList)
                 {
@@ -361,7 +361,15 @@ namespace AemulusModManager
                         {
                             using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                             {
-                                m = (Metadata)xsp.Deserialize(streamWriter);
+                                try
+                                {
+                                    m = (Metadata)xsp.Deserialize(streamWriter);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                    continue;
+                                }
                                 dm.name = m.name;
                                 dm.id = m.id;
                                 dm.author = m.author;
@@ -372,7 +380,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
+                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                             continue;
                         }
                     }
@@ -382,6 +390,7 @@ namespace AemulusModManager
                     DisplayedPackages.Add(dm);
                 }
                 ModGrid.ItemsSource = DisplayedPackages;
+                
             }
             else // No config found
             {
@@ -591,7 +600,16 @@ namespace AemulusModManager
                     {
                         using (FileStream streamWriter = File.Open($@"Packages\{game}\{package.path}\Package.xml", FileMode.Open))
                         {
-                            Metadata metadata = (Metadata)xsp.Deserialize(streamWriter);
+                            Metadata metadata = null;
+                            try
+                            {
+                                metadata = (Metadata)xsp.Deserialize(streamWriter);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                continue;
+                            }
                             package.name = metadata.name;
                             package.id = metadata.id;
                             package.author = metadata.author;
@@ -602,7 +620,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
+                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                         continue;
                     }
                 }
@@ -630,13 +648,21 @@ namespace AemulusModManager
                     {
                         using (FileStream streamWriter = File.Open($@"Packages\{game}\{package.path}\Package.xml", FileMode.Open))
                         {
-                            metadata = (Metadata)xsp.Deserialize(streamWriter);
+                            try
+                            {
+                                metadata = (Metadata)xsp.Deserialize(streamWriter);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                continue;
+                            }
                             package.id = metadata.id;
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
+                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                         continue;
                     }
                 }
@@ -651,7 +677,15 @@ namespace AemulusModManager
                 {
                     using (FileStream streamWriter = File.Open($@"{package}\Package.xml", FileMode.Open))
                     {
-                        metadata = (Metadata)xsp.Deserialize(streamWriter);
+                        try
+                        {
+                            metadata = (Metadata)xsp.Deserialize(streamWriter);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                            continue;
+                        }
                         // Add package to list if it doesn't exist
                         if (!PackageList.ToList().Any(x => x.path == Path.GetFileName(package))
                             && !DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package)))
@@ -689,7 +723,16 @@ namespace AemulusModManager
                         using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
                         {
                             //Deserialize Mod.xml & Use metadata
-                            ModXmlMetadata m = (ModXmlMetadata)xsm.Deserialize(streamWriter);
+                            ModXmlMetadata m = null;
+                            try
+                            {
+                                m = (ModXmlMetadata)xsm.Deserialize(streamWriter);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Mod.xml for {package} ({ex.Message})");
+                                continue;
+                            }
                             newMetadata.id = m.Author.ToLower().Replace(" ","") + "." + m.Title.ToLower().Replace(" ","");
                             newMetadata.author = m.Author;
                             newMetadata.version = m.Version;
@@ -1108,6 +1151,7 @@ namespace AemulusModManager
                 }
             }
             updateConfig();
+            updatePackages();
         }
 
         private FlowDocument ConvertToFlowDocument(string text)
@@ -1400,7 +1444,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message})");
+                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                             continue;
                         }
                     }

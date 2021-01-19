@@ -188,8 +188,7 @@ namespace AemulusModManager
                                             || Path.GetExtension(f2).ToLower() == ".arc"
                                             || Path.GetExtension(f2).ToLower() == ".pak"
                                             || Path.GetExtension(f2).ToLower() == ".pac"
-                                            || Path.GetExtension(f2).ToLower() == ".pack"
-                                            || Path.GetExtension(f2).ToLower() == ".spd")
+                                            || Path.GetExtension(f2).ToLower() == ".pack")
                                             {
                                                 Console.WriteLine($@"[INFO] Unpacking {f2}...");
                                                 PAKPackCMD($"unpack \"{f2}\"");
@@ -227,7 +226,6 @@ namespace AemulusModManager
                                     }
                                     else if (Path.GetExtension(f).ToLower() == ".spd")
                                     {
-                                        Console.WriteLine($@"[INFO] Unpacking {f}...");
                                         Directory.CreateDirectory(Path.ChangeExtension(f, null));
                                         List<DDS> ddsFiles = spdUtils.getDDSFiles(f);
                                         foreach (var ddsFile in ddsFiles)
@@ -256,24 +254,6 @@ namespace AemulusModManager
                                     }
 
                                 }
-
-                                // Copy over loose files specified by mods.aem
-                                foreach (var m in modList)
-                                {
-                                    if (File.Exists($@"{mod}\{m}"))
-                                    {
-                                        string dir = $@"{modDir}\{m}";
-                                        if (useCpk)
-                                        {
-                                            dir = Regex.Replace(dir, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
-                                            dir = Regex.Replace(dir, "movie0000[0-2]", "movie");
-                                        }
-                                        Directory.CreateDirectory(Path.GetDirectoryName(dir));
-                                        File.Copy($@"{mod}\{m}", dir, true);
-                                        Console.WriteLine($@"[INFO] Copying over {mod}\{m} as specified by mods.aem");
-                                    }
-                                }
-
                             }
                             else
                             {
@@ -324,27 +304,47 @@ namespace AemulusModManager
                         }
                     }
                 }
+
+                // Copy over loose files specified by mods.aem
+                foreach (var m in modList)
+                {
+                    if (File.Exists($@"{mod}\{m}"))
+                    {
+                        string dir = $@"{modDir}\{m}";
+                        if (useCpk)
+                        {
+                            dir = Regex.Replace(dir, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
+                            dir = Regex.Replace(dir, "movie0000[0-2]", "movie");
+                        }
+                        Directory.CreateDirectory(Path.GetDirectoryName(dir));
+                        File.Copy($@"{mod}\{m}", dir, true);
+                        Console.WriteLine($@"[INFO] Copying over {mod}\{m} as specified by mods.aem");
+                    }
+                }
+
                 // Go through mod directory again to delete unpacked files after bringing them in
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {
-                    if ((Path.GetExtension(file).ToLower() == ".bin"
+                    if (((Path.GetExtension(file).ToLower() == ".bin"
                         || Path.GetExtension(file).ToLower() == ".arc"
                         || Path.GetExtension(file).ToLower() == ".pak"
                         || Path.GetExtension(file).ToLower() == ".pac"
                         || Path.GetExtension(file).ToLower() == ".pack"
                         || Path.GetExtension(file).ToLower() == ".spd")
-                        && Directory.Exists(Path.ChangeExtension(file, null)))
+                        && Directory.Exists(Path.ChangeExtension(file, null))
+                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"))
                     {
                         DeleteDirectory(Path.ChangeExtension(file, null));
                     }
                 }
+                if (File.Exists($@"{mod}\battle\result.pac") && !File.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result"))
+                    DeleteDirectory($@"{mod}\battle\result");
+                if (Directory.Exists($@"{mod}\battle\result\result"))
+                    DeleteDirectory($@"{mod}\battle\result\result");
+                
             }
             Console.WriteLine("[INFO] Finished unpacking!");
         }
-
-        private static bool resultSpd;
-        private static bool resultPac;
-        private static bool resultPacCopied;
 
         public static void Merge(string modDir, string game)
         {
@@ -386,7 +386,13 @@ namespace AemulusModManager
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pac");
                         if (Path.GetFileName(ogPath) == "result.pac")
-                            resultPacCopied = true;
+                        {
+                            if (!Directory.Exists($@"{d}\result"))
+                                continue;
+                            if (!Directory.EnumerateFiles($@"{d}\result", "*.GFS", SearchOption.TopDirectoryOnly).Any()
+                                && !Directory.EnumerateFiles($@"{d}\result", "*.GMD", SearchOption.TopDirectoryOnly).Any())
+                                continue;
+                        }
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
@@ -408,6 +414,12 @@ namespace AemulusModManager
                     else if (File.Exists(Path.ChangeExtension(ogPath, ".spd")) && !File.Exists(Path.ChangeExtension(d, ".spd")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".spd");
+                        if (Path.GetFileName(ogPath) == "result.spd")
+                        {
+                            if (!Directory.EnumerateFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
+                                && !Directory.EnumerateFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
+                                continue;
+                        }
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
@@ -553,10 +565,6 @@ namespace AemulusModManager
                                         sprUtils.replaceTmx(sprPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");
                                     }
-                                    else if (Path.GetFileName(file) == "result.spd")
-                                        resultSpd = true;
-                                    else if (Path.GetFileName(file) == "result.pac" && resultPacCopied)
-                                        resultPac = true;
                                 }
                                 else
                                 {
@@ -575,11 +583,16 @@ namespace AemulusModManager
                         {
                             foreach (var spdFile in Directory.GetFiles(spdFolder, "*", SearchOption.AllDirectories))
                             {
-                                Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
                                 if (Path.GetExtension(spdFile).ToLower() == ".dds")
+                                {
+                                    Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
                                     spdUtils.replaceDDS(file, spdFile);
+                                }
                                 else if (Path.GetExtension(spdFile).ToLower() == ".spdspr")
+                                {
                                     spdUtils.replaceSPDKey(file, spdFile);
+                                    Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
+                                }
                             }
                         }
                     }
@@ -595,16 +608,19 @@ namespace AemulusModManager
                     || Path.GetExtension(file).ToLower() == ".pack"
                     || Path.GetExtension(file).ToLower() == ".spd")
                     && Directory.Exists(Path.ChangeExtension(file, null))
-                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "result")
-                    || (Path.GetFileName(Path.ChangeExtension(file, null)) == "result" && Path.GetFileName(Path.GetDirectoryName(Path.ChangeExtension(file, null))) == "result"))
+                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"))
                 {
                     DeleteDirectory(Path.ChangeExtension(file, null));
                 }
-                else if ((Path.GetFileName(file) == "result.spd" && resultSpd) || (Path.GetFileName(file) == "result.pac" && resultPac))
-                {
-                    File.Delete(file);
-                }
             }
+
+            // battle/result/result folder case
+
+            if (File.Exists($@"{modDir}\battle\result.pac") && !File.Exists($@"{modDir}\battle\result\result.spd") && Directory.Exists($@"{modDir}\battle\result"))
+                DeleteDirectory($@"{modDir}\battle\result");
+            if (Directory.Exists($@"{modDir}\battle\result\result"))
+                DeleteDirectory($@"{modDir}\battle\result\result");
+
             Console.WriteLine("[INFO] Finished merging!");
             return;
         }
@@ -623,7 +639,7 @@ namespace AemulusModManager
                 // Delete top layer files too
                 foreach (var file in Directory.EnumerateFiles(modDir))
                 {
-                    if (Path.GetExtension(file).ToLower() != ".elf")
+                    if (Path.GetExtension(file).ToLower() != ".elf" || Path.GetExtension(file).ToLower() != ".iso")
                         File.Delete(file);
                 }
             }

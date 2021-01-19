@@ -59,7 +59,7 @@ namespace AemulusModManager
                 spdKey = new SPDKey();
                 spdKey.pos = pos;
                 spdKey.id = BitConverter.ToInt32(spdBytes, pos);
-                spdKey.file = SliceArray(spdBytes, spdKey.pos, spdKey.pos + 159);
+                spdKey.file = SliceArray(spdBytes, spdKey.pos, spdKey.pos + 160);
                 spdKeys.Add(spdKey);
                 pos += 160;
             }
@@ -72,7 +72,6 @@ namespace AemulusModManager
             byte[] spdBytes = File.ReadAllBytes(spdspr);
             foreach (var spdKey in spdKeys)
             {
-                Console.WriteLine($"Comparing key: {Path.GetFileNameWithoutExtension(spdspr)} and {spdKey.id.ToString()}");
                 if (spdKey.id.ToString() == Path.GetFileNameWithoutExtension(spdspr))
                 {
                     using (Stream stream = File.Open(spd, FileMode.Open))
