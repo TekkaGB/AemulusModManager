@@ -150,6 +150,7 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] No tblpatches folder found in {dir}");
                     continue;
                 }
+                // Apply original tblpatch files
                 foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tblpatch"))
                 {
                     byte[] file = File.ReadAllBytes(t);
@@ -163,47 +164,6 @@ namespace AemulusModManager
 
                     // Name of tbl file
                     string tblName = Encoding.ASCII.GetString(SliceArray(file, 0, 3));
-
-                    /*
-                    * P4G TBLS:
-                    * SKILL - SKL
-                    * UNIT - UNT
-                    * MSG - MSG
-                    * PERSONA - PSA
-                    * ENCOUNT - ENC
-                    * EFFECT - EFF
-                    * MODEL - MDL
-                    * AICALC - AIC
-                    *
-                    * P3F TBLS:
-                    * AICALC - AIC
-                    * AICALC_F - AIF
-                    * EFFECT - EFF
-                    * ENCOUNT - ENC
-                    * ENCOUNT_F - ENF
-                    * MODEL - MDL
-                    * MSG - MSG
-                    * PERSONA - PSA
-                    * PERSONA_F - PSF
-                    * SKILL - SKL
-                    * SKILL_F - SKF
-                    * UNIT - UNT
-                    * UNIT_F - UNF
-                    * 
-                    * P5 TBLS:
-                    * AICALC - AIC
-                    * ELSAI - EAI
-                    * ENCOUNT - ENC
-                    * EXIST - EXT
-                    * ITEM - ITM
-                    * NAME - NME
-                    * PERSONA - PSA
-                    * PLAYER - PLY
-                    * SKILL - SKL
-                    * TALKINFO - TKI
-                    * UNIT - UNT
-                    * VISUAL - VSL
-                    */
 
                     switch (tblName)
                     {
@@ -423,7 +383,7 @@ namespace AemulusModManager
                     WriteNameTbl(sections, $@"{tblDir}\table\NAME.TBL");
                 
                 List<Table> tables = new List<Table>();
-                // New json patching
+                // Apply new tbp json patching
                 foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tbp"))
                 {
                     TablePatches tablePatches = JsonConvert.DeserializeObject<TablePatches>(File.ReadAllText(t));
@@ -638,12 +598,27 @@ namespace AemulusModManager
             }
             else if (namePatch != null)
             {
-                section = namePatch.section;
-                index = namePatch.index;
+                if (namePatch.section == null || namePatch.index == null || namePatch.name == null)
+                {
+                    Console.WriteLine($"[ERROR] Incomplete patch, skipping...");
+                    return sections;
+                }
+                section = (int)namePatch.section;
+                index = (int)namePatch.index;
                 string[] stringData = namePatch.name.Split(' ');
                 byte[] name = new byte[stringData.Length];
                 for (int i = 0; i < name.Length; i++)
-                    name[i] = Convert.ToByte(stringData[i], 16);
+                {
+                    try
+                    {
+                        name[i] = Convert.ToByte(stringData[i], 16);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
+                        return sections;
+                    }
+                }
                 fileContents = name;
             }
             else
@@ -696,13 +671,29 @@ namespace AemulusModManager
 
         private static List<Section> ReplaceSection(List<Section> sections, TablePatch patch)
         {
+            if (patch.offset == null || patch.section == null || patch.data == null)
+            {
+                Console.WriteLine($"[ERROR] Incomplete patch, skipping...");
+                return sections;
+            }
+            Console.WriteLine(patch.offset);
             // Get info from json patch
-            int section = patch.section;
-            int offset = patch.offset;
+            int section = (int)patch.section;
+            int offset = (int)patch.offset;
             string[] stringData = patch.data.Split(' ');
             byte[] data = new byte[stringData.Length];
-            for (int i = 0; i < data.Length; i++) 
-                data[i] = Convert.ToByte(stringData[i], 16);
+            for (int i = 0; i < data.Length; i++)
+            {
+                try
+                {
+                    data[i] = Convert.ToByte(stringData[i], 16);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
+                    return sections;
+                }
+            }
             if (offset < 0)
             {
                 Console.WriteLine($"[ERROR] Offset cannot be negative, skipping...");
@@ -806,26 +797,6 @@ namespace AemulusModManager
                 }
             }
         }
-
-        /* 
-         * ArcanaNames 0
-         * SkillNames 1
-         * UnitNames 2
-         * PersonaNames 3
-         * AccessoryNames 4
-         * ArmorNames 5
-         * ConsumableItemNames 6
-         * KeyItemNames 7
-         * MaterialNames 8
-         * MeleeWeaponNames 9
-         * BattleActionNames 10
-         * OutfitNames 11
-         * SkillCardNames 12
-         * ConfidantNames 13
-         * PartyMemberLastNames 14
-         * PartyMemberFirstNames 15
-         * RangedWeaponNames 16
-         */
     }
 
 

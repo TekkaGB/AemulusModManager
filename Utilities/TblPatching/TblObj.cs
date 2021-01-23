@@ -30,15 +30,15 @@ namespace AemulusModManager.Utilities.TblPatching
     public class TablePatch
     {
         public string tbl { get; set; }
-        public int section { get; set; }
-        public int offset { get; set; }
+        public int? section { get; set; }
+        public int? offset { get; set; }
         public string data { get; set; }
     }
 
     public class NamePatch
     {
-        public int section { get; set; }
-        public int index { get; set; }
+        public int? section { get; set; }
+        public int? index { get; set; }
         public string name { get; set; }
     }
 

@@ -141,7 +141,9 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".xml" && Path.GetExtension(file).ToLower() != ".png"
                         && Path.GetExtension(file).ToLower() != ".jpg" && Path.GetExtension(file).ToLower() != ".7z"
                         && Path.GetExtension(file).ToLower() != ".bat" && Path.GetExtension(file).ToLower() != ".txt"
-                        && Path.GetExtension(file).ToLower() != ".zip" && Path.GetExtension(file).ToLower() != ".json")
+                        && Path.GetExtension(file).ToLower() != ".zip" && Path.GetExtension(file).ToLower() != ".json"
+                        && Path.GetExtension(file).ToLower() != ".tbp" && Path.GetExtension(file).ToLower() != ".rar"
+                        && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));

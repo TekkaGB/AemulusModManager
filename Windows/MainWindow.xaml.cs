@@ -1,8 +1,6 @@
 ﻿using GongSolutions.Wpf.DragDrop;
 using GongSolutions.Wpf.DragDrop.Utilities;
-using Microsoft.VisualBasic.FileIO;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
