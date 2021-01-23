@@ -4,6 +4,8 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using AemulusModManager.Utilities.TblPatching;
+using Newtonsoft.Json;
 
 namespace AemulusModManager
 {
@@ -73,6 +75,9 @@ namespace AemulusModManager
             PAKPackCMD($@"replace ""{archive}"" {parent}/{Path.GetFileName(tbl)} ""{tbl}""");
         }
 
+        private static string[] p4gTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC" };
+        private static string[] p3fTables = { "SKILL", "SKILL_F", "UNIT", "UNIT_F", "MSG", "PERSONA", "PERSONA_F", "ENCOUNT", "ENCOUNT_F", "EFFECT", "MODEL", "AICALC", "AICALC_F" };
+        private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL" };
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
             if (!File.Exists(exePath))
@@ -145,8 +150,7 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] No tblpatches folder found in {dir}");
                     continue;
                 }
-                foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tblpatch", SearchOption.TopDirectoryOnly).Union
-                       (Directory.EnumerateFiles(dir, "*.tblpatch", SearchOption.TopDirectoryOnly)))
+                foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tblpatch"))
                 {
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
@@ -350,7 +354,7 @@ namespace AemulusModManager
                     {
                         editedTables.Add(tblName);
                         if (tblName == "NAME.TBL")
-                            sections = getSections($@"{tblDir}\table\{tblName}");
+                            sections = GetNameSections($@"{tblDir}\table\{tblName}");
                     }
 
                     if (tblName != "NAME.TBL")
@@ -395,11 +399,11 @@ namespace AemulusModManager
                                     Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
                                     continue;
                                 }
-                                string tblPath = $@"{modDir}\BTL\BATTLE\{tblName}";
-                                byte[] tblBytes = File.ReadAllBytes(tblPath);
-                                fileContents.CopyTo(tblBytes, offset);
-                                File.WriteAllBytes(tblPath, tblBytes);
                             }
+                            string tblPath = $@"{modDir}\BTL\BATTLE\{tblName}";
+                            byte[] tblBytes = File.ReadAllBytes(tblPath);
+                            fileContents.CopyTo(tblBytes, offset);
+                            File.WriteAllBytes(tblPath, tblBytes);
                         }
                     }
                     else
@@ -409,22 +413,103 @@ namespace AemulusModManager
                             Console.WriteLine("[ERROR] Improper .tblpatch format.");
                             continue;
                         }
-                        var temp = replaceName(sections, file);
+                        var temp = ReplaceName(sections, file, null);
                         if (temp != null)
                             sections = temp;
                     }
                 }
 
+                if (editedTables.Contains("NAME.TBL") && File.Exists($@"{tblDir}\table\NAME.TBL"))
+                    WriteNameTbl(sections, $@"{tblDir}\table\NAME.TBL");
+                
+                List<Table> tables = new List<Table>();
+                // New json patching
+                foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tbp"))
+                {
+                    TablePatches tablePatches = JsonConvert.DeserializeObject<TablePatches>(File.ReadAllText(t));
+                    if (tablePatches.Version != 1)
+                    {
+                        Console.WriteLine($"[ERROR] Invalid version for {t}, skipping...");
+                        continue;
+                    }
+                    if (tablePatches.Patches != null)
+                    {
+                        foreach (var patch in tablePatches.Patches)
+                        {
+                            if (patch.tbl == "NAME")
+                            {
+                                Console.WriteLine($"[ERROR] NAME.TBL patches are formatted as NamePatches not Patches, skipping...");
+                                continue;
+                            }
+                            // Keep track of which TBL's were edited and get sections
+                            if (!tables.Exists(x => x.tableName == patch.tbl))
+                            {
+                                if ((game == "Persona 4 Golden" && !p4gTables.Contains(patch.tbl))
+                                    || (game == "Persona 3 FES" && !p3fTables.Contains(patch.tbl))
+                                    || (game == "Persona 5" && !p5Tables.Contains(patch.tbl)))
+                                {
+                                    Console.WriteLine($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
+                                    continue;
+                                }
+                                Table table = new Table();
+                                string tablePath = null;
+                                if (game == "Persona 3 FES")
+                                    tablePath = $@"{modDir}\BTL\BATTLE\{patch.tbl}.TBL";
+                                else if (game == "Persona 4 Golden")
+                                    tablePath = $@"{tblDir}\battle\{patch.tbl}.TBL";
+                                else
+                                    tablePath = $@"{tblDir}\table\{patch.tbl}.TBL";
+                                table.sections = GetSections(tablePath, game);
+                                table.tableName = patch.tbl;
+                                tables.Add(table);
+                            }
+                            tables.Find(x => x.tableName == patch.tbl).sections = ReplaceSection(tables.Find(x => x.tableName == patch.tbl).sections, patch);
+                        }
+                    }
+                    if (tablePatches.NamePatches != null && game == "Persona 5")
+                    {
+                        foreach (var namePatch in tablePatches.NamePatches)
+                        {
+                            if (!tables.Exists(x => x.tableName == "NAME"))
+                            {
+                                Table table = new Table();
+                                string tablePath = $@"{tblDir}\table\NAME.TBL";
+                                table.nameSections = GetNameSections(tablePath);
+                                table.tableName = "NAME";
+                                tables.Add(table);
+                            }
+                            
+                            tables.Find(x => x.tableName == "NAME").nameSections = ReplaceName(tables.Find(x => x.tableName == "NAME").nameSections, null, namePatch);
+                        }
+                    }
+                }
+                foreach (var table in tables)
+                {
+                    // Keep track of which TBL's were edited
+                    if (!editedTables.Contains($"{table.tableName}.TBL"))
+                        editedTables.Add($"{table.tableName}.TBL");
+                    string path = null;
+                    if (game == "Persona 3 FES")
+                        path = $@"{modDir}\BTL\BATTLE\{table.tableName}.TBL";
+                    else if (game == "Persona 4 Golden")
+                        path = $@"{tblDir}\battle\{table.tableName}.TBL";
+                    else
+                        path = $@"{tblDir}\table\{table.tableName}.TBL";
+                    if (table.tableName == "NAME")
+                        WriteNameTbl(table.nameSections, path);
+                    else
+                        WriteTbl(table.sections, path, game);
+                }
+
                 Console.WriteLine($"[INFO] Applied patches from {dir}");
                 
             }
+            
             if (game != "Persona 3 FES")
             {
                 // Replace each edited TBL's
                 foreach (string u in editedTables)
                 {
-                    if (u == "NAME.TBL")
-                        writeTbl(sections, $@"{tblDir}\table\{u}");
                     Console.WriteLine($"[INFO] Replacing {u} in {archive}");
                     if (game == "Persona 5")
                         repackTbls($@"{tblDir}\table\{u}", $@"{modDir}\{archive}", game);
@@ -439,10 +524,42 @@ namespace AemulusModManager
             Console.WriteLine("[INFO] Finished patching tbl's!");
         }
 
-        
+        private static List<Section> GetSections(string tbl, string game)
+        {
+            List<Section> sections = new List<Section>();
+            bool bigEndian = false;
+            if (game == "Persona 5")
+                bigEndian = true;
+            using (FileStream
+            fileStream = new FileStream(tbl, FileMode.Open))
+            {
+                using (BinaryReader br = new BinaryReader(fileStream))
+                {
+                    while (br.BaseStream.Position < fileStream.Length)
+                    {
+                        Section section = new Section();
+                        if (bigEndian)
+                        {
+                            var data = br.ReadBytes(4);
+                            Array.Reverse(data);
+                            section.size = BitConverter.ToInt32(data, 0);
+                        }
+                        else
+                            section.size = br.ReadInt32();
+                        section.data = br.ReadBytes(section.size);
+                        if ((br.BaseStream.Position % 16) != 0)
+                        {
+                            br.BaseStream.Position += 16 - (br.BaseStream.Position % 16);
+                        }
+                        sections.Add(section);
+                    }
+                }
+            }
+            return sections;
+        }
 
         // P5's NAME.TBL Expandable support
-        private static List<NameSection> getSections(string tbl)
+        private static List<NameSection> GetNameSections(string tbl)
         {
             List<NameSection> sections = new List<NameSection>();
             byte[] tblBytes = File.ReadAllBytes(tbl);
@@ -502,17 +619,50 @@ namespace AemulusModManager
             return sections;
         }
 
-        private static List<NameSection> replaceName(List<NameSection> sections, byte[] patch)
+        private static List<NameSection> ReplaceName(List<NameSection> sections, byte[] patch, NamePatch namePatch)
         {
-            int section = Convert.ToInt32(patch[3]);
+            int section = 0;
+            int index = 0;
+            byte[] fileContents = null;
+            if (patch != null)
+            {
+                section = Convert.ToInt32(patch[3]);
+                if (section >= sections.Count)
+                {
+                    Console.WriteLine($"[ERROR] Section chosen is out of range.");
+                    return null;
+                }
+                index = BitConverter.ToInt16(SliceArray(patch, 4, 6).Reverse().ToArray(), 0);
+                // Contents is what to replace
+                fileContents = SliceArray(patch, 6, patch.Length);
+            }
+            else if (namePatch != null)
+            {
+                section = namePatch.section;
+                index = namePatch.index;
+                string[] stringData = namePatch.name.Split(' ');
+                byte[] name = new byte[stringData.Length];
+                for (int i = 0; i < name.Length; i++)
+                    name[i] = Convert.ToByte(stringData[i], 16);
+                fileContents = name;
+            }
+            else
+            {
+                Console.WriteLine($"[ERROR] No patch passed to replace function, skipping...");
+                return sections;
+            }
+
             if (section >= sections.Count)
             {
-                Console.WriteLine($"[ERROR] Section chosen is out of range.");
-                return null;
+                Console.WriteLine($"[ERROR] Section chosen is out of bounds, skipping...");
+                return sections;
             }
-            int index = BitConverter.ToInt16(SliceArray(patch, 4, 6).Reverse().ToArray(), 0);
-            // Contents is what to replace
-            byte[] fileContents = SliceArray(patch, 6, patch.Length);
+
+            if (index < 0)
+            {
+                Console.WriteLine($"[ERROR] Index cannot be negative, skipping...");
+                return sections;
+            }
 
             if (index >= sections[section].names.Count)
             {
@@ -544,7 +694,65 @@ namespace AemulusModManager
             return sections;
         }
 
-        private static void writeTbl(List<NameSection> sections, string path)
+        private static List<Section> ReplaceSection(List<Section> sections, TablePatch patch)
+        {
+            // Get info from json patch
+            int section = patch.section;
+            int offset = patch.offset;
+            string[] stringData = patch.data.Split(' ');
+            byte[] data = new byte[stringData.Length];
+            for (int i = 0; i < data.Length; i++) 
+                data[i] = Convert.ToByte(stringData[i], 16);
+            if (offset < 0)
+            {
+                Console.WriteLine($"[ERROR] Offset cannot be negative, skipping...");
+                return sections;
+            }
+            if (section >= sections.Count)
+            {
+                Console.WriteLine($"[ERROR] Section chosen is out of bounds, skipping...");
+                return sections;
+            }
+            if (offset + data.Length >= sections[section].data.Length)
+            {
+                using (MemoryStream
+                memoryStream = new MemoryStream())
+                {
+                    using (BinaryWriter bw = new BinaryWriter(memoryStream))
+                    {
+                        bw.Write(sections[section].data);
+                        while (offset >= memoryStream.Length)
+                            bw.Write((byte)0);
+                        bw.BaseStream.Position = offset;
+                        bw.Write(data);
+                        sections[section].data = memoryStream.ToArray();
+                        sections[section].size = sections[section].data.Length;
+                    }
+                }
+            }
+            else
+            {
+                using (MemoryStream
+                memoryStream = new MemoryStream(sections[section].data))
+                {
+                    using (BinaryWriter bw = new BinaryWriter(memoryStream))
+                    {
+                        if (offset >= memoryStream.Length)
+                        {
+                            bw.BaseStream.Position = memoryStream.Length - 1;
+                            while (offset >= memoryStream.Length)
+                                bw.Write((byte)0);
+                        }
+                        bw.BaseStream.Position = offset;
+                        bw.Write(data);
+                    }
+                }
+            }
+
+            return sections;
+        }
+
+        private static void WriteNameTbl(List<NameSection> sections, string path)
         {
             using (FileStream
             fileStream = new FileStream(path, FileMode.Create))
@@ -563,12 +771,10 @@ namespace AemulusModManager
                         // Write names size
                         bw.Write(BitConverter.GetBytes(section.namesSize).Reverse().ToArray());
                         // Write names
-                        byte[] last = section.names.Last();
                         foreach (var name in section.names)
                         {
                             bw.Write(name);
-                            if (name != last)
-                                bw.Write((byte)0);
+                            bw.Write((byte)0);
                         }
                         while (bw.BaseStream.Position % 16 != 0)
                             bw.Write((byte)0);
@@ -576,7 +782,30 @@ namespace AemulusModManager
                 }
             }
         }
-
+        private static void WriteTbl(List<Section> sections, string path, string game)
+        {
+            bool bigEndian = false;
+            if (game == "Persona 5")
+                bigEndian = true;
+            using (FileStream
+            fileStream = new FileStream(path, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fileStream))
+                {
+                    foreach (var section in sections)
+                    {
+                        // Write names size
+                        if (bigEndian)
+                            bw.Write(BitConverter.GetBytes(section.size).Reverse().ToArray());
+                        else
+                            bw.Write(BitConverter.GetBytes(section.size));
+                        bw.Write(section.data);
+                        while (bw.BaseStream.Position % 16 != 0)
+                            bw.Write((byte)0);
+                    }
+                }
+            }
+        }
 
         /* 
          * ArcanaNames 0
@@ -589,22 +818,15 @@ namespace AemulusModManager
          * KeyItemNames 7
          * MaterialNames 8
          * MeleeWeaponNames 9
-         * BattleActionNames 10 A
-         * OutfitNames 11 B
-         * SkillCardNames 12 C
-         * ConfidantNames 13 D
-         * PartyMemberLastNames 14 E
-         * PartyMemberFirstNames 15 F
-         * RangedWeaponNames 16 10
+         * BattleActionNames 10
+         * OutfitNames 11
+         * SkillCardNames 12
+         * ConfidantNames 13
+         * PartyMemberLastNames 14
+         * PartyMemberFirstNames 15
+         * RangedWeaponNames 16
          */
     }
 
-    public class NameSection
-    {
-        public int namesSize;
-        public int pointersSize;
-        public List<byte[]> names;
-        public List<UInt16> pointers;
-    }
 
 }

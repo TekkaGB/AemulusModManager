@@ -39,7 +39,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Aemulus.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Aemulus.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -109,6 +109,9 @@
     <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Linq" />
@@ -131,62 +134,63 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Windows\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConfigWindowP5.xaml.cs">
+    <Compile Include="Utilities\TblPatching\TblObj.cs" />
+    <Compile Include="Windows\ConfigWindowP5.xaml.cs">
       <DependentUpon>ConfigWindowP5.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConfigWindowP4G.xaml.cs">
+    <Compile Include="Windows\ConfigWindowP4G.xaml.cs">
       <DependentUpon>ConfigWindowP4G.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CreatePackage.xaml.cs">
+    <Compile Include="Windows\CreatePackage.xaml.cs">
       <DependentUpon>CreatePackage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NotificationBox.xaml.cs">
+    <Compile Include="Windows\NotificationBox.xaml.cs">
       <DependentUpon>NotificationBox.xaml</DependentUpon>
     </Compile>
-    <Page Include="ConfigWindowP5.xaml">
+    <Page Include="Windows\ConfigWindowP5.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ConfigWindowP4G.xaml">
+    <Page Include="Windows\ConfigWindowP4G.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ConfigWindowP3F.xaml">
+    <Page Include="Windows\ConfigWindowP3F.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Windows\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BinMerger.cs" />
-    <Compile Include="SpdUtils.cs" />
-    <Compile Include="UrlConverter.cs" />
-    <Compile Include="ConfigObj.cs" />
-    <Compile Include="ConfigWindowP3F.xaml.cs">
+    <Compile Include="Utilities\BinMerging\BinMerger.cs" />
+    <Compile Include="Utilities\BinMerging\SpdUtils.cs" />
+    <Compile Include="Utilities\Windows\UrlConverter.cs" />
+    <Compile Include="Utilities\Windows\ConfigObj.cs" />
+    <Compile Include="Windows\ConfigWindowP3F.xaml.cs">
       <DependentUpon>ConfigWindowP3F.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PacUnpacker.cs" />
-    <Compile Include="SprUtils.cs" />
-    <Compile Include="TblPatch.cs" />
-    <Compile Include="TextBoxOutputter.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Utilities\PacUnpacker.cs" />
+    <Compile Include="Utilities\BinMerging\SprUtils.cs" />
+    <Compile Include="Utilities\TblPatching\TblPatch.cs" />
+    <Compile Include="Utilities\Windows\TextBoxOutputter.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="CreatePackage.xaml">
+    <Page Include="Windows\CreatePackage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NotificationBox.xaml">
+    <Page Include="Windows\NotificationBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,10 +247,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="arrow.png" />
+    <Resource Include="Assets\arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Aemulus.ico" />
+    <Resource Include="Assets\Aemulus.ico" />
     <Content Include="Dependencies\7z\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -289,13 +293,12 @@
     <Content Include="Dependencies\Preappfile\PreappPartnersLib.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="HHH.png" />
-    <Resource Include="Inaba.png" />
+    <Resource Include="Assets\HHH.png" />
+    <Resource Include="Assets\Inaba.png" />
     <Content Include="Dependencies\PAKPack\AtlusFileSystemLibrary.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Preview.png" />
-    <Resource Include="Logo.png" />
+    <EmbeddedResource Include="Assets\Preview.png" />
     <Content Include="Dependencies\PAKPack\PAKPack.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

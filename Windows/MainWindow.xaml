@@ -7,7 +7,7 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Aemulus Package Manager v2.0.1" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
+        Title="Aemulus Package Manager v2.1.0" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
         Background="#121212" Closing="Window_Closing">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
@@ -117,8 +117,8 @@
             </StackPanel>
 
         </Grid>
-        <Image Source="arrow.png" Margin="272,67,682,0" VerticalAlignment="Top" Width="70" Height="40" Grid.Column="1"/>
-        <Image Source="arrow.png" Margin="534,67,420,0" VerticalAlignment="Top" Width="70" Height="40" Grid.Column="1"/>
+        <Image Source="../Assets/arrow.png" Margin="272,67,682,0" VerticalAlignment="Top" Width="70" Height="40" Grid.Column="1"/>
+        <Image Source="../Assets/arrow.png" Margin="534,67,420,0" VerticalAlignment="Top" Width="70" Height="40" Grid.Column="1"/>
         <Viewbox Stretch="Uniform" Margin="288,67,436,0" VerticalAlignment="Top" Width="300" Height="40" Grid.Column="1">
             <TextBlock x:Name="TopPriority" FontWeight="Bold" Foreground ="White" TextAlignment="Center" FontSize="15" Height="22" Width="122"/>
         </Viewbox>
@@ -132,7 +132,7 @@
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
                           SelectionChanged="rowSelected" MinWidth="680" SelectionMode="Single"
-                          LoadingRow="ModGrid_LoadingRow" PreviewMouseRightButtonDown="ModGrid_PreviewMouseRightButtonDown"
+                          LoadingRow="ModGrid_LoadingRow"
                           HorizontalAlignment="Center" Grid.Column="0" Margin="10" PreviewKeyDown="ModGrid_PreviewKeyDown">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#9A2000"/>
@@ -195,7 +195,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Name="Preview" Source="Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
+                <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -206,14 +206,14 @@
                     <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="5" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
                         <Button.Template>
                             <ControlTemplate>
-                                <Image Source="Inaba.png"/>
+                                <Image Source="../Assets/Inaba.png"/>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
                     <Button Name="HHH" Visibility="Collapsed" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Left" Margin="5" Height="50" Width="50" Click="HHH_Click">
                         <Button.Template>
                             <ControlTemplate>
-                                <Image Source="HHH.png"/>
+                                <Image Source="../Assets/HHH.png"/>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
@@ -222,7 +222,7 @@
                 <RichTextBox Name="Description" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" Background="White"/>
             </Grid>
         </Grid>
-        <Image Source="arrow.png" Margin="272,0,682,163" VerticalAlignment="Bottom" Width="70" Height="40" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+        <Image Source="../Assets/arrow.png" Margin="272,0,682,163" VerticalAlignment="Bottom" Width="70" Height="40" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -232,7 +232,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image Source="arrow.png" Margin="534,0,420,163" VerticalAlignment="Bottom" Width="70" Height="40" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+        <Image Source="../Assets/arrow.png" Margin="534,0,420,163" VerticalAlignment="Bottom" Width="70" Height="40" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

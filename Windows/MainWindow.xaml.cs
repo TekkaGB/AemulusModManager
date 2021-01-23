@@ -2,6 +2,7 @@
 using GongSolutions.Wpf.DragDrop.Utilities;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -157,7 +158,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"Aemulus v2.0.0\nOpened {DateTime.Now}");
+            Console.WriteLine($"Aemulus v2.1.0\nOpened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -168,9 +169,9 @@ namespace AemulusModManager
                 && Directory.Exists("Packages") && Directory.GetDirectories("Packages").Any())
             {
                 Console.WriteLine("[INFO] Transferring current packages to Persona 4 Golden subfolder...");
-                FileSystem.MoveDirectory("Packages", "Persona 4 Golden", true);
+                MoveDirectory("Packages", "Persona 4 Golden");
                 Directory.CreateDirectory("Packages");
-                FileSystem.MoveDirectory("Persona 4 Golden", @"Packages\Persona 4 Golden", true);
+                MoveDirectory("Persona 4 Golden", @"Packages\Persona 4 Golden");
             }
 
 
@@ -179,14 +180,14 @@ namespace AemulusModManager
                             .ToArray();
             Directory.CreateDirectory(@"Original\Persona 4 Golden");
             foreach (var d in subdirs)
-                FileSystem.MoveDirectory(d, $@"Original\Persona 4 Golden\{Path.GetFileName(d)}", true);
+                MoveDirectory(d, $@"Original\Persona 4 Golden\{Path.GetFileName(d)}");
 
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
 
             // Retrieve initial thumbnail from embedded resource
             Assembly asm = Assembly.GetExecutingAssembly();
-            Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Preview.png");
+            Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
             bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.StreamSource = iconStream;
@@ -444,7 +445,6 @@ namespace AemulusModManager
 
             LaunchButton.ToolTip = $"Launch {game}";
         }
-
         public Task pacUnpack(string directory)
         {
             return Task.Run(() =>
@@ -481,7 +481,7 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
                     && !Directory.Exists($@"Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"Original\{game}")))
-                    Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have everything in the Dependencies folder and all prerequisites installed!");
+                    Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
             });
         }
 
@@ -628,6 +628,26 @@ namespace AemulusModManager
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
         }
 
+        public static void MoveDirectory(string source, string target)
+        {
+            var sourcePath = source.TrimEnd('\\', ' ');
+            var targetPath = target.TrimEnd('\\', ' ');
+            var files = Directory.EnumerateFiles(sourcePath, "*", System.IO.SearchOption.AllDirectories)
+                                 .GroupBy(s => Path.GetDirectoryName(s));
+            foreach (var folder in files)
+            {
+                var targetFolder = folder.Key.Replace(sourcePath, targetPath);
+                Directory.CreateDirectory(targetFolder);
+                foreach (var file in folder)
+                {
+                    var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
+                    if (File.Exists(targetFile)) File.Delete(targetFile);
+                    File.Move(file, targetFile);
+                }
+            }
+            Directory.Delete(source, true);
+        }
+
         // Refresh both PackageList and DisplayedPackages
         private void Refresh()
         {
@@ -727,24 +747,36 @@ namespace AemulusModManager
                             try
                             {
                                 m = (ModXmlMetadata)xsm.Deserialize(streamWriter);
+                                newMetadata.id = m.Author.ToLower().Replace(" ", "") + "." + m.Title.ToLower().Replace(" ", "");
+                                newMetadata.author = m.Author;
+                                newMetadata.version = m.Version;
+                                newMetadata.link = m.Url;
+                                newMetadata.description = m.Description;
                             }
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"[ERROR] Invalid Mod.xml for {package} ({ex.Message})");
                                 continue;
                             }
-                            newMetadata.id = m.Author.ToLower().Replace(" ","") + "." + m.Title.ToLower().Replace(" ","");
-                            newMetadata.author = m.Author;
-                            newMetadata.version = m.Version;
-                            newMetadata.link = m.Url;
-                            newMetadata.description = m.Description;
                         }
                         //Move files out of Data folder
                         string dataDir = $@"{package}\Data";
                         if (Directory.Exists(dataDir))
                         {
-                            FileSystem.MoveDirectory(dataDir, $@"{package}\temp", true);
-                            FileSystem.MoveDirectory($@"{package}\temp", package, true);
+                            MoveDirectory(dataDir, $@"temp");
+                            MoveDirectory($@"temp", package);
+                        }
+
+                        if (Directory.Exists("temp"))
+                        {
+                            try
+                            {
+                                Directory.Delete("temp", true);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($@"[ERROR] Couldn't delete temp ({ex.Message})");
+                            }
                         }
                         //Delete prebuild.bat if exists
                         if (File.Exists($@"{package}\prebuild.bat"))
@@ -764,7 +796,14 @@ namespace AemulusModManager
                     }
                     using (FileStream streamWriter = File.Create($@"{package}\Package.xml"))
                     {
-                        xsp.Serialize(streamWriter, newMetadata);
+                        try
+                        {
+                            xsp.Serialize(streamWriter, newMetadata);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                        }
                     }
                     if (!PackageList.ToList().Any(x => x.path == Path.GetFileName(package))
                             && !DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package)))
@@ -824,7 +863,14 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                         using (FileStream streamWriter = File.Create($@"{path}\Package.xml"))
                         {
-                            xsp.Serialize(streamWriter, newPackage.metadata);
+                            try
+                            {
+                                xsp.Serialize(streamWriter, newPackage.metadata);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Couldn't create directory/Package.xml. ({ex.Message})");
+                            }
                         }
                         if (File.Exists(newPackage.thumbnailPath))
                         {
@@ -949,7 +995,10 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
                     && !Directory.Exists($@"Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"Original\{game}")))
+                {
+                    Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                     return;
+                }
             }
 
             Application.Current.Dispatcher.Invoke(() =>
@@ -1028,7 +1077,7 @@ namespace AemulusModManager
                     binMerge.Merge(path, game);
 
                     // Only run if tblpatching is enabled and tblpatches exists
-                    if (packages.Exists(x => Directory.GetFiles(x, "*.tblpatch").Length > 0 || Directory.Exists($@"{x}\tblpatches")))
+                    if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                     {
                         tblPatch.Patch(packages, path, useCpk, cpkLang, game);
                     }
@@ -1062,7 +1111,14 @@ namespace AemulusModManager
         {
             using (FileStream streamWriter = File.Create($@"Config\Config.xml"))
             {
-                xs.Serialize(streamWriter, config);
+                try
+                {
+                    xs.Serialize(streamWriter, config);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($@"[ERROR] Couldn't update Config\Config.xml ({ex.Message})");
+                }
             }
         }
 
@@ -1071,7 +1127,14 @@ namespace AemulusModManager
             packages.packages = PackageList;
             using (FileStream streamWriter = File.Create($@"Config\{game.Replace(" ", "")}Packages.xml"))
             {
-                xp.Serialize(streamWriter, packages);
+                try
+                {
+                    xp.Serialize(streamWriter, packages);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($@"[ERROR] Couldn't update Config\{game.Replace(" ", "")}Packages.xml ({ex.Message})");
+                }
             }
         }
 
@@ -1106,7 +1169,16 @@ namespace AemulusModManager
                 else
                     Reqs.Visibility = Visibility.Collapsed;
 
-                
+                // Enable/disable convert to 1.4.0
+                ConvertCPK.IsEnabled = false;
+                foreach (var folder in Directory.EnumerateDirectories($@"Packages\{game}\{row.path}"))
+                {
+                    if (Path.GetFileName(folder).StartsWith("data0") || Path.GetFileName(folder).StartsWith("movie0"))
+                    {
+                        ConvertCPK.IsEnabled = true;
+                    }
+                }
+
                 // Set image
                 string path = $@"Packages\{game}\{row.path}";
                 if (File.Exists($@"{path}\Preview.png") || File.Exists($@"{path}\Preview.jpg"))
@@ -1263,7 +1335,14 @@ namespace AemulusModManager
                     {
                         using (FileStream streamWriter = File.Create($@"Packages\{game}\{row.path}\Package.xml"))
                         {
-                            xsp.Serialize(streamWriter, createPackage.metadata);
+                            try
+                            {
+                                xsp.Serialize(streamWriter, createPackage.metadata);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($@"[ERROR] Couldn't serialize Packages\{game}\{row.path}\Package.xml ({ex.Message})");
+                            }
                         }
                         if (File.Exists(createPackage.thumbnailPath))
                         {
@@ -1284,29 +1363,15 @@ namespace AemulusModManager
             }
         }
 
-        private void ModGrid_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (row != null)
-            {
-                // Enable/disable convert to 1.4.0
-                if (!Directory.Exists($@"Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}")
-                    || !Directory.Exists($@"Packages\{game}\{row.path}\movie"))
-                    ConvertCPK.IsEnabled = true;
-                else
-                    ConvertCPK.IsEnabled = false;
-            }
-        }
-
         private void ConvertCPK_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            foreach (var folder in Directory.EnumerateDirectories($@"Packages\{row.path}"))
+            foreach (var folder in Directory.EnumerateDirectories($@"Packages\{game}\{row.path}"))
             {
                 if (Path.GetFileName(folder).StartsWith("data0"))
-                    FileSystem.MoveDirectory(folder, $@"Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}", true);
+                    MoveDirectory(folder, $@"Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}");
                 else if (Path.GetFileName(folder).StartsWith("movie0"))
-                    FileSystem.MoveDirectory(folder, $@"Packages\{game}\{row.path}\movie", true);
+                    MoveDirectory(folder, $@"Packages\{game}\{row.path}\movie");
             }
             // Convert the mods.aem file too
             if (File.Exists($@"Packages\{game}\{row.path}\mods.aem"))
@@ -1409,9 +1474,16 @@ namespace AemulusModManager
                     {
                         using (FileStream streamWriter = File.Open($@"Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
                         {
-                            // Call the Deserialize method and cast to the object type.
-                            packages = (Packages)xp.Deserialize(streamWriter);
-                            PackageList = packages.packages;
+                            try
+                            {
+                                // Call the Deserialize method and cast to the object type.
+                                packages = (Packages)xp.Deserialize(streamWriter);
+                                PackageList = packages.packages;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($@"[ERROR] Couldn't deseralize Config\{game.Replace(" ", "")}Packages.xml ({ex.Message})");
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1433,13 +1505,21 @@ namespace AemulusModManager
                         {
                             using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                             {
-                                m = (Metadata)xsp.Deserialize(streamWriter);
-                                dm.name = m.name;
-                                dm.id = m.id;
-                                dm.author = m.author;
-                                dm.version = m.version;
-                                dm.link = m.link;
-                                dm.description = m.description;
+                                try
+                                {
+                                    m = (Metadata)xsp.Deserialize(streamWriter);
+                                    dm.name = m.name;
+                                    dm.id = m.id;
+                                    dm.author = m.author;
+                                    dm.version = m.version;
+                                    dm.link = m.link;
+                                    dm.description = m.description;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                    continue;
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -1461,7 +1541,7 @@ namespace AemulusModManager
 
                 // Retrieve initial thumbnail from embedded resource
                 Assembly asm = Assembly.GetExecutingAssembly();
-                Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Preview.png");
+                Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
                 bitmap = new BitmapImage();
                 bitmap.BeginInit();
                 bitmap.StreamSource = iconStream;
