@@ -104,6 +104,67 @@ New Feature Added in v1.1!
 
 Table patching is a feature that was carried over from Inaba Exe Patcher (formerly known as Aemulus Patcher/Exe Patcher).  It takes .tblpatch files from the top layer of your Package folders to modify .tbl files found in init_free.bin for P4G, table.pac for P5, and BTL/BATTLE for P3F.
 
+### NEW - Structure of .tbp Files (for modders)
+
+For more readablity and support of expanding .tbl files (mostly seen in Persona 5) all in one file, I added this new format.  Old .tblpatch files still work for those who don't want to convert yet but I highly recommend switching over. This new file still goes in the tblpatches folder.
+
+An example is show below:
+```
+{
+  "Version": 1,
+  "Patches": [
+    {
+      "tbl": "ITEM",
+      "section": 1,
+      "offset": 14448,
+      "data": "64 72 69 70"
+    },
+    {
+      "tbl": "SKILL",
+      "section": 0,
+      "offset": 3000,
+      "data": "4C 4F 4C"
+    }
+  ],
+  "NamePatches": [
+    {
+      "section": 11,
+      "index": 8,
+      "name": "Black Leotard"
+    },
+    {
+      "section": 11,
+      "index": 35,
+      "name": "True Self Lo[80 69]ok"
+    },
+    {
+      "section": 11,
+      "index": 143,
+      "name": "New Cinema Outfit"
+    },
+    {
+      "section": 11,
+      "index": 179,
+      "name": "Ultramarine Outfit"
+    }
+  ]
+}
+```
+First and foremost, make sure you have Version set to 1. Otherwise, none of the patches will be read.
+
+Next, there are 2 lists, Patches and NamePatches. Feel free to not include one or the other if unused.
+
+#### Patch
+- tbl - Name of .tbl file without the extension
+- section - Index of section in the specified .tbl file
+- offset - Position to start writing data at in relation to the specified section
+- data - The binary data to overwrite at the given offset represented as a space separated hex string
+
+#### NamePatch
+- section - Section of NAME.TBL seen in the list below
+- index - Index of name to replace
+- name - String to replace the name at the given index of the given section. Use square brackets to use hex instead of strings to use with Atlus's special encoding.
+
 ### Structure of .tblpatch Files (for modders)
 
 First three bytes of the .tblpatch file is the tbl id, or 3 letters that indicate which tbl file it is.
