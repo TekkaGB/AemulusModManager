@@ -6,6 +6,7 @@ using System.Linq;
 using System.Diagnostics;
 using AemulusModManager.Utilities.TblPatching;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace AemulusModManager
 {
@@ -386,7 +387,16 @@ namespace AemulusModManager
                 // Apply new tbp json patching
                 foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tbp"))
                 {
-                    TablePatches tablePatches = JsonConvert.DeserializeObject<TablePatches>(File.ReadAllText(t));
+                    TablePatches tablePatches = null;
+                    try
+                    {
+                        tablePatches = JsonConvert.DeserializeObject<TablePatches>(File.ReadAllText(t));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
+                        continue;
+                    }
                     if (tablePatches.Version != 1)
                     {
                         Console.WriteLine($"[ERROR] Invalid version for {t}, skipping...");
@@ -605,21 +615,9 @@ namespace AemulusModManager
                 }
                 section = (int)namePatch.section;
                 index = (int)namePatch.index;
-                string[] stringData = namePatch.name.Split(' ');
-                byte[] name = new byte[stringData.Length];
-                for (int i = 0; i < name.Length; i++)
-                {
-                    try
-                    {
-                        name[i] = Convert.ToByte(stringData[i], 16);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
-                        return sections;
-                    }
-                }
-                fileContents = name;
+                fileContents = ConvertName(namePatch.name);
+                if (fileContents == null)
+                    return sections;
             }
             else
             {
@@ -667,6 +665,42 @@ namespace AemulusModManager
                 }
             }
             return sections;
+        }
+
+        private static byte[] ConvertName(string name)
+        {
+            string[] stringData = Regex.Split(name, @"(\[.*?\])");
+            List<byte> byteName = new List<byte>();
+            foreach (var part in stringData)
+            {
+                Console.WriteLine($"{part}\n");
+                if (!part.Contains('['))
+                {
+                    foreach (byte b in Encoding.ASCII.GetBytes(part))
+                        byteName.Add(b);
+                }
+                else
+                {
+                    foreach (var hex in part.Substring(1, part.Length - 2).Split(' '))
+                    {
+                        if (hex.Length != 2)
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't parse hex string, skipping...");
+                            return null;
+                        }
+                        try
+                        {
+                            byteName.Add(Convert.ToByte(hex, 16));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
+                            return null;
+                        }
+                    }
+                }
+            }
+            return byteName.ToArray();
         }
 
         private static List<Section> ReplaceSection(List<Section> sections, TablePatch patch)
