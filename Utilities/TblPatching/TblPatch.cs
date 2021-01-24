@@ -314,8 +314,6 @@ namespace AemulusModManager
                     if (!editedTables.Contains(tblName))
                     {
                         editedTables.Add(tblName);
-                        if (tblName == "NAME.TBL")
-                            sections = GetNameSections($@"{tblDir}\table\{tblName}");
                     }
 
                     if (tblName != "NAME.TBL")
@@ -369,6 +367,7 @@ namespace AemulusModManager
                     }
                     else
                     {
+                        sections = GetNameSections($@"{tblDir}\table\{tblName}");
                         if (file.Length < 6)
                         {
                             Console.WriteLine("[ERROR] Improper .tblpatch format.");
@@ -376,12 +375,12 @@ namespace AemulusModManager
                         }
                         var temp = ReplaceName(sections, file, null);
                         if (temp != null)
+                        {
                             sections = temp;
+                            WriteNameTbl(sections, $@"{tblDir}\table\NAME.TBL");
+                        }
                     }
                 }
-
-                if (editedTables.Contains("NAME.TBL") && File.Exists($@"{tblDir}\table\NAME.TBL"))
-                    WriteNameTbl(sections, $@"{tblDir}\table\NAME.TBL");
                 
                 List<Table> tables = new List<Table>();
                 // Apply new tbp json patching
@@ -597,11 +596,6 @@ namespace AemulusModManager
             if (patch != null)
             {
                 section = Convert.ToInt32(patch[3]);
-                if (section >= sections.Count)
-                {
-                    Console.WriteLine($"[ERROR] Section chosen is out of range.");
-                    return null;
-                }
                 index = BitConverter.ToInt16(SliceArray(patch, 4, 6).Reverse().ToArray(), 0);
                 // Contents is what to replace
                 fileContents = SliceArray(patch, 6, patch.Length);
@@ -673,7 +667,6 @@ namespace AemulusModManager
             List<byte> byteName = new List<byte>();
             foreach (var part in stringData)
             {
-                Console.WriteLine($"{part}\n");
                 if (!part.Contains('['))
                 {
                     foreach (byte b in Encoding.ASCII.GetBytes(part))
