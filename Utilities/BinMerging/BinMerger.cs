@@ -641,7 +641,7 @@ namespace AemulusModManager
                 // Delete top layer files too
                 foreach (var file in Directory.EnumerateFiles(modDir))
                 {
-                    if (Path.GetExtension(file).ToLower() != ".elf" || Path.GetExtension(file).ToLower() != ".iso")
+                    if (Path.GetExtension(file).ToLower() != ".elf" && Path.GetExtension(file).ToLower() != ".iso")
                         File.Delete(file);
                 }
             }
