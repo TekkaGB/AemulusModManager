@@ -1,0 +1,93 @@
+[
+  {
+    "Name": "PadButton",
+    "Description": "This enum represents the buttons on the gamepad.",
+    "Members": [
+      {
+        "Name": "Select",
+        "Value": 0,
+        "Description": "The select button."
+      },
+      {
+        "Name": "LStick",
+        "Value": 1,
+        "Description": "The left stick button."
+      },
+      {
+        "Name": "RStick",
+        "Value": 2,
+        "Description": "The right stick button."
+      },
+      {
+        "Name": "Start",
+        "Value": 3,
+        "Description": "The start button."
+      },
+      {
+        "Name": "Up",
+        "Value": 4,
+        "Description": "The dpad up button."
+      },
+      {
+        "Name": "Right",
+        "Value": 5,
+        "Description": "The dpad right button."
+      },
+      {
+        "Name": "Down",
+        "Value": 6,
+        "Description": "The dpad down button."
+      },
+      {
+        "Name": "Left",
+        "Value": 7,
+        "Description": "The dpad down button."
+      },
+      {
+        "Name": "L1",
+        "Value": 8,
+        "Description": "The L1 button."
+      },
+      {
+        "Name": "R1",
+        "Value": 9,
+        "Description": "The R1 button."
+      },
+      {
+        "Name": "L2",
+        "Value": 10,
+        "Description": "The L2 button."
+      },
+      {
+        "Name": "R2",
+        "Value": 11,
+        "Description": "The R2 button."
+      },
+      {
+        "Name": "Triangle",
+        "Value": 12,
+        "Description": "The triangle button."
+      },
+      {
+        "Name": "Circle",
+        "Value": 13,
+        "Description": "The circle button."
+      },
+      {
+        "Name": "Cross",
+        "Value": 14,
+        "Description": "The cross button."
+      },
+      {
+        "Name": "Square",
+        "Value": 15,
+        "Description": "The square button."
+      },
+      {
+        "Name": "Any",
+        "Value": 16,
+        "Description": "Any button."
+      }
+    ]
+  }
+]

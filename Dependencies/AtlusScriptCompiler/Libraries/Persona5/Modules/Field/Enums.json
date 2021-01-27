@@ -1,0 +1,33 @@
+[
+  {
+    "Name": "FieldScriptTiming",
+    "Description": "Values indicating at which phase of the field initialization the script was called.",
+    "Members": [
+      {
+        "Name": "BeforeLoad",
+        "Value": 0,
+        "Description": "The script was called before the field was loaded"
+      },
+      {
+        "Name": "Unknown1",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "Unknown2",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Unknown3",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "AfterLoad",
+        "Value": 4,
+        "Description": "The script was called after the field was loaded"
+      }
+    ]
+  }
+]

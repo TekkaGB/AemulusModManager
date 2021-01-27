@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "Common",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4Golden\\Modules\\Common\\Functions.json"
+  },
+  {
+    "Name": "Field",
+    "ShortName": "Field",
+    "Description": "Field related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4Golden\\Modules\\Field\\Functions.json"
+  },
+  {
+    "Name": "AI",
+    "ShortName": "AI",
+    "Description": "AI related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona4Golden\\Modules\\AI\\Enums.json",
+    "FunctionsPath": "Persona4Golden\\Modules\\AI\\Functions.json"
+  },
+  {
+    "Name": "Event",
+    "ShortName": "Event",
+    "Description": "Event related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4Golden\\Modules\\Event\\Functions.json"
+  },
+  {
+    "Name": "Calendar",
+    "ShortName": "Calendar",
+    "Description": "Calendar based scene transition related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4Golden\\Modules\\Calendar\\Functions.json"
+  },
+  {
+    "Name": "Unknown",
+    "ShortName": "Unknown",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4Golden\\Modules\\Unknown\\Functions.json"
+  },
+]

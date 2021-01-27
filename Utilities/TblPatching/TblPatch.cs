@@ -21,20 +21,6 @@ namespace AemulusModManager
             Array.Copy(source, start, dest, 0, length);
             return dest;
         }
-
-        private static int Search(byte[] src, byte[] pattern)
-        {
-            int c = src.Length - pattern.Length + 1;
-            int j;
-            for (int i = 0; i < c; i++)
-            {
-                if (src[i] != pattern[0]) continue;
-                for (j = pattern.Length - 1; j >= 1 && src[i + j] == pattern[j]; j--) ;
-                if (j == 0) return i;
-            }
-            return -1;
-        }
-
         
         private static void unpackTbls(string archive, string game)
         {
@@ -78,7 +64,7 @@ namespace AemulusModManager
 
         private static string[] p4gTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC" };
         private static string[] p3fTables = { "SKILL", "SKILL_F", "UNIT", "UNIT_F", "MSG", "PERSONA", "PERSONA_F", "ENCOUNT", "ENCOUNT_F", "EFFECT", "MODEL", "AICALC", "AICALC_F" };
-        private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL" };
+        private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL", "NAME" };
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
             if (!File.Exists(exePath))
@@ -405,11 +391,6 @@ namespace AemulusModManager
                     {
                         foreach (var patch in tablePatches.Patches)
                         {
-                            if (patch.tbl == "NAME")
-                            {
-                                Console.WriteLine($"[ERROR] NAME.TBL patches are formatted as NamePatches not Patches, skipping...");
-                                continue;
-                            }
                             // Keep track of which TBL's were edited and get sections
                             if (!tables.Exists(x => x.tableName == patch.tbl))
                             {
@@ -428,27 +409,17 @@ namespace AemulusModManager
                                     tablePath = $@"{tblDir}\battle\{patch.tbl}.TBL";
                                 else
                                     tablePath = $@"{tblDir}\table\{patch.tbl}.TBL";
-                                table.sections = GetSections(tablePath, game);
+                                if (patch.tbl == "NAME")
+                                    table.nameSections = GetNameSections(tablePath);
+                                else
+                                    table.sections = GetSections(tablePath, game);
                                 table.tableName = patch.tbl;
                                 tables.Add(table);
                             }
-                            tables.Find(x => x.tableName == patch.tbl).sections = ReplaceSection(tables.Find(x => x.tableName == patch.tbl).sections, patch);
-                        }
-                    }
-                    if (tablePatches.NamePatches != null && game == "Persona 5")
-                    {
-                        foreach (var namePatch in tablePatches.NamePatches)
-                        {
-                            if (!tables.Exists(x => x.tableName == "NAME"))
-                            {
-                                Table table = new Table();
-                                string tablePath = $@"{tblDir}\table\NAME.TBL";
-                                table.nameSections = GetNameSections(tablePath);
-                                table.tableName = "NAME";
-                                tables.Add(table);
-                            }
-                            
-                            tables.Find(x => x.tableName == "NAME").nameSections = ReplaceName(tables.Find(x => x.tableName == "NAME").nameSections, null, namePatch);
+                            if (patch.tbl == "NAME")
+                                tables.Find(x => x.tableName == "NAME").nameSections = ReplaceName(tables.Find(x => x.tableName == "NAME").nameSections, null, patch);
+                            else
+                                tables.Find(x => x.tableName == patch.tbl).sections = ReplaceSection(tables.Find(x => x.tableName == patch.tbl).sections, patch);
                         }
                     }
                 }
@@ -588,7 +559,7 @@ namespace AemulusModManager
             return sections;
         }
 
-        private static List<NameSection> ReplaceName(List<NameSection> sections, byte[] patch, NamePatch namePatch)
+        private static List<NameSection> ReplaceName(List<NameSection> sections, byte[] patch, TablePatch namePatch)
         {
             int section = 0;
             int index = 0;
