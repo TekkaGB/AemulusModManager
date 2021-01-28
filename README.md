@@ -124,25 +124,27 @@ An example is show below:
       "section": 0,
       "offset": 3000,
       "data": "4C 4F 4C"
-    }
-  ],
-  "NamePatches": [
+    },
     {
+      "tbl": "NAME",
       "section": 11,
       "index": 8,
       "name": "Black Leotard"
     },
     {
+      "tbl": "NAME",
       "section": 11,
       "index": 35,
       "name": "True Self Lo[80 69]ok"
     },
     {
+      "tbl": "NAME",
       "section": 11,
       "index": 143,
       "name": "New Cinema Outfit"
     },
     {
+      "tbl": "NAME",
       "section": 11,
       "index": 179,
       "name": "Ultramarine Outfit"
@@ -152,15 +154,16 @@ An example is show below:
 ```
 First and foremost, make sure you have Version set to 1. Otherwise, none of the patches will be read.
 
-Next, there are 2 lists, Patches and NamePatches. Feel free to not include one or the other if unused.
+Next, there is a list of Patches. Note that NAME.TBL patches have different members from every other tbl.
 
-#### Patch
+#### Normal Patch
 - tbl - Name of .tbl file without the extension
 - section - Index of section in the specified .tbl file
 - offset - Position to start writing data at in relation to the specified section
 - data - The binary data to overwrite at the given offset represented as a space separated hex string
 
-#### NamePatch
+#### NAME.TBL Patch
+- tbl - Name of .tbl file without the extension
 - section - Section of NAME.TBL seen in the list below
 - index - Index of name to replace
 - name - String to replace the name at the given index of the given section. Use square brackets to use hex instead of strings to use with Atlus's special encoding.
