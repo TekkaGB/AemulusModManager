@@ -138,7 +138,7 @@ namespace AemulusModManager
                     continue;
                 }
                 // Apply original tblpatch files
-                foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tblpatch"))
+                foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tblpatch"))
                 {
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
@@ -370,7 +370,7 @@ namespace AemulusModManager
                 
                 List<Table> tables = new List<Table>();
                 // Apply new tbp json patching
-                foreach (var t in Directory.EnumerateFiles($@"{dir}\tblpatches", "*.tbp"))
+                foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tbp"))
                 {
                     TablePatches tablePatches = null;
                     try

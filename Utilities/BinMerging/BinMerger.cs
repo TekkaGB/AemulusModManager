@@ -327,23 +327,46 @@ namespace AemulusModManager
                 // Go through mod directory again to delete unpacked files after bringing them in
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {
-                    if (((Path.GetExtension(file).ToLower() == ".bin"
+                    if ((Path.GetExtension(file).ToLower() == ".bin"
                         || Path.GetExtension(file).ToLower() == ".arc"
                         || Path.GetExtension(file).ToLower() == ".pak"
                         || Path.GetExtension(file).ToLower() == ".pac"
                         || Path.GetExtension(file).ToLower() == ".pack"
                         || Path.GetExtension(file).ToLower() == ".spd")
                         && Directory.Exists(Path.ChangeExtension(file, null))
-                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"))
+                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
+                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel")
                     {
                         DeleteDirectory(Path.ChangeExtension(file, null));
                     }
                 }
-                if (File.Exists($@"{mod}\battle\result.pac") && !File.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result"))
-                    DeleteDirectory($@"{mod}\battle\result");
-                if (Directory.Exists($@"{mod}\battle\result\result"))
+
+                if (File.Exists($@"{mod}\battle\result.pac") && Directory.Exists($@"{mod}\battle\result\result"))
+                {
+                    foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
+                    {
+                        if (Path.GetExtension(f).ToLower() == ".gfs" || Path.GetExtension(f).ToLower() == ".gmd")
+                            File.Delete(f);
+                    }
+                }
+                if (File.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result\result"))
+                {
+                    foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
+                    {
+                        if (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr")
+                            File.Delete(f);
+                    }
+                }
+                if (File.Exists($@"{mod}\field\panel.bin") && !Directory.Exists($@"{mod}\field\panel\panel"))
+                    DeleteDirectory($@"{mod}\field\panel\panel");
+
+                if (Directory.Exists($@"{mod}\battle\result\result") && !Directory.GetFiles($@"{mod}\battle\result\result", "*", SearchOption.AllDirectories).Any())
                     DeleteDirectory($@"{mod}\battle\result\result");
-                
+                if (Directory.Exists($@"{mod}\battle\result") && !Directory.GetFiles($@"{mod}\battle\result", "*", SearchOption.AllDirectories).Any())
+                    DeleteDirectory($@"{mod}\battle\result");
+                if (Directory.Exists($@"{mod}\field\panel") && !Directory.GetFiles($@"{mod}\field\panel", "*", SearchOption.AllDirectories).Any())
+                    DeleteDirectory($@"{mod}\field\panel");
+
             }
             Console.WriteLine("[INFO] Finished unpacking!");
         }
@@ -352,7 +375,7 @@ namespace AemulusModManager
         {
             Console.WriteLine("[INFO] Beginning to merge...");
             List<string> dirs = new List<string>();
-            foreach (var dir in Directory.EnumerateDirectories(modDir))
+            foreach (var dir in Directory.GetDirectories(modDir))
             {
                 var name = Path.GetFileName(dir);
                 if (name != "patches" || name != "bins" || name != "SND")
@@ -362,7 +385,7 @@ namespace AemulusModManager
             foreach (var dir in dirs)
             {
                 // Check if loose folder matches vanilla bin file
-                foreach (var d in Directory.EnumerateDirectories(dir, "*", SearchOption.AllDirectories))
+                foreach (var d in Directory.GetDirectories(dir, "*", SearchOption.AllDirectories))
                 {
                     List<string> folders = new List<string>(d.Split(char.Parse("\\")));
                     int idx = folders.IndexOf(Path.GetFileName(dir));
@@ -372,6 +395,11 @@ namespace AemulusModManager
                     if (File.Exists(Path.ChangeExtension(ogPath, ".bin")) && !File.Exists(Path.ChangeExtension(d, ".bin")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".bin");
+                        if (Path.GetFileName(ogPath) == "panel.bin")
+                        {
+                            if (!Directory.Exists($@"{d}\panel"))
+                                continue;
+                        }
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
                         if (!Directory.Exists(Path.GetDirectoryName(d)))
                             Directory.CreateDirectory(Path.GetDirectoryName(d));
@@ -391,8 +419,8 @@ namespace AemulusModManager
                         {
                             if (!Directory.Exists($@"{d}\result"))
                                 continue;
-                            if (!Directory.EnumerateFiles($@"{d}\result", "*.GFS", SearchOption.TopDirectoryOnly).Any()
-                                && !Directory.EnumerateFiles($@"{d}\result", "*.GMD", SearchOption.TopDirectoryOnly).Any())
+                            if (!Directory.GetFiles($@"{d}\result", "*.GFS", SearchOption.TopDirectoryOnly).Any()
+                                && !Directory.GetFiles($@"{d}\result", "*.GMD", SearchOption.TopDirectoryOnly).Any())
                                 continue;
                         }
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
@@ -418,8 +446,8 @@ namespace AemulusModManager
                         ogPath = Path.ChangeExtension(ogPath, ".spd");
                         if (Path.GetFileName(ogPath) == "result.spd")
                         {
-                            if (!Directory.EnumerateFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
-                                && !Directory.EnumerateFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
+                            if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
+                                && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
                                 continue;
                         }
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
@@ -603,14 +631,15 @@ namespace AemulusModManager
             // Go through mod directory again to delete unpacked files after bringing them in
             foreach (var file in Directory.GetFiles(modDir, "*", SearchOption.AllDirectories))
             {
-                if (((Path.GetExtension(file).ToLower() == ".bin"
+                if ((Path.GetExtension(file).ToLower() == ".bin"
                     || Path.GetExtension(file).ToLower() == ".arc"
                     || Path.GetExtension(file).ToLower() == ".pak"
                     || Path.GetExtension(file).ToLower() == ".pac"
                     || Path.GetExtension(file).ToLower() == ".pack"
                     || Path.GetExtension(file).ToLower() == ".spd")
                     && Directory.Exists(Path.ChangeExtension(file, null))
-                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"))
+                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
+                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel")
                 {
                     DeleteDirectory(Path.ChangeExtension(file, null));
                 }
@@ -622,7 +651,12 @@ namespace AemulusModManager
                 DeleteDirectory($@"{modDir}\battle\result");
             if (Directory.Exists($@"{modDir}\battle\result\result"))
                 DeleteDirectory($@"{modDir}\battle\result\result");
-
+            
+            //if (File.Exists($@"{modDir}\field\panel.bin") && !Directory.Exists($@"{modDir}\field\panel\panel") && Directory.Exists($@"{modDir}\field\panel"))
+                //DeleteDirectory($@"{modDir}\field\panel");
+            if (Directory.Exists($@"{modDir}\field\panel\panel"))
+                DeleteDirectory($@"{modDir}\field\panel\panel");
+            
             Console.WriteLine("[INFO] Finished merging!");
             return;
         }
@@ -633,13 +667,13 @@ namespace AemulusModManager
             if (!emptySND || game == "Persona 3 FES")
             {
                 //Console.WriteLine("[INFO] Keeping SND folder.");
-                foreach (var dir in Directory.EnumerateDirectories(modDir))
+                foreach (var dir in Directory.GetDirectories(modDir))
                 {
                     if (Path.GetFileName(dir).ToLower() != "snd")
                         DeleteDirectory(dir);
                 }
                 // Delete top layer files too
-                foreach (var file in Directory.EnumerateFiles(modDir))
+                foreach (var file in Directory.GetFiles(modDir))
                 {
                     if (Path.GetExtension(file).ToLower() != ".elf" && Path.GetExtension(file).ToLower() != ".iso")
                         File.Delete(file);

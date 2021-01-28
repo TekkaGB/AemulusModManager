@@ -156,7 +156,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"Aemulus v2.1.3\nOpened {DateTime.Now}");
+            Console.WriteLine($"Aemulus v2.1.4\nOpened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -630,7 +630,7 @@ namespace AemulusModManager
         {
             var sourcePath = source.TrimEnd('\\', ' ');
             var targetPath = target.TrimEnd('\\', ' ');
-            var files = Directory.EnumerateFiles(sourcePath, "*", System.IO.SearchOption.AllDirectories)
+            var files = Directory.GetFiles(sourcePath, "*", System.IO.SearchOption.AllDirectories)
                                  .GroupBy(s => Path.GetDirectoryName(s));
             foreach (var folder in files)
             {
@@ -689,7 +689,7 @@ namespace AemulusModManager
             UpdateMetadata();
 
             // Get all packages from Packages folder (Adding packages)
-            foreach (var package in Directory.EnumerateDirectories($@"Packages\{game}"))
+            foreach (var package in Directory.GetDirectories($@"Packages\{game}"))
             {
                 if (File.Exists($@"{package}\Package.xml"))
                 {
@@ -1169,7 +1169,7 @@ namespace AemulusModManager
 
                 // Enable/disable convert to 1.4.0
                 ConvertCPK.IsEnabled = false;
-                foreach (var folder in Directory.EnumerateDirectories($@"Packages\{game}\{row.path}"))
+                foreach (var folder in Directory.GetDirectories($@"Packages\{game}\{row.path}"))
                 {
                     if (Path.GetFileName(folder).StartsWith("data0") || Path.GetFileName(folder).StartsWith("movie0"))
                     {
@@ -1364,7 +1364,7 @@ namespace AemulusModManager
         private void ConvertCPK_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            foreach (var folder in Directory.EnumerateDirectories($@"Packages\{game}\{row.path}"))
+            foreach (var folder in Directory.GetDirectories($@"Packages\{game}\{row.path}"))
             {
                 if (Path.GetFileName(folder).StartsWith("data0"))
                     MoveDirectory(folder, $@"Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}");
