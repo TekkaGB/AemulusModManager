@@ -484,11 +484,15 @@ namespace AemulusModManager
                                 List<string> folders = new List<string>(f.Split(char.Parse("\\")));
                                 string binPath = string.Join("/", folders.ToArray().Skip(numParFolders).ToArray());
 
-
                                 // Case for paths in Persona 5 event paks
                                 if (contents.Contains($"../../../{binPath}"))
                                 {
                                     string args = $"replace \"{bin}\" ../../../{binPath} \"{f}\" \"{bin}\"";
+                                    PAKPackCMD(args);
+                                }
+                                else if (contents.Contains($"../../{binPath}"))
+                                {
+                                    string args = $"replace \"{bin}\" ../../{binPath} \"{f}\" \"{bin}\"";
                                     PAKPackCMD(args);
                                 }
                                 // Check if more unpacking needs to be done to replace
@@ -499,6 +503,12 @@ namespace AemulusModManager
                                     foreach (var c in contents)
                                     {
                                         int prefixLen = commonPrefixUtil(c, binPath);
+                                        int otherPrefixLen = commonPrefixUtil(c, $"../../{binPath}");
+                                        if (otherPrefixLen > longestPrefixLen)
+                                        {
+                                            longestPrefix = c;
+                                            longestPrefixLen = otherPrefixLen;
+                                        }
                                         if (prefixLen > longestPrefixLen)
                                         {
                                             longestPrefix = c;
@@ -591,7 +601,8 @@ namespace AemulusModManager
                                     }
                                     else if (Path.GetExtension(longestPrefix) == ".spr" && Path.GetExtension(f) == ".tmx")
                                     {
-                                        string sprPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
+                                        string path = longestPrefix.Replace("../../", "");
+                                        string sprPath = $@"{temp}\{path.Replace("/", "\\")}";
                                         sprUtils.replaceTmx(sprPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");
                                     }
