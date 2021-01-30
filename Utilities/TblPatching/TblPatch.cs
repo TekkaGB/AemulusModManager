@@ -674,7 +674,6 @@ namespace AemulusModManager
                 Console.WriteLine($"[ERROR] Incomplete patch, skipping...");
                 return sections;
             }
-            Console.WriteLine(patch.offset);
             // Get info from json patch
             int section = (int)patch.section;
             int offset = (int)patch.offset;

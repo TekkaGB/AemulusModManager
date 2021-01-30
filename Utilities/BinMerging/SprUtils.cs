@@ -54,7 +54,8 @@ namespace AemulusModManager
                 if (found != -1)
                 {
                     string tmxName = getTmxName(SliceArray(sprBytes,(offset + 24),sprBytes.Length));
-                    tmxNames.Add(tmxName, offset - 12);
+                    if (!tmxNames.ContainsKey(tmxName))
+                        tmxNames.Add(tmxName, offset - 12);
                 }
             }
             return tmxNames;
