@@ -333,13 +333,13 @@ namespace AemulusModManager
                         {
                             if (!File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
                             {
-                                if (File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}") && !File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
+                                if (File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}"))
                                 {
                                     Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
                                     File.Copy($@"Original\{game}\BTL\BATTLE\{tblName}", $@"{modDir}\BTL\BATTLE\{tblName}", true);
                                     Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
                                 }
-                                else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}") && !File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
+                                else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}"))
                                 {
                                     Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
                                     continue;
@@ -404,7 +404,23 @@ namespace AemulusModManager
                                 Table table = new Table();
                                 string tablePath = null;
                                 if (game == "Persona 3 FES")
+                                {
                                     tablePath = $@"{modDir}\BTL\BATTLE\{patch.tbl}.TBL";
+                                    if (!File.Exists(tablePath))
+                                    {
+                                        if (File.Exists($@"Original\{game}\BTL\BATTLE\{patch.tbl}.TBL"))
+                                        {
+                                            Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
+                                            File.Copy($@"Original\{game}\BTL\BATTLE\{patch.tbl}.TBL", tablePath, true);
+                                            Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
+                                        }
+                                        else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{patch.tbl}.TBL"))
+                                        {
+                                            Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
+                                            continue;
+                                        }
+                                    }
+                                }
                                 else if (game == "Persona 4 Golden")
                                     tablePath = $@"{tblDir}\battle\{patch.tbl}.TBL";
                                 else
