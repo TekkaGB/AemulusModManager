@@ -91,7 +91,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid iso.");
+                Console.WriteLine("[ERROR] Invalid ISO.");
             }
         }
 
@@ -107,22 +107,29 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Console.WriteLine("[ERROR] Invalid EXE.");
             }
         }
 
         private void SetupELFShortcut(object sender, RoutedEventArgs e)
         {
-            string elf = selectExe("Select ELF/SLUS", "*.*");
+            string elf = selectExe("Select ELF/SLUS", "");
             if (elf != null)
             {
-                // Read the first four bytes, verify that they end in "ELF"
-                using BinaryReader reader = new BinaryReader(new FileStream(elf, FileMode.Open));
-                string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
-                if (!magic.EndsWith("ELF"))
+                try
                 {
-                    Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
-                    return;
+                    // Read the first four bytes, verify that they end in "ELF"
+                    using BinaryReader reader = new BinaryReader(new FileStream(elf, FileMode.Open));
+                    string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
+                    if (!magic.EndsWith("ELF"))
+                    {
+                        Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] An exception occurred while trying to read the specified ELF/SLUS file: {ex.Message}");
                 }
 
                 main.elfPath = elf;
