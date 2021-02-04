@@ -26,13 +26,13 @@
             <RowDefinition Height="33"/>
             <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" Grid.Column="0">Name</TextBlock>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0">Author</TextBlock>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="2" Grid.Column="0">ID</TextBlock>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="3" Grid.Column="0">Version</TextBlock>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.Column="0">Link</TextBlock>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Top" Padding="2" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="6" Grid.Column="0">Description</TextBlock>
-        <TextBlock Foreground="#9A2000" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="8" Grid.Column="0">Preview</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" Grid.Column="0">Name</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0">Author</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="2" Grid.Column="0">ID</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="3" Grid.Column="0">Version</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.Column="0">Link</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Top" Padding="2" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="6" Grid.Column="0">Description</TextBlock>
+        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="8" Grid.Column="0">Preview</TextBlock>
         <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="AuthorBox" TextChanged="AuthorBox_TextChanged" Background="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="IDBox" TextChanged="IDBox_TextChanged" IsKeyboardFocusedChanged="IDBox_IsKeyboardFocusedChanged" Background="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
