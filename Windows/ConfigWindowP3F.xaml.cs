@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
@@ -112,9 +113,18 @@ namespace AemulusModManager
 
         private void SetupELFShortcut(object sender, RoutedEventArgs e)
         {
-            string elf = selectExe("Select ELF", ".elf");
-            if (elf != null && Path.GetExtension(elf).ToLower() == ".elf")
+            string elf = selectExe("Select ELF/SLUS", "*.*");
+            if (elf != null)
             {
+                // Read the first four bytes, verify that they end in "ELF"
+                using BinaryReader reader = new BinaryReader(new FileStream(elf, FileMode.Open));
+                string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
+                if (!magic.EndsWith("ELF"))
+                {
+                    Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
+                    return;
+                }
+
                 main.elfPath = elf;
                 main.config.p3fConfig.elfPath = elf;
                 main.updateConfig();
@@ -122,7 +132,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Console.WriteLine("[ERROR] No ELF/SLUS file specified.");
             }
         }
 
