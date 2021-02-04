@@ -517,7 +517,7 @@ namespace AemulusModManager
                         Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
                     }
-                    startInfo.Arguments = "--launch \"" + gamePath + "\"";
+                    startInfo.Arguments = $"--launch \"{gamePath}\"";
                 }
                 else if (game == "Persona 3 FES")
                 {
@@ -526,7 +526,12 @@ namespace AemulusModManager
                         Console.WriteLine($"[ERROR] Couldn't find {elfPath}. Please correct the file path in config.");
                         return;
                     }
-                    startInfo.Arguments = $"--nogui --elf=\"{elfPath}\"";
+                    if (!File.Exists(gamePath))
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        return;
+                    }
+                    startInfo.Arguments = $"--nogui --elf=\"{elfPath}\" \"{gamePath}\"";
                 }
                 else if (game == "Persona 5")
                 {
