@@ -19,7 +19,7 @@ namespace AemulusModManager
         {
             if (!File.Exists(iso))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {iso}. Please correct the file path in config.");
+                Console.Write($"[ERROR] Couldn't find {iso}. Please correct the file path in config.");
                 return;
             }
 
@@ -28,7 +28,7 @@ namespace AemulusModManager
             startInfo.FileName = @"Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
 
@@ -46,7 +46,7 @@ namespace AemulusModManager
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                Console.Write(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             startInfo.Arguments = "x -y \"" + @"Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + @"Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL -r";
@@ -55,7 +55,7 @@ namespace AemulusModManager
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                Console.Write(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             File.Delete(@"Original\Persona 3 FES\BTL.CVM");
@@ -65,7 +65,7 @@ namespace AemulusModManager
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.WriteLine(process.StandardOutput.ReadToEnd());
+                Console.Write(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             File.Delete(@"Original\Persona 3 FES\DATA.CVM");
@@ -133,7 +133,7 @@ namespace AemulusModManager
                     {
                         process.StartInfo = startInfo;
                         process.Start();
-                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                        Console.Write(process.StandardOutput.ReadToEnd());
                         process.WaitForExit();
                     }
                 }
@@ -210,7 +210,7 @@ namespace AemulusModManager
                     {
                         process.StartInfo = startInfo;
                         process.Start();
-                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                        Console.Write(process.StandardOutput.ReadToEnd());
                         process.WaitForExit();
                     }
                 }
@@ -229,7 +229,7 @@ namespace AemulusModManager
                     {
                         process.StartInfo = startInfo;
                         process.Start();
-                        Console.WriteLine(process.StandardOutput.ReadToEnd());
+                        Console.Write(process.StandardOutput.ReadToEnd());
                         process.WaitForExit();
                     }
                 }

@@ -121,11 +121,20 @@ namespace AemulusModManager
         private StreamWriter sw;
         private TextBoxOutputter outputter;
 
+
         void consoleWriter_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
         {
+            string text = (string)e.Value;
             this.Dispatcher.Invoke(() =>
             {
-                ConsoleOutput.AppendText($"{e.Value}\n");
+                if (text.StartsWith("[INFO]"))
+                    ConsoleOutput.AppendText($"{text}\n", "#046300");
+                else if (text.StartsWith("[WARNING]"))
+                    ConsoleOutput.AppendText($"{text}\n", "#764E00");
+                else if (text.StartsWith("[ERROR]"))
+                    ConsoleOutput.AppendText($"{text}\n", "#AE1300");
+                else
+                    ConsoleOutput.AppendText($"{text}\n", "Black");
             });
         }
 
@@ -156,7 +165,8 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"Aemulus v2.1.6\nOpened {DateTime.Now}");
+            Console.WriteLine($"Aemulus v2.2.0");
+            Console.WriteLine($"[INFO] Opened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -433,12 +443,10 @@ namespace AemulusModManager
             if (!bottomUpPriority)
             {
                 TopPriority.Text = "Higher Priority";
-                BottomPriority.Text = "Lower Priority";
             }
             else
             {
                 TopPriority.Text = "Lower Priority";
-                BottomPriority.Text = "Higher Priority";
             }
 
             LaunchButton.ToolTip = $"Launch {game}";
@@ -776,9 +784,6 @@ namespace AemulusModManager
                                 Console.WriteLine($@"[ERROR] Couldn't delete temp ({ex.Message})");
                             }
                         }
-                        //Delete prebuild.bat if exists
-                        if (File.Exists($@"{package}\prebuild.bat"))
-                            File.Delete($@"{package}\prebuild.bat");
                         //Make sure Data folder is gone
                         if (Directory.Exists(dataDir) && !Directory.EnumerateFileSystemEntries(dataDir).Any())
                             Directory.Delete(dataDir, true);
@@ -1596,12 +1601,10 @@ namespace AemulusModManager
             if (!bottomUpPriority)
             {
                 TopPriority.Text = "Higher Priority";
-                BottomPriority.Text = "Lower Priority";
             }
             else
             {
                 TopPriority.Text = "Lower Priority";
-                BottomPriority.Text = "Higher Priority";
             }
             
             config.bottomUpPriority = bottomUpPriority;

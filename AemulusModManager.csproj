@@ -336,9 +336,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\arrow.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\Aemulus.ico" />
     <Content Include="Dependencies\7z\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

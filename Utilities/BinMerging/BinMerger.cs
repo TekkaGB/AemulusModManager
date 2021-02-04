@@ -132,7 +132,37 @@ namespace AemulusModManager
                     Console.WriteLine($"[ERROR] Cannot find {mod}");
                     continue;
                 }
+
+                // Run prebuild.bat
+                if (File.Exists($@"{mod}\prebuild.bat"))
+                {
+                    Console.WriteLine($@"Running {mod}\prebuild.bat...");
+                    
+                    ProcessStartInfo ProcessInfo;
+                    Process process;
+
+                    ProcessInfo = new ProcessStartInfo();
+                    ProcessInfo.FileName = Path.GetFullPath($@"{mod}\prebuild.bat");
+                    ProcessInfo.CreateNoWindow = true;
+                    ProcessInfo.UseShellExecute = false;
+                    ProcessInfo.WorkingDirectory = Path.GetFullPath(mod);
+                    Console.WriteLine(ProcessInfo.WorkingDirectory);
+                    // *** Redirect the output ***
+                    ProcessInfo.RedirectStandardOutput = true;
+                    ProcessInfo.RedirectStandardError = true;
+
+                    process = Process.Start(ProcessInfo);
+                    process.WaitForExit();
+
+                    // *** Read the streams ***
+                    Console.Write(process.StandardOutput.ReadToEnd());
+                    Console.Write(process.StandardError.ReadToEnd());
+
+                    Console.WriteLine($@"Finished running {mod}\prebuild.bat!");
+                }
+
                 List<string> modList = getModList(mod);
+
                 // Copy and overwrite everything thats not a bin
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {

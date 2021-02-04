@@ -72,7 +72,7 @@ namespace AemulusModManager
                 Console.WriteLine($"[ERROR] Couldn't find {exePath}. Please check if it was blocked by your anti-virus.");
                 return;
             }
-            Console.WriteLine("[INFO] Patching .tbl's...");
+            Console.WriteLine("[INFO] Patching TBLs...");
             // Check if init_free exists and return if not
             string archive = null;
             if (game == "Persona 4 Golden")
@@ -122,7 +122,7 @@ namespace AemulusModManager
             
                 tblDir = $@"{modDir}\{Path.ChangeExtension(archive, null)}_tbls";
                 // Unpack archive
-                Console.WriteLine($"[INFO] Unpacking tbl's from {archive}...");
+                Console.WriteLine($"[INFO] Unpacking TBLs from {archive}...");
                 unpackTbls($@"{modDir}\{archive}", game);
             }
             // Keep track of which tables are edited
@@ -477,7 +477,7 @@ namespace AemulusModManager
                 // Delete all unpacked files
                 Directory.Delete(tblDir, true);
             }
-            Console.WriteLine("[INFO] Finished patching tbl's!");
+            Console.WriteLine("[INFO] Finished patching TBLs!");
         }
 
         private static List<Section> GetSections(string tbl, string game)
