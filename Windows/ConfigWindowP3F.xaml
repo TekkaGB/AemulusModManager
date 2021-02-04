@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Persona 3 FES Config" Height="300" Width="500" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 3 FES Config" Height="320" Width="500" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -20,16 +20,38 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="7" Grid.Column="2">
+        
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P3F ISO Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P3F ELF Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="4" Height="20"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PCSX2.exe Path" FontWeight="Bold" FontSize="13" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+        <TextBlock Foreground="LightGray" Text="P3 FES Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
+        
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="280"/>
+        <TextBox Name="ISOTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="280" Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="ELFTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="280" Grid.Row="4" Grid.Column="2"/>
+        <TextBox Name="PCSX2Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="280" Grid.Row="5" Grid.Column="2"/>
+        
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ISOButton" Click="SetupISOShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ELFButton" Click="SetupELFShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="19,11,18,10"/>
+        <Button Height="20" Width="60" Content="Browse" Name="PCSX2Button" Click="SetupPCSX2Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="3" Margin="19,11,18,10"/>
+        
+        <CheckBox Name="AdvancedLaunchOptions" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked">
+            <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>
+        </CheckBox>
+        
+        <Grid Grid.Row="8" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="1" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="0">
+            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="0" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="1">
                 <CheckBox Name="NotifBox" Foreground ="White" Checked="NotifChecked" Unchecked="NotifUnchecked">
                     <TextBlock TextAlignment="Center">
                         Disable<LineBreak/>
@@ -38,19 +60,6 @@
                 </CheckBox>
             </Viewbox>
         </Grid>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"></TextBlock>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P3F ISO Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">PCSX2.exe<LineBreak />Path</TextBlock>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P3F ELF Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="5" Height="20"/>
-        <TextBlock Foreground="LightGray" Text="P3 FES Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="280"/>
-        <TextBox Name="ISOTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="280" Grid.Row="3" Grid.Column="2"/>
-        <TextBox Name="PCSX2Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="280" Grid.Row="4" Grid.Column="2"/>
-        <TextBox Name="ELFTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="280" Grid.Row="5" Grid.Column="2"/>
-        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
-        <Button Height="20" Width="60" Content="Browse" Name="ISOButton" Click="SetupISOShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
-        <Button Height="20" Width="60" Content="Browse" Name="PCSX2Button" Click="SetupPCSX2Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="19,11,18,10"/>
-        <Button Height="20" Width="60" Content="Browse" Name="ELFButton" Click="SetupELFShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="3" Margin="19,11,18,10"/>
-
+        
     </Grid>
 </Window>

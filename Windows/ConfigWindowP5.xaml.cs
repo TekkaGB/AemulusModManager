@@ -18,12 +18,15 @@ namespace AemulusModManager
         {
             main = _main;
             InitializeComponent();
+
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
             if (main.gamePath != null)
                 EBOOTTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
                 RPCS3Textbox.Text = main.launcherPath;
+            NotifBox.IsChecked = main.config.p5Config.disableMessageBox;
+
             Console.WriteLine("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
@@ -43,13 +46,13 @@ namespace AemulusModManager
         private void NotifChecked(object sender, RoutedEventArgs e)
         {
             main.messageBox = true;
-            main.config.p3fConfig.disableMessageBox = true;
+            main.config.p5Config.disableMessageBox = true;
             main.updateConfig();
         }
         private void NotifUnchecked(object sender, RoutedEventArgs e)
         {
             main.messageBox = false;
-            main.config.p3fConfig.disableMessageBox = false;
+            main.config.p5Config.disableMessageBox = false;
             main.updateConfig();
         }
 

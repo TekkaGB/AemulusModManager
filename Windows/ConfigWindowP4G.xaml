@@ -22,6 +22,20 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"></TextBlock>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P4G.exe Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Reloaded-II.exe<LineBreak />Path</TextBlock>
+        <TextBlock Foreground="LightGray" Text="P4G Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
+        
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="600"/>
+        <TextBox Name="P4GTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="600" Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="ReloadedTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="600" Grid.Row="4" Grid.Column="2"/>
+        
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
+        <Button Height="20" Width="60" Content="Browse" Name="P4GButton" Click="SetupP4GShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ReloadedButton" Click="SetupReloadedShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3"/>
+        
         <Grid Grid.Row="6" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -30,7 +44,7 @@
                 <ColumnDefinition Width="1.1*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="4" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
+            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="2" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
             <ComboBox Name="LanguageBox" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Width="135" Height="25">
                 <ComboBoxItem IsSelected="True">English (data_e.cpk)</ComboBoxItem>
                 <ComboBoxItem>Japanese (data.cpk)</ComboBoxItem>
@@ -52,7 +66,7 @@
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
                 <CheckBox Name="NotifBox" Foreground ="White" Checked="NotifChecked" Unchecked="NotifUnchecked">
                     <TextBlock TextAlignment="Center">
                         Disable<LineBreak/>
@@ -61,16 +75,6 @@
                 </CheckBox>
             </Viewbox>
         </Grid>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"></TextBlock>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P4G.exe Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">Reloaded-II.exe<LineBreak />Path</TextBlock>
-        <TextBlock Foreground="LightGray" Text="P4G Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="600"/>
-        <TextBox Name="P4GTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="600" Grid.Row="3" Grid.Column="2"/>
-        <TextBox Name="ReloadedTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="600" Grid.Row="4" Grid.Column="2"/>
-        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
-        <Button Height="20" Width="60" Content="Browse" Name="P4GButton" Click="SetupP4GShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
-        <Button Height="20" Width="60" Content="Browse" Name="ReloadedButton" Click="SetupReloadedShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3"/>
         
     </Grid>
 </Window>
