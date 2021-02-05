@@ -18,6 +18,7 @@ namespace AemulusModManager
         {
             main = _main;
             InitializeComponent();
+
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
             if (main.gamePath != null)
@@ -26,6 +27,8 @@ namespace AemulusModManager
                 ReloadedTextbox.Text = main.launcherPath;
             KeepSND.IsChecked = main.emptySND;
             CpkBox.IsChecked = main.useCpk;
+            NotifBox.IsChecked = main.p4gConfig.disableMessageBox;
+
             switch (main.cpkLang)
             {
                 case "data_e.cpk":

@@ -47,7 +47,9 @@ namespace AemulusModManager
         public string elfPath { get; set; }
         public string launcherPath { get; set; }
         public bool disableMessageBox { get; set; }
+        public bool advancedLaunchOptions { get; set; }
     }
+
     public class ConfigP5
     {
         public string modDir { get; set; }

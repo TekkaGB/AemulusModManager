@@ -451,6 +451,7 @@ namespace AemulusModManager
 
             LaunchButton.ToolTip = $"Launch {game}";
         }
+
         public Task pacUnpack(string directory)
         {
             return Task.Run(() =>
@@ -521,17 +522,67 @@ namespace AemulusModManager
                 }
                 else if (game == "Persona 3 FES")
                 {
-                    if (!File.Exists(elfPath))
+                    string tempElfPath = null, tempGamePath = null;
+
+                    if (p3fConfig.advancedLaunchOptions)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't find {elfPath}. Please correct the file path in config.");
-                        return;
+                        if (MessageBox.Show("Would you like to choose a custom ELF/SLUS to launch with? To use the executable included in the ISO, choose \"No\".", 
+                            "Select custom executable", 
+                            MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        {
+                            CommonOpenFileDialog tempElfDialog = new CommonOpenFileDialog();
+                            tempElfDialog.InitialDirectory = new FileInfo(elfPath).DirectoryName;
+                            if (tempElfDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                            {
+                                tempElfPath = tempElfDialog.FileName;
+                            }
+                        }
+                        if (MessageBox.Show("Would you like to choose a custom ISO to launch with? If you're using HostFS, choose \"No\".",
+                            "Select custom disc image",
+                            MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        {
+                            CommonOpenFileDialog tempGameDialog = new CommonOpenFileDialog();
+                            tempGameDialog.InitialDirectory = new FileInfo(gamePath).DirectoryName;
+                            if (tempGameDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                            {
+                                tempGamePath = tempGameDialog.FileName;
+                            }
+                        }
+
+                        // If the user said "No" to both options, we'll fall back to the old behavior
+                        // of just launching the ELF selected in the config.
+                        if (tempElfPath == null && tempGamePath == null)
+                        {
+                            tempElfPath = elfPath;
+                        }
                     }
-                    if (!File.Exists(gamePath))
+                    else
                     {
-                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
-                        return;
+                        // If the user doesn't want to be prompted for extra options,
+                        // just automatically launch the ELF selected in the config.
+                        tempElfPath = elfPath;
                     }
-                    startInfo.Arguments = $"--nogui --elf=\"{elfPath}\" \"{gamePath}\"";
+
+                    // Build the PCSX2 launch arguments based on what we've chosen/what's non-null
+                    startInfo.Arguments = "--nogui";
+                    if (tempElfPath != null)
+                    {
+                        if (!File.Exists(tempElfPath))
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
+                            return;
+                        }
+                        startInfo.Arguments += $" --elf=\"{tempElfPath}\"";
+                    }
+                    if (tempGamePath != null)
+                    {
+                        if (!File.Exists(tempGamePath))
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
+                            return;
+                        }
+                        startInfo.Arguments += $" \"{tempGamePath}\"";
+                    }
                 }
                 else if (game == "Persona 5")
                 {
@@ -905,6 +956,7 @@ namespace AemulusModManager
                 }
             }
         }
+
         private string selectExe(string title, string extension)
         {
             string type = "Application";
@@ -1264,6 +1316,7 @@ namespace AemulusModManager
 
             return flowDocument;
         }
+
         private void Inaba_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://gamebanana.com/tools/6872");

@@ -1,4 +1,4 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -19,6 +19,7 @@ namespace AemulusModManager
         {
             main = _main;
             InitializeComponent();
+
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
             if (main.gamePath != null)
@@ -27,8 +28,12 @@ namespace AemulusModManager
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.elfPath != null)
                 ELFTextbox.Text = main.elfPath;
+            AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
+            NotifBox.IsChecked = main.config.p3fConfig.disableMessageBox;
+
             Console.WriteLine("[INFO] Config launched");
         }
+
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
@@ -43,6 +48,7 @@ namespace AemulusModManager
                 OutputTextbox.Text = directory;
             }
         }
+
         private void NotifChecked(object sender, RoutedEventArgs e)
         {
             main.messageBox = true;
@@ -53,6 +59,17 @@ namespace AemulusModManager
         {
             main.messageBox = false;
             main.config.p3fConfig.disableMessageBox = false;
+            main.updateConfig();
+        }
+
+        private void AdvancedLaunchOptionsChecked(object sender, RoutedEventArgs e)
+        {
+            main.p3fConfig.advancedLaunchOptions = true;
+            main.updateConfig();
+        }
+        private void AdvancedLaunchOptionsUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.p3fConfig.advancedLaunchOptions = false;
             main.updateConfig();
         }
 
