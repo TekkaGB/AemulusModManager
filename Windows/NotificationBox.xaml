@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Aemulus Package Manager" Height="175" Width="450"
+        Title="Aemulus Package Manager" Height="175" Width="500"
         ResizeMode="NoResize"
         Background="#121212" ShowActivated="True">
     <Grid>
@@ -14,7 +14,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="Notification" Padding="20" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="15"/>
-        <Button Content="OK" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" IsDefault="True" Grid.Row="1" Margin="0,14,22,14"/> 
+        <Button x:Name="OkButton" Visibility="Collapsed" Content="OK" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" IsDefault="True" Grid.Row="1" Margin="0,14,22,14"/>
+        <Button x:Name="YesButton" Visibility="Collapsed" Content="Yes" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Yes_Button_Click" IsDefault="True" Grid.Row="1" Margin="0,14,130,14"/>
+        <Button x:Name="NoButton" Visibility="Collapsed" Content="No" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" Grid.Row="1" Margin="0,14,22,14"/>
     </Grid>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="taskBarItem"/>

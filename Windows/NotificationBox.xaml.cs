@@ -13,18 +13,34 @@ namespace AemulusModManager
     /// </summary>
     public partial class NotificationBox : Window
     {
-        public NotificationBox(string message)
+        public bool YesNo = false;
+        public NotificationBox(string message, bool OK = true)
         {
             InitializeComponent();
             Notification.Text = message;
+            if (OK)
+            {
+                OkButton.Visibility = Visibility.Visible;
+                PlayNotificationSound();
+                taskBarItem.ProgressState = TaskbarItemProgressState.Indeterminate;
+            }
+            else
+            {
+                YesButton.Visibility = Visibility.Visible;
+                NoButton.Visibility = Visibility.Visible;
+            }
             if (message.Length > 30)
                 Notification.TextAlignment = TextAlignment.Left;
-            PlayNotificationSound();
-            taskBarItem.ProgressState = TaskbarItemProgressState.Indeterminate;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Close();
+        }
+
+        private void Yes_Button_Click(object sender, RoutedEventArgs e)
+        {
+            YesNo = true;
             Close();
         }
 

@@ -165,8 +165,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"Aemulus v2.2.0");
-            Console.WriteLine($"[INFO] Opened {DateTime.Now}");
+            Console.WriteLine($"[INFO] Aemulus v2.2.1 opened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -526,9 +525,10 @@ namespace AemulusModManager
 
                     if (p3fConfig.advancedLaunchOptions)
                     {
-                        if (MessageBox.Show("Would you like to choose a custom ELF/SLUS to launch with? To use the executable included in the ISO, choose \"No\".", 
-                            "Select custom executable", 
-                            MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        NotificationBox notification = new NotificationBox("Would you like to choose a custom ELF/SLUS to launch with? To use the executable included in the ISO, choose \"No\".", false);
+                        notification.ShowDialog();
+                        Activate();
+                        if (notification.YesNo)
                         {
                             CommonOpenFileDialog tempElfDialog = new CommonOpenFileDialog();
                             tempElfDialog.InitialDirectory = new FileInfo(elfPath).DirectoryName;
@@ -537,9 +537,10 @@ namespace AemulusModManager
                                 tempElfPath = tempElfDialog.FileName;
                             }
                         }
-                        if (MessageBox.Show("Would you like to choose a custom ISO to launch with? If you're using HostFS, choose \"No\".",
-                            "Select custom disc image",
-                            MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        notification = new NotificationBox("Would you like to choose a custom ISO to launch with? If you're using HostFS, choose \"No\".", false);
+                        notification.ShowDialog();
+                        Activate();
+                        if (notification.YesNo)
                         {
                             CommonOpenFileDialog tempGameDialog = new CommonOpenFileDialog();
                             tempGameDialog.InitialDirectory = new FileInfo(gamePath).DirectoryName;
