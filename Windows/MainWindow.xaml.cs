@@ -165,7 +165,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Aemulus v2.3.0 opened {DateTime.Now}");
+            Console.WriteLine($"[INFO] Aemulus v2.3.1 opened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -1133,7 +1133,7 @@ namespace AemulusModManager
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
                     }
-                    binMerge.Restart(path, emptySND, game);
+                    binMerge.Restart(path, emptySND, game, cpkLang);
                     binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                     binMerge.Merge(path, game);
 

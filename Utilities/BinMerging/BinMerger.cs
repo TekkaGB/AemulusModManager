@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace AemulusModManager
@@ -736,9 +737,36 @@ namespace AemulusModManager
             return;
         }
 
-        public static void Restart(string modDir, bool emptySND, string game)
+        public static void Restart(string modDir, bool emptySND, string game, string cpkLang)
         {
             Console.WriteLine("[INFO] Deleting current mod build...");
+            if (game == "Persona 4 Golden")
+            {
+                string path = Path.GetDirectoryName(modDir);
+                // Copy original cpk back if different
+                if (File.Exists($@"Original\Persona 4 Golden\{cpkLang}") && GetChecksumString($@"Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
+                {
+                    Console.WriteLine($@"[INFO] Reverting {cpkLang} back to original");
+                    File.Copy($@"Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
+                }
+                // Copy original cpk back if different
+                if (File.Exists($@"Original\Persona 4 Golden\movie.cpk") && GetChecksumString($@"Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
+                {
+                    Console.WriteLine($@"[INFO] Reverting movie.cpk back to original");
+                    File.Copy($@"Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
+                }
+                // Delete modified pacs
+                if (File.Exists($@"{path}\data00007.pac"))
+                {
+                    Console.WriteLine($"[INFO] Deleting data00007.pac");
+                    File.Delete($@"{path}\data00007.pac");
+                }
+                if (File.Exists($@"{path}\movie00003.pac"))
+                {
+                    Console.WriteLine($"[INFO] Deleting movie00003.pac");
+                    File.Delete($@"{path}\movie00003.pac");
+                }
+            }
             if (!emptySND || game == "Persona 3 FES")
             {
                 //Console.WriteLine("[INFO] Keeping SND folder.");
@@ -762,6 +790,24 @@ namespace AemulusModManager
                     File.Delete($@"{modDir}\mod.csv");
                 Directory.CreateDirectory(modDir);
             }
+        }
+        public static string GetChecksumString(string filePath)
+        {
+            string checksumString = null;
+
+            // get md5 checksum of file
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    // get hash
+                    byte[] currentFileSum = md5.ComputeHash(stream);
+                    // convert hash to string
+                    checksumString = BitConverter.ToString(currentFileSum).Replace("-", "");
+                }
+            }
+
+            return checksumString;
         }
 
         public static void MakeCpk(string modDir)

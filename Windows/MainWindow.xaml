@@ -7,7 +7,7 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Aemulus Package Manager v2.3.0" Height="720" Width="1180" MinHeight="800" MinWidth="1180"
+        Title="Aemulus Package Manager v2.3.1" Height="720" Width="1180" MinHeight="800" MinWidth="1180"
         Background="#121212" Closing="Window_Closing">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
