@@ -34,7 +34,7 @@ namespace AemulusModManager
             int end = Search(tmx, new byte[] { 0x00 });
             byte[] name = tmx.Take(end).ToArray();
             // hardcode for ◆noiz.tmx
-            if (BitConverter.ToString(new byte[] { name[0] }).Replace("-", "") == "81")
+            if (name.Length > 1 && BitConverter.ToString(new byte[] { name[0] }).Replace("-", "") == "81")
                 return $"◆{Encoding.ASCII.GetString(SliceArray(name, 2, name.Length))}";
             return Encoding.ASCII.GetString(name);
         }
@@ -99,6 +99,7 @@ namespace AemulusModManager
             int offset = findTmx(spr, tmxPattern);
             if (offset > -1)
             {
+                Console.WriteLine($"[INFO] Merging {tmx} onto {spr}");
                 byte[] tmxBytes = File.ReadAllBytes(tmx);
                 int repTmxLen = tmxBytes.Length;
                 int ogTmxLen = BitConverter.ToInt32(File.ReadAllBytes(spr), (offset + 4));
@@ -122,6 +123,8 @@ namespace AemulusModManager
                     updateOffsets(spr, getTmxOffsets(spr));
                 }
             }
+            else
+                Console.WriteLine($"[WARNING] Couldn't find {tmx} in {spr}");
         }
 
         private static void updateOffsets(string spr, List<int> offsets)

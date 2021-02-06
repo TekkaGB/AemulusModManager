@@ -624,18 +624,18 @@ namespace AemulusModManager
                                                     PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                                 }
                                             }
-                                            else if (Path.GetExtension(longestPrefix2) == ".spd" && (Path.GetExtension(f) == ".dds" || Path.GetExtension(f) == ".spdspr"))
+                                            else if (Path.GetExtension(longestPrefix2).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
                                             {
                                                 PAKPackCMD($"unpack \"{file2}\"");
                                                 string spdPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
-                                                if (Path.GetExtension(f) == ".dds")
+                                                if (Path.GetExtension(f).ToLower() == ".dds")
                                                     spdUtils.replaceDDS(spdPath, f);
                                                 else
                                                     spdUtils.replaceSPDKey(spdPath, f);
                                                 PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{spdPath}\" \"{file2}\"");
                                                 PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                             }
-                                            else if (Path.GetExtension(longestPrefix2) == ".spr" && Path.GetExtension(f) == ".tmx")
+                                            else if (Path.GetExtension(longestPrefix2).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
                                             {
                                                 PAKPackCMD($"unpack \"{file2}\"");
                                                 string sprPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
@@ -645,16 +645,16 @@ namespace AemulusModManager
                                             }
                                         }
                                     }
-                                    else if (Path.GetExtension(longestPrefix) == ".spd" && (Path.GetExtension(f) == ".dds" || Path.GetExtension(f) == ".spdspr"))
+                                    else if (Path.GetExtension(longestPrefix).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
                                     {
                                         string spdPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
-                                        if (Path.GetExtension(f) == ".dds")
+                                        if (Path.GetExtension(f).ToLower() == ".dds")
                                             spdUtils.replaceDDS(spdPath, f);
                                         else
                                             spdUtils.replaceSPDKey(spdPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{spdPath}\" \"{bin}\"");
                                     }
-                                    else if (Path.GetExtension(longestPrefix) == ".spr" && Path.GetExtension(f) == ".tmx")
+                                    else if (Path.GetExtension(longestPrefix).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
                                     {
                                         string path = longestPrefix.Replace("../../", "");
                                         string sprPath = $@"{temp}\{path.Replace("/", "\\")}";
