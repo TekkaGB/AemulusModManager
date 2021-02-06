@@ -165,7 +165,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Aemulus v2.2.1 opened {DateTime.Now}");
+            Console.WriteLine($"[INFO] Aemulus v2.3.0 opened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -1114,7 +1114,7 @@ namespace AemulusModManager
                         packages.Add($@"Packages\{game}\{m.path}");
                         Console.WriteLine($@"[INFO] Using {m.path} in loadout");
                         if (game == "Persona 4 Golden" && (Directory.Exists($@"Packages\{game}\{m.path}\{Path.GetFileNameWithoutExtension(cpkLang)}")
-                            || Directory.Exists($@"Packages\{game}\{m.path}\movie")) && !useCpk)
+                            || Directory.Exists($@"Packages\{game}\{m.path}\movie") || Directory.Exists($@"Packages\{game}\{m.path}\preappfile")) && !useCpk)
                         {
                             Console.WriteLine($"[WARNING] {m.path} is using CPK folder paths, setting Use CPK Structure to true");
                             useCpk = true;
@@ -1137,10 +1137,16 @@ namespace AemulusModManager
                     binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                     binMerge.Merge(path, game);
 
-                    // Only run if tblpatching is enabled and tblpatches exists
+                    // Only run if tblpatches exists
                     if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                     {
                         tblPatch.Patch(packages, path, useCpk, cpkLang, game);
+                    }
+
+                    // Only run if tblpatches exists
+                    if (game == "Persona 4 Golden" && packages.Exists(x => Directory.Exists($@"{x}\preappfile")))
+                    {
+                        PreappfileAppend.Append(Path.GetDirectoryName(path), cpkLang);
                     }
 
                     if (game == "Persona 5")

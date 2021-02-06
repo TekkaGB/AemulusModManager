@@ -140,6 +140,7 @@
     </ApplicationDefinition>
     <Compile Include="Utilities\BmdPatching\BmdObj.cs" />
     <Compile Include="Utilities\BmdPatching\BmdPatcher.cs" />
+    <Compile Include="Utilities\PreappfileAppend.cs" />
     <Compile Include="Utilities\TblPatching\TblObj.cs" />
     <Compile Include="Windows\ConfigWindowP5.xaml.cs">
       <DependentUpon>ConfigWindowP5.xaml</DependentUpon>
@@ -315,9 +316,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Dependencies\Preappfile\preappfile.deps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.dev.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.json">

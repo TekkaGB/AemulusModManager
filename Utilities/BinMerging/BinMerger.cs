@@ -134,9 +134,9 @@ namespace AemulusModManager
                 }
 
                 // Run prebuild.bat
-                if (File.Exists($@"{mod}\prebuild.bat"))
+                if (File.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0 )
                 {
-                    Console.WriteLine($@"Running {mod}\prebuild.bat...");
+                    Console.WriteLine($@"[INFO] Running {mod}\prebuild.bat...");
                     
                     ProcessStartInfo ProcessInfo;
                     Process process;
@@ -365,7 +365,8 @@ namespace AemulusModManager
                         || Path.GetExtension(file).ToLower() == ".spd")
                         && Directory.Exists(Path.ChangeExtension(file, null))
                         && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
-                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel")
+                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel"
+                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "crossword")
                     {
                         DeleteDirectory(Path.ChangeExtension(file, null));
                     }
@@ -389,13 +390,22 @@ namespace AemulusModManager
                 }
                 if (File.Exists($@"{mod}\field\panel.bin") && !Directory.Exists($@"{mod}\field\panel\panel"))
                     DeleteDirectory($@"{mod}\field\panel\panel");
-
                 if (Directory.Exists($@"{mod}\battle\result\result") && !Directory.GetFiles($@"{mod}\battle\result\result", "*", SearchOption.AllDirectories).Any())
                     DeleteDirectory($@"{mod}\battle\result\result");
                 if (Directory.Exists($@"{mod}\battle\result") && !Directory.GetFiles($@"{mod}\battle\result", "*", SearchOption.AllDirectories).Any())
                     DeleteDirectory($@"{mod}\battle\result");
                 if (Directory.Exists($@"{mod}\field\panel") && !Directory.GetFiles($@"{mod}\field\panel", "*", SearchOption.AllDirectories).Any())
                     DeleteDirectory($@"{mod}\field\panel");
+                if ((File.Exists($@"{mod}\minigame\crossword.pak") || File.Exists($@"{mod}\minigame\crossword.spd")) && Directory.Exists($@"{mod}\minigame\crossword"))
+                {
+                    foreach (var f in Directory.GetFiles($@"{mod}\minigame\crossword"))
+                    {
+                        if (Path.GetExtension(f).ToLower() != ".pak")
+                            File.Delete(f);
+                    }
+                }
+                if (Directory.Exists($@"{mod}\minigame\crossword") && !Directory.GetFiles($@"{mod}\minigame\crossword", "*", SearchOption.AllDirectories).Any())
+                    DeleteDirectory($@"{mod}\minigame\crossword");
 
             }
             Console.WriteLine("[INFO] Finished unpacking!");
@@ -435,14 +445,14 @@ namespace AemulusModManager
                             Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
-                    else if (File.Exists(Path.ChangeExtension(ogPath, ".arc")) && !File.Exists(Path.ChangeExtension(d, ".arc")))
+                    if (File.Exists(Path.ChangeExtension(ogPath, ".arc")) && !File.Exists(Path.ChangeExtension(d, ".arc")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".arc");
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
-                    else if (File.Exists(Path.ChangeExtension(ogPath, ".pac")) && !File.Exists(Path.ChangeExtension(d, ".pac")))
+                    if (File.Exists(Path.ChangeExtension(ogPath, ".pac")) && !File.Exists(Path.ChangeExtension(d, ".pac")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pac");
                         if (Path.GetFileName(ogPath) == "result.pac")
@@ -457,24 +467,38 @@ namespace AemulusModManager
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
-                    else if (File.Exists(Path.ChangeExtension(ogPath, ".pak")) && !File.Exists(Path.ChangeExtension(d, ".pak")))
+                    if (File.Exists(Path.ChangeExtension(ogPath, ".pak")) && !File.Exists(Path.ChangeExtension(d, ".pak")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pak");
+                        if (Path.GetFileName(ogPath) == "crossword.pak")
+                        {
+                            if (!Directory.GetFiles(d, "*.dds", SearchOption.AllDirectories).Any()
+                                && !Directory.GetFiles(d, "*.spdspr", SearchOption.AllDirectories).Any()
+                                && !Directory.GetFiles(d, "*.bmd", SearchOption.AllDirectories).Any()
+                                && !Directory.GetFiles(d, "*.plg", SearchOption.AllDirectories).Any())
+                                continue;
+                        }
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
-                    else if (File.Exists(Path.ChangeExtension(ogPath, ".pack")) && !File.Exists(Path.ChangeExtension(d, ".pack")))
+                    if (File.Exists(Path.ChangeExtension(ogPath, ".pack")) && !File.Exists(Path.ChangeExtension(d, ".pack")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".pack");
                         Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
-                    else if (File.Exists(Path.ChangeExtension(ogPath, ".spd")) && !File.Exists(Path.ChangeExtension(d, ".spd")))
+                    if (File.Exists(Path.ChangeExtension(ogPath, ".spd")) && !File.Exists(Path.ChangeExtension(d, ".spd")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".spd");
                         if (Path.GetFileName(ogPath) == "result.spd")
+                        {
+                            if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
+                                && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
+                                continue;
+                        }
+                        if (Path.GetFileName(ogPath) == "crossword.spd")
                         {
                             if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
                                 && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
@@ -680,24 +704,34 @@ namespace AemulusModManager
                     || Path.GetExtension(file).ToLower() == ".spd")
                     && Directory.Exists(Path.ChangeExtension(file, null))
                     && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
-                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel")
+                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel"
+                    && Path.GetFileName(Path.ChangeExtension(file, null)) != "crossword")
                 {
                     DeleteDirectory(Path.ChangeExtension(file, null));
                 }
             }
 
-            // battle/result/result folder case
+            // Hardcoded cases TODO: reimplement extracted folders to have file extensions as part of the name, although would need to refactor every aemulus mod
 
             if (File.Exists($@"{modDir}\battle\result.pac") && !File.Exists($@"{modDir}\battle\result\result.spd") && Directory.Exists($@"{modDir}\battle\result"))
                 DeleteDirectory($@"{modDir}\battle\result");
             if (Directory.Exists($@"{modDir}\battle\result\result"))
                 DeleteDirectory($@"{modDir}\battle\result\result");
-            
-            //if (File.Exists($@"{modDir}\field\panel.bin") && !Directory.Exists($@"{modDir}\field\panel\panel") && Directory.Exists($@"{modDir}\field\panel"))
-                //DeleteDirectory($@"{modDir}\field\panel");
+            if (Directory.Exists($@"{modDir}\minigame\crossword\crossword"))
+                DeleteDirectory($@"{modDir}\minigame\crossword\crossword");
             if (Directory.Exists($@"{modDir}\field\panel\panel"))
                 DeleteDirectory($@"{modDir}\field\panel\panel");
-            
+
+            if (Directory.Exists($@"{modDir}\minigame\crossword\crossword"))
+                DeleteDirectory($@"{modDir}\minigame\crossword\crossword");
+            if (Directory.Exists($@"{modDir}\minigame\crossword"))
+            {
+                foreach (var file in Directory.GetFiles($@"{modDir}\minigame\crossword", "*", SearchOption.AllDirectories))
+                    if (Path.GetExtension(file).ToLower() != ".pak")
+                        File.Delete(file);
+            }
+            if (Directory.Exists($@"{modDir}\minigame\crossword") && !Directory.EnumerateFileSystemEntries($@"{modDir}\minigame\crossword").Any())
+                DeleteDirectory($@"{modDir}\minigame\crossword");
             Console.WriteLine("[INFO] Finished merging!");
             return;
         }
