@@ -29,7 +29,7 @@ namespace AemulusModManager
                 YesButton.Visibility = Visibility.Visible;
                 NoButton.Visibility = Visibility.Visible;
             }
-            if (message.Length > 30)
+            if (message.Length > 40)
                 Notification.TextAlignment = TextAlignment.Left;
         }
 

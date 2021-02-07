@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -11,8 +12,33 @@ namespace AemulusModManager
     /// </summary>
     public partial class App : Application
     {
+        // give the mutex a  unique name
+        private const string MutexName = "##||ThisApp||##";
+        // declare the mutex
+        private readonly Mutex _mutex;
+        // overload the constructor
+        bool createdNew;
+        public App()
+        {
+            // overloaded mutex constructor which outs a boolean
+            // telling if the mutex is new or not.
+            // see http://msdn.microsoft.com/en-us/library/System.Threading.Mutex.aspx
+            _mutex = new Mutex(true, MutexName, out createdNew);
+            if (!createdNew)
+            {
+                // if the mutex already exists, notify and quit
+                NotificationBox message = new NotificationBox("This program is already running!");
+                message.ShowDialog();
+                Application.Current.Shutdown(0);
+            }
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
+            if (!createdNew) return;
+            // overload the OnStartup so that the main window 
+            // is constructed and visible
+            MainWindow mw = new MainWindow();
+            mw.Show();
             DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
 
