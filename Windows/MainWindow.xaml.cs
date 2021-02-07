@@ -165,7 +165,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Aemulus v2.3.1 opened {DateTime.Now}");
+            Console.WriteLine($"[INFO] Aemulus v2.3.2 opened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
