@@ -139,8 +139,8 @@ namespace AemulusModManager
                 }
             }
 
-            Console.WriteLine($@"[INFO] Backing up {cpk}.cpk");
-            File.Copy($@"{directory}\{cpk}.cpk", $@"Original\Persona 4 Golden\{cpk}.cpk");
+            Console.WriteLine($@"[INFO] Backing up {cpk}");
+            File.Copy($@"{directory}\{cpk}", $@"Original\Persona 4 Golden\{cpk}");
             Console.WriteLine($@"[INFO] Backing up movie.cpk");
             File.Copy($@"{directory}\movie.cpk", $@"Original\Persona 4 Golden\movie.cpk");
 

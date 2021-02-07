@@ -140,24 +140,29 @@ namespace AemulusModManager
                     Console.WriteLine($@"[INFO] Running {mod}\prebuild.bat...");
                     
                     ProcessStartInfo ProcessInfo;
-                    Process process;
 
                     ProcessInfo = new ProcessStartInfo();
                     ProcessInfo.FileName = Path.GetFullPath($@"{mod}\prebuild.bat");
                     ProcessInfo.CreateNoWindow = true;
                     ProcessInfo.UseShellExecute = false;
                     ProcessInfo.WorkingDirectory = Path.GetFullPath(mod);
-                    Console.WriteLine(ProcessInfo.WorkingDirectory);
+
                     // *** Redirect the output ***
                     ProcessInfo.RedirectStandardOutput = true;
                     ProcessInfo.RedirectStandardError = true;
 
-                    process = Process.Start(ProcessInfo);
-                    process.WaitForExit();
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = ProcessInfo;
+                        process.Start();
 
-                    // *** Read the streams ***
-                    Console.Write(process.StandardOutput.ReadToEnd());
-                    Console.Write(process.StandardError.ReadToEnd());
+                        // Add this: wait until process does its work
+                        process.WaitForExit();
+
+                        // *** Read the streams ***
+                        Console.Write(process.StandardOutput.ReadToEnd());
+                        Console.Write(process.StandardError.ReadToEnd());
+                    }
 
                     Console.WriteLine($@"Finished running {mod}\prebuild.bat!");
                 }
