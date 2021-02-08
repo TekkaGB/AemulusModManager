@@ -14,6 +14,8 @@ For Persona 3 FES, [setup HostFS for mod loading.](https://shrinefox.com/guides/
 
 For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
+To easily download all prerequisites at once, I recommend using Pixelguin's [All-in-One Installer](https://gamebanana.com/tools/6928).
+
 ### Pointing to the Correct Output Directory
 After unzipping the download, just double-click AemulusPackageManager.exe to launch the program.
 
@@ -252,6 +254,14 @@ For reference, here's the section numbers in NAME.TBL:
 3. Repacks the edited .tbl files into init_free.bin or table.pac (unneccesary for Persona 3 FES).
 Deletes the temporarily extracted/edited tbl files.
 
+## Prebuild.bat Support
+
+You can also include a Windows batch file named "prebuild.bat" inside the Aemulus package that would be ran right before copying its contents over to the output folder.
+
+## Persona 4 Golden Preappfile Append Support
+
+For modders of Persona 4 Golden who want to utilize preappfile's append feature, simply put the appended contents inside a folder called preappfile.
+
 ## Metadata
 As of version 1.3, metadata has been added to provide more info for each package.  Along with name, you can now display author, version, link, description, and even a thumbnail.
 
@@ -320,5 +330,4 @@ I have a lot of ideas in mind to keep on improving Aemulus.  These include the f
 - Add separators between mods (requested by Pixelguin to use for his modpack)
 - Drag and drop mod/package folders onto interface to easily add to manager
 - Merging bf and pm1 files
-- Refactor tblpatches
 - Implement version checks
