@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace AemulusModManager
 {
@@ -138,7 +139,7 @@ namespace AemulusModManager
                 if (File.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0 )
                 {
                     Console.WriteLine($@"[INFO] Running {mod}\prebuild.bat...");
-                    
+
                     ProcessStartInfo ProcessInfo;
 
                     ProcessInfo = new ProcessStartInfo();
@@ -147,24 +148,18 @@ namespace AemulusModManager
                     ProcessInfo.UseShellExecute = false;
                     ProcessInfo.WorkingDirectory = Path.GetFullPath(mod);
 
-                    // *** Redirect the output ***
-                    ProcessInfo.RedirectStandardOutput = true;
-                    ProcessInfo.RedirectStandardError = true;
 
                     using (Process process = new Process())
                     {
                         process.StartInfo = ProcessInfo;
+
                         process.Start();
 
                         // Add this: wait until process does its work
                         process.WaitForExit();
-
-                        // *** Read the streams ***
-                        Console.Write(process.StandardOutput.ReadToEnd());
-                        Console.Write(process.StandardError.ReadToEnd());
                     }
 
-                    Console.WriteLine($@"Finished running {mod}\prebuild.bat!");
+                    Console.WriteLine($@"[INFO] Finished running {mod}\prebuild.bat!");
                 }
 
                 List<string> modList = getModList(mod);

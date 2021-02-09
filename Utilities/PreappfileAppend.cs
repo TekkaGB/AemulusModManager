@@ -92,8 +92,13 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-                    Console.Write(process.StandardOutput.ReadToEnd());
-                    process.WaitForExit();
+                    while (!process.HasExited)
+                    {
+                        string text = process.StandardOutput.ReadLine();
+                        if (text != "" && text != null)
+                            Console.WriteLine($"[INFO] {text}");
+                    }
+                    //process.WaitForExit();
                 }
             }
             if (Directory.Exists($@"{path}\mods\preappfile\movie"))
@@ -104,8 +109,13 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-                    Console.Write(process.StandardOutput.ReadToEnd());
-                    process.WaitForExit();
+                    while (!process.HasExited)
+                    {
+                        string text = process.StandardOutput.ReadLine();
+                        if (text != "" && text != null)
+                            Console.WriteLine($"[INFO] {text}");
+                    }
+                    //process.WaitForExit();
                 }
             }
         }
