@@ -98,7 +98,6 @@ namespace AemulusModManager
                         if (text != "" && text != null)
                             Console.WriteLine($"[INFO] {text}");
                     }
-                    //process.WaitForExit();
                 }
             }
             if (Directory.Exists($@"{path}\mods\preappfile\movie"))
@@ -115,7 +114,6 @@ namespace AemulusModManager
                         if (text != "" && text != null)
                             Console.WriteLine($"[INFO] {text}");
                     }
-                    //process.WaitForExit();
                 }
             }
         }

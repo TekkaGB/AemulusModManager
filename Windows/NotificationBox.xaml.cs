@@ -28,6 +28,7 @@ namespace AemulusModManager
             {
                 YesButton.Visibility = Visibility.Visible;
                 NoButton.Visibility = Visibility.Visible;
+                PlayNotificationSound();
             }
             if (message.Length > 40)
                 Notification.TextAlignment = TextAlignment.Left;
