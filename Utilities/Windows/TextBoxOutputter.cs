@@ -52,7 +52,7 @@ namespace AemulusModManager
         {
             WriteLineEvent?.Invoke(this, new ConsoleWriterEventArgs(value));
             base.WriteLine(value);
-            sw.WriteLine(value);
+            sw.WriteLine($"{DateTime.Now} {value}");
         }
 
         // Make sure you call this before you end

@@ -128,11 +128,11 @@ namespace AemulusModManager
             this.Dispatcher.Invoke(() =>
             {
                 if (text.StartsWith("[INFO]"))
-                    ConsoleOutput.AppendText($"{text}\n", "#046300");
+                    ConsoleOutput.AppendText($"{DateTime.Now} {text}\n", "#046300");
                 else if (text.StartsWith("[WARNING]"))
-                    ConsoleOutput.AppendText($"{text}\n", "#764E00");
+                    ConsoleOutput.AppendText($"{DateTime.Now} {text}\n", "#764E00");
                 else if (text.StartsWith("[ERROR]"))
-                    ConsoleOutput.AppendText($"{text}\n", "#AE1300");
+                    ConsoleOutput.AppendText($"{DateTime.Now} {text}\n", "#AE1300");
                 else
                     ConsoleOutput.AppendText($"{text}\n", "Black");
             });
@@ -165,7 +165,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Aemulus v2.3.3 opened {DateTime.Now}");
+            Console.WriteLine($"[INFO] Launched Aemulus v2.3.4!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -1124,7 +1124,54 @@ namespace AemulusModManager
                 if (!bottomUpPriority)
                     packages.Reverse();
                 if (packages.Count == 0)
-                    Console.WriteLine("[ERROR] No packages to build!");
+                {
+                    Console.WriteLine("[WARNING] No packages enabled in loadout, emptying output folder...");
+                    string path = modPath;
+                    if (game == "Persona 5")
+                    {
+                        path = $@"{modPath}\mod";
+                        Directory.CreateDirectory(path);
+                    }
+
+                    if (!Directory.EnumerateFileSystemEntries(path).Any())
+                    {
+                        Console.WriteLine($"[INFO] Output folder already empty");
+                        return;
+                    }
+
+
+                    if (!messageBox)
+                    {
+                        bool YesNo = false;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Mouse.OverrideCursor = null;
+                            NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path}?", false);
+                            notification.ShowDialog();
+                            YesNo = notification.YesNo;
+                            Mouse.OverrideCursor = Cursors.Wait;
+                        });
+                        if (!YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled emptying output folder");
+                            return;
+                        }
+                    }
+
+                    binMerge.Restart(path, emptySND, game, cpkLang);
+                    Console.WriteLine("[INFO] Finished emptying output folder!");
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Mouse.OverrideCursor = null;
+                        if (!messageBox)
+                        {
+                            NotificationBox notification = new NotificationBox("Finished emptying output folder!");
+                            notification.ShowDialog();
+                            Activate();
+                        }
+                    });
+                    return;
+                }
                 else
                 {
                     string path = modPath;
@@ -1133,6 +1180,25 @@ namespace AemulusModManager
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
                     }
+
+                    if (!messageBox && Directory.EnumerateFileSystemEntries(path).Any())
+                    {
+                        bool YesNo = false;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Mouse.OverrideCursor = null;
+                            NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path} before building?", false);
+                            notification.ShowDialog();
+                            YesNo = notification.YesNo;
+                            Mouse.OverrideCursor = Cursors.Wait;
+                        });
+                        if (!YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled build");
+                            return;
+                        }
+                    }
+
                     binMerge.Restart(path, emptySND, game, cpkLang);
                     binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                     binMerge.Merge(path, game);

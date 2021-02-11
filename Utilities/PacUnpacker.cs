@@ -38,7 +38,6 @@ namespace AemulusModManager
             });
 
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
             startInfo.Arguments = $"x -y \"{iso}\" -o\"" + @"Original\Persona 3 FES" + "\" BTL.CVM DATA.CVM";
             Console.WriteLine($"[INFO] Extracting BTL.CVM and DATA.CVM from {iso}");
@@ -46,7 +45,6 @@ namespace AemulusModManager
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.Write(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             startInfo.Arguments = "x -y \"" + @"Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + @"Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL -r";
@@ -55,7 +53,6 @@ namespace AemulusModManager
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.Write(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             File.Delete(@"Original\Persona 3 FES\BTL.CVM");
@@ -65,7 +62,6 @@ namespace AemulusModManager
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.Write(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             File.Delete(@"Original\Persona 3 FES\DATA.CVM");
@@ -133,8 +129,12 @@ namespace AemulusModManager
                     {
                         process.StartInfo = startInfo;
                         process.Start();
-                        Console.Write(process.StandardOutput.ReadToEnd());
-                        process.WaitForExit();
+                        while (!process.HasExited)
+                        {
+                            string text = process.StandardOutput.ReadLine();
+                            if (text != "" && text != null)
+                                Console.WriteLine($"[INFO] {text}");
+                        }
                     }
                 }
             }
@@ -221,8 +221,12 @@ namespace AemulusModManager
                     {
                         process.StartInfo = startInfo;
                         process.Start();
-                        Console.Write(process.StandardOutput.ReadToEnd());
-                        process.WaitForExit();
+                        while (!process.HasExited)
+                        {
+                            string text = process.StandardOutput.ReadLine();
+                            if (text != "" && text != null)
+                                Console.WriteLine($"[INFO] {text}");
+                        }
                     }
                 }
             }
@@ -240,8 +244,12 @@ namespace AemulusModManager
                     {
                         process.StartInfo = startInfo;
                         process.Start();
-                        Console.Write(process.StandardOutput.ReadToEnd());
-                        process.WaitForExit();
+                        while (!process.HasExited)
+                        {
+                            string text = process.StandardOutput.ReadLine();
+                            if (text != "" && text != null)
+                                Console.WriteLine($"[INFO] {text}");
+                        }
                     }
                 }
             }
