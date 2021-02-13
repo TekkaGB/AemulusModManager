@@ -90,7 +90,11 @@
             <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="6" Grid.Row="1" Width="37">
                 <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
-                        Create a New Package
+                        <TextBlock>
+                            Create a New Package
+                            <LineBreak/>
+                            Or Drag Existing Packages Here
+                        </TextBlock>
                     </ToolTip>
                 </fa5:ImageAwesome.ToolTip>
             </fa5:ImageAwesome>
