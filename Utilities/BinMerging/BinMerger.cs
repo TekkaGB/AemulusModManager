@@ -551,6 +551,11 @@ namespace AemulusModManager
                                     string args = $"replace \"{bin}\" ../../{binPath} \"{f}\" \"{bin}\"";
                                     PAKPackCMD(args);
                                 }
+                                else if (contents.Contains($"../{binPath}"))
+                                {
+                                    string args = $"replace \"{bin}\" ../{binPath} \"{f}\" \"{bin}\"";
+                                    PAKPackCMD(args);
+                                }
                                 // Check if more unpacking needs to be done to replace
                                 else if (!contents.Contains(binPath))
                                 {
@@ -560,15 +565,11 @@ namespace AemulusModManager
                                     {
                                         int prefixLen = commonPrefixUtil(c, binPath);
                                         int otherPrefixLen = commonPrefixUtil(c, $"../../{binPath}");
-                                        if (otherPrefixLen > longestPrefixLen)
+                                        int otherOtherPrefixLen = commonPrefixUtil(c, $"../{binPath}");
+                                        if (Math.Max(Math.Max(prefixLen, otherPrefixLen), otherOtherPrefixLen) > longestPrefixLen)
                                         {
                                             longestPrefix = c;
-                                            longestPrefixLen = otherPrefixLen;
-                                        }
-                                        if (prefixLen > longestPrefixLen)
-                                        {
-                                            longestPrefix = c;
-                                            longestPrefixLen = prefixLen;
+                                            longestPrefixLen = Math.Max(Math.Max(prefixLen, otherPrefixLen), otherOtherPrefixLen);
                                         }
                                     }
                                     // Check if we can unpack again
@@ -657,7 +658,7 @@ namespace AemulusModManager
                                     }
                                     else if (Path.GetExtension(longestPrefix).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
                                     {
-                                        string path = longestPrefix.Replace("../../", "");
+                                        string path = longestPrefix.Replace("../", "");
                                         string sprPath = $@"{temp}\{path.Replace("/", "\\")}";
                                         sprUtils.replaceTmx(sprPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");

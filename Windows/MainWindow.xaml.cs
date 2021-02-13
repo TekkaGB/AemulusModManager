@@ -165,7 +165,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Launched Aemulus v2.3.4!");
+            Console.WriteLine($"[INFO] Launched Aemulus v2.4.0!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -834,7 +834,8 @@ namespace AemulusModManager
                         {
                             try
                             {
-                                Directory.Delete("temp", true);
+                                setAttributesNormal(new DirectoryInfo("temp"));
+                                DeleteDirectory("temp");
                             }
                             catch (Exception ex)
                             {
@@ -843,7 +844,7 @@ namespace AemulusModManager
                         }
                         //Make sure Data folder is gone
                         if (Directory.Exists(dataDir) && !Directory.EnumerateFileSystemEntries(dataDir).Any())
-                            Directory.Delete(dataDir, true);
+                            DeleteDirectory(dataDir);
                         //Goodbye old friend
                         File.Delete(modXml);
                     }
@@ -1435,7 +1436,8 @@ namespace AemulusModManager
                     Console.WriteLine($@"[INFO] Deleted Packages\{game}\{row.path}.");
                     try
                     {
-                        Directory.Delete($@"Packages\{game}\{row.path}", true);
+                        setAttributesNormal(new DirectoryInfo($@"Packages\{game}\{row.path}"));
+                        DeleteDirectory($@"Packages\{game}\{row.path}");
                     }
                     catch (Exception ex)
                     {
@@ -1788,5 +1790,154 @@ namespace AemulusModManager
                 }
             }
         }
+
+        public void setAttributesNormal(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
+            {
+                setAttributesNormal(subDir);
+                subDir.Attributes = FileAttributes.Normal;
+            }
+            foreach (var file in dir.GetFiles())
+            {
+                file.Attributes = FileAttributes.Normal;
+            }
+        }
+
+        public static void DeleteDirectory(string path)
+        {
+
+            foreach (string directory in Directory.GetDirectories(path))
+            {
+                DeleteDirectory(directory);
+            }
+            try
+            {
+                Directory.Delete(path, true);
+            }
+            catch (IOException)
+            {
+                Directory.Delete(path, true);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Directory.Delete(path, true);
+            }
+        }
+
+        private void Add_Enter(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Move;
+        }
+
+        private async Task ExtractPackages(string[] fileList)
+        {
+            await Task.Run(() =>
+            {
+                bool dropped = false;
+                foreach (var file in fileList)
+                {
+                    if (Directory.Exists(file))
+                    {
+                        Console.WriteLine($@"[INFO] Moving {file} into Packages\{game}");
+                        MoveDirectory(file, $@"Packages\{game}\{Path.GetFileName(file)}");
+                        dropped = true;
+                    }
+                    else if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
+                    {
+                        Directory.CreateDirectory("temp");
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.CreateNoWindow = true;
+                        startInfo.FileName = @"Dependencies\7z\7z.exe";
+                        if (!File.Exists(startInfo.FileName))
+                        {
+                            Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                            return;
+                        }
+
+                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        startInfo.UseShellExecute = false;
+                        startInfo.Arguments = $@"x -y ""{file}"" -otemp";
+                        Console.WriteLine($@"[INFO] Extracting {file} into Packages\{game}");
+                        using (Process process = new Process())
+                        {
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            process.WaitForExit();
+                        }
+                        // Put in folder if extraction comes in multiple files/folders
+                        if (Directory.GetFileSystemEntries("temp").Length > 1)
+                        {
+                            setAttributesNormal(new DirectoryInfo("temp"));
+                            MoveDirectory("temp", $@"Packages\{game}\{Path.GetFileNameWithoutExtension(file)}");
+                        }
+                        // Move folder if extraction is just a folder
+                        else if (Directory.GetFileSystemEntries("temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries("temp")[0]))
+                        {
+                            setAttributesNormal(new DirectoryInfo("temp"));
+                            MoveDirectory(Directory.GetFileSystemEntries("temp")[0], $@"Packages\{game}\{Path.GetFileNameWithoutExtension(Directory.GetFileSystemEntries("temp")[0])}");
+                        }
+                        //File.Delete(file);
+                        dropped = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, skipping...");
+                    }
+                }
+                if (Directory.Exists("temp"))
+                    DeleteDirectory("temp");
+
+                if (dropped)
+                {
+                    Refresh();
+                    updatePackages();
+                }
+            });
+        }
+
+        private async void Add_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                });
+
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = false;
+                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                }
+                GameBox.IsHitTestVisible = false;
+                ModGrid.IsHitTestVisible = false;
+
+                await ExtractPackages(fileList);
+
+                
+                ModGrid.IsHitTestVisible = true;
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = true;
+                    if (game == "Persona 3 FES")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                    else if (game == "Persona 4 Golden")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                }
+                GameBox.IsHitTestVisible = true;
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+            }
+        }
+
     }
 }
