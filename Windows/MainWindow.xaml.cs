@@ -1498,6 +1498,55 @@ namespace AemulusModManager
             }
         }
 
+        private async void ZipItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (row != null && Directory.Exists($@"Packages\{game}\{row.path}"))
+            {
+                var openFolder = new System.Windows.Forms.SaveFileDialog();
+                openFolder.FileName = $"{row.path}.7z";
+                openFolder.Title = $"Select a file to zip to";
+                openFolder.Filter = "7zip | *.7z";
+                if (openFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    await ZipItem($@"Packages\{game}\{row.path}", openFolder.FileName);
+                    ProcessStartInfo StartInformation = new ProcessStartInfo();
+                    StartInformation.FileName = Path.GetDirectoryName(openFolder.FileName);
+                    Process process = Process.Start(StartInformation);
+                }
+            }
+        }
+
+        private async Task ZipItem(string path, string output)
+        {
+            await Task.Run(() =>
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(output));
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.CreateNoWindow = true;
+                startInfo.FileName = @"Dependencies\7z\7z.exe";
+                if (!File.Exists(startInfo.FileName))
+                {
+                    Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                    return;
+                }
+
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.UseShellExecute = false;
+                startInfo.WorkingDirectory = $@"Packages\{game}";
+                startInfo.Arguments = $@"a ""{output}"" ""{Path.GetFileName(path)}/*""";
+                Console.WriteLine(startInfo.Arguments);
+                Console.WriteLine($@"[INFO] Zipping {path} into {output}\{Path.GetFileName(path)}.7z");
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+                        
+            });
+        }
+
         private void ConvertCPK_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
