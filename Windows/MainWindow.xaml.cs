@@ -1535,7 +1535,6 @@ namespace AemulusModManager
                 startInfo.UseShellExecute = false;
                 startInfo.WorkingDirectory = $@"Packages\{game}";
                 startInfo.Arguments = $@"a ""{output}"" ""{Path.GetFileName(path)}/*""";
-                Console.WriteLine(startInfo.Arguments);
                 Console.WriteLine($@"[INFO] Zipping {path} into {output}\{Path.GetFileName(path)}.7z");
                 using (Process process = new Process())
                 {
