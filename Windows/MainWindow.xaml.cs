@@ -1987,5 +1987,19 @@ namespace AemulusModManager
             }
         }
 
+        private void ContextMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element == null)
+            {
+                return;
+            }
+
+            ContextMenu contextMenu = element.ContextMenu;
+            if (ModGrid.SelectedItem == null)
+                element.ContextMenu.Visibility = Visibility.Collapsed;
+            else
+                element.ContextMenu.Visibility = Visibility.Visible;
+        }
     }
 }
