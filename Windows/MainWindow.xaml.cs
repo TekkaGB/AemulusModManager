@@ -129,13 +129,13 @@ namespace AemulusModManager
             this.Dispatcher.Invoke(() =>
             {
                 if (text.StartsWith("[INFO]"))
-                    ConsoleOutput.AppendText($"{DateTime.Now} {text}\n", "#046300");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#046300");
                 else if (text.StartsWith("[WARNING]"))
-                    ConsoleOutput.AppendText($"{DateTime.Now} {text}\n", "#764E00");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#764E00");
                 else if (text.StartsWith("[ERROR]"))
-                    ConsoleOutput.AppendText($"{DateTime.Now} {text}\n", "#AE1300");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#AE1300");
                 else
-                    ConsoleOutput.AppendText($"{text}\n", "Black");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "Black");
             });
         }
 
@@ -922,6 +922,12 @@ namespace AemulusModManager
                 .Select(g => g.OrderByDescending(t => Parse(t.version))
                               .ThenByDescending(t => new DirectoryInfo($@"Packages\{game}\{t.path}").LastWriteTime).First())
                 .ToList();
+
+            foreach (var package in latestVersions)
+            {
+                if (DisplayedPackages.Where(x => x.id == package.id).Any(y => y.enabled))
+                    package.enabled = true;
+            }
 
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>(latestVersions);
 
