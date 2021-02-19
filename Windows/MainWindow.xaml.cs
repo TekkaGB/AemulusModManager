@@ -789,7 +789,7 @@ namespace AemulusModManager
                 // Create Package.xml
                 else
                 {
-                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating a simple one...");
+                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                     // Create metadata
                     Metadata newMetadata = new Metadata();
                     newMetadata.name = Path.GetFileName(package);
@@ -801,6 +801,7 @@ namespace AemulusModManager
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
+                        Console.WriteLine($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium strucutre...");
                         //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
                         string modXml = $@"{package}\Mod.xml";
                         using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
@@ -888,6 +889,9 @@ namespace AemulusModManager
                 }
             }
 
+
+            CheckVersioning();
+
             // Update DisplayedPackages
             App.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -896,6 +900,24 @@ namespace AemulusModManager
                 ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
             });
             Console.WriteLine($"[INFO] Refreshed!");
+        }
+
+        
+
+        private void CheckVersioning()
+        {
+            var latestVersions = DisplayedPackages
+                .Where(p => Version.TryParse(p.version, out Version version))
+                .GroupBy(t => t.id)
+                .Select(g => g.OrderByDescending(t => Version.Parse(t.version)).First())
+                .ToList();
+
+            DisplayedPackages = new ObservableCollection<DisplayedMetadata>(latestVersions);
+
+            var temp = PackageList.ToList();
+            temp.RemoveAll(x => !DisplayedPackages.Select(y => y.path).Contains(x.path));
+
+            PackageList = new ObservableCollection<Package>(temp);
         }
 
         private void RefreshClick(object sender, RoutedEventArgs e)
