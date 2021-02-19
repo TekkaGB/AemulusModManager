@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Config" Height="270" Width="800" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Config" Height="300" Width="800" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -19,6 +19,8 @@
             <RowDefinition Height="18"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -41,16 +43,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.1*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="2" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
-            <ComboBox Name="LanguageBox" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Width="135" Height="25">
-                <ComboBoxItem IsSelected="True">English (data_e.cpk)</ComboBoxItem>
-                <ComboBoxItem>Japanese (data.cpk)</ComboBoxItem>
-                <ComboBoxItem>Chinese (data_c.cpk)</ComboBoxItem>
-                <ComboBoxItem>Korean (data_k.cpk)</ComboBoxItem>
-            </ComboBox>
+            
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MinWidth="90" MaxWidth="90" Grid.Column="0">
                 <CheckBox Name="KeepSND" Foreground ="White" Checked="SndChecked" Unchecked="SndUnchecked">
                     <TextBlock TextAlignment="Center">Empty SND
@@ -74,7 +69,30 @@
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
+                <CheckBox Name="DeleteBox" Foreground ="White" Checked="DeleteChecked" Unchecked="DeleteUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Delete Old<LineBreak/>
+                        Versions
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
         </Grid>
-        
+        <Grid Grid.Row="8" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="2" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center" />
+            <ComboBox Name="LanguageBox" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Width="135" Height="25">
+                <ComboBoxItem IsSelected="True">English (data_e.cpk)</ComboBoxItem>
+                <ComboBoxItem>Japanese (data.cpk)</ComboBoxItem>
+                <ComboBoxItem>Chinese (data_c.cpk)</ComboBoxItem>
+                <ComboBoxItem>Korean (data_k.cpk)</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+            
     </Grid>
 </Window>

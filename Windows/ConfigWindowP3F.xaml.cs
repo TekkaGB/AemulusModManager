@@ -30,7 +30,7 @@ namespace AemulusModManager
                 ELFTextbox.Text = main.elfPath;
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
             NotifBox.IsChecked = main.config.p3fConfig.disableMessageBox;
-
+            DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
             Console.WriteLine("[INFO] Config launched");
         }
 
@@ -59,6 +59,18 @@ namespace AemulusModManager
         {
             main.messageBox = false;
             main.config.p3fConfig.disableMessageBox = false;
+            main.updateConfig();
+        }
+        private void DeleteChecked(object sender, RoutedEventArgs e)
+        {
+            main.deleteOldVersions = true;
+            main.config.p3fConfig.deleteOldVersions = true;
+            main.updateConfig();
+        }
+        private void DeleteUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.messageBox = false;
+            main.config.p3fConfig.deleteOldVersions = false;
             main.updateConfig();
         }
 

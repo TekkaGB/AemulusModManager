@@ -26,6 +26,7 @@ namespace AemulusModManager
             if (main.launcherPath != null)
                 RPCS3Textbox.Text = main.launcherPath;
             NotifBox.IsChecked = main.config.p5Config.disableMessageBox;
+            DeleteBox.IsChecked = main.config.p5Config.deleteOldVersions;
 
             Console.WriteLine("[INFO] Config launched");
         }
@@ -53,6 +54,18 @@ namespace AemulusModManager
         {
             main.messageBox = false;
             main.config.p5Config.disableMessageBox = false;
+            main.updateConfig();
+        }
+        private void DeleteChecked(object sender, RoutedEventArgs e)
+        {
+            main.deleteOldVersions = true;
+            main.config.p5Config.deleteOldVersions = true;
+            main.updateConfig();
+        }
+        private void DeleteUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.messageBox = false;
+            main.config.p5Config.deleteOldVersions = false;
             main.updateConfig();
         }
 

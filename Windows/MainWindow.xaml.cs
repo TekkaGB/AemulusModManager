@@ -39,6 +39,7 @@ namespace AemulusModManager
         public bool emptySND;
         public bool useCpk;
         public bool messageBox;
+        public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
         public string gamePath;
@@ -165,7 +166,7 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Launched Aemulus v2.4.0!");
+            Console.WriteLine($"[INFO] Launched Aemulus v2.5.0!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -286,6 +287,7 @@ namespace AemulusModManager
                             cpkLang = config.p4gConfig.cpkLang;
                             useCpk = config.p4gConfig.useCpk;
                             messageBox = config.p4gConfig.disableMessageBox;
+                            deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
                         }
@@ -296,6 +298,7 @@ namespace AemulusModManager
                             elfPath = config.p3fConfig.elfPath;
                             launcherPath = config.p3fConfig.launcherPath;
                             messageBox = config.p3fConfig.disableMessageBox;
+                            deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
@@ -306,6 +309,7 @@ namespace AemulusModManager
                             gamePath = config.p5Config.gamePath;
                             launcherPath = config.p5Config.launcherPath;
                             messageBox = config.p5Config.disableMessageBox;
+                            deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
@@ -801,7 +805,7 @@ namespace AemulusModManager
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
-                        Console.WriteLine($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium strucutre...");
+                        Console.WriteLine($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium structure...");
                         //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
                         string modXml = $@"{package}\Mod.xml";
                         using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
@@ -902,22 +906,47 @@ namespace AemulusModManager
             Console.WriteLine($"[INFO] Refreshed!");
         }
 
-        
+        private static Version Parse(string version)
+        {
+            if (Version.TryParse(version, out Version result))
+                return result;
+            else
+                return null;
+        }
 
         private void CheckVersioning()
         {
+            // TODO: Don't delete unparseable version numbers if there's no parseable ones
             var latestVersions = DisplayedPackages
-                .Where(p => Version.TryParse(p.version, out Version version))
                 .GroupBy(t => t.id)
-                .Select(g => g.OrderByDescending(t => Version.Parse(t.version)).First())
+                .Select(g => g.OrderByDescending(t => Parse(t.version))
+                              .ThenByDescending(t => new DirectoryInfo($@"Packages\{game}\{t.path}").LastWriteTime).First())
                 .ToList();
 
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>(latestVersions);
 
             var temp = PackageList.ToList();
             temp.RemoveAll(x => !DisplayedPackages.Select(y => y.path).Contains(x.path));
-
             PackageList = new ObservableCollection<Package>(temp);
+
+
+            if (deleteOldVersions)
+            {
+                foreach (var package in Directory.GetDirectories($@"Packages\{game}"))
+                    if (!PackageList.Select(t => t.path).Contains(Path.GetFileName(package)))
+                    {
+                        try
+                        {
+                            Console.WriteLine($"[INFO] Deleting {package}...");
+                            Directory.Delete(package, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't delete {package} ({e.Message})");
+                        }
+                    }
+            }
+            
         }
 
         private void RefreshClick(object sender, RoutedEventArgs e)
@@ -935,6 +964,12 @@ namespace AemulusModManager
             if (newPackage.metadata != null)
             {
                 string path;
+                if (DisplayedPackages.Where(p => Version.TryParse(newPackage.metadata.version, out Version version1) && Version.TryParse(p.version, out Version version2) && p.id == newPackage.metadata.id)
+                    .Any(x => Version.Parse(x.version) > Version.Parse(newPackage.metadata.version)))
+                {
+                    Console.WriteLine($"[ERROR] Package ID {newPackage.metadata.id} already exists with a higher version number");
+                    return;
+                }
                 if (newPackage.metadata.version != "" && newPackage.metadata.version.Length > 0)
                     path = $@"Packages\{game}\{newPackage.metadata.name} {newPackage.metadata.version}";
                 else
@@ -1611,6 +1646,7 @@ namespace AemulusModManager
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
                         messageBox = config.p3fConfig.disableMessageBox;
+                        deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
@@ -1628,6 +1664,7 @@ namespace AemulusModManager
                         cpkLang = config.p4gConfig.cpkLang;
                         useCpk = config.p4gConfig.useCpk;
                         messageBox = config.p4gConfig.disableMessageBox;
+                        deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
                         {
@@ -1641,6 +1678,7 @@ namespace AemulusModManager
                         gamePath = config.p5Config.gamePath;
                         launcherPath = config.p5Config.launcherPath;
                         messageBox = config.p5Config.disableMessageBox;
+                        deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)

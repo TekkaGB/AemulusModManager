@@ -28,6 +28,7 @@ namespace AemulusModManager
             KeepSND.IsChecked = main.emptySND;
             CpkBox.IsChecked = main.useCpk;
             NotifBox.IsChecked = main.p4gConfig.disableMessageBox;
+            DeleteBox.IsChecked = main.config.p4gConfig.deleteOldVersions;
 
             switch (main.cpkLang)
             {
@@ -90,6 +91,18 @@ namespace AemulusModManager
         {
             main.messageBox = false;
             main.config.p4gConfig.disableMessageBox = false;
+            main.updateConfig();
+        }
+        private void DeleteChecked(object sender, RoutedEventArgs e)
+        {
+            main.deleteOldVersions = true;
+            main.config.p4gConfig.deleteOldVersions = true;
+            main.updateConfig();
+        }
+        private void DeleteUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.messageBox = false;
+            main.config.p4gConfig.deleteOldVersions = false;
             main.updateConfig();
         }
 

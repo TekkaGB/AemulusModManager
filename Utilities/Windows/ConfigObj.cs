@@ -38,6 +38,7 @@ namespace AemulusModManager
         public bool useCpk { get; set; }
         public bool disableMessageBox { get; set; }
         public string cpkLang { get; set; }
+        public bool deleteOldVersions { get; set; }
     }
 
     public class ConfigP3F
@@ -48,6 +49,7 @@ namespace AemulusModManager
         public string launcherPath { get; set; }
         public bool disableMessageBox { get; set; }
         public bool advancedLaunchOptions { get; set; }
+        public bool deleteOldVersions { get; set; }
     }
 
     public class ConfigP5
@@ -56,6 +58,7 @@ namespace AemulusModManager
         public string gamePath { get; set; }
         public string launcherPath { get; set; }
         public bool disableMessageBox { get; set; }
+        public bool deleteOldVersions { get; set; }
     }
 
     public class Packages
