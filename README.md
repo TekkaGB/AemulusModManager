@@ -300,6 +300,14 @@ suggested ID but you can feel free to change it if you want.  Also included in t
 selector for the preview.  Choose a png that you want to display as the preview when using this
 option.  When you create the package, it'll create and open a folder with the mod name and version as well as the Package.xml and preview chosen named as Preview.png inside.  You can now put the contents of the mod/package inside this folder to be used in your Aemulus loadout and/or to distribute.
 
+## Versioning
+If more than one Package has the same ID in their metadata, only the highest version number will show.  Version numbers that are nonexistent or can't be parsed due to having letters will be counted as null which is sorted less than 0.  In the case of packages with the same version number and ID, the folder last modified will be kept.
+
+An option was also added to the config menus to delete older versions.  They are kept by default and just simply hidden from view in the app.
+
+## Extracting/Zipping
+You can drag folders/zips over the New Package button (Folder with +) to extract/move them into the proper directories.  This is a QoL feature implemented due to many end users messing up the specific directory structure many mods should have.  For modders, there's also the right click option to zip the package as a .7z to the file location of choice.
+
 ## Compatibility with P4G Music Manager
 Since Aemulus Package Manager deletes the entire mods directory everytime you rebuild, it also deletes the mods/SND folder which [P4G Music Manager](https://gamebanana.com/tools/6835) utilizes.  To add compatibility I added a checkbox in the Config menu to Empty SND Folder.  By default, it leaves the SND folder in tact.  Enabling it will delete the SND Folder.
 
