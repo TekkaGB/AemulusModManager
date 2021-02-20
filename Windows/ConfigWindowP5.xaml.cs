@@ -64,7 +64,7 @@ namespace AemulusModManager
         }
         private void DeleteUnchecked(object sender, RoutedEventArgs e)
         {
-            main.messageBox = false;
+            main.deleteOldVersions = false;
             main.config.p5Config.deleteOldVersions = false;
             main.updateConfig();
         }

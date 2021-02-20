@@ -893,7 +893,7 @@ namespace AemulusModManager
                 }
             }
 
-
+            // Remove older versions of the same id
             CheckVersioning();
 
             // Update DisplayedPackages
@@ -916,13 +916,13 @@ namespace AemulusModManager
 
         private void CheckVersioning()
         {
-            // TODO: Don't delete unparseable version numbers if there's no parseable ones
             var latestVersions = DisplayedPackages
                 .GroupBy(t => t.id)
-                .Select(g => g.OrderByDescending(t => Parse(t.version))
-                              .ThenByDescending(t => new DirectoryInfo($@"Packages\{game}\{t.path}").LastWriteTime).First())
+                .Select(g => g.OrderByDescending(t => Parse(t.version)) // Order by version, null values are least
+                              .ThenByDescending(t => new DirectoryInfo($@"Packages\{game}\{t.path}").LastWriteTime).First()) // Order by time modified if they're the same version
                 .ToList();
 
+            // Enable package if older version was enabled
             foreach (var package in latestVersions)
             {
                 if (DisplayedPackages.Where(x => x.id == package.id).Any(y => y.enabled))
@@ -931,11 +931,12 @@ namespace AemulusModManager
 
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>(latestVersions);
 
+            // Update PackageList to match DisplayedPackages
             var temp = PackageList.ToList();
             temp.RemoveAll(x => !DisplayedPackages.Select(y => y.path).Contains(x.path));
             PackageList = new ObservableCollection<Package>(temp);
 
-
+            // Delete older versions if config was set
             if (deleteOldVersions)
             {
                 foreach (var package in Directory.GetDirectories($@"Packages\{game}"))
@@ -1955,7 +1956,14 @@ namespace AemulusModManager
                     if (Directory.Exists(file))
                     {
                         Console.WriteLine($@"[INFO] Moving {file} into Packages\{game}");
-                        MoveDirectory(file, $@"Packages\{game}\{Path.GetFileName(file)}");
+                        string path = $@"Packages\{game}\{Path.GetFileName(file)}";
+                        int index = 2;
+                        while (Directory.Exists(path))
+                        {
+                            path = $@"Packages\{game}\{Path.GetFileName(file)} ({index})";
+                            index += 1;
+                        }
+                        MoveDirectory(file, path);
                         dropped = true;
                     }
                     else if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
@@ -1984,13 +1992,27 @@ namespace AemulusModManager
                         if (Directory.GetFileSystemEntries("temp").Length > 1)
                         {
                             setAttributesNormal(new DirectoryInfo("temp"));
-                            MoveDirectory("temp", $@"Packages\{game}\{Path.GetFileNameWithoutExtension(file)}");
+                            string path = $@"Packages\{game}\{Path.GetFileNameWithoutExtension(file)}";
+                            int index = 2;
+                            while (Directory.Exists(path))
+                            {
+                                path = $@"Packages\{game}\{Path.GetFileNameWithoutExtension(file)} ({index})";
+                                index += 1;
+                            }
+                            MoveDirectory("temp", path);
                         }
                         // Move folder if extraction is just a folder
                         else if (Directory.GetFileSystemEntries("temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries("temp")[0]))
                         {
                             setAttributesNormal(new DirectoryInfo("temp"));
-                            MoveDirectory(Directory.GetFileSystemEntries("temp")[0], $@"Packages\{game}\{Path.GetFileNameWithoutExtension(Directory.GetFileSystemEntries("temp")[0])}");
+                            string path = $@"Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries("temp")[0])}";
+                            int index = 2;
+                            while (Directory.Exists(path))
+                            {
+                                path = $@"Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries("temp")[0])} ({index})";
+                                index += 1;
+                            }
+                            MoveDirectory(Directory.GetFileSystemEntries("temp")[0], path);
                         }
                         //File.Delete(file);
                         dropped = true;
