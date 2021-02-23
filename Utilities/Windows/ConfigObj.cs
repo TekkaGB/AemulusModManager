@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows.Documents;
 using System.Xml.Serialization;
 
 namespace AemulusModManager

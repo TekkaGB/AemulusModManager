@@ -1,9 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Media;
 using System.Windows;
-using System.Windows.Data;
 
 namespace AemulusModManager.Windows
 {

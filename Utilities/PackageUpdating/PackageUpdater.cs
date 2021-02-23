@@ -111,7 +111,7 @@ namespace AemulusModManager
                         onlineVersion = onlineVersionMatch.Value;
                     }
                     // GB Api only returns two latest updates, so if the first doesn't have a version try the second
-                    else if(updates.Length > 1)
+                    else if (updates.Length > 1)
                     {
                         updateTitle = updates[1].Title;
                         onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
@@ -354,7 +354,7 @@ namespace AemulusModManager
             {
                 // Remove the file is it will be a partially downloaded one and close up
                 File.Delete(@$"Downloads\{fileName}");
-                if(progressBox != null)
+                if (progressBox != null)
                 {
                     progressBox.finished = true;
                     progressBox.Close();
@@ -364,7 +364,7 @@ namespace AemulusModManager
             catch (Exception e)
             {
                 Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}\n{e.StackTrace}");
-                if(progressBox != null)
+                if (progressBox != null)
                 {
                     progressBox.finished = true;
                     progressBox.Close();
@@ -412,7 +412,7 @@ namespace AemulusModManager
             {
                 // Remove the file is it will be a partially downloaded one and close up
                 File.Delete(@$"Downloads\AemulusUpdate\{fileName}");
-                if(progressBox != null)
+                if (progressBox != null)
                 {
                     progressBox.finished = true;
                     progressBox.Close();
@@ -422,7 +422,7 @@ namespace AemulusModManager
             catch (Exception e)
             {
                 Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}\n{e.StackTrace}");
-                if(progressBox != null)
+                if (progressBox != null)
                 {
                     progressBox.finished = true;
                     progressBox.Close();
@@ -485,7 +485,7 @@ namespace AemulusModManager
                 PackageFolderBox folderBox = new PackageFolderBox(packageRoots, packageName);
                 folderBox.Activate();
                 folderBox.ShowDialog();
-                if(folderBox.chosenFolder == null)
+                if (folderBox.chosenFolder == null)
                 {
                     Console.WriteLine($"[INFO] Cancelled update for {packageName}");
                     return;

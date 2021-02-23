@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 using System.Diagnostics;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace AemulusModManager
 {
@@ -37,7 +33,7 @@ namespace AemulusModManager
                 Console.WriteLine($@"[ERROR] Couldn't find Dependencies\preappfile\preappfile.exe. Please check if it was blocked by your anti-virus.");
                 return;
             }
-            
+
             if (!File.Exists($@"{path}\{cpkLang}"))
             {
                 Console.WriteLine($@"[ERROR] Couldn't find {path}\{cpkLang} for appending.");

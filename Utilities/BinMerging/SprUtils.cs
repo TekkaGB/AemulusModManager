@@ -50,10 +50,10 @@ namespace AemulusModManager
             {
                 // Start search after "TMX0"
                 found = Search(SliceArray(sprBytes, offset, sprBytes.Length), pattern);
-                offset =  found + offset + 4;
+                offset = found + offset + 4;
                 if (found != -1)
                 {
-                    string tmxName = getTmxName(SliceArray(sprBytes,(offset + 24),sprBytes.Length));
+                    string tmxName = getTmxName(SliceArray(sprBytes, (offset + 24), sprBytes.Length));
                     if (!tmxNames.ContainsKey(tmxName))
                         tmxNames.Add(tmxName, offset - 12);
                 }

@@ -965,7 +965,7 @@ namespace AemulusModManager
                         }
                     }
             }
-            
+
         }
 
         private void RefreshClick(object sender, RoutedEventArgs e)
@@ -1625,7 +1625,7 @@ namespace AemulusModManager
                     process.Start();
                     process.WaitForExit();
                 }
-                        
+
             });
         }
 
@@ -2088,7 +2088,7 @@ namespace AemulusModManager
 
                 await ExtractPackages(fileList);
 
-                
+
                 ModGrid.IsHitTestVisible = true;
                 foreach (var button in buttons)
                 {
@@ -2122,7 +2122,6 @@ namespace AemulusModManager
                 element.ContextMenu.Visibility = Visibility.Collapsed;
             else
                 element.ContextMenu.Visibility = Visibility.Visible;
-            }
         }
 
         private void UpdateItem_Click(object sender, RoutedEventArgs e)

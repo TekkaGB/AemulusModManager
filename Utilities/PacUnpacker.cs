@@ -1,12 +1,7 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -81,8 +76,8 @@ namespace AemulusModManager
                 return;
             }
             List<string> pacs = new List<string>();
-            List<string> globs = new List<string>{"*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack"};
-            switch(cpk)
+            List<string> globs = new List<string> { "*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack" };
+            switch (cpk)
             {
                 case "data_e.cpk":
                     pacs.Add("data00004.pac");
