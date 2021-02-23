@@ -11,12 +11,12 @@ namespace AemulusModManager.Windows
     public partial class ChangelogBox : Window
     {
         public bool YesNo = false;
-        public ChangelogBox(GameBananaItemUpdate[] updates, string packageName, string text, bool OK = true)
+        public ChangelogBox(GameBananaItemUpdate update, string packageName, string text, bool OK = true)
         {
             InitializeComponent();
-            ChangesGrid.ItemsSource = updates[0].Changes;
+            ChangesGrid.ItemsSource = update.Changes;
             Title = $"{packageName} Changelog";
-            VersionLabel.Content = updates[0].Title;
+            VersionLabel.Content = update.Title;
             Text.Text = text;
             if (OK)
             {
