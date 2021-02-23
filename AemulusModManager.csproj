@@ -112,6 +112,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Octokit, Version=0.49.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octokit.0.49.0\lib\net46\Octokit.dll</HintPath>
+    </Reference>
+    <Reference Include="Onova, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Onova.2.6.2\lib\net461\Onova.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Linq" />
@@ -140,8 +146,23 @@
     </ApplicationDefinition>
     <Compile Include="Utilities\BmdPatching\BmdObj.cs" />
     <Compile Include="Utilities\BmdPatching\BmdPatcher.cs" />
+    <Compile Include="Utilities\PackageUpdating\DownloadUtils\Zip7Extractor.cs" />
+    <Compile Include="Utilities\PackageUpdating\DownloadUtils\DownloadProgress.cs" />
+    <Compile Include="Utilities\PackageUpdating\StringConverters.cs" />
+    <Compile Include="Utilities\PackageUpdating\DownloadUtils\HttpClientExtensions.cs" />
+    <Compile Include="Utilities\PackageUpdating\DownloadUtils\StreamExtensions.cs" />
+    <Compile Include="Utilities\PackageUpdating\PackageUpdater.cs" />
+    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItem.cs" />
+    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemFile.cs" />
+    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemUpdate.cs" />
+    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemUpdateChange.cs" />
     <Compile Include="Utilities\PreappfileAppend.cs" />
     <Compile Include="Utilities\TblPatching\TblObj.cs" />
+    <Compile Include="Utilities\Windows\CategoryColourConverter.cs" />
+    <Compile Include="Utilities\Windows\TimeSinceConverter.cs" />
+    <Compile Include="Windows\ChangelogBox.xaml.cs">
+      <DependentUpon>ChangelogBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ConfigWindowP5.xaml.cs">
       <DependentUpon>ConfigWindowP5.xaml</DependentUpon>
     </Compile>
@@ -154,6 +175,19 @@
     <Compile Include="Windows\NotificationBox.xaml.cs">
       <DependentUpon>NotificationBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PackageFolderBox.xaml.cs">
+      <DependentUpon>PackageFolderBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UpdateFileBox.xaml.cs">
+      <DependentUpon>UpdateFileBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UpdateProgressBox.xaml.cs">
+      <DependentUpon>UpdateProgressBox.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Windows\ChangelogBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ConfigWindowP5.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -194,6 +228,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\NotificationBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PackageFolderBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\UpdateFileBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UpdateProgressBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

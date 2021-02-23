@@ -1,5 +1,4 @@
-﻿using GongSolutions.Wpf.DragDrop;
-using GongSolutions.Wpf.DragDrop.Utilities;
+﻿using GongSolutions.Wpf.DragDrop.Utilities;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,6 +47,10 @@ namespace AemulusModManager
         public string cpkLang;
         private BitmapImage bitmap;
         public List<FontAwesome5.ImageAwesome> buttons;
+        private PackageUpdater packageUpdater;
+        private string aemulusVersion;
+        private bool updating = false;
+        private CancellationTokenSource cancellationToken;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
@@ -165,7 +169,11 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Aemulus v2.3.3 opened {DateTime.Now}");
+            // Set Aemulus Version
+            aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+            Title = $"Aemulus Package Manager v{aemulusVersion}";
+
+            Console.WriteLine($"[INFO] Aemulus v{aemulusVersion} opened {DateTime.Now}");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -192,6 +200,9 @@ namespace AemulusModManager
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
 
+            // Initialise package updater
+            packageUpdater = new PackageUpdater();
+
             // Retrieve initial thumbnail from embedded resource
             Assembly asm = Assembly.GetExecutingAssembly();
             Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
@@ -201,7 +212,7 @@ namespace AemulusModManager
             bitmap.EndInit();
             Preview.Source = bitmap;
 
-            
+
             // Initialize config
             config = new AemulusConfig();
             p5Config = new ConfigP5();
@@ -240,7 +251,7 @@ namespace AemulusModManager
                     using (FileStream streamWriter = File.Open(file, FileMode.Open))
                     {
                         // Call the Deserialize method and cast to the object type.
-                        
+
                         if (file == @"Config.xml")
                         {
                             Config oldConfig = (Config)oldConfigSerializer.Deserialize(streamWriter);
@@ -263,7 +274,7 @@ namespace AemulusModManager
                         }
 
                         bottomUpPriority = config.bottomUpPriority;
-                        
+
                         if (config.p3fConfig != null)
                             p3fConfig = config.p3fConfig;
                         if (config.p4gConfig != null)
@@ -349,13 +360,13 @@ namespace AemulusModManager
                     }
                 }
 
-                
+
                 if (!Directory.Exists($@"Packages\{game}"))
                 {
                     Console.WriteLine($@"[INFO] Creating Packages\{game}");
                     Directory.CreateDirectory($@"Packages\{game}");
                 }
-                
+
                 // Create displayed metadata from packages in PackageList and their respective Package.xml's
                 foreach (var package in PackageList)
                 {
@@ -398,7 +409,7 @@ namespace AemulusModManager
                     DisplayedPackages.Add(dm);
                 }
                 ModGrid.ItemsSource = DisplayedPackages;
-                
+
             }
             else // No config found
             {
@@ -449,6 +460,7 @@ namespace AemulusModManager
             }
 
             LaunchButton.ToolTip = $"Launch {game}";
+            UpdateAllAsync();
         }
 
         public Task pacUnpack(string directory)
@@ -461,7 +473,7 @@ namespace AemulusModManager
                     PacUnpacker.Unzip(directory);
                 else if (game == "Persona 5")
                     PacUnpacker.UnpackCPK(directory);
-                
+
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     foreach (var button in buttons)
@@ -795,7 +807,7 @@ namespace AemulusModManager
                     newMetadata.name = Path.GetFileName(package);
                     newMetadata.id = newMetadata.name.Replace(" ", "").ToLower();
 
-                    
+
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
                     List<string> dirFolders = Directory.GetDirectories(package, "*", System.IO.SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
@@ -902,6 +914,7 @@ namespace AemulusModManager
             Refresh();
             updateConfig();
             updatePackages();
+            UpdateAllAsync();
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -983,7 +996,7 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"Original\{game}\DATA")
                     && !Directory.Exists($@"Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"Original\{game}")))
-            { 
+            {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack base files first.");
 
@@ -1245,6 +1258,12 @@ namespace AemulusModManager
                         ConvertCPK.IsEnabled = true;
                     }
                 }
+
+                // Enable/disable check for updates
+                UpdateItem.IsEnabled = false;
+                if (RowUpdatable(row) && !updating)
+                    UpdateItem.IsEnabled = true;
+                // TODO Fix menu not updating if you right click a not selected item
 
                 // Set image
                 string path = $@"Packages\{game}\{row.path}";
@@ -1621,7 +1640,7 @@ namespace AemulusModManager
                     "the package has no description.)");
             }
 
-            
+
         }
 
         private void Kofi_Click(object sender, MouseButtonEventArgs e)
@@ -1639,6 +1658,21 @@ namespace AemulusModManager
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (updating)
+            {
+                NotificationBox notification = new NotificationBox("There are currently running updates\nAre you sure you want to exit?", false);
+                notification.ShowDialog();
+                notification.Activate();
+                if (!notification.YesNo)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    cancellationToken.Cancel();
+                }
+            }
             outputter.Close();
         }
 
@@ -1671,7 +1705,7 @@ namespace AemulusModManager
             {
                 TopPriority.Text = "Lower Priority";
             }
-            
+
             config.bottomUpPriority = bottomUpPriority;
             updateConfig();
             for (int i = 0; i < DisplayedPackages.Count; i++)
@@ -1722,6 +1756,66 @@ namespace AemulusModManager
                         break;
                 }
             }
+        }
+
+        private void UpdateItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            UpdateItemAsync(row);
+        }
+
+        private async Task UpdateItemAsync(DisplayedMetadata row)
+        {
+            cancellationToken = new CancellationTokenSource();
+            updating = true;
+            Console.WriteLine($"[INFO] Checking for updates for {row.name}");
+            await packageUpdater.CheckForUpdate(new DisplayedMetadata[] { row }, game, cancellationToken);
+            updating = false;
+            Refresh();
+            updateConfig();
+            updatePackages();
+        }
+
+        private async Task UpdateAllAsync()
+        {
+
+            if (updating)
+            {
+                Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
+                return;
+            }
+            await UpdateAemulus();
+            updating = true;
+            cancellationToken = new CancellationTokenSource();
+            Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
+            DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
+            await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
+            updating = false;
+            Refresh();
+            updateConfig();
+            updatePackages();
+        }
+
+        private async Task UpdateAemulus()
+        {
+            updating = true;
+            cancellationToken = new CancellationTokenSource();
+            Console.WriteLine($"[INFO] Checking for updates for Aemulus");
+            if (await packageUpdater.CheckForAemulusUpdate(aemulusVersion, cancellationToken))
+            {
+                updating = false;
+                // Restart the application
+                Close();
+            }
+            updating = false;
+        }
+
+        private bool RowUpdatable(DisplayedMetadata row)
+        {
+            if (row.link == "")
+                return false;
+            string host = UrlConverter.Convert(row.link);
+            return (host == "GameBanana" || host == "GitHub") && row.version != "";
         }
     }
 }

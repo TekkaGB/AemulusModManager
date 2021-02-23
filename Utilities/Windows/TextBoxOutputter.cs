@@ -52,7 +52,10 @@ namespace AemulusModManager
         {
             WriteLineEvent?.Invoke(this, new ConsoleWriterEventArgs(value));
             base.WriteLine(value);
-            sw.WriteLine(value);
+            if (sw != null)
+            {
+                sw.WriteLine(value);
+            }
         }
 
         // Make sure you call this before you end

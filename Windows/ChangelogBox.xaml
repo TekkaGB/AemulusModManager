@@ -1,0 +1,52 @@
+﻿<Window x:Class="AemulusModManager.Windows.ChangelogBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager.Windows" xmlns:local1="clr-namespace:AemulusModManager.Utilities.Windows"
+        mc:Ignorable="d"
+        Title="Changelog"
+        Background="#121212" ShowActivated="True" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.Resources>
+        <local1:CategoryColourConverter x:Key="CategoryColourConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" x:Name="Text" Padding="10" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="15"/>
+        <Label Grid.Row="1" x:Name="VersionLabel" Content="Version" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 10, 0" FontSize="17" Foreground="White"/>
+        <DataGrid Grid.Row="2" x:Name="ChangesGrid" HorizontalAlignment="Center" Margin="25,0, 25, 10" RowBackground="#121212" BorderBrush="Transparent" Foreground="White" 
+                  VerticalAlignment="Center" FontSize="13" HeadersVisibility="None" AutoGenerateColumns="False" 
+                  HorizontalScrollBarVisibility="Disabled" GridLinesVisibility="None" IsHitTestVisible="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label 
+                            Content="{Binding Category}"
+                            Foreground="{Binding Category, Converter={StaticResource CategoryColourConverter}}"
+                            FontSize="15"
+                            Background="#121212"
+                            />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Text}" MaxWidth="300">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="OkButton" Content="OK" Visibility="Collapsed" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" IsDefault="True" Grid.Row="3" Margin="0,0,22,10"/>
+        <Button x:Name="YesButton" Visibility="Collapsed" Content="Yes" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Yes_Button_Click" IsDefault="True" Grid.Row="3" Margin="0,0,130,14"/>
+        <Button x:Name="NoButton" Visibility="Collapsed" Content="No" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" Grid.Row="3" Margin="100,0,22,14"/>
+    </Grid>
+</Window>

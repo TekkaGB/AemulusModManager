@@ -7,7 +7,7 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
-        Title="Aemulus Package Manager v2.3.3" Height="720" Width="1180" MinHeight="800" MinWidth="1180"
+        Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="800" MinWidth="1180"
         Background="#121212" Closing="Window_Closing">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
@@ -186,6 +186,7 @@
                             <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
                             <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
                             <MenuItem Name="ConvertCPK" Header="Convert CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
+                            <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
                             <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
