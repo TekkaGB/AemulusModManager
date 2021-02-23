@@ -103,24 +103,36 @@ namespace AemulusModManager
                 {
                     GameBananaItemUpdate[] updates = response.Updates;
                     string updateTitle = updates[0].Title;
+                    int updateIndex = 0;
                     Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
                     string onlineVersion = null;
                     if (onlineVersionMatch.Success)
                     {
                         onlineVersion = onlineVersionMatch.Value;
                     }
+                    // GB Api only returns two latest updates, so if the first doesn't have a version try the second
+                    else if(updates.Length > 1)
+                    {
+                        updateTitle = updates[1].Title;
+                        onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                        updateIndex = 1;
+                        if (onlineVersionMatch.Success)
+                        {
+                            onlineVersion = onlineVersionMatch.Value;
+                        }
+                    }
                     if (UpdateAvailable(onlineVersion, aemulusVersion))
                     {
                         Console.WriteLine($"[INFO] An update is available for Aemulus ({onlineVersion})");
-                        ChangelogBox notification = new ChangelogBox(updates, "Aemulus", $"A new version of Aemulus is available (v{onlineVersion}), would you like to update now?", false);
+                        ChangelogBox notification = new ChangelogBox(updates[updateIndex], "Aemulus", $"A new version of Aemulus is available (v{onlineVersion}), would you like to update now?", false);
                         notification.ShowDialog();
                         notification.Activate();
                         if (notification.YesNo)
                         {
                             Console.WriteLine($"[INFO] Updating Aemulus to v{onlineVersion}");
                             Dictionary<String, GameBananaItemFile> files = response.Files;
-                            string downloadUrl = files.ElementAt(0).Value.DownloadUrl;
-                            string fileName = files.ElementAt(0).Value.FileName;
+                            string downloadUrl = files.ElementAt(updateIndex).Value.DownloadUrl;
+                            string fileName = files.ElementAt(updateIndex).Value.FileName;
                             // Download the update
                             await DownloadAemulus(downloadUrl, fileName, onlineVersion, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
                             // Notify that the update is about to happen
@@ -176,17 +188,29 @@ namespace AemulusModManager
             {
                 GameBananaItemUpdate[] updates = item.Updates;
                 string updateTitle = updates[0].Title;
+                int updateIndex = 0;
                 Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
                 string onlineVersion = null;
                 if (onlineVersionMatch.Success)
                 {
                     onlineVersion = onlineVersionMatch.Value;
                 }
+                // GB Api only returns two latest updates, so if the first doesn't have a version try the second
+                else if (updates.Length > 1)
+                {
+                    updateTitle = updates[1].Title;
+                    onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                    updateIndex = 1;
+                    if (onlineVersionMatch.Success)
+                    {
+                        onlineVersion = onlineVersionMatch.Value;
+                    }
+                }
                 if (UpdateAvailable(onlineVersion, row.version))
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
-                    ChangelogBox changelogBox = new ChangelogBox(updates, row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
+                    ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
                     changelogBox.Activate();
                     changelogBox.ShowDialog();
                     if (!changelogBox.YesNo)
