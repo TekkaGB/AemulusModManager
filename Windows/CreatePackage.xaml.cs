@@ -47,7 +47,7 @@ namespace AemulusModManager
                 && AuthorBox.Text.Length == 0
                 && IDBox.Text.Length == 0)
                 edited = false;
-            if (!edited)
+            if (!edited && !editing)
             {
                 if (NameBox.Text.Length > 0 && AuthorBox.Text.Length > 0)
                     IDBox.Text = AuthorBox.Text.Replace(" ", "").ToLower() + "."
@@ -121,7 +121,7 @@ namespace AemulusModManager
                 && AuthorBox.Text.Length == 0
                 && IDBox.Text.Length == 0)
                 edited = false;
-            if (!edited)
+            if (!edited && !editing)
             {
                 if (NameBox.Text.Length > 0 && AuthorBox.Text.Length > 0)
                     IDBox.Text = AuthorBox.Text.Replace(" ", "").ToLower() + "."

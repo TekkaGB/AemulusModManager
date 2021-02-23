@@ -87,10 +87,14 @@
                 </fa5:ImageAwesome.ToolTip>
             </fa5:ImageAwesome>
 
-            <fa5:ImageAwesome Name="NewButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="6" Grid.Row="1" Width="37">
+            <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="6" Grid.Row="1" Width="37">
                 <fa5:ImageAwesome.ToolTip>
                     <ToolTip>
-                        Create a New Package
+                        <TextBlock>
+                            Create a New Package
+                            <LineBreak/>
+                            Or Drag Existing Packages Here
+                        </TextBlock>
                     </ToolTip>
                 </fa5:ImageAwesome.ToolTip>
             </fa5:ImageAwesome>
@@ -133,7 +137,7 @@
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
                           SelectionChanged="rowSelected" MinWidth="680" SelectionMode="Single"
-                          LoadingRow="ModGrid_LoadingRow" AlternatingRowBackground="#f2f2f2" 
+                          LoadingRow="ModGrid_LoadingRow" AlternatingRowBackground="#f2f2f2" ContextMenuOpening="ContextMenu_ContextMenuOpening"
                           HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="10" PreviewKeyDown="ModGrid_PreviewKeyDown">
                     <DataGrid.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#9A2000"/>
@@ -185,6 +189,7 @@
                         <ContextMenu>
                             <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
                             <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
+                            <MenuItem Header="Zip Package" IsCheckable="False" Click="ZipItem_Click"/>
                             <MenuItem Name="ConvertCPK" Header="Convert CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
                             <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
                             <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>

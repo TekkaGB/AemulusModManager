@@ -54,7 +54,7 @@ namespace AemulusModManager
             base.WriteLine(value);
             if (sw != null)
             {
-                sw.WriteLine(value);
+                sw.WriteLine($"{DateTime.Now} {value}");
             }
         }
 

@@ -39,6 +39,7 @@ namespace AemulusModManager
         public bool emptySND;
         public bool useCpk;
         public bool messageBox;
+        public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
         public string gamePath;
@@ -132,13 +133,13 @@ namespace AemulusModManager
             this.Dispatcher.Invoke(() =>
             {
                 if (text.StartsWith("[INFO]"))
-                    ConsoleOutput.AppendText($"{text}\n", "#046300");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#046300");
                 else if (text.StartsWith("[WARNING]"))
-                    ConsoleOutput.AppendText($"{text}\n", "#764E00");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#764E00");
                 else if (text.StartsWith("[ERROR]"))
-                    ConsoleOutput.AppendText($"{text}\n", "#AE1300");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#AE1300");
                 else
-                    ConsoleOutput.AppendText($"{text}\n", "Black");
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "Black");
             });
         }
 
@@ -173,7 +174,7 @@ namespace AemulusModManager
             aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
             Title = $"Aemulus Package Manager v{aemulusVersion}";
 
-            Console.WriteLine($"[INFO] Aemulus v{aemulusVersion} opened {DateTime.Now}");
+            Console.WriteLine($"[INFO] Launched Aemulus v{aemulusVersion}!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -297,6 +298,7 @@ namespace AemulusModManager
                             cpkLang = config.p4gConfig.cpkLang;
                             useCpk = config.p4gConfig.useCpk;
                             messageBox = config.p4gConfig.disableMessageBox;
+                            deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
                         }
@@ -307,6 +309,7 @@ namespace AemulusModManager
                             elfPath = config.p3fConfig.elfPath;
                             launcherPath = config.p3fConfig.launcherPath;
                             messageBox = config.p3fConfig.disableMessageBox;
+                            deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
@@ -317,6 +320,7 @@ namespace AemulusModManager
                             gamePath = config.p5Config.gamePath;
                             launcherPath = config.p5Config.launcherPath;
                             messageBox = config.p5Config.disableMessageBox;
+                            deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
@@ -801,7 +805,7 @@ namespace AemulusModManager
                 // Create Package.xml
                 else
                 {
-                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating a simple one...");
+                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                     // Create metadata
                     Metadata newMetadata = new Metadata();
                     newMetadata.name = Path.GetFileName(package);
@@ -813,6 +817,7 @@ namespace AemulusModManager
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
+                        Console.WriteLine($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium structure...");
                         //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
                         string modXml = $@"{package}\Mod.xml";
                         using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
@@ -846,7 +851,8 @@ namespace AemulusModManager
                         {
                             try
                             {
-                                Directory.Delete("temp", true);
+                                setAttributesNormal(new DirectoryInfo("temp"));
+                                DeleteDirectory("temp");
                             }
                             catch (Exception ex)
                             {
@@ -855,7 +861,7 @@ namespace AemulusModManager
                         }
                         //Make sure Data folder is gone
                         if (Directory.Exists(dataDir) && !Directory.EnumerateFileSystemEntries(dataDir).Any())
-                            Directory.Delete(dataDir, true);
+                            DeleteDirectory(dataDir);
                         //Goodbye old friend
                         File.Delete(modXml);
                     }
@@ -899,6 +905,9 @@ namespace AemulusModManager
                 }
             }
 
+            // Remove older versions of the same id
+            CheckVersioning();
+
             // Update DisplayedPackages
             App.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -907,6 +916,56 @@ namespace AemulusModManager
                 ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
             });
             Console.WriteLine($"[INFO] Refreshed!");
+        }
+
+        private static Version Parse(string version)
+        {
+            if (Version.TryParse(version, out Version result))
+                return result;
+            else
+                return null;
+        }
+
+        private void CheckVersioning()
+        {
+            var latestVersions = DisplayedPackages
+                .GroupBy(t => t.id)
+                .Select(g => g.OrderByDescending(t => Parse(t.version)) // Order by version, null values are least
+                              .ThenByDescending(t => new DirectoryInfo($@"Packages\{game}\{t.path}").LastWriteTime).First()) // Order by time modified if they're the same version
+                .ToList();
+
+            // Enable package if older version was enabled
+            foreach (var package in latestVersions)
+            {
+                if (DisplayedPackages.Where(x => x.id == package.id).Any(y => y.enabled))
+                    package.enabled = true;
+            }
+
+            DisplayedPackages = new ObservableCollection<DisplayedMetadata>(latestVersions);
+
+            // Update PackageList to match DisplayedPackages
+            var temp = PackageList.ToList();
+            temp.RemoveAll(x => !DisplayedPackages.Select(y => y.path).Contains(x.path));
+            PackageList = new ObservableCollection<Package>(temp);
+
+            // Delete older versions if config was set
+            if (deleteOldVersions)
+            {
+                foreach (var package in Directory.GetDirectories($@"Packages\{game}"))
+                    if (!PackageList.Select(t => t.path).Contains(Path.GetFileName(package)))
+                    {
+                        try
+                        {
+                            Console.WriteLine($"[INFO] Deleting {package}...");
+                            Directory.Delete(package, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't delete {package} ({e.Message})");
+                        }
+                    }
+            }
+            
         }
 
         private void RefreshClick(object sender, RoutedEventArgs e)
@@ -925,6 +984,12 @@ namespace AemulusModManager
             if (newPackage.metadata != null)
             {
                 string path;
+                if (DisplayedPackages.Where(p => Version.TryParse(newPackage.metadata.version, out Version version1) && Version.TryParse(p.version, out Version version2) && p.id == newPackage.metadata.id)
+                    .Any(x => Version.Parse(x.version) > Version.Parse(newPackage.metadata.version)))
+                {
+                    Console.WriteLine($"[ERROR] Package ID {newPackage.metadata.id} already exists with a higher version number");
+                    return;
+                }
                 if (newPackage.metadata.version != "" && newPackage.metadata.version.Length > 0)
                     path = $@"Packages\{game}\{newPackage.metadata.name} {newPackage.metadata.version}";
                 else
@@ -1137,7 +1202,54 @@ namespace AemulusModManager
                 if (!bottomUpPriority)
                     packages.Reverse();
                 if (packages.Count == 0)
-                    Console.WriteLine("[ERROR] No packages to build!");
+                {
+                    Console.WriteLine("[WARNING] No packages enabled in loadout, emptying output folder...");
+                    string path = modPath;
+                    if (game == "Persona 5")
+                    {
+                        path = $@"{modPath}\mod";
+                        Directory.CreateDirectory(path);
+                    }
+
+                    if (!Directory.EnumerateFileSystemEntries(path).Any())
+                    {
+                        Console.WriteLine($"[INFO] Output folder already empty");
+                        return;
+                    }
+
+
+                    if (!messageBox)
+                    {
+                        bool YesNo = false;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Mouse.OverrideCursor = null;
+                            NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path}?", false);
+                            notification.ShowDialog();
+                            YesNo = notification.YesNo;
+                            Mouse.OverrideCursor = Cursors.Wait;
+                        });
+                        if (!YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled emptying output folder");
+                            return;
+                        }
+                    }
+
+                    binMerge.Restart(path, emptySND, game, cpkLang);
+                    Console.WriteLine("[INFO] Finished emptying output folder!");
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Mouse.OverrideCursor = null;
+                        if (!messageBox)
+                        {
+                            NotificationBox notification = new NotificationBox("Finished emptying output folder!");
+                            notification.ShowDialog();
+                            Activate();
+                        }
+                    });
+                    return;
+                }
                 else
                 {
                     string path = modPath;
@@ -1146,6 +1258,25 @@ namespace AemulusModManager
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
                     }
+
+                    if (!messageBox && Directory.EnumerateFileSystemEntries(path).Any())
+                    {
+                        bool YesNo = false;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Mouse.OverrideCursor = null;
+                            NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path} before building?", false);
+                            notification.ShowDialog();
+                            YesNo = notification.YesNo;
+                            Mouse.OverrideCursor = Cursors.Wait;
+                        });
+                        if (!YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled build");
+                            return;
+                        }
+                    }
+
                     binMerge.Restart(path, emptySND, game, cpkLang);
                     binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                     binMerge.Merge(path, game);
@@ -1380,16 +1511,16 @@ namespace AemulusModManager
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
             if (row != null)
             {
-                MessageBoxResult result = MessageBox.Show($@"Are you sure you want to delete Packages\{row.path}?",
-                                      "Aemulus Package Manager",
-                                      MessageBoxButton.YesNo,
-                                      MessageBoxImage.Warning);
-                if (Directory.Exists($@"Packages\{game}\{row.path}") && result == MessageBoxResult.Yes)
+                NotificationBox notification = new NotificationBox($@"Are you sure you want to delete Packages\{row.path}?", false);
+                notification.ShowDialog();
+                Activate();
+                if (Directory.Exists($@"Packages\{game}\{row.path}") && notification.YesNo)
                 {
                     Console.WriteLine($@"[INFO] Deleted Packages\{game}\{row.path}.");
                     try
                     {
-                        Directory.Delete($@"Packages\{game}\{row.path}", true);
+                        setAttributesNormal(new DirectoryInfo($@"Packages\{game}\{row.path}"));
+                        DeleteDirectory($@"Packages\{game}\{row.path}");
                     }
                     catch (Exception ex)
                     {
@@ -1450,6 +1581,54 @@ namespace AemulusModManager
             }
         }
 
+        private async void ZipItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (row != null && Directory.Exists($@"Packages\{game}\{row.path}"))
+            {
+                var openFolder = new System.Windows.Forms.SaveFileDialog();
+                openFolder.FileName = $"{row.path}.7z";
+                openFolder.Title = $"Select a file to zip to";
+                openFolder.Filter = "7zip | *.7z";
+                if (openFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    await ZipItem($@"Packages\{game}\{row.path}", openFolder.FileName);
+                    ProcessStartInfo StartInformation = new ProcessStartInfo();
+                    StartInformation.FileName = Path.GetDirectoryName(openFolder.FileName);
+                    Process process = Process.Start(StartInformation);
+                }
+            }
+        }
+
+        private async Task ZipItem(string path, string output)
+        {
+            await Task.Run(() =>
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(output));
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.CreateNoWindow = true;
+                startInfo.FileName = @"Dependencies\7z\7z.exe";
+                if (!File.Exists(startInfo.FileName))
+                {
+                    Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                    return;
+                }
+
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.UseShellExecute = false;
+                startInfo.WorkingDirectory = $@"Packages\{game}";
+                startInfo.Arguments = $@"a ""{output}"" ""{Path.GetFileName(path)}/*""";
+                Console.WriteLine($@"[INFO] Zipping {path} into {output}\{Path.GetFileName(path)}.7z");
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+                        
+            });
+        }
+
         private void ConvertCPK_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
@@ -1493,6 +1672,7 @@ namespace AemulusModManager
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
                         messageBox = config.p3fConfig.disableMessageBox;
+                        deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
@@ -1510,6 +1690,7 @@ namespace AemulusModManager
                         cpkLang = config.p4gConfig.cpkLang;
                         useCpk = config.p4gConfig.useCpk;
                         messageBox = config.p4gConfig.disableMessageBox;
+                        deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
                         {
@@ -1523,6 +1704,7 @@ namespace AemulusModManager
                         gamePath = config.p5Config.gamePath;
                         launcherPath = config.p5Config.launcherPath;
                         messageBox = config.p5Config.disableMessageBox;
+                        deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
@@ -1755,6 +1937,191 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                         break;
                 }
+            }
+        }
+
+        public void setAttributesNormal(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
+            {
+                setAttributesNormal(subDir);
+                subDir.Attributes = FileAttributes.Normal;
+            }
+            foreach (var file in dir.GetFiles())
+            {
+                file.Attributes = FileAttributes.Normal;
+            }
+        }
+
+        public static void DeleteDirectory(string path)
+        {
+
+            foreach (string directory in Directory.GetDirectories(path))
+            {
+                DeleteDirectory(directory);
+            }
+            try
+            {
+                Directory.Delete(path, true);
+            }
+            catch (IOException)
+            {
+                Directory.Delete(path, true);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Directory.Delete(path, true);
+            }
+        }
+
+        private void Add_Enter(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Move;
+        }
+
+        private async Task ExtractPackages(string[] fileList)
+        {
+            await Task.Run(() =>
+            {
+                bool dropped = false;
+                foreach (var file in fileList)
+                {
+                    if (Directory.Exists(file))
+                    {
+                        Console.WriteLine($@"[INFO] Moving {file} into Packages\{game}");
+                        string path = $@"Packages\{game}\{Path.GetFileName(file)}";
+                        int index = 2;
+                        while (Directory.Exists(path))
+                        {
+                            path = $@"Packages\{game}\{Path.GetFileName(file)} ({index})";
+                            index += 1;
+                        }
+                        MoveDirectory(file, path);
+                        dropped = true;
+                    }
+                    else if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
+                    {
+                        Directory.CreateDirectory("temp");
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.CreateNoWindow = true;
+                        startInfo.FileName = @"Dependencies\7z\7z.exe";
+                        if (!File.Exists(startInfo.FileName))
+                        {
+                            Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                            return;
+                        }
+
+                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        startInfo.UseShellExecute = false;
+                        startInfo.Arguments = $@"x -y ""{file}"" -otemp";
+                        Console.WriteLine($@"[INFO] Extracting {file} into Packages\{game}");
+                        using (Process process = new Process())
+                        {
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            process.WaitForExit();
+                        }
+                        // Put in folder if extraction comes in multiple files/folders
+                        if (Directory.GetFileSystemEntries("temp").Length > 1)
+                        {
+                            setAttributesNormal(new DirectoryInfo("temp"));
+                            string path = $@"Packages\{game}\{Path.GetFileNameWithoutExtension(file)}";
+                            int index = 2;
+                            while (Directory.Exists(path))
+                            {
+                                path = $@"Packages\{game}\{Path.GetFileNameWithoutExtension(file)} ({index})";
+                                index += 1;
+                            }
+                            MoveDirectory("temp", path);
+                        }
+                        // Move folder if extraction is just a folder
+                        else if (Directory.GetFileSystemEntries("temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries("temp")[0]))
+                        {
+                            setAttributesNormal(new DirectoryInfo("temp"));
+                            string path = $@"Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries("temp")[0])}";
+                            int index = 2;
+                            while (Directory.Exists(path))
+                            {
+                                path = $@"Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries("temp")[0])} ({index})";
+                                index += 1;
+                            }
+                            MoveDirectory(Directory.GetFileSystemEntries("temp")[0], path);
+                        }
+                        //File.Delete(file);
+                        dropped = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, skipping...");
+                    }
+                }
+                if (Directory.Exists("temp"))
+                    DeleteDirectory("temp");
+
+                if (dropped)
+                {
+                    Refresh();
+                    updatePackages();
+                }
+            });
+        }
+
+        private async void Add_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                });
+
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = false;
+                    button.Foreground = new SolidColorBrush(Colors.Gray);
+                }
+                GameBox.IsHitTestVisible = false;
+                ModGrid.IsHitTestVisible = false;
+
+                await ExtractPackages(fileList);
+
+                
+                ModGrid.IsHitTestVisible = true;
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = true;
+                    if (game == "Persona 3 FES")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                    else if (game == "Persona 4 Golden")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                }
+                GameBox.IsHitTestVisible = true;
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+            }
+        }
+
+        private void ContextMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            FrameworkElement element = sender as FrameworkElement;
+            if (element == null)
+            {
+                return;
+            }
+
+            ContextMenu contextMenu = element.ContextMenu;
+            if (ModGrid.SelectedItem == null)
+                element.ContextMenu.Visibility = Visibility.Collapsed;
+            else
+                element.ContextMenu.Visibility = Visibility.Visible;
             }
         }
 

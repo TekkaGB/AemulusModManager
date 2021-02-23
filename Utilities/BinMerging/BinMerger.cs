@@ -4,8 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace AemulusModManager
 {
@@ -148,14 +151,12 @@ namespace AemulusModManager
                     ProcessInfo.UseShellExecute = false;
                     ProcessInfo.WorkingDirectory = Path.GetFullPath(mod);
 
-
                     using (Process process = new Process())
                     {
                         process.StartInfo = ProcessInfo;
 
                         process.Start();
 
-                        // Add this: wait until process does its work
                         process.WaitForExit();
                     }
 
@@ -550,6 +551,11 @@ namespace AemulusModManager
                                     string args = $"replace \"{bin}\" ../../{binPath} \"{f}\" \"{bin}\"";
                                     PAKPackCMD(args);
                                 }
+                                else if (contents.Contains($"../{binPath}"))
+                                {
+                                    string args = $"replace \"{bin}\" ../{binPath} \"{f}\" \"{bin}\"";
+                                    PAKPackCMD(args);
+                                }
                                 // Check if more unpacking needs to be done to replace
                                 else if (!contents.Contains(binPath))
                                 {
@@ -559,15 +565,11 @@ namespace AemulusModManager
                                     {
                                         int prefixLen = commonPrefixUtil(c, binPath);
                                         int otherPrefixLen = commonPrefixUtil(c, $"../../{binPath}");
-                                        if (otherPrefixLen > longestPrefixLen)
+                                        int otherOtherPrefixLen = commonPrefixUtil(c, $"../{binPath}");
+                                        if (Math.Max(Math.Max(prefixLen, otherPrefixLen), otherOtherPrefixLen) > longestPrefixLen)
                                         {
                                             longestPrefix = c;
-                                            longestPrefixLen = otherPrefixLen;
-                                        }
-                                        if (prefixLen > longestPrefixLen)
-                                        {
-                                            longestPrefix = c;
-                                            longestPrefixLen = prefixLen;
+                                            longestPrefixLen = Math.Max(Math.Max(prefixLen, otherPrefixLen), otherOtherPrefixLen);
                                         }
                                     }
                                     // Check if we can unpack again
@@ -656,7 +658,7 @@ namespace AemulusModManager
                                     }
                                     else if (Path.GetExtension(longestPrefix).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
                                     {
-                                        string path = longestPrefix.Replace("../../", "");
+                                        string path = longestPrefix.Replace("../", "");
                                         string sprPath = $@"{temp}\{path.Replace("/", "\\")}";
                                         sprUtils.replaceTmx(sprPath, f);
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");
@@ -733,6 +735,7 @@ namespace AemulusModManager
             }
             if (Directory.Exists($@"{modDir}\minigame\crossword") && !Directory.EnumerateFileSystemEntries($@"{modDir}\minigame\crossword").Any())
                 DeleteDirectory($@"{modDir}\minigame\crossword");
+
             Console.WriteLine("[INFO] Finished merging!");
             return;
         }
@@ -740,6 +743,7 @@ namespace AemulusModManager
         public static void Restart(string modDir, bool emptySND, string game, string cpkLang)
         {
             Console.WriteLine("[INFO] Deleting current mod build...");
+            // Revert appended cpks
             if (game == "Persona 4 Golden")
             {
                 string path = Path.GetDirectoryName(modDir);
@@ -767,6 +771,7 @@ namespace AemulusModManager
                     File.Delete($@"{path}\movie00003.pac");
                 }
             }
+
             if (!emptySND || game == "Persona 3 FES")
             {
                 //Console.WriteLine("[INFO] Keeping SND folder.");
@@ -786,11 +791,10 @@ namespace AemulusModManager
             {
                 if (Directory.Exists(modDir))
                     DeleteDirectory(modDir);
-                if (File.Exists($@"{modDir}\mod.csv"))
-                    File.Delete($@"{modDir}\mod.csv");
                 Directory.CreateDirectory(modDir);
             }
         }
+
         public static string GetChecksumString(string filePath)
         {
             string checksumString = null;
