@@ -17,8 +17,8 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9A2000" />
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NameColumn" Header="File Name" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="DescriptionColumn" Header="File Description" IsReadOnly="True"/>
+                <DataGridTextColumn x:Name="NameColumn" Header="File Name" IsReadOnly="True"/>
                 <DataGridTextColumn x:Name="UploadTimeColumn" Header="Uploaded" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
