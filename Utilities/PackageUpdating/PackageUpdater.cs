@@ -85,7 +85,7 @@ namespace AemulusModManager
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}\n{e.StackTrace}");
+                Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}");
             }
         }
 
@@ -168,7 +168,7 @@ namespace AemulusModManager
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}\n{e.StackTrace}");
+                Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}");
             }
             return false;
         }
@@ -369,7 +369,7 @@ namespace AemulusModManager
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}\n{e.StackTrace}");
+                Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -427,7 +427,7 @@ namespace AemulusModManager
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}\n{e.StackTrace}");
+                Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
