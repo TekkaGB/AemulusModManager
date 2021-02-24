@@ -22,11 +22,13 @@ namespace AemulusModManager
         private readonly HttpClient client;
         private GitHubClient gitHubClient;
         private UpdateProgressBox progressBox;
+        private MainWindow main;
 
-        public PackageUpdater()
+        public PackageUpdater(MainWindow mainWindow)
         {
             client = new HttpClient();
             gitHubClient = new GitHubClient(new ProductHeaderValue("Aemulus"));
+            main = mainWindow;
         }
 
         public async Task CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken)
@@ -210,14 +212,18 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
-                    ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
-                    changelogBox.Activate();
-                    changelogBox.ShowDialog();
-                    if (!changelogBox.YesNo)
+                    if (main.updateConfirm)
                     {
-                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                        return;
+                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
+                        changelogBox.Activate();
+                        changelogBox.ShowDialog();
+                        if (!changelogBox.YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                            return;
+                        }
                     }
+
                     // Download the update
                     Dictionary<String, GameBananaItemFile> files = item.Files;
                     string downloadUrl, fileName;
@@ -248,7 +254,7 @@ namespace AemulusModManager
                     }
                     if (downloadUrl != null && fileName != null)
                     {
-                        await DownloadFile(downloadUrl, fileName, game, row.path, row.name, progress, cancellationToken);
+                        await DownloadFile(downloadUrl, fileName, game, row.path, row.name, progress, cancellationToken, updates[updateIndex]);
                     }
                     else
                     {
@@ -315,7 +321,7 @@ namespace AemulusModManager
             }
         }
 
-        private async Task DownloadFile(string uri, string fileName, string game, string oldPath, string packageName, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)
+        private async Task DownloadFile(string uri, string fileName, string game, string oldPath, string packageName, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, GameBananaItemUpdate update = null)
         {
             try
             {
@@ -348,7 +354,7 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] {fileName} already exists in downloads, using this instead");
                 }
-                ExtractFile(fileName, game, oldPath, packageName);
+                ExtractFile(fileName, game, oldPath, packageName, update);
             }
             catch (OperationCanceledException)
             {
@@ -430,7 +436,7 @@ namespace AemulusModManager
             }
         }
 
-        private void ExtractFile(string fileName, string game, string oldPath, string packageName)
+        private void ExtractFile(string fileName, string game, string oldPath, string packageName, GameBananaItemUpdate update = null)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
@@ -478,6 +484,14 @@ namespace AemulusModManager
                 Directory.Delete($@"Packages\{game}\{oldPath}", true);
                 Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{oldPath})");
                 Directory.Move(packageRoots[0], $@"Packages\{game}\{oldPath}");
+                Console.WriteLine($"[INFO] Successfully updated {packageName}");
+                // Display the changelog if it hasn't been displayed already and is wanted
+                if (main.updateChangelog && !main.updateConfirm && update != null)
+                {
+                    ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
+                    changelogBox.Activate();
+                    changelogBox.ShowDialog();
+                }
             }
             else if (packageRoots.Length > 1)
             {
@@ -494,6 +508,14 @@ namespace AemulusModManager
                 Directory.Delete($@"Packages\{game}\{oldPath}", true);
                 Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{oldPath})");
                 Directory.Move(folderBox.chosenFolder, $@"Packages\{game}\{oldPath}");
+                Console.WriteLine($"[INFO] Successfully updated {packageName}");
+                // Display the changelog if it hasn't been displayed already and is wanted
+                if (main.updateChangelog && !main.updateConfirm && update != null)
+                {
+                    ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
+                    changelogBox.Activate();
+                    changelogBox.ShowDialog();
+                }
             }
             else
             {

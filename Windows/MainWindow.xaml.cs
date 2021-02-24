@@ -38,7 +38,10 @@ namespace AemulusModManager
         private ObservableCollection<DisplayedMetadata> DisplayedPackages;
         public bool emptySND;
         public bool useCpk;
-        public bool messageBox;
+        public bool buildWarning;
+        public bool buildFinished;
+        public bool updateConfirm;
+        public bool updateChangelog;
         public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
@@ -202,7 +205,7 @@ namespace AemulusModManager
             PackageList = new ObservableCollection<Package>();
 
             // Initialise package updater
-            packageUpdater = new PackageUpdater();
+            packageUpdater = new PackageUpdater(this);
 
             // Retrieve initial thumbnail from embedded resource
             Assembly asm = Assembly.GetExecutingAssembly();
@@ -297,7 +300,10 @@ namespace AemulusModManager
                             emptySND = config.p4gConfig.emptySND;
                             cpkLang = config.p4gConfig.cpkLang;
                             useCpk = config.p4gConfig.useCpk;
-                            messageBox = config.p4gConfig.disableMessageBox;
+                            buildWarning = config.p4gConfig.buildWarning;
+                            buildFinished = config.p4gConfig.buildFinished;
+                            updateConfirm = config.p4gConfig.updateConfirm;
+                            updateChangelog = config.p4gConfig.updateChangelog;
                             deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
@@ -308,7 +314,10 @@ namespace AemulusModManager
                             gamePath = config.p3fConfig.isoPath;
                             elfPath = config.p3fConfig.elfPath;
                             launcherPath = config.p3fConfig.launcherPath;
-                            messageBox = config.p3fConfig.disableMessageBox;
+                            buildWarning = config.p3fConfig.buildWarning;
+                            buildFinished = config.p3fConfig.buildFinished;
+                            updateConfirm = config.p3fConfig.updateConfirm;
+                            updateChangelog = config.p3fConfig.updateChangelog;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -319,7 +328,10 @@ namespace AemulusModManager
                             modPath = config.p5Config.modDir;
                             gamePath = config.p5Config.gamePath;
                             launcherPath = config.p5Config.launcherPath;
-                            messageBox = config.p5Config.disableMessageBox;
+                            buildWarning = config.p5Config.buildWarning;
+                            buildFinished = config.p5Config.buildFinished;
+                            updateConfirm = config.p5Config.updateConfirm;
+                            updateChangelog = config.p5Config.updateChangelog;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -492,7 +504,7 @@ namespace AemulusModManager
                     }
                     ModGrid.IsHitTestVisible = true;
                     GameBox.IsHitTestVisible = true;
-                    if (!fromMain && !messageBox)
+                    if (!fromMain && buildFinished)
                     {
                         NotificationBox notification = new NotificationBox("Finished Unpacking!");
                         notification.ShowDialog();
@@ -1218,7 +1230,7 @@ namespace AemulusModManager
                     }
 
 
-                    if (!messageBox)
+                    if (buildWarning)
                     {
                         bool YesNo = false;
                         Application.Current.Dispatcher.Invoke(() =>
@@ -1241,7 +1253,7 @@ namespace AemulusModManager
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
-                        if (!messageBox)
+                        if (buildWarning)
                         {
                             NotificationBox notification = new NotificationBox("Finished emptying output folder!");
                             notification.ShowDialog();
@@ -1259,7 +1271,7 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                     }
 
-                    if (!messageBox && Directory.EnumerateFileSystemEntries(path).Any())
+                    if (buildWarning && Directory.EnumerateFileSystemEntries(path).Any())
                     {
                         bool YesNo = false;
                         Application.Current.Dispatcher.Invoke(() =>
@@ -1307,7 +1319,7 @@ namespace AemulusModManager
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
-                        if (!messageBox)
+                        if (buildFinished)
                         {
                             NotificationBox notification = new NotificationBox("Finished Building!");
                             notification.ShowDialog();
@@ -1671,7 +1683,10 @@ namespace AemulusModManager
                         gamePath = config.p3fConfig.isoPath;
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
-                        messageBox = config.p3fConfig.disableMessageBox;
+                        buildWarning = config.p3fConfig.buildWarning;
+                        buildFinished = config.p3fConfig.buildFinished;
+                        updateConfirm = config.p3fConfig.updateConfirm;
+                        updateChangelog = config.p3fConfig.updateChangelog;
                         deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1689,7 +1704,10 @@ namespace AemulusModManager
                         emptySND = config.p4gConfig.emptySND;
                         cpkLang = config.p4gConfig.cpkLang;
                         useCpk = config.p4gConfig.useCpk;
-                        messageBox = config.p4gConfig.disableMessageBox;
+                        buildWarning = config.p4gConfig.buildWarning;
+                        buildFinished = config.p4gConfig.buildFinished;
+                        updateConfirm = config.p4gConfig.updateConfirm;
+                        updateChangelog = config.p4gConfig.updateChangelog;
                         deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
@@ -1703,7 +1721,10 @@ namespace AemulusModManager
                         modPath = config.p5Config.modDir;
                         gamePath = config.p5Config.gamePath;
                         launcherPath = config.p5Config.launcherPath;
-                        messageBox = config.p5Config.disableMessageBox;
+                        buildWarning = config.p5Config.buildWarning;
+                        buildFinished = config.p5Config.buildFinished;
+                        updateConfirm = config.p5Config.updateConfirm;
+                        updateChangelog = config.p5Config.updateChangelog;
                         deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;

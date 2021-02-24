@@ -25,7 +25,10 @@ namespace AemulusModManager
                 EBOOTTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
                 RPCS3Textbox.Text = main.launcherPath;
-            NotifBox.IsChecked = main.config.p5Config.disableMessageBox;
+            BuildFinishedBox.IsChecked = main.config.p5Config.buildFinished;
+            BuildWarningBox.IsChecked = main.config.p5Config.buildWarning;
+            ConfirmUpdateBox.IsChecked = main.config.p5Config.updateConfirm;
+            ChangelogBox.IsChecked = main.config.p5Config.updateChangelog;
             DeleteBox.IsChecked = main.config.p5Config.deleteOldVersions;
 
             Console.WriteLine("[INFO] Config launched");
@@ -44,16 +47,53 @@ namespace AemulusModManager
                 OutputTextbox.Text = directory;
             }
         }
-        private void NotifChecked(object sender, RoutedEventArgs e)
+        private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
-            main.messageBox = true;
-            main.config.p5Config.disableMessageBox = true;
+            main.buildWarning = true;
+            main.config.p5Config.buildWarning = true;
             main.updateConfig();
         }
-        private void NotifUnchecked(object sender, RoutedEventArgs e)
+
+        private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
-            main.messageBox = false;
-            main.config.p5Config.disableMessageBox = false;
+            main.buildWarning = false;
+            main.config.p5Config.buildWarning = false;
+            main.updateConfig();
+        }
+        private void BuildFinishedChecked(object sender, RoutedEventArgs e)
+        {
+            main.buildFinished = true;
+            main.config.p5Config.buildFinished = true;
+            main.updateConfig();
+        }
+        private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.buildFinished = false;
+            main.config.p5Config.buildFinished = false;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = true;
+            main.config.p5Config.updateConfirm = true;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = false;
+            main.config.p5Config.updateConfirm = false;
+            main.updateConfig();
+        }
+        private void ChangelogChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateChangelog = true;
+            main.config.p5Config.updateChangelog = true;
+            main.updateConfig();
+        }
+        private void ChangelogUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateChangelog = false;
+            main.config.p5Config.updateChangelog = false;
             main.updateConfig();
         }
         private void DeleteChecked(object sender, RoutedEventArgs e)
@@ -172,5 +212,10 @@ namespace AemulusModManager
             UnpackButton.IsHitTestVisible = true;
         }
 
+        // Stops the user from changing the displayed "Notifications" text to the names of one of the combo boxes
+        private void NotifBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            NotifBox.SelectedIndex = 0;
+        }
     }
 }

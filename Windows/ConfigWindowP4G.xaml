@@ -62,12 +62,13 @@
                 </CheckBox>
             </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
-                <CheckBox Name="NotifBox" Foreground ="White" Checked="NotifChecked" Unchecked="NotifUnchecked">
-                    <TextBlock TextAlignment="Center">
-                        Disable<LineBreak/>
-                        Notfication
-                    </TextBlock>
-                </CheckBox>
+                <ComboBox x:Name="NotifBox" Width="120" FontSize="15" Text="Notifications" SelectedIndex="0" SelectionChanged="NotifBox_SelectionChanged">
+                    <ComboBoxItem Visibility="Collapsed">Notifications</ComboBoxItem>
+                    <CheckBox x:Name="BuildWarningBox" Content="Build Warning" Checked="BuildWarningChecked" Unchecked="BuildWarningUnchecked"/>
+                    <CheckBox x:Name="BuildFinishedBox" Content="Build Finished" Checked="BuildFinishedChecked" Unchecked="BuildFinishedUnchecked"/>
+                    <CheckBox x:Name="ConfirmUpdateBox" Content="Confirm Update" Checked="ConfirmUpdateChecked" Unchecked="ConfirmUpdateUnchecked"/>
+                    <CheckBox x:Name="ChangelogBox" Content="Update Changelog" Checked="ChangelogChecked" Unchecked="ChangelogUnchecked"/>
+                </ComboBox>
             </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
                 <CheckBox Name="DeleteBox" Foreground ="White" Checked="DeleteChecked" Unchecked="DeleteUnchecked">

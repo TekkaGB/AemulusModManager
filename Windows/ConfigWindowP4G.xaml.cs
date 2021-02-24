@@ -27,7 +27,10 @@ namespace AemulusModManager
                 ReloadedTextbox.Text = main.launcherPath;
             KeepSND.IsChecked = main.emptySND;
             CpkBox.IsChecked = main.useCpk;
-            NotifBox.IsChecked = main.p4gConfig.disableMessageBox;
+            BuildFinishedBox.IsChecked = main.config.p4gConfig.buildFinished;
+            BuildWarningBox.IsChecked = main.config.p4gConfig.buildWarning;
+            ConfirmUpdateBox.IsChecked = main.config.p4gConfig.updateConfirm;
+            ChangelogBox.IsChecked = main.config.p4gConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p4gConfig.deleteOldVersions;
 
             switch (main.cpkLang)
@@ -81,16 +84,53 @@ namespace AemulusModManager
             main.updateConfig();
         }
 
-        private void NotifChecked(object sender, RoutedEventArgs e)
+        private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
-            main.messageBox = true;
-            main.config.p4gConfig.disableMessageBox = true;
+            main.buildWarning = true;
+            main.config.p4gConfig.buildWarning = true;
             main.updateConfig();
         }
-        private void NotifUnchecked(object sender, RoutedEventArgs e)
+
+        private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
-            main.messageBox = false;
-            main.config.p4gConfig.disableMessageBox = false;
+            main.buildWarning = false;
+            main.config.p4gConfig.buildWarning = false;
+            main.updateConfig();
+        }
+        private void BuildFinishedChecked(object sender, RoutedEventArgs e)
+        {
+            main.buildFinished = true;
+            main.config.p4gConfig.buildFinished = true;
+            main.updateConfig();
+        }
+        private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.buildFinished = false;
+            main.config.p4gConfig.buildFinished = false;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = true;
+            main.config.p4gConfig.updateConfirm = true;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = false;
+            main.config.p4gConfig.updateConfirm = false;
+            main.updateConfig();
+        }
+        private void ChangelogChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateChangelog = true;
+            main.config.p4gConfig.updateChangelog = true;
+            main.updateConfig();
+        }
+        private void ChangelogUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateChangelog = false;
+            main.config.p4gConfig.updateChangelog = false;
             main.updateConfig();
         }
         private void DeleteChecked(object sender, RoutedEventArgs e)
@@ -259,6 +299,12 @@ namespace AemulusModManager
                 main.cpkLang = selectedLanguage;
                 main.updateConfig();
             }
+        }
+
+        // Stops the user from changing the displayed "Notifications" text to the names of one of the combo boxes
+        private void NotifBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            NotifBox.SelectedIndex = 0;
         }
     }
 }

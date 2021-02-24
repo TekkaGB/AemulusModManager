@@ -35,9 +35,12 @@ namespace AemulusModManager
         public string reloadedPath { get; set; }
         public bool emptySND { get; set; }
         public bool useCpk { get; set; }
-        public bool disableMessageBox { get; set; }
         public string cpkLang { get; set; }
         public bool deleteOldVersions { get; set; }
+        public bool buildWarning { get; set; }
+        public bool buildFinished { get; set; }
+        public bool updateConfirm { get; set; }
+        public bool updateChangelog { get; set; }
     }
 
     public class ConfigP3F
@@ -46,7 +49,10 @@ namespace AemulusModManager
         public string isoPath { get; set; }
         public string elfPath { get; set; }
         public string launcherPath { get; set; }
-        public bool disableMessageBox { get; set; }
+        public bool buildWarning { get; set; }
+        public bool buildFinished { get; set; }
+        public bool updateConfirm { get; set; }
+        public bool updateChangelog { get; set; }
         public bool advancedLaunchOptions { get; set; }
         public bool deleteOldVersions { get; set; }
     }
@@ -56,7 +62,10 @@ namespace AemulusModManager
         public string modDir { get; set; }
         public string gamePath { get; set; }
         public string launcherPath { get; set; }
-        public bool disableMessageBox { get; set; }
+        public bool buildWarning { get; set; }
+        public bool buildFinished { get; set; }
+        public bool updateConfirm { get; set; }
+        public bool updateChangelog { get; set; }
         public bool deleteOldVersions { get; set; }
     }
 
