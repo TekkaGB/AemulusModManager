@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,7 +15,7 @@ namespace AemulusModManager
 {
     public static class binMerge
     {
-        private static string exePath = @"Dependencies\PAKPack\PAKPack.exe";
+        private static string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PAKPack\PAKPack.exe";
 
         // Use PAKPack command
         private static void PAKPackCMD(string args)
@@ -181,7 +182,7 @@ namespace AemulusModManager
                         int idx = folders.IndexOf(Path.GetFileName(mod));
                         folders = folders.Skip(idx + 1).ToList();
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
-                        string ogBinPath = $@"Original\{game}\{string.Join("\\", folders.ToArray())}";
+                        string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
                         if (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".arc"
@@ -432,7 +433,7 @@ namespace AemulusModManager
                     List<string> folders = new List<string>(d.Split(char.Parse("\\")));
                     int idx = folders.IndexOf(Path.GetFileName(dir));
                     folders = folders.Skip(idx).ToList();
-                    string ogPath = $@"Original\{game}\{string.Join("\\", folders.ToArray())}";
+                    string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
                     if (File.Exists(Path.ChangeExtension(ogPath, ".bin")) && !File.Exists(Path.ChangeExtension(d, ".bin")))
                     {
@@ -748,16 +749,16 @@ namespace AemulusModManager
             {
                 string path = Path.GetDirectoryName(modDir);
                 // Copy original cpk back if different
-                if (File.Exists($@"Original\Persona 4 Golden\{cpkLang}") && GetChecksumString($@"Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
                 {
                     Console.WriteLine($@"[INFO] Reverting {cpkLang} back to original");
-                    File.Copy($@"Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
+                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
                 }
                 // Copy original cpk back if different
-                if (File.Exists($@"Original\Persona 4 Golden\movie.cpk") && GetChecksumString($@"Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") && GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
                 {
                     Console.WriteLine($@"[INFO] Reverting movie.cpk back to original");
-                    File.Copy($@"Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
+                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
                 }
                 // Delete modified pacs
                 if (File.Exists($@"{path}\data00007.pac"))
