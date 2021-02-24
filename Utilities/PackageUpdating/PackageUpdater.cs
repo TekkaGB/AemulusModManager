@@ -227,18 +227,31 @@ namespace AemulusModManager
                     // Download the update
                     Dictionary<String, GameBananaItemFile> files = item.Files;
                     string downloadUrl, fileName;
-                    if (files.Count > 1)
+                    // Work out which are Aemulus comptaible by examining the file tree
+                    Dictionary<String, GameBananaItemFile> aemulusCompatibleFiles = new Dictionary<string, GameBananaItemFile>();
+                    foreach (KeyValuePair<string, GameBananaItemFile> file in files)
                     {
-                        UpdateFileBox fileBox = new UpdateFileBox(files, row.name);
+                        if (file.Value.FileMetadata.FileTree.Count > 0)
+                        {
+                            string fileTree = file.Value.FileMetadata.FileTree.Values.First().ToString();
+                            if (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml"))
+                            {
+                                aemulusCompatibleFiles.Add(file.Key, file.Value);
+                            }
+                        }
+                    }
+                    if (aemulusCompatibleFiles.Count > 1)
+                    {
+                        UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles, row.name);
                         fileBox.Activate();
                         fileBox.ShowDialog();
                         downloadUrl = fileBox.chosenFileUrl;
                         fileName = fileBox.chosenFileName;
                     }
-                    else if (files.Count == 1)
+                    else if (aemulusCompatibleFiles.Count == 1)
                     {
-                        downloadUrl = files.ElementAt(0).Value.DownloadUrl;
-                        fileName = files.ElementAt(0).Value.FileName;
+                        downloadUrl = aemulusCompatibleFiles.ElementAt(0).Value.DownloadUrl;
+                        fileName = aemulusCompatibleFiles.ElementAt(0).Value.FileName;
                     }
                     else
                     {
@@ -478,6 +491,7 @@ namespace AemulusModManager
             }
             // Find the root and move the extracted file to the correct package folder
             string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"Downloads\{packageName}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
+            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"Downloads\{packageName}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
             if (packageRoots.Length == 1)
             {
                 // Remove the old package directory

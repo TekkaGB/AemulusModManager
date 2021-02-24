@@ -154,6 +154,8 @@
     <Compile Include="Utilities\PackageUpdating\PackageUpdater.cs" />
     <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItem.cs" />
     <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemFile.cs" />
+    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemFileMetadata.cs" />
+    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemFileTree.cs" />
     <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemUpdate.cs" />
     <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemUpdateChange.cs" />
     <Compile Include="Utilities\PreappfileAppend.cs" />
