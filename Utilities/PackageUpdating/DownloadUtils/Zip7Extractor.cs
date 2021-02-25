@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
-            startInfo.FileName = @"Dependencies\7z\7z.exe";
+            startInfo.FileName = @$"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
@@ -47,15 +48,6 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             Directory.Move(Directory.GetDirectories(destDirPath)[0], $@"{parentPath}\Aemulus");
             Directory.Delete(destDirPath);
             Directory.Move($@"{parentPath}\Aemulus", destDirPath);
-
-            /*    
-            // Rename the folder to version as this is what onva looks for
-                if (Directory.Exists(@$"{oldPath}\{game.Split(',')[1]}"))
-                {
-                    Directory.Delete(@$"{oldPath}\{game.Split(',')[1]}", true);
-                }
-                Directory.Move(Directory.GetDirectories(oldPath)[0], @$"{oldPath}\{game.Split(',')[1]}");
-            */
         }
 
     }

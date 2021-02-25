@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,12 +24,14 @@ namespace AemulusModManager
         private GitHubClient gitHubClient;
         private UpdateProgressBox progressBox;
         private MainWindow main;
+        private string assemblyLocation;
 
         public PackageUpdater(MainWindow mainWindow)
         {
             client = new HttpClient();
             gitHubClient = new GitHubClient(new ProductHeaderValue("Aemulus"));
             main = mainWindow;
+            assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
 
         public async Task CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken)
@@ -142,7 +145,7 @@ namespace AemulusModManager
                             finishedNotification.ShowDialog();
                             finishedNotification.Activate();
                             // Update Aemulus
-                            UpdateManager updateManager = new UpdateManager(new LocalPackageResolver(@"Downloads\AemulusUpdate"), new Zip7Extractor());
+                            UpdateManager updateManager = new UpdateManager(new LocalPackageResolver(@$"{assemblyLocation}\Downloads\AemulusUpdate"), new Zip7Extractor());
                             if (!Version.TryParse(onlineVersion, out Version version))
                             {
                                 Console.WriteLine("[ERROR] Error parsing Aemulus version, cancelling update");
@@ -151,6 +154,11 @@ namespace AemulusModManager
                             }
                             // Updates and restarts Aemulus
                             await updateManager.PrepareUpdateAsync(version);
+                            // Clean up the downloaded files
+                            if (Directory.Exists($@"{assemblyLocation}\Downloads\"))
+                            {
+                                Directory.Delete($@"{assemblyLocation}\Downloads\", true);
+                            }
                             updateManager.LaunchUpdater(version);
                             return true;
                         }
@@ -339,12 +347,12 @@ namespace AemulusModManager
             try
             {
                 // Create the downloads folder if necessary
-                if (!Directory.Exists("Downloads"))
+                if (!Directory.Exists($@"{assemblyLocation}\Downloads"))
                 {
-                    Directory.CreateDirectory("Downloads");
+                    Directory.CreateDirectory($@"{assemblyLocation}\Downloads");
                 }
                 // Download the file if it doesn't already exist
-                if (!File.Exists($"Downloads/{fileName}"))
+                if (!File.Exists($@"{assemblyLocation}\Downloads\{fileName}"))
                 {
                     progressBox = new UpdateProgressBox(cancellationToken);
                     progressBox.progressBar.Value = 0;
@@ -356,7 +364,7 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] Downloading {fileName}");
                     // Write and download the file
                     using (var fs = new FileStream(
-                        $"Downloads/{fileName}", System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
+                        $@"{assemblyLocation}\Downloads\{fileName}", System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
                     {
                         await client.DownloadAsync(uri, fs, fileName, progress, cancellationToken.Token);
                     }
@@ -396,14 +404,14 @@ namespace AemulusModManager
             try
             {
                 // Create the downloads folder if necessary
-                if (!Directory.Exists("Downloads"))
+                if (!Directory.Exists(@$"{assemblyLocation}\Downloads"))
                 {
-                    Directory.CreateDirectory("Downloads");
+                    Directory.CreateDirectory(@$"{assemblyLocation}\Downloads");
                 }
                 // Create the downloads folder if necessary
-                if (!Directory.Exists("Downloads/AemulusUpdate"))
+                if (!Directory.Exists(@$"{assemblyLocation}\Downloads\AemulusUpdate"))
                 {
-                    Directory.CreateDirectory("Downloads/AemulusUpdate");
+                    Directory.CreateDirectory(@$"{assemblyLocation}\Downloads\AemulusUpdate");
                 }
                 progressBox = new UpdateProgressBox(cancellationToken);
                 progressBox.progressBar.Value = 0;
@@ -415,22 +423,22 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Downloading {fileName}");
                 // Write and download the file
                 using (var fs = new FileStream(
-                    $"Downloads/AemulusUpdate/{fileName}", System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
+                    $@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await client.DownloadAsync(uri, fs, fileName, progress, cancellationToken.Token);
                 }
                 Console.WriteLine($"[INFO] Finished downloading {fileName}");
                 // Rename the file
-                if (!File.Exists($@"Downloads/AemulusUpdate/{version}.7z"))
+                if (!File.Exists($@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z"))
                 {
-                    File.Move($@"Downloads/AemulusUpdate/{fileName}", $@"Downloads/AemulusUpdate/{version}.7z");
+                    File.Move($@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", $@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z");
                 }
                 progressBox.Close();
             }
             catch (OperationCanceledException)
             {
                 // Remove the file is it will be a partially downloaded one and close up
-                File.Delete(@$"Downloads\AemulusUpdate\{fileName}");
+                File.Delete(@$"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -453,14 +461,14 @@ namespace AemulusModManager
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
-            startInfo.FileName = @"Dependencies\7z\7z.exe";
+            startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
             // Extract the file
-            startInfo.Arguments = $"x -y \"Downloads\\{fileName}\" -o\"Downloads\\{packageName}\"";
+            startInfo.Arguments = $"x -y \"{assemblyLocation}\\Downloads\\{fileName}\" -o\"{assemblyLocation}\\Downloads\\{packageName}\"";
             Console.WriteLine($"[INFO] Extracting {fileName}");
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
@@ -479,10 +487,10 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[ERROR] There was an error extracting {fileName}:\n{output}");
                     // Remove the download as it is likely corrupted
-                    File.Delete(@$"Downloads\{fileName}");
-                    if (Directory.Exists($@"Downloads\{packageName}"))
+                    File.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
+                    if (Directory.Exists($@"{assemblyLocation}\Downloads\{packageName}"))
                     {
-                        Directory.Delete($@"Downloads\{packageName}", true);
+                        Directory.Delete($@"{assemblyLocation}\Downloads\{packageName}", true);
                     }
                     Console.WriteLine(@$"[INFO] Cleaned up {packageName} download files");
                     return;
@@ -490,14 +498,14 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             // Find the root and move the extracted file to the correct package folder
-            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"Downloads\{packageName}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
-            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"Downloads\{packageName}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
+            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{packageName}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
+            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{packageName}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
             if (packageRoots.Length == 1)
             {
                 // Remove the old package directory
-                Directory.Delete($@"Packages\{game}\{oldPath}", true);
+                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{oldPath}", true);
                 Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{oldPath})");
-                Directory.Move(packageRoots[0], $@"Packages\{game}\{oldPath}");
+                Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{oldPath}");
                 Console.WriteLine($"[INFO] Successfully updated {packageName}");
                 // Display the changelog if it hasn't been displayed already and is wanted
                 if (main.updateChangelog && !main.updateConfirm && update != null)
@@ -519,9 +527,9 @@ namespace AemulusModManager
                     return;
                 }
                 // Remove the old package directory
-                Directory.Delete($@"Packages\{game}\{oldPath}", true);
+                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{oldPath}", true);
                 Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{oldPath})");
-                Directory.Move(folderBox.chosenFolder, $@"Packages\{game}\{oldPath}");
+                Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{oldPath}");
                 Console.WriteLine($"[INFO] Successfully updated {packageName}");
                 // Display the changelog if it hasn't been displayed already and is wanted
                 if (main.updateChangelog && !main.updateConfirm && update != null)
@@ -535,10 +543,10 @@ namespace AemulusModManager
             {
                 Console.WriteLine($"[ERROR] {fileName} does not contain a valid package (no Package.xml is present), ignoring it");
             }
-            File.Delete(@$"Downloads\{fileName}");
-            if (Directory.Exists($@"Downloads\{packageName}"))
+            File.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
+            if (Directory.Exists($@"{assemblyLocation}\Downloads\{packageName}"))
             {
-                Directory.Delete($@"Downloads\{packageName}", true);
+                Directory.Delete($@"{assemblyLocation}\Downloads\{packageName}", true);
             }
             Console.WriteLine(@$"[INFO] Cleaned up {packageName} download files");
         }
