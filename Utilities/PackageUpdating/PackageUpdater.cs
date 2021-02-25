@@ -581,6 +581,10 @@ namespace AemulusModManager
                 {
                     return true;
                 }
+                else if (int.Parse(onlineVersionParts[i]) != int.Parse(localVersionParts[i]))
+                {
+                    return false;
+                }
             }
             return false;
         }
