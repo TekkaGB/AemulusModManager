@@ -17,7 +17,7 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             IProgress<double>? progress = null, CancellationToken cancellationToken = default)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = false;
+            startInfo.CreateNoWindow = true;
             startInfo.FileName = @$"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
@@ -29,14 +29,12 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             Console.WriteLine($"[INFO] Extracting {sourceFilePath}");
 
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
 
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
                 process.Start();
-                Console.WriteLine(process.StandardOutput.ReadToEnd());
                 process.WaitForExit();
             }
             // TODO Check if it actually succeeded (by reading the command output I guess)

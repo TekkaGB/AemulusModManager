@@ -2058,7 +2058,6 @@ namespace AemulusModManager
                             path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(file)} ({index})";
                             index += 1;
                         }
-                        Console.WriteLine(path);
                         MoveDirectory(file, path);
                         dropped = true;
                     }

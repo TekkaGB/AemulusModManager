@@ -460,7 +460,7 @@ namespace AemulusModManager
         private void ExtractFile(string fileName, string game, string oldPath, string packageName, GameBananaItemUpdate update = null)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = false;
+            startInfo.CreateNoWindow = true;
             startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
