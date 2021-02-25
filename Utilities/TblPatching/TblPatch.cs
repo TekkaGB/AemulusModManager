@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace AemulusModManager
 {
@@ -29,7 +30,7 @@ namespace AemulusModManager
             PAKPackCMD($@"unpack ""{archive}"" ""{tblDir}""");
         }
 
-        private static string exePath = @"Dependencies\PAKPack\PAKPack.exe";
+        private static string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PAKPack\PAKPack.exe";
 
         // Use PAKPack command
         private static void PAKPackCMD(string args)
@@ -107,10 +108,10 @@ namespace AemulusModManager
             {
                 if (!File.Exists($@"{modDir}\{archive}"))
                 {
-                    if (File.Exists($@"Original\{game}\{archive}"))
+                    if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{archive}"))
                     {
                         Directory.CreateDirectory($@"{modDir}\{Path.GetDirectoryName(archive)}");
-                        File.Copy($@"Original\{game}\{archive}", $@"{modDir}\{archive}", true);
+                        File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{archive}", $@"{modDir}\{archive}", true);
                         Console.WriteLine($"[INFO] Copied over {archive} from Original directory.");
                     }
                     else
@@ -138,7 +139,7 @@ namespace AemulusModManager
                     continue;
                 }
                 // Apply original tblpatch files
-                foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tblpatch"))
+                foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tblpatch", SearchOption.AllDirectories))
                 {
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
@@ -333,13 +334,13 @@ namespace AemulusModManager
                         {
                             if (!File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
                             {
-                                if (File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}"))
+                                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{tblName}"))
                                 {
                                     Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
-                                    File.Copy($@"Original\{game}\BTL\BATTLE\{tblName}", $@"{modDir}\BTL\BATTLE\{tblName}", true);
+                                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{tblName}", $@"{modDir}\BTL\BATTLE\{tblName}", true);
                                     Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
                                 }
-                                else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{tblName}"))
+                                else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{tblName}"))
                                 {
                                     Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
                                     continue;
@@ -370,7 +371,7 @@ namespace AemulusModManager
 
                 List<Table> tables = new List<Table>();
                 // Apply new tbp json patching
-                foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tbp"))
+                foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tbp", SearchOption.AllDirectories))
                 {
                     TablePatches tablePatches = null;
                     try
@@ -411,10 +412,10 @@ namespace AemulusModManager
                                         if (File.Exists($@"Original\{game}\BTL\BATTLE\{patch.tbl}.TBL"))
                                         {
                                             Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
-                                            File.Copy($@"Original\{game}\BTL\BATTLE\{patch.tbl}.TBL", tablePath, true);
+                                            File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{patch.tbl}.TBL", tablePath, true);
                                             Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
                                         }
-                                        else if (!File.Exists($@"Original\{game}\BTL\BATTLE\{patch.tbl}.TBL"))
+                                        else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{patch.tbl}.TBL"))
                                         {
                                             Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
                                             continue;

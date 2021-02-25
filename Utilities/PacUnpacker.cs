@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -20,7 +25,7 @@ namespace AemulusModManager
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = @"Dependencies\7z\7z.exe";
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
                 Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
@@ -42,7 +47,7 @@ namespace AemulusModManager
                 process.Start();
                 process.WaitForExit();
             }
-            startInfo.Arguments = "x -y \"" + @"Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + @"Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL -r";
+            startInfo.Arguments = "x -y \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL -r";
             Console.WriteLine($"[INFO] Extracting base files from BTL.CVM");
             using (Process process = new Process())
             {
@@ -50,8 +55,8 @@ namespace AemulusModManager
                 process.Start();
                 process.WaitForExit();
             }
-            File.Delete(@"Original\Persona 3 FES\BTL.CVM");
-            startInfo.Arguments = "x -y \"" + @"Original\Persona 3 FES\DATA.CVM" + "\" -o\"" + @"Original\Persona 3 FES\DATA" + "\" *.BIN *.PAK *.PAC -r";
+            File.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM");
+            startInfo.Arguments = "x -y \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM" + "\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA" + "\" *.BIN *.PAK *.PAC -r";
             Console.WriteLine($"[INFO] Extracting base files from DATA.CVM");
             using (Process process = new Process())
             {
@@ -59,7 +64,7 @@ namespace AemulusModManager
                 process.Start();
                 process.WaitForExit();
             }
-            File.Delete(@"Original\Persona 3 FES\DATA.CVM");
+            File.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -100,7 +105,7 @@ namespace AemulusModManager
             }
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = @"Dependencies\Preappfile\preappfile.exe";
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\Preappfile\preappfile.exe";
             if (!File.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
@@ -119,7 +124,7 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Unpacking files for {pac}...");
                 foreach (var glob in globs)
                 {
-                    startInfo.Arguments = $@"-i ""{directory}\{pac}"" -o ""Original\Persona 4 Golden\{Path.GetFileNameWithoutExtension(pac)}"" --unpack-filter {glob}";
+                    startInfo.Arguments = $@"-i ""{directory}\{pac}"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{Path.GetFileNameWithoutExtension(pac)}"" --unpack-filter {glob}";
                     using (Process process = new Process())
                     {
                         process.StartInfo = startInfo;
@@ -134,15 +139,15 @@ namespace AemulusModManager
                 }
             }
 
-            if (File.Exists($@"{directory}\{cpk}") && !File.Exists($@"Original\Persona 4 Golden\{cpk}"))
+            if (File.Exists($@"{directory}\{cpk}") && !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpk}"))
             {
                 Console.WriteLine($@"[INFO] Backing up {cpk}");
-                File.Copy($@"{directory}\{cpk}", $@"Original\Persona 4 Golden\{cpk}", true);
+                File.Copy($@"{directory}\{cpk}", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpk}", true);
             }
-            if (File.Exists($@"{directory}\movie.cpk") && !File.Exists($@"Original\Persona 4 Golden\movie.cpk"))
+            if (File.Exists($@"{directory}\movie.cpk") && !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk"))
             {
                 Console.WriteLine($@"[INFO] Backing up movie.cpk");
-                File.Copy($@"{directory}\movie.cpk", $@"Original\Persona 4 Golden\movie.cpk", true);
+                File.Copy($@"{directory}\movie.cpk", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", true);
             }
 
             Console.WriteLine("[INFO] Finished unpacking base files!");
@@ -183,14 +188,25 @@ namespace AemulusModManager
                 }
             }
 
-            Directory.CreateDirectory(@"Original\Persona 5");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5");
 
-            string[] dataFiles = File.ReadAllLines(@"Dependencies\MakeCpk\filtered_data.csv");
-            string[] ps3Files = File.ReadAllLines(@"Dependencies\MakeCpk\filtered_ps3.csv");
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_data.csv") 
+                || !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps3.csv"))
+            {
+                Console.WriteLine($@"[ERROR] Couldn't find CSV files used for unpacking in Dependencies\MakeCpk");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+                return;
+            }
+
+            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_data.csv");
+            string[] ps3Files = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps3.csv");
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = @"Dependencies\MakeCpk\YACpkTool.exe";
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
             if (!File.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
@@ -210,7 +226,7 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Extracting data.cpk");
                 foreach (var file in dataFiles)
                 {
-                    startInfo.Arguments = $@"-X {file} -i ""{directory}\data.cpk"" -o ""Original\Persona 5""";
+                    startInfo.Arguments = $@"-X {file} -i ""{directory}\data.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5""";
 
                     using (Process process = new Process())
                     {
@@ -233,7 +249,7 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Extracting ps3.cpk");
                 foreach (var file in ps3Files)
                 {
-                    startInfo.Arguments = $@"-X {file} -i ""{directory}\ps3.cpk"" -o ""Original\Persona 5""";
+                    startInfo.Arguments = $@"-X {file} -i ""{directory}\ps3.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5""";
 
                     using (Process process = new Process())
                     {
