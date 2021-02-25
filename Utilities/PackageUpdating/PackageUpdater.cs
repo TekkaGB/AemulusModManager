@@ -66,7 +66,7 @@ namespace AemulusModManager
                     {
                         for (int i = 0; i < gameBananaRows.Length; i++)
                         {
-                            await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                            await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
                         }
                     }
                 }
@@ -329,7 +329,7 @@ namespace AemulusModManager
                 }
                 if (downloadUrl != null && fileName != null)
                 {
-                    await DownloadFile(downloadUrl, fileName, game, row.path, row.name, progress, cancellationToken);
+                    await DownloadFile(downloadUrl, fileName, game, row.path, row.name, progress, CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
                 }
                 else
                 {
