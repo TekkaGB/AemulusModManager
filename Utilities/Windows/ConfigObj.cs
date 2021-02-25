@@ -41,6 +41,7 @@ namespace AemulusModManager
         public bool buildFinished { get; set; } = true;
         public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
     }
 
     public class ConfigP3F
@@ -53,6 +54,7 @@ namespace AemulusModManager
         public bool buildFinished { get; set; } = true;
         public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
         public bool advancedLaunchOptions { get; set; }
         public bool deleteOldVersions { get; set; }
     }
@@ -66,6 +68,7 @@ namespace AemulusModManager
         public bool buildFinished { get; set; } = true;
         public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
     }
 

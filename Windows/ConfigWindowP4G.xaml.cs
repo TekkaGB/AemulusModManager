@@ -32,6 +32,7 @@ namespace AemulusModManager
             ConfirmUpdateBox.IsChecked = main.config.p4gConfig.updateConfirm;
             ChangelogBox.IsChecked = main.config.p4gConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p4gConfig.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p4gConfig.updateAll;
 
             switch (main.cpkLang)
             {
@@ -81,6 +82,20 @@ namespace AemulusModManager
         {
             main.useCpk = false;
             main.config.p4gConfig.useCpk = false;
+            main.updateConfig();
+        }
+
+        private void UpdateAllChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateAll = true;
+            main.config.p4gConfig.updateAll = true;
+            main.updateConfig();
+        }
+
+        private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateAll = false;
+            main.config.p4gConfig.updateAll = false;
             main.updateConfig();
         }
 

@@ -30,7 +30,7 @@ namespace AemulusModManager
             ConfirmUpdateBox.IsChecked = main.config.p5Config.updateConfirm;
             ChangelogBox.IsChecked = main.config.p5Config.updateChangelog;
             DeleteBox.IsChecked = main.config.p5Config.deleteOldVersions;
-
+            UpdateAllBox.IsChecked = main.config.p5Config.updateAll;
             Console.WriteLine("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
@@ -96,6 +96,19 @@ namespace AemulusModManager
             main.config.p5Config.updateChangelog = false;
             main.updateConfig();
         }
+        private void UpdateAllChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateAll = true;
+            main.config.p5Config.updateAll = true;
+            main.updateConfig();
+        }
+        private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateAll = false;
+            main.config.p5Config.updateAll = false;
+            main.updateConfig();
+        }
+
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;

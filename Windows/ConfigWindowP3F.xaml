@@ -45,8 +45,9 @@
             <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>
         </CheckBox>
         
-        <Grid Grid.Row="8" Grid.Column="2">
+        <Grid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -66,6 +67,14 @@
                     <TextBlock TextAlignment="Center">
                         Delete Old<LineBreak/>
                         Versions
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
+                <CheckBox Name="UpdateAllBox" Foreground ="White" Checked="UpdateAllChecked" Unchecked="UpdateAllUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Update All<LineBreak/>
+                        On Refresh
                     </TextBlock>
                 </CheckBox>
             </Viewbox>

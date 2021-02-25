@@ -34,6 +34,7 @@ namespace AemulusModManager
             ConfirmUpdateBox.IsChecked = main.config.p3fConfig.updateConfirm;
             ChangelogBox.IsChecked = main.config.p3fConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
             Console.WriteLine("[INFO] Config launched");
         }
 
@@ -99,6 +100,19 @@ namespace AemulusModManager
         {
             main.updateChangelog = false;
             main.config.p3fConfig.updateChangelog = false;
+            main.updateConfig();
+        }
+        private void UpdateAllChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateAll = true;
+            main.config.p3fConfig.updateAll = true;
+            main.updateConfig();
+        }
+
+        private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateAll = false;
+            main.config.p3fConfig.updateAll = false;
             main.updateConfig();
         }
         private void DeleteChecked(object sender, RoutedEventArgs e)

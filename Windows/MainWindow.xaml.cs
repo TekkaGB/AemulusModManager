@@ -42,6 +42,7 @@ namespace AemulusModManager
         public bool buildFinished;
         public bool updateConfirm;
         public bool updateChangelog;
+        public bool updateAll;
         public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
@@ -302,6 +303,7 @@ namespace AemulusModManager
                             buildFinished = config.p4gConfig.buildFinished;
                             updateConfirm = config.p4gConfig.updateConfirm;
                             updateChangelog = config.p4gConfig.updateChangelog;
+                            updateAll = config.p4gConfig.updateAll;
                             deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
@@ -316,6 +318,7 @@ namespace AemulusModManager
                             buildFinished = config.p3fConfig.buildFinished;
                             updateConfirm = config.p3fConfig.updateConfirm;
                             updateChangelog = config.p3fConfig.updateChangelog;
+                            updateAll = config.p3fConfig.updateAll;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -330,6 +333,7 @@ namespace AemulusModManager
                             buildFinished = config.p5Config.buildFinished;
                             updateConfirm = config.p5Config.updateConfirm;
                             updateChangelog = config.p5Config.updateChangelog;
+                            updateAll = config.p5Config.updateAll;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -1071,7 +1075,7 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
-            { 
+            {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack base files first.");
 
@@ -1685,6 +1689,7 @@ namespace AemulusModManager
                         buildFinished = config.p3fConfig.buildFinished;
                         updateConfirm = config.p3fConfig.updateConfirm;
                         updateChangelog = config.p3fConfig.updateChangelog;
+                        updateAll = config.p3fConfig.updateAll;
                         deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1706,6 +1711,7 @@ namespace AemulusModManager
                         buildFinished = config.p4gConfig.buildFinished;
                         updateConfirm = config.p4gConfig.updateConfirm;
                         updateChangelog = config.p4gConfig.updateChangelog;
+                        updateAll = config.p4gConfig.updateAll;
                         deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
@@ -1723,6 +1729,7 @@ namespace AemulusModManager
                         buildFinished = config.p5Config.buildFinished;
                         updateConfirm = config.p5Config.updateConfirm;
                         updateChangelog = config.p5Config.updateChangelog;
+                        updateAll = config.p5Config.updateAll;
                         deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -2232,15 +2239,18 @@ namespace AemulusModManager
                 return;
             }
             await UpdateAemulus();
-            updating = true;
-            cancellationToken = new CancellationTokenSource();
-            Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
-            DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
-            await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
-            updating = false;
-            Refresh();
-            updateConfig();
-            updatePackages();
+            if (updateAll)
+            {
+                updating = true;
+                cancellationToken = new CancellationTokenSource();
+                Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
+                DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
+                await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
+                updating = false;
+                Refresh();
+                updateConfig();
+                updatePackages();
+            }
         }
 
         private async Task UpdateAemulus()
