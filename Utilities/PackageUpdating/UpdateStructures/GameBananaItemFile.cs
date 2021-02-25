@@ -1,7 +1,8 @@
 ﻿using AemulusModManager.Utilities.PackageUpdating;
-using AemulusModManager.Utilities.PackageUpdating.UpdateStructures;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace AemulusModManager
 {
@@ -25,7 +26,8 @@ namespace AemulusModManager
         public long DateAddedLong { get; set; }
 
         [JsonProperty("_aMetadata")]
-        public GameBananaItemFileMetadata FileMetadata { get; set; }
+        [JsonExtensionData]
+        public IDictionary<string, JToken> FileMetadata { get; set; }
 
         [JsonIgnore]
         public DateTime DateAdded => Epoch.AddSeconds(DateAddedLong);
