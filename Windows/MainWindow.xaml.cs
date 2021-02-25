@@ -892,7 +892,7 @@ namespace AemulusModManager
                             Application.Current.Dispatcher.Invoke(() =>
                             {
                                 NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
-                                $"This mod has been installed incorrectly. Please check that the packages has data_x, data0000x, snd or patches in the root " +
+                                $"This mod has been installed incorrectly.\nPlease check that the packages have data_x, data0000x, snd and/or patches folders in the root " +
                                 $"before building.");
                                 notificationBox.ShowDialog();
                                 Activate();
