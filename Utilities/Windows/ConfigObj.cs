@@ -37,10 +37,10 @@ namespace AemulusModManager
         public bool useCpk { get; set; }
         public string cpkLang { get; set; }
         public bool deleteOldVersions { get; set; }
-        public bool buildWarning { get; set; }
-        public bool buildFinished { get; set; }
-        public bool updateConfirm { get; set; }
-        public bool updateChangelog { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
     }
 
     public class ConfigP3F
@@ -49,10 +49,10 @@ namespace AemulusModManager
         public string isoPath { get; set; }
         public string elfPath { get; set; }
         public string launcherPath { get; set; }
-        public bool buildWarning { get; set; }
-        public bool buildFinished { get; set; }
-        public bool updateConfirm { get; set; }
-        public bool updateChangelog { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
         public bool advancedLaunchOptions { get; set; }
         public bool deleteOldVersions { get; set; }
     }
@@ -62,10 +62,10 @@ namespace AemulusModManager
         public string modDir { get; set; }
         public string gamePath { get; set; }
         public string launcherPath { get; set; }
-        public bool buildWarning { get; set; }
-        public bool buildFinished { get; set; }
-        public bool updateConfirm { get; set; }
-        public bool updateChangelog { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
         public bool deleteOldVersions { get; set; }
     }
 
