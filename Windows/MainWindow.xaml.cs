@@ -819,6 +819,26 @@ namespace AemulusModManager
                 // Create Package.xml
                 else
                 {
+                    if(game == "Persona 4 Golden")
+                    {
+                        NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
+                            $"This mod is either old or has been installed incorrectly. Please check that the packages has data_x, data0000x, snd or patches in the root " +
+                            $"as a minimum to function correctly once built.");
+                        notificationBox.Activate();
+                        notificationBox.ShowDialog();
+                        // Open the location of the bad package
+                        try
+                        {
+                            ProcessStartInfo StartInformation = new ProcessStartInfo();
+                            StartInformation.FileName = package;
+                            Process process = Process.Start(StartInformation);
+                            Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
+                        }
+                    }
                     Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                     // Create metadata
                     Metadata newMetadata = new Metadata();
