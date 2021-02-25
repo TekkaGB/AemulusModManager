@@ -40,7 +40,6 @@ namespace AemulusModManager
         public bool useCpk;
         public bool buildWarning;
         public bool buildFinished;
-        public bool updateConfirm;
         public bool updateChangelog;
         public bool updateAll;
         public bool deleteOldVersions;
@@ -302,7 +301,6 @@ namespace AemulusModManager
                             useCpk = config.p4gConfig.useCpk;
                             buildWarning = config.p4gConfig.buildWarning;
                             buildFinished = config.p4gConfig.buildFinished;
-                            updateConfirm = config.p4gConfig.updateConfirm;
                             updateChangelog = config.p4gConfig.updateChangelog;
                             updateAll = config.p4gConfig.updateAll;
                             deleteOldVersions = config.p4gConfig.deleteOldVersions;
@@ -317,7 +315,6 @@ namespace AemulusModManager
                             launcherPath = config.p3fConfig.launcherPath;
                             buildWarning = config.p3fConfig.buildWarning;
                             buildFinished = config.p3fConfig.buildFinished;
-                            updateConfirm = config.p3fConfig.updateConfirm;
                             updateChangelog = config.p3fConfig.updateChangelog;
                             updateAll = config.p3fConfig.updateAll;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
@@ -332,7 +329,6 @@ namespace AemulusModManager
                             launcherPath = config.p5Config.launcherPath;
                             buildWarning = config.p5Config.buildWarning;
                             buildFinished = config.p5Config.buildFinished;
-                            updateConfirm = config.p5Config.updateConfirm;
                             updateChangelog = config.p5Config.updateChangelog;
                             updateAll = config.p5Config.updateAll;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
@@ -1722,7 +1718,6 @@ namespace AemulusModManager
                         launcherPath = config.p3fConfig.launcherPath;
                         buildWarning = config.p3fConfig.buildWarning;
                         buildFinished = config.p3fConfig.buildFinished;
-                        updateConfirm = config.p3fConfig.updateConfirm;
                         updateChangelog = config.p3fConfig.updateChangelog;
                         updateAll = config.p3fConfig.updateAll;
                         deleteOldVersions = config.p3fConfig.deleteOldVersions;
@@ -1744,7 +1739,6 @@ namespace AemulusModManager
                         useCpk = config.p4gConfig.useCpk;
                         buildWarning = config.p4gConfig.buildWarning;
                         buildFinished = config.p4gConfig.buildFinished;
-                        updateConfirm = config.p4gConfig.updateConfirm;
                         updateChangelog = config.p4gConfig.updateChangelog;
                         updateAll = config.p4gConfig.updateAll;
                         deleteOldVersions = config.p4gConfig.deleteOldVersions;
@@ -1762,7 +1756,6 @@ namespace AemulusModManager
                         launcherPath = config.p5Config.launcherPath;
                         buildWarning = config.p5Config.buildWarning;
                         buildFinished = config.p5Config.buildFinished;
-                        updateConfirm = config.p5Config.updateConfirm;
                         updateChangelog = config.p5Config.updateChangelog;
                         updateAll = config.p5Config.updateAll;
                         deleteOldVersions = config.p5Config.deleteOldVersions;

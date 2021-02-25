@@ -109,21 +109,20 @@ namespace AemulusModManager
                     GameBananaItemUpdate[] updates = response.Updates;
                     string updateTitle = updates[0].Title;
                     int updateIndex = 0;
-                    Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                    Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                     string onlineVersion = null;
                     if (onlineVersionMatch.Success)
                     {
-                        onlineVersion = onlineVersionMatch.Value;
+                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
                     }
                     // GB Api only returns two latest updates, so if the first doesn't have a version try the second
                     else if (updates.Length > 1)
                     {
                         updateTitle = updates[1].Title;
-                        onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
-                        updateIndex = 1;
+                        onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                         if (onlineVersionMatch.Success)
                         {
-                            onlineVersion = onlineVersionMatch.Value;
+                            onlineVersion = onlineVersionMatch.Groups["version"].Value;
                         }
                     }
                     if (UpdateAvailable(onlineVersion, aemulusVersion))
@@ -199,37 +198,34 @@ namespace AemulusModManager
                 GameBananaItemUpdate[] updates = item.Updates;
                 string updateTitle = updates[0].Title;
                 int updateIndex = 0;
-                Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                 string onlineVersion = null;
                 if (onlineVersionMatch.Success)
                 {
-                    onlineVersion = onlineVersionMatch.Value;
+                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
                 }
                 // GB Api only returns two latest updates, so if the first doesn't have a version try the second
                 else if (updates.Length > 1)
                 {
                     updateTitle = updates[1].Title;
-                    onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                    onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                     updateIndex = 1;
                     if (onlineVersionMatch.Success)
                     {
-                        onlineVersion = onlineVersionMatch.Value;
+                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
                     }
                 }
                 if (UpdateAvailable(onlineVersion, row.version))
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
-                    if (main.updateConfirm)
+                    ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
+                    changelogBox.Activate();
+                    changelogBox.ShowDialog();
+                    if (!changelogBox.YesNo)
                     {
-                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
-                        changelogBox.Activate();
-                        changelogBox.ShowDialog();
-                        if (!changelogBox.YesNo)
-                        {
-                            Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                            return;
-                        }
+                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                        return;
                     }
 
                     // Download the update
@@ -508,7 +504,7 @@ namespace AemulusModManager
                 Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{oldPath}");
                 Console.WriteLine($"[INFO] Successfully updated {packageName}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && !main.updateConfirm && update != null)
+                if (main.updateChangelog && update != null)
                 {
                     ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
                     changelogBox.Activate();
@@ -532,7 +528,7 @@ namespace AemulusModManager
                 Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{oldPath}");
                 Console.WriteLine($"[INFO] Successfully updated {packageName}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && !main.updateConfirm && update != null)
+                if (main.updateChangelog && update != null)
                 {
                     ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
                     changelogBox.Activate();

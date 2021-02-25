@@ -31,7 +31,6 @@ namespace AemulusModManager
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
             BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
-            ConfirmUpdateBox.IsChecked = main.config.p3fConfig.updateConfirm;
             ChangelogBox.IsChecked = main.config.p3fConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
@@ -76,18 +75,6 @@ namespace AemulusModManager
         {
             main.buildFinished = false;
             main.config.p3fConfig.buildFinished = false;
-            main.updateConfig();
-        }
-        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
-        {
-            main.updateConfirm = true;
-            main.config.p3fConfig.updateConfirm = true;
-            main.updateConfig();
-        }
-        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
-        {
-            main.updateConfirm = false;
-            main.config.p3fConfig.updateConfirm = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
