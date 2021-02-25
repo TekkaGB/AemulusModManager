@@ -2,41 +2,38 @@
 using System;
 using System.Media;
 using System.Windows;
-using System.Windows.Shell;
 
-namespace AemulusModManager
+namespace AemulusModManager.Windows
 {
     /// <summary>
-    /// Interaction logic for NotificationBox.xaml
+    /// Interaction logic for ChangelogBox.xaml
     /// </summary>
-    public partial class NotificationBox : Window
+    public partial class ChangelogBox : Window
     {
         public bool YesNo = false;
-        public NotificationBox(string message, bool OK = true)
+        public ChangelogBox(GameBananaItemUpdate update, string packageName, string text, bool OK = true)
         {
             InitializeComponent();
-            Notification.Text = message;
+            ChangesGrid.ItemsSource = update.Changes;
+            Title = $"{packageName} Changelog";
+            VersionLabel.Content = update.Title;
+            Text.Text = text;
             if (OK)
             {
                 OkButton.Visibility = Visibility.Visible;
-                PlayNotificationSound();
-                taskBarItem.ProgressState = TaskbarItemProgressState.Indeterminate;
             }
             else
             {
                 YesButton.Visibility = Visibility.Visible;
                 NoButton.Visibility = Visibility.Visible;
-                PlayNotificationSound();
             }
-            if (message.Length > 40)
-                Notification.TextAlignment = TextAlignment.Left;
+            PlayNotificationSound();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
         private void Yes_Button_Click(object sender, RoutedEventArgs e)
         {
             YesNo = true;

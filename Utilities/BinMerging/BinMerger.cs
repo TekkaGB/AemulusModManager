@@ -5,11 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace AemulusModManager
 {
@@ -140,7 +136,7 @@ namespace AemulusModManager
                 }
 
                 // Run prebuild.bat
-                if (File.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0 )
+                if (File.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0)
                 {
                     Console.WriteLine($@"[INFO] Running {mod}\prebuild.bat...");
 

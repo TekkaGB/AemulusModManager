@@ -1,0 +1,18 @@
+﻿<Window x:Class="AemulusModManager.Windows.UpdateProgressBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager.Windows"
+        mc:Ignorable="d"
+        Title="Aemulus Package Manager" Height="175" Width="500"
+        ResizeMode="NoResize"
+        Background="#121212" ShowActivated="True" Closing="Window_Closing">
+    <Grid>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="300" ValueChanged="ProgressBar_ValueChanged"/>
+        <TextBlock x:Name="progressText" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="" VerticalAlignment="Center" Margin="0,90,0,0" FontSize="15"/>
+    </Grid>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo x:Name="taskBarItem" ProgressState="Normal"/>
+    </Window.TaskbarItemInfo>
+</Window>

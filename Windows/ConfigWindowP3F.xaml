@@ -45,26 +45,36 @@
             <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>
         </CheckBox>
         
-        <Grid Grid.Row="8" Grid.Column="2">
+        <Grid Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="0" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="1">
-                <CheckBox Name="NotifBox" Foreground ="White" Checked="NotifChecked" Unchecked="NotifUnchecked">
-                    <TextBlock TextAlignment="Center">
-                        Disable<LineBreak/>
-                        Notification
-                    </TextBlock>
-                </CheckBox>
+                <ComboBox x:Name="NotifBox" Width="120" FontSize="15" Text="Notifications" SelectedIndex="0" SelectionChanged="NotifBox_SelectionChanged">
+                    <ComboBoxItem Visibility="Collapsed">Notifications</ComboBoxItem>
+                    <CheckBox x:Name="BuildWarningBox" Content="Build Warning" Checked="BuildWarningChecked" Unchecked="BuildWarningUnchecked"/>
+                    <CheckBox x:Name="BuildFinishedBox" Content="Build Finished" Checked="BuildFinishedChecked" Unchecked="BuildFinishedUnchecked"/>
+                    <CheckBox x:Name="ConfirmUpdateBox" Content="Confirm Update" Checked="ConfirmUpdateChecked" Unchecked="ConfirmUpdateUnchecked"/>
+                    <CheckBox x:Name="ChangelogBox" Content="Update Changelog" Checked="ChangelogChecked" Unchecked="ChangelogUnchecked"/>
+                </ComboBox>
             </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
                 <CheckBox Name="DeleteBox" Foreground ="White" Checked="DeleteChecked" Unchecked="DeleteUnchecked">
                     <TextBlock TextAlignment="Center">
                         Delete Old<LineBreak/>
                         Versions
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
+                <CheckBox Name="UpdateAllBox" Foreground ="White" Checked="UpdateAllChecked" Unchecked="UpdateAllUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Update All<LineBreak/>
+                        On Refresh
                     </TextBlock>
                 </CheckBox>
             </Viewbox>

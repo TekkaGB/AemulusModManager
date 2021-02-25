@@ -1,5 +1,4 @@
-﻿using GongSolutions.Wpf.DragDrop;
-using GongSolutions.Wpf.DragDrop.Utilities;
+﻿using GongSolutions.Wpf.DragDrop.Utilities;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,7 +38,11 @@ namespace AemulusModManager
         private ObservableCollection<DisplayedMetadata> DisplayedPackages;
         public bool emptySND;
         public bool useCpk;
-        public bool messageBox;
+        public bool buildWarning;
+        public bool buildFinished;
+        public bool updateConfirm;
+        public bool updateChangelog;
+        public bool updateAll;
         public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
@@ -48,6 +52,10 @@ namespace AemulusModManager
         public string cpkLang;
         private BitmapImage bitmap;
         public List<FontAwesome5.ImageAwesome> buttons;
+        private PackageUpdater packageUpdater;
+        private string aemulusVersion;
+        private bool updating = false;
+        private CancellationTokenSource cancellationToken;
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
@@ -166,7 +174,11 @@ namespace AemulusModManager
             outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
             Console.SetOut(outputter);
 
-            Console.WriteLine($"[INFO] Launched Aemulus v2.5.0!");
+            // Set Aemulus Version
+            aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+            Title = $"Aemulus Package Manager v{aemulusVersion}";
+
+            Console.WriteLine($"[INFO] Launched Aemulus v{aemulusVersion}!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -193,6 +205,9 @@ namespace AemulusModManager
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
 
+            // Initialise package updater
+            packageUpdater = new PackageUpdater(this);
+
             // Retrieve initial thumbnail from embedded resource
             Assembly asm = Assembly.GetExecutingAssembly();
             Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
@@ -202,7 +217,7 @@ namespace AemulusModManager
             bitmap.EndInit();
             Preview.Source = bitmap;
 
-            
+
             // Initialize config
             config = new AemulusConfig();
             p5Config = new ConfigP5();
@@ -240,7 +255,6 @@ namespace AemulusModManager
                     using (FileStream streamWriter = File.Open(file, FileMode.Open))
                     {
                         // Call the Deserialize method and cast to the object type.
-                        
                         if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
                         {
                             Config oldConfig = (Config)oldConfigSerializer.Deserialize(streamWriter);
@@ -263,7 +277,7 @@ namespace AemulusModManager
                         }
 
                         bottomUpPriority = config.bottomUpPriority;
-                        
+
                         if (config.p3fConfig != null)
                             p3fConfig = config.p3fConfig;
                         if (config.p4gConfig != null)
@@ -285,7 +299,11 @@ namespace AemulusModManager
                             emptySND = config.p4gConfig.emptySND;
                             cpkLang = config.p4gConfig.cpkLang;
                             useCpk = config.p4gConfig.useCpk;
-                            messageBox = config.p4gConfig.disableMessageBox;
+                            buildWarning = config.p4gConfig.buildWarning;
+                            buildFinished = config.p4gConfig.buildFinished;
+                            updateConfirm = config.p4gConfig.updateConfirm;
+                            updateChangelog = config.p4gConfig.updateChangelog;
+                            updateAll = config.p4gConfig.updateAll;
                             deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
@@ -296,7 +314,11 @@ namespace AemulusModManager
                             gamePath = config.p3fConfig.isoPath;
                             elfPath = config.p3fConfig.elfPath;
                             launcherPath = config.p3fConfig.launcherPath;
-                            messageBox = config.p3fConfig.disableMessageBox;
+                            buildWarning = config.p3fConfig.buildWarning;
+                            buildFinished = config.p3fConfig.buildFinished;
+                            updateConfirm = config.p3fConfig.updateConfirm;
+                            updateChangelog = config.p3fConfig.updateChangelog;
+                            updateAll = config.p3fConfig.updateAll;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -307,7 +329,11 @@ namespace AemulusModManager
                             modPath = config.p5Config.modDir;
                             gamePath = config.p5Config.gamePath;
                             launcherPath = config.p5Config.launcherPath;
-                            messageBox = config.p5Config.disableMessageBox;
+                            buildWarning = config.p5Config.buildWarning;
+                            buildFinished = config.p5Config.buildFinished;
+                            updateConfirm = config.p5Config.updateConfirm;
+                            updateChangelog = config.p5Config.updateChangelog;
+                            updateAll = config.p5Config.updateAll;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -352,13 +378,13 @@ namespace AemulusModManager
                     }
                 }
 
-                
+
                 if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                 {
                     Console.WriteLine($@"[INFO] Creating Packages\{game}");
                     Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}");
                 }
-                
+
                 // Create displayed metadata from packages in PackageList and their respective Package.xml's
                 foreach (var package in PackageList)
                 {
@@ -401,7 +427,7 @@ namespace AemulusModManager
                     DisplayedPackages.Add(dm);
                 }
                 ModGrid.ItemsSource = DisplayedPackages;
-                
+
             }
             else // No config found
             {
@@ -452,7 +478,7 @@ namespace AemulusModManager
             }
 
             LaunchButton.ToolTip = $"Launch {game}";
-
+            UpdateAllAsync();
         }
 
         public Task pacUnpack(string directory)
@@ -465,7 +491,7 @@ namespace AemulusModManager
                     PacUnpacker.Unzip(directory);
                 else if (game == "Persona 5")
                     PacUnpacker.UnpackCPK(directory);
-                
+
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     foreach (var button in buttons)
@@ -480,7 +506,7 @@ namespace AemulusModManager
                     }
                     ModGrid.IsHitTestVisible = true;
                     GameBox.IsHitTestVisible = true;
-                    if (!fromMain && !messageBox)
+                    if (!fromMain && buildFinished)
                     {
                         NotificationBox notification = new NotificationBox("Finished Unpacking!");
                         notification.ShowDialog();
@@ -793,13 +819,33 @@ namespace AemulusModManager
                 // Create Package.xml
                 else
                 {
+                    if(game == "Persona 4 Golden")
+                    {
+                        NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
+                            $"This mod is either old or has been installed incorrectly. Please check that the packages has data_x, data0000x, snd or patches in the root " +
+                            $"as a minimum to function correctly once built.");
+                        notificationBox.Activate();
+                        notificationBox.ShowDialog();
+                        // Open the location of the bad package
+                        try
+                        {
+                            ProcessStartInfo StartInformation = new ProcessStartInfo();
+                            StartInformation.FileName = package;
+                            Process process = Process.Start(StartInformation);
+                            Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
+                        }
+                    }
                     Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                     // Create metadata
                     Metadata newMetadata = new Metadata();
                     newMetadata.name = Path.GetFileName(package);
                     newMetadata.id = newMetadata.name.Replace(" ", "").ToLower();
 
-                    
+
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
                     List<string> dirFolders = Directory.GetDirectories(package, "*", System.IO.SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
@@ -953,7 +999,7 @@ namespace AemulusModManager
                         }
                     }
             }
-            
+
         }
 
         private void RefreshClick(object sender, RoutedEventArgs e)
@@ -961,6 +1007,7 @@ namespace AemulusModManager
             Refresh();
             updateConfig();
             updatePackages();
+            UpdateAllAsync();
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -1048,7 +1095,7 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
-            { 
+            {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack base files first.");
 
@@ -1205,7 +1252,7 @@ namespace AemulusModManager
                     }
 
 
-                    if (!messageBox)
+                    if (buildWarning)
                     {
                         bool YesNo = false;
                         Application.Current.Dispatcher.Invoke(() =>
@@ -1228,7 +1275,7 @@ namespace AemulusModManager
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
-                        if (!messageBox)
+                        if (buildWarning)
                         {
                             NotificationBox notification = new NotificationBox("Finished emptying output folder!");
                             notification.ShowDialog();
@@ -1246,7 +1293,7 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                     }
 
-                    if (!messageBox && Directory.EnumerateFileSystemEntries(path).Any())
+                    if (buildWarning && Directory.EnumerateFileSystemEntries(path).Any())
                     {
                         bool YesNo = false;
                         Application.Current.Dispatcher.Invoke(() =>
@@ -1294,7 +1341,7 @@ namespace AemulusModManager
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
-                        if (!messageBox)
+                        if (buildFinished)
                         {
                             NotificationBox notification = new NotificationBox("Finished Building!");
                             notification.ShowDialog();
@@ -1376,6 +1423,12 @@ namespace AemulusModManager
                         ConvertCPK.IsEnabled = true;
                     }
                 }
+
+                // Enable/disable check for updates
+                UpdateItem.IsEnabled = false;
+                if (RowUpdatable(row) && !updating)
+                    UpdateItem.IsEnabled = true;
+                // TODO Fix menu not updating if you right click a not selected item
 
                 // Set image
                 string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
@@ -1606,7 +1659,7 @@ namespace AemulusModManager
                     process.Start();
                     process.WaitForExit();
                 }
-                        
+
             });
         }
 
@@ -1652,7 +1705,11 @@ namespace AemulusModManager
                         gamePath = config.p3fConfig.isoPath;
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
-                        messageBox = config.p3fConfig.disableMessageBox;
+                        buildWarning = config.p3fConfig.buildWarning;
+                        buildFinished = config.p3fConfig.buildFinished;
+                        updateConfirm = config.p3fConfig.updateConfirm;
+                        updateChangelog = config.p3fConfig.updateChangelog;
+                        updateAll = config.p3fConfig.updateAll;
                         deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1670,7 +1727,11 @@ namespace AemulusModManager
                         emptySND = config.p4gConfig.emptySND;
                         cpkLang = config.p4gConfig.cpkLang;
                         useCpk = config.p4gConfig.useCpk;
-                        messageBox = config.p4gConfig.disableMessageBox;
+                        buildWarning = config.p4gConfig.buildWarning;
+                        buildFinished = config.p4gConfig.buildFinished;
+                        updateConfirm = config.p4gConfig.updateConfirm;
+                        updateChangelog = config.p4gConfig.updateChangelog;
+                        updateAll = config.p4gConfig.updateAll;
                         deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
@@ -1684,7 +1745,11 @@ namespace AemulusModManager
                         modPath = config.p5Config.modDir;
                         gamePath = config.p5Config.gamePath;
                         launcherPath = config.p5Config.launcherPath;
-                        messageBox = config.p5Config.disableMessageBox;
+                        buildWarning = config.p5Config.buildWarning;
+                        buildFinished = config.p5Config.buildFinished;
+                        updateConfirm = config.p5Config.updateConfirm;
+                        updateChangelog = config.p5Config.updateChangelog;
+                        updateAll = config.p5Config.updateAll;
                         deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1803,7 +1868,7 @@ namespace AemulusModManager
                     "the package has no description.)");
             }
 
-            
+
         }
 
         private void Kofi_Click(object sender, MouseButtonEventArgs e)
@@ -1821,6 +1886,21 @@ namespace AemulusModManager
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (updating)
+            {
+                NotificationBox notification = new NotificationBox("There are currently running updates\nAre you sure you want to exit?", false);
+                notification.ShowDialog();
+                notification.Activate();
+                if (!notification.YesNo)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    cancellationToken.Cancel();
+                }
+            }
             outputter.Close();
         }
 
@@ -1853,7 +1933,7 @@ namespace AemulusModManager
             {
                 TopPriority.Text = "Lower Priority";
             }
-            
+
             config.bottomUpPriority = bottomUpPriority;
             updateConfig();
             for (int i = 0; i < DisplayedPackages.Count; i++)
@@ -2116,7 +2196,7 @@ namespace AemulusModManager
 
                 await ExtractPackages(fileList);
 
-                
+
                 ModGrid.IsHitTestVisible = true;
                 foreach (var button in buttons)
                 {
@@ -2150,6 +2230,69 @@ namespace AemulusModManager
                 element.ContextMenu.Visibility = Visibility.Collapsed;
             else
                 element.ContextMenu.Visibility = Visibility.Visible;
+        }
+
+        private void UpdateItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
+            UpdateItemAsync(row);
+        }
+
+        private async Task UpdateItemAsync(DisplayedMetadata row)
+        {
+            cancellationToken = new CancellationTokenSource();
+            updating = true;
+            Console.WriteLine($"[INFO] Checking for updates for {row.name}");
+            await packageUpdater.CheckForUpdate(new DisplayedMetadata[] { row }, game, cancellationToken);
+            updating = false;
+            Refresh();
+            updateConfig();
+            updatePackages();
+        }
+
+        private async Task UpdateAllAsync()
+        {
+
+            if (updating)
+            {
+                Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
+                return;
+            }
+            await UpdateAemulus();
+            if (updateAll)
+            {
+                updating = true;
+                cancellationToken = new CancellationTokenSource();
+                Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
+                DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
+                await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
+                updating = false;
+                Refresh();
+                updateConfig();
+                updatePackages();
+            }
+        }
+
+        private async Task UpdateAemulus()
+        {
+            updating = true;
+            cancellationToken = new CancellationTokenSource();
+            Console.WriteLine($"[INFO] Checking for updates for Aemulus");
+            if (await packageUpdater.CheckForAemulusUpdate(aemulusVersion, cancellationToken))
+            {
+                updating = false;
+                // Restart the application
+                Close();
+            }
+            updating = false;
+        }
+
+        private bool RowUpdatable(DisplayedMetadata row)
+        {
+            if (row.link == "")
+                return false;
+            string host = UrlConverter.Convert(row.link);
+            return (host == "GameBanana" || host == "GitHub") && row.version != "";
         }
     }
 }

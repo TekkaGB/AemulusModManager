@@ -1,8 +1,6 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -45,8 +43,8 @@ namespace AemulusModManager
             else
                 CreateButton.IsEnabled = false;
             // Change bool back to false if they deleted both changed entries
-            if (NameBox.Text.Length == 0 
-                && AuthorBox.Text.Length == 0 
+            if (NameBox.Text.Length == 0
+                && AuthorBox.Text.Length == 0
                 && IDBox.Text.Length == 0)
                 edited = false;
             if (!edited && !editing)

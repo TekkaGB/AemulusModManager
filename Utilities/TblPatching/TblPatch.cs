@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AemulusModManager.Utilities.TblPatching;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Diagnostics;
-using AemulusModManager.Utilities.TblPatching;
-using Newtonsoft.Json;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Reflection;
 
@@ -22,7 +22,7 @@ namespace AemulusModManager
             Array.Copy(source, start, dest, 0, length);
             return dest;
         }
-        
+
         private static void unpackTbls(string archive, string game)
         {
             if (game == "Persona 3 FES")
@@ -120,7 +120,7 @@ namespace AemulusModManager
                         return;
                     }
                 }
-            
+
                 tblDir = $@"{modDir}\{Path.ChangeExtension(archive, null)}_tbls";
                 // Unpack archive
                 Console.WriteLine($"[INFO] Unpacking TBLs from {archive}...");
@@ -295,7 +295,7 @@ namespace AemulusModManager
                             continue;
                     }
 
-                    
+
 
                     // Keep track of which TBL's were edited
                     if (!editedTables.Contains(tblName))
@@ -368,7 +368,7 @@ namespace AemulusModManager
                         }
                     }
                 }
-                
+
                 List<Table> tables = new List<Table>();
                 // Apply new tbp json patching
                 foreach (var t in Directory.GetFiles($@"{dir}\tblpatches", "*.tbp", SearchOption.AllDirectories))
@@ -459,9 +459,9 @@ namespace AemulusModManager
                 }
 
                 Console.WriteLine($"[INFO] Applied patches from {dir}");
-                
+
             }
-            
+
             if (game != "Persona 3 FES")
             {
                 // Replace each edited TBL's
