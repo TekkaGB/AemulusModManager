@@ -109,21 +109,21 @@ namespace AemulusModManager
                     GameBananaItemUpdate[] updates = response.Updates;
                     string updateTitle = updates[0].Title;
                     int updateIndex = 0;
-                    Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                    Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                     string onlineVersion = null;
                     if (onlineVersionMatch.Success)
                     {
-                        onlineVersion = onlineVersionMatch.Value;
+                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
                     }
                     // GB Api only returns two latest updates, so if the first doesn't have a version try the second
                     else if (updates.Length > 1)
                     {
                         updateTitle = updates[1].Title;
-                        onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                        onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                         updateIndex = 1;
                         if (onlineVersionMatch.Success)
                         {
-                            onlineVersion = onlineVersionMatch.Value;
+                            onlineVersion = onlineVersionMatch.Groups["version"].Value;
                         }
                     }
                     if (UpdateAvailable(onlineVersion, aemulusVersion))
@@ -199,21 +199,21 @@ namespace AemulusModManager
                 GameBananaItemUpdate[] updates = item.Updates;
                 string updateTitle = updates[0].Title;
                 int updateIndex = 0;
-                Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                 string onlineVersion = null;
                 if (onlineVersionMatch.Success)
                 {
-                    onlineVersion = onlineVersionMatch.Value;
+                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
                 }
                 // GB Api only returns two latest updates, so if the first doesn't have a version try the second
                 else if (updates.Length > 1)
                 {
                     updateTitle = updates[1].Title;
-                    onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([1-9]+\.?)+)[^a-zA-Z]");
+                    onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                     updateIndex = 1;
                     if (onlineVersionMatch.Success)
                     {
-                        onlineVersion = onlineVersionMatch.Value;
+                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
                     }
                 }
                 if (UpdateAvailable(onlineVersion, row.version))
