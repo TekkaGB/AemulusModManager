@@ -1894,7 +1894,10 @@ namespace AemulusModManager
         private void Setup_Click(object sender, MouseButtonEventArgs e)
         {
             if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus_Setup.pdf"))
+            {
+                Console.WriteLine($"[INFO] Opening Setup Guide (Note: Guide needs to be updated to include features added in 3.0.0)");
                 Process.Start($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus_Setup.pdf");
+            }
             else
                 Console.WriteLine("[ERROR] Aemulus_Setup.pdf not found.");
         }
