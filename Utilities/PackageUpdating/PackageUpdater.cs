@@ -120,6 +120,7 @@ namespace AemulusModManager
                     {
                         updateTitle = updates[1].Title;
                         onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                        updateIndex = 1;
                         if (onlineVersionMatch.Success)
                         {
                             onlineVersion = onlineVersionMatch.Groups["version"].Value;
@@ -219,13 +220,16 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
-                    ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
-                    changelogBox.Activate();
-                    changelogBox.ShowDialog();
-                    if (!changelogBox.YesNo)
+                    if (main.updateConfirm)
                     {
-                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                        return;
+                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
+                        changelogBox.Activate();
+                        changelogBox.ShowDialog();
+                        if (!changelogBox.YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                            return;
+                        }
                     }
 
                     // Download the update
@@ -456,7 +460,7 @@ namespace AemulusModManager
         private void ExtractFile(string fileName, string game, string oldPath, string packageName, GameBananaItemUpdate update = null)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = true;
+            startInfo.CreateNoWindow = false;
             startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
@@ -504,7 +508,7 @@ namespace AemulusModManager
                 Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{oldPath}");
                 Console.WriteLine($"[INFO] Successfully updated {packageName}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && update != null)
+                if (main.updateChangelog && !main.updateConfirm && update != null)
                 {
                     ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
                     changelogBox.Activate();
@@ -528,7 +532,7 @@ namespace AemulusModManager
                 Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{oldPath}");
                 Console.WriteLine($"[INFO] Successfully updated {packageName}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && update != null)
+                if (main.updateChangelog && !main.updateConfirm && update != null)
                 {
                     ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
                     changelogBox.Activate();

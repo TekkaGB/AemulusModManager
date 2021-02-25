@@ -29,6 +29,7 @@ namespace AemulusModManager
             CpkBox.IsChecked = main.useCpk;
             BuildFinishedBox.IsChecked = main.config.p4gConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p4gConfig.buildWarning;
+            ConfirmUpdateBox.IsChecked = main.config.p4gConfig.updateConfirm;
             ChangelogBox.IsChecked = main.config.p4gConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p4gConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p4gConfig.updateAll;
@@ -121,6 +122,18 @@ namespace AemulusModManager
         {
             main.buildFinished = false;
             main.config.p4gConfig.buildFinished = false;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = true;
+            main.config.p4gConfig.updateConfirm = true;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = false;
+            main.config.p4gConfig.updateConfirm = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)

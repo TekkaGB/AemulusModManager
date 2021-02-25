@@ -39,6 +39,7 @@ namespace AemulusModManager
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
     }
@@ -51,6 +52,7 @@ namespace AemulusModManager
         public string launcherPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool advancedLaunchOptions { get; set; }
@@ -64,6 +66,7 @@ namespace AemulusModManager
         public string launcherPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
