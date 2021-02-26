@@ -683,6 +683,16 @@ namespace AemulusModManager
             // Decide whether the online version is new than local
             for (int i = 0; i < onlineVersionParts.Length; i++)
             {
+                if (!int.TryParse(onlineVersionParts[i], out _))
+                {
+                    Console.WriteLine($"[ERROR] Couldn't parse {onlineVersion}");
+                    return false;
+                }
+                if (!int.TryParse(localVersionParts[i], out _))
+                {
+                    Console.WriteLine($"[ERROR] Couldn't parse {localVersion}");
+                    return false;
+                }
                 if (int.Parse(onlineVersionParts[i]) > int.Parse(localVersionParts[i]))
                 {
                     return true;
