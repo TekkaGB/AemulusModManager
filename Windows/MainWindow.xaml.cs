@@ -43,6 +43,7 @@ namespace AemulusModManager
         public bool updateConfirm;
         public bool updateChangelog;
         public bool updateAll;
+        public bool updatesEnabled;
         public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
@@ -304,6 +305,7 @@ namespace AemulusModManager
                             updateConfirm = config.p4gConfig.updateConfirm;
                             updateChangelog = config.p4gConfig.updateChangelog;
                             updateAll = config.p4gConfig.updateAll;
+                            updatesEnabled = config.p4gConfig.updatesEnabled;
                             deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
@@ -319,6 +321,7 @@ namespace AemulusModManager
                             updateConfirm = config.p3fConfig.updateConfirm;
                             updateChangelog = config.p3fConfig.updateChangelog;
                             updateAll = config.p3fConfig.updateAll;
+                            updatesEnabled = config.p3fConfig.updatesEnabled;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -334,6 +337,7 @@ namespace AemulusModManager
                             updateConfirm = config.p5Config.updateConfirm;
                             updateChangelog = config.p5Config.updateChangelog;
                             updateAll = config.p5Config.updateAll;
+                            updatesEnabled = config.p5Config.updatesEnabled;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -1426,7 +1430,7 @@ namespace AemulusModManager
 
                 // Enable/disable check for updates
                 UpdateItem.IsEnabled = false;
-                if (RowUpdatable(row) && !updating)
+                if (RowUpdatable(row) && !updating && updatesEnabled)
                     UpdateItem.IsEnabled = true;
                 // TODO Fix menu not updating if you right click a not selected item
 
@@ -1710,6 +1714,7 @@ namespace AemulusModManager
                         updateConfirm = config.p3fConfig.updateConfirm;
                         updateChangelog = config.p3fConfig.updateChangelog;
                         updateAll = config.p3fConfig.updateAll;
+                        updatesEnabled = config.p3fConfig.updatesEnabled;
                         deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1732,6 +1737,7 @@ namespace AemulusModManager
                         updateConfirm = config.p4gConfig.updateConfirm;
                         updateChangelog = config.p4gConfig.updateChangelog;
                         updateAll = config.p4gConfig.updateAll;
+                        updatesEnabled = config.p4gConfig.updatesEnabled;
                         deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
@@ -1750,6 +1756,7 @@ namespace AemulusModManager
                         updateConfirm = config.p5Config.updateConfirm;
                         updateChangelog = config.p5Config.updateChangelog;
                         updateAll = config.p5Config.updateAll;
+                        updatesEnabled = config.p5Config.updatesEnabled;
                         deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -2240,6 +2247,10 @@ namespace AemulusModManager
 
         private async Task UpdateItemAsync(DisplayedMetadata row)
         {
+            if (!updatesEnabled)
+            {
+                return;
+            }
             cancellationToken = new CancellationTokenSource();
             updating = true;
             Console.WriteLine($"[INFO] Checking for updates for {row.name}");
@@ -2252,13 +2263,16 @@ namespace AemulusModManager
 
         private async Task UpdateAllAsync()
         {
-
             if (updating)
             {
                 Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
                 return;
             }
             await UpdateAemulus();
+            if (!updatesEnabled)
+            {
+                return;
+            }
             if (updateAll)
             {
                 updating = true;
