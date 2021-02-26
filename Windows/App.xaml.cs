@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -12,36 +14,58 @@ namespace AemulusModManager
     /// </summary>
     public partial class App : Application
     {
-        // give the mutex a  unique name
-        private const string MutexName = "##||ThisApp||##";
-        // declare the mutex
-        private readonly Mutex _mutex;
-        // overload the constructor
-        bool createdNew;
-        public App()
+
+        [DllImport("User32.dll")]
+        private static extern bool IsIconic(IntPtr hWnd);
+
+        [DllImport("User32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("User32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        public const int SW_RESTORE = 9;
+        protected static bool AlreadyRunning()
         {
-            // overloaded mutex constructor which outs a boolean
-            // telling if the mutex is new or not.
-            // see http://msdn.microsoft.com/en-us/library/System.Threading.Mutex.aspx
-            _mutex = new Mutex(true, MutexName, out createdNew);
-            if (!createdNew)
+            bool running = false;
+            try
             {
-                // if the mutex already exists, notify and quit
-                NotificationBox message = new NotificationBox("This program is already running!");
-                message.ShowDialog();
-                Application.Current.Shutdown(0);
+                // Getting collection of process  
+                Process currentProcess = Process.GetCurrentProcess();
+
+                // Check with other process already running   
+                foreach (var p in Process.GetProcesses())
+                {
+                    if (p.Id != currentProcess.Id) // Check running process   
+                    {
+                        if (p.ProcessName.Equals(currentProcess.ProcessName))
+                        {
+                            running = true;
+                            NotificationBox message = new NotificationBox($"Aemulus is already running!");
+                            message.ShowDialog();
+                            IntPtr hFound = p.MainWindowHandle;
+                            if (IsIconic(hFound)) // If application is in ICONIC mode then  
+                                ShowWindow(hFound, SW_RESTORE);
+                            SetForegroundWindow(hFound); // Activate the window, if process is already running  
+                            Application.Current.Shutdown(0);
+                            break;
+                        }
+                    }
+                }
             }
+            catch { }
+            return running;
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (!createdNew) return;
-            // overload the OnStartup so that the main window 
-            // is constructed and visible
+            if (AlreadyRunning())
+            {
+                return;
+            }
             MainWindow mw = new MainWindow();
             mw.Show();
             DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
-
         private static void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             MessageBox.Show($"Unhandled exception occured:\n{e.Exception.Message}\n\nStack Trace:\n{e.Exception.StackTrace}", "Error", MessageBoxButton.OK,
