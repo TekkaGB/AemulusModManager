@@ -29,8 +29,10 @@ namespace AemulusModManager
             CpkBox.IsChecked = main.useCpk;
             BuildFinishedBox.IsChecked = main.config.p4gConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p4gConfig.buildWarning;
+            ConfirmUpdateBox.IsChecked = main.config.p4gConfig.updateConfirm;
             ChangelogBox.IsChecked = main.config.p4gConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p4gConfig.deleteOldVersions;
+            UpdateBox.IsChecked = main.config.p4gConfig.updatesEnabled;
             UpdateAllBox.IsChecked = main.config.p4gConfig.updateAll;
 
             switch (main.cpkLang)
@@ -84,6 +86,23 @@ namespace AemulusModManager
             main.updateConfig();
         }
 
+        private void UpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updatesEnabled = true;
+            main.config.p4gConfig.updatesEnabled = true;
+            main.updateConfig();
+            UpdateAllBox.IsEnabled = true;
+        }
+
+        private void UpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updatesEnabled = false;
+            main.config.p4gConfig.updatesEnabled = false;
+            main.updateConfig();
+            UpdateAllBox.IsChecked = false;
+            UpdateAllBox.IsEnabled = false;
+        }
+
         private void UpdateAllChecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = true;
@@ -121,6 +140,18 @@ namespace AemulusModManager
         {
             main.buildFinished = false;
             main.config.p4gConfig.buildFinished = false;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = true;
+            main.config.p4gConfig.updateConfirm = true;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = false;
+            main.config.p4gConfig.updateConfirm = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)

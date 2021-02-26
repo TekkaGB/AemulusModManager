@@ -387,7 +387,7 @@ namespace AemulusModManager
                             File.Delete(f);
                     }
                 }
-                if (File.Exists($@"{mod}\field\panel.bin") && Directory.Exists($@"{mod}\field\panel\panel"))
+                if (File.Exists($@"{mod}\field\panel.bin") && !Directory.Exists($@"{mod}\field\panel\panel"))
                     DeleteDirectory($@"{mod}\field\panel\panel");
                 if (Directory.Exists($@"{mod}\battle\result\result") && !Directory.GetFiles($@"{mod}\battle\result\result", "*", SearchOption.AllDirectories).Any())
                     DeleteDirectory($@"{mod}\battle\result\result");

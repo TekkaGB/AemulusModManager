@@ -16,6 +16,7 @@ namespace AemulusModManager
         private bool focused = false;
         private bool edited = false;
         private bool editing = false;
+        private string skippedVersion = "";
         public CreatePackage(Metadata m)
         {
             InitializeComponent();
@@ -27,7 +28,30 @@ namespace AemulusModManager
                 VersionBox.Text = m.version;
                 LinkBox.Text = m.link;
                 DescBox.Text = m.description;
+                skippedVersion = m.skippedVersion;
                 editing = true;
+                if (PackageUpdatable())
+                {
+                    AllowUpdates.IsEnabled = true;
+                    if (PackageUpdatable())
+                    {
+                        AllowUpdates.IsEnabled = true;
+                        if (skippedVersion == "all")
+                            AllowUpdates.IsChecked = false;
+                        else
+                            AllowUpdates.IsChecked = true;
+                    }
+                    else
+                    {
+                        AllowUpdates.IsEnabled = false;
+                        AllowUpdates.IsChecked = false;
+                    }
+                }
+                else
+                {
+                    AllowUpdates.IsEnabled = false;
+                    AllowUpdates.IsChecked = false;
+                }
                 if (IDBox.Text != AuthorBox.Text.Replace(" ", "").ToLower() + "."
                         + NameBox.Text.Replace(" ", "").ToLower() && IDBox.Text.Length > 0)
                     edited = true;
@@ -69,6 +93,10 @@ namespace AemulusModManager
                 dirName = $@"Packages\{NameBox.Text}";
             if (!Directory.Exists(dirName) || editing)
             {
+                if ((bool)!AllowUpdates.IsChecked)
+                    metadata.skippedVersion = "all";
+                else
+                    metadata.skippedVersion = null;
                 metadata.name = NameBox.Text;
                 if (AuthorBox.Text != null)
                     metadata.author = AuthorBox.Text;
@@ -147,6 +175,27 @@ namespace AemulusModManager
             }
             // Bring Create Package window back to foreground after closing dialog
             this.Activate();
+        }
+
+        private void LinkBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (PackageUpdatable())
+            {
+                AllowUpdates.IsEnabled = true;
+            }
+            else
+            {
+                AllowUpdates.IsEnabled = false;
+                AllowUpdates.IsChecked = false;
+            }
+        }
+
+        private bool PackageUpdatable()
+        {
+            if (LinkBox.Text == "")
+                return false;
+            string host = UrlConverter.Convert(LinkBox.Text);
+            return (host == "GameBanana" || host == "GitHub") && VersionBox.Text != "";
         }
     }
 }

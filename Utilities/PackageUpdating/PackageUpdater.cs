@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace AemulusModManager
 {
@@ -57,6 +58,7 @@ namespace AemulusModManager
                     gameBananaRequestUrl += "return_keys=1";
                     // Parse the response
                     string responseString = await client.GetStringAsync(gameBananaRequestUrl);
+                    responseString = responseString.Replace("\"Files().aFiles()\": []", "\"Files().aFiles()\": {}");
                     GameBananaItem[] response = JsonConvert.DeserializeObject<GameBananaItem[]>(responseString);
                     if (response == null)
                     {
@@ -66,7 +68,14 @@ namespace AemulusModManager
                     {
                         for (int i = 0; i < gameBananaRows.Length; i++)
                         {
-                            await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                            try
+                            {
+                                await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {gameBananaRows[i].name}: {e.Message}");
+                            }
                         }
                     }
                 }
@@ -76,9 +85,16 @@ namespace AemulusModManager
                 {
                     foreach (DisplayedMetadata row in gitHubRows)
                     {
-                        Uri uri = CreateUri(row.link);
-                        Release latestRelease = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
-                        await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                        try
+                        {
+                            Uri uri = CreateUri(row.link);
+                            Release latestRelease = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
+                            await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {row.name}: {e.Message}");
+                        }
                     }
                 }
             }
@@ -120,6 +136,7 @@ namespace AemulusModManager
                     {
                         updateTitle = updates[1].Title;
                         onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                        updateIndex = 1;
                         if (onlineVersionMatch.Success)
                         {
                             onlineVersion = onlineVersionMatch.Groups["version"].Value;
@@ -215,17 +232,34 @@ namespace AemulusModManager
                         onlineVersion = onlineVersionMatch.Groups["version"].Value;
                     }
                 }
-                if (UpdateAvailable(onlineVersion, row.version))
+                Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                string localVersion = null;
+                if (localVersionMatch.Success)
+                {
+                    localVersion = localVersionMatch.Groups["version"].Value;
+                }
+                if(row.skippedVersion != null)
+                {
+                    if(row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
+                    {
+                        Console.WriteLine($"[INFO] No updates available for {row.name}");
+                        return;
+                    }
+                }
+                if (UpdateAvailable(onlineVersion, localVersion))
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
-                    ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
-                    changelogBox.Activate();
-                    changelogBox.ShowDialog();
-                    if (!changelogBox.YesNo)
+                    if (main.updateConfirm)
                     {
-                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                        return;
+                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", row, onlineVersion, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", false);
+                        changelogBox.Activate();
+                        changelogBox.ShowDialog();
+                        if (!changelogBox.YesNo)
+                        {
+                            Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                            return;
+                        }
                     }
 
                     // Download the update
@@ -238,7 +272,7 @@ namespace AemulusModManager
                         if (file.Value.FileMetadata.Values.Count > 2)
                         {
                             string fileTree = file.Value.FileMetadata.Values.ElementAt(2).ToString();
-                            if (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml"))
+                            if (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]")
                             {
                                 aemulusCompatibleFiles.Add(file.Key, file.Value);
                             }
@@ -271,7 +305,7 @@ namespace AemulusModManager
                     }
                     if (downloadUrl != null && fileName != null)
                     {
-                        await DownloadFile(downloadUrl, fileName, game, row.path, row.name, progress, cancellationToken, updates[updateIndex]);
+                        await DownloadFile(downloadUrl, fileName, game, row, onlineVersion, progress, cancellationToken, updates[updateIndex]);
                     }
                     else
                     {
@@ -294,7 +328,27 @@ namespace AemulusModManager
 
         private async Task GitHubUpdate(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)
         {
-            if (UpdateAvailable(release.TagName, row.version))
+            Match onlineVersionMatch = Regex.Match(release.TagName, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+            string onlineVersion = null;
+            if (onlineVersionMatch.Success)
+            {
+                onlineVersion = onlineVersionMatch.Groups["version"].Value;
+            }
+            Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+            string localVersion = null;
+            if (localVersionMatch.Success)
+            {
+                localVersion = localVersionMatch.Groups["version"].Value;
+            }
+            if (row.skippedVersion != null)
+            {
+                if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
+                {
+                    Console.WriteLine($"[INFO] No updates available for {row.name}");
+                    return;
+                }
+            }
+            if (UpdateAvailable(onlineVersion, localVersion))
             {
                 Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName})");
                 NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
@@ -330,7 +384,7 @@ namespace AemulusModManager
                 }
                 if (downloadUrl != null && fileName != null)
                 {
-                    await DownloadFile(downloadUrl, fileName, game, row.path, row.name, progress, CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                    await DownloadFile(downloadUrl, fileName, game, row, release.TagName, progress, CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
                 }
                 else
                 {
@@ -343,7 +397,7 @@ namespace AemulusModManager
             }
         }
 
-        private async Task DownloadFile(string uri, string fileName, string game, string oldPath, string packageName, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, GameBananaItemUpdate update = null)
+        private async Task DownloadFile(string uri, string fileName, string game, DisplayedMetadata row, string version, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, GameBananaItemUpdate update = null)
         {
             try
             {
@@ -359,7 +413,7 @@ namespace AemulusModManager
                     progressBox.progressBar.Value = 0;
                     progressBox.progressText.Text = $"Downloading {fileName}";
                     progressBox.finished = false;
-                    progressBox.Title = $"{packageName} Update Progress";
+                    progressBox.Title = $"{row.name} Update Progress";
                     progressBox.Show();
                     progressBox.Activate();
                     Console.WriteLine($"[INFO] Downloading {fileName}");
@@ -376,7 +430,7 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] {fileName} already exists in downloads, using this instead");
                 }
-                ExtractFile(fileName, game, oldPath, packageName, update);
+                ExtractFile(fileName, game, row, version, update);
             }
             catch (OperationCanceledException)
             {
@@ -458,10 +512,10 @@ namespace AemulusModManager
             }
         }
 
-        private void ExtractFile(string fileName, string game, string oldPath, string packageName, GameBananaItemUpdate update = null)
+        private void ExtractFile(string fileName, string game, DisplayedMetadata row, string version, GameBananaItemUpdate update = null)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = true;
+            startInfo.CreateNoWindow = false;
             startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
@@ -469,7 +523,7 @@ namespace AemulusModManager
                 return;
             }
             // Extract the file
-            startInfo.Arguments = $"x -y \"{assemblyLocation}\\Downloads\\{fileName}\" -o\"{assemblyLocation}\\Downloads\\{packageName}\"";
+            startInfo.Arguments = $"x -y \"{assemblyLocation}\\Downloads\\{fileName}\" -o\"{assemblyLocation}\\Downloads\\{row.name}\"";
             Console.WriteLine($"[INFO] Extracting {fileName}");
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
@@ -489,72 +543,112 @@ namespace AemulusModManager
                     Console.WriteLine($"[ERROR] There was an error extracting {fileName}:\n{output}");
                     // Remove the download as it is likely corrupted
                     File.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
-                    if (Directory.Exists($@"{assemblyLocation}\Downloads\{packageName}"))
+                    if (Directory.Exists($@"{assemblyLocation}\Downloads\{row.name}"))
                     {
-                        Directory.Delete($@"{assemblyLocation}\Downloads\{packageName}", true);
+                        Directory.Delete($@"{assemblyLocation}\Downloads\{row.name}", true);
                     }
-                    Console.WriteLine(@$"[INFO] Cleaned up {packageName} download files");
+                    Console.WriteLine(@$"[INFO] Cleaned up {row.name} download files");
                     return;
                 }
                 process.WaitForExit();
             }
             // Find the root and move the extracted file to the correct package folder
-            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{packageName}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
-            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{packageName}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
+            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
+            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
             if (packageRoots.Length == 1)
             {
                 // Remove the old package directory
-                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{oldPath}", true);
-                Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{oldPath})");
-                Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{oldPath}");
-                Console.WriteLine($"[INFO] Successfully updated {packageName}");
+                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{row.path}", true);
+                Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{row.path})");
+                Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{row.path}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && update != null)
+                if (main.updateChangelog && !main.updateConfirm && update != null)
                 {
-                    ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
+                    ChangelogBox changelogBox = new ChangelogBox(update, row.name, $"Successfully updated {row.name}!", true);
                     changelogBox.Activate();
                     changelogBox.ShowDialog();
                 }
+                // Update the version number in package.xml
+                if (File.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
+                {
+                    UpdatePackageVersion(row, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", version);
+                }
+                Console.WriteLine($"[INFO] Successfully updated {row.name}");
             }
             else if (packageRoots.Length > 1)
             {
                 // Open a dialog asking which folder to use
-                PackageFolderBox folderBox = new PackageFolderBox(packageRoots, packageName);
+                PackageFolderBox folderBox = new PackageFolderBox(packageRoots, row.name);
                 folderBox.Activate();
                 folderBox.ShowDialog();
                 if (folderBox.chosenFolder == null)
                 {
-                    Console.WriteLine($"[INFO] Cancelled update for {packageName}");
+                    Console.WriteLine($"[INFO] Cancelled update for {row.name}");
                     return;
                 }
                 // Remove the old package directory
-                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{oldPath}", true);
-                Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{oldPath})");
-                Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{oldPath}");
-                Console.WriteLine($"[INFO] Successfully updated {packageName}");
+                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{row.path}", true);
+                Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{row.path})");
+                Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{row.path}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && update != null)
+                if (main.updateChangelog && !main.updateConfirm && update != null)
                 {
-                    ChangelogBox changelogBox = new ChangelogBox(update, packageName, $"Successfully updated {packageName}!", true);
+                    ChangelogBox changelogBox = new ChangelogBox(update, row.name, $"Successfully updated {row.name}!", true);
                     changelogBox.Activate();
                     changelogBox.ShowDialog();
                 }
+                // Update the version number in package.xml
+                if (File.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
+                {
+                    UpdatePackageVersion(row, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", version);
+                }
+                Console.WriteLine($"[INFO] Successfully updated {row.name}");
             }
             else
             {
                 Console.WriteLine($"[ERROR] {fileName} does not contain a valid package (no Package.xml is present), ignoring it");
             }
             File.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
-            if (Directory.Exists($@"{assemblyLocation}\Downloads\{packageName}"))
+            if (Directory.Exists($@"{assemblyLocation}\Downloads\{row.name}"))
             {
-                Directory.Delete($@"{assemblyLocation}\Downloads\{packageName}", true);
+                Directory.Delete($@"{assemblyLocation}\Downloads\{row.name}", true);
             }
-            Console.WriteLine(@$"[INFO] Cleaned up {packageName} download files");
+            Console.WriteLine(@$"[INFO] Cleaned up {row.name} download files");
+        }
+
+        private void UpdatePackageVersion(DisplayedMetadata row, string path, string version)
+        {
+            Metadata m = new Metadata();
+            m.name = row.name;
+            m.author = row.author;
+            m.id = row.id;
+            m.version = version;
+            m.link = row.link;
+            m.description = row.description;
+            try
+            {
+                using (FileStream streamWriter = File.Create(path))
+                {
+                    try
+                    {
+                        XmlSerializer xsp = new XmlSerializer(typeof(Metadata));
+                        xsp.Serialize(streamWriter, m);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($@"[ERROR] Couldn't serialize {path} ({ex.Message})");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] Error updating package version: {ex.Message}");
+            }
         }
 
         private bool UpdateAvailable(string onlineVersion, string localVersion)
         {
-            if (onlineVersion is null)
+            if (onlineVersion is null || localVersion is null)
             {
                 return false;
             }

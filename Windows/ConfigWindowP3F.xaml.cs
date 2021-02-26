@@ -31,9 +31,11 @@ namespace AemulusModManager
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
             BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
+            ConfirmUpdateBox.IsChecked = main.config.p3fConfig.updateConfirm;
             ChangelogBox.IsChecked = main.config.p3fConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
+            UpdateBox.IsChecked = main.config.p3fConfig.updatesEnabled;
             Console.WriteLine("[INFO] Config launched");
         }
 
@@ -77,6 +79,18 @@ namespace AemulusModManager
             main.config.p3fConfig.buildFinished = false;
             main.updateConfig();
         }
+        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = true;
+            main.config.p3fConfig.updateConfirm = true;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = false;
+            main.config.p3fConfig.updateConfirm = false;
+            main.updateConfig();
+        }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
@@ -101,6 +115,22 @@ namespace AemulusModManager
             main.updateAll = false;
             main.config.p3fConfig.updateAll = false;
             main.updateConfig();
+        }
+        private void UpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updatesEnabled = true;
+            main.config.p3fConfig.updatesEnabled = true;
+            main.updateConfig();
+            UpdateAllBox.IsEnabled = true;
+        }
+
+        private void UpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updatesEnabled = false;
+            main.config.p3fConfig.updatesEnabled = false;
+            main.updateConfig();
+            UpdateAllBox.IsChecked = false;
+            UpdateAllBox.IsEnabled = false;
         }
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {

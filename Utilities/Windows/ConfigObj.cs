@@ -39,8 +39,10 @@ namespace AemulusModManager
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
+        public bool updatesEnabled { get; set; } = true;
     }
 
     public class ConfigP3F
@@ -51,10 +53,12 @@ namespace AemulusModManager
         public string launcherPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool advancedLaunchOptions { get; set; }
         public bool deleteOldVersions { get; set; }
+        public bool updatesEnabled { get; set; } = true;
     }
 
     public class ConfigP5
@@ -64,9 +68,11 @@ namespace AemulusModManager
         public string launcherPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
+        public bool updatesEnabled { get; set; } = true;
     }
 
     public class Packages
@@ -89,6 +95,7 @@ namespace AemulusModManager
         public string version { get; set; }
         public string link { get; set; }
         public string description { get; set; }
+        public string skippedVersion { get; set; }
     }
 
     [Serializable, XmlRoot("Mod")]
@@ -115,6 +122,7 @@ namespace AemulusModManager
         public string description { get; set; }
         public string link { get; set; }
         public string path { get; set; }
+        public string skippedVersion { get; set; }
     }
 
 }

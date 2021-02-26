@@ -40,8 +40,10 @@ namespace AemulusModManager
         public bool useCpk;
         public bool buildWarning;
         public bool buildFinished;
+        public bool updateConfirm;
         public bool updateChangelog;
         public bool updateAll;
+        public bool updatesEnabled;
         public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
@@ -67,6 +69,7 @@ namespace AemulusModManager
                 dm.version = m.version;
             dm.description = m.description;
             dm.link = m.link;
+            dm.skippedVersion = m.skippedVersion;
             return dm;
         }
 
@@ -175,10 +178,9 @@ namespace AemulusModManager
 
             // Set Aemulus Version
             aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
-            var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
-            Title = $"Aemulus Package Manager v{version}";
+            Title = $"Aemulus Package Manager v{aemulusVersion}";
 
-            Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
+            Console.WriteLine($"[INFO] Launched Aemulus v{aemulusVersion}!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -301,8 +303,10 @@ namespace AemulusModManager
                             useCpk = config.p4gConfig.useCpk;
                             buildWarning = config.p4gConfig.buildWarning;
                             buildFinished = config.p4gConfig.buildFinished;
+                            updateConfirm = config.p4gConfig.updateConfirm;
                             updateChangelog = config.p4gConfig.updateChangelog;
                             updateAll = config.p4gConfig.updateAll;
+                            updatesEnabled = config.p4gConfig.updatesEnabled;
                             deleteOldVersions = config.p4gConfig.deleteOldVersions;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
@@ -315,8 +319,10 @@ namespace AemulusModManager
                             launcherPath = config.p3fConfig.launcherPath;
                             buildWarning = config.p3fConfig.buildWarning;
                             buildFinished = config.p3fConfig.buildFinished;
+                            updateConfirm = config.p3fConfig.updateConfirm;
                             updateChangelog = config.p3fConfig.updateChangelog;
                             updateAll = config.p3fConfig.updateAll;
+                            updatesEnabled = config.p3fConfig.updatesEnabled;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -329,8 +335,10 @@ namespace AemulusModManager
                             launcherPath = config.p5Config.launcherPath;
                             buildWarning = config.p5Config.buildWarning;
                             buildFinished = config.p5Config.buildFinished;
+                            updateConfirm = config.p5Config.updateConfirm;
                             updateChangelog = config.p5Config.updateChangelog;
                             updateAll = config.p5Config.updateAll;
+                            updatesEnabled = config.p5Config.updatesEnabled;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
                             foreach (var button in buttons)
@@ -410,6 +418,7 @@ namespace AemulusModManager
                                 dm.version = m.version;
                                 dm.link = m.link;
                                 dm.description = m.description;
+                                dm.skippedVersion = m.skippedVersion;
                             }
                         }
                         catch (Exception ex)
@@ -706,6 +715,7 @@ namespace AemulusModManager
                             package.version = metadata.version;
                             package.link = metadata.link;
                             package.description = metadata.description;
+                            package.skippedVersion = metadata.skippedVersion;
                         }
                     }
                     catch (Exception ex)
@@ -816,7 +826,27 @@ namespace AemulusModManager
                 // Create Package.xml
                 else
                 {
-                    
+                    if(game == "Persona 4 Golden")
+                    {
+                        NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
+                            $"This mod is either old or has been installed incorrectly. Please check that the packages has data_x, data0000x, snd or patches in the root " +
+                            $"as a minimum to function correctly once built.");
+                        notificationBox.Activate();
+                        notificationBox.ShowDialog();
+                        // Open the location of the bad package
+                        try
+                        {
+                            ProcessStartInfo StartInformation = new ProcessStartInfo();
+                            StartInformation.FileName = package;
+                            Process process = Process.Start(StartInformation);
+                            Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
+                        }
+                    }
+                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                     // Create metadata
                     Metadata newMetadata = new Metadata();
                     newMetadata.name = Path.GetFileName(package);
@@ -824,7 +854,7 @@ namespace AemulusModManager
 
 
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
-                    List<string> dirFolders = Directory.GetDirectories(package, "*", SearchOption.TopDirectoryOnly).ToList();
+                    List<string> dirFolders = Directory.GetDirectories(package, "*", System.IO.SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
@@ -878,40 +908,6 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        if (game == "Persona 4 Golden" && !(Directory.Exists($@"{package}\data")
-                        || Directory.Exists($@"{package}\data") || Directory.Exists($@"{package}\data_e")
-                        || Directory.Exists($@"{package}\data_c") || Directory.Exists($@"{package}\data_k")
-                        || Directory.Exists($@"{package}\data00000") || Directory.Exists($@"{package}\data00001")
-                        || Directory.Exists($@"{package}\data00002") || Directory.Exists($@"{package}\data00003")
-                        || Directory.Exists($@"{package}\data00004") || Directory.Exists($@"{package}\data00005")
-                        || Directory.Exists($@"{package}\data00006") || Directory.Exists($@"{package}\movie")
-                        || Directory.Exists($@"{package}\movie00000") || Directory.Exists($@"{package}\movie00001")
-                        || Directory.Exists($@"{package}\movie00002") || Directory.Exists($@"{package}\preappfile")
-                        || Directory.Exists($@"{package}\snd") || Directory.Exists($@"{package}\patches")))
-                        {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
-                                $"This mod has been installed incorrectly.\nPlease check that the packages have data_x, data0000x, snd and/or patches folders in the root " +
-                                $"before building.");
-                                notificationBox.ShowDialog();
-                                Activate();
-                            });
-                            // Open the location of the bad package
-                            try
-                            {
-                                ProcessStartInfo StartInformation = new ProcessStartInfo();
-                                StartInformation.FileName = package;
-                                Process process = Process.Start(StartInformation);
-                                Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
-                            }
-                        }
-
-                        Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                         newMetadata.author = "";
                         newMetadata.version = "";
                         newMetadata.link = "";
@@ -1013,12 +1009,12 @@ namespace AemulusModManager
 
         }
 
-        private async void RefreshClick(object sender, RoutedEventArgs e)
+        private void RefreshClick(object sender, RoutedEventArgs e)
         {
             Refresh();
             updateConfig();
             updatePackages();
-            await UpdateAllAsync();
+            UpdateAllAsync();
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -1437,7 +1433,7 @@ namespace AemulusModManager
 
                 // Enable/disable check for updates
                 UpdateItem.IsEnabled = false;
-                if (RowUpdatable(row) && !updating)
+                if (RowUpdatable(row) && !updating && updatesEnabled)
                     UpdateItem.IsEnabled = true;
                 // TODO Fix menu not updating if you right click a not selected item
 
@@ -1590,6 +1586,7 @@ namespace AemulusModManager
                 m.version = row.version;
                 m.link = row.link;
                 m.description = row.description;
+                m.skippedVersion = row.skippedVersion;
                 CreatePackage createPackage = new CreatePackage(m);
                 createPackage.ShowDialog();
                 if (createPackage.metadata != null)
@@ -1718,8 +1715,10 @@ namespace AemulusModManager
                         launcherPath = config.p3fConfig.launcherPath;
                         buildWarning = config.p3fConfig.buildWarning;
                         buildFinished = config.p3fConfig.buildFinished;
+                        updateConfirm = config.p3fConfig.updateConfirm;
                         updateChangelog = config.p3fConfig.updateChangelog;
                         updateAll = config.p3fConfig.updateAll;
+                        updatesEnabled = config.p3fConfig.updatesEnabled;
                         deleteOldVersions = config.p3fConfig.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1739,8 +1738,10 @@ namespace AemulusModManager
                         useCpk = config.p4gConfig.useCpk;
                         buildWarning = config.p4gConfig.buildWarning;
                         buildFinished = config.p4gConfig.buildFinished;
+                        updateConfirm = config.p4gConfig.updateConfirm;
                         updateChangelog = config.p4gConfig.updateChangelog;
                         updateAll = config.p4gConfig.updateAll;
+                        updatesEnabled = config.p4gConfig.updatesEnabled;
                         deleteOldVersions = config.p4gConfig.deleteOldVersions;
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
@@ -1756,8 +1757,10 @@ namespace AemulusModManager
                         launcherPath = config.p5Config.launcherPath;
                         buildWarning = config.p5Config.buildWarning;
                         buildFinished = config.p5Config.buildFinished;
+                        updateConfirm = config.p5Config.updateConfirm;
                         updateChangelog = config.p5Config.updateChangelog;
                         updateAll = config.p5Config.updateAll;
+                        updatesEnabled = config.p5Config.updatesEnabled;
                         deleteOldVersions = config.p5Config.deleteOldVersions;
                         useCpk = false;
                         ConvertCPK.Visibility = Visibility.Collapsed;
@@ -1837,6 +1840,7 @@ namespace AemulusModManager
                                     dm.version = m.version;
                                     dm.link = m.link;
                                     dm.description = m.description;
+                                    dm.skippedVersion = m.skippedVersion;
                                 }
                                 catch (Exception ex)
                                 {
@@ -1887,10 +1891,7 @@ namespace AemulusModManager
         private void Setup_Click(object sender, MouseButtonEventArgs e)
         {
             if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus_Setup.pdf"))
-            {
-                Console.WriteLine($"[INFO] Opening Setup Guide (Note: Guide needs to be updated to include features added in 3.0.0)");
                 Process.Start($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus_Setup.pdf");
-            }
             else
                 Console.WriteLine("[ERROR] Aemulus_Setup.pdf not found.");
         }
@@ -2156,6 +2157,7 @@ namespace AemulusModManager
                                         dm.version = m.version;
                                         dm.link = m.link;
                                         dm.description = m.description;
+                                        dm.skippedVersion = m.skippedVersion;
                                     }
                                 }
                                 catch (Exception ex)
@@ -2243,14 +2245,18 @@ namespace AemulusModManager
                 element.ContextMenu.Visibility = Visibility.Visible;
         }
 
-        private async void UpdateItem_Click(object sender, RoutedEventArgs e)
+        private void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            await UpdateItemAsync(row);
+            UpdateItemAsync(row);
         }
 
         private async Task UpdateItemAsync(DisplayedMetadata row)
         {
+            if (!updatesEnabled)
+            {
+                return;
+            }
             cancellationToken = new CancellationTokenSource();
             updating = true;
             Console.WriteLine($"[INFO] Checking for updates for {row.name}");
@@ -2263,13 +2269,16 @@ namespace AemulusModManager
 
         private async Task UpdateAllAsync()
         {
-
             if (updating)
             {
                 Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
                 return;
             }
             await UpdateAemulus();
+            if (!updatesEnabled)
+            {
+                return;
+            }
             if (updateAll)
             {
                 updating = true;
@@ -2301,6 +2310,8 @@ namespace AemulusModManager
         private bool RowUpdatable(DisplayedMetadata row)
         {
             if (row.link == "")
+                return false;
+            if (row.skippedVersion != null && row.skippedVersion == "all")
                 return false;
             string host = UrlConverter.Convert(row.link);
             return (host == "GameBanana" || host == "GitHub") && row.version != "";

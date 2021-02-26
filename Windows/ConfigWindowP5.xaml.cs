@@ -27,9 +27,11 @@ namespace AemulusModManager
                 RPCS3Textbox.Text = main.launcherPath;
             BuildFinishedBox.IsChecked = main.config.p5Config.buildFinished;
             BuildWarningBox.IsChecked = main.config.p5Config.buildWarning;
+            ConfirmUpdateBox.IsChecked = main.config.p5Config.updateConfirm;
             ChangelogBox.IsChecked = main.config.p5Config.updateChangelog;
             DeleteBox.IsChecked = main.config.p5Config.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p5Config.updateAll;
+            UpdateBox.IsChecked = main.config.p5Config.updatesEnabled;
             Console.WriteLine("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
@@ -71,6 +73,18 @@ namespace AemulusModManager
             main.config.p5Config.buildFinished = false;
             main.updateConfig();
         }
+        private void ConfirmUpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = true;
+            main.config.p5Config.updateConfirm = true;
+            main.updateConfig();
+        }
+        private void ConfirmUpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updateConfirm = false;
+            main.config.p5Config.updateConfirm = false;
+            main.updateConfig();
+        }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
@@ -95,7 +109,22 @@ namespace AemulusModManager
             main.config.p5Config.updateAll = false;
             main.updateConfig();
         }
+        private void UpdateChecked(object sender, RoutedEventArgs e)
+        {
+            main.updatesEnabled = true;
+            main.config.p5Config.updatesEnabled = true;
+            main.updateConfig();
+            UpdateAllBox.IsEnabled = true;
+        }
 
+        private void UpdateUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.updatesEnabled = false;
+            main.config.p5Config.updatesEnabled = false;
+            main.updateConfig();
+            UpdateAllBox.IsChecked = false;
+            UpdateAllBox.IsEnabled = false;
+        }
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;
