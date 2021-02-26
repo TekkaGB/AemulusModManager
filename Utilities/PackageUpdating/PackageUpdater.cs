@@ -67,7 +67,14 @@ namespace AemulusModManager
                     {
                         for (int i = 0; i < gameBananaRows.Length; i++)
                         {
-                            await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                            try
+                            {
+                                await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {gameBananaRows[i].name}: {e.Message}");
+                            }
                         }
                     }
                 }
@@ -77,9 +84,16 @@ namespace AemulusModManager
                 {
                     foreach (DisplayedMetadata row in gitHubRows)
                     {
-                        Uri uri = CreateUri(row.link);
-                        Release latestRelease = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
-                        await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                        try
+                        {
+                            Uri uri = CreateUri(row.link);
+                            Release latestRelease = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
+                            await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {row.name}: {e.Message}");
+                        }
                     }
                 }
             }
