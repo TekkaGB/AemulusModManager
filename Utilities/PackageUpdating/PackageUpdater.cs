@@ -231,7 +231,13 @@ namespace AemulusModManager
                         onlineVersion = onlineVersionMatch.Groups["version"].Value;
                     }
                 }
-                if (UpdateAvailable(onlineVersion, row.version))
+                Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                string localVersion = null;
+                if (localVersionMatch.Success)
+                {
+                    localVersion = localVersionMatch.Groups["version"].Value;
+                }
+                if (UpdateAvailable(onlineVersion, localVersion))
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
@@ -313,7 +319,19 @@ namespace AemulusModManager
 
         private async Task GitHubUpdate(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)
         {
-            if (UpdateAvailable(release.TagName, row.version))
+            Match onlineVersionMatch = Regex.Match(release.TagName, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+            string onlineVersion = null;
+            if (onlineVersionMatch.Success)
+            {
+                onlineVersion = onlineVersionMatch.Groups["version"].Value;
+            }
+            Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+            string localVersion = null;
+            if (localVersionMatch.Success)
+            {
+                localVersion = localVersionMatch.Groups["version"].Value;
+            }
+            if (UpdateAvailable(onlineVersion, localVersion))
             {
                 Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName})");
                 string downloadUrl, fileName;
@@ -608,7 +626,7 @@ namespace AemulusModManager
 
         private bool UpdateAvailable(string onlineVersion, string localVersion)
         {
-            if (onlineVersion is null)
+            if (onlineVersion is null || localVersion is null)
             {
                 return false;
             }
