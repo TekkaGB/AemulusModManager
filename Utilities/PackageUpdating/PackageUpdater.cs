@@ -58,6 +58,7 @@ namespace AemulusModManager
                     gameBananaRequestUrl += "return_keys=1";
                     // Parse the response
                     string responseString = await client.GetStringAsync(gameBananaRequestUrl);
+                    responseString = responseString.Replace("\"Files().aFiles()\": []", "\"Files().aFiles()\": {}");
                     GameBananaItem[] response = JsonConvert.DeserializeObject<GameBananaItem[]>(responseString);
                     if (response == null)
                     {
