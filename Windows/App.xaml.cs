@@ -38,7 +38,7 @@ namespace AemulusModManager
                 {
                     if (p.Id != currentProcess.Id) // Check running process   
                     {
-                        if (p.ProcessName.Equals(currentProcess.ProcessName))
+                        if (p.ProcessName.Equals(currentProcess.ProcessName) && p.MainModule.FileName.Equals(currentProcess.MainModule.FileName))
                         {
                             running = true;
                             NotificationBox message = new NotificationBox($"Aemulus is already running!");
