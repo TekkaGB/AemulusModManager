@@ -40,7 +40,6 @@ namespace AemulusModManager
         public bool useCpk;
         public bool buildWarning;
         public bool buildFinished;
-        public bool updateConfirm;
         public bool updateChangelog;
         public bool updateAll;
         public bool updatesEnabled;
@@ -178,9 +177,10 @@ namespace AemulusModManager
 
             // Set Aemulus Version
             aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
-            Title = $"Aemulus Package Manager v{aemulusVersion}";
+            var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
+            Title = $"Aemulus Package Manager v{version}";
 
-            Console.WriteLine($"[INFO] Launched Aemulus v{aemulusVersion}!");
+            Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
 
             Directory.CreateDirectory($@"Packages");
             Directory.CreateDirectory($@"Original");
@@ -303,7 +303,6 @@ namespace AemulusModManager
                             useCpk = config.p4gConfig.useCpk;
                             buildWarning = config.p4gConfig.buildWarning;
                             buildFinished = config.p4gConfig.buildFinished;
-                            updateConfirm = config.p4gConfig.updateConfirm;
                             updateChangelog = config.p4gConfig.updateChangelog;
                             updateAll = config.p4gConfig.updateAll;
                             updatesEnabled = config.p4gConfig.updatesEnabled;
@@ -319,7 +318,6 @@ namespace AemulusModManager
                             launcherPath = config.p3fConfig.launcherPath;
                             buildWarning = config.p3fConfig.buildWarning;
                             buildFinished = config.p3fConfig.buildFinished;
-                            updateConfirm = config.p3fConfig.updateConfirm;
                             updateChangelog = config.p3fConfig.updateChangelog;
                             updateAll = config.p3fConfig.updateAll;
                             updatesEnabled = config.p3fConfig.updatesEnabled;
@@ -335,7 +333,6 @@ namespace AemulusModManager
                             launcherPath = config.p5Config.launcherPath;
                             buildWarning = config.p5Config.buildWarning;
                             buildFinished = config.p5Config.buildFinished;
-                            updateConfirm = config.p5Config.updateConfirm;
                             updateChangelog = config.p5Config.updateChangelog;
                             updateAll = config.p5Config.updateAll;
                             updatesEnabled = config.p5Config.updatesEnabled;
@@ -826,27 +823,6 @@ namespace AemulusModManager
                 // Create Package.xml
                 else
                 {
-                    if(game == "Persona 4 Golden")
-                    {
-                        NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
-                            $"This mod is either old or has been installed incorrectly. Please check that the packages has data_x, data0000x, snd or patches in the root " +
-                            $"as a minimum to function correctly once built.");
-                        notificationBox.Activate();
-                        notificationBox.ShowDialog();
-                        // Open the location of the bad package
-                        try
-                        {
-                            ProcessStartInfo StartInformation = new ProcessStartInfo();
-                            StartInformation.FileName = package;
-                            Process process = Process.Start(StartInformation);
-                            Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
-                        }
-                    }
-                    Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                     // Create metadata
                     Metadata newMetadata = new Metadata();
                     newMetadata.name = Path.GetFileName(package);
@@ -854,7 +830,7 @@ namespace AemulusModManager
 
 
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
-                    List<string> dirFolders = Directory.GetDirectories(package, "*", System.IO.SearchOption.TopDirectoryOnly).ToList();
+                    List<string> dirFolders = Directory.GetDirectories(package, "*", SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
@@ -908,6 +884,40 @@ namespace AemulusModManager
                     }
                     else
                     {
+                        if (game == "Persona 4 Golden" && !(Directory.Exists($@"{package}\data")
+                        || Directory.Exists($@"{package}\data") || Directory.Exists($@"{package}\data_e")
+                        || Directory.Exists($@"{package}\data_c") || Directory.Exists($@"{package}\data_k")
+                        || Directory.Exists($@"{package}\data00000") || Directory.Exists($@"{package}\data00001")
+                        || Directory.Exists($@"{package}\data00002") || Directory.Exists($@"{package}\data00003")
+                        || Directory.Exists($@"{package}\data00004") || Directory.Exists($@"{package}\data00005")
+                        || Directory.Exists($@"{package}\data00006") || Directory.Exists($@"{package}\movie")
+                        || Directory.Exists($@"{package}\movie00000") || Directory.Exists($@"{package}\movie00001")
+                        || Directory.Exists($@"{package}\movie00002") || Directory.Exists($@"{package}\preappfile")
+                        || Directory.Exists($@"{package}\snd") || Directory.Exists($@"{package}\patches")))
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                NotificationBox notificationBox = new NotificationBox($"No Package.xml found for {Path.GetFileName(package)}. " +
+                                $"This mod has been installed incorrectly.\nPlease check that the packages have data_x, data0000x, snd or patches folders in the root " +
+                                $"before building.");
+                                notificationBox.ShowDialog();
+                                Activate();
+                            });
+                            // Open the location of the bad package
+                            try
+                            {
+                                ProcessStartInfo StartInformation = new ProcessStartInfo();
+                                StartInformation.FileName = package;
+                                Process process = Process.Start(StartInformation);
+                                Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
+                            }
+                        }
+
+                        Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                         newMetadata.author = "";
                         newMetadata.version = "";
                         newMetadata.link = "";
@@ -1715,7 +1725,6 @@ namespace AemulusModManager
                         launcherPath = config.p3fConfig.launcherPath;
                         buildWarning = config.p3fConfig.buildWarning;
                         buildFinished = config.p3fConfig.buildFinished;
-                        updateConfirm = config.p3fConfig.updateConfirm;
                         updateChangelog = config.p3fConfig.updateChangelog;
                         updateAll = config.p3fConfig.updateAll;
                         updatesEnabled = config.p3fConfig.updatesEnabled;
@@ -1738,7 +1747,6 @@ namespace AemulusModManager
                         useCpk = config.p4gConfig.useCpk;
                         buildWarning = config.p4gConfig.buildWarning;
                         buildFinished = config.p4gConfig.buildFinished;
-                        updateConfirm = config.p4gConfig.updateConfirm;
                         updateChangelog = config.p4gConfig.updateChangelog;
                         updateAll = config.p4gConfig.updateAll;
                         updatesEnabled = config.p4gConfig.updatesEnabled;
@@ -1757,7 +1765,6 @@ namespace AemulusModManager
                         launcherPath = config.p5Config.launcherPath;
                         buildWarning = config.p5Config.buildWarning;
                         buildFinished = config.p5Config.buildFinished;
-                        updateConfirm = config.p5Config.updateConfirm;
                         updateChangelog = config.p5Config.updateChangelog;
                         updateAll = config.p5Config.updateAll;
                         updatesEnabled = config.p5Config.updatesEnabled;

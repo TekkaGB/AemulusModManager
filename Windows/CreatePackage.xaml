@@ -34,26 +34,16 @@
         <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="4" Grid.Column="0">Link</TextBlock>
         <TextBlock Foreground="LightGray" VerticalAlignment="Top" Padding="2" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="6" Grid.Column="0">Description</TextBlock>
         <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="8" Grid.Column="0">Preview</TextBlock>
-        <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="9" Grid.Column="0">Updates</TextBlock>
         <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="AuthorBox" TextChanged="AuthorBox_TextChanged" Background="White" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="IDBox" TextChanged="IDBox_TextChanged" IsKeyboardFocusedChanged="IDBox_IsKeyboardFocusedChanged" Background="White" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="VersionBox" Background="White" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="LinkBox" TextChanged="LinkBox_TextChanged" Background="White" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
         <TextBox Name="DescBox" AcceptsReturn="True" AcceptsTab="True" Background="White" Grid.Row="6" Grid.Column="1" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Height="65" HorizontalAlignment="Left" Width="365"></TextBox>
-        <Grid Grid.Row="9" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" MinWidth="90" MaxWidth="90" Grid.Column="0">
-                <CheckBox Name="AllowUpdates" Foreground ="White">
-                    <TextBlock TextAlignment="Center">Allow 
-                    <LineBreak/> Updates
-                    </TextBlock>
-                </CheckBox>
-            </Viewbox>
-        </Grid>
+
+        <Viewbox Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,80,0" Height="20" Grid.Row="9" Grid.Column="1">
+            <CheckBox Name="AllowUpdates" Foreground ="White" Content="Allow Updates"/>
+        </Viewbox>
         <Grid Grid.Row="8" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>

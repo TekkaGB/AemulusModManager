@@ -59,7 +59,6 @@
                     <ComboBoxItem Visibility="Collapsed">Notifications</ComboBoxItem>
                     <CheckBox x:Name="BuildWarningBox" Content="Build Warning" Checked="BuildWarningChecked" Unchecked="BuildWarningUnchecked"/>
                     <CheckBox x:Name="BuildFinishedBox" Content="Build Finished" Checked="BuildFinishedChecked" Unchecked="BuildFinishedUnchecked"/>
-                    <CheckBox x:Name="ConfirmUpdateBox" Content="Confirm Update" Checked="ConfirmUpdateChecked" Unchecked="ConfirmUpdateUnchecked"/>
                     <CheckBox x:Name="ChangelogBox" Content="Update Changelog" Checked="ChangelogChecked" Unchecked="ChangelogUnchecked"/>
                 </ComboBox>
             </Viewbox>

@@ -250,16 +250,13 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
-                    if (main.updateConfirm)
+                    ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", row, onlineVersion, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", false);
+                    changelogBox.Activate();
+                    changelogBox.ShowDialog();
+                    if (!changelogBox.YesNo)
                     {
-                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", row, onlineVersion, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", false);
-                        changelogBox.Activate();
-                        changelogBox.ShowDialog();
-                        if (!changelogBox.YesNo)
-                        {
-                            Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                            return;
-                        }
+                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                        return;
                     }
 
                     // Download the update
@@ -515,7 +512,7 @@ namespace AemulusModManager
         private void ExtractFile(string fileName, string game, DisplayedMetadata row, string version, GameBananaItemUpdate update = null)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = false;
+            startInfo.CreateNoWindow = true;
             startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
             if (!File.Exists(startInfo.FileName))
             {
@@ -562,7 +559,7 @@ namespace AemulusModManager
                 Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{row.path})");
                 Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{row.path}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && !main.updateConfirm && update != null)
+                if (main.updateChangelog && update != null)
                 {
                     ChangelogBox changelogBox = new ChangelogBox(update, row.name, $"Successfully updated {row.name}!", true);
                     changelogBox.Activate();
@@ -591,7 +588,7 @@ namespace AemulusModManager
                 Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{row.path})");
                 Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{row.path}");
                 // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && !main.updateConfirm && update != null)
+                if (main.updateChangelog && update != null)
                 {
                     ChangelogBox changelogBox = new ChangelogBox(update, row.name, $"Successfully updated {row.name}!", true);
                     changelogBox.Activate();
@@ -616,22 +613,36 @@ namespace AemulusModManager
             Console.WriteLine(@$"[INFO] Cleaned up {row.name} download files");
         }
 
+        // TODO: Find a good way to update package version after converting mod.xml
         private void UpdatePackageVersion(DisplayedMetadata row, string path, string version)
         {
-            Metadata m = new Metadata();
-            m.name = row.name;
-            m.author = row.author;
-            m.id = row.id;
+            XmlSerializer xsp = new XmlSerializer(typeof(Metadata));
+            Metadata m = null;
+            try
+            {
+                using (FileStream streamWriter = File.Open(path, System.IO.FileMode.Open))
+                {
+                    try
+                    {
+                        m = (Metadata)xsp.Deserialize(streamWriter);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($@"[ERROR] Couldn't deserialize {path} ({ex.Message})");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] Error updating package version: {ex.Message}");
+            }
             m.version = version;
-            m.link = row.link;
-            m.description = row.description;
             try
             {
                 using (FileStream streamWriter = File.Create(path))
                 {
                     try
                     {
-                        XmlSerializer xsp = new XmlSerializer(typeof(Metadata));
                         xsp.Serialize(streamWriter, m);
                     }
                     catch (Exception ex)

@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Media;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xml.Serialization;
 
 namespace AemulusModManager.Windows
@@ -55,6 +56,8 @@ namespace AemulusModManager.Windows
             {
                 YesButton.Visibility = Visibility.Visible;
                 NoButton.Visibility = Visibility.Visible;
+                Grid.SetColumnSpan(YesButton, 2);
+                Grid.SetColumnSpan(NoButton, 2);
             }
             PlayNotificationSound();
         }
