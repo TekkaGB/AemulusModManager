@@ -237,13 +237,21 @@ namespace AemulusModManager
                 {
                     localVersion = localVersionMatch.Groups["version"].Value;
                 }
+                if(row.skippedVersion != null)
+                {
+                    if(row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
+                    {
+                        Console.WriteLine($"[INFO] No updates available for {row.name}");
+                        return;
+                    }
+                }
                 if (UpdateAvailable(onlineVersion, localVersion))
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
                     if (main.updateConfirm)
                     {
-                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", false);
+                        ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", row, onlineVersion, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", false);
                         changelogBox.Activate();
                         changelogBox.ShowDialog();
                         if (!changelogBox.YesNo)
@@ -330,6 +338,14 @@ namespace AemulusModManager
             if (localVersionMatch.Success)
             {
                 localVersion = localVersionMatch.Groups["version"].Value;
+            }
+            if (row.skippedVersion != null)
+            {
+                if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
+                {
+                    Console.WriteLine($"[INFO] No updates available for {row.name}");
+                    return;
+                }
             }
             if (UpdateAvailable(onlineVersion, localVersion))
             {

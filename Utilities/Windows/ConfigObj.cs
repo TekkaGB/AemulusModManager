@@ -95,6 +95,7 @@ namespace AemulusModManager
         public string version { get; set; }
         public string link { get; set; }
         public string description { get; set; }
+        public string skippedVersion { get; set; }
     }
 
     [Serializable, XmlRoot("Mod")]
@@ -121,6 +122,7 @@ namespace AemulusModManager
         public string description { get; set; }
         public string link { get; set; }
         public string path { get; set; }
+        public string skippedVersion { get; set; }
     }
 
 }

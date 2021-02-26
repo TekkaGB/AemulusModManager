@@ -69,6 +69,7 @@ namespace AemulusModManager
                 dm.version = m.version;
             dm.description = m.description;
             dm.link = m.link;
+            dm.skippedVersion = m.skippedVersion;
             return dm;
         }
 
@@ -417,6 +418,7 @@ namespace AemulusModManager
                                 dm.version = m.version;
                                 dm.link = m.link;
                                 dm.description = m.description;
+                                dm.skippedVersion = m.skippedVersion;
                             }
                         }
                         catch (Exception ex)
@@ -713,6 +715,7 @@ namespace AemulusModManager
                             package.version = metadata.version;
                             package.link = metadata.link;
                             package.description = metadata.description;
+                            package.skippedVersion = metadata.skippedVersion;
                         }
                     }
                     catch (Exception ex)
@@ -1583,6 +1586,7 @@ namespace AemulusModManager
                 m.version = row.version;
                 m.link = row.link;
                 m.description = row.description;
+                m.skippedVersion = row.skippedVersion;
                 CreatePackage createPackage = new CreatePackage(m);
                 createPackage.ShowDialog();
                 if (createPackage.metadata != null)
@@ -1836,6 +1840,7 @@ namespace AemulusModManager
                                     dm.version = m.version;
                                     dm.link = m.link;
                                     dm.description = m.description;
+                                    dm.skippedVersion = m.skippedVersion;
                                 }
                                 catch (Exception ex)
                                 {
@@ -2152,6 +2157,7 @@ namespace AemulusModManager
                                         dm.version = m.version;
                                         dm.link = m.link;
                                         dm.description = m.description;
+                                        dm.skippedVersion = m.skippedVersion;
                                     }
                                 }
                                 catch (Exception ex)
@@ -2304,6 +2310,8 @@ namespace AemulusModManager
         private bool RowUpdatable(DisplayedMetadata row)
         {
             if (row.link == "")
+                return false;
+            if (row.skippedVersion != null && row.skippedVersion == "all")
                 return false;
             string host = UrlConverter.Convert(row.link);
             return (host == "GameBanana" || host == "GitHub") && row.version != "";

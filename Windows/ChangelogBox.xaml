@@ -45,8 +45,16 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="OkButton" Content="OK" Visibility="Collapsed" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" IsDefault="True" Grid.Row="3" Margin="0,0,22,10"/>
-        <Button x:Name="YesButton" Visibility="Collapsed" Content="Yes" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Yes_Button_Click" IsDefault="True" Grid.Row="3" Margin="0,0,130,14"/>
-        <Button x:Name="NoButton" Visibility="Collapsed" Content="No" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" Grid.Row="3" Margin="100,0,22,14"/>
+        <Grid Grid.Row="3" Grid.Column="1" Margin="0, 0, 0, 15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="OkButton" Content="OK" Visibility="Collapsed" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" IsDefault="True" Grid.Column="1"/>
+            <Button x:Name="YesButton" Visibility="Collapsed" Content="Yes" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Yes_Button_Click" IsDefault="True" Grid.Column="0"/>
+            <Button x:Name="NoButton" Visibility="Collapsed" Content="No" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" Grid.Column="1"/>
+            <Button x:Name="SkipButton" Visibility="Collapsed" Content="Skip Update" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Skip_Button_Click" Grid.Column="2"/>
+        </Grid>
     </Grid>
 </Window>
