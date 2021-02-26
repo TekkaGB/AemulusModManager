@@ -297,6 +297,11 @@ namespace AemulusModManager
             if (UpdateAvailable(release.TagName, row.version))
             {
                 Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName})");
+                NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
+                notification.ShowDialog();
+                notification.Activate();
+                if (!notification.YesNo)
+                    return;
                 string downloadUrl, fileName;
                 if (release.Assets.Count > 1)
                 {
@@ -314,7 +319,7 @@ namespace AemulusModManager
                 else
                 {
                     Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName}) but no downloadable files are available.");
-                    NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}) but no downloadable files.\nWould you like to go to the page to manually download the update?", false);
+                    notification = new NotificationBox($"{row.name} has an update ({release.TagName}) but no downloadable files.\nWould you like to go to the page to manually download the update?", false);
                     notification.ShowDialog();
                     notification.Activate();
                     if (notification.YesNo)

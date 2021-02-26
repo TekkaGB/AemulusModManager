@@ -19,9 +19,9 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" x:Name="Text" Padding="10" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="15"/>
         <Label Grid.Row="1" x:Name="VersionLabel" Content="Version" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 10, 10, 0" FontSize="17" Foreground="White"/>
-        <DataGrid Grid.Row="2" x:Name="ChangesGrid" HorizontalAlignment="Center" Margin="25,0, 25, 10" RowBackground="#121212" BorderBrush="Transparent" Foreground="White" 
-                  VerticalAlignment="Center" FontSize="13" HeadersVisibility="None" AutoGenerateColumns="False" 
-                  HorizontalScrollBarVisibility="Disabled" GridLinesVisibility="None" IsHitTestVisible="False">
+        <DataGrid Grid.Row="2" x:Name="ChangesGrid" HorizontalAlignment="Center" Margin="25,0, 25, 10" RowBackground="#121212" Background="#121212" BorderBrush="Transparent" Foreground="White" 
+                  VerticalAlignment="Center" FontSize="13" HeadersVisibility="None" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" MaxHeight="500"
+                  HorizontalScrollBarVisibility="Disabled" GridLinesVisibility="None">
             <DataGrid.Columns>
                 <DataGridTemplateColumn IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
@@ -30,7 +30,7 @@
                             Content="{Binding Category}"
                             Foreground="{Binding Category, Converter={StaticResource CategoryColourConverter}}"
                             FontSize="15"
-                            Background="#121212"
+                            Background="#3c4044"
                             />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -44,6 +44,33 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
+
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="BorderBrush">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Transparent"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground"
+                            Value="White"/>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="Transparent"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="MinHeight" Value="28"/>
+                </Style>
+            </DataGrid.RowStyle>
+
         </DataGrid>
         <Button x:Name="OkButton" Content="OK" Visibility="Collapsed" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" IsDefault="True" Grid.Row="3" Margin="0,0,22,10"/>
         <Button x:Name="YesButton" Visibility="Collapsed" Content="Yes" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Yes_Button_Click" IsDefault="True" Grid.Row="3" Margin="0,0,130,14"/>
