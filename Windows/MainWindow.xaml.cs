@@ -216,6 +216,7 @@ namespace AemulusModManager
             bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.StreamSource = iconStream;
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
             bitmap.EndInit();
             Preview.Source = bitmap;
 
@@ -860,6 +861,7 @@ namespace AemulusModManager
                         string dataDir = $@"{package}\Data";
                         if (Directory.Exists(dataDir))
                         {
+                            setAttributesNormal(new DirectoryInfo(dataDir));
                             MoveDirectory(dataDir, $@"temp");
                             MoveDirectory($@"temp", package);
                         }
@@ -1463,6 +1465,7 @@ namespace AemulusModManager
 
                         img.BeginInit();
                         img.StreamSource = stream;
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
                         img.EndInit();
                         Preview.Source = img;
                     }
@@ -1879,6 +1882,7 @@ namespace AemulusModManager
                 bitmap = new BitmapImage();
                 bitmap.BeginInit();
                 bitmap.StreamSource = iconStream;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
                 Preview.Source = bitmap;
 
