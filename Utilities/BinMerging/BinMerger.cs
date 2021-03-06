@@ -393,7 +393,7 @@ namespace AemulusModManager
                     DeleteDirectory($@"{mod}\battle\result\result");
                 if (Directory.Exists($@"{mod}\battle\result") && !Directory.GetFiles($@"{mod}\battle\result", "*", SearchOption.AllDirectories).Any())
                     DeleteDirectory($@"{mod}\battle\result");
-                if (Directory.Exists($@"{mod}\field\panel") && !Directory.GetFiles($@"{mod}\field\panel", "*", SearchOption.AllDirectories).Any())
+                if (Directory.Exists($@"{mod}\field\panel") && !Directory.EnumerateFileSystemEntries($@"{mod}\field\panel").Any())
                     DeleteDirectory($@"{mod}\field\panel");
                 if ((File.Exists($@"{mod}\minigame\crossword.pak") || File.Exists($@"{mod}\minigame\crossword.spd")) && Directory.Exists($@"{mod}\minigame\crossword"))
                 {
@@ -721,6 +721,8 @@ namespace AemulusModManager
                 DeleteDirectory($@"{modDir}\minigame\crossword\crossword");
             if (Directory.Exists($@"{modDir}\field\panel\panel"))
                 DeleteDirectory($@"{modDir}\field\panel\panel");
+            if (Directory.Exists($@"{modDir}\field\panel") && !Directory.EnumerateFileSystemEntries($@"{modDir}\field\panel").Any())
+                DeleteDirectory($@"{modDir}\field\panel");
 
             if (Directory.Exists($@"{modDir}\minigame\crossword\crossword"))
                 DeleteDirectory($@"{modDir}\minigame\crossword\crossword");
