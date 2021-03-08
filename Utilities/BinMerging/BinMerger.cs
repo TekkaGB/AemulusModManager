@@ -186,7 +186,7 @@ namespace AemulusModManager
                             || Path.GetExtension(file).ToLower() == ".pac"
                             || Path.GetExtension(file).ToLower() == ".pack")
                         {
-                            if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
+                            if (File.Exists(ogBinPath) && modList.Count > 0)
                             {
                                 // Check if mods.aem contains the modified parts of a bin
                                 if (!modList.Exists(x => x.Contains($@"{Path.GetDirectoryName(string.Join("\\", folders.ToArray()))}\{Path.GetFileNameWithoutExtension(binPath)}\")))
@@ -299,7 +299,7 @@ namespace AemulusModManager
                         }
                         else if (Path.GetExtension(file).ToLower() == ".spd")
                         {
-                            if ((File.Exists(binPath) && !File.Exists(ogBinPath)) || (File.Exists(ogBinPath) && modList.Count > 0))
+                            if (File.Exists(ogBinPath) && modList.Count > 0)
                             {
                                 Console.WriteLine($@"[INFO] Unpacking {file}...");
                                 Directory.CreateDirectory(Path.ChangeExtension(file, null));
