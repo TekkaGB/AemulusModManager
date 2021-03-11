@@ -389,7 +389,7 @@ namespace AemulusModManager
                 }
 
                 // Create displayed metadata from packages in PackageList and their respective Package.xml's
-                foreach (var package in PackageList)
+                foreach (var package in PackageList.ToList())
                 {
                     string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
                     Metadata m;
@@ -1238,7 +1238,7 @@ namespace AemulusModManager
                     return;
                 }
                 List<string> packages = new List<string>();
-                foreach (Package m in PackageList)
+                foreach (Package m in PackageList.ToList())
                 {
                     if (m.enabled)
                     {
@@ -1829,7 +1829,7 @@ namespace AemulusModManager
                 }
 
                 // Create displayed metadata from packages in PackageList and their respective Package.xml's
-                foreach (var package in PackageList)
+                foreach (var package in PackageList.ToList())
                 {
                     string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
                     Metadata m;
