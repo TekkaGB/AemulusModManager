@@ -33,10 +33,7 @@ namespace AemulusModManager
         {
             int end = Search(tmx, new byte[] { 0x00 });
             byte[] name = tmx.Take(end).ToArray();
-            // hardcode for ◆noiz.tmx
-            if (name.Length > 1 && BitConverter.ToString(new byte[] { name[0] }).Replace("-", "") == "81")
-                return $"◆{Encoding.ASCII.GetString(SliceArray(name, 2, name.Length))}";
-            return Encoding.ASCII.GetString(name);
+            return Encoding.GetEncoding(932).GetString(name);
         }
 
         public static Dictionary<string, int> getTmxNames(string spr)
@@ -53,10 +50,17 @@ namespace AemulusModManager
                 offset = found + offset + 4;
                 if (found != -1)
                 {
-                    string tmxName = getTmxName(SliceArray(sprBytes, (offset + 24), sprBytes.Length));
-                    if (!tmxNames.ContainsKey(tmxName))
-                        tmxNames.Add(tmxName, offset - 12);
+                    string ogTmxName = getTmxName(SliceArray(sprBytes, (offset + 24), sprBytes.Length));
+                    string tmxName = ogTmxName;
+                    int index = 2;
+                    while (tmxNames.ContainsKey(tmxName))
+                    {
+                        tmxName = $"{ogTmxName}({index})";
+                        index += 1;
+                    }
+                    tmxNames.Add(tmxName, offset - 12);
                 }
+
             }
             return tmxNames;
         }
