@@ -1021,12 +1021,31 @@ namespace AemulusModManager
 
         }
 
-        private void RefreshClick(object sender, RoutedEventArgs e)
+        private async void RefreshClick(object sender, RoutedEventArgs e)
         {
+            foreach (var button in buttons)
+            {
+                button.IsHitTestVisible = false;
+                button.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            GameBox.IsHitTestVisible = false;
+            ModGrid.IsHitTestVisible = false;
             Refresh();
             updateConfig();
             updatePackages();
-            UpdateAllAsync();
+            await UpdateAllAsync();
+            ModGrid.IsHitTestVisible = true;
+            foreach (var button in buttons)
+            {
+                button.IsHitTestVisible = true;
+                if (game == "Persona 3 FES")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                else if (game == "Persona 4 Golden")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                else
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+            }
+            GameBox.IsHitTestVisible = true;
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
