@@ -499,11 +499,14 @@ namespace AemulusModManager
 
             if (!bottomUpPriority)
             {
-                TopPriority.Text = "Higher Priority";
+                TopArrow.Visibility = Visibility.Visible;
+                BottomArrow.Visibility = Visibility.Collapsed;
             }
             else
             {
-                TopPriority.Text = "Lower Priority";
+
+                TopArrow.Visibility = Visibility.Collapsed;
+                BottomArrow.Visibility = Visibility.Visible;
             }
 
             LaunchButton.ToolTip = $"Launch {game}";
@@ -2095,11 +2098,14 @@ namespace AemulusModManager
             bottomUpPriority = !bottomUpPriority;
             if (!bottomUpPriority)
             {
-                TopPriority.Text = "Higher Priority";
+                TopArrow.Visibility = Visibility.Visible;
+                BottomArrow.Visibility = Visibility.Collapsed;
             }
             else
             {
-                TopPriority.Text = "Lower Priority";
+
+                TopArrow.Visibility = Visibility.Collapsed;
+                BottomArrow.Visibility = Visibility.Visible;
             }
 
             config.bottomUpPriority = bottomUpPriority;
@@ -2438,7 +2444,8 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
                 return;
             }
-            await UpdateAemulus();
+            if (config.updateAemulus)
+                await UpdateAemulus();
             if (!updatesEnabled)
             {
                 return;

@@ -96,8 +96,9 @@ namespace AemulusModManager.Utilities.KT
                         Console.WriteLine($"[ERROR] Couldn't delete {file} ({e.Message})");
                     }
                 }
-                // Overwrite if checksums are different
-                else if (new FileInfo(file).Length != new FileInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}").Length)
+                // Overwrite if file size/date modified are different
+                else if (new FileInfo(file).Length != new FileInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}").Length
+                    || File.GetLastWriteTime(file) != File.GetLastWriteTime($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}"))
                 {
                     Console.WriteLine($@"[INFO] Reverting {file} to original...");
                     try
