@@ -81,8 +81,10 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                     else if (((MainWindow)Current.MainWindow).game == "Persona 4 Golden")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                    else
+                    else if (((MainWindow)Current.MainWindow).game == "Persona 5")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                    else
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                 }
                 ((MainWindow)Current.MainWindow).ModGrid.IsHitTestVisible = true;
                 ((MainWindow)Current.MainWindow).GameBox.IsHitTestVisible = true;

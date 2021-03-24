@@ -146,6 +146,7 @@
     </ApplicationDefinition>
     <Compile Include="Utilities\BmdPatching\BmdObj.cs" />
     <Compile Include="Utilities\BmdPatching\BmdPatcher.cs" />
+    <Compile Include="Utilities\KT\Merger.cs" />
     <Compile Include="Utilities\PackageUpdating\DownloadUtils\Zip7Extractor.cs" />
     <Compile Include="Utilities\PackageUpdating\DownloadUtils\DownloadProgress.cs" />
     <Compile Include="Utilities\PackageUpdating\StringConverters.cs" />
@@ -162,6 +163,9 @@
     <Compile Include="Utilities\Windows\TimeSinceConverter.cs" />
     <Compile Include="Windows\ChangelogBox.xaml.cs">
       <DependentUpon>ChangelogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ConfigWindowP5S.xaml.cs">
+      <DependentUpon>ConfigWindowP5S.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ConfigWindowP5.xaml.cs">
       <DependentUpon>ConfigWindowP5.xaml</DependentUpon>
@@ -187,6 +191,10 @@
     <Page Include="Windows\ChangelogBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfigWindowP5S.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\ConfigWindowP5.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -380,6 +388,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dependencies\rdb_tool.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Assets\Aemulus.ico" />
     <Content Include="Dependencies\7z\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

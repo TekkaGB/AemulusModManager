@@ -200,7 +200,6 @@ namespace AemulusModManager
         // Use 7zip on iso
         private async void UnpackPacsClick(object sender, RoutedEventArgs e)
         {
-
             if (main.gamePath == null || main.gamePath == "")
             {
                 string selectedPath = selectExe("Select P5's EBOOT.BIN to unpack", ".bin");

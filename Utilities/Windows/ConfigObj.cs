@@ -25,6 +25,7 @@ namespace AemulusModManager
         public ConfigP3F p3fConfig { get; set; }
         public ConfigP4G p4gConfig { get; set; }
         public ConfigP5 p5Config { get; set; }
+        public ConfigP5S p5sConfig { get; set; }
 
     }
 
@@ -75,6 +76,17 @@ namespace AemulusModManager
         public bool updatesEnabled { get; set; } = true;
     }
 
+    public class ConfigP5S
+    {
+        public string modDir { get; set; } = "";
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool deleteOldVersions { get; set; }
+        public bool updatesEnabled { get; set; } = true;
+    }
     public class Packages
     {
         public ObservableCollection<Package> packages { get; set; }
