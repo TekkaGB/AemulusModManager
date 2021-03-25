@@ -133,20 +133,24 @@ namespace AemulusModManager
         private StreamWriter sw;
         private TextBoxOutputter outputter;
 
+        public string infoColor;
+        public string warningColor;
+        public string errorColor;
+        public string normalColor;
 
         void consoleWriter_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
         {
             string text = (string)e.Value;
             this.Dispatcher.Invoke(() =>
             {
-                if (text.StartsWith("[INFO]"))
-                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#046300");
-                else if (text.StartsWith("[WARNING]"))
-                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#764E00");
-                else if (text.StartsWith("[ERROR]"))
-                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "#AE1300");
-                else
-                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", "Black");
+            if (text.StartsWith("[INFO]"))
+                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", infoColor);
+            else if (text.StartsWith("[WARNING]"))
+                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", warningColor);
+            else if (text.StartsWith("[ERROR]"))
+                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", errorColor);
+            else
+                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", normalColor);
             });
         }
 
@@ -169,6 +173,7 @@ namespace AemulusModManager
             InitializeComponent();
             DataContext = this;
 
+
             sw = new StreamWriter("AemulusLog.txt", false, Encoding.UTF8, 4096);
             outputter = new TextBoxOutputter(sw);
             packages = new Packages();
@@ -182,29 +187,11 @@ namespace AemulusModManager
             var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
             Title = $"Aemulus Package Manager v{version}";
 
-            Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
+            
 
-            Directory.CreateDirectory($@"Packages");
-            Directory.CreateDirectory($@"Original");
+            Directory.CreateDirectory("Packages");
+            Directory.CreateDirectory("Original");
             Directory.CreateDirectory("Config");
-
-            // Transfer all current packages to Persona 4 Golden folder
-            if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden") && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES") && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5")
-                && Directory.Exists("Packages") && Directory.GetDirectories("Packages").Any())
-            {
-                Console.WriteLine("[INFO] Transferring current packages to Persona 4 Golden subfolder...");
-                MoveDirectory("Packages", "Persona 4 Golden");
-                Directory.CreateDirectory("Packages");
-                MoveDirectory("Persona 4 Golden", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
-            }
-
-
-            string[] subdirs = Directory.GetDirectories("Original")
-                            .Where(x => Path.GetFileName(x).StartsWith("data"))
-                            .ToArray();
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden");
-            foreach (var d in subdirs)
-                MoveDirectory(d, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{Path.GetFileName(d)}");
 
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
@@ -249,6 +236,7 @@ namespace AemulusModManager
             buttons.Add(ConfigButton);
             buttons.Add(LaunchButton);
             buttons.Add(RefreshButton);
+            buttons.Add(DarkMode);
 
             // Load in Config if it exists
 
@@ -257,8 +245,6 @@ namespace AemulusModManager
             {
                 try
                 {
-                    if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml"))
-                        file = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml";
                     using (FileStream streamWriter = File.Open(file, FileMode.Open))
                     {
                         // Call the Deserialize method and cast to the object type.
@@ -328,6 +314,7 @@ namespace AemulusModManager
                             updatesEnabled = config.p3fConfig.updatesEnabled;
                             deleteOldVersions = config.p3fConfig.deleteOldVersions;
                             useCpk = false;
+                            ConvertCPK.Visibility = Visibility.Collapsed;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                         }
@@ -343,6 +330,7 @@ namespace AemulusModManager
                             updatesEnabled = config.p5Config.updatesEnabled;
                             deleteOldVersions = config.p5Config.deleteOldVersions;
                             useCpk = false;
+                            ConvertCPK.Visibility = Visibility.Collapsed;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                         }
@@ -358,6 +346,7 @@ namespace AemulusModManager
                             updatesEnabled = config.p5sConfig.updatesEnabled;
                             deleteOldVersions = config.p5sConfig.deleteOldVersions;
                             useCpk = false;
+                            ConvertCPK.Visibility = Visibility.Collapsed;
                             foreach (var button in buttons)
                                 button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                         }
@@ -367,8 +356,12 @@ namespace AemulusModManager
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Invalid Config.xml ({ex.Message})");
+                    //Console.WriteLine($"Invalid Config.xml ({ex.Message})");
                 }
+
+                SwitchThemes();
+
+                Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
 
                 switch (game)
                 {
@@ -695,7 +688,7 @@ namespace AemulusModManager
                 GameBox.IsHitTestVisible = true;
             }
             else if (game == "Persona 5 Strikers")
-                Process.Start("steam://rungameid/1382330");
+                Process.Start("steam://rungameid/1382330/option0");
             else
                 Console.WriteLine("[ERROR] Please setup shortcut in config menu.");
         }
@@ -1125,7 +1118,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"[ERROR] Couldn't create directory/Package.xml. ({ex.Message})");
+                                Console.WriteLine($@"[ERROR] Couldn't create {path}\Package.xml. ({ex.Message})");
                             }
                         }
                         if (File.Exists(newPackage.thumbnailPath))
@@ -1244,7 +1237,7 @@ namespace AemulusModManager
 
                 if (game == "Persona 3 FES")
                     await pacUnpack(gamePath);
-                else
+                else if (game != "Persona 5 Strikers")
                     await pacUnpack(Path.GetDirectoryName(gamePath));
                 fromMain = false;
 
@@ -1271,7 +1264,8 @@ namespace AemulusModManager
                         break;
                     }
                 }
-                if (!Directory.EnumerateFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc").Any(x => Path.GetExtension(x).ToLower() == ".rdb"))
+                if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc")
+                    || !Directory.EnumerateFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc").Any(x => Path.GetExtension(x).ToLower() == ".rdb"))
                 {
                     backedUp = false;
                 }
@@ -1436,7 +1430,7 @@ namespace AemulusModManager
                             Mouse.OverrideCursor = null;
                             NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path} before building?", false);
                             if (game == "Persona 5 Strikers")
-                                notification = new NotificationBox($"Confirm DELETING THE ENTIRE UNMODIFIED CONTENTS of {path}?", false);
+                                notification = new NotificationBox($"Confirm DELETING THE ENTIRE MODIFIED CONTENTS of {path}?", false);
                             notification.ShowDialog();
                             YesNo = notification.YesNo;
                             Mouse.OverrideCursor = Cursors.Wait;
@@ -1634,6 +1628,7 @@ namespace AemulusModManager
             var paragraph = new Paragraph();
             flowDocument.Blocks.Add(paragraph);
 
+
             foreach (var segment in regex.Split(text))
             {
                 if (matches.Contains(segment))
@@ -1642,6 +1637,7 @@ namespace AemulusModManager
                     {
                         NavigateUri = new Uri(segment),
                     };
+
                     hyperlink.RequestNavigate += (sender, args) => Process.Start(segment);
 
                     paragraph.Inlines.Add(hyperlink);
@@ -2073,6 +2069,7 @@ namespace AemulusModManager
                 }
             }
             outputter.Close();
+            Application.Current.Shutdown();
         }
 
         private void FolderButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -2486,6 +2483,76 @@ namespace AemulusModManager
                 return false;
             string host = UrlConverter.Convert(row.link);
             return (host == "GameBanana" || host == "GitHub") && row.version != "";
+        }
+
+        private void SwitchThemes()
+        {
+            BrushConverter bc = new BrushConverter();
+            SolidColorBrush darkModeBackground = (SolidColorBrush)(bc.ConvertFrom("#202020"));
+            SolidColorBrush darkModeForeground = (SolidColorBrush)(bc.ConvertFrom("#f2f2f2"));
+            SolidColorBrush darkModeForeground2 = (SolidColorBrush)(bc.ConvertFrom("#9c9c9c"));
+            SolidColorBrush lightModeBackground = new SolidColorBrush(Colors.White);
+            SolidColorBrush lightModeBackground2 = (SolidColorBrush)(bc.ConvertFrom("#f2f2f2"));
+            SolidColorBrush lightModeForeground = (SolidColorBrush)(bc.ConvertFrom("#121212"));
+            if (!config.darkMode)
+            {
+                infoColor = "#046300";
+                warningColor = "#764E00";
+                errorColor = "#AE1300";
+                normalColor = "Black";
+                ModGrid.Background = lightModeBackground;
+                ModGrid.Foreground = lightModeForeground;
+                ModGrid.RowBackground = lightModeBackground;
+                ModGrid.AlternatingRowBackground = lightModeBackground2;
+                ConsoleOutput.Background = lightModeBackground;
+                Description.Background = lightModeBackground;
+                Description.Foreground = lightModeForeground;
+                SupportIcon.Foreground = lightModeForeground;
+                SupportText.Foreground = lightModeForeground;
+                SetupIcon.Foreground = lightModeForeground;
+                SetupText.Foreground = lightModeForeground;
+                Extras.Background = lightModeBackground2;
+                PriorityBox.Background = lightModeBackground2;
+                PriorityText.Foreground = lightModeForeground;
+                TopArrow.Foreground = lightModeForeground;
+                BottomArrow.Foreground = lightModeForeground;
+                DarkMode.ToolTip = "Switch to Dark Mode";
+            }
+            else
+            {
+                infoColor = "#52FF00";
+                warningColor = "#FFFF00";
+                errorColor = "#FFB0B0";
+                normalColor = "F2F2F2";
+                ModGrid.Background = darkModeBackground;
+                ModGrid.Foreground = darkModeForeground;
+                ModGrid.RowBackground = darkModeBackground;
+                ModGrid.AlternatingRowBackground = (SolidColorBrush)(bc.ConvertFrom("#2a2a2a"));
+                ConsoleOutput.Background = darkModeBackground;
+                Description.Background = darkModeBackground;
+                Description.Foreground = darkModeForeground;
+                SupportIcon.Foreground = darkModeForeground2;
+                SupportText.Foreground = darkModeForeground2;
+                SetupIcon.Foreground = darkModeForeground2;
+                SetupText.Foreground = darkModeForeground2;
+                Extras.Background = darkModeBackground;
+                PriorityBox.Background = darkModeBackground;
+                PriorityText.Foreground = darkModeForeground2;
+                TopArrow.Foreground = darkModeForeground2;
+                BottomArrow.Foreground = darkModeForeground2;
+                DarkMode.ToolTip = "Switch to Light Mode";
+            }
+        }
+
+        private void LightMode_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            config.darkMode = !config.darkMode;
+            updateConfig();
+            SwitchThemes();
+            if (!config.darkMode)
+                Console.WriteLine("[INFO] Switched to light mode.");
+            else
+                Console.WriteLine("[INFO] Switched to dark mode.");
         }
     }
 }

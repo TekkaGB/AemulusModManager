@@ -273,6 +273,7 @@
     <None Include="Aemulus_Setup.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="Assets\Jost-Regular.ttf" />
     <None Include="Dependencies\AtlusScriptCompiler\Charsets\P3.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
