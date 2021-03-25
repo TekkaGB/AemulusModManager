@@ -187,7 +187,10 @@ namespace AemulusModManager
             var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
             Title = $"Aemulus Package Manager v{version}";
 
-            
+            infoColor = "#52FF00";
+            warningColor = "#FFFF00";
+            errorColor = "#FFB0B0";
+            normalColor = "F2F2F2";
 
             Directory.CreateDirectory("Packages");
             Directory.CreateDirectory("Original");
@@ -358,6 +361,7 @@ namespace AemulusModManager
                 {
                     //Console.WriteLine($"Invalid Config.xml ({ex.Message})");
                 }
+
 
                 SwitchThemes();
 
