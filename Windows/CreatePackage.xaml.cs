@@ -164,10 +164,10 @@ namespace AemulusModManager
         private void PreviewButton_Click(object sender, RoutedEventArgs e)
         {
             var openPng = new CommonOpenFileDialog();
-            openPng.Filters.Add(new CommonFileDialogFilter("Thumbnail", "*.png"));
+            openPng.Filters.Add(new CommonFileDialogFilter("Preview", "*.*"));
             openPng.EnsurePathExists = true;
             openPng.EnsureValidNames = true;
-            openPng.Title = "Select .png for thumbnail";
+            openPng.Title = "Select Preview";
             if (openPng.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 PreviewBox.Text = openPng.FileName;

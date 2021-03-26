@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using WpfAnimatedGif;
 
 namespace AemulusModManager
 {
@@ -1128,8 +1129,7 @@ namespace AemulusModManager
                         if (File.Exists(newPackage.thumbnailPath))
                         {
                             string extension = Path.GetExtension(newPackage.thumbnailPath).ToLower();
-                            if (extension == ".png" || extension == ".jpg")
-                                File.Copy(newPackage.thumbnailPath, $@"{path}\Preview{extension}", true);
+                            File.Copy(newPackage.thumbnailPath, $@"{path}\Preview{extension}", true);
                         }
                         Refresh();
                         updateConfig();
@@ -1576,15 +1576,12 @@ namespace AemulusModManager
 
                 // Set image
                 string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
-                if (File.Exists($@"{path}\Preview.png") || File.Exists($@"{path}\Preview.jpg"))
+                FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
+                if (previewFiles.Length > 0)
                 {
                     try
                     {
-                        byte[] imageBytes = null;
-                        if (File.Exists($@"{path}\Preview.png"))
-                            imageBytes = File.ReadAllBytes($@"{path}\Preview.png");
-                        else
-                            imageBytes = File.ReadAllBytes($@"{path}\Preview.jpg");
+                        byte[] imageBytes = File.ReadAllBytes(previewFiles[0].FullName);
                         var stream = new MemoryStream(imageBytes);
                         var img = new BitmapImage();
 
@@ -1592,7 +1589,7 @@ namespace AemulusModManager
                         img.StreamSource = stream;
                         bitmap.CacheOption = BitmapCacheOption.OnLoad;
                         img.EndInit();
-                        Preview.Source = img;
+                        ImageBehavior.SetAnimatedSource(Preview, img);
                     }
                     catch (Exception ex)
                     {
@@ -1746,9 +1743,12 @@ namespace AemulusModManager
                         }
                         if (File.Exists(createPackage.thumbnailPath))
                         {
+                            string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
+                            FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
+                            foreach (var p in previewFiles)
+                                File.Delete(p.FullName);
                             string extension = Path.GetExtension(createPackage.thumbnailPath).ToLower();
-                            if (extension == ".png" || extension == ".jpg")
-                                File.Copy(createPackage.thumbnailPath, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Preview{extension}", true);
+                            File.Copy(createPackage.thumbnailPath, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Preview{extension}", true);
                         }
 
                         Refresh();
@@ -2035,7 +2035,7 @@ namespace AemulusModManager
                 bitmap.StreamSource = iconStream;
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
-                Preview.Source = bitmap;
+                ImageBehavior.SetAnimatedSource(Preview, bitmap);
 
                 Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                     "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
