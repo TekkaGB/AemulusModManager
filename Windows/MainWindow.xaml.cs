@@ -1929,6 +1929,9 @@ namespace AemulusModManager
                         }
                         break;
                 }
+                Reqs.Visibility = Visibility.Collapsed;
+                HHH.Visibility = Visibility.Collapsed;
+                Inaba.Visibility = Visibility.Collapsed;
                 config.game = game;
                 if (modPath == "" || modPath == null)
                 {

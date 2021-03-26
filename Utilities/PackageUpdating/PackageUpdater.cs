@@ -112,82 +112,54 @@ namespace AemulusModManager
         {
             try
             {
-
-                string requestUrl = $"https://api.gamebanana.com/Core/Item/Data?itemtype=Tool&itemid=6878&fields=Updates().bSubmissionHasUpdates(),Updates().aGetLatestUpdates(),Files().aFiles()&return_keys=1";
-                GameBananaItem response = JsonConvert.DeserializeObject<GameBananaItem>(await client.GetStringAsync(requestUrl));
-                if (response == null)
+                Uri uri = CreateUri($"https://github.com/TekkaGB/AemulusModManager");
+                Release release = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
+                Match onlineVersionMatch = Regex.Match(release.TagName, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                string onlineVersion = null;
+                if (onlineVersionMatch.Success)
                 {
-                    Console.WriteLine("[ERROR] Error whilst checking for Aemulus update: No response from GameBanana API");
-                    return false;
+                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
                 }
-                if (response.HasUpdates)
+                if (UpdateAvailable(onlineVersion, aemulusVersion))
                 {
-                    GameBananaItemUpdate[] updates = response.Updates;
-                    string updateTitle = updates[0].Title;
-                    int updateIndex = 0;
-                    Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
-                    string onlineVersion = null;
-                    if (onlineVersionMatch.Success)
+                    Console.WriteLine($"[INFO] An update is available for Aemulus ({onlineVersion})");
+                    NotificationBox notification = new NotificationBox($"Aemulus has a new update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
+                    notification.ShowDialog();
+                    notification.Activate();
+                    if (!notification.YesNo)
+                        return false;
+                    string downloadUrl, fileName;
+                    downloadUrl = release.Assets.First().BrowserDownloadUrl;
+                    fileName = release.Assets.First().Name;
+                    if (downloadUrl != null && fileName != null)
                     {
-                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
-                    }
-                    // GB Api only returns two latest updates, so if the first doesn't have a version try the second
-                    else if (updates.Length > 1)
-                    {
-                        updateTitle = updates[1].Title;
-                        onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
-                        updateIndex = 1;
-                        if (onlineVersionMatch.Success)
+                        await DownloadAemulus(downloadUrl, fileName, onlineVersion, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                        // Notify that the update is about to happen
+                        NotificationBox finishedNotification = new NotificationBox($"Finished downloading {fileName}!\nAemulus will now restart.", true);
+                        finishedNotification.ShowDialog();
+                        finishedNotification.Activate();
+                        // Update Aemulus
+                        UpdateManager updateManager = new UpdateManager(new LocalPackageResolver(@$"{assemblyLocation}\Downloads\AemulusUpdate"), new Zip7Extractor());
+                        if (!Version.TryParse(onlineVersion, out Version version))
                         {
-                            onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                            Console.WriteLine("[ERROR] Error parsing Aemulus version, cancelling update");
+                            // TODO Delete the downloaded stuff
+                            return false;
                         }
-                    }
-                    if (UpdateAvailable(onlineVersion, aemulusVersion))
-                    {
-                        Console.WriteLine($"[INFO] An update is available for Aemulus ({onlineVersion})");
-                        ChangelogBox notification = new ChangelogBox(updates[updateIndex], "Aemulus", $"A new version of Aemulus is available (v{onlineVersion}), would you like to update now?", false);
-                        notification.ShowDialog();
-                        notification.Activate();
-                        if (notification.YesNo)
+                        // Updates and restarts Aemulus
+                        await updateManager.PrepareUpdateAsync(version);
+                        // Clean up the downloaded files
+                        if (Directory.Exists($@"{assemblyLocation}\Downloads\"))
                         {
-                            Console.WriteLine($"[INFO] Updating Aemulus to v{onlineVersion}");
-                            Dictionary<String, GameBananaItemFile> files = response.Files;
-                            string downloadUrl = files.ElementAt(updateIndex).Value.DownloadUrl;
-                            string fileName = files.ElementAt(updateIndex).Value.FileName;
-                            // Download the update
-                            await DownloadAemulus(downloadUrl, fileName, onlineVersion, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
-                            // Notify that the update is about to happen
-                            NotificationBox finishedNotification = new NotificationBox($"Finished downloading {fileName}!\nAemulus will now restart.", true);
-                            finishedNotification.ShowDialog();
-                            finishedNotification.Activate();
-                            // Update Aemulus
-                            UpdateManager updateManager = new UpdateManager(new LocalPackageResolver(@$"{assemblyLocation}\Downloads\AemulusUpdate"), new Zip7Extractor());
-                            if (!Version.TryParse(onlineVersion, out Version version))
-                            {
-                                Console.WriteLine("[ERROR] Error parsing Aemulus version, cancelling update");
-                                // TODO Delete the downloaded stuff
-                                return false;
-                            }
-                            // Updates and restarts Aemulus
-                            await updateManager.PrepareUpdateAsync(version);
-                            // Clean up the downloaded files
-                            if (Directory.Exists($@"{assemblyLocation}\Downloads\"))
-                            {
-                                Directory.Delete($@"{assemblyLocation}\Downloads\", true);
-                            }
-                            updateManager.LaunchUpdater(version);
-                            return true;
+                            Directory.Delete($@"{assemblyLocation}\Downloads\", true);
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"[INFO] No updates available for Aemulus");
+                        updateManager.LaunchUpdater(version);
+                        return true;
                     }
                 }
                 else
                 {
                     Console.WriteLine($"[INFO] No updates available for Aemulus");
-
                 }
             }
             catch (Exception e)
