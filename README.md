@@ -1,6 +1,6 @@
-# Aemulus Package Manager P3F PS2/P4G PC/P5 PS3
+# Aemulus Package Manager P3F PS2/P4G PC/P5 PS3/P5S PC
 ## Introduction
-The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, and Persona 5.
+The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, Persona 5, and Persona 5 Strikers.
 
 ## How to Use
 ### Prerequisites
@@ -14,6 +14,8 @@ For Persona 3 FES, [setup HostFS for mod loading.](https://shrinefox.com/guides/
 
 For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
+For Persona 5 Strikers, nothing is need other than Aemulus!
+
 To easily download all prerequisites at once, I recommend using Pixelguin's [All-in-One Installer](https://gamebanana.com/tools/6928).
 
 ### Pointing to the Correct Output Directory
@@ -23,9 +25,7 @@ The first thing you'll want to do is click the Config button on the top left.  F
 - **For Persona 4 Golden**, select the mods folder found in your Persona 4 Golden Steam game directory.  This is where your merged mod loadout will be output.
 - **For Persona 3 FES**, select the same folder that SLUS_216.21.ELF is located.
 - **For Persona 5**, select \PS3_GAME\USRDIR found by right clicking the game in RPCS3 and selecting Open Install Folder.
-The image below is what picking the mods folder should look like.
-
-# <img src="https://i.imgur.com/cAnt58c.png">
+- **For Persona 5 Strikers**, select ...\P5S\data\motor_rsc.
 
 ### Unpacking Base Files
 
@@ -34,6 +34,8 @@ This feature unpacks mergeable files locally on your system. This way, Aemulus c
 You only need to do this once for each game you want to mod.  If you download another update for Aemulus Package Manager, you can just move the contents of the Original folder to the new update's one without having to unpack again.
 
 Open the Config menu and click Unpack Base Files, if the previous paths weren't setup already, it will prompt you to select the appropriate file/folder to start unpacking. You'll find the unpacked files for Aemulus in your Original/<Persona Game Name> folder.
+  
+Persona 5 Strikers doesn't need to unpack any base files but instead makes copies of the original files and rdbs that will be patched and replaced on the first run through. 
 
 ### Adding Packages
 Once you've set up Aemulus, drop your mods/packages into the Packages folder found in the same folder as AemulusPackageManager.exe. You can access this folder quickly by clicking the opened folder icon.
@@ -261,6 +263,21 @@ You can also include a Windows batch file named "prebuild.bat" inside the Aemulu
 ## Persona 4 Golden Preappfile Append Support
 
 For modders of Persona 4 Golden who want to utilize preappfile's append feature, simply put the appended contents inside a folder called preappfile.
+
+## Persona 5 Strikers RDB Patching Support
+
+Thanks to Raytwo's rdb_tool, Aemulus is able to patch the rdb files to use unpacked files placed in the data file. Modding linkdata is not yet supported by Aemulus.
+
+### Process
+1. Backs up all rdb files in motor_rsc and original file files in data in the Original folder on first run through.
+2. Restores data folder to have all original files only.
+3. Replaces all rdbs with the backed up rdbs.
+4. Uses rdb_tool to patch every single rdb.
+
+### Setup of Packages
+All files to be patched must be placed in a folder named data.  They can go by the names 0x<hex>.file, <hex>.<KT extension>, and/or the actual file name. Aemulus will rename them to the proper name needed for patching.
+
+For example, 0x948554ec.file, 948554ec.g1m, H0000_Joker.g1m are different naming conventions of the exact same file, all of which will work.
 
 ## Metadata
 As of version 1.3, metadata has been added to provide more info for each package.  Along with name, you can now display author, version, link, description, and even a thumbnail.
