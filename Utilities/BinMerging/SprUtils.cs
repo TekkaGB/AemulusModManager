@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using AemulusModManager.Utilities;
 
 namespace AemulusModManager
 {
@@ -39,7 +40,7 @@ namespace AemulusModManager
         public static Dictionary<string, int> getTmxNames(string spr)
         {
             Dictionary<string, int> tmxNames = new Dictionary<string, int>();
-            byte[] sprBytes = File.ReadAllBytes(spr);
+            byte[] sprBytes = FileIOWrapper.ReadAllBytes(spr);
             byte[] pattern = Encoding.ASCII.GetBytes("TMX0");
             int offset = 0;
             int found = 0;
@@ -68,7 +69,7 @@ namespace AemulusModManager
         private static List<int> getTmxOffsets(string spr)
         {
             List<int> tmxOffsets = new List<int>();
-            byte[] sprBytes = File.ReadAllBytes(spr);
+            byte[] sprBytes = FileIOWrapper.ReadAllBytes(spr);
             byte[] pattern = Encoding.ASCII.GetBytes("TMX0");
             int offset = 0;
             int found = 0;
@@ -88,7 +89,7 @@ namespace AemulusModManager
         private static int findTmx(string spr, string tmxName)
         {
             // Get all tmx names instead to prevent replacing similar names
-            if (File.Exists(spr))
+            if (FileIOWrapper.Exists(spr))
             {
                 Dictionary<string, int> tmxNames = getTmxNames(spr);
                 if (tmxNames.ContainsKey(tmxName))
@@ -104,13 +105,13 @@ namespace AemulusModManager
             if (offset > -1)
             {
                 Console.WriteLine($"[INFO] Merging {tmx} onto {spr}");
-                byte[] tmxBytes = File.ReadAllBytes(tmx);
+                byte[] tmxBytes = FileIOWrapper.ReadAllBytes(tmx);
                 int repTmxLen = tmxBytes.Length;
-                int ogTmxLen = BitConverter.ToInt32(File.ReadAllBytes(spr), (offset + 4));
+                int ogTmxLen = BitConverter.ToInt32(FileIOWrapper.ReadAllBytes(spr), (offset + 4));
 
                 if (repTmxLen == ogTmxLen)
                 {
-                    using (Stream stream = File.Open(spr, FileMode.Open))
+                    using (Stream stream = FileIOWrapper.Open(spr, FileMode.Open))
                     {
                         stream.Position = offset;
                         stream.Write(tmxBytes, 0, repTmxLen);
@@ -118,12 +119,12 @@ namespace AemulusModManager
                 }
                 else // Insert and update offsets
                 {
-                    byte[] sprBytes = File.ReadAllBytes(spr);
+                    byte[] sprBytes = FileIOWrapper.ReadAllBytes(spr);
                     byte[] newSpr = new byte[sprBytes.Length + (repTmxLen - ogTmxLen)];
                     SliceArray(sprBytes, 0, offset).CopyTo(newSpr, 0);
                     SliceArray(sprBytes, offset + ogTmxLen, sprBytes.Length).CopyTo(newSpr, offset + repTmxLen);
                     tmxBytes.CopyTo(newSpr, offset);
-                    File.WriteAllBytes(spr, newSpr);
+                    FileIOWrapper.WriteAllBytes(spr, newSpr);
                     updateOffsets(spr, getTmxOffsets(spr));
                 }
             }
@@ -135,7 +136,7 @@ namespace AemulusModManager
         {
             // Start of tmx offsets
             int pos = 36;
-            using (Stream stream = File.Open(spr, FileMode.Open))
+            using (Stream stream = FileIOWrapper.Open(spr, FileMode.Open))
             {
                 foreach (int offset in offsets)
                 {
@@ -153,7 +154,7 @@ namespace AemulusModManager
             int offset = findTmx(spr, tmxPattern);
             if (offset > -1)
             {
-                byte[] sprBytes = File.ReadAllBytes(spr);
+                byte[] sprBytes = FileIOWrapper.ReadAllBytes(spr);
                 int tmxLen = BitConverter.ToInt32(sprBytes, (offset + 4));
                 return SliceArray(sprBytes, offset, offset + tmxLen);
             }

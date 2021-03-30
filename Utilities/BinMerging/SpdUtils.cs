@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using AemulusModManager.Utilities;
 
 namespace AemulusModManager
 {
@@ -28,7 +29,7 @@ namespace AemulusModManager
         public static List<DDS> getDDSFiles(string spd)
         {
             List<DDS> ddsNames = new List<DDS>();
-            byte[] spdBytes = File.ReadAllBytes(spd);
+            byte[] spdBytes = FileIOWrapper.ReadAllBytes(spd);
             int numTextures = BitConverter.ToUInt16(spdBytes, 20);
             int pos = 32;
             DDS dds;
@@ -49,7 +50,7 @@ namespace AemulusModManager
         public static List<SPDKey> getSPDKeys(string spd)
         {
             List<SPDKey> spdKeys = new List<SPDKey>();
-            byte[] spdBytes = File.ReadAllBytes(spd);
+            byte[] spdBytes = FileIOWrapper.ReadAllBytes(spd);
             int numKeys = BitConverter.ToUInt16(spdBytes, 22);
             int pos = BitConverter.ToInt32(spdBytes, 28);
             SPDKey spdKey;
@@ -69,12 +70,12 @@ namespace AemulusModManager
         public static void replaceSPDKey(string spd, string spdspr)
         {
             List<SPDKey> spdKeys = getSPDKeys(spd);
-            byte[] spdBytes = File.ReadAllBytes(spdspr);
+            byte[] spdBytes = FileIOWrapper.ReadAllBytes(spdspr);
             foreach (var spdKey in spdKeys)
             {
                 if (spdKey.id.ToString() == Path.GetFileNameWithoutExtension(spdspr))
                 {
-                    using (Stream stream = File.Open(spd, FileMode.Open))
+                    using (Stream stream = FileIOWrapper.Open(spd, FileMode.Open))
                     {
                         stream.Position = spdKey.pos;
                         stream.Write(spdBytes, 0, 160);
@@ -95,14 +96,14 @@ namespace AemulusModManager
         public static void replaceDDS(string spd, string dds)
         {
             List<DDS> ddsFiles = getDDSFiles(spd);
-            byte[] ddsBytes = File.ReadAllBytes(dds);
+            byte[] ddsBytes = FileIOWrapper.ReadAllBytes(dds);
             foreach (var ddsFile in ddsFiles)
             {
                 if (ddsFile.name == Path.GetFileNameWithoutExtension(dds))
                 {
                     if (ddsBytes.Length == ddsFile.size)
                     {
-                        using (Stream stream = File.Open(spd, FileMode.Open))
+                        using (Stream stream = FileIOWrapper.Open(spd, FileMode.Open))
                         {
                             stream.Position = ddsFile.pos;
                             stream.Write(ddsBytes, 0, ddsFile.size);
@@ -110,12 +111,12 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        byte[] spdBytes = File.ReadAllBytes(spd);
+                        byte[] spdBytes = FileIOWrapper.ReadAllBytes(spd);
                         byte[] newSpd = new byte[spdBytes.Length + (ddsBytes.Length - ddsFile.size)];
                         SliceArray(spdBytes, 0, ddsFile.pos).CopyTo(newSpd, 0);
                         SliceArray(spdBytes, ddsFile.pos + ddsFile.size, spdBytes.Length).CopyTo(newSpd, ddsFile.pos + ddsBytes.Length);
                         ddsBytes.CopyTo(newSpd, ddsFile.pos);
-                        File.WriteAllBytes(spd, newSpd);
+                        FileIOWrapper.WriteAllBytes(spd, newSpd);
                         updateOffsets(spd, getDDSOffsets(spd));
                     }
                 }
@@ -125,7 +126,7 @@ namespace AemulusModManager
         private static List<SpdHeaderHelper> getDDSOffsets(string spd)
         {
             List<SpdHeaderHelper> ddsHelpers = new List<SpdHeaderHelper>();
-            byte[] spdBytes = File.ReadAllBytes(spd);
+            byte[] spdBytes = FileIOWrapper.ReadAllBytes(spd);
             byte[] pattern = Encoding.ASCII.GetBytes("DDS");
             int offset = 0;
             int found = 0;
@@ -171,7 +172,7 @@ namespace AemulusModManager
         {
             // Start of dds offsets
             int pos = 40;
-            using (Stream stream = File.Open(spd, FileMode.Open))
+            using (Stream stream = FileIOWrapper.Open(spd, FileMode.Open))
             {
                 foreach (var helper in helpers)
                 {

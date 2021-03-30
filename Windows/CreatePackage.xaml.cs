@@ -22,6 +22,7 @@ namespace AemulusModManager
             InitializeComponent();
             if (m != null)
             {
+                Title = $"Edit {m.name}";
                 NameBox.Text = m.name;
                 AuthorBox.Text = m.author;
                 IDBox.Text = m.id;

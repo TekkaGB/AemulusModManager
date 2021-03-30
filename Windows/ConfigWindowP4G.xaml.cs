@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using AemulusModManager.Utilities;
 
 namespace AemulusModManager
 {
@@ -252,13 +253,13 @@ namespace AemulusModManager
         private async void UnpackPacsClick(object sender, RoutedEventArgs e)
         {
             string directory;
-            if (main.modPath != null && File.Exists($@"{Directory.GetParent(main.modPath)}\data00004.pac"))
+            if (main.modPath != null && FileIOWrapper.Exists($@"{Directory.GetParent(main.modPath)}\data00004.pac"))
                 directory = Directory.GetParent(main.modPath).ToString();
             else
                 directory = openPacsFolder();
             if (directory != null)
             {
-                if (File.Exists($@"{directory}\{main.cpkLang}"))
+                if (FileIOWrapper.Exists($@"{directory}\{main.cpkLang}"))
                 {
                     UnpackButton.IsHitTestVisible = false;
                     main.ModGrid.IsHitTestVisible = false;

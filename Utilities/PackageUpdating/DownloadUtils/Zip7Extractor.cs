@@ -19,7 +19,7 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = @$"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-            if (!File.Exists(startInfo.FileName))
+            if (!FileIOWrapper.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -39,7 +39,7 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             }
             // TODO Check if it actually succeeded (by reading the command output I guess)
             Console.WriteLine($"[INFO] Done Extracting {sourceFilePath}");
-            File.Delete(@$"{sourceFilePath}");
+            FileIOWrapper.Delete(@$"{sourceFilePath}");
             Console.WriteLine(@$"[INFO] Deleted {sourceFilePath}");
             // Move the folders to the right place
             string parentPath = Directory.GetParent(destDirPath).FullName;

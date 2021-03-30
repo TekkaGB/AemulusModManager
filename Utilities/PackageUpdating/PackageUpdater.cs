@@ -1,4 +1,5 @@
-﻿using AemulusModManager.Utilities.PackageUpdating;
+﻿using AemulusModManager.Utilities;
+using AemulusModManager.Utilities.PackageUpdating;
 using AemulusModManager.Utilities.PackageUpdating.DownloadUtils;
 using AemulusModManager.Windows;
 using Newtonsoft.Json;
@@ -376,7 +377,7 @@ namespace AemulusModManager
                     Directory.CreateDirectory($@"{assemblyLocation}\Downloads");
                 }
                 // Download the file if it doesn't already exist
-                if (!File.Exists($@"{assemblyLocation}\Downloads\{fileName}"))
+                if (!FileIOWrapper.Exists($@"{assemblyLocation}\Downloads\{fileName}"))
                 {
                     progressBox = new UpdateProgressBox(cancellationToken);
                     progressBox.progressBar.Value = 0;
@@ -404,7 +405,7 @@ namespace AemulusModManager
             catch (OperationCanceledException)
             {
                 // Remove the file is it will be a partially downloaded one and close up
-                File.Delete(@$"Downloads\{fileName}");
+                FileIOWrapper.Delete(@$"Downloads\{fileName}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -453,16 +454,16 @@ namespace AemulusModManager
                 }
                 Console.WriteLine($"[INFO] Finished downloading {fileName}");
                 // Rename the file
-                if (!File.Exists($@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z"))
+                if (!FileIOWrapper.Exists($@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z"))
                 {
-                    File.Move($@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", $@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z");
+                    FileIOWrapper.Move($@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", $@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z");
                 }
                 progressBox.Close();
             }
             catch (OperationCanceledException)
             {
                 // Remove the file is it will be a partially downloaded one and close up
-                File.Delete(@$"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}");
+                FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -486,7 +487,7 @@ namespace AemulusModManager
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
-            if (!File.Exists(startInfo.FileName))
+            if (!FileIOWrapper.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -511,7 +512,7 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[ERROR] There was an error extracting {fileName}:\n{output}");
                     // Remove the download as it is likely corrupted
-                    File.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
+                    FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
                     if (Directory.Exists($@"{assemblyLocation}\Downloads\{row.name}"))
                     {
                         Directory.Delete($@"{assemblyLocation}\Downloads\{row.name}", true);
@@ -538,7 +539,7 @@ namespace AemulusModManager
                     changelogBox.ShowDialog();
                 }
                 // Update the version number in package.xml
-                if (File.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
+                if (FileIOWrapper.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
                 {
                     UpdatePackageVersion(row, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", version);
                 }
@@ -567,7 +568,7 @@ namespace AemulusModManager
                     changelogBox.ShowDialog();
                 }
                 // Update the version number in package.xml
-                if (File.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
+                if (FileIOWrapper.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
                 {
                     UpdatePackageVersion(row, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", version);
                 }
@@ -577,7 +578,7 @@ namespace AemulusModManager
             {
                 Console.WriteLine($"[ERROR] {fileName} does not contain a valid package (no Package.xml is present), ignoring it");
             }
-            File.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
+            FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
             if (Directory.Exists($@"{assemblyLocation}\Downloads\{row.name}"))
             {
                 Directory.Delete($@"{assemblyLocation}\Downloads\{row.name}", true);
@@ -592,7 +593,7 @@ namespace AemulusModManager
             Metadata m = null;
             try
             {
-                using (FileStream streamWriter = File.Open(path, System.IO.FileMode.Open))
+                using (FileStream streamWriter = FileIOWrapper.Open(path, System.IO.FileMode.Open))
                 {
                     try
                     {
@@ -611,7 +612,7 @@ namespace AemulusModManager
             m.version = version;
             try
             {
-                using (FileStream streamWriter = File.Create(path))
+                using (FileStream streamWriter = FileIOWrapper.Create(path))
                 {
                     try
                     {

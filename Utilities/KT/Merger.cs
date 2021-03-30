@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AemulusModManager.Utilities;
 
 namespace AemulusModManager.Utilities.KT
 {
@@ -44,15 +45,15 @@ namespace AemulusModManager.Utilities.KT
             foreach (var file in original_data)
             {
                 Console.WriteLine($@"[INFO] Backing up {modPath}\data\{file}");
-                if (File.Exists($@"{modPath}\data\{file}"))
-                    File.Copy($@"{modPath}\data\{file}", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{file}", true);
+                if (FileIOWrapper.Exists($@"{modPath}\data\{file}"))
+                    FileIOWrapper.Copy($@"{modPath}\data\{file}", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{file}", true);
                 else
                     Console.WriteLine($@"[ERROR] Couldn't find {modPath}\data\{file}");
             }
             foreach (var rdb in Directory.GetFiles(modPath, "*.rdb"))
             {
                 Console.WriteLine($"[INFO] Backing up {rdb}");
-                File.Copy(rdb, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\{Path.GetFileName(rdb)}", true);
+                FileIOWrapper.Copy(rdb, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\{Path.GetFileName(rdb)}", true);
             }
         }
 
@@ -64,7 +65,7 @@ namespace AemulusModManager.Utilities.KT
             // get md5 checksum of file
             using (var md5 = MD5.Create())
             {
-                using (var stream = new BufferedStream(File.OpenRead(filePath), 12000000))
+                using (var stream = new BufferedStream(FileIOWrapper.OpenRead(filePath), 12000000))
                 {
                     // get hash
                     byte[] currentFileSum = md5.ComputeHash(stream);
@@ -84,12 +85,12 @@ namespace AemulusModManager.Utilities.KT
             Parallel.ForEach(Directory.GetFiles($@"{modPath}\data"), file =>
             {
                 // Delete if not found in Original
-                if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}"))
+                if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}"))
                 {
                     Console.WriteLine($@"[INFO] Deleting {file}...");
                     try
                     {
-                        File.Delete(file);
+                        FileIOWrapper.Delete(file);
                     }
                     catch (Exception e)
                     {
@@ -98,12 +99,12 @@ namespace AemulusModManager.Utilities.KT
                 }
                 // Overwrite if file size/date modified are different
                 else if (new FileInfo(file).Length != new FileInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}").Length
-                    || File.GetLastWriteTime(file) != File.GetLastWriteTime($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}"))
+                    || FileIOWrapper.GetLastWriteTime(file) != FileIOWrapper.GetLastWriteTime($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}"))
                 {
                     Console.WriteLine($@"[INFO] Reverting {file} to original...");
                     try
                     {
-                        File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}", file, true);
+                        FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{Path.GetFileName(file)}", file, true);
                     }
                     catch (Exception e)
                     {
@@ -115,12 +116,12 @@ namespace AemulusModManager.Utilities.KT
             // Copy over original files that may have accidentally been deleted
             foreach (var file in original_data)
             {
-                if (!File.Exists($@"{modPath}\data\{file}") && File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{file}"))
+                if (!FileIOWrapper.Exists($@"{modPath}\data\{file}") && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{file}"))
                 {
                     Console.WriteLine($"[INFO] Restoring {file}...");
                     try
                     {
-                        File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{file}", $@"{modPath}\data\{file}", true);
+                        FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\data\{file}", $@"{modPath}\data\{file}", true);
                     }
                     catch (Exception e)
                     {
@@ -135,7 +136,7 @@ namespace AemulusModManager.Utilities.KT
                 Console.WriteLine($@"[INFO] Reverting {file} to original...");
                 try
                 {
-                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\{Path.GetFileName(file)}", file, true);
+                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Strikers\motor_rsc\{Path.GetFileName(file)}", file, true);
                 }
                 catch (Exception e)
                 {
@@ -155,7 +156,7 @@ namespace AemulusModManager.Utilities.KT
                 }
 
                 // Run prebuild.bat
-                if (File.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0)
+                if (FileIOWrapper.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0)
                 {
                     Console.WriteLine($@"[INFO] Running {mod}\prebuild.bat...");
 
@@ -192,7 +193,7 @@ namespace AemulusModManager.Utilities.KT
                     Console.WriteLine($@"[INFO] Copying over {file} to {modDir}\data\{fileName}");
                     try
                     {
-                        File.Copy(file, $@"{modDir}\data\{fileName}", true);
+                        FileIOWrapper.Copy(file, $@"{modDir}\data\{fileName}", true);
                     }
                     catch (Exception e)
                     {
@@ -208,7 +209,7 @@ namespace AemulusModManager.Utilities.KT
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\rdb_tool.exe";
-            if (!File.Exists(startInfo.FileName))
+            if (!FileIOWrapper.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
