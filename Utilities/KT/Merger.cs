@@ -193,7 +193,7 @@ namespace AemulusModManager.Utilities.KT
                     Console.WriteLine($@"[INFO] Copying over {file} to {modDir}\data\{fileName}");
                     try
                     {
-                        FileIOWrapper.Copy(file, $@"{modDir}\data\{fileName}", true);
+                        FileIOWrapper.Copy(file, $@"{modDir}\data\{fileName.ToLower()}", true);
                     }
                     catch (Exception e)
                     {
