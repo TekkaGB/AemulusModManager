@@ -912,8 +912,8 @@ namespace AemulusModManager
                         if (Directory.Exists(dataDir))
                         {
                             setAttributesNormal(new DirectoryInfo(dataDir));
-                            MoveDirectory(dataDir, $@"temp");
-                            MoveDirectory($@"temp", package);
+                            MoveDirectory(dataDir, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp");
+                            MoveDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp", package);
                         }
 
                         if (Directory.Exists("temp"))
@@ -921,7 +921,7 @@ namespace AemulusModManager
                             try
                             {
                                 setAttributesNormal(new DirectoryInfo("temp"));
-                                DeleteDirectory("temp");
+                                DeleteDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp");
                             }
                             catch (Exception ex)
                             {
@@ -2271,7 +2271,7 @@ namespace AemulusModManager
                                 path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileNameWithoutExtension(file)} ({index})";
                                 index += 1;
                             }
-                            MoveDirectory("temp", path);
+                            MoveDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp", path);
                         }
                         // Move folder if extraction is just a folder
                         else if (Directory.GetFileSystemEntries("temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries("temp")[0]))
