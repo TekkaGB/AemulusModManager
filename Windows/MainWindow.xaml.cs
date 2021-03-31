@@ -671,14 +671,21 @@ namespace AemulusModManager
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
 
+            try 
+            {
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
                     process.Start();
                     //process.WaitForExit(); // Freezes aemulus
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] {ex.Message}");
+            }
 
-                foreach (var button in buttons)
+            foreach (var button in buttons)
                 {
                     button.IsHitTestVisible = true;
                     if (game == "Persona 3 FES")

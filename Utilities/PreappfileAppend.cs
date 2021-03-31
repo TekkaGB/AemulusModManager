@@ -59,7 +59,7 @@ namespace AemulusModManager
                 FileIOWrapper.Copy($@"{path}\movie.cpk", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk");
             }
             // Copy original cpk back if different
-            if (GetChecksumString($@"Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
+            if (GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
             {
                 Console.WriteLine($@"[INFO] Reverting movie.cpk back to original");
                 FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
