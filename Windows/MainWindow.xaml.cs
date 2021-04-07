@@ -192,7 +192,7 @@ namespace AemulusModManager
             infoColor = "#52FF00";
             warningColor = "#FFFF00";
             errorColor = "#FFB0B0";
-            normalColor = "F2F2F2";
+            normalColor = "#F2F2F2";
 
             Directory.CreateDirectory("Packages");
             Directory.CreateDirectory("Original");
@@ -2538,7 +2538,7 @@ namespace AemulusModManager
                 infoColor = "#52FF00";
                 warningColor = "#FFFF00";
                 errorColor = "#FFB0B0";
-                normalColor = "F2F2F2";
+                normalColor = "#F2F2F2";
                 ModGrid.Background = darkModeBackground;
                 ModGrid.Foreground = darkModeForeground;
                 ModGrid.RowBackground = darkModeBackground;

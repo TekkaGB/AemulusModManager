@@ -13,7 +13,7 @@ namespace AemulusModManager
         public GameBananaItemUpdate[] Updates { get; set; }
 
         [JsonProperty("Files().aFiles()")]
-        public Dictionary<string, GameBananaItemFile> Files { get; set; }
+        public List<GameBananaItemFile> Files { get; set; }
 
     }
 }
