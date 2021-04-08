@@ -592,14 +592,15 @@ namespace AemulusModManager
                         index = 3;
                         break;
                 }
-                if (index != -1 && index != GameBox.SelectedIndex)
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
+                    if (index != -1)
                     {
-                        GameBox.SelectedIndex = index;
+                        if (index != GameBox.SelectedIndex)
+                            GameBox.SelectedIndex = index;
                         Activate();
-                    });
-                }
+                    }
+                });
             }
         }
 
@@ -1100,6 +1101,10 @@ namespace AemulusModManager
 
             // Remove older versions of the same id
             CheckVersioning();
+
+            // Move all enabled mods to top
+            DisplayedPackages = new ObservableCollection<DisplayedMetadata>(DisplayedPackages.ToList().OrderByDescending(x => x.enabled).ToList());
+            PackageList = new ObservableCollection<Package>(PackageList.ToList().OrderByDescending(x => x.enabled).ToList());
 
             // Update DisplayedPackages
             App.Current.Dispatcher.Invoke((Action)delegate
