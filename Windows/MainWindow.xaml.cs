@@ -511,8 +511,96 @@ namespace AemulusModManager
 
                 LaunchButton.ToolTip = $"Launch {game}";
                 UpdateAllAsync();
+                FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
+                fileSystemWatcher.Filter = "refresh.aem";
+                fileSystemWatcher.EnableRaisingEvents = true;
+                fileSystemWatcher.Created += FileSystemWatcher_Created;
             }
 
+        }
+        private static async Task<bool> IsFileReady(string filename)
+        {
+            var isReady = false;
+            await Task.Run(() =>
+            {
+                if (File.Exists(filename))
+                {
+
+                    while (!isReady)
+                    {
+                        // If the file can be opened for exclusive access it means that the file
+                        // is no longer locked by another process.
+                        try
+                        {
+                            using (FileStream inputStream =
+                                File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.None))
+                                isReady = inputStream.Length > 0;
+                        }
+                        catch (Exception e)
+                        {
+                            // Check if the exception is related to an IO error.
+                            if (e.GetType() == typeof(IOException))
+                            {
+                                isReady = false;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"[ERROR] Couldn't access {filename} ({e.Message})");
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            return isReady;
+        }
+        private async void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
+        {
+            var game = "";
+            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
+            {
+                Refresh();
+                if (await IsFileReady($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
+                {
+                    game = FileIOWrapper.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
+                    try
+                    {
+                        FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($@"[ERROR] Couldn't delete refresh.aem ({ex.Message})");
+                    }
+                }
+            }
+
+            if (game != "")
+            {                
+                var index = -1;
+                switch (game)
+                {
+                    case "Persona 3 FES":
+                        index = 0;
+                        break;
+                    case "Persona 4 Golden":
+                        index = 1;
+                        break;
+                    case "Persona 5":
+                        index = 2;
+                        break;
+                    case "Persona 5 Strikers":
+                        index = 3;
+                        break;
+                }
+                if (index != -1 && index != GameBox.SelectedIndex)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        GameBox.SelectedIndex = index;
+                        Activate();
+                    });
+                }
+            }
         }
 
         public Task pacUnpack(string directory)

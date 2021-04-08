@@ -36,13 +36,15 @@ namespace AemulusModManager.Utilities
                 {
                     DownloadWindow downloadWindow = new DownloadWindow(response);
                     downloadWindow.ShowDialog();
+                    downloadWindow.Activate();
                     if (downloadWindow.YesNo)
                     {
                         await DownloadFile(URL_TO_ARCHIVE, fileName, new Progress<DownloadProgress>(ReportUpdateProgress),
                             CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
                         await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Replace(" (PC)", ""));
-                        var notification = new NotificationBox($"Finished installing {response.Name} for {response.Game.Replace("(PC)", "")}!\nHit refresh!");
-                        notification.ShowDialog();
+                        if (File.Exists($@"{assemblyLocation}\refresh.aem"))
+                            FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
+                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Replace(" (PC)", ""));
                     }
                 }
             }
@@ -168,14 +170,13 @@ namespace AemulusModManager.Utilities
                         startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
                         if (!FileIOWrapper.Exists(startInfo.FileName))
                         {
-                            Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
-                            return;
+                            MessageBox.Show($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                         }
 
                         startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         startInfo.UseShellExecute = false;
                         startInfo.Arguments = $@"x -y ""{file}"" -o""{assemblyLocation}\temp""";
-                        Console.WriteLine($@"[INFO] Extracting {file} into Packages\{game}");
                         using (Process process = new Process())
                         {
                             process.StartInfo = startInfo;
@@ -212,8 +213,8 @@ namespace AemulusModManager.Utilities
                     }
                     else
                     {
-                        Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, skipping...");
-                    }
+                        MessageBox.Show($"{file} isn't a .zip, .7z, or .rar, couldn't extract...", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
                 if (Directory.Exists($@"{assemblyLocation}\temp"))
                     Directory.Delete($@"{assemblyLocation}\temp", true);
             });
