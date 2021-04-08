@@ -241,7 +241,7 @@ namespace AemulusModManager
                     {
                         if (file.Value.FileMetadata.Values.Count > 2)
                         {
-                            string fileTree = file.Value.FileMetadata.Values.ElementAt(2).ToString();
+                            string fileTree = file.Value.FileMetadata.Values.ElementAt(3).ToString();
                             if (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]")
                             {
                                 aemulusCompatibleFiles.Add(file.Key, file.Value);
