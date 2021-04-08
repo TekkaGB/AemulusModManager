@@ -176,7 +176,7 @@ namespace AemulusModManager
             DataContext = this;
 
 
-            sw = new StreamWriter("AemulusLog.txt", false, Encoding.UTF8, 4096);
+            sw = new StreamWriter($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AemulusLog.txt", false, Encoding.UTF8, 4096);
             outputter = new TextBoxOutputter(sw);
             packages = new Packages();
 
@@ -194,9 +194,9 @@ namespace AemulusModManager
             errorColor = "#FFB0B0";
             normalColor = "#F2F2F2";
 
-            Directory.CreateDirectory("Packages");
-            Directory.CreateDirectory("Original");
-            Directory.CreateDirectory("Config");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config");
 
             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
             PackageList = new ObservableCollection<Package>();
@@ -481,7 +481,7 @@ namespace AemulusModManager
                 MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
             }
             // Create Packages directory if it doesn't exist
-            Directory.CreateDirectory("Packages");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
             Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
             Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
             Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");

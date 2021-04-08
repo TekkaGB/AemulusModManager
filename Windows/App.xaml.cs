@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -56,15 +59,40 @@ namespace AemulusModManager
             catch { }
             return running;
         }
+        public static bool InstallGBHandler()
+        {
+            string AppPath = Path.ChangeExtension(Assembly.GetExecutingAssembly().Location, ".exe");
+            string protocolName = $"Aemulus";
+            try
+            {
+                var reg = Registry.CurrentUser.CreateSubKey(@"Software\Classes\aemulus");
+                reg.SetValue("", $"URL:{protocolName}");
+                reg.SetValue("URL Protocol", "");
+                reg = reg.CreateSubKey(@"shell\open\command");
+                reg.SetValue("", $"\"{AppPath}\" \"%1\"");
+                reg.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (AlreadyRunning())
-            {
-                return;
-            }
-            MainWindow mw = new MainWindow();
-            mw.Show();
+
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+
             DispatcherUnhandledException += App_DispatcherUnhandledException;
+            //InstallGBHandler();
+            MainWindow mw = new MainWindow();
+            bool running = AlreadyRunning();
+            if (!running)
+            {
+                mw.Show();
+            }
+            //if (e.Args.Length > 0)
+                //MessageBox.Show($"{e.Args[0]}");
         }
         private static void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
