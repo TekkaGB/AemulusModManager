@@ -80,12 +80,13 @@ namespace AemulusModManager
             InstallGBHandler();
             var otherProcess = AlreadyRunning();
             var running = otherProcess != null;
-            MainWindow mw = new MainWindow(running);
+            var oneClick = e.Args.Length > 0;
+            MainWindow mw = new MainWindow(running, oneClick);
             if (!running)
             {
                 mw.Show();
             }
-            if (e.Args.Length > 0)
+            if (oneClick)
                 new PackageDownloader().Download(e.Args[0], running);
             else if (running)
             {

@@ -170,7 +170,7 @@ namespace AemulusModManager
             ConsoleOutput.ScrollToEnd();
         }
 
-        public MainWindow(bool running)
+        public MainWindow(bool running, bool oneClick)
         {
             if (!running)
             {
@@ -510,7 +510,8 @@ namespace AemulusModManager
                 }
 
                 LaunchButton.ToolTip = $"Launch {game}";
-                UpdateAllAsync();
+                if (!oneClick)
+                    UpdateAllAsync();
                 FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
                 fileSystemWatcher.EnableRaisingEvents = true;
