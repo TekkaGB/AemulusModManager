@@ -170,346 +170,348 @@ namespace AemulusModManager
             ConsoleOutput.ScrollToEnd();
         }
 
-        public MainWindow()
+        public MainWindow(bool running)
         {
-            InitializeComponent();
-            DataContext = this;
-
-
-            sw = new StreamWriter($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AemulusLog.txt", false, Encoding.UTF8, 4096);
-            outputter = new TextBoxOutputter(sw);
-            packages = new Packages();
-
-            outputter.WriteEvent += consoleWriter_WriteEvent;
-            outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
-            Console.SetOut(outputter);
-
-            // Set Aemulus Version
-            aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
-            var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
-            Title = $"Aemulus Package Manager v{version}";
-
-            infoColor = "#52FF00";
-            warningColor = "#FFFF00";
-            errorColor = "#FFB0B0";
-            normalColor = "#F2F2F2";
-
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config");
-
-            DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
-            PackageList = new ObservableCollection<Package>();
-
-            // Initialise package updater
-            packageUpdater = new PackageUpdater(this);
-
-            // Retrieve initial thumbnail from embedded resource
-            Assembly asm = Assembly.GetExecutingAssembly();
-            Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
-            bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.StreamSource = iconStream;
-            bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.EndInit();
-            ImageBehavior.SetAnimatedSource(Preview, bitmap);
-
-
-            // Initialize config
-            config = new AemulusConfig();
-            p5Config = new ConfigP5();
-            p5sConfig = new ConfigP5S();
-            p4gConfig = new ConfigP4G();
-            p3fConfig = new ConfigP3F();
-            config.p4gConfig = p4gConfig;
-            config.p3fConfig = p3fConfig;
-            config.p5Config = p5Config;
-            config.p5sConfig = p5sConfig;
-
-            // Initialize xml serializers
-            XmlSerializer oldConfigSerializer = new XmlSerializer(typeof(Config));
-            xs = new XmlSerializer(typeof(AemulusConfig));
-            xp = new XmlSerializer(typeof(Packages));
-            xsp = new XmlSerializer(typeof(Metadata));
-            xsm = new XmlSerializer(typeof(ModXmlMetadata));
-
-            buttons = new List<FontAwesome5.ImageAwesome>();
-            buttons.Add(NewButton);
-            buttons.Add(SwapButton);
-            buttons.Add(FolderButton);
-            buttons.Add(MergeButton);
-            buttons.Add(ConfigButton);
-            buttons.Add(LaunchButton);
-            buttons.Add(RefreshButton);
-            buttons.Add(DarkMode);
-
-            // Load in Config if it exists
-
-            string file = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml";
-            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml") || FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml"))
+            if (!running)
             {
-                try
-                {
-                    using (FileStream streamWriter = FileIOWrapper.Open(file, FileMode.Open))
-                    {
-                        // Call the Deserialize method and cast to the object type.
-                        if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
-                        {
-                            Config oldConfig = (Config)oldConfigSerializer.Deserialize(streamWriter);
-                            p4gConfig.reloadedPath = oldConfig.reloadedPath;
-                            p4gConfig.exePath = oldConfig.exePath;
-                            p4gConfig.modDir = oldConfig.modDir;
-                            p4gConfig.emptySND = oldConfig.emptySND;
-                            p4gConfig.cpkLang = oldConfig.cpkLang;
-                            p4gConfig.useCpk = oldConfig.useCpk;
+                InitializeComponent();
+                DataContext = this;
 
-                            config.p4gConfig = p4gConfig;
-                        }
-                        else
-                            config = (AemulusConfig)xs.Deserialize(streamWriter);
-                        game = config.game;
-                        if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5" && game != "Persona 5 Strikers")
-                        {
-                            game = "Persona 4 Golden";
-                            config.game = "Persona 4 Golden";
-                        }
+                sw = new StreamWriter($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AemulusLog.txt", false, Encoding.UTF8, 4096);
+                outputter = new TextBoxOutputter(sw);
+                packages = new Packages();
 
-                        bottomUpPriority = config.bottomUpPriority;
+                outputter.WriteEvent += consoleWriter_WriteEvent;
+                outputter.WriteLineEvent += consoleWriter_WriteLineEvent;
+                Console.SetOut(outputter);
 
-                        if (config.p3fConfig != null)
-                            p3fConfig = config.p3fConfig;
-                        if (config.p4gConfig != null)
-                            p4gConfig = config.p4gConfig;
-                        if (config.p5Config != null)
-                            p5Config = config.p5Config;
+                // Set Aemulus Version
+                aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+                var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
+                Title = $"Aemulus Package Manager v{version}";
 
-                        if (game == "Persona 4 Golden")
-                        {
-                            // Default
-                            if (cpkLang == null)
-                            {
-                                cpkLang = "data_e.cpk";
-                                config.p4gConfig.cpkLang = "data_e.cpk";
-                            }
-                            modPath = config.p4gConfig.modDir;
-                            gamePath = config.p4gConfig.exePath;
-                            launcherPath = config.p4gConfig.reloadedPath;
-                            emptySND = config.p4gConfig.emptySND;
-                            cpkLang = config.p4gConfig.cpkLang;
-                            useCpk = config.p4gConfig.useCpk;
-                            buildWarning = config.p4gConfig.buildWarning;
-                            buildFinished = config.p4gConfig.buildFinished;
-                            updateChangelog = config.p4gConfig.updateChangelog;
-                            updateAll = config.p4gConfig.updateAll;
-                            updatesEnabled = config.p4gConfig.updatesEnabled;
-                            deleteOldVersions = config.p4gConfig.deleteOldVersions;
-                            foreach (var button in buttons)
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                        }
-                        else if (game == "Persona 3 FES")
-                        {
-                            modPath = config.p3fConfig.modDir;
-                            gamePath = config.p3fConfig.isoPath;
-                            elfPath = config.p3fConfig.elfPath;
-                            launcherPath = config.p3fConfig.launcherPath;
-                            buildWarning = config.p3fConfig.buildWarning;
-                            buildFinished = config.p3fConfig.buildFinished;
-                            updateChangelog = config.p3fConfig.updateChangelog;
-                            updateAll = config.p3fConfig.updateAll;
-                            updatesEnabled = config.p3fConfig.updatesEnabled;
-                            deleteOldVersions = config.p3fConfig.deleteOldVersions;
-                            useCpk = false;
-                            ConvertCPK.Visibility = Visibility.Collapsed;
-                            foreach (var button in buttons)
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                        }
-                        else if (game == "Persona 5")
-                        {
-                            modPath = config.p5Config.modDir;
-                            gamePath = config.p5Config.gamePath;
-                            launcherPath = config.p5Config.launcherPath;
-                            buildWarning = config.p5Config.buildWarning;
-                            buildFinished = config.p5Config.buildFinished;
-                            updateChangelog = config.p5Config.updateChangelog;
-                            updateAll = config.p5Config.updateAll;
-                            updatesEnabled = config.p5Config.updatesEnabled;
-                            deleteOldVersions = config.p5Config.deleteOldVersions;
-                            useCpk = false;
-                            ConvertCPK.Visibility = Visibility.Collapsed;
-                            foreach (var button in buttons)
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
-                        }
-                        else if (game == "Persona 5 Strikers")
-                        {
-                            modPath = config.p5sConfig.modDir;
-                            gamePath = null;
-                            launcherPath = null;
-                            buildWarning = config.p5sConfig.buildWarning;
-                            buildFinished = config.p5sConfig.buildFinished;
-                            updateChangelog = config.p5sConfig.updateChangelog;
-                            updateAll = config.p5sConfig.updateAll;
-                            updatesEnabled = config.p5sConfig.updatesEnabled;
-                            deleteOldVersions = config.p5sConfig.deleteOldVersions;
-                            useCpk = false;
-                            ConvertCPK.Visibility = Visibility.Collapsed;
-                            foreach (var button in buttons)
-                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
-                        }
-                    }
-                    if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
-                        FileIOWrapper.Delete(file);
-                }
-                catch (Exception ex)
-                {
-                    //Console.WriteLine($"Invalid Config.xml ({ex.Message})");
-                }
+                infoColor = "#52FF00";
+                warningColor = "#FFFF00";
+                errorColor = "#FFB0B0";
+                normalColor = "#F2F2F2";
+
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config");
+
+                DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
+                PackageList = new ObservableCollection<Package>();
+
+                // Initialise package updater
+                packageUpdater = new PackageUpdater(this);
+
+                // Retrieve initial thumbnail from embedded resource
+                Assembly asm = Assembly.GetExecutingAssembly();
+                Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
+                bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.StreamSource = iconStream;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+                ImageBehavior.SetAnimatedSource(Preview, bitmap);
 
 
-                SwitchThemes();
+                // Initialize config
+                config = new AemulusConfig();
+                p5Config = new ConfigP5();
+                p5sConfig = new ConfigP5S();
+                p4gConfig = new ConfigP4G();
+                p3fConfig = new ConfigP3F();
+                config.p4gConfig = p4gConfig;
+                config.p3fConfig = p3fConfig;
+                config.p5Config = p5Config;
+                config.p5sConfig = p5sConfig;
 
-                Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
+                // Initialize xml serializers
+                XmlSerializer oldConfigSerializer = new XmlSerializer(typeof(Config));
+                xs = new XmlSerializer(typeof(AemulusConfig));
+                xp = new XmlSerializer(typeof(Packages));
+                xsp = new XmlSerializer(typeof(Metadata));
+                xsm = new XmlSerializer(typeof(ModXmlMetadata));
 
-                switch (game)
-                {
-                    case "Persona 3 FES":
-                        GameBox.SelectedIndex = 0;
-                        break;
-                    case "Persona 4 Golden":
-                        GameBox.SelectedIndex = 1;
-                        break;
-                    case "Persona 5":
-                        GameBox.SelectedIndex = 2;
-                        break;
-                    case "Persona 5 Strikers":
-                        GameBox.SelectedIndex = 3;
-                        break;
-                }
+                buttons = new List<FontAwesome5.ImageAwesome>();
+                buttons.Add(NewButton);
+                buttons.Add(SwapButton);
+                buttons.Add(FolderButton);
+                buttons.Add(MergeButton);
+                buttons.Add(ConfigButton);
+                buttons.Add(LaunchButton);
+                buttons.Add(RefreshButton);
+                buttons.Add(DarkMode);
 
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml"))
+                // Load in Config if it exists
+
+                string file = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml";
+                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml") || FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                        using (FileStream streamWriter = FileIOWrapper.Open(file, FileMode.Open))
                         {
                             // Call the Deserialize method and cast to the object type.
-                            packages = (Packages)xp.Deserialize(streamWriter);
-                            PackageList = packages.packages;
+                            if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
+                            {
+                                Config oldConfig = (Config)oldConfigSerializer.Deserialize(streamWriter);
+                                p4gConfig.reloadedPath = oldConfig.reloadedPath;
+                                p4gConfig.exePath = oldConfig.exePath;
+                                p4gConfig.modDir = oldConfig.modDir;
+                                p4gConfig.emptySND = oldConfig.emptySND;
+                                p4gConfig.cpkLang = oldConfig.cpkLang;
+                                p4gConfig.useCpk = oldConfig.useCpk;
+
+                                config.p4gConfig = p4gConfig;
+                            }
+                            else
+                                config = (AemulusConfig)xs.Deserialize(streamWriter);
+                            game = config.game;
+                            if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5" && game != "Persona 5 Strikers")
+                            {
+                                game = "Persona 4 Golden";
+                                config.game = "Persona 4 Golden";
+                            }
+
+                            bottomUpPriority = config.bottomUpPriority;
+
+                            if (config.p3fConfig != null)
+                                p3fConfig = config.p3fConfig;
+                            if (config.p4gConfig != null)
+                                p4gConfig = config.p4gConfig;
+                            if (config.p5Config != null)
+                                p5Config = config.p5Config;
+
+                            if (game == "Persona 4 Golden")
+                            {
+                                // Default
+                                if (cpkLang == null)
+                                {
+                                    cpkLang = "data_e.cpk";
+                                    config.p4gConfig.cpkLang = "data_e.cpk";
+                                }
+                                modPath = config.p4gConfig.modDir;
+                                gamePath = config.p4gConfig.exePath;
+                                launcherPath = config.p4gConfig.reloadedPath;
+                                emptySND = config.p4gConfig.emptySND;
+                                cpkLang = config.p4gConfig.cpkLang;
+                                useCpk = config.p4gConfig.useCpk;
+                                buildWarning = config.p4gConfig.buildWarning;
+                                buildFinished = config.p4gConfig.buildFinished;
+                                updateChangelog = config.p4gConfig.updateChangelog;
+                                updateAll = config.p4gConfig.updateAll;
+                                updatesEnabled = config.p4gConfig.updatesEnabled;
+                                deleteOldVersions = config.p4gConfig.deleteOldVersions;
+                                foreach (var button in buttons)
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                            }
+                            else if (game == "Persona 3 FES")
+                            {
+                                modPath = config.p3fConfig.modDir;
+                                gamePath = config.p3fConfig.isoPath;
+                                elfPath = config.p3fConfig.elfPath;
+                                launcherPath = config.p3fConfig.launcherPath;
+                                buildWarning = config.p3fConfig.buildWarning;
+                                buildFinished = config.p3fConfig.buildFinished;
+                                updateChangelog = config.p3fConfig.updateChangelog;
+                                updateAll = config.p3fConfig.updateAll;
+                                updatesEnabled = config.p3fConfig.updatesEnabled;
+                                deleteOldVersions = config.p3fConfig.deleteOldVersions;
+                                useCpk = false;
+                                ConvertCPK.Visibility = Visibility.Collapsed;
+                                foreach (var button in buttons)
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                            }
+                            else if (game == "Persona 5")
+                            {
+                                modPath = config.p5Config.modDir;
+                                gamePath = config.p5Config.gamePath;
+                                launcherPath = config.p5Config.launcherPath;
+                                buildWarning = config.p5Config.buildWarning;
+                                buildFinished = config.p5Config.buildFinished;
+                                updateChangelog = config.p5Config.updateChangelog;
+                                updateAll = config.p5Config.updateAll;
+                                updatesEnabled = config.p5Config.updatesEnabled;
+                                deleteOldVersions = config.p5Config.deleteOldVersions;
+                                useCpk = false;
+                                ConvertCPK.Visibility = Visibility.Collapsed;
+                                foreach (var button in buttons)
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                            }
+                            else if (game == "Persona 5 Strikers")
+                            {
+                                modPath = config.p5sConfig.modDir;
+                                gamePath = null;
+                                launcherPath = null;
+                                buildWarning = config.p5sConfig.buildWarning;
+                                buildFinished = config.p5sConfig.buildFinished;
+                                updateChangelog = config.p5sConfig.updateChangelog;
+                                updateAll = config.p5sConfig.updateAll;
+                                updatesEnabled = config.p5sConfig.updatesEnabled;
+                                deleteOldVersions = config.p5sConfig.deleteOldVersions;
+                                useCpk = false;
+                                ConvertCPK.Visibility = Visibility.Collapsed;
+                                foreach (var button in buttons)
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                            }
                         }
+                        if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
+                            FileIOWrapper.Delete(file);
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
+                        //Console.WriteLine($"Invalid Config.xml ({ex.Message})");
                     }
-                }
 
 
-                if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
-                {
-                    Console.WriteLine($@"[INFO] Creating Packages\{game}");
-                    Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}");
-                }
+                    SwitchThemes();
 
-                // Create displayed metadata from packages in PackageList and their respective Package.xml's
-                foreach (var package in PackageList.ToList())
-                {
-                    string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
-                    Metadata m;
-                    DisplayedMetadata dm = new DisplayedMetadata();
-                    if (FileIOWrapper.Exists(xml))
+                    Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
+
+                    switch (game)
                     {
-                        m = new Metadata();
+                        case "Persona 3 FES":
+                            GameBox.SelectedIndex = 0;
+                            break;
+                        case "Persona 4 Golden":
+                            GameBox.SelectedIndex = 1;
+                            break;
+                        case "Persona 5":
+                            GameBox.SelectedIndex = 2;
+                            break;
+                        case "Persona 5 Strikers":
+                            GameBox.SelectedIndex = 3;
+                            break;
+                    }
+
+                    if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml"))
+                    {
                         try
                         {
-                            using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                            using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
                             {
-                                try
-                                {
-                                    m = (Metadata)xsp.Deserialize(streamWriter);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                                    continue;
-                                }
-                                dm.name = m.name;
-                                dm.id = m.id;
-                                dm.author = m.author;
-                                dm.version = m.version;
-                                dm.link = m.link;
-                                dm.description = m.description;
-                                dm.skippedVersion = m.skippedVersion;
+                                // Call the Deserialize method and cast to the object type.
+                                packages = (Packages)xp.Deserialize(streamWriter);
+                                PackageList = packages.packages;
                             }
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                            continue;
+                            Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
                         }
                     }
 
-                    dm.path = package.path;
-                    dm.enabled = package.enabled;
-                    DisplayedPackages.Add(dm);
+
+                    if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
+                    {
+                        Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                        Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}");
+                    }
+
+                    // Create displayed metadata from packages in PackageList and their respective Package.xml's
+                    foreach (var package in PackageList.ToList())
+                    {
+                        string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
+                        Metadata m;
+                        DisplayedMetadata dm = new DisplayedMetadata();
+                        if (FileIOWrapper.Exists(xml))
+                        {
+                            m = new Metadata();
+                            try
+                            {
+                                using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                {
+                                    try
+                                    {
+                                        m = (Metadata)xsp.Deserialize(streamWriter);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                        continue;
+                                    }
+                                    dm.name = m.name;
+                                    dm.id = m.id;
+                                    dm.author = m.author;
+                                    dm.version = m.version;
+                                    dm.link = m.link;
+                                    dm.description = m.description;
+                                    dm.skippedVersion = m.skippedVersion;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                continue;
+                            }
+                        }
+
+                        dm.path = package.path;
+                        dm.enabled = package.enabled;
+                        DisplayedPackages.Add(dm);
+                    }
+                    ModGrid.ItemsSource = DisplayedPackages;
+
                 }
-                ModGrid.ItemsSource = DisplayedPackages;
+                else // No config found
+                {
+                    game = "Persona 4 Golden";
+                    config.game = "Persona 4 Golden";
+                    cpkLang = "data_e.cpk";
+                    config.p4gConfig.cpkLang = "data_e.cpk";
+                    foreach (var button in buttons)
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                }
 
+
+
+                if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "" && config.p4gConfig.modDir != null)
+                    modPath = config.p4gConfig.modDir;
+                else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "" && config.p3fConfig.modDir != null)
+                    modPath = config.p3fConfig.modDir;
+                else if (game == "Persona 5" && config.p5Config.modDir != "" && config.p5Config.modDir != null)
+                    modPath = config.p5Config.modDir;
+                else if (game == "Persona 5 Strikers" && config.p5sConfig.modDir != "" && config.p5sConfig.modDir != null)
+                    modPath = config.p5sConfig.modDir;
+
+                if (modPath == "" || modPath == null)
+                {
+                    MergeButton.IsHitTestVisible = false;
+                    MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                }
+                // Create Packages directory if it doesn't exist
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Strikers");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
+
+                Refresh();
+                updateConfig();
+                updatePackages();
+
+                Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                    "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                    "the package has no description.)");
+
+                if (!bottomUpPriority)
+                {
+                    TopArrow.Visibility = Visibility.Visible;
+                    BottomArrow.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+
+                    TopArrow.Visibility = Visibility.Collapsed;
+                    BottomArrow.Visibility = Visibility.Visible;
+                }
+
+                LaunchButton.ToolTip = $"Launch {game}";
+                UpdateAllAsync();
             }
-            else // No config found
-            {
-                game = "Persona 4 Golden";
-                config.game = "Persona 4 Golden";
-                cpkLang = "data_e.cpk";
-                config.p4gConfig.cpkLang = "data_e.cpk";
-                foreach (var button in buttons)
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-            }
-
-
-
-            if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "" && config.p4gConfig.modDir != null)
-                modPath = config.p4gConfig.modDir;
-            else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "" && config.p3fConfig.modDir != null)
-                modPath = config.p3fConfig.modDir;
-            else if (game == "Persona 5" && config.p5Config.modDir != "" && config.p5Config.modDir != null)
-                modPath = config.p5Config.modDir;
-            else if (game == "Persona 5 Strikers" && config.p5sConfig.modDir != "" && config.p5sConfig.modDir != null)
-                modPath = config.p5sConfig.modDir;
-
-            if (modPath == "" || modPath == null)
-            {
-                MergeButton.IsHitTestVisible = false;
-                MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            // Create Packages directory if it doesn't exist
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Strikers");
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
-
-            Refresh();
-            updateConfig();
-            updatePackages();
-
-            Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
-                "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
-                "the package has no description.)");
-
-            if (!bottomUpPriority)
-            {
-                TopArrow.Visibility = Visibility.Visible;
-                BottomArrow.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-
-                TopArrow.Visibility = Visibility.Collapsed;
-                BottomArrow.Visibility = Visibility.Visible;
-            }
-
-            LaunchButton.ToolTip = $"Launch {game}";
-            UpdateAllAsync();
 
         }
 
@@ -916,11 +918,11 @@ namespace AemulusModManager
                             MoveDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp", package);
                         }
 
-                        if (Directory.Exists("temp"))
+                        if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"))
                         {
                             try
                             {
-                                setAttributesNormal(new DirectoryInfo("temp"));
+                                setAttributesNormal(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"));
                                 DeleteDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp");
                             }
                             catch (Exception ex)
@@ -1715,6 +1717,18 @@ namespace AemulusModManager
                     Refresh();
                     updateConfig();
                     updatePackages();
+                    Assembly asm = Assembly.GetExecutingAssembly();
+                    Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
+                    bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = iconStream;
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.EndInit();
+                    ImageBehavior.SetAnimatedSource(Preview, bitmap);
+
+                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                        "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                        "the package has no description.)");
                 }
             }
         }
@@ -2240,7 +2254,7 @@ namespace AemulusModManager
                     }
                     else if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
                     {
-                        Directory.CreateDirectory("temp");
+                        Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp");
                         ProcessStartInfo startInfo = new ProcessStartInfo();
                         startInfo.CreateNoWindow = true;
                         startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
@@ -2252,7 +2266,7 @@ namespace AemulusModManager
 
                         startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         startInfo.UseShellExecute = false;
-                        startInfo.Arguments = $@"x -y ""{file}"" -otemp";
+                        startInfo.Arguments = $@"x -y ""{file}"" -o{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp";
                         Console.WriteLine($@"[INFO] Extracting {file} into Packages\{game}");
                         using (Process process = new Process())
                         {
@@ -2261,9 +2275,9 @@ namespace AemulusModManager
                             process.WaitForExit();
                         }
                         // Put in folder if extraction comes in multiple files/folders
-                        if (Directory.GetFileSystemEntries("temp").Length > 1)
+                        if (Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp").Length > 1)
                         {
-                            setAttributesNormal(new DirectoryInfo("temp"));
+                            setAttributesNormal(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"));
                             string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileNameWithoutExtension(file)}";
                             int index = 2;
                             while (Directory.Exists(path))
@@ -2274,17 +2288,17 @@ namespace AemulusModManager
                             MoveDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp", path);
                         }
                         // Move folder if extraction is just a folder
-                        else if (Directory.GetFileSystemEntries("temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries("temp")[0]))
+                        else if (Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp")[0]))
                         {
-                            setAttributesNormal(new DirectoryInfo("temp"));
-                            string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries("temp")[0])}";
+                            setAttributesNormal(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"));
+                            string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp")[0])}";
                             int index = 2;
                             while (Directory.Exists(path))
                             {
-                                path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries("temp")[0])} ({index})";
+                                path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp")[0])} ({index})";
                                 index += 1;
                             }
-                            MoveDirectory(Directory.GetFileSystemEntries("temp")[0], path);
+                            MoveDirectory(Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp")[0], path);
                         }
                         //FileIOWrapper.Delete(file);
                         dropped = true;
@@ -2357,8 +2371,8 @@ namespace AemulusModManager
                         Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, or {game.Replace(" ", "")}Packages.xml, skipping...");
                     }
                 }
-                if (Directory.Exists("temp"))
-                    DeleteDirectory("temp");
+                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"))
+                    DeleteDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp");
 
                 if (dropped)
                 {
@@ -2388,7 +2402,6 @@ namespace AemulusModManager
                 ModGrid.IsHitTestVisible = false;
 
                 await ExtractPackages(fileList);
-
 
                 ModGrid.IsHitTestVisible = true;
                 foreach (var button in buttons)

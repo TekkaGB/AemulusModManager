@@ -4,13 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager.Windows"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Aemulus Package Manager" Height="175" Width="500"
         ResizeMode="NoResize"
-        Background="#121212" ShowActivated="True" Closing="Window_Closing">
+        Background="#151515" ShowActivated="True" Closing="Window_Closing">
     <Grid>
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="300" ValueChanged="ProgressBar_ValueChanged"/>
-        <TextBlock x:Name="progressText" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="" VerticalAlignment="Center" Margin="0,90,0,0" FontSize="15"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="progressTitle" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="" VerticalAlignment="Center" FontSize="15"/>
+        <ProgressBar Grid.Row="1" Name="progressBar" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="300" ValueChanged="ProgressBar_ValueChanged"/>
+        <TextBlock Grid.Row="2" Name="progressText" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="" VerticalAlignment="Center" FontSize="15"/>
     </Grid>
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo x:Name="taskBarItem" ProgressState="Normal"/>

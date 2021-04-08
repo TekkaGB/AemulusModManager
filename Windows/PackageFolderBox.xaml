@@ -12,9 +12,16 @@
         <TextBlock Padding="20" Foreground="White" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" FontSize="15" Text="Multiple Package.xml's found. Please select the correct Aemulus package folder."/>
         <DataGrid x:Name="FileGrid" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False" Margin="25,75,25,40">
             <DataGrid.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#9A2000"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9A2000" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#f2f2f2"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#535353" />
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#494949" />
+                    <Setter Property="Foreground" Value="#f2f2f2"/>
+                    <Setter Property="Height" Value="17"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="FolderColumn" Header="Folder Directory" IsReadOnly="True" Binding="{Binding}"/>

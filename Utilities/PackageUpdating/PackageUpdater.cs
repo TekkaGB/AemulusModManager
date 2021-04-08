@@ -178,7 +178,9 @@ namespace AemulusModManager
             }
             progressBox.progressBar.Value = progress.Percentage * 100;
             progressBox.taskBarItem.ProgressValue = progress.Percentage;
-            progressBox.progressText.Text = $"Downloading {progress.FileName}\n{Math.Round(progress.Percentage * 100, 2)}% ({StringConverters.FormatSize(progress.DownloadedBytes)} of {StringConverters.FormatSize(progress.TotalBytes)})";
+            progressBox.progressTitle.Text = $"Downloading {progress.FileName}...";
+            progressBox.progressText.Text = $"{Math.Round(progress.Percentage * 100, 2)}% " +
+                $"({StringConverters.FormatSize(progress.DownloadedBytes)} of {StringConverters.FormatSize(progress.TotalBytes)})";
         }
 
         private async Task GameBananaUpdate(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)

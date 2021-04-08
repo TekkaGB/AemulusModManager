@@ -1,0 +1,24 @@
+﻿<Window x:Class="AemulusModManager.DownloadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" Background="#151515" ResizeMode="NoResize"
+        Title="Download" SizeToContent="Height" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Name="DownloadText" Margin="10" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#f2f2f2" TextWrapping="Wrap"/>
+        <Image Name="Preview" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Grid.Row="2" Grid.Column="0" Content="Yes" Foreground="#f2f2f2" Background="#494949" Margin="20,5,20,5" Click="Yes_Click"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="No" Foreground="#f2f2f2" Background="#494949" Margin="20,5,20,5" Click="No_Click"/>
+    </Grid>
+</Window>

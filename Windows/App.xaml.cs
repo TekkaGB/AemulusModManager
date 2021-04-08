@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using AemulusModManager.Utilities;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -28,9 +29,9 @@ namespace AemulusModManager
         private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
         public const int SW_RESTORE = 9;
-        protected static bool AlreadyRunning()
+        protected static Process AlreadyRunning()
         {
-            bool running = false;
+            Process otherProcess = null;
             try
             {
                 // Getting collection of process  
@@ -43,21 +44,14 @@ namespace AemulusModManager
                     {
                         if (p.ProcessName.Equals(currentProcess.ProcessName) && p.MainModule.FileName.Equals(currentProcess.MainModule.FileName))
                         {
-                            running = true;
-                            NotificationBox message = new NotificationBox($"Aemulus is already running!");
-                            message.ShowDialog();
-                            IntPtr hFound = p.MainWindowHandle;
-                            if (IsIconic(hFound)) // If application is in ICONIC mode then  
-                                ShowWindow(hFound, SW_RESTORE);
-                            SetForegroundWindow(hFound); // Activate the window, if process is already running  
-                            Application.Current.Shutdown(0);
+                            otherProcess = p;
                             break;
                         }
                     }
                 }
             }
             catch { }
-            return running;
+            return otherProcess;
         }
         public static bool InstallGBHandler()
         {
@@ -80,19 +74,29 @@ namespace AemulusModManager
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             DispatcherUnhandledException += App_DispatcherUnhandledException;
-            //InstallGBHandler();
-            MainWindow mw = new MainWindow();
-            bool running = AlreadyRunning();
+            InstallGBHandler();
+            var otherProcess = AlreadyRunning();
+            var running = otherProcess != null;
+            MainWindow mw = new MainWindow(running);
             if (!running)
             {
                 mw.Show();
             }
-            //if (e.Args.Length > 0)
-                //MessageBox.Show($"{e.Args[0]}");
+            if (e.Args.Length > 0)
+                new PackageDownloader().Download(e.Args[0], running);
+            else if (running)
+            {
+                NotificationBox message = new NotificationBox($"Aemulus is already running!");
+                message.ShowDialog();
+                IntPtr hFound = otherProcess.MainWindowHandle;
+                if (IsIconic(hFound)) // If application is in ICONIC mode then  
+                    ShowWindow(hFound, SW_RESTORE);
+                SetForegroundWindow(hFound); // Activate the window, if process is already running  
+                Application.Current.Shutdown(0);
+            }
         }
         private static void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {

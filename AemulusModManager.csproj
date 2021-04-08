@@ -151,10 +151,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\DownloadWindow.xaml.cs">
+      <DependentUpon>DownloadWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\BmdPatching\BmdObj.cs" />
     <Compile Include="Utilities\BmdPatching\BmdPatcher.cs" />
     <Compile Include="Utilities\FileIOWrapper.cs" />
     <Compile Include="Utilities\KT\Merger.cs" />
+    <Compile Include="Utilities\PackageDownloader.cs" />
     <Compile Include="Utilities\PackageUpdating\DownloadUtils\Zip7Extractor.cs" />
     <Compile Include="Utilities\PackageUpdating\DownloadUtils\DownloadProgress.cs" />
     <Compile Include="Utilities\PackageUpdating\StringConverters.cs" />
@@ -196,6 +200,10 @@
     <Compile Include="Windows\UpdateProgressBox.xaml.cs">
       <DependentUpon>UpdateProgressBox.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\DownloadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ChangelogBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
