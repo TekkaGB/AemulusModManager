@@ -233,24 +233,23 @@ namespace AemulusModManager
                     }
 
                     // Download the update
-                    List<GameBananaItemFile> files = item.Files;
+                    Dictionary<String, GameBananaItemFile> files = item.Files;
                     string downloadUrl, fileName;
                     // Work out which are Aemulus comptaible by examining the file tree
-                    List<GameBananaItemFile> aemulusCompatibleFiles = new List<GameBananaItemFile>();
-                    foreach (var file in files)
+                    Dictionary<String, GameBananaItemFile> aemulusCompatibleFiles = new Dictionary<string, GameBananaItemFile>();
+                    foreach (KeyValuePair<string, GameBananaItemFile> file in files)
                     {
-                        if (file.FileMetadata.Values.Count > 2)
+                        if (file.Value.FileMetadata.Values.Count > 2)
                         {
-                            string fileTree = file.FileMetadata.Values.ElementAt(2).ToString();
+                            string fileTree = file.Value.FileMetadata.Values.ElementAt(2).ToString();
                             if (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]")
                             {
-                                aemulusCompatibleFiles.Add(file);
+                                aemulusCompatibleFiles.Add(file.Key, file.Value);
                             }
                         }
                     }
                     if (aemulusCompatibleFiles.Count > 1)
                     {
-                        Console.WriteLine($"{aemulusCompatibleFiles.Count}");
                         UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles, row.name);
                         fileBox.Activate();
                         fileBox.ShowDialog();
@@ -259,8 +258,8 @@ namespace AemulusModManager
                     }
                     else if (aemulusCompatibleFiles.Count == 1)
                     {
-                        downloadUrl = aemulusCompatibleFiles.ElementAt(0).DownloadUrl;
-                        fileName = aemulusCompatibleFiles.ElementAt(0).FileName;
+                        downloadUrl = aemulusCompatibleFiles.ElementAt(0).Value.DownloadUrl;
+                        fileName = aemulusCompatibleFiles.ElementAt(0).Value.FileName;
                     }
                     else
                     {

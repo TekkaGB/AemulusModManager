@@ -10,18 +10,11 @@
         Background="#121212" ShowActivated="True" Closing="Window_Closing" SizeToContent="WidthAndHeight">
     <Grid>
         <TextBlock Padding="20" Foreground="White" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" FontSize="15" Text="Multiple downloadable files found. Please select the correct one for Aemulus."/>
-        <DataGrid x:Name="FileGrid" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False" Margin="25,70,25,40" CanUserAddRows="False" CanUserResizeRows="False" CanUserResizeColumns="False">
+        <DataGrid x:Name="FileGrid" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False" Margin="25,70,25,40">
             <DataGrid.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#9A2000"/>
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#535353" />
-                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="#494949" />
-                    <Setter Property="Foreground" Value="#f2f2f2"/>
-                    <Setter Property="Height" Value="17"/>
-                    <Setter Property="FontSize" Value="12"/>
-                    <Setter Property="FontWeight" Value="SemiBold"/>
-                </Style>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#9A2000" />
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="DescriptionColumn" Header="File Description" IsReadOnly="True"/>

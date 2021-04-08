@@ -18,14 +18,14 @@ namespace AemulusModManager.Windows
         public string chosenFileName;
         private readonly string host;
         // GameBanana Files
-        public UpdateFileBox(List<GameBananaItemFile> files, string packageName)
+        public UpdateFileBox(Dictionary<String, GameBananaItemFile> files, string packageName)
         {
             InitializeComponent();
             FileGrid.ItemsSource = files;
             FileGrid.SelectedIndex = 0;
-            NameColumn.Binding = new Binding("FileName");
-            UploadTimeColumn.Binding = new Binding("TimeSinceUpload");
-            DescriptionColumn.Binding = new Binding("Description");
+            NameColumn.Binding = new Binding("Value.FileName");
+            UploadTimeColumn.Binding = new Binding("Value.TimeSinceUpload");
+            DescriptionColumn.Binding = new Binding("Value.Description");
             Title = $"Aemulus Package Manager - {packageName}";
             host = "GameBanana";
             PlayNotificationSound();
@@ -52,9 +52,9 @@ namespace AemulusModManager.Windows
         {
             if (host == "GameBanana")
             {
-                GameBananaItemFile selectedItem = (GameBananaItemFile)FileGrid.SelectedItem;
-                chosenFileUrl = selectedItem.DownloadUrl;
-                chosenFileName = selectedItem.FileName;
+                KeyValuePair<String, GameBananaItemFile> selectedItem = (KeyValuePair<String, GameBananaItemFile>)FileGrid.SelectedItem;
+                chosenFileUrl = selectedItem.Value.DownloadUrl;
+                chosenFileName = selectedItem.Value.FileName;
             }
             else if (host == "GitHub")
             {
