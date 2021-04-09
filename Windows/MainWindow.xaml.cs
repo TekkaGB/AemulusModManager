@@ -30,6 +30,7 @@ namespace AemulusModManager
         public ConfigP3F p3fConfig;
         public ConfigP4G p4gConfig;
         public ConfigP5 p5Config;
+        public ConfigP5R p5rConfig;
         public ConfigP5S p5sConfig;
         public Packages packages;
         public string game;
@@ -219,12 +220,14 @@ namespace AemulusModManager
                 // Initialize config
                 config = new AemulusConfig();
                 p5Config = new ConfigP5();
+                p5rConfig = new ConfigP5R();
                 p5sConfig = new ConfigP5S();
                 p4gConfig = new ConfigP4G();
                 p3fConfig = new ConfigP3F();
                 config.p4gConfig = p4gConfig;
                 config.p3fConfig = p3fConfig;
                 config.p5Config = p5Config;
+                config.p5rConfig = p5rConfig;
                 config.p5sConfig = p5sConfig;
 
                 // Initialize xml serializers
@@ -269,7 +272,7 @@ namespace AemulusModManager
                             else
                                 config = (AemulusConfig)xs.Deserialize(streamWriter);
                             game = config.game;
-                            if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5" && game != "Persona 5 Strikers")
+                            if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5" && game != "Persona 5 Royal" && game != "Persona 5 Strikers")
                             {
                                 game = "Persona 4 Golden";
                                 config.game = "Persona 4 Golden";
@@ -283,6 +286,8 @@ namespace AemulusModManager
                                 p4gConfig = config.p4gConfig;
                             if (config.p5Config != null)
                                 p5Config = config.p5Config;
+                            if (config.p5rConfig != null)
+                                p5rConfig = config.p5rConfig;
 
                             if (game == "Persona 4 Golden")
                             {
@@ -340,6 +345,22 @@ namespace AemulusModManager
                                 foreach (var button in buttons)
                                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                             }
+                            else if (game == "Persona 5 Royal")
+                            {
+                                modPath = config.p5rConfig.modDir;
+                                gamePath = config.p5rConfig.gamePath;
+                                launcherPath = config.p5rConfig.launcherPath;
+                                buildWarning = config.p5rConfig.buildWarning;
+                                buildFinished = config.p5rConfig.buildFinished;
+                                updateChangelog = config.p5rConfig.updateChangelog;
+                                updateAll = config.p5rConfig.updateAll;
+                                updatesEnabled = config.p5rConfig.updatesEnabled;
+                                deleteOldVersions = config.p5rConfig.deleteOldVersions;
+                                useCpk = false;
+                                ConvertCPK.Visibility = Visibility.Collapsed;
+                                foreach (var button in buttons)
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
+                            }
                             else if (game == "Persona 5 Strikers")
                             {
                                 modPath = config.p5sConfig.modDir;
@@ -381,8 +402,11 @@ namespace AemulusModManager
                         case "Persona 5":
                             GameBox.SelectedIndex = 2;
                             break;
-                        case "Persona 5 Strikers":
+                        case "Persona 5 Royal":
                             GameBox.SelectedIndex = 3;
+                            break;
+                        case "Persona 5 Strikers":
+                            GameBox.SelectedIndex = 4;
                             break;
                     }
 
@@ -473,6 +497,8 @@ namespace AemulusModManager
                     modPath = config.p3fConfig.modDir;
                 else if (game == "Persona 5" && config.p5Config.modDir != "" && config.p5Config.modDir != null)
                     modPath = config.p5Config.modDir;
+                else if (game == "Persona 5 Royal" && config.p5rConfig.modDir != "" && config.p5rConfig.modDir != null)
+                    modPath = config.p5rConfig.modDir;
                 else if (game == "Persona 5 Strikers" && config.p5sConfig.modDir != "" && config.p5sConfig.modDir != null)
                     modPath = config.p5sConfig.modDir;
 
@@ -589,8 +615,11 @@ namespace AemulusModManager
                     case "Persona 5":
                         index = 2;
                         break;
-                    case "Persona 5 Strikers":
+                    case "Persona 5 Royal":
                         index = 3;
+                        break;
+                    case "Persona 5 Strikers":
+                        index = 4;
                         break;
                 }
                 Application.Current.Dispatcher.Invoke(() =>
@@ -613,7 +642,7 @@ namespace AemulusModManager
                     PacUnpacker.Unpack(directory, cpkLang);
                 else if (game == "Persona 3 FES")
                     PacUnpacker.Unzip(directory);
-                else if (game == "Persona 5")
+                else if (game == "Persona 5" || game == "Persona 5 Royal")
                     PacUnpacker.UnpackCPK(directory);
                 else if (game == "Persona 5 Strikers")
                     Merger.Backup(directory);
@@ -627,6 +656,8 @@ namespace AemulusModManager
                             button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                         else if (game == "Persona 4 Golden")
                             button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        else if (game == "Persona 5 Royal")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
                         else if (game == "Persona 5 Strikers")
                             button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                         else
@@ -645,6 +676,7 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
+                    || (game == "Persona 5 Royal" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
                     || (game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc")))
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
             });
@@ -744,7 +776,7 @@ namespace AemulusModManager
                         startInfo.Arguments += $" \"{tempGamePath}\"";
                     }
                 }
-                else if (game == "Persona 5")
+                else if (game == "Persona 5" || game == "Persona 5 Royal")
                 {
                     if (!FileIOWrapper.Exists(gamePath))
                     {
@@ -784,6 +816,8 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                     else if (game == "Persona 4 Golden")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else if (game == "Persona 5 Royal")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
                     else if (game == "Persona 5 Strikers")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                     else
@@ -816,6 +850,12 @@ namespace AemulusModManager
             else if (game == "Persona 5")
             {
                 ConfigWindowP5 cWindow = new ConfigWindowP5(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 5 Royal")
+            {
+                ConfigWindowP5R cWindow = new ConfigWindowP5R(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
@@ -1184,6 +1224,8 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                 else if (game == "Persona 4 Golden")
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                else if (game == "Persona 5 Royal")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
                 else if (game == "Persona 5 Strikers")
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                 else
@@ -1275,7 +1317,8 @@ namespace AemulusModManager
             if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
-                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
+                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
+                    || (game == "Persona 5 Royal" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
             {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
@@ -1319,6 +1362,18 @@ namespace AemulusModManager
                         else
                             Console.WriteLine("[ERROR] Incorrect file chosen.");
                     }
+                    else if (game == "Persona 5 Royal")
+                    {
+                        selectedPath = selectExe("Select P5R's EBOOT.BIN to unpack", ".bin");
+                        if (selectedPath != null && Path.GetFileName(selectedPath) == "EBOOT.BIN")
+                        {
+                            gamePath = selectedPath;
+                            config.p5rConfig.gamePath = gamePath;
+                            updateConfig();
+                        }
+                        else
+                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                    }
                 }
 
                 if ((gamePath == "" || gamePath == null) && game != "Persona 5 Strikers")
@@ -1348,7 +1403,8 @@ namespace AemulusModManager
                 if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
-                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
+                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
+                    || (game == "Persona 5 Royal" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
                 {
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                     return;
@@ -1422,6 +1478,8 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                 else if (game == "Persona 4 Golden")
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                else if (game == "Persona 5 Royal")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
                 else if (game == "Persona 5 Strikers")
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                 else
@@ -1467,7 +1525,7 @@ namespace AemulusModManager
                     Console.WriteLine("[WARNING] No packages enabled in loadout, emptying output folder...");
                     string path = modPath;
 
-                    if (game == "Persona 5")
+                    if (game == "Persona 5" || game == "Persona 5 Royal")
                     {
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
@@ -1520,7 +1578,7 @@ namespace AemulusModManager
                 else
                 {
                     string path = modPath;
-                    if (game == "Persona 5")
+                    if (game == "Persona 5" || game == "Persona 5 Royal")
                     {
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
@@ -1564,7 +1622,7 @@ namespace AemulusModManager
                             PreappfileAppend.Append(Path.GetDirectoryName(path), cpkLang);
                         }
 
-                        if (game == "Persona 5")
+                        if (game == "Persona 5" || game == "Persona 5 Royal")
                         {
                             binMerge.MakeCpk(path);
                             if (!FileIOWrapper.Exists($@"{modPath}\mod.cpk"))
@@ -2020,6 +2078,25 @@ namespace AemulusModManager
                         }
                         break;
                     case 3:
+                        game = "Persona 5 Royal";
+                        modPath = config.p5rConfig.modDir;
+                        gamePath = config.p5rConfig.gamePath;
+                        launcherPath = config.p5rConfig.launcherPath;
+                        buildWarning = config.p5rConfig.buildWarning;
+                        buildFinished = config.p5rConfig.buildFinished;
+                        updateChangelog = config.p5rConfig.updateChangelog;
+                        updateAll = config.p5rConfig.updateAll;
+                        updatesEnabled = config.p5rConfig.updatesEnabled;
+                        deleteOldVersions = config.p5rConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
+                            button.IsHitTestVisible = true;
+                        }
+                        break;
+                    case 4:
                         game = "Persona 5 Strikers";
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();
@@ -2252,6 +2329,9 @@ namespace AemulusModManager
                     case "Persona 5":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x00, 0x00));
                         break;
+                    case "Persona 5 Royal":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x00, 0x5d));
+                        break;
                     case "Persona 5 Strikers":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x1c, 0x00));
                         break;
@@ -2274,6 +2354,9 @@ namespace AemulusModManager
                         break;
                     case "Persona 5":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                        break;
+                    case "Persona 5 Royal":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
                         break;
                     case "Persona 5 Strikers":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
@@ -2501,6 +2584,8 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
                     else if (game == "Persona 4 Golden")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else if (game == "Persona 5 Royal")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x5d));
                     else if (game == "Persona 5 Strikers")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
                     else

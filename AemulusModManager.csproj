@@ -151,6 +151,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\ConfigWindowP5R.xaml.cs">
+      <DependentUpon>ConfigWindowP5R.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
@@ -200,6 +203,10 @@
     <Compile Include="Windows\UpdateProgressBox.xaml.cs">
       <DependentUpon>UpdateProgressBox.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\ConfigWindowP5R.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\DownloadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

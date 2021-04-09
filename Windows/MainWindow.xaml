@@ -438,6 +438,7 @@
             <ComboBoxItem >Persona 3 FES</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Persona 4 Golden</ComboBoxItem>
             <ComboBoxItem>Persona 5</ComboBoxItem>
+            <ComboBoxItem>Persona 5 Royal</ComboBoxItem>
             <ComboBoxItem>Persona 5 Strikers</ComboBoxItem>
         </ComboBox>
 
