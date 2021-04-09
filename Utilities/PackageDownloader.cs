@@ -162,58 +162,44 @@ namespace AemulusModManager.Utilities
         {
             await Task.Run(() =>
             {
-                    if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
+                if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
+                {
+                    Directory.CreateDirectory($@"{assemblyLocation}\temp");
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.CreateNoWindow = true;
+                    startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
+                    if (!FileIOWrapper.Exists(startInfo.FileName))
                     {
-                        Directory.CreateDirectory($@"{assemblyLocation}\temp");
-                        ProcessStartInfo startInfo = new ProcessStartInfo();
-                        startInfo.CreateNoWindow = true;
-                        startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-                        if (!FileIOWrapper.Exists(startInfo.FileName))
-                        {
-                            MessageBox.Show($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
-                        }
-
-                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        startInfo.UseShellExecute = false;
-                        startInfo.Arguments = $@"x -y ""{file}"" -o""{assemblyLocation}\temp""";
-                        using (Process process = new Process())
-                        {
-                            process.StartInfo = startInfo;
-                            process.Start();
-                            process.WaitForExit();
-                        }
-                        // Put in folder if extraction comes in multiple files/folders
-                        if (Directory.GetFileSystemEntries($@"{assemblyLocation}\temp").Length > 1)
-                        {
-                            setAttributesNormal(new DirectoryInfo($@"{assemblyLocation}\temp"));
-                            string path = $@"{assemblyLocation}\Packages\{game}\{Path.GetFileNameWithoutExtension(file)}";
-                            int index = 2;
-                            while (Directory.Exists(path))
-                            {
-                                path = $@"{assemblyLocation}\Packages\{game}\{Path.GetFileNameWithoutExtension(file)} ({index})";
-                                index += 1;
-                            }
-                            MoveDirectory($@"{assemblyLocation}\temp", path);
-                        }
-                        // Move folder if extraction is just a folder
-                        else if (Directory.GetFileSystemEntries($@"{assemblyLocation}\temp").Length == 1 && Directory.Exists(Directory.GetFileSystemEntries($@"{assemblyLocation}\temp")[0]))
-                        {
-                            setAttributesNormal(new DirectoryInfo($@"{assemblyLocation}\temp"));
-                            string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries($@"{assemblyLocation}\temp")[0])}";
-                            int index = 2;
-                            while (Directory.Exists(path))
-                            {
-                                path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(Directory.GetFileSystemEntries($@"{assemblyLocation}\temp")[0])} ({index})";
-                                index += 1;
-                            }
-                            MoveDirectory(Directory.GetFileSystemEntries($@"{assemblyLocation}\temp")[0], path);
-                        }
-                        FileIOWrapper.Delete(file);
                     }
-                    else
+
+                    startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    startInfo.UseShellExecute = false;
+                    startInfo.Arguments = $@"x -y ""{file}"" -o""{assemblyLocation}\temp""";
+                    using (Process process = new Process())
                     {
-                        MessageBox.Show($"{file} isn't a .zip, .7z, or .rar, couldn't extract...", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        process.WaitForExit();
+                    }
+                    setAttributesNormal(new DirectoryInfo($@"{assemblyLocation}\temp"));
+                    foreach (var folder in Directory.GetDirectories($@"{assemblyLocation}\temp", "*", SearchOption.AllDirectories).Where(x => File.Exists($@"{x}\Package.xml") || File.Exists($@"{x}\Mod.xml")))
+                    {
+                        string path = $@"{assemblyLocation}\Packages\{game}\{Path.GetFileName(folder)}";
+                        int index = 2;
+                        while (Directory.Exists(path))
+                        {
+                            path = $@"{assemblyLocation}\Packages\{game}\{Path.GetFileName(folder)} ({index})";
+                            index += 1;
+                        }
+                        MoveDirectory(folder, path);
+                    }
+                    FileIOWrapper.Delete(file);
+                }
+                else
+                {
+                    MessageBox.Show($"{file} isn't a .zip, .7z, or .rar, couldn't extract...", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 if (Directory.Exists($@"{assemblyLocation}\temp"))
                     Directory.Delete($@"{assemblyLocation}\temp", true);
