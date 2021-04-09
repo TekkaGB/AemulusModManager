@@ -1103,10 +1103,6 @@ namespace AemulusModManager
             // Remove older versions of the same id
             CheckVersioning();
 
-            // Move all enabled mods to top
-            DisplayedPackages = new ObservableCollection<DisplayedMetadata>(DisplayedPackages.ToList().OrderByDescending(x => x.enabled).ToList());
-            PackageList = new ObservableCollection<Package>(PackageList.ToList().OrderByDescending(x => x.enabled).ToList());
-
             // Update DisplayedPackages
             App.Current.Dispatcher.Invoke((Action)delegate
             {
