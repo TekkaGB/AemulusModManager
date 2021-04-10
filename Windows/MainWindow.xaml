@@ -24,15 +24,15 @@
                   Grid.ColumnSpan="2"
                   CornerRadius="0"
                   Background="#535353"
-                  BorderBrush="#535353"
+                  BorderBrush="#424242"
                   BorderThickness="1,1,1,1" />
                 <Border 
                   Grid.Column="0"
                   CornerRadius="0" 
                   Margin="1" 
                   Background="#535353"
-                  BorderBrush="#535353"
-                  BorderThickness="1,0,0,0" />
+                  BorderBrush="#424242"
+                  BorderThickness="0,0,0,0" />
                 <Path 
                   x:Name="Arrow"
                   Grid.Column="1"     
@@ -52,8 +52,8 @@
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
                 <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
-                <Setter Property="Foreground" Value="#888888"/>
-                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                <Setter Property="Foreground" Value="#424242"/>
+                <Setter TargetName="Arrow" Property="Fill" Value="#424242" />
             </Trigger>
         </ControlTemplate.Triggers>-->
         </ControlTemplate>
@@ -117,7 +117,7 @@
                                 Background="#FF3F3F3F"
 
                                 BorderThickness="1"
-                                BorderBrush="#888888"/>
+                                BorderBrush="#424242"/>
                                     <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                                     </ScrollViewer>
@@ -129,7 +129,7 @@
                                 <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#888888"/>
+                                <Setter Property="Foreground" Value="#424242"/>
                             </Trigger>
                             <Trigger Property="IsGrouping" Value="true">
                                 <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
@@ -169,7 +169,7 @@
                                 <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="#888888"/>
+                                <Setter Property="Foreground" Value="#424242"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -434,7 +434,7 @@
 
         <fa5:ImageAwesome Name="DarkMode" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LightMode_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Adjust" Width="23" Grid.Column="8" Grid.Row="0"/>
 
-        <ComboBox Name="GameBox" Margin="10,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="25" Grid.Column="0" Grid.Row="0" >
+        <ComboBox Name="GameBox" Margin="0,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="118" Height="25" Grid.Column="0" Grid.Row="0" >
             <ComboBoxItem >Persona 3 FES</ComboBoxItem>
             <ComboBoxItem IsSelected="True">Persona 4 Golden</ComboBoxItem>
             <ComboBoxItem>Persona 5</ComboBoxItem>
@@ -451,16 +451,21 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="35"/>
-                <ColumnDefinition Width="390"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="0.6*"/>
             </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
             <DataGrid Name="ModGrid" AutoGenerateColumns="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto"  BorderBrush="#424242"
                           EnableColumnVirtualization="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" AlternatingRowBackground="#2A2A2A"
-                          dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column"
+                          dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column" HorizontalScrollBarVisibility="Hidden"
                           SelectionChanged="rowSelected" SelectionMode="Single" RowBackground="#202020" Foreground="#f2f2f2"
                           LoadingRow="ModGrid_LoadingRow" Background="#202020" ContextMenuOpening="ContextMenu_ContextMenuOpening"
-                          HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
+                          HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="4,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#202020"/>
@@ -489,8 +494,8 @@
                     </DataGridCheckBoxColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding name, Mode=TwoWay}" IsReadOnly="True" Width="1.5*"/>
                     <DataGridTextColumn Header="Author" Binding="{Binding author, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}" IsReadOnly="True" Width="50"/>
-                    <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="80">
+                    <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}" IsReadOnly="True" Width="0.3*"/>
+                    <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="0.5*">
                         <DataGridHyperlinkColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
@@ -525,22 +530,47 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
-            <GridSplitter Grid.Row="1" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
-            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="3">
+                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,3,3">
+                    <Grid x:Name="PriorityBox" Background="#202020">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="3.5*"/>
+                            <RowDefinition Height="15"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock x:Name="PriorityText" Text="PACKAGE PRIORITY" Margin="-13.5,0,0,0" Grid.Row="1" FontFamily="{StaticResource Jost}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="25" Height="50" Width="300">
+                            <TextBlock.LayoutTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90"/>
+                                </TransformGroup>
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                        <fa5:ImageAwesome Name="TopArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Height="18" VerticalAlignment="Top" Margin="2"/>
+                        <fa5:ImageAwesome Name="BottomArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Grid.Row="2" Height="18" VerticalAlignment="Bottom" Margin="2">
+                            <fa5:ImageAwesome.LayoutTransform>
+                                <RotateTransform Angle="180"/>
+                            </fa5:ImageAwesome.LayoutTransform>
+                        </fa5:ImageAwesome>
+                    </Grid>
+                </Border>
+            </Grid>
+            <GridSplitter BorderThickness="3" Grid.Row="1" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+            <GridSplitter BorderThickness="3" HorizontalAlignment="Center" Grid.Column="1" Grid.RowSpan="3" Width="4" VerticalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+            <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="220"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Grid.Row="0"/>
+                <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,10,4,10" Grid.Row="0"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="Bold" Width="135" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
+                    <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="Bold" Width="135" Margin="4,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
                     <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="5" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
                         <Button.Template>
                             <ControlTemplate>
@@ -557,8 +587,8 @@
                     </Button>
 
                 </Grid>
-                <RichTextBox Name="Description" BorderBrush="#424242" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="10" Padding="10" VerticalScrollBarVisibility="Auto" Background="#202020" Foreground="#f2f2f2"/>
-                <Border Grid.Row="3" Margin="10,0,10,0" BorderThickness="1" BorderBrush="#424242">
+                <RichTextBox Name="Description" BorderBrush="#424242" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="4,10,4,10" Padding="10" VerticalScrollBarVisibility="Auto" Background="#202020" Foreground="#f2f2f2"/>
+                <Border Grid.Row="3" Margin="4,0,4,0" BorderThickness="1" BorderBrush="#424242">
                     <Grid  Background="#202020" Name="Extras">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -584,30 +614,8 @@
                 </Border>
             </Grid>
 
-            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,0,3">
-                <Grid x:Name="PriorityBox" Background="#202020">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="3.5*"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock x:Name="PriorityText" Text="PACKAGE PRIORITY" Margin="-13.5,0,0,0" Grid.Row="1" FontFamily="{StaticResource Jost}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="25" Height="50" Width="300">
-                        <TextBlock.LayoutTransform>
-                            <TransformGroup>
-                                <RotateTransform Angle="90"/>
-                            </TransformGroup>
-                        </TextBlock.LayoutTransform>
-                    </TextBlock>
-                    <fa5:ImageAwesome Name="TopArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Height="18" VerticalAlignment="Top" Margin="2"/>
-                    <fa5:ImageAwesome Name="BottomArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Grid.Row="2" Height="18" VerticalAlignment="Bottom" Margin="2">
-                        <fa5:ImageAwesome.LayoutTransform>
-                            <RotateTransform Angle="180"/>
-                        </fa5:ImageAwesome.LayoutTransform>
-                    </fa5:ImageAwesome>
-                </Grid>
-            </Border>
-            <RichTextBox x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="10.5,3,0,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
+            
+            <RichTextBox x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="4,3,5.5,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
                 <RichTextBox.Resources>
                     <Style TargetType="{x:Type Paragraph}">
                         <Setter Property="Margin" Value="0" />
