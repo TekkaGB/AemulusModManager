@@ -2356,7 +2356,9 @@ namespace AemulusModManager
 
                         startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         startInfo.UseShellExecute = false;
-                        startInfo.Arguments = $@"x -y ""{file}"" -o{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp";
+                        startInfo.Arguments = $@"x -y ""{file}"" -o""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp""";
+                        Console.WriteLine($"[INFO] {startInfo.Arguments}");
+                        startInfo.RedirectStandardOutput = true;
                         Console.WriteLine($@"[INFO] Extracting {file} into Packages\{game}");
                         using (Process process = new Process())
                         {
