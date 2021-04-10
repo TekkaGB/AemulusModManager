@@ -446,6 +446,7 @@
         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -459,7 +460,7 @@
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column"
                           SelectionChanged="rowSelected" SelectionMode="Single" RowBackground="#202020" Foreground="#f2f2f2"
                           LoadingRow="ModGrid_LoadingRow" Background="#202020" ContextMenuOpening="ContextMenu_ContextMenuOpening"
-                          HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,10,0,10" PreviewKeyDown="ModGrid_PreviewKeyDown">
+                          HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="10,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#202020"/>
@@ -524,7 +525,8 @@
                     </ContextMenu>
                 </DataGrid.ContextMenu>
             </DataGrid>
-            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
+            <GridSplitter Grid.Row="1" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+            <Grid Grid.Column="2" Grid.Row="0" Grid.RowSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="220"/>
                     <RowDefinition Height="Auto"/>
@@ -582,7 +584,7 @@
                 </Border>
             </Grid>
 
-            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,0,10">
+            <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,0,3">
                 <Grid x:Name="PriorityBox" Background="#202020">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -605,7 +607,7 @@
                     </fa5:ImageAwesome>
                 </Grid>
             </Border>
-            <RichTextBox x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="10.5,0,0,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
+            <RichTextBox x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="10.5,3,0,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
                 <RichTextBox.Resources>
                     <Style TargetType="{x:Type Paragraph}">
                         <Setter Property="Margin" Value="0" />
