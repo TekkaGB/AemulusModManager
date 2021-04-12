@@ -72,6 +72,7 @@ namespace AemulusModManager
         // P4G
         public static void Unpack(string directory, string cpk)
         {
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden");
             if (!Directory.Exists(directory))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {directory}. Please correct the file path in config.");
@@ -135,7 +136,6 @@ namespace AemulusModManager
                     }
                 }
             }
-
             if (FileIOWrapper.Exists($@"{directory}\{cpk}") && !FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpk}"))
             {
                 Console.WriteLine($@"[INFO] Backing up {cpk}");
