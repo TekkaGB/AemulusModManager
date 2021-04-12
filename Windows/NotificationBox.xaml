@@ -5,17 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="Aemulus Package Manager" Height="250" Width="500"
-        ResizeMode="NoResize"
+        Title="Aemulus Package Manager" Width="500"
+        ResizeMode="NoResize" SizeToContent="Height"
         Background="#121212" ShowActivated="True">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <TextBlock x:Name="Notification" Padding="20" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="15"/>
-        </ScrollViewer>
+        <TextBlock x:Name="Notification" Padding="20" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow" FontSize="15"/>
         <Button x:Name="OkButton" Visibility="Collapsed" Content="OK" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" IsDefault="True" Grid.Row="1" Margin="0,14,22,14"/>
         <Button x:Name="YesButton" Visibility="Collapsed" Content="Yes" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Yes_Button_Click" IsDefault="True" Grid.Row="1" Margin="0,14,130,14"/>
         <Button x:Name="NoButton" Visibility="Collapsed" Content="No" Background="White" Height="25" Width="80" VerticalAlignment="Center" HorizontalAlignment="Right" Click="Button_Click" Grid.Row="1" Margin="0,14,22,14"/>

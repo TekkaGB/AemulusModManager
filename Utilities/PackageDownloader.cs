@@ -94,7 +94,7 @@ namespace AemulusModManager.Utilities
                 string MOD_TYPE = data[1];
                 string MOD_ID = data[2];
                 URL = $"https://api.gamebanana.com/Core/Item/Data?itemtype={MOD_TYPE}&itemid={MOD_ID}&fields=name,Game().name," +
-                    $"Files().aFiles(),Preview().sStructuredDataFullsizeUrl(),Preview().sSubFeedImageUrl()&return_keys=1";
+                    $"Files().aFiles(),Preview().sStructuredDataFullsizeUrl(),Preview().sSubFeedImageUrl(),Owner().name&return_keys=1";
                 return true;
             }
             catch (Exception e)

@@ -9,6 +9,8 @@ namespace AemulusModManager
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("Owner().name")]
+        public string Owner { get; set; }
         [JsonProperty("Game().name")]
         public string Game { get; set; }
         [JsonProperty("Updates().bSubmissionHasUpdates()")]
