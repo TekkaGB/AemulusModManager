@@ -495,7 +495,7 @@ namespace AemulusModManager
                 return;
             }
             // Extract the file
-            startInfo.Arguments = $"x -y \"{assemblyLocation}\\Downloads\\{fileName}\" -o\"{assemblyLocation}\\Downloads\\{row.name}\"";
+            startInfo.Arguments = $"x -y \"{assemblyLocation}\\Downloads\\{fileName}\" -o\"{assemblyLocation}\\Downloads\\{row.name.Trim()}\"";
             Console.WriteLine($"[INFO] Extracting {fileName}");
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.RedirectStandardOutput = true;
@@ -525,8 +525,8 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             // Find the root and move the extracted file to the correct package folder
-            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
-            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
+            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name.Trim()}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
+            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name.Trim()}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
             if (packageRoots.Length == 1)
             {
                 // Remove the old package directory
