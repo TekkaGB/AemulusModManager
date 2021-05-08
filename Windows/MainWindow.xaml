@@ -12,6 +12,7 @@
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
         <FontFamily x:Key="Jost">../Assets/#Jost</FontFamily>
+        <FontFamily x:Key="Monospace">../Assets/#Roboto Mono</FontFamily>
 
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>
@@ -615,7 +616,7 @@
             </Grid>
 
             
-            <RichTextBox x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="4,3,5.5,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
+            <RichTextBox FontFamily="{StaticResource Monospace}" x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="4,3,5.5,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
                 <RichTextBox.Resources>
                     <Style TargetType="{x:Type Paragraph}">
                         <Setter Property="Margin" Value="0" />

@@ -290,6 +290,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Assets\Jost-Regular.ttf" />
+    <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <None Include="Dependencies\AtlusScriptCompiler\Charsets\P3.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

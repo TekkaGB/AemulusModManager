@@ -31,6 +31,7 @@ namespace AemulusModManager
         }
         public static void Validate(string path, string cpkLang)
         {
+            var validated = true;
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\Preappfile\preappfile.exe";
@@ -53,7 +54,10 @@ namespace AemulusModManager
                     if (File.Exists($@"{path}\data00007\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
                         Console.WriteLine($"[INFO] Validated that {file} was appended");
                     else
-                        Console.WriteLine($"[WARNING] {file} not appended, try building again");
+                    {
+                        Console.WriteLine($"[WARNING] {file} not appended");
+                        validated = false;
+                    }
 
                 }
                 Directory.Delete($@"{path}\data00007", true);
@@ -74,10 +78,19 @@ namespace AemulusModManager
                     if (File.Exists($@"{path}\movie00003\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
                         Console.WriteLine($"[INFO] Validated appended {file}");
                     else
-                        Console.WriteLine($"[WARNING] {file} not appended, try building again");
+                    {
+                        Console.WriteLine($"[Warning] {file} not appended");
+                        validated = false;
+                    }
 
                 }
                 Directory.Delete($@"{path}\movie00003", true);
+            }
+            if (!validated)
+            {
+                Console.WriteLine($"[WARNING] Not all appended files were validated, trying again");
+                Append(path, cpkLang);
+                Validate(path, cpkLang);
             }
         }
         public static void Append(string path, string cpkLang)
