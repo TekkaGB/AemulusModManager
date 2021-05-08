@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Aemulus Package Manager"
         ResizeMode="NoResize"
-        Background="#121212" ShowActivated="True" Closing="Window_Closing" SizeToContent="WidthAndHeight">
+        Background="#151515" ShowActivated="True" Closing="Window_Closing" SizeToContent="WidthAndHeight">
     <Grid>
         <TextBlock Padding="20" Foreground="White" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" FontSize="15" Text="Multiple downloadable files found. Please select the correct one for Aemulus."/>
         <DataGrid x:Name="FileGrid" HorizontalAlignment="Center" VerticalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 

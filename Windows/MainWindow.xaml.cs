@@ -1551,16 +1551,15 @@ namespace AemulusModManager
                         binMerge.Restart(path, emptySND, game, cpkLang);
                         binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                         binMerge.Merge(path, game);
-
                         // Only run if tblpatches exists
                         if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                         {
                             tblPatch.Patch(packages, path, useCpk, cpkLang, game);
                         }
 
-                        // Only run if tblpatches exists
                         if (game == "Persona 4 Golden" && packages.Exists(x => Directory.Exists($@"{x}\preappfile")))
                         {
+                            Thread.Sleep(100);
                             PreappfileAppend.Append(Path.GetDirectoryName(path), cpkLang);
                         }
 
