@@ -1559,7 +1559,7 @@ namespace AemulusModManager
 
                         if (game == "Persona 4 Golden" && packages.Exists(x => Directory.Exists($@"{x}\preappfile")))
                         {
-                            Thread.Sleep(100);
+                            Thread.Sleep(500);
                             PreappfileAppend.Append(Path.GetDirectoryName(path), cpkLang);
                         }
 
