@@ -4,6 +4,8 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Reflection;
 using AemulusModManager.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AemulusModManager
 {
@@ -26,6 +28,57 @@ namespace AemulusModManager
             }
 
             return checksumString;
+        }
+        public static void Validate(string path, string cpkLang)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\Preappfile\preappfile.exe";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            if (FileIOWrapper.Exists($@"{path}\data00007.pac"))
+            {
+                startInfo.Arguments = $@"""{path}\data00007.pac""";
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+                foreach (var file in Directory.GetFiles($@"{path}\mods\preappfile\{Path.GetFileNameWithoutExtension(cpkLang)}", "*", SearchOption.AllDirectories))
+                {
+                    var folders = new List<string>(file.Split(char.Parse("\\")));
+                    int idx = folders.IndexOf(Path.GetFileNameWithoutExtension(cpkLang));
+                    if (File.Exists($@"{path}\data00007\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
+                        Console.WriteLine($"[INFO] Validated that {file} was appended");
+                    else
+                        Console.WriteLine($"[WARNING] {file} not appended, try building again");
+
+                }
+                Directory.Delete($@"{path}\data00007", true);
+            }
+            if (FileIOWrapper.Exists($@"{path}\movie00003.pac"))
+            {
+                startInfo.Arguments = $@"""{path}\movie00003.pac""";
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+                foreach (var file in Directory.GetFiles($@"{path}\mods\preappfile\movie", "*", SearchOption.AllDirectories))
+                {
+                    var folders = new List<string>(file.Split(char.Parse("\\")));
+                    int idx = folders.IndexOf("movie00003");
+                    if (File.Exists($@"{path}\movie00003\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
+                        Console.WriteLine($"[INFO] Validated appended {file}");
+                    else
+                        Console.WriteLine($"[WARNING] {file} not appended, try building again");
+
+                }
+                Directory.Delete($@"{path}\movie00003", true);
+            }
         }
         public static void Append(string path, string cpkLang)
         {
@@ -80,7 +133,6 @@ namespace AemulusModManager
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\Preappfile\preappfile.exe";
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
             if (Directory.Exists($@"{path}\mods\preappfile\{Path.GetFileNameWithoutExtension(cpkLang)}"))
             {
@@ -90,12 +142,7 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-                    while (!process.HasExited)
-                    {
-                        string text = process.StandardOutput.ReadLine();
-                        if (text != "" && text != null)
-                            Console.WriteLine($"[INFO] {text}");
-                    }
+                    process.WaitForExit();
                 }
             }
             if (Directory.Exists($@"{path}\mods\preappfile\movie"))
@@ -106,12 +153,7 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-                    while (!process.HasExited)
-                    {
-                        string text = process.StandardOutput.ReadLine();
-                        if (text != "" && text != null)
-                            Console.WriteLine($"[INFO] {text}");
-                    }
+                    process.WaitForExit();
                 }
             }
         }

@@ -510,12 +510,12 @@ namespace AemulusModManager
                 }
 
                 LaunchButton.ToolTip = $"Launch {game}";
-                if (!oneClick)
-                    UpdateAllAsync();
                 FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
                 fileSystemWatcher.EnableRaisingEvents = true;
                 fileSystemWatcher.Created += FileSystemWatcher_Created;
+                if (!oneClick)
+                    UpdateAllAsync();
             }
 
         }
@@ -1437,7 +1437,7 @@ namespace AemulusModManager
 
         private async Task unpackThenMerge()
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 Refresh();
                 if (!Directory.Exists(modPath))
@@ -1548,9 +1548,11 @@ namespace AemulusModManager
 
                     if (game != "Persona 5 Strikers")
                     {
-                        binMerge.Restart(path, emptySND, game, cpkLang);
-                        binMerge.Unpack(packages, path, useCpk, cpkLang, game);
-                        binMerge.Merge(path, game);
+                        await Task.Run(() => {
+                            binMerge.Restart(path, emptySND, game, cpkLang);
+                            binMerge.Unpack(packages, path, useCpk, cpkLang, game);
+                            binMerge.Merge(path, game);
+                        });
                         // Only run if tblpatches exists
                         if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                         {
@@ -1559,8 +1561,8 @@ namespace AemulusModManager
 
                         if (game == "Persona 4 Golden" && packages.Exists(x => Directory.Exists($@"{x}\preappfile")))
                         {
-                            Thread.Sleep(500);
                             PreappfileAppend.Append(Path.GetDirectoryName(path), cpkLang);
+                            PreappfileAppend.Validate(Path.GetDirectoryName(path), cpkLang);
                         }
 
                         if (game == "Persona 5")
@@ -2560,10 +2562,31 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
                 return;
             }
+            foreach (var button in buttons)
+            {
+                button.IsHitTestVisible = false;
+                button.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+            GameBox.IsHitTestVisible = false;
+            ModGrid.IsHitTestVisible = false;
             if (config.updateAemulus)
                 await UpdateAemulus();
             if (!updatesEnabled)
             {
+                ModGrid.IsHitTestVisible = true;
+                foreach (var button in buttons)
+                {
+                    button.IsHitTestVisible = true;
+                    if (game == "Persona 3 FES")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                    else if (game == "Persona 4 Golden")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    else if (game == "Persona 5 Strikers")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                    else
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                }
+                GameBox.IsHitTestVisible = true;
                 return;
             }
             if (updateAll)
@@ -2578,6 +2601,20 @@ namespace AemulusModManager
                 updateConfig();
                 updatePackages();
             }
+            ModGrid.IsHitTestVisible = true;
+            foreach (var button in buttons)
+            {
+                button.IsHitTestVisible = true;
+                if (game == "Persona 3 FES")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                else if (game == "Persona 4 Golden")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                else if (game == "Persona 5 Strikers")
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                else
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+            }
+            GameBox.IsHitTestVisible = true;
         }
 
         private async Task UpdateAemulus()
