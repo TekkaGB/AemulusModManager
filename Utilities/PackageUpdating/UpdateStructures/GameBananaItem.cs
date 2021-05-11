@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using AemulusModManager.Utilities.PackageUpdating;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace AemulusModManager
 {
@@ -23,6 +26,130 @@ namespace AemulusModManager
         public Dictionary<string, GameBananaItemFile> Files { get; set; }
         [JsonProperty("Preview().sSubFeedImageUrl()")]
         public Uri SubFeedImage { get; set; }
+        [JsonProperty("Preview().sStructuredDataFullsizeUrl()")]
+        public Uri EmbedImage { get; set; }
 
+    }
+    public class GameBananaCategory
+    {
+        [JsonProperty("_idRow")]
+        public int? ID { get; set; }
+        [JsonProperty("_idParentCategoryRow")]
+        public int? RootID { get; set; }
+        [JsonProperty("_sModelName")]
+        public string Model { get; set; }
+        [JsonProperty("_sName")]
+        public string Name { get; set; }
+        [JsonProperty("_sIconUrl")]
+        public Uri Icon { get; set; }
+        [JsonIgnore]
+        public bool HasIcon => Icon.OriginalString.Length > 0;
+    }
+    public class GameBananaMember
+    {
+        [JsonProperty("_sName")]
+        public string Name { get; set; }
+        [JsonProperty("_sAvatarUrl")]
+        public Uri Avatar { get; set; }
+        [JsonProperty("_sUpicUrl")]
+        public Uri Upic { get; set; }
+        [JsonIgnore]
+        public bool HasUpic => Upic.OriginalString.Length > 0;
+    }
+    public class GameBananaRecord
+    {
+        [JsonProperty("_sName")]
+        public string Title { get; set; }
+        [JsonProperty("_sProfileUrl")]
+        public Uri Link { get; set; }
+        [JsonIgnore]
+        public Uri Image => Media.Count > 0 ? new Uri($"{Media[0].Base}/{Media[0].File}")
+            : new Uri("https://media.discordapp.net/attachments/792245872259235850/841352390552190986/Sound.png");
+        [JsonProperty("_aPreviewMedia")]
+        public List<GameBananaImage> Media { get; set; }
+        [JsonProperty("_sDescription")]
+        public string Description { get; set; }
+        [JsonIgnore]
+        public bool HasDescription => Description.Length > 100;
+        [JsonProperty("_nViewCount")]
+        public int Views { get; set; }
+        [JsonProperty("_nLikeCount")]
+        public int Likes { get; set; }
+        [JsonProperty("_nDownloadCount")]
+        public int Downloads { get; set; }
+        [JsonIgnore]
+        public string DownloadString => StringConverters.FormatNumber(Downloads);
+        [JsonIgnore]
+        public string ViewString => StringConverters.FormatNumber(Views);
+        [JsonIgnore]
+        public string LikeString => StringConverters.FormatNumber(Likes);
+        [JsonProperty("_aSubmitter")]
+        public GameBananaMember Owner { get; set; }
+        [JsonProperty("_aFiles")]
+        public List<GameBananaItemFile> AllFiles { get; set; }
+        [JsonIgnore]
+        public List<GameBananaItemFile> Files => AllFiles.Where(x => !x.ContainsExe).ToList();
+        [JsonProperty("_aCategory")]
+        public GameBananaCategory Category { get; set; }
+        [JsonProperty("_aRootCategory")]
+        public GameBananaCategory RootCategory { get; set; }
+        [JsonIgnore]
+        public string CategoryName => StringConverters.FormatSingular(RootCategory.Name, Category.Name);
+        [JsonIgnore]
+        public bool HasLongCategoryName => CategoryName.Length > 30;
+        [JsonIgnore]
+        public bool Compatible => Files.Count > 0 && Category.ID != 3827 && Category.ID != 959;
+
+        [JsonProperty("_tsDateUpdated")]
+        public long DateUpdatedLong { get; set; }
+        private static readonly DateTime Epoch = new DateTime(1970, 1, 1);
+
+        [JsonIgnore]
+        public DateTime DateUpdated => Epoch.AddSeconds(DateUpdatedLong);
+        [JsonProperty("_tsDateAdded")]
+        public long DateAddedLong { get; set; }
+
+        [JsonIgnore]
+        public DateTime DateAdded => Epoch.AddSeconds(DateAddedLong);
+        [JsonIgnore]
+        public string DateAddedFormatted => $"Added {StringConverters.FormatTimeAgo(DateTime.UtcNow - DateAdded)}";
+        [JsonIgnore]
+        public bool HasUpdates => DateAdded.CompareTo(DateUpdated) != 0;
+        [JsonIgnore]
+        public string DateUpdatedAgo => $"Updated {StringConverters.FormatTimeAgo(DateTime.UtcNow - DateUpdated)}";
+    }
+    public class GameBananaModList
+    {
+        [JsonProperty("_aMetadata")]
+        public GameBananaMetadata Metadata { get; set; }
+        [JsonProperty("_aRecords")]
+        public ObservableCollection<GameBananaRecord> Records { get; set; }
+        [JsonIgnore]
+        public DateTime TimeFetched = DateTime.UtcNow;
+        [JsonIgnore]
+        public bool IsValid => (DateTime.UtcNow - TimeFetched).TotalMinutes < 30;
+    }
+    public class GameBananaCategories
+    {
+        [JsonProperty("_aMetadata")]
+        public GameBananaMetadata Metadata { get; set; }
+        [JsonProperty("_aRecords")]
+        public List<GameBananaCategory> Categories { get; set; }
+    }
+    public class GameBananaMetadata
+    {
+        [JsonProperty("_nRecordCount")]
+        public int Records { get; set; }
+        [JsonProperty("_nTotalRecordCount")]
+        public int TotalRecords { get; set; }
+        [JsonProperty("_nPageCount")]
+        public int TotalPages { get; set; }
+    }
+    public class GameBananaImage
+    {
+        [JsonProperty("_sBaseUrl")]
+        public Uri Base { get; set; }
+        [JsonProperty("_sFile")]
+        public Uri File { get; set; }
     }
 }

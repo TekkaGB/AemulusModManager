@@ -21,6 +21,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using WpfAnimatedGif;
+using Newtonsoft.Json;
+using TypeFilter = AemulusModManager.Utilities.TypeFilter;
+using System.Net.Http;
+using System.Windows.Controls.Primitives;
 
 namespace AemulusModManager
 {
@@ -214,6 +218,7 @@ namespace AemulusModManager
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
+                ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
 
                 // Initialize config
@@ -1691,6 +1696,7 @@ namespace AemulusModManager
                         bitmap.CacheOption = BitmapCacheOption.OnLoad;
                         img.EndInit();
                         ImageBehavior.SetAnimatedSource(Preview, img);
+                        ImageBehavior.SetAnimatedSource(PreviewBG, img);
                     }
                     catch (Exception ex)
                     {
@@ -1698,7 +1704,10 @@ namespace AemulusModManager
                     }
                 }
                 else
+                {
                     ImageBehavior.SetAnimatedSource(Preview, bitmap);
+                    ImageBehavior.SetAnimatedSource(PreviewBG, null);
+                }
 
             }
         }
@@ -1816,6 +1825,7 @@ namespace AemulusModManager
                     bitmap.CacheOption = BitmapCacheOption.OnLoad;
                     bitmap.EndInit();
                     ImageBehavior.SetAnimatedSource(Preview, bitmap);
+                    ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
                     Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                         "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
@@ -2149,6 +2159,7 @@ namespace AemulusModManager
                 bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.EndInit();
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
+                ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
                 Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                     "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
@@ -2709,6 +2720,397 @@ namespace AemulusModManager
                 Console.WriteLine("[INFO] Switched to light mode.");
             else
                 Console.WriteLine("[INFO] Switched to dark mode.");
+        }
+
+        // Mod browser
+        private void Download_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            var item = button.DataContext as GameBananaRecord;
+            new PackageDownloader().BrowserDownload(item, (GameFilter)GameFilterBox.SelectedIndex);
+        }
+        private void Homepage_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            var item = button.DataContext as GameBananaRecord;
+            try
+            {
+                var ps = new ProcessStartInfo(item.Link.ToString())
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                };
+                Process.Start(ps);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        private static bool selected = false;
+        private static Dictionary<GameFilter, Dictionary<TypeFilter, List<GameBananaCategory>>> cats = new Dictionary<GameFilter, Dictionary<TypeFilter, List<GameBananaCategory>>>();
+        private static readonly List<GameBananaCategory> All = new GameBananaCategory[]
+        {
+            new GameBananaCategory()
+            {
+                Name = "All",
+                ID = null
+            }
+        }.ToList();
+        private static readonly List<GameBananaCategory> None = new GameBananaCategory[]
+        {
+            new GameBananaCategory()
+            {
+                Name = "- - -",
+                ID = null
+            }
+        }.ToList();
+        private async void InitializeBrowser()
+        {
+            InitBgs();
+            using (var httpClient = new HttpClient())
+            {
+                ErrorPanel.Visibility = Visibility.Collapsed;
+                // Initialize games
+                var gameIDS = new string[] { "8502", "8263", "7545", "9099" };
+                var types = new string[] { "Mod", "Wip", "Sound" };
+                var gameCounter = 0;
+                foreach (var gameID in gameIDS)
+                {
+                    // Initialize categories
+                    var counter = 0;
+                    foreach (var type in types)
+                    {
+                        var requestUrl = $"https://gamebanana.com/apiv3/{type}Category/ByGame?_aGameRowIds[]={gameID}&_sRecordSchema=Custom" +
+                            "&_csvProperties=_idRow,_sName,_sProfileUrl,_sIconUrl,_idParentCategoryRow&_nPerpage=50&_bReturnMetadata=true";
+                        string responseString = "";
+                        try
+                        {
+                            responseString = await httpClient.GetStringAsync(requestUrl);
+                            responseString = Regex.Replace(responseString, @"""(\d+)""", @"$1");
+                        }
+                        catch (HttpRequestException ex)
+                        {
+                            LoadingBar.Visibility = Visibility.Collapsed;
+                            ErrorPanel.Visibility = Visibility.Visible;
+                            BrowserRefreshButton.Visibility = Visibility.Visible;
+                            switch (Regex.Match(ex.Message, @"\d+").Value)
+                            {
+                                case "443":
+                                    BrowserMessage.Text = "No internet connection is available.";
+                                    break;
+                                case "500":
+                                case "503":
+                                case "504":
+                                    BrowserMessage.Text = "GameBanana's servers are unavailable.";
+                                    break;
+                                default:
+                                    BrowserMessage.Text = ex.Message;
+                                    break;
+                            }
+                            return;
+                        }
+                        GameBananaCategories response = new GameBananaCategories();
+                        try
+                        {
+                            response = JsonConvert.DeserializeObject<GameBananaCategories>(responseString);
+                        }
+                        catch (Exception ex)
+                        {
+                            LoadingBar.Visibility = Visibility.Collapsed;
+                            ErrorPanel.Visibility = Visibility.Visible;
+                            BrowserRefreshButton.Visibility = Visibility.Visible;
+                            BrowserMessage.Text = "Something went wrong while deserializing the categories...";
+                            return;
+                        }
+                        if (!cats.ContainsKey((GameFilter)gameCounter))
+                            cats.Add((GameFilter)gameCounter, new Dictionary<TypeFilter, List<GameBananaCategory>>());
+                        if (!cats[(GameFilter)gameCounter].ContainsKey((TypeFilter)counter))
+                            cats[(GameFilter)gameCounter].Add((TypeFilter)counter, response.Categories);
+                        // Make more requests if needed
+                        if (response.Metadata.TotalPages > 1)
+                        {
+                            for (int i = 2; i <= response.Metadata.TotalPages; i++)
+                            {
+                                var requestUrlPage = $"{requestUrl}&_nPage={i}";
+                                try
+                                {
+                                    responseString = await httpClient.GetStringAsync(requestUrlPage);
+                                    responseString = Regex.Replace(responseString, @"""(\d+)""", @"$1");
+                                }
+                                catch (HttpRequestException ex)
+                                {
+                                    LoadingBar.Visibility = Visibility.Collapsed;
+                                    ErrorPanel.Visibility = Visibility.Visible;
+                                    BrowserRefreshButton.Visibility = Visibility.Visible;
+                                    switch (Regex.Match(ex.Message, @"\d+").Value)
+                                    {
+                                        case "443":
+                                            BrowserMessage.Text = "No internet connection is available.";
+                                            break;
+                                        case "500":
+                                        case "503":
+                                        case "504":
+                                            BrowserMessage.Text = "GameBanana's servers are unavailable.";
+                                            break;
+                                        default:
+                                            BrowserMessage.Text = ex.Message;
+                                            break;
+                                    }
+                                    return;
+                                }
+                                try
+                                {
+                                    response = JsonConvert.DeserializeObject<GameBananaCategories>(responseString);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LoadingBar.Visibility = Visibility.Collapsed;
+                                    ErrorPanel.Visibility = Visibility.Visible;
+                                    BrowserRefreshButton.Visibility = Visibility.Visible;
+                                    BrowserMessage.Text = "Something went wrong while deserializing the categories...";
+                                    return;
+                                }
+                                cats[(GameFilter)gameCounter][(TypeFilter)counter] = cats[(GameFilter)gameCounter][(TypeFilter)counter].Concat(response.Categories).ToList();
+                            }
+                        }
+                        counter++;
+                    }
+                    gameCounter++;
+                }
+            }
+            CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
+            SubCatBox.ItemsSource = None;
+            filterSelect = true;
+            CatBox.SelectedIndex = 0;
+            SubCatBox.SelectedIndex = 0;
+            filterSelect = false;
+            RefreshFilter();
+            selected = true;
+        }
+        private void OnTabSelected(object sender, RoutedEventArgs e)
+        {
+            if (!selected)
+            {
+                InitializeBrowser();
+            }
+        }
+        private static int page = 1;
+        private void DecrementPage(object sender, RoutedEventArgs e)
+        {
+            --page;
+            RefreshFilter();
+        }
+        private void IncrementPage(object sender, RoutedEventArgs e)
+        {
+            ++page;
+            RefreshFilter();
+        }
+        private void BrowserRefresh(object sender, RoutedEventArgs e)
+        {
+            if (!selected)
+                InitializeBrowser();
+            else
+                RefreshFilter();
+        }
+        private static List<BitmapImage> bgs;
+        private static bool bgsInit = false;
+        private void InitBgs()
+        {
+            bgs = new List<BitmapImage>();
+            var bgUrls = new string[] {
+            "https://media.discordapp.net/attachments/792245872259235850/841715548743008306/5fdbf983c2daf.png",
+            "https://media.discordapp.net/attachments/792245872259235850/841715706583318548/5eecd11b5c38d.png",
+            "https://media.discordapp.net/attachments/792245872259235850/841715814796886016/607c1dba27628.png",
+            "https://media.discordapp.net/attachments/792245872259235850/841715913618882590/60662198248be.png"};
+            foreach (var bg in bgUrls)
+            {
+                var bitmap = new BitmapImage();
+                bitmap.DownloadFailed += delegate { bgsInit = false; };
+                bitmap.DownloadCompleted += delegate { bgsInit = true; };
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(bg);
+                bitmap.EndInit();
+                bgs.Add(bitmap);
+            }
+            if (bgs.Count > GameFilterBox.SelectedIndex)
+                BrowserBackground.Source = bgs[GameFilterBox.SelectedIndex];
+        }
+        private static bool filterSelect;
+        private async void RefreshFilter()
+        {
+            GameFilterBox.IsEnabled = false;
+            FilterBox.IsEnabled = false;
+            TypeBox.IsEnabled = false;
+            CatBox.IsEnabled = false;
+            SubCatBox.IsEnabled = false;
+            Left.IsEnabled = false;
+            Right.IsEnabled = false;
+            PageBox.IsEnabled = false;
+            PerPageBox.IsEnabled = false;
+            ErrorPanel.Visibility = Visibility.Collapsed;
+            filterSelect = true;
+            PageBox.SelectedValue = page;
+            filterSelect = false;
+            Page.Text = $"Page {page}";
+            LoadingBar.Visibility = Visibility.Visible;
+            FeedBox.Visibility = Visibility.Collapsed;
+            Left.IsEnabled = false;
+            Right.IsEnabled = false;
+            FeedBox.ItemsSource = await FeedGenerator.GetFeed(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
+                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10);
+            if (FeedGenerator.error)
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
+                ErrorPanel.Visibility = Visibility.Visible;
+                BrowserRefreshButton.Visibility = Visibility.Visible;
+                switch (Regex.Match(FeedGenerator.exception.Message, @"\d+").Value)
+                {
+                    case "443":
+                        BrowserMessage.Text = "No internet connection is available.";
+                        break;
+                    case "500":
+                    case "503":
+                    case "504":
+                        BrowserMessage.Text = "GameBanana's servers are unavailable.";
+                        break;
+                    default:
+                        BrowserMessage.Text = FeedGenerator.exception.Message;
+                        break;
+                }
+                return;
+            }
+            if (page < FeedGenerator.GetMetadata(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
+                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10).TotalPages)
+                Right.IsEnabled = true;
+            if (page != 1)
+                Left.IsEnabled = true;
+            if (FeedBox.Items.Count > 0)
+            {
+                FeedBox.ScrollIntoView(FeedBox.Items[0]);
+                FeedBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ErrorPanel.Visibility = Visibility.Visible;
+                BrowserRefreshButton.Visibility = Visibility.Collapsed;
+                BrowserMessage.Visibility = Visibility.Visible;
+                BrowserMessage.Text = "Aemulus couldn't find any mods.";
+            }
+            var totalPages = FeedGenerator.GetMetadata(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
+                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10).TotalPages;
+            if (totalPages == 0)
+                totalPages = 1;
+            PageBox.ItemsSource = Enumerable.Range(1, totalPages);
+
+            LoadingBar.Visibility = Visibility.Collapsed;
+            CatBox.IsEnabled = true;
+            SubCatBox.IsEnabled = true;
+            TypeBox.IsEnabled = true;
+            FilterBox.IsEnabled = true;
+            PageBox.IsEnabled = true;
+            PerPageBox.IsEnabled = true;
+            GameFilterBox.IsEnabled = true;
+        }
+
+        private void FilterSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded)
+            {
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void GameFilterSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded && !filterSelect)
+            {
+                if (!bgsInit)
+                    InitBgs();
+                if (bgs.Count > GameFilterBox.SelectedIndex)
+                    BrowserBackground.Source = bgs[GameFilterBox.SelectedIndex];
+                filterSelect = true;
+                TypeBox.SelectedIndex = 0;
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
+                    CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
+                else
+                    CatBox.ItemsSource = None;
+                CatBox.SelectedIndex = 0;
+                var cat = (GameBananaCategory)CatBox.SelectedValue;
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == cat.ID))
+                    SubCatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == cat.ID).OrderBy(y => y.ID));
+                else
+                    SubCatBox.ItemsSource = None;
+                SubCatBox.SelectedIndex = 0;
+                filterSelect = false;
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void TypeFilterSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded && !filterSelect)
+            {
+                filterSelect = true;
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
+                    CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
+                else
+                    CatBox.ItemsSource = None;
+                CatBox.SelectedIndex = 0;
+                var cat = (GameBananaCategory)CatBox.SelectedValue;
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == cat.ID))
+                    SubCatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == cat.ID).OrderBy(y => y.ID));
+                else
+                    SubCatBox.ItemsSource = None;
+                SubCatBox.SelectedIndex = 0;
+                filterSelect = false;
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void MainFilterSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded && !filterSelect)
+            {
+                filterSelect = true;
+                var cat = (GameBananaCategory)CatBox.SelectedValue;
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == cat.ID))
+                    SubCatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == cat.ID).OrderBy(y => y.ID));
+                else
+                    SubCatBox.ItemsSource = None;
+                SubCatBox.SelectedIndex = 0;
+                filterSelect = false;
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void SubFilterSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!filterSelect && IsLoaded)
+            {
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void UniformGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var grid = sender as UniformGrid;
+            if (grid.ActualWidth > 2000)
+                grid.Columns = 6;
+            else if (grid.ActualWidth > 1600)
+                grid.Columns = 5;
+            else if (grid.ActualWidth > 1200)
+                grid.Columns = 4;
+            else
+                grid.Columns = 3;
+        }
+
+        private void PageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!filterSelect && IsLoaded)
+            {
+                page = (int)PageBox.SelectedValue;
+                RefreshFilter();
+            }
         }
     }
 }

@@ -9,31 +9,38 @@ namespace AemulusModManager
     public class GameBananaItemFile
     {
         private static readonly DateTime Epoch = new DateTime(1970, 1, 1);
-
         [JsonProperty("_sFile")]
         public string FileName { get; set; }
 
         [JsonProperty("_nFilesize")]
         public long Filesize { get; set; }
+        [JsonIgnore]
+        public string ConvertedFileSize => StringConverters.FormatSize(Filesize);
 
         [JsonProperty("_sDownloadUrl")]
         public string DownloadUrl { get; set; }
 
         [JsonProperty("_sDescription")]
         public string Description { get; set; }
-
-        [JsonProperty("_tsDateAdded")]
-        public long DateAddedLong { get; set; }
-
+        [JsonProperty("_bContainsExe")]
+        public bool ContainsExe { get; set; }
+        [JsonProperty("_nDownloadCount")]
+        public int Downloads { get; set; }
+        [JsonIgnore]
+        public string DownloadString => StringConverters.FormatNumber(Downloads);
+        
         [JsonProperty("_aMetadata")]
         [JsonExtensionData]
         public IDictionary<string, JToken> FileMetadata { get; set; }
+
+        [JsonProperty("_tsDateAdded")]
+        public long DateAddedLong { get; set; }
 
         [JsonIgnore]
         public DateTime DateAdded => Epoch.AddSeconds(DateAddedLong);
 
         [JsonIgnore]
-        public string TimeSinceUpload => StringConverters.FormatTimeSpan(DateTime.UtcNow - DateAdded);
+        public string TimeSinceUpload => StringConverters.FormatTimeAgo(DateTime.UtcNow - DateAdded);
     }
 
 }

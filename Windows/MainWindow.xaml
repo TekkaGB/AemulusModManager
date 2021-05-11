@@ -14,6 +14,79 @@
         <FontFamily x:Key="Jost">../Assets/#Jost</FontFamily>
         <FontFamily x:Key="Monospace">../Assets/#Roboto Mono</FontFamily>
 
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" BorderBrush="#353535" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="#303030"
+                            SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" 
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                          Focusable="False"
+                                          TextElement.Foreground="#f2f2f2"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsDefaulted" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#9a0000"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#7a0000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#9a0000"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#7a0000"/>
+                            </Trigger>
+                            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" TargetName="border" Value="#101010"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#808080"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ListviewStyle" TargetType="ListBox">
+            <Style.Resources>
+                <Style TargetType="{x:Type ScrollViewer}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <ScrollContentPresenter Grid.ColumnSpan="2" Grid.RowSpan="2" />
+                                    <ScrollBar Grid.Column="1" x:Name="PART_VerticalScrollBar" 
+                            Value="{TemplateBinding VerticalOffset}" Maximum="{
+                            TemplateBinding ScrollableHeight}" ViewportSize="{
+                            TemplateBinding ViewportHeight}" Background="Transparent" />
+
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Style.Resources>
+        </Style>
+
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -43,20 +116,6 @@
                   Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
                 />
             </Grid>
-            <!--<ControlTemplate.Triggers>
-            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#808080" />
-            </Trigger>
-            <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
-                <Setter Property="Foreground" Value="#424242"/>
-                <Setter TargetName="Arrow" Property="Fill" Value="#424242" />
-            </Trigger>
-        </ControlTemplate.Triggers>-->
         </ControlTemplate>
 
         <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
@@ -69,7 +128,7 @@
             <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinWidth" Value="40"/>
             <Setter Property="MinHeight" Value="20"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
@@ -355,274 +414,728 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <DataTemplate x:Key="ModTemplate">
+            <Border CornerRadius="5" Margin="5">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="#101010" Opacity="0.75"/>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <SolidColorBrush Color="#101010" Opacity="0.75"/>
+                </Border.Background>
+                <Grid VerticalAlignment="Center" x:Name="GridItem" Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Image Margin="5,10,5,5" Source="{Binding Path=Image,Mode=OneWay,IsAsync=True}" Height="168" Panel.ZIndex="2"  VerticalAlignment="Center" Stretch="Uniform"/>
+                    <Rectangle Height="168" Panel.ZIndex="1" Fill="Black" Stretch="UniformToFill" Margin="5,10,5,5" VerticalAlignment="Center">
+                        <Rectangle.OpacityMask>
+                            <ImageBrush ImageSource="{Binding Path=Image,Mode=OneWay,IsAsync=True}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock x:Name="Title" Margin="5" Grid.Row="1" FontWeight="Bold" TextTrimming="WordEllipsis" Background="Transparent" VerticalAlignment="Center"  Foreground="#f2f2f2" Text="{Binding Path=Title}"/>
+                    <Popup PlacementTarget="{Binding ElementName=Title}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=Title, Mode=OneWay}" AllowsTransparency="True">
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
+                            <TextBlock Margin="10" Text="{Binding Path=Title}" Foreground="#f2f2f2" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" />
+                        </Border>
+                    </Popup>
+                    <Border Name="LoadingBar" CornerRadius="5" Panel.ZIndex="0" Background="#303030" Height="30" Width="150">
+                        <ProgressBar VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Height="20" Width="140" Foreground="#9a0000" IsIndeterminate="True"/>
+                    </Border>
+                    <StackPanel Grid.Row="2" Margin="10,-5,10,5" Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Source="{Binding Path=Owner.Avatar}" Margin="0,0,10,0" Height="35"/>
+                        <TextBlock VerticalAlignment="Center" Foreground="#909090" Text="{Binding Path=Owner.Name}">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Owner.HasUpic}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Image VerticalAlignment="Center" Source="{Binding Path=Owner.Upic}" Height="25"/>
+                    </StackPanel>
+                    <Grid Name="CatGrid" HorizontalAlignment="Center" Grid.Row="5" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image Name="CatIcon" Grid.Column="0" VerticalAlignment="Center" Source="{Binding Path=Category.Icon}" Margin="0,0,10,0" Stretch="Uniform" Height="35" Width="35"/>
+                        <TextBlock Name="CatText" Grid.ColumnSpan="2" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=CategoryName}" TextTrimming="WordEllipsis">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Grid.Column" Value="0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Category.HasIcon}" Value="True">
+                                            <Setter Property="Grid.Column" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Popup PlacementTarget="{Binding ElementName=CatGrid}" HorizontalAlignment="Center" AllowsTransparency="True">
+                            <Popup.Style>
+                                <Style TargetType="Popup">
+                                    <Setter Property="IsOpen" Value="True"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatGrid}" Value="False"/>
+                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatIcon}" Value="False" />
+                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatText}" Value="False" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="IsOpen" Value="False"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Popup.Style>
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <StackPanel Orientation="Horizontal" Margin="10" >
+                                    <Image Grid.Column="0" VerticalAlignment="Center" Source="{Binding Path=Category.Icon}" Margin="0,0,10,0" Stretch="Uniform" Height="35" Width="35"/>
+                                    <TextBlock Foreground="#f2f2f2" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Text="{Binding Path=CategoryName}"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <Popup MaxWidth="400" PlacementTarget="{Binding ElementName=Desc}" AllowsTransparency="True">
+                        <Popup.Style>
+                            <Style TargetType="Popup">
+                                <Setter Property="IsOpen" Value="False"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=Desc, Mode=OneWay}" Value="True"/>
+                                            <Condition Binding="{Binding Path=HasDescription}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsOpen" Value="True"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Popup.Style>
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
+                            <TextBlock Margin="10" Text="{Binding Path=Description}" Foreground="#f2f2f2" TextWrapping="Wrap" FontSize="18" VerticalAlignment="Center" />
+                        </Border>
+                    </Popup>
+                    <TextBlock Name="Desc" Margin="5,0,5,2" TextWrapping="Wrap" Grid.Row="3" Height="50" TextTrimming="WordEllipsis" Background="Transparent" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=Description}"/>
+                    <StackPanel Grid.Row="6" Margin="0,0,0,5"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Background="Transparent" Name="DateAddedPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <StackPanel.Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=HasUpdates}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <fa5:ImageAwesome Name="DateAddedIcon" Margin="0,0,5,0" Height="15" Icon="Solid_Plus" Foreground="#f2f2f2"/>
+                            <TextBlock Name="DateAddedText" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=DateAddedFormatted}" />
+                        </StackPanel>
+                        <StackPanel Background="Transparent" Name="DateUpdatedPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"  >
+                            <StackPanel.Style>
+                                <Style TargetType="{x:Type StackPanel}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=HasUpdates}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <fa5:ImageAwesome Name="DateUpdatedIcon" Margin="0,0,5,0" Height="15" Icon="Solid_Sync" Foreground="#f2f2f2"/>
+                            <TextBlock Name="DateUpdatedText" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=DateUpdatedAgo}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Popup PlacementTarget="{Binding ElementName=DateAddedPanel}" HorizontalAlignment="Center" AllowsTransparency="True">
+                        <Popup.Style>
+                            <Style TargetType="Popup">
+                                <Setter Property="IsOpen" Value="True"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DateAddedPanel}" Value="False"/>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DateAddedIcon}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DateAddedText}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsOpen" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Popup.Style>
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
+                            <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Text="{Binding Path=DateAdded,StringFormat={}Added {0}}"/>
+                        </Border>
+                    </Popup>
+                    <Popup PlacementTarget="{Binding ElementName=DateUpdatedPanel}" HorizontalAlignment="Center" AllowsTransparency="True">
+                        <Popup.Style>
+                            <Style TargetType="Popup">
+                                <Setter Property="IsOpen" Value="True"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DateUpdatedPanel}" Value="False"/>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DateUpdatedIcon}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DateUpdatedText}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsOpen" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Popup.Style>
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
+                            <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Text="{Binding Path=DateUpdated,StringFormat={}Updated {0}}"/>
+                        </Border>
+                    </Popup>
+                    <StackPanel Name="StatPanel" Background="Transparent" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4">
+                        <fa5:ImageAwesome Name="DownloadIcon" Margin="0,0,5,0" Height="15" Icon="Solid_Download" Foreground="#f2f2f2"/>
+                        <TextBlock Name="DownloadText" Margin="5,0,10,0" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=DownloadString}" />
+                        <fa5:ImageAwesome Name="LikeIcon" Margin="5,0,5,0" Height="15" Icon="Solid_Heart" Foreground="#f2f2f2"/>
+                        <TextBlock Name="LikeText" Margin="5,0,10,0" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=LikeString}" />
+                        <fa5:ImageAwesome Name="ViewIcon" Margin="5,0,5,0" Height="15" Icon="Solid_Eye" Foreground="#f2f2f2"/>
+                        <TextBlock Name="ViewText" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="#f2f2f2" Text="{Binding Path=ViewString}" />
+                    </StackPanel>
+                    <Popup PlacementTarget="{Binding ElementName=StatPanel}" HorizontalAlignment="Center" AllowsTransparency="True">
+                        <Popup.Style>
+                            <Style TargetType="Popup">
+                                <Setter Property="IsOpen" Value="True"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=StatPanel}" Value="False"/>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DownloadIcon}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=DownloadText}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=LikeIcon}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=LikeText}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=ViewIcon}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=ViewText}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsOpen" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Popup.Style>
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
+                            <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" >
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:N0} Downloads • {1:N0} Likes • {2:N0} Views">
+                                        <Binding Path="Downloads"/>
+                                        <Binding Path="Likes"/>
+                                        <Binding Path="Views"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                    </Popup>
+                    <Grid Grid.Row="7" Margin="5,5,5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Foreground="#f2f2f2" FontWeight="Bold" Height="30" Width="95" Background="#303030" BorderBrush="#353535" VerticalAlignment="Bottom" Content="Mod Page" Click="Homepage_Click"/>
+                        <Button Grid.Column="1" Foreground="#f2f2f2" FontWeight="Bold" Height="30" Width="95" Background="#303030" BorderBrush="#353535" VerticalAlignment="Top" Content="Download" IsEnabled="{Binding Path=Compatible}" Click="Download_Click"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </DataTemplate>
     </Window.Resources>
-    <Grid Margin="10,10,10,15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="13*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <TabControl Grid.ColumnSpan="5" Background="#202020" BorderBrush="#353535">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <Border x:Name="Spacer"
+                                        Width="Auto" Height="Auto"
+                                        Margin="0,0,0,0" Padding="0,0,0,0"
+                                        BorderBrush="Transparent" BorderThickness="0">
+                                    <Border x:Name="Border"
+                                            Width="Auto" MinWidth="100" MinHeight="30"
+                                            VerticalAlignment="Bottom"
+                                            Background="#1d1d1d" BorderBrush="#353535" BorderThickness="0,0,0,0" CornerRadius="6,6,0,0"
+                                            Cursor="Hand">
+                                        <ContentPresenter x:Name="ContentSite"
+                                                          Width="Auto" Height="Auto"
+                                                          Margin="8,3,8,3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          ContentSource="Header" TextElement.FontFamily="Arial" TextElement.FontWeight="Bold" TextElement.FontSize="15pt" TextElement.Foreground="#f2f2f2"/>
+                                    </Border>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                        <Setter TargetName="Border"
+                                        Property="Background"
+                                        Value="#353535" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected"
+                                     Value="True">
+                                        <Setter TargetName="Border"
+                                        Property="Background"
+                                        Value="#353535" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem FontSize="18" HorizontalAlignment="Center" Header="Manage Mods">
+                <TabItem.Content>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="13*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-        <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Icon="Solid_Cog" Width="35">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    Configure Paths and Settings
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Icon="Solid_Cog" Width="35">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    Configure Paths and Settings
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="2" Grid.Row="0" Width="32">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    Refresh Packages in Grid
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="2" Grid.Row="0" Width="32">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    Refresh Packages in Grid
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="3" Grid.Row="0" Width="35">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    Build and Merge Package Loadout
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="3" Grid.Row="0" Width="35">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    Build and Merge Package Loadout
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="6" Grid.Row="0" Width="32">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    Launch Game
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="6" Grid.Row="0" Width="32">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    Launch Game
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="5" Grid.Row="0" Width="35">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    Open Package Folder
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="5" Grid.Row="0" Width="35">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    Open Package Folder
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="7" Grid.Row="0" Width="23">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    Switch Order of Priority
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="7" Grid.Row="0" Width="23">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    Switch Order of Priority
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="4" Grid.Row="0" Width="37">
-            <fa5:ImageAwesome.ToolTip>
-                <ToolTip>
-                    <TextBlock>
+                        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="4" Grid.Row="0" Width="37">
+                            <fa5:ImageAwesome.ToolTip>
+                                <ToolTip>
+                                    <TextBlock>
                             Create a New Package
                             <LineBreak/>
                             Or Drag Existing Packages Here
-                    </TextBlock>
-                </ToolTip>
-            </fa5:ImageAwesome.ToolTip>
-        </fa5:ImageAwesome>
+                                    </TextBlock>
+                                </ToolTip>
+                            </fa5:ImageAwesome.ToolTip>
+                        </fa5:ImageAwesome>
 
-        <fa5:ImageAwesome Name="DarkMode" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LightMode_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Adjust" Width="23" Grid.Column="8" Grid.Row="0"/>
+                        <fa5:ImageAwesome Name="DarkMode" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LightMode_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Adjust" Width="23" Grid.Column="8" Grid.Row="0"/>
 
-        <ComboBox Name="GameBox" Margin="0,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="118" Height="25" Grid.Column="0" Grid.Row="0" >
-            <ComboBoxItem >Persona 3 FES</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">Persona 4 Golden</ComboBoxItem>
-            <ComboBoxItem>Persona 5</ComboBoxItem>
-            <ComboBoxItem>Persona 5 Strikers</ComboBoxItem>
-        </ComboBox>
+                        <ComboBox FontSize="12" Name="GameBox" Margin="0,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="118" Height="25" Grid.Column="0" Grid.Row="0" >
+                            <ComboBoxItem >Persona 3 FES</ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">Persona 4 Golden</ComboBoxItem>
+                            <ComboBoxItem>Persona 5</ComboBoxItem>
+                            <ComboBoxItem>Persona 5 Strikers</ComboBoxItem>
+                        </ComboBox>
 
 
 
-        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="7*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="0.6*"/>
-            </Grid.ColumnDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
-            <DataGrid Name="ModGrid" AutoGenerateColumns="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto"  BorderBrush="#424242"
+                        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="15*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="7*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid FontSize="12" Name="ModGrid" AutoGenerateColumns="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto"  BorderBrush="#424242"
                           EnableColumnVirtualization="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" AlternatingRowBackground="#2A2A2A"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column" HorizontalScrollBarVisibility="Hidden"
                           SelectionChanged="rowSelected" SelectionMode="Single" RowBackground="#202020" Foreground="#f2f2f2"
                           LoadingRow="ModGrid_LoadingRow" Background="#202020" ContextMenuOpening="ContextMenu_ContextMenuOpening"
                           HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="4,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
-                <DataGrid.Resources>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#202020"/>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#535353" />
-                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="#494949" />
-                        <Setter Property="Foreground" Value="#f2f2f2"/>
-                        <Setter Property="Height" Value="17"/>
-                        <Setter Property="FontSize" Value="12"/>
-                        <Setter Property="FontWeight" Value="SemiBold"/>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding enabled, Mode=TwoWay}" IsReadOnly="False" Width="52">
-                        <DataGridCheckBoxColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
-                                <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="IsEditing" Value="True" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridCheckBoxColumn.CellStyle>
-                    </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Header="Name" Binding="{Binding name, Mode=TwoWay}" IsReadOnly="True" Width="1.5*"/>
-                    <DataGridTextColumn Header="Author" Binding="{Binding author, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}" IsReadOnly="True" Width="0.3*"/>
-                    <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="0.5*">
-                        <DataGridHyperlinkColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding link}" Value="">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <EventSetter Event="Hyperlink.Click" Handler="OnHyperlinkClick" />
-                            </Style>
+                                    <DataGrid.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="#202020"/>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#535353" />
+                                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                                            <Setter Property="Background" Value="#494949" />
+                                            <Setter Property="Foreground" Value="#f2f2f2"/>
+                                            <Setter Property="Height" Value="17"/>
+                                            <Setter Property="FontSize" Value="12"/>
+                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                        </Style>
+                                    </DataGrid.Resources>
+                                    <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding enabled, Mode=TwoWay}" IsReadOnly="False" Width="52">
+                                            <DataGridCheckBoxColumn.CellStyle>
+                                                <Style TargetType="DataGridCell">
+                                                    <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                                                    <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="IsEditing" Value="True" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGridCheckBoxColumn.CellStyle>
+                                        </DataGridCheckBoxColumn>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding name, Mode=TwoWay}" IsReadOnly="True" Width="1.5*"/>
+                                        <DataGridTextColumn Header="Author" Binding="{Binding author, Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                                        <DataGridTextColumn Header="Version" Binding="{Binding version, Mode=TwoWay}" IsReadOnly="True" Width="0.3*"/>
+                                        <DataGridHyperlinkColumn Header="Link" ContentBinding="{Binding link, Converter={StaticResource UrlConverter}}" Binding="{Binding link, Mode=TwoWay}" IsReadOnly="True" Width="0.5*">
+                                            <DataGridHyperlinkColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding link}" Value="">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                    <EventSetter Event="Hyperlink.Click" Handler="OnHyperlinkClick" />
+                                                </Style>
 
-                        </DataGridHyperlinkColumn.ElementStyle>
-                        <DataGridHyperlinkColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Style.Resources>
-                                    <Style TargetType="Hyperlink">
-                                        <Setter Property="Foreground" Value="#0bb4c8"></Setter>
-                                        <Setter Property="FontWeight" Value="Bold"></Setter>
+                                            </DataGridHyperlinkColumn.ElementStyle>
+                                            <DataGridHyperlinkColumn.CellStyle>
+                                                <Style TargetType="DataGridCell">
+                                                    <Style.Resources>
+                                                        <Style TargetType="Hyperlink">
+                                                            <Setter Property="Foreground" Value="#0bb4c8"></Setter>
+                                                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                                                        </Style>
+                                                    </Style.Resources>
+                                                </Style>
+                                            </DataGridHyperlinkColumn.CellStyle>
+                                        </DataGridHyperlinkColumn>
+                                    </DataGrid.Columns>
+                                    <DataGrid.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
+                                            <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
+                                            <MenuItem Header="Zip Package" IsCheckable="False" Click="ZipItem_Click"/>
+                                            <MenuItem Name="ConvertCPK" Header="Convert CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
+                                            <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
+                                            <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
+                                        </ContextMenu>
+                                    </DataGrid.ContextMenu>
+                                </DataGrid>
+                                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,3,3">
+                                    <Grid x:Name="PriorityBox" Background="#202020">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="15"/>
+                                            <RowDefinition Height="3.5*"/>
+                                            <RowDefinition Height="15"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock x:Name="PriorityText" Text="PACKAGE PRIORITY" Margin="-13.5,0,0,0" Grid.Row="1" FontFamily="{StaticResource Jost}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="25" Height="50" Width="300">
+                                            <TextBlock.LayoutTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="90"/>
+                                                </TransformGroup>
+                                            </TextBlock.LayoutTransform>
+                                        </TextBlock>
+                                        <fa5:ImageAwesome Name="TopArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Height="18" VerticalAlignment="Top" Margin="2"/>
+                                        <fa5:ImageAwesome Name="BottomArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Grid.Row="2" Height="18" VerticalAlignment="Bottom" Margin="2">
+                                            <fa5:ImageAwesome.LayoutTransform>
+                                                <RotateTransform Angle="180"/>
+                                            </fa5:ImageAwesome.LayoutTransform>
+                                        </fa5:ImageAwesome>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <GridSplitter BorderThickness="3" Grid.Row="1" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+                            <GridSplitter BorderThickness="3" HorizontalAlignment="Center" Grid.Column="1" Grid.RowSpan="3" Width="4" VerticalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+                            <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="220"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,10,4,10" Grid.Row="0"/>
+                                <Image Margin="4,10,4,10" Name="PreviewBG" Grid.Row="0" Stretch="UniformToFill" Panel.ZIndex="-1">
+                                    <Image.BitmapEffect>
+                                        <BlurBitmapEffect Radius="40"/>
+                                    </Image.BitmapEffect>
+                                </Image>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="Bold" Width="135" Margin="4,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
+                                    <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="5" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="../Assets/Inaba.png"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button Name="HHH" Visibility="Collapsed" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Left" Margin="5" Height="50" Width="50" Click="HHH_Click">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Image Source="../Assets/HHH.png"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                </Grid>
+                                <RichTextBox FontSize="12" Name="Description" BorderBrush="#424242" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="4,10,4,10" Padding="10" VerticalScrollBarVisibility="Auto" Background="#202020" Foreground="#f2f2f2"/>
+                                <Border Grid.Row="3" Margin="4,0,4,0" BorderThickness="1" BorderBrush="#424242">
+                                    <Grid  Background="#202020" Name="Extras">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Setup_Click" Cursor="Hand">
+                                            <StackPanel.ToolTip>
+                                                Open PDF Guide to Get Started!
+                                            </StackPanel.ToolTip>
+                                            <fa5:ImageAwesome Name="SetupIcon" VerticalAlignment="Center" Icon="Solid_Question" Foreground="#9c9c9c" Width="15"/>
+                                            <TextBlock x:Name="SetupText" VerticalAlignment="Center" Width="115" FontFamily="{StaticResource Jost}" Text="Setup Guide" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="20"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand">
+                                            <StackPanel.ToolTip>
+                                                https://www.ko-fi.com/tekka
+                                            </StackPanel.ToolTip>
+                                            <fa5:ImageAwesome Name="SupportIcon"  VerticalAlignment="Center" Icon="Solid_Coffee" Foreground="#9c9c9c" Width="25"/>
+                                            <TextBlock x:Name="SupportText" VerticalAlignment="Center" Width="115" FontFamily="{StaticResource Jost}" Text="Support Me!" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="20"/>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+
+
+                            <RichTextBox FontSize="12" FontFamily="{StaticResource Monospace}" x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="4,3,5.5,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
+                                <RichTextBox.Resources>
+                                    <Style TargetType="{x:Type Paragraph}">
+                                        <Setter Property="Margin" Value="0" />
                                     </Style>
-                                </Style.Resources>
-                            </Style>
-                        </DataGridHyperlinkColumn.CellStyle>
-                    </DataGridHyperlinkColumn>
-                </DataGrid.Columns>
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
-                        <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
-                        <MenuItem Header="Zip Package" IsCheckable="False" Click="ZipItem_Click"/>
-                        <MenuItem Name="ConvertCPK" Header="Convert CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
-                        <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
-                        <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-            </DataGrid>
-                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,3,3">
-                    <Grid x:Name="PriorityBox" Background="#202020">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="15"/>
-                            <RowDefinition Height="3.5*"/>
-                            <RowDefinition Height="15"/>
-                        </Grid.RowDefinitions>
+                                </RichTextBox.Resources>
+                            </RichTextBox>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Selector.Selected="OnTabSelected" FontSize="18" HorizontalAlignment="Center" Header="Browse Mods">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Image HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="-3" Grid.RowSpan="3" x:Name="BrowserBackground" Stretch="UniformToFill" Source="https://media.discordapp.net/attachments/792245872259235850/841715706583318548/5eecd11b5c38d.png">
+                        <Image.BitmapEffect>
+                            <BlurBitmapEffect Radius="15" />
+                        </Image.BitmapEffect>
+                        <Image.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="1.3" ScaleY="1" />
+                                <TranslateTransform X="-400" Y="0"/>
+                            </TransformGroup>
+                        </Image.RenderTransform>
+                    </Image>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ComboBox IsEnabled="False" Margin="0,0,15,0" Name="GameFilterBox" Height="35" Width="190" FontSize="18" FontWeight="Bold" SelectionChanged="GameFilterSelectionChanged">
+                            <ComboBoxItem xml:space="preserve" > Persona 3 FES</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve" IsSelected="True"> Persona 4 Golden</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Persona 5</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Persona 5 Strikers</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox IsEnabled="False" Margin="0,0,15,0" Name="FilterBox" Height="35" Width="140" FontSize="18" FontWeight="Bold" SelectionChanged="FilterSelectionChanged">
+                            <ComboBoxItem xml:space="preserve" IsSelected="True"> Featured</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Recent</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Popular</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox IsEnabled="False" Margin="0,0,15,0" FontWeight="Bold" FontSize="18" Name="TypeBox" Height="35" Width="125" SelectionChanged="TypeFilterSelectionChanged">
+                            <ComboBoxItem xml:space="preserve" IsSelected="True"> Mods</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> WiPs</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Sounds</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox IsEnabled="False" Margin="0,0,15,0" Name="CatBox" Height="35" Width="250" SelectionChanged="MainFilterSelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Margin="0,0,5,0" VerticalAlignment="Center" Height="25" Source="{Binding Path=Icon}"/>
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <ComboBox Margin="0,0,15,0" IsEnabled="False" Name="SubCatBox" Height="35" Width="250" SelectionChanged="SubFilterSelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Margin="0,0,5,0" VerticalAlignment="Center" Height="25" Source="{Binding Path=Icon}"/>
+                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
 
-                        <TextBlock x:Name="PriorityText" Text="PACKAGE PRIORITY" Margin="-13.5,0,0,0" Grid.Row="1" FontFamily="{StaticResource Jost}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="25" Height="50" Width="300">
-                            <TextBlock.LayoutTransform>
-                                <TransformGroup>
-                                    <RotateTransform Angle="90"/>
-                                </TransformGroup>
-                            </TextBlock.LayoutTransform>
+                        <!--<Image Name="GB" VerticalAlignment="Center" HorizontalAlignment="Center" Height="45" Source="../Assets/GameBanana.png" Cursor="Hand" MouseLeftButtonDown="GameBanana_Click"/>-->
+                    </StackPanel>
+                    <Popup PlacementTarget="{Binding ElementName=GB}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=GB, Mode=OneWay}" AllowsTransparency="True">
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
+                            <TextBlock Margin="10" Text="Go to gamebanana.com" Foreground="#f2f2f2" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" />
+                        </Border>
+                    </Popup>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
+                        <Button IsEnabled="False" Name="Left" Click="DecrementPage" Content="&lt;" HorizontalAlignment="Right" Margin="0,0,15,0" FontSize="18" FontWeight="Bold"  Height="35" Width="35" Background="#181818" BorderBrush="#252525" Foreground="#f2f2f2"/>
+                        <TextBlock Name="Page" Text="Page 1" Foreground="#f2f2f2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" />
+                        <Button IsEnabled="False" Name="Right" Click="IncrementPage" Content=">" HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="18" FontWeight="Bold" Height="35" Width="35" Background="#181818" BorderBrush="#252525" Foreground="#f2f2f2"/>
+                        <ComboBox IsEnabled="False" Margin="15,0,15,0" Name="PageBox" SelectionChanged="PageBox_SelectionChanged" Height="35" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+                        <TextBlock Margin="0,0,15,0" Foreground="#f2f2f2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">
+                            Per Page:
                         </TextBlock>
-                        <fa5:ImageAwesome Name="TopArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Height="18" VerticalAlignment="Top" Margin="2"/>
-                        <fa5:ImageAwesome Name="BottomArrow" Icon="Solid_SortUp" Foreground="#9c9c9c" Grid.Row="2" Height="18" VerticalAlignment="Bottom" Margin="2">
-                            <fa5:ImageAwesome.LayoutTransform>
-                                <RotateTransform Angle="180"/>
-                            </fa5:ImageAwesome.LayoutTransform>
-                        </fa5:ImageAwesome>
-                    </Grid>
-                </Border>
-            </Grid>
-            <GridSplitter BorderThickness="3" Grid.Row="1" Grid.ColumnSpan="2" Height="4" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
-            <GridSplitter BorderThickness="3" HorizontalAlignment="Center" Grid.Column="1" Grid.RowSpan="3" Width="4" VerticalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
-            <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="220"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,10,4,10" Grid.Row="0"/>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="Bold" Width="135" Margin="4,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
-                    <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="5" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Image Source="../Assets/Inaba.png"/>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                    <Button Name="HHH" Visibility="Collapsed" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Left" Margin="5" Height="50" Width="50" Click="HHH_Click">
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Image Source="../Assets/HHH.png"/>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-
+                        <ComboBox IsEnabled="False" Name="PerPageBox" SelectionChanged="FilterSelectionChanged" Height="35" VerticalAlignment="Center">
+                            <ComboBoxItem>10</ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">20</ComboBoxItem>
+                            <ComboBoxItem>30</ComboBoxItem>
+                            <ComboBoxItem>40</ComboBoxItem>
+                            <ComboBoxItem>50</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <Border Name="LoadingBar" CornerRadius="5" Panel.ZIndex="1" Grid.Row="1" Background="#303030" Height="40" Width="260">
+                        <ProgressBar VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Height="30" Width="250" Foreground="#9a0000" IsIndeterminate="True"/>
+                    </Border>
+                    <StackPanel Name="ErrorPanel" Grid.Row="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Name="BrowserMessage" HorizontalAlignment="Center"  Opacity="1" Background="Transparent" Foreground="#f2f2f2" FontWeight="Bold" TextWrapping="Wrap" Width="1050" TextAlignment="Center" FontSize="25"/>
+                        <Button Margin="10" Click="BrowserRefresh" Name="BrowserRefreshButton" Content="Retry" HorizontalAlignment="center" FontSize="18" FontWeight="Bold"  Height="40" Width="140" Background="#181818" BorderBrush="#252525" Foreground="#f2f2f2">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                    <Border Grid.Row="1" CornerRadius="5" Margin="10">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="Black" Opacity="0.75"/>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.75"/>
+                        </Border.Background>
+                        <ListView Margin="5" Panel.ZIndex="1" Style="{StaticResource ListviewStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" VerticalContentAlignment="Top" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" Name="FeedBox" ItemTemplate="{StaticResource ModTemplate}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Focusable" Value="false"/>
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid SizeChanged="UniformGrid_SizeChanged"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Border>
                 </Grid>
-                <RichTextBox Name="Description" BorderBrush="#424242" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="4,10,4,10" Padding="10" VerticalScrollBarVisibility="Auto" Background="#202020" Foreground="#f2f2f2"/>
-                <Border Grid.Row="3" Margin="4,0,4,0" BorderThickness="1" BorderBrush="#424242">
-                    <Grid  Background="#202020" Name="Extras">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Setup_Click" Cursor="Hand">
-                            <StackPanel.ToolTip>
-                                Open PDF Guide to Get Started!
-                            </StackPanel.ToolTip>
-                            <fa5:ImageAwesome Name="SetupIcon" VerticalAlignment="Center" Icon="Solid_Question" Foreground="#9c9c9c" Width="15"/>
-                            <TextBlock x:Name="SetupText" VerticalAlignment="Center" Width="115" FontFamily="{StaticResource Jost}" Text="Setup Guide" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="20"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand">
-                            <StackPanel.ToolTip>
-                                https://www.ko-fi.com/tekka
-                            </StackPanel.ToolTip>
-                            <fa5:ImageAwesome Name="SupportIcon"  VerticalAlignment="Center" Icon="Solid_Coffee" Foreground="#9c9c9c" Width="25"/>
-                            <TextBlock x:Name="SupportText" VerticalAlignment="Center" Width="115" FontFamily="{StaticResource Jost}" Text="Support Me!" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="20"/>
-                        </StackPanel>
-
-                    </Grid>
-                </Border>
-            </Grid>
-
-            
-            <RichTextBox FontFamily="{StaticResource Monospace}" x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="4,3,5.5,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
-                <RichTextBox.Resources>
-                    <Style TargetType="{x:Type Paragraph}">
-                        <Setter Property="Margin" Value="0" />
-                    </Style>
-                </RichTextBox.Resources>
-            </RichTextBox>
-        </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

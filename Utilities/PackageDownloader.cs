@@ -24,10 +24,62 @@ namespace AemulusModManager.Utilities
         private string DL_ID;
         private string fileName;
         private string assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        private bool cancelled;
         private HttpClient client = new HttpClient();
         private GameBananaItem response = new GameBananaItem();
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
         private UpdateProgressBox progressBox;
+        public async void BrowserDownload(GameBananaRecord record, GameFilter game)
+        {
+            var gameName = "";
+            switch (game)
+            {
+                case GameFilter.P3:
+                    gameName = "Persona 3 FES";
+                    break;
+                case GameFilter.P4G:
+                    gameName = "Persona 4 Golden";
+                    break;
+                case GameFilter.P5:
+                    gameName = "Persona 5";
+                    break;
+                case GameFilter.P5S:
+                    gameName = "Persona 5 Strikers";
+                    break;
+            }
+            DownloadWindow downloadWindow = new DownloadWindow(record);
+            downloadWindow.ShowDialog();
+            if (downloadWindow.YesNo)
+            {
+                string downloadUrl = null;
+                string fileName = null;
+                if (record.Files.Count == 1)
+                {
+                    downloadUrl = record.Files[0].DownloadUrl;
+                    fileName = record.Files[0].FileName;
+                }
+                else if (record.Files.Count > 1)
+                {
+                    UpdateFileBox fileBox = new UpdateFileBox(record.Files, record.Title);
+                    fileBox.Activate();
+                    fileBox.ShowDialog();
+                    downloadUrl = fileBox.chosenFileUrl;
+                    fileName = fileBox.chosenFileName;
+                }
+                if (downloadUrl != null && fileName != null)
+                {
+                    await DownloadFile(downloadUrl, fileName, new Progress<DownloadProgress>(ReportUpdateProgress),
+                        CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                    if (!cancelled)
+                    {
+                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", gameName);
+                        if (File.Exists($@"{assemblyLocation}\refresh.aem"))
+                            FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
+                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", gameName);
+                    }
+                }
+            }
+        }
         public async void Download(string line, bool running)
         {
             if (ParseProtocol(line))
@@ -145,6 +197,7 @@ namespace AemulusModManager.Utilities
                 {
                     progressBox.finished = true;
                     progressBox.Close();
+                    cancelled = true;
                 }
                 return;
             }
@@ -154,6 +207,7 @@ namespace AemulusModManager.Utilities
                 {
                     progressBox.finished = true;
                     progressBox.Close();
+                    cancelled = true;
                 }
                 MessageBox.Show($"Error whilst downloading {fileName}: {e.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

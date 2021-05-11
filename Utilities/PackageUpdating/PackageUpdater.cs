@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Serialization;
 
 namespace AemulusModManager
@@ -243,7 +244,7 @@ namespace AemulusModManager
                     {
                         if (file.Value.FileMetadata.Values.Count > 2)
                         {
-                            string fileTree = file.Value.FileMetadata.Values.ElementAt(3).ToString();
+                            string fileTree = file.Value.FileMetadata.Values.ElementAt(2).ToString();
                             if (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]")
                             {
                                 aemulusCompatibleFiles.Add(file.Key, file.Value);
@@ -252,7 +253,7 @@ namespace AemulusModManager
                     }
                     if (aemulusCompatibleFiles.Count > 1)
                     {
-                        UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles, row.name);
+                        UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles.Values.ToList(), row.name);
                         fileBox.Activate();
                         fileBox.ShowDialog();
                         downloadUrl = fileBox.chosenFileUrl;
