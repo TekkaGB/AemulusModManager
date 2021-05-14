@@ -301,9 +301,9 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <TextBlock x:Name="StatText" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
+        <TextBox x:Name="StatText" Background="Transparent" BorderThickness="0" IsReadOnly="True" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsSelected, ElementName=ManagerTab}" Value="False">
@@ -311,8 +311,8 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </TextBlock.Style>
-        </TextBlock>
+            </TextBox.Style>
+        </TextBox>
         <TabControl Grid.ColumnSpan="5" Background="#151515" BorderBrush="#353535">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
@@ -372,68 +372,107 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Icon="Solid_Cog" Width="35">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    Configure Paths and Settings
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
+                        <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Icon="Solid_Cog" Width="35"/>
+                        <Popup PlacementTarget="{Binding ElementName=ConfigButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=ConfigButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Text="Configure Paths and Settings" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+                        <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="2" Grid.Row="0" Width="32"/>
+                        <Popup PlacementTarget="{Binding ElementName=RefreshButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=RefreshButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Text="Refresh Packages in Grid" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
 
-                        <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="2" Grid.Row="0" Width="32">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    Refresh Packages in Grid
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
-
-                        <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="3" Grid.Row="0" Width="35">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    Build and Merge Package Loadout
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
-
-                        <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="6" Grid.Row="0" Width="32">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    Launch Game
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
-
-                        <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="5" Grid.Row="0" Width="35">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    Open Package Folder
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
-
-                        <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="7" Grid.Row="0" Width="23">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    Switch Order of Priority
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
-
-                        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="4" Grid.Row="0" Width="37">
-                            <fa5:ImageAwesome.ToolTip>
-                                <ToolTip>
-                                    <TextBlock>
-                            Create a New Package
-                            <LineBreak/>
-                            Or Drag Existing Packages Here
-                                    </TextBlock>
-                                </ToolTip>
-                            </fa5:ImageAwesome.ToolTip>
-                        </fa5:ImageAwesome>
-
+                        <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="3" Grid.Row="0" Width="35"/>
+                        <Popup PlacementTarget="{Binding ElementName=MergeButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=MergeButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Text="Build and Merge Package Loadout" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+                        <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="6" Grid.Row="0" Width="32"/>
+                        <Popup PlacementTarget="{Binding ElementName=LaunchButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=LaunchButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Name="LaunchPopup" Margin="10" Text="Launch Game" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+                        <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="5" Grid.Row="0" Width="35"/>
+                        <Popup PlacementTarget="{Binding ElementName=FolderButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=FolderButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Text="Open Package Folder" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+                        <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="7" Grid.Row="0" Width="23"/>
+                        <Popup PlacementTarget="{Binding ElementName=SwapButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=SwapButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Name="PriorityPopup" Margin="10" Text="Switch Order of Priority" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+                        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="4" Grid.Row="0" Width="37"/>
+                        <Popup PlacementTarget="{Binding ElementName=NewButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=NewButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                    Create a New Package
+                                    <LineBreak/>
+                                    or Drag Existing Packages Here
+                                </TextBlock>
+                            </Border>
+                        </Popup>
                         <fa5:ImageAwesome Name="DarkMode" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LightMode_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Adjust" Width="23" Grid.Column="8" Grid.Row="0"/>
-
+                        <Popup PlacementTarget="{Binding ElementName=DarkMode}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=DarkMode, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Name="DarkModePopup" Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
                         <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40" Grid.Column="0" Grid.Row="0" >
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -619,22 +658,69 @@
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Setup_Click" Cursor="Hand">
-                                            <StackPanel.ToolTip>
-                                                Open PDF Guide to Get Started!
-                                            </StackPanel.ToolTip>
+                                        <StackPanel Background="Transparent" Name="GuidePanel" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Setup_Click" Cursor="Hand">
                                             <fa5:ImageAwesome Name="SetupIcon" VerticalAlignment="Center" Icon="Solid_Question" Foreground="#9c9c9c" Width="15"/>
                                             <TextBlock x:Name="SetupText" VerticalAlignment="Center" Width="115" FontFamily="{StaticResource Jost}" Text="Setup Guide" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="20"/>
                                         </StackPanel>
-
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand">
-                                            <StackPanel.ToolTip>
-                                                https://www.ko-fi.com/tekka
-                                            </StackPanel.ToolTip>
+                                        <Popup PlacementTarget="{Binding ElementName=GuidePanel}" AllowsTransparency="True">
+                                            <Popup.Style>
+                                                <Style TargetType="Popup">
+                                                    <Setter Property="IsOpen" Value="True"/>
+                                                    <Style.Triggers>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=GuidePanel}" Value="False"/>
+                                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=SetupIcon}" Value="False" />
+                                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=SetupText}" Value="False" />
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter Property="IsOpen" Value="False"/>
+                                                        </MultiDataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Popup.Style>
+                                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                                <Border.BorderBrush>
+                                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                                </Border.Background>
+                                                <TextBlock Margin="10" Text="Open PDF Guide to Get Started!" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                                            </Border>
+                                        </Popup>
+                                        <StackPanel Background="Transparent" Name="KofiPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand">
                                             <fa5:ImageAwesome Name="SupportIcon"  VerticalAlignment="Center" Icon="Solid_Coffee" Foreground="#9c9c9c" Width="25"/>
                                             <TextBlock x:Name="SupportText" VerticalAlignment="Center" Width="115" FontFamily="{StaticResource Jost}" Text="Support Me!" Foreground ="#9c9c9c" TextAlignment="Center" FontSize="20"/>
                                         </StackPanel>
-
+                                        <Popup PlacementTarget="{Binding ElementName=KofiPanel}" AllowsTransparency="True">
+                                            <Popup.Style>
+                                                <Style TargetType="Popup">
+                                                    <Setter Property="IsOpen" Value="True"/>
+                                                    <Style.Triggers>
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=KofiPanel}" Value="False"/>
+                                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=SupportIcon}" Value="False" />
+                                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=SupportText}" Value="False" />
+                                                            </MultiDataTrigger.Conditions>
+                                                            <Setter Property="IsOpen" Value="False"/>
+                                                        </MultiDataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Popup.Style>
+                                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                                <Border.BorderBrush>
+                                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                                </Border.Background>
+                                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                                        Go to ko-fi.com/tekka
+                                                        <LineBreak/> to support me!
+                                                </TextBlock>
+                                            </Border>
+                                        </Popup>
                                     </Grid>
                                 </Border>
                             </Grid>

@@ -499,15 +499,17 @@ namespace AemulusModManager
                 {
                     TopArrow.Visibility = Visibility.Visible;
                     BottomArrow.Visibility = Visibility.Collapsed;
+                    PriorityPopup.Text = "Switch Order to Prioritize\nthe Bottom of the Grid";
                 }
                 else
                 {
 
                     TopArrow.Visibility = Visibility.Collapsed;
                     BottomArrow.Visibility = Visibility.Visible;
+                    PriorityPopup.Text = "Switch Order to Prioritize\nthe Top of the Grid";
                 }
 
-                LaunchButton.ToolTip = $"Launch {game}";
+                LaunchPopup.Text = $"Launch {game}";
                 FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
                 fileSystemWatcher.EnableRaisingEvents = true;
@@ -2049,7 +2051,7 @@ namespace AemulusModManager
                     MergeButton.IsHitTestVisible = false;
                     MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
                 }
-                LaunchButton.ToolTip = $"Launch {game}";
+                LaunchPopup.Text = $"Launch {game}";
                 if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                 {
                     Console.WriteLine($@"[INFO] Creating Packages\{game}");
@@ -2208,12 +2210,14 @@ namespace AemulusModManager
             {
                 TopArrow.Visibility = Visibility.Visible;
                 BottomArrow.Visibility = Visibility.Collapsed;
+                PriorityPopup.Text = "Switch Order to Prioritize\nthe Bottom of the Grid";
             }
             else
             {
 
                 TopArrow.Visibility = Visibility.Collapsed;
                 BottomArrow.Visibility = Visibility.Visible;
+                PriorityPopup.Text = "Switch Order to Prioritize\nthe Top of the Grid";
             }
 
             config.bottomUpPriority = bottomUpPriority;
@@ -2663,7 +2667,7 @@ namespace AemulusModManager
                 PriorityText.Foreground = lightModeForeground;
                 TopArrow.Foreground = lightModeForeground;
                 BottomArrow.Foreground = lightModeForeground;
-                DarkMode.ToolTip = "Switch to Dark Mode";
+                DarkModePopup.Text = "Switch to Dark Mode";
             }
             else
             {
@@ -2687,7 +2691,7 @@ namespace AemulusModManager
                 PriorityText.Foreground = darkModeForeground2;
                 TopArrow.Foreground = darkModeForeground2;
                 BottomArrow.Foreground = darkModeForeground2;
-                DarkMode.ToolTip = "Switch to Light Mode";
+                DarkModePopup.Text = "Switch to Light Mode";
             }
         }
 
