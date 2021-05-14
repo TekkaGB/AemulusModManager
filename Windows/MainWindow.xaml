@@ -6,6 +6,7 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager"
+        xmlns:controls="clr-namespace:AemulusModManager.Controls"
         mc:Ignorable="d"
         Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
         Background="#151515" Closing="Window_Closing">
@@ -52,9 +53,7 @@
                             <TextBlock FontFamily="{StaticResource Jost}" Margin="10" Text="{Binding Path=Title}" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="24" VerticalAlignment="Center" />
                         </Border>
                     </Popup>
-                    <Border Name="LoadingBar" CornerRadius="5" Panel.ZIndex="0" Background="#303030" Height="30" Width="150">
-                        <ProgressBar VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Height="20" Width="140" Foreground="#9a0000" IsIndeterminate="True"/>
-                    </Border>
+                    <fa5:ImageAwesome Foreground="#9a0000" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
                     <StackPanel Grid.Row="2" Margin="10,-5,10,5" Orientation="Horizontal">
                         <Image VerticalAlignment="Center" Source="{Binding Path=Owner.Avatar}" Margin="0,0,10,0" Height="35"/>
                         <TextBlock VerticalAlignment="Center" Foreground="#909090" Text="{Binding Path=Owner.Name}">
@@ -837,9 +836,7 @@
                             <ComboBoxItem>50</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
-                    <Border Name="LoadingBar" CornerRadius="5" Panel.ZIndex="1" Grid.Row="1" Background="#303030" Height="40" Width="260">
-                        <ProgressBar VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Height="30" Width="250" Foreground="#9a0000" IsIndeterminate="True"/>
-                    </Border>
+                    <fa5:ImageAwesome Name="LoadingBar" Foreground="#9a0000" Panel.ZIndex="1" Grid.Row="1" Icon="Solid_Spinner" Height="110" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
                     <StackPanel Name="ErrorPanel" Grid.Row="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock FontFamily="{StaticResource Jost}" Name="BrowserMessage" HorizontalAlignment="Center"  Opacity="1" Background="Transparent" Foreground="#f2f2f2" FontWeight="SemiBold" TextWrapping="Wrap" Width="1050" TextAlignment="Center" FontSize="25"/>
                         <Button FontFamily="{StaticResource Jost}" Margin="10" Click="BrowserRefresh" Name="BrowserRefreshButton" Content="Retry" HorizontalAlignment="center" FontSize="18" FontWeight="SemiBold"  Height="40" Width="140" Background="#181818" BorderBrush="#252525" Foreground="#f2f2f2">
