@@ -6,7 +6,6 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager"
-        xmlns:controls="clr-namespace:AemulusModManager.Controls"
         mc:Ignorable="d"
         Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
         Background="#151515" Closing="Window_Closing">
@@ -475,25 +474,25 @@
                         <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" HorizontalContentAlignment="Center" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40" Grid.Column="0" Grid.Row="0" >
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p3ficon.png" Width="32" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 3 FES" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem IsSelected="True">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p4gicon.png" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p5icon.png" Width="35" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p5icon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 5" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p5sicon.png" Width="35" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p5sicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 5 Strikers" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
@@ -751,25 +750,25 @@
                         <ComboBox IsEnabled="False" Margin="0,0,15,0" Name="GameFilterBox" Height="40" Width="230" FontSize="18" FontWeight="SemiBold" SelectionChanged="GameFilterSelectionChanged">
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p3ficon.png" Width="32" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 3 FES" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem >
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p4gicon.png" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p5icon.png" Width="35" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p5icon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 5" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="../Assets/p5sicon.png" Width="35" Margin="2,0,10,0"/>
+                                    <Image Source="../Assets/p5sicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 5 Strikers" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
@@ -789,7 +788,7 @@
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
                                         <Image Margin="0,0,5,0" VerticalAlignment="Center" Height="25" Source="{Binding Path=Icon}"/>
-                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Text="{Binding Path=Name}"/>
+                                        <TextBlock VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Text="{Binding Path=Name}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -799,7 +798,7 @@
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
                                         <Image Margin="0,0,5,0" VerticalAlignment="Center" Height="25" Source="{Binding Path=Icon}"/>
-                                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="SemiBold" Text="{Binding Path=Name}"/>
+                                        <TextBlock VerticalAlignment="Center" FontSize="18" FontWeight="SemiBold" Text="{Binding Path=Name}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>

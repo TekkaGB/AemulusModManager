@@ -304,7 +304,6 @@
     </None>
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
-    <Resource Include="Assets\Jost-Bold.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
     <None Include="Dependencies\AtlusScriptCompiler\Charsets\P3.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
