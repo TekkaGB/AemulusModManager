@@ -823,7 +823,7 @@
                         <Button IsEnabled="False" FontFamily="{StaticResource Jost}" Name="RightPage" Click="IncrementPage" Content=">" HorizontalAlignment="Left" Margin="15,0,0,0" FontSize="18" FontWeight="SemiBold" Height="35" Width="35" Background="#181818" BorderBrush="#252525" Foreground="#f2f2f2"/>
                         <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="15,0,15,0" Name="PageBox" SelectionChanged="PageBox_SelectionChanged" Height="35" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+                    <StackPanel Margin="5,5,10,5" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
                         <TextBlock FontFamily="{StaticResource Jost}" Margin="0,0,15,0" Foreground="#f2f2f2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold">
                             Per Page:
                         </TextBlock>
@@ -848,10 +848,10 @@
                     </StackPanel>
                     <Border Grid.Row="1" CornerRadius="5" Margin="10">
                         <Border.BorderBrush>
-                            <SolidColorBrush Color="Black" Opacity="0.6"/>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
                         </Border.BorderBrush>
                         <Border.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.6"/>
+                            <SolidColorBrush Color="Black" Opacity="0.7"/>
                         </Border.Background>
                         <ListView Margin="5" Panel.ZIndex="1" Style="{StaticResource ListviewStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" VerticalContentAlignment="Top" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" Name="FeedBox" ItemTemplate="{StaticResource ModTemplate}">
                             <ListView.ItemContainerStyle>

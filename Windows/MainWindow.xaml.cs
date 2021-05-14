@@ -193,7 +193,7 @@ namespace AemulusModManager
                 // Set Aemulus Version
                 aemulusVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
                 var version = aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'));
-                Title = $"Aemulus Package Manager v{version}";
+                Title = $"Aemulus Package Manager";
 
                 infoColor = "#52FF00";
                 warningColor = "#FFFF00";
@@ -1110,7 +1110,7 @@ namespace AemulusModManager
                 // Trigger select event to refresh description and Preview.png
                 ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
                 StatText.Text = $"{PackageList.Count} packages • {PackageList.Where(x => x.enabled).Count()} enabled • {Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}", "*", SearchOption.AllDirectories).Length.ToString("N0")} files • " +
-                $"{StringConverters.FormatSize(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").GetDirectorySize())}";
+                $"{StringConverters.FormatSize(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").GetDirectorySize())} • v{aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'))}";
             });
             Console.WriteLine($"[INFO] Refreshed!");
         }
