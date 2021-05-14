@@ -301,6 +301,18 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        <TextBlock x:Name="StatText" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, ElementName=ManagerTab}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <TabControl Grid.ColumnSpan="5" Background="#151515" BorderBrush="#353535">
             <TabControl.Resources>
                 <Style TargetType="{x:Type TabItem}">
@@ -341,7 +353,7 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem FontSize="18" HorizontalAlignment="Center" Header="Manage Packages">
+            <TabItem Name="ManagerTab" FontSize="18" HorizontalAlignment="Center" Header="Manage Packages">
                 <TabItem.Content>
                     <Grid Margin="10">
                         <Grid.RowDefinitions>

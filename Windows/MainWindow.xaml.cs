@@ -25,6 +25,7 @@ using Newtonsoft.Json;
 using TypeFilter = AemulusModManager.Utilities.TypeFilter;
 using System.Net.Http;
 using System.Windows.Controls.Primitives;
+using AemulusModManager.Utilities.PackageUpdating;
 
 namespace AemulusModManager
 {
@@ -1106,6 +1107,8 @@ namespace AemulusModManager
                 ModGrid.ItemsSource = DisplayedPackages;
                 // Trigger select event to refresh description and Preview.png
                 ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
+                StatText.Text = $"{PackageList.Count} packages • {PackageList.Where(x => x.enabled).Count()} enabled • {Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}", "*", SearchOption.AllDirectories).Length.ToString("N0")} files • " +
+                $"{StringConverters.FormatSize(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").GetDirectorySize())}";
             });
             Console.WriteLine($"[INFO] Refreshed!");
         }
