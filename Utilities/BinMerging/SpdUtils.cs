@@ -54,7 +54,6 @@ namespace AemulusModManager
             int numKeys = BitConverter.ToUInt16(spdBytes, 22);
             int pos = BitConverter.ToInt32(spdBytes, 28);
             SPDKey spdKey;
-            int tag;
             for (int i = 0; i < numKeys; i++)
             {
                 spdKey = new SPDKey();

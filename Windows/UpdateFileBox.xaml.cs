@@ -18,14 +18,12 @@ namespace AemulusModManager.Windows
     {
         public string chosenFileUrl;
         public string chosenFileName;
-        private readonly string host;
         // GameBanana Files
         public UpdateFileBox(List<GameBananaItemFile> files, string packageName)
         {
             InitializeComponent();
             FileList.ItemsSource = files;
             TitleBox.Text = packageName;
-            host = "GameBanana";
         }
         // GitHub Files
         public UpdateFileBox(IReadOnlyList<ReleaseAsset> files, string packageName)
@@ -44,7 +42,6 @@ namespace AemulusModManager.Windows
                 });
             }
             FileList.ItemsSource = convList;
-            host = "GitHub";
         }
 
         private void SelectButton_Click(object sender, RoutedEventArgs e)

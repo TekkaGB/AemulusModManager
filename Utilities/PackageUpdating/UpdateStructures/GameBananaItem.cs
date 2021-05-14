@@ -56,15 +56,52 @@ namespace AemulusModManager
         [JsonIgnore]
         public bool HasUpic => Upic.OriginalString.Length > 0;
     }
+    public class GameBananaGame
+    {
+        [JsonProperty("_idRow")]
+        public int ID { get; set; }
+    }
+    public class GameBananaModManagerIntegration
+    {
+        [JsonProperty("_sInstallerName")]
+        public string Name { get; set; }
+        [JsonProperty("_sInstallerUrl")]
+        public Uri Url { get; set; }
+        [JsonProperty("_sIconClasses")]
+        public string Icon { get; set; }
+        [JsonProperty("_sDownloadUrl")]
+        public string DownloadUrl { get; set; }
+    }
     public class GameBananaRecord
     {
+        public Uri SoundImage(int game)
+        {
+            // Get different Sound thumbnail per game
+            switch (game)
+            {
+                case 8502:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426607712993351/P3FSound.png");
+                case 8263:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426608882679818/P4GSound.png");
+                case 7545:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426604789170236/P5Sound.png");
+                case 9099:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426607490170891/P5SSound.png");
+                default:
+                    return new Uri("https://images.gamebanana.com/static/img/DefaultEmbeddables/Sound.jpg");
+            }
+        }
         [JsonProperty("_sName")]
         public string Title { get; set; }
+        [JsonProperty("_aGame")]
+        public GameBananaGame Game { get; set; }
         [JsonProperty("_sProfileUrl")]
         public Uri Link { get; set; }
+        [JsonProperty("_aModManagerIntegrations")]
+        public Dictionary<string, List<GameBananaModManagerIntegration>> ModManagerIntegrations { get; set; }
         [JsonIgnore]
         public Uri Image => Media.Count > 0 ? new Uri($"{Media[0].Base}/{Media[0].File}")
-            : new Uri("https://media.discordapp.net/attachments/792245872259235850/841352390552190986/Sound.png");
+            : SoundImage(Game.ID);
         [JsonProperty("_aPreviewMedia")]
         public List<GameBananaImage> Media { get; set; }
         [JsonProperty("_sDescription")]
@@ -88,7 +125,7 @@ namespace AemulusModManager
         [JsonProperty("_aFiles")]
         public List<GameBananaItemFile> AllFiles { get; set; }
         [JsonIgnore]
-        public List<GameBananaItemFile> Files => AllFiles.Where(x => !x.ContainsExe).ToList();
+        public List<GameBananaItemFile> Files => AllFiles.Where(x => ModManagerIntegrations.ContainsKey(x.ID)).ToList();
         [JsonProperty("_aCategory")]
         public GameBananaCategory Category { get; set; }
         [JsonProperty("_aRootCategory")]

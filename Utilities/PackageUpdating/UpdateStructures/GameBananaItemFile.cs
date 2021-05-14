@@ -9,6 +9,8 @@ namespace AemulusModManager
     public class GameBananaItemFile
     {
         private static readonly DateTime Epoch = new DateTime(1970, 1, 1);
+        [JsonProperty("_idRow")]
+        public string ID { get; set; }
         [JsonProperty("_sFile")]
         public string FileName { get; set; }
 

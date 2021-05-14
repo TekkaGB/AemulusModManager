@@ -24,19 +24,7 @@ namespace AemulusModManager.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (!finished)
-            {
-                NotificationBox notification = new NotificationBox("Are you sure you want to cancel the download?\nAll progress will be lost.", false);
-                notification.ShowDialog();
-                notification.Activate();
-                if (!notification.YesNo)
-                {
-                    e.Cancel = true;
-                }
-                else
-                {
-                    cancellationTokenSource.Cancel();
-                }
-            }
+                cancellationTokenSource.Cancel();
         }
     }
 }

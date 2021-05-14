@@ -48,6 +48,8 @@ namespace AemulusModManager.Utilities
                 try
                 {
                     responseString = await httpClient.GetStringAsync(requestUrl);
+                    // Fix for member becoming a list when empty instead of a dictionary
+                    responseString = responseString.Replace(@"""_aModManagerIntegrations"": []", @"""_aModManagerIntegrations"": {}");
                 }
                 catch (HttpRequestException e)
                 {

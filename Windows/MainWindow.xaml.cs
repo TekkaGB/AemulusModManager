@@ -209,17 +209,10 @@ namespace AemulusModManager
                 // Initialise package updater
                 packageUpdater = new PackageUpdater(this);
 
-                // Retrieve initial thumbnail from embedded resource
-                Assembly asm = Assembly.GetExecutingAssembly();
-                Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
-                bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = iconStream;
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
+                // Retrieve initial thumbnail from resource
+                bitmap = new BitmapImage(new Uri("pack://application:,,,/AemulusPackageManager;component/Assets/Preview.png"));
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
                 ImageBehavior.SetAnimatedSource(PreviewBG, null);
-
 
                 // Initialize config
                 config = new AemulusConfig();
@@ -365,9 +358,8 @@ namespace AemulusModManager
                         if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
                             FileIOWrapper.Delete(file);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        //Console.WriteLine($"Invalid Config.xml ({ex.Message})");
                     }
 
 
@@ -1693,7 +1685,7 @@ namespace AemulusModManager
 
                         img.BeginInit();
                         img.StreamSource = stream;
-                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        img.CacheOption = BitmapCacheOption.OnLoad;
                         img.EndInit();
                         ImageBehavior.SetAnimatedSource(Preview, img);
                         ImageBehavior.SetAnimatedSource(PreviewBG, img);
@@ -1817,13 +1809,6 @@ namespace AemulusModManager
                     Refresh();
                     updateConfig();
                     updatePackages();
-                    Assembly asm = Assembly.GetExecutingAssembly();
-                    Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
-                    bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = iconStream;
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.EndInit();
                     ImageBehavior.SetAnimatedSource(Preview, bitmap);
                     ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
@@ -2150,14 +2135,6 @@ namespace AemulusModManager
                 updateConfig();
                 updatePackages();
 
-                // Retrieve initial thumbnail from embedded resource
-                Assembly asm = Assembly.GetExecutingAssembly();
-                Stream iconStream = asm.GetManifestResourceStream("AemulusModManager.Assets.Preview.png");
-                bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = iconStream;
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
                 ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
@@ -2742,7 +2719,7 @@ namespace AemulusModManager
                 };
                 Process.Start(ps);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }
@@ -2814,7 +2791,7 @@ namespace AemulusModManager
                         {
                             response = JsonConvert.DeserializeObject<GameBananaCategories>(responseString);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             LoadingBar.Visibility = Visibility.Collapsed;
                             ErrorPanel.Visibility = Visibility.Visible;
@@ -2862,7 +2839,7 @@ namespace AemulusModManager
                                 {
                                     response = JsonConvert.DeserializeObject<GameBananaCategories>(responseString);
                                 }
-                                catch (Exception ex)
+                                catch (Exception)
                                 {
                                     LoadingBar.Visibility = Visibility.Collapsed;
                                     ErrorPanel.Visibility = Visibility.Visible;
@@ -2878,8 +2855,10 @@ namespace AemulusModManager
                     gameCounter++;
                 }
             }
+            GameFilterBox.SelectedIndex = GameBox.SelectedIndex;
             CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
             SubCatBox.ItemsSource = None;
+            BrowserBackground.ImageSource = bgs[GameFilterBox.SelectedIndex];
             filterSelect = true;
             CatBox.SelectedIndex = 0;
             SubCatBox.SelectedIndex = 0;
@@ -2887,6 +2866,7 @@ namespace AemulusModManager
             RefreshFilter();
             selected = true;
         }
+        // Only fetch categories and items when Browse Mods tab is first selected
         private void OnTabSelected(object sender, RoutedEventArgs e)
         {
             if (!selected)
@@ -2905,6 +2885,7 @@ namespace AemulusModManager
             ++page;
             RefreshFilter();
         }
+        // Event to refresh browser when it failed to initialize
         private void BrowserRefresh(object sender, RoutedEventArgs e)
         {
             if (!selected)
@@ -2912,30 +2893,22 @@ namespace AemulusModManager
             else
                 RefreshFilter();
         }
+        // Initializze Resources as BitmapImages
         private static List<BitmapImage> bgs;
-        private static bool bgsInit = false;
         private void InitBgs()
         {
             bgs = new List<BitmapImage>();
             var bgUrls = new string[] {
-            "https://media.discordapp.net/attachments/792245872259235850/841715548743008306/5fdbf983c2daf.png",
-            "https://media.discordapp.net/attachments/792245872259235850/841715706583318548/5eecd11b5c38d.png",
-            "https://media.discordapp.net/attachments/792245872259235850/841715814796886016/607c1dba27628.png",
-            "https://media.discordapp.net/attachments/792245872259235850/841715913618882590/60662198248be.png"};
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p4g.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/sophia.png"};
             foreach (var bg in bgUrls)
-            {
-                var bitmap = new BitmapImage();
-                bitmap.DownloadFailed += delegate { bgsInit = false; };
-                bitmap.DownloadCompleted += delegate { bgsInit = true; };
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(bg);
-                bitmap.EndInit();
-                bgs.Add(bitmap);
-            }
-            if (bgs.Count > GameFilterBox.SelectedIndex)
-                BrowserBackground.Source = bgs[GameFilterBox.SelectedIndex];
+                bgs.Add(new BitmapImage(new Uri(bg)));
         }
+        // Used to not trigger events while another event is still functioning
         private static bool filterSelect;
+        // Filter events
         private async void RefreshFilter()
         {
             GameFilterBox.IsEnabled = false;
@@ -2943,8 +2916,8 @@ namespace AemulusModManager
             TypeBox.IsEnabled = false;
             CatBox.IsEnabled = false;
             SubCatBox.IsEnabled = false;
-            Left.IsEnabled = false;
-            Right.IsEnabled = false;
+            LeftPage.IsEnabled = false;
+            RightPage.IsEnabled = false;
             PageBox.IsEnabled = false;
             PerPageBox.IsEnabled = false;
             ErrorPanel.Visibility = Visibility.Collapsed;
@@ -2954,8 +2927,6 @@ namespace AemulusModManager
             Page.Text = $"Page {page}";
             LoadingBar.Visibility = Visibility.Visible;
             FeedBox.Visibility = Visibility.Collapsed;
-            Left.IsEnabled = false;
-            Right.IsEnabled = false;
             FeedBox.ItemsSource = await FeedGenerator.GetFeed(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
                 (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10);
             if (FeedGenerator.error)
@@ -2981,9 +2952,9 @@ namespace AemulusModManager
             }
             if (page < FeedGenerator.GetMetadata(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
                 (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10).TotalPages)
-                Right.IsEnabled = true;
+                RightPage.IsEnabled = true;
             if (page != 1)
-                Left.IsEnabled = true;
+                LeftPage.IsEnabled = true;
             if (FeedBox.Items.Count > 0)
             {
                 FeedBox.ScrollIntoView(FeedBox.Items[0]);
@@ -3024,12 +2995,10 @@ namespace AemulusModManager
         {
             if (IsLoaded && !filterSelect)
             {
-                if (!bgsInit)
-                    InitBgs();
-                if (bgs.Count > GameFilterBox.SelectedIndex)
-                    BrowserBackground.Source = bgs[GameFilterBox.SelectedIndex];
+                // Change background to match game
+                BrowserBackground.ImageSource = bgs[GameFilterBox.SelectedIndex];
                 filterSelect = true;
-                TypeBox.SelectedIndex = 0;
+                // Set categories
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
                     CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
                 else
@@ -3051,6 +3020,7 @@ namespace AemulusModManager
             if (IsLoaded && !filterSelect)
             {
                 filterSelect = true;
+                // Set categories
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
                     CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
                 else
@@ -3072,6 +3042,7 @@ namespace AemulusModManager
             if (IsLoaded && !filterSelect)
             {
                 filterSelect = true;
+                // Set Categories
                 var cat = (GameBananaCategory)CatBox.SelectedValue;
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == cat.ID))
                     SubCatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == cat.ID).OrderBy(y => y.ID));
@@ -3091,6 +3062,7 @@ namespace AemulusModManager
                 RefreshFilter();
             }
         }
+        // Change number of columns depending on window width
         private void UniformGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var grid = sender as UniformGrid;
@@ -3103,7 +3075,38 @@ namespace AemulusModManager
             else
                 grid.Columns = 3;
         }
-
+        private void GameBanana_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var gameID = "";
+                switch (GameFilterBox.SelectedIndex)
+                {
+                    case 0:
+                        gameID = "8502";
+                        break;
+                    case 1:
+                        gameID = "8263";
+                        break;
+                    case 2:
+                        gameID = "7545";
+                        break;
+                    case 3:
+                        gameID = "9099";
+                        break;
+                }
+                var ps = new ProcessStartInfo($"https://gamebanana.com/games/{gameID}")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                };
+                Process.Start(ps);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ERROR] Couldn't open up GameBanana ({ex.Message})");
+            }
+        }
         private void PageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!filterSelect && IsLoaded)
