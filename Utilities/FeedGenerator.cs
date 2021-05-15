@@ -52,7 +52,7 @@ namespace AemulusModManager.Utilities
                     // Fix for member becoming a list when empty instead of a dictionary
                     responseString = responseString.Replace(@"""_aModManagerIntegrations"": []", @"""_aModManagerIntegrations"": {}");
                 }
-                catch (HttpRequestException e)
+                catch (Exception e)
                 {
                     error = true;
                     exception = e;
