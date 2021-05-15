@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AemulusModManager.Utilities
 {
@@ -112,7 +113,7 @@ namespace AemulusModManager.Utilities
                     url += "&_sOrderBy=_tsDateUpdated,DESC";
                     break;
                 case FeedFilter.Featured:
-                    url += "&_aArgs[]=_sbWasFeatured = true& _sOrderBy=_tsDateAdded,DESC";
+                    url += "&_aArgs[]=_sbWasFeatured = true&_sOrderBy=_tsDateAdded,DESC";
                     break;
                 case FeedFilter.Popular:
                     url += "&_sOrderBy=_nDownloadCount,DESC";

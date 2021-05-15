@@ -1109,6 +1109,7 @@ namespace AemulusModManager
                 ModGrid.ItemsSource = DisplayedPackages;
                 // Trigger select event to refresh description and Preview.png
                 ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
+                // Set top right stats
                 StatText.Text = $"{PackageList.Count} packages • {PackageList.Where(x => x.enabled).Count()} enabled • {Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}", "*", SearchOption.AllDirectories).Length.ToString("N0")} files • " +
                 $"{StringConverters.FormatSize(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").GetDirectorySize())} • v{aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'))}";
             });
