@@ -2794,6 +2794,14 @@ namespace AemulusModManager
                             }
                             return;
                         }
+                        catch (Exception ex)
+                        {
+                            LoadingBar.Visibility = Visibility.Collapsed;
+                            ErrorPanel.Visibility = Visibility.Visible;
+                            BrowserRefreshButton.Visibility = Visibility.Visible;
+                            BrowserMessage.Text = ex.Message;
+                            return;
+                        }
                         GameBananaCategories response = new GameBananaCategories();
                         try
                         {
@@ -2841,6 +2849,14 @@ namespace AemulusModManager
                                             BrowserMessage.Text = ex.Message;
                                             break;
                                     }
+                                    return;
+                                }
+                                catch (Exception ex)
+                                {
+                                    LoadingBar.Visibility = Visibility.Collapsed;
+                                    ErrorPanel.Visibility = Visibility.Visible;
+                                    BrowserRefreshButton.Visibility = Visibility.Visible;
+                                    BrowserMessage.Text = ex.Message;
                                     return;
                                 }
                                 try
