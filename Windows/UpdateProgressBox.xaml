@@ -15,7 +15,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Name="progressTitle" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="" VerticalAlignment="Center" FontSize="15"/>
-        <ProgressBar Grid.Row="1" Name="progressBar" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="300" ValueChanged="ProgressBar_ValueChanged"/>
+        <ProgressBar Grid.Row="1" Foreground="#9a0000" Name="progressBar" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="300" ValueChanged="ProgressBar_ValueChanged"/>
         <TextBlock Grid.Row="2" Name="progressText" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="" VerticalAlignment="Center" FontSize="15"/>
     </Grid>
     <Window.TaskbarItemInfo>

@@ -151,6 +151,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities\FeedGenerator.cs" />
     <Compile Include="Windows\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
@@ -200,6 +201,18 @@
     <Compile Include="Windows\UpdateProgressBox.xaml.cs">
       <DependentUpon>UpdateProgressBox.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\DownloadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -291,6 +304,7 @@
     </None>
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
+    <Resource Include="Assets\Jost-SemiBold.ttf" />
     <None Include="Dependencies\AtlusScriptCompiler\Charsets\P3.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -409,6 +423,16 @@
     <None Include="aemulus_overlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Resource Include="Assets\general.png" />
+    <Resource Include="Assets\p3f.png" />
+    <Resource Include="Assets\p4g.png" />
+    <Resource Include="Assets\p5.png" />
+    <Resource Include="Assets\sophia.png" />
+    <Resource Include="Assets\p3ficon.png" />
+    <Resource Include="Assets\p4gicon.png" />
+    <Resource Include="Assets\p5icon.png" />
+    <Resource Include="Assets\p5sicon.png" />
+    <Resource Include="Assets\GameBanana.png" />
     <Content Include="Dependencies\rdb_tool.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -469,7 +493,7 @@
     <Content Include="Dependencies\PAKPack\AtlusFileSystemLibrary.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Assets\Preview.png" />
+    <Resource Include="Assets\Preview.png" />
     <Content Include="Dependencies\PAKPack\PAKPack.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

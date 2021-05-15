@@ -23,10 +23,20 @@ namespace AemulusModManager
         public DownloadWindow(GameBananaItem item)
         {
             InitializeComponent();
-            DownloadText.Text = $"Would you like to download {item.Name} for {item.Game} submitted by {item.Owner}?";
+            DownloadText.Text = $"{item.Name}\nGame: {item.Game}\nSubmitted by {item.Owner}";
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = item.SubFeedImage;
+            bitmap.UriSource = item.EmbedImage;
+            bitmap.EndInit();
+            Preview.Source = bitmap;
+        }
+        public DownloadWindow(GameBananaRecord record)
+        {
+            InitializeComponent();
+            DownloadText.Text = $"{record.Title}\nSubmitted by {record.Owner.Name}";
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = record.Image;
             bitmap.EndInit();
             Preview.Source = bitmap;
         }

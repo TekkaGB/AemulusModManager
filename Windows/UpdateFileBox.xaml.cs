@@ -1,10 +1,12 @@
-﻿using AemulusModManager.Utilities.Windows;
+﻿using AemulusModManager.Utilities.PackageUpdating;
+using AemulusModManager.Utilities.Windows;
 using Microsoft.Win32;
 using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Media;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace AemulusModManager.Windows
@@ -16,52 +18,39 @@ namespace AemulusModManager.Windows
     {
         public string chosenFileUrl;
         public string chosenFileName;
-        private readonly string host;
         // GameBanana Files
-        public UpdateFileBox(Dictionary<String, GameBananaItemFile> files, string packageName)
+        public UpdateFileBox(List<GameBananaItemFile> files, string packageName)
         {
             InitializeComponent();
-            FileGrid.ItemsSource = files;
-            FileGrid.SelectedIndex = 0;
-            NameColumn.Binding = new Binding("Value.FileName");
-            UploadTimeColumn.Binding = new Binding("Value.TimeSinceUpload");
-            DescriptionColumn.Binding = new Binding("Value.Description");
-            Title = $"Aemulus Package Manager - {packageName}";
-            host = "GameBanana";
-            PlayNotificationSound();
+            FileList.ItemsSource = files;
+            TitleBox.Text = packageName;
         }
-
         // GitHub Files
         public UpdateFileBox(IReadOnlyList<ReleaseAsset> files, string packageName)
         {
             InitializeComponent();
-            FileGrid.ItemsSource = files;
-            FileGrid.SelectedIndex = 0;
-            NameColumn.Binding = new Binding("Name");
-            UploadTimeColumn.Binding = new Binding("UpdatedAt")
+            var convList = new List<GameBananaItemFile>();
+            foreach (var file in files)
             {
-                Converter = new TimeSinceConverter()
-            };
-            DescriptionColumn.Visibility = Visibility.Collapsed;
-            Title = $"Aemulus Package Manager - {packageName}";
-            host = "GitHub";
-            PlayNotificationSound();
+                convList.Add(new GameBananaItemFile()
+                {
+                    FileName = file.Name,
+                    Downloads = file.DownloadCount,
+                    DownloadUrl = file.BrowserDownloadUrl,
+                    Filesize = file.Size,
+                    Description = file.Label
+                });
+            }
+            FileList.ItemsSource = convList;
         }
 
         private void SelectButton_Click(object sender, RoutedEventArgs e)
         {
-            if (host == "GameBanana")
-            {
-                KeyValuePair<String, GameBananaItemFile> selectedItem = (KeyValuePair<String, GameBananaItemFile>)FileGrid.SelectedItem;
-                chosenFileUrl = selectedItem.Value.DownloadUrl;
-                chosenFileName = selectedItem.Value.FileName;
-            }
-            else if (host == "GitHub")
-            {
-                ReleaseAsset selectedItem = (ReleaseAsset)FileGrid.SelectedItem;
-                chosenFileUrl = selectedItem.BrowserDownloadUrl;
-                chosenFileName = selectedItem.Name;
-            }
+            Button button = sender as Button;
+           
+            var item = button.DataContext as GameBananaItemFile;
+            chosenFileUrl = item.DownloadUrl;
+            chosenFileName = item.FileName;
             Close();
         }
 
