@@ -16,7 +16,7 @@ namespace AemulusModManager.Utilities.PackageUpdating
                 number = number / 1024;
                 counter++;
             }
-            return bytes != 0 ? string.Format("{0:n1}{1}", number, suffixes[counter]) :
+            return bytes != 0 ? string.Format("{0:n2}{1}", number, suffixes[counter]) :
                 string.Format("{0:n0}{1}", number, suffixes[counter]);
         }
         public static string FormatNumber(int number)
