@@ -2730,6 +2730,7 @@ namespace AemulusModManager
             imageCounter = 0;
             if (imageCount > 0)
             {
+                Grid.SetColumnSpan(DescText, 1);
                 ImagePanel.Visibility = Visibility.Visible;
                 Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
                 CaptionText.Text = item.Media[imageCounter].Caption;
@@ -2739,7 +2740,10 @@ namespace AemulusModManager
                     CaptionText.Visibility = Visibility.Collapsed;
             }
             else
+            {
+                Grid.SetColumnSpan(DescText, 2);
                 ImagePanel.Visibility = Visibility.Collapsed;
+            }
             if (imageCount == 1)
             {
                 ImageLeft.IsEnabled = false;

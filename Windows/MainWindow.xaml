@@ -766,23 +766,30 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
                                 <RowDefinition Height="90"/>
                             </Grid.RowDefinitions>
-                            <TextBlock VerticalAlignment="Center" Height="100" Text="{Binding Path=Title}" TextTrimming="WordEllipsis" Foreground="#f2f2f2" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="45" Padding="15"/>
-                            <StackPanel Name="ImagePanel" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Height="200">
-                                <Button Click="ImageLeft_Click" Name="ImageLeft" Content="&lt;" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
-                                <Image Name="Screenshot" Margin="20,0,20,0" VerticalAlignment="Center"/>
-                                <Button Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Height="100" Text="{Binding Path=Title}" TextTrimming="WordEllipsis" Foreground="#f2f2f2" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="45" Padding="15"/>
+                            <StackPanel Name="ImagePanel" Visibility="Collapsed" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1">
+                                <Grid HorizontalAlignment="Center" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.15*"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.15*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="ImageLeft_Click" Name="ImageLeft" Content="&lt;" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
+                                    <Image Grid.Column="1" Name="Screenshot" Stretch="Uniform" MaxHeight="400" Margin="20,0,20,0" VerticalAlignment="Center"/>
+                                    <fa5:ImageAwesome Panel.ZIndex="-1" Grid.Column="1" Foreground="#9a0000" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
+                                    <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
+                                </Grid>
+                                <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
                             </StackPanel>
-                            <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
-                            <!--<ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
-                                <TextBlock Name="DescText" Foreground="#f2f2f2" Padding="10,0,10,10" FontSize="18" TextWrapping="Wrap" Text="{Binding Path=ConvertedText}"/>
-                            </ScrollViewer>-->
-                            <RichTextBox Name="DescText" Grid.Row="3" Background="Transparent" BorderThickness="0" IsDocumentEnabled="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Foreground="#f2f2f2" Padding="10,0,10,10" FontSize="18"/>
-                            <StackPanel Margin="20" Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <RichTextBox Name="DescText" Grid.Row="1" Background="Transparent" BorderThickness="0" IsDocumentEnabled="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Foreground="#f2f2f2" Padding="10,0,10,10" FontSize="18"/>
+                            <StackPanel Grid.ColumnSpan="2" Margin="20" Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Button Click="Download_Click" Content="Download" IsEnabled="{Binding Path=Compatible}" Margin="0,0,20,0" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
                                     <Button.Resources>
                                         <Style TargetType="{x:Type Border}">
