@@ -2723,7 +2723,11 @@ namespace AemulusModManager
             var item = button.DataContext as GameBananaRecord;
             DescPanel.DataContext = button.DataContext;
             DescText.ScrollToHome();
-            DescText.Document = ConvertToFlowDocument(item.ConvertedText);
+            var text = "";
+            if (!item.Compatible)
+                text += "This mod can't be installed directly through Aemulus. Download it from the Mod Page and follow the installation instructions.\n\n";
+            text += item.ConvertedText;
+            DescText.Document = ConvertToFlowDocument(text);
             ImageLeft.IsEnabled = true;
             ImageRight.IsEnabled = true;
             imageCount = item.Media.Count;
