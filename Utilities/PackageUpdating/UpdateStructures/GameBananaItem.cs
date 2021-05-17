@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AemulusModManager
 {
@@ -108,6 +109,12 @@ namespace AemulusModManager
         public string Description { get; set; }
         [JsonIgnore]
         public bool HasDescription => Description.Length > 100;
+        [JsonProperty("_sText")]
+        public string Text { get; set; }
+        [JsonIgnore]
+        public string ConvertedText => Regex.Replace(Text.Replace("<br>", "\n").Replace("&nbsp;", " ")
+            .Replace("<ul>", "\n").Replace("<li>", "• ").Replace(@"\u00a0", " ").Replace(@"</li>", "\n")
+            .Replace(@"</h3>", "\n").Replace(@"</h2>", "\n").Replace(@"</h1>", "\n"), "<.*?>", string.Empty);
         [JsonProperty("_nViewCount")]
         public int Views { get; set; }
         [JsonProperty("_nLikeCount")]

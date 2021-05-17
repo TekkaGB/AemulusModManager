@@ -291,7 +291,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Button FontFamily="{StaticResource Jost}" Grid.Column="0" Foreground="#f2f2f2" FontWeight="SemiBold" Height="35" Width="95" Background="#303030" BorderBrush="#353535" VerticalAlignment="Bottom" Content="Mod Page" Click="Homepage_Click"/>
+                        <Button FontFamily="{StaticResource Jost}" Grid.Column="0" Foreground="#f2f2f2" FontWeight="SemiBold" Height="35" Width="95" Background="#303030" BorderBrush="#353535" VerticalAlignment="Bottom" Content="More Info" Click="MoreInfo_Click"/>
                         <Button FontFamily="{StaticResource Jost}" Grid.Column="1" Foreground="#f2f2f2" FontWeight="SemiBold" Height="35" Width="95" Background="#303030" BorderBrush="#353535" VerticalAlignment="Top" Content="Download" IsEnabled="{Binding Path=Compatible}" Click="Download_Click"/>
                     </Grid>
                 </Grid>
@@ -299,6 +299,7 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
+        
         <TextBox x:Name="StatText" Background="Transparent" BorderThickness="0" IsReadOnly="True" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
             <TextBox.Style>
                 <Style TargetType="TextBox">
@@ -615,32 +616,39 @@
                             <GridSplitter BorderThickness="3" HorizontalAlignment="Center" Grid.Column="1" Grid.RowSpan="3" Width="4" VerticalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
                             <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="3">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="220"/>
+                                    <RowDefinition Height="0.75*" />
+                                    <!--<RowDefinition Height="Auto"/>-->
                                     <RowDefinition Height="Auto"/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="1.15*" />
                                     <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
-                                <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,10,4,10" Grid.Row="0"/>
-                                <Image Margin="4,10,4,10" Name="PreviewBG" Grid.Row="0" Stretch="UniformToFill" Panel.ZIndex="-1">
+                                
+                                <!--<Image Margin="4,10,4,10" Name="PreviewBG" Grid.Row="0" Stretch="UniformToFill" Panel.ZIndex="-1">
                                     <Image.BitmapEffect>
                                         <BlurBitmapEffect Radius="40"/>
                                     </Image.BitmapEffect>
-                                </Image>
+                                </Image>-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Name="Preview" Source="../Assets/Preview.png" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,5,4,2"/>
                                 <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="SemiBold" Width="135" Margin="4,10,10,10" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
-                                    <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="5" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="SemiBold" Width="135" Margin="4,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
+                                    <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="3" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
                                         <Button.Template>
                                             <ControlTemplate>
                                                 <Image Source="../Assets/Inaba.png"/>
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
-                                    <Button Name="HHH" Visibility="Collapsed" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Left" Margin="5" Height="50" Width="50" Click="HHH_Click">
+                                    <Button Name="HHH" Visibility="Collapsed" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Left" Margin="3" Height="50" Width="50" Click="HHH_Click">
                                         <Button.Template>
                                             <ControlTemplate>
                                                 <Image Source="../Assets/HHH.png"/>
@@ -649,9 +657,11 @@
                                     </Button>
 
                                 </Grid>
-                                <RichTextBox FontSize="12" Name="Description" BorderBrush="#424242" IsDocumentEnabled="True" IsReadOnly="True" Grid.Row="2" Margin="4,10,4,10" Padding="10" VerticalScrollBarVisibility="Auto" Background="#202020" Foreground="#f2f2f2"/>
-                                <Border Grid.Row="3" Margin="4,0,4,0" BorderThickness="1" BorderBrush="#424242">
-                                    <Grid  Background="#202020" Name="Extras">
+                                </Grid>
+                                <GridSplitter Grid.Row="1" BorderThickness="3"  Height="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+                                <RichTextBox Grid.Row="2" FontSize="12" Name="Description" BorderBrush="#424242" IsDocumentEnabled="True" IsReadOnly="True"  Margin="4,3,4,10" Padding="10" VerticalScrollBarVisibility="Auto" Background="#202020" Foreground="#f2f2f2"/>
+                                <Border Grid.Row="4" Margin="4,0,4,0" BorderThickness="1" BorderBrush="#424242">
+                                    <Grid Background="#202020" Name="Extras">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
                                             <ColumnDefinition/>
@@ -746,6 +756,55 @@
                     <Grid.Background>
                         <ImageBrush x:Name="BrowserBackground" ImageSource="../Assets/general.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,144,151"/>
                     </Grid.Background>
+                    <Border Grid.RowSpan="3" Name="DescPanel" Panel.ZIndex="4" Visibility="Collapsed">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="#101010" Opacity="0.95"/>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush Color="#101010" Opacity="0.95"/>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="90"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Center" Height="100" Text="{Binding Path=Title}" TextTrimming="WordEllipsis" Foreground="#f2f2f2" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="45" Padding="15"/>
+                            <StackPanel Name="ImagePanel" Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Height="200">
+                                <Button Click="ImageLeft_Click" Name="ImageLeft" Content="&lt;" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
+                                <Image Name="Screenshot" Margin="20,0,20,0" VerticalAlignment="Center"/>
+                                <Button Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
+                                <!--<TextBlock Name="Caption" Foreground="#f2f2f2" VerticalAlignment="Center" FontSize="24" TextWrapping="Wrap" MaxWidth="400"/>-->
+                            </StackPanel>
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                <TextBlock Name="DescText" Foreground="#f2f2f2" Padding="10" FontSize="18" TextWrapping="Wrap" Text="{Binding Path=ConvertedText}"/>
+                            </ScrollViewer>
+                            <StackPanel Margin="20" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Button Click="Download_Click" Content="Download" IsEnabled="{Binding Path=Compatible}" Margin="0,0,20,0" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="2"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button Click="Homepage_Click" Content="Mod Page" Margin="0,0,20,0" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="2"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button Click="CloseDesc_Click" Content="Close" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
+                                    <Button.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="2"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <ComboBox IsEnabled="False" Margin="0,0,15,0" Name="GameFilterBox" Height="40" Width="230" FontSize="18" FontWeight="SemiBold" SelectionChanged="GameFilterSelectionChanged">
                             <ComboBoxItem>
