@@ -2730,6 +2730,11 @@ namespace AemulusModManager
             {
                 ImagePanel.Visibility = Visibility.Visible;
                 Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+                CaptionText.Text = item.Media[imageCounter].Caption;
+                if (CaptionText.Text != null)
+                    CaptionText.Visibility = Visibility.Visible;
+                else
+                    CaptionText.Visibility = Visibility.Collapsed;
             }
             else
                 ImagePanel.Visibility = Visibility.Collapsed;
@@ -3184,6 +3189,11 @@ namespace AemulusModManager
             if (--imageCounter == -1)
                 imageCounter = imageCount - 1;
             Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+            CaptionText.Text = item.Media[imageCounter].Caption;
+            if (CaptionText.Text != null)
+                CaptionText.Visibility = Visibility.Visible;
+            else
+                CaptionText.Visibility = Visibility.Collapsed;
         }
 
         private void ImageRight_Click(object sender, RoutedEventArgs e)
@@ -3193,6 +3203,11 @@ namespace AemulusModManager
             if (++imageCounter == imageCount)
                 imageCounter = 0;
             Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+            CaptionText.Text = item.Media[imageCounter].Caption;
+            if (CaptionText.Text != null)
+                CaptionText.Visibility = Visibility.Visible;
+            else
+                CaptionText.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -195,5 +195,7 @@ namespace AemulusModManager
         public Uri Base { get; set; }
         [JsonProperty("_sFile")]
         public Uri File { get; set; }
+        [JsonProperty("_sCaption")]
+        public string Caption { get; set; }
     }
 }
