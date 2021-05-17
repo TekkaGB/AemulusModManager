@@ -113,7 +113,7 @@ namespace AemulusModManager
         public string Text { get; set; }
         [JsonIgnore]
         public string ConvertedText => Regex.Replace(Regex.Replace(Text.Replace("<br>", "\n").Replace("&nbsp;", " ")
-            .Replace("<ul>", "\n").Replace("<li>", "• ").Replace(@"\u00a0", " ").Replace(@"</li>", "\n")
+            .Replace("<ul>", "\n").Replace("<li>", "• ").Replace(@"\u00a0", " ").Replace(@"</li>", "\n").Replace("&amp;", "&")
             .Replace(@"</h3>", "\n").Replace(@"</h2>", "\n").Replace(@"</h1>", "\n"), "<.*?>", string.Empty),
             "[\\r\\n]{3,}", "\n\n", RegexOptions.Multiline).Trim();
         [JsonProperty("_nViewCount")]
