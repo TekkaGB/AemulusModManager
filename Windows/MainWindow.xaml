@@ -776,12 +776,12 @@
                                 <Button Click="ImageLeft_Click" Name="ImageLeft" Content="&lt;" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                                 <Image Name="Screenshot" Margin="20,0,20,0" VerticalAlignment="Center"/>
                                 <Button Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
-                                <!--<TextBlock Name="Caption" Foreground="#f2f2f2" VerticalAlignment="Center" FontSize="24" TextWrapping="Wrap" MaxWidth="400"/>-->
                             </StackPanel>
                             <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
-                            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+                            <!--<ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
                                 <TextBlock Name="DescText" Foreground="#f2f2f2" Padding="10,0,10,10" FontSize="18" TextWrapping="Wrap" Text="{Binding Path=ConvertedText}"/>
-                            </ScrollViewer>
+                            </ScrollViewer>-->
+                            <RichTextBox Name="DescText" Grid.Row="3" Background="Transparent" BorderThickness="0" IsDocumentEnabled="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Foreground="#f2f2f2" Padding="10,0,10,10" FontSize="18"/>
                             <StackPanel Margin="20" Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <Button Click="Download_Click" Content="Download" IsEnabled="{Binding Path=Compatible}" Margin="0,0,20,0" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
                                     <Button.Resources>
