@@ -60,7 +60,8 @@ namespace AemulusModManager
                     }
 
                 }
-                Directory.Delete($@"{path}\data00007", true);
+                if (Directory.Exists($@"{path}\data00007"))
+                    Directory.Delete($@"{path}\data00007", true);
             }
             if (FileIOWrapper.Exists($@"{path}\movie00003.pac"))
             {
@@ -84,7 +85,8 @@ namespace AemulusModManager
                     }
 
                 }
-                Directory.Delete($@"{path}\movie00003", true);
+                if (Directory.Exists($@"{path}\movie00003"))
+                    Directory.Delete($@"{path}\movie00003", true);
             }
             if (!validated)
             {

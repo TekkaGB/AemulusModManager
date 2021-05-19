@@ -2715,8 +2715,8 @@ namespace AemulusModManager
             var item = button.DataContext as GameBananaRecord;
             new PackageDownloader().BrowserDownload(item, (GameFilter)GameFilterBox.SelectedIndex);
         }
-        int imageCounter;
-        int imageCount;
+        private int imageCounter;
+        private int imageCount;
         private void MoreInfo_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
