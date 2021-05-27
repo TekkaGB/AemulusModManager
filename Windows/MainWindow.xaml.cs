@@ -26,7 +26,8 @@ using TypeFilter = AemulusModManager.Utilities.TypeFilter;
 using System.Net.Http;
 using System.Windows.Controls.Primitives;
 using AemulusModManager.Utilities.PackageUpdating;
-using WebBrowser = System.Windows.Forms.WebBrowser;
+using Vlc.DotNet.Core;
+using Vlc.DotNet.Wpf;
 
 namespace AemulusModManager
 {
@@ -517,8 +518,85 @@ namespace AemulusModManager
                 fileSystemWatcher.Created += FileSystemWatcher_Created;
                 if (!oneClick)
                     UpdateAllAsync();
+
+                var currentAssembly = Assembly.GetEntryAssembly();
+                var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
+                // Default installation path of VideoLAN.LibVLC.Windows
+                var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+                MusicPlayer = new VlcMediaPlayer(libDirectory, new string[] { "--mmdevice-backend=wasapi" });
+                MusicPlayer.EndReached += MediaPlayer_EndReached;
+                MusicPlayer.Playing += SetProgressMax;
+                MusicPlayer.PositionChanged += (sender, e) =>
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        currentPos = e.NewPosition;
+                        AudioProgress.Value = e.NewPosition * 100;
+                        TimeSpan current = TimeSpan.FromMilliseconds(duration * e.NewPosition);
+                        TimeSpan total = TimeSpan.FromMilliseconds(duration);
+                        AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {2:D1}:{3:D2}",
+                            current.Minutes, current.Seconds,
+                            total.Minutes, total.Seconds);
+                    });
+                };
             }
 
+        }
+        private VlcMediaPlayer MusicPlayer;
+        private float currentPos;
+        private long duration;
+        private void SetProgressMax(object sender, VlcMediaPlayerPlayingEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (PlayAudio.Visibility == Visibility.Visible)
+                {
+                    PlayAudio.Visibility = Visibility.Collapsed;
+                    PauseAudio.Visibility = Visibility.Visible;
+                }
+            });
+            var vlc = (VlcMediaPlayer)sender;
+            duration = vlc.Length;
+        }
+        private void MediaPlayer_EndReached(object sender, EventArgs e)
+        {
+            // Use thread.sleep to continue playing audio while emulating the position
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                PauseAudio.IsEnabled = false;
+            });
+            var current = currentPos * duration;
+            var interval = (int)Math.Floor(((float)duration - current) / 5);
+            while (current <= duration)
+            {
+                if (cancelAudio)
+                {
+                    cancelAudio = false;
+                    return;
+                }        
+                TimeSpan currentTime = TimeSpan.FromMilliseconds(current);
+                TimeSpan totalTime = TimeSpan.FromMilliseconds(duration);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    AudioProgress.Value = ((double)current / (double)duration) * 100;
+                    AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {2:D1}:{3:D2}",
+                        currentTime.Minutes, currentTime.Seconds,
+                        totalTime.Minutes, totalTime.Seconds);
+                });
+                current += interval;
+                Thread.Sleep(interval);
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                // Emulate completion just in case it ends at 0:20/0:21 for example
+                AudioProgress.Value = 100;
+                TimeSpan totalTime = TimeSpan.FromMilliseconds(duration);
+                AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {0:D1}:{1:D2}",
+                    totalTime.Minutes, totalTime.Seconds);
+                // Show replay button when done playing
+                PauseAudio.Visibility = Visibility.Collapsed;
+                ReplayAudio.Visibility = Visibility.Visible;
+            });
         }
         private static async Task<bool> IsFileReady(string filename)
         {
@@ -561,7 +639,6 @@ namespace AemulusModManager
             var game = "";
             if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
             {
-                Refresh();
                 if (await IsFileReady($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
                 {
                     game = FileIOWrapper.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
@@ -573,6 +650,63 @@ namespace AemulusModManager
                     {
                         Console.WriteLine($@"[ERROR] Couldn't delete refresh.aem ({ex.Message})");
                     }
+                    if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
+                    {
+                        File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml",
+                            $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", true);
+                        Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
+                        packages = new Packages();
+                        DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
+                        PackageList = new ObservableCollection<Package>();
+                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                        {
+                            // Call the Deserialize method and cast to the object type.
+                            packages = (Packages)xp.Deserialize(streamWriter);
+                            PackageList = packages.packages;
+                        }
+                        // Create displayed metadata from packages in PackageList and their respective Package.xml's
+                        foreach (var package in PackageList)
+                        {
+                            string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
+                            Metadata m;
+                            DisplayedMetadata dm = new DisplayedMetadata();
+                            if (FileIOWrapper.Exists(xml))
+                            {
+                                m = new Metadata();
+                                try
+                                {
+                                    using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                    {
+                                        try
+                                        {
+                                            m = (Metadata)xsp.Deserialize(streamWriter);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                            continue;
+                                        }
+                                        dm.name = m.name;
+                                        dm.id = m.id;
+                                        dm.author = m.author;
+                                        dm.version = m.version;
+                                        dm.link = m.link;
+                                        dm.description = m.description;
+                                        dm.skippedVersion = m.skippedVersion;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                    continue;
+                                }
+                            }
+                            dm.path = package.path;
+                            dm.enabled = package.enabled;
+                            DisplayedPackages.Add(dm);
+                        }
+                    }
+                    Refresh();
                 }
             }
 
@@ -1798,7 +1932,7 @@ namespace AemulusModManager
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
             if (row != null)
             {
-                NotificationBox notification = new NotificationBox($@"Are you sure you want to delete Packages\{row.path}?", false);
+                NotificationBox notification = new NotificationBox($@"Are you sure you want to delete Packages\{game}\{row.path}?", false);
                 notification.ShowDialog();
                 Activate();
                 if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}") && notification.YesNo)
@@ -1817,7 +1951,6 @@ namespace AemulusModManager
                     updateConfig();
                     updatePackages();
                     ImageBehavior.SetAnimatedSource(Preview, bitmap);
-                    //ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
                     Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                         "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
@@ -2717,8 +2850,10 @@ namespace AemulusModManager
         }
         private int imageCounter;
         private int imageCount;
+        private Uri currentAudio;
         private void MoreInfo_Click(object sender, RoutedEventArgs e)
         {
+            cancelAudio = false;
             Button button = sender as Button;
             var item = button.DataContext as GameBananaRecord;
             DescPanel.DataContext = button.DataContext;
@@ -2730,8 +2865,12 @@ namespace AemulusModManager
             DescText.Document = ConvertToFlowDocument(text);
             ImageLeft.IsEnabled = true;
             ImageRight.IsEnabled = true;
-            imageCount = item.Media.Count;
+            imageCount = item.Media.Where(x => x.Type == "image").ToList().Count;
             imageCounter = 0;
+            AudioPlayer.Visibility = Visibility.Collapsed;
+            PlayAudio.Visibility = Visibility.Collapsed;
+            PauseAudio.Visibility = Visibility.Collapsed;
+            ReplayAudio.Visibility = Visibility.Collapsed;
             if (imageCount > 0)
             {
                 Grid.SetColumnSpan(DescText, 1);
@@ -2745,8 +2884,12 @@ namespace AemulusModManager
             }
             else
             {
-                Grid.SetColumnSpan(DescText, 2);
                 ImagePanel.Visibility = Visibility.Collapsed;
+                currentAudio = item.Media[0].Audio;
+                MusicPlayer.SetMedia(currentAudio);
+                AudioDuration.Text = "0:00 / 0:00";
+                PlayAudio.Visibility = Visibility.Visible;
+                AudioPlayer.Visibility = Visibility.Visible;
             }
             if (imageCount == 1)
             {
@@ -2796,6 +2939,7 @@ namespace AemulusModManager
             InitBgs();
             using (var httpClient = new HttpClient())
             {
+                LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
                 var gameIDS = new string[] { "8502", "8263", "7545", "9099" };
@@ -3181,10 +3325,14 @@ namespace AemulusModManager
                 RefreshFilter();
             }
         }
+        bool cancelAudio;
 
         private void CloseDesc_Click(object sender, RoutedEventArgs e)
         {
+            cancelAudio = true;
             DescPanel.Visibility = Visibility.Collapsed;
+            MusicPlayer.ResetMedia();
+            AudioProgress.Value = 0;
         }
 
         private void ImageLeft_Click(object sender, RoutedEventArgs e)
@@ -3213,6 +3361,40 @@ namespace AemulusModManager
                 CaptionText.Visibility = Visibility.Visible;
             else
                 CaptionText.Visibility = Visibility.Collapsed;
+        }
+
+        private async void PlayAudio_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PauseAudio.IsEnabled = true;
+            PauseAudio.Visibility = Visibility.Visible;
+            PlayAudio.Visibility = Visibility.Collapsed;
+            await Task.Run(() =>
+            {
+                MusicPlayer.Play();
+            });
+        }
+
+        private async void PauseAudio_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PlayAudio.Visibility = Visibility.Visible;
+            PauseAudio.Visibility = Visibility.Collapsed;
+            await Task.Run(() =>
+            {
+                MusicPlayer.Pause();
+            });
+        }
+
+        private async void ReplayAudio_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PauseAudio.IsEnabled = true;
+            ReplayAudio.Visibility = Visibility.Collapsed;
+            PauseAudio.Visibility = Visibility.Visible;
+            MusicPlayer.ResetMedia();
+            MusicPlayer.SetMedia(currentAudio);
+            await Task.Run(() =>
+            {
+                MusicPlayer.Play();
+            });
         }
     }
 }

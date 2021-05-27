@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
         Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
@@ -778,6 +779,23 @@
                         </Border>
                         <Border Grid.ColumnSpan="2" BorderThickness="0">
                             <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding Path=Title}" TextTrimming="WordEllipsis" Foreground="#f2f2f2" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="45" Padding="3"/>
+                        </Border>
+                        <Border Name="AudioPlayer" Visibility="Collapsed" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#a0a0a0">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <fa5:ImageAwesome Name="PlayAudio"  Icon="Solid_Play" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Visibility="Collapsed" PreviewMouseLeftButtonDown="PlayAudio_PreviewMouseLeftButtonDown"/>
+                            <fa5:ImageAwesome Name="PauseAudio" Icon="Solid_Pause" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="25" Visibility="Collapsed" PreviewMouseLeftButtonDown="PauseAudio_PreviewMouseLeftButtonDown"/>
+                            <fa5:ImageAwesome Name="ReplayAudio" Icon="Solid_Redo" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Visibility="Collapsed" PreviewMouseLeftButtonDown="ReplayAudio_PreviewMouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
+                                <fa5:ImageAwesome.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-1"/>
+                                        <RotateTransform Angle="-133.724"/>
+                                            <TranslateTransform Y="1.5"/>
+                                        </TransformGroup>
+                                </fa5:ImageAwesome.RenderTransform>
+                            </fa5:ImageAwesome>
+                                <TextBlock Name="AudioDuration" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#303030"/>
+                                <ProgressBar Name="AudioProgress" Margin="10" Width="350" Height="10" Background="Transparent" Foreground="#303030" BorderThickness="0"/>
+                        </StackPanel>
                         </Border>
                         <StackPanel Name="ImagePanel" Visibility="Collapsed" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                             <Grid HorizontalAlignment="Center" >

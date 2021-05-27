@@ -75,23 +75,6 @@ namespace AemulusModManager
     }
     public class GameBananaRecord
     {
-        public Uri SoundImage(int game)
-        {
-            // Get different Sound thumbnail per game
-            switch (game)
-            {
-                case 8502:
-                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426607712993351/P3FSound.png");
-                case 8263:
-                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426608882679818/P4GSound.png");
-                case 7545:
-                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426604789170236/P5Sound.png");
-                case 9099:
-                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426607490170891/P5SSound.png");
-                default:
-                    return new Uri("https://images.gamebanana.com/static/img/DefaultEmbeddables/Sound.jpg");
-            }
-        }
         [JsonProperty("_sName")]
         public string Title { get; set; }
         [JsonProperty("_aGame")]
@@ -101,10 +84,10 @@ namespace AemulusModManager
         [JsonProperty("_aModManagerIntegrations")]
         public Dictionary<string, List<GameBananaModManagerIntegration>> ModManagerIntegrations { get; set; }
         [JsonIgnore]
-        public Uri Image => Media.Count > 0 ? new Uri($"{Media[0].Base}/{Media[0].File}")
+        public Uri Image => Media.Where(x => x.Type == "image").ToList().Count > 0 ? new Uri($"{Media[0].Base}/{Media[0].File}")
             : SoundImage(Game.ID);
         [JsonProperty("_aPreviewMedia")]
-        public List<GameBananaImage> Media { get; set; }
+        public List<GameBananaMedia> Media { get; set; }
         [JsonProperty("_sDescription")]
         public string Description { get; set; }
         [JsonIgnore]
@@ -112,10 +95,7 @@ namespace AemulusModManager
         [JsonProperty("_sText")]
         public string Text { get; set; }
         [JsonIgnore]
-        public string ConvertedText => Regex.Replace(Regex.Replace(Text.Replace("<br>", "\n").Replace("&nbsp;", " ")
-            .Replace("<ul>", "\n").Replace("<li>", "• ").Replace(@"\u00a0", " ").Replace(@"</li>", "\n").Replace("&amp;", "&")
-            .Replace(@"</h3>", "\n").Replace(@"</h2>", "\n").Replace(@"</h1>", "\n"), "<.*?>", string.Empty),
-            "[\\r\\n]{3,}", "\n\n", RegexOptions.Multiline).Trim();
+        public string ConvertedText => ConvertHtmlToText(Text);
         [JsonProperty("_nViewCount")]
         public int Views { get; set; }
         [JsonProperty("_nLikeCount")]
@@ -133,7 +113,8 @@ namespace AemulusModManager
         [JsonProperty("_aFiles")]
         public List<GameBananaItemFile> AllFiles { get; set; }
         [JsonIgnore]
-        public List<GameBananaItemFile> Files => AllFiles.Where(x => ModManagerIntegrations.ContainsKey(x.ID)).ToList();
+        public List<GameBananaItemFile> Files => AllFiles.Where(x => ModManagerIntegrations.ContainsKey(x.ID)
+            && !x.Description.Contains(".disable-modbrowser")).ToList();
         [JsonProperty("_aCategory")]
         public GameBananaCategory Category { get; set; }
         [JsonProperty("_aRootCategory")]
@@ -162,6 +143,49 @@ namespace AemulusModManager
         public bool HasUpdates => DateAdded.CompareTo(DateUpdated) != 0;
         [JsonIgnore]
         public string DateUpdatedAgo => $"Updated {StringConverters.FormatTimeAgo(DateTime.UtcNow - DateUpdated)}";
+        private Uri SoundImage(int game)
+        {
+            // Get different Sound thumbnail per game
+            switch (game)
+            {
+                case 8502:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426607712993351/P3FSound.png");
+                case 8263:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426608882679818/P4GSound.png");
+                case 7545:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426604789170236/P5Sound.png");
+                case 9099:
+                    return new Uri("https://media.discordapp.net/attachments/792245872259235850/842426607490170891/P5SSound.png");
+                default:
+                    return new Uri("https://images.gamebanana.com/static/img/DefaultEmbeddables/Sound.jpg");
+            }
+        }
+        private string ConvertHtmlToText(string html)
+        {
+            // Newlines
+            html = html.Replace("<br>", "\n");
+            html = html.Replace(@"</li>", "\n");
+            html = html.Replace(@"</h3>", "\n");
+            html = html.Replace(@"</h2>", "\n");
+            html = html.Replace(@"</h1>", "\n");
+            html = html.Replace("<ul>", "\n");
+            // Bullet point
+            html = html.Replace("<li>", "• ");
+            // Unique spaces
+            html = html.Replace("&nbsp;", " ");
+            html = html.Replace(@"\u00a0", " ");
+            // Unique characters
+            html = html.Replace("&amp;", "&");
+            html = html.Replace("&gt;", ">");
+            // Remove tabs
+            html = html.Replace("\t", string.Empty);
+            // Remove all unaccounted html tags
+            html = Regex.Replace(html, "<.*?>", string.Empty);
+            // Convert newlines of 3 or more to 2 newlines
+            html = Regex.Replace(html, "[\\r\\n]{3,}", "\n\n", RegexOptions.Multiline);
+            // Trim extra whitespace at start and end
+            return html.Trim();
+        }
     }
     public class GameBananaModList
     {
@@ -190,8 +214,12 @@ namespace AemulusModManager
         [JsonProperty("_nPageCount")]
         public int TotalPages { get; set; }
     }
-    public class GameBananaImage
+    public class GameBananaMedia
     {
+        [JsonProperty("_sType")]
+        public string Type { get; set; }
+        [JsonProperty("_sUrl")]
+        public Uri Audio { get; set; }
         [JsonProperty("_sBaseUrl")]
         public Uri Base { get; set; }
         [JsonProperty("_sFile")]

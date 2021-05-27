@@ -249,6 +249,15 @@ namespace AemulusModManager.Utilities
                         }
                         MoveDirectory(folder, path);
                     }
+                    var packgeSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*Packages.xml", SearchOption.AllDirectories);
+                    if (packgeSetup.Length > 0)
+                    {
+                        Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
+                        foreach (var xml in packgeSetup)
+                        {
+                            File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
+                        }
+                    }
                     FileIOWrapper.Delete(file);
                 }
                 else
