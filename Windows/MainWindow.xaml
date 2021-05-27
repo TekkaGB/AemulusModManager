@@ -583,7 +583,7 @@
                                             <MenuItem Header="Open Package Folder" IsCheckable="False" Click="OpenItem_Click"/>
                                             <MenuItem Header="Edit Metadata" IsCheckable="False" Click="EditItem_Click"/>
                                             <MenuItem Header="Zip Package" IsCheckable="False" Click="ZipItem_Click"/>
-                                            <MenuItem Name="ConvertCPK" Header="Convert CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
+                                            <MenuItem Name="ConvertCPK" Header="Convert to CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
                                             <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
                                             <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                                         </ContextMenu>
