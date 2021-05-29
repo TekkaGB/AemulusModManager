@@ -40,6 +40,9 @@ namespace AemulusModManager.Utilities
             error = false;
             if (feed == null)
                 feed = new Dictionary<string, GameBananaModList>();
+            // Remove oldest key if more than 15 pages are cached
+            if (feed.Count > 15)
+                feed.Remove(feed.Aggregate((l, r) => DateTime.Compare(l.Value.TimeFetched, r.Value.TimeFetched) < 0 ? l : r).Key);
             using (var httpClient = new HttpClient())
             {
                 var requestUrl = GenerateUrl(page, game, type, filter, category, subcategory, perPage);
