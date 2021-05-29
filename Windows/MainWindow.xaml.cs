@@ -2303,7 +2303,8 @@ namespace AemulusModManager
         {
             if (updating)
             {
-                NotificationBox notification = new NotificationBox("There are currently running updates\nAre you sure you want to exit?", false);
+                Console.WriteLine($@"[WARNING] User attempted to close window while updates were still running");
+                NotificationBox notification = new NotificationBox("Aemulus hasn't finished updating everything.\nAre you sure you want to exit?", false);
                 notification.ShowDialog();
                 notification.Activate();
                 if (!notification.YesNo)
