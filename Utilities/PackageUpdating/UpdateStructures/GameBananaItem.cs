@@ -124,7 +124,7 @@ namespace AemulusModManager
         [JsonIgnore]
         public bool HasLongCategoryName => CategoryName.Length > 30;
         [JsonIgnore]
-        public bool Compatible => Files.Count > 0 && Category.ID != 3827 && Category.ID != 959;
+        public bool Compatible => AllFiles != null && Files.Count > 0;
 
         [JsonProperty("_tsDateUpdated")]
         public long DateUpdatedLong { get; set; }
@@ -189,30 +189,10 @@ namespace AemulusModManager
     }
     public class GameBananaModList
     {
-        [JsonProperty("_aMetadata")]
-        public GameBananaMetadata Metadata { get; set; }
-        [JsonProperty("_aRecords")]
         public ObservableCollection<GameBananaRecord> Records { get; set; }
-        [JsonIgnore]
-        public DateTime TimeFetched = DateTime.UtcNow;
-        [JsonIgnore]
-        public bool IsValid => (DateTime.UtcNow - TimeFetched).TotalMinutes < 30;
-    }
-    public class GameBananaCategories
-    {
-        [JsonProperty("_aMetadata")]
-        public GameBananaMetadata Metadata { get; set; }
-        [JsonProperty("_aRecords")]
-        public List<GameBananaCategory> Categories { get; set; }
-    }
-    public class GameBananaMetadata
-    {
-        [JsonProperty("_nRecordCount")]
-        public int Records { get; set; }
-        [JsonProperty("_nTotalRecordCount")]
-        public int TotalRecords { get; set; }
-        [JsonProperty("_nPageCount")]
         public int TotalPages { get; set; }
+        public DateTime TimeFetched = DateTime.UtcNow;
+        public bool IsValid => (DateTime.UtcNow - TimeFetched).TotalMinutes < 30;
     }
     public class GameBananaMedia
     {

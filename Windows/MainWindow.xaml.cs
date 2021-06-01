@@ -2986,21 +2986,28 @@ namespace AemulusModManager
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
                 var gameIDS = new string[] { "8502", "8263", "7545", "9099" };
-                var types = new string[] { "Mod", "Wip", "Sound" };
+                var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
                 {
                     // Initialize categories
                     var counter = 0;
+                    var totalPages = 0;
                     foreach (var type in types)
                     {
-                        var requestUrl = $"https://gamebanana.com/apiv3/{type}Category/ByGame?_aGameRowIds[]={gameID}&_sRecordSchema=Custom" +
+                        var requestUrl = $"https://gamebanana.com/apiv4/{type}Category/ByGame?_aGameRowIds[]={gameID}&_sRecordSchema=Custom" +
                             "&_csvProperties=_idRow,_sName,_sProfileUrl,_sIconUrl,_idParentCategoryRow&_nPerpage=50&_bReturnMetadata=true";
                         string responseString = "";
                         try
                         {
-                            responseString = await httpClient.GetStringAsync(requestUrl);
+                            var responseMessage = await httpClient.GetAsync(requestUrl);
+                            responseString = await responseMessage.Content.ReadAsStringAsync();
                             responseString = Regex.Replace(responseString, @"""(\d+)""", @"$1");
+                            var numRecords = responseMessage.GetHeader("X-GbApi-Metadata_nRecordCount");
+                            if (numRecords != -1)
+                            {
+                                totalPages = Convert.ToInt32(Math.Ceiling(numRecords / 50));
+                            }
                         }
                         catch (HttpRequestException ex)
                         {
@@ -3031,10 +3038,10 @@ namespace AemulusModManager
                             BrowserMessage.Text = ex.Message;
                             return;
                         }
-                        GameBananaCategories response = new GameBananaCategories();
+                        var response = new List<GameBananaCategory>();
                         try
                         {
-                            response = JsonConvert.DeserializeObject<GameBananaCategories>(responseString);
+                            response = JsonConvert.DeserializeObject<List<GameBananaCategory>>(responseString);
                         }
                         catch (Exception)
                         {
@@ -3047,11 +3054,11 @@ namespace AemulusModManager
                         if (!cats.ContainsKey((GameFilter)gameCounter))
                             cats.Add((GameFilter)gameCounter, new Dictionary<TypeFilter, List<GameBananaCategory>>());
                         if (!cats[(GameFilter)gameCounter].ContainsKey((TypeFilter)counter))
-                            cats[(GameFilter)gameCounter].Add((TypeFilter)counter, response.Categories);
+                            cats[(GameFilter)gameCounter].Add((TypeFilter)counter, response);
                         // Make more requests if needed
-                        if (response.Metadata.TotalPages > 1)
+                        if (totalPages > 1)
                         {
-                            for (int i = 2; i <= response.Metadata.TotalPages; i++)
+                            for (int i = 2; i <= totalPages; i++)
                             {
                                 var requestUrlPage = $"{requestUrl}&_nPage={i}";
                                 try
@@ -3090,7 +3097,7 @@ namespace AemulusModManager
                                 }
                                 try
                                 {
-                                    response = JsonConvert.DeserializeObject<GameBananaCategories>(responseString);
+                                    response = JsonConvert.DeserializeObject<List<GameBananaCategory>>(responseString);
                                 }
                                 catch (Exception)
                                 {
@@ -3100,7 +3107,7 @@ namespace AemulusModManager
                                     BrowserMessage.Text = "Something went wrong while deserializing the categories...";
                                     return;
                                 }
-                                cats[(GameFilter)gameCounter][(TypeFilter)counter] = cats[(GameFilter)gameCounter][(TypeFilter)counter].Concat(response.Categories).ToList();
+                                cats[(GameFilter)gameCounter][(TypeFilter)counter] = cats[(GameFilter)gameCounter][(TypeFilter)counter].Concat(response).ToList();
                             }
                         }
                         counter++;
@@ -3180,8 +3187,9 @@ namespace AemulusModManager
             Page.Text = $"Page {page}";
             LoadingBar.Visibility = Visibility.Visible;
             FeedBox.Visibility = Visibility.Collapsed;
-            FeedBox.ItemsSource = await FeedGenerator.GetFeed(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
+            await FeedGenerator.GetFeed(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
                 (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10);
+            FeedBox.ItemsSource = FeedGenerator.CurrentFeed.Records;
             if (FeedGenerator.error)
             {
                 LoadingBar.Visibility = Visibility.Collapsed;
@@ -3203,8 +3211,7 @@ namespace AemulusModManager
                 }
                 return;
             }
-            if (page < FeedGenerator.GetMetadata(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
-                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10).TotalPages)
+            if (page < FeedGenerator.CurrentFeed.TotalPages)
                 RightPage.IsEnabled = true;
             if (page != 1)
                 LeftPage.IsEnabled = true;
@@ -3220,11 +3227,7 @@ namespace AemulusModManager
                 BrowserMessage.Visibility = Visibility.Visible;
                 BrowserMessage.Text = "Aemulus couldn't find any mods.";
             }
-            var totalPages = FeedGenerator.GetMetadata(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
-                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10).TotalPages;
-            if (totalPages == 0)
-                totalPages = 1;
-            PageBox.ItemsSource = Enumerable.Range(1, totalPages);
+            PageBox.ItemsSource = Enumerable.Range(1, FeedGenerator.CurrentFeed.TotalPages);
 
             LoadingBar.Visibility = Visibility.Collapsed;
             CatBox.IsEnabled = true;

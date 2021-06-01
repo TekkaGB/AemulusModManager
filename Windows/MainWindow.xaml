@@ -865,6 +865,8 @@
                             <ComboBoxItem xml:space="preserve" IsSelected="True"> Mods</ComboBoxItem>
                             <ComboBoxItem xml:space="preserve"> WiPs</ComboBoxItem>
                             <ComboBoxItem xml:space="preserve"> Sounds</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Tools</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve"> Tutorials</ComboBoxItem>
                         </ComboBox>
                         <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" Name="CatBox" Height="40" Width="250" SelectionChanged="MainFilterSelectionChanged">
                             <ComboBox.ItemTemplate>
