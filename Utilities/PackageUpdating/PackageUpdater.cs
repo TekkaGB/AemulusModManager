@@ -589,7 +589,6 @@ namespace AemulusModManager
             Console.WriteLine(@$"[INFO] Cleaned up {row.name} download files");
         }
 
-        // TODO: Find a good way to update package version after converting mod.xml
         private void UpdatePackageVersion(DisplayedMetadata row, string path, string version)
         {
             XmlSerializer xsp = new XmlSerializer(typeof(Metadata));

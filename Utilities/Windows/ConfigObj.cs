@@ -15,7 +15,6 @@ namespace AemulusModManager
         public bool emptySND { get; set; }
         public bool useCpk { get; set; }
         public string cpkLang { get; set; }
-
     }
 
     public class AemulusConfig
@@ -28,7 +27,15 @@ namespace AemulusModManager
         public ConfigP4G p4gConfig { get; set; }
         public ConfigP5 p5Config { get; set; }
         public ConfigP5S p5sConfig { get; set; }
-
+        public double? LeftGridWidth { get; set; }
+        public double? RightGridWidth { get; set; }
+        public double? TopGridHeight { get; set; }
+        public double? BottomGridHeight { get; set; }
+        public double? RightTopGridHeight { get; set; }
+        public double? RightBottomGridHeight { get; set; }
+        public double? Height { get; set; }
+        public double? Width { get; set; }
+        public bool Maximized { get; set; }
     }
 
     public class ConfigP4G

@@ -511,6 +511,26 @@ namespace AemulusModManager
                     PriorityPopup.Text = "Switch Order to Prioritize\nthe Top of the Grid";
                 }
 
+                // Apply saved window settings
+                if (config.Height != null && config.Height >= MinHeight)
+                    Height = (double)config.Height;
+                if (config.Width != null && config.Width >= MinWidth)
+                    Width = (double)config.Width;
+                if (config.Maximized)
+                    WindowState = WindowState.Maximized;
+                if (config.TopGridHeight != null)
+                    MainGrid.RowDefinitions[0].Height = new GridLength((double)config.TopGridHeight, GridUnitType.Star);
+                if (config.BottomGridHeight != null)
+                    MainGrid.RowDefinitions[2].Height = new GridLength((double)config.BottomGridHeight, GridUnitType.Star);
+                if (config.LeftGridWidth != null)
+                    MainGrid.ColumnDefinitions[0].Width = new GridLength((double)config.LeftGridWidth, GridUnitType.Star);
+                if (config.RightGridWidth != null)
+                    MainGrid.ColumnDefinitions[2].Width = new GridLength((double)config.RightGridWidth, GridUnitType.Star);
+                if (config.RightTopGridHeight != null)
+                    RightGrid.RowDefinitions[0].Height = new GridLength((double)config.RightTopGridHeight, GridUnitType.Star);
+                if (config.RightBottomGridHeight != null)
+                    RightGrid.RowDefinitions[2].Height = new GridLength((double)config.RightBottomGridHeight, GridUnitType.Star);
+
                 LaunchPopup.Text = $"Launch {game}";
                 FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
@@ -2318,6 +2338,28 @@ namespace AemulusModManager
                 }
             }
             outputter.Close();
+
+            // Save Windows Settings
+            if (WindowState == WindowState.Maximized)
+            {
+                config.Height = RestoreBounds.Height;
+                config.Width = RestoreBounds.Width;
+                config.Maximized = true;
+            }
+            else
+            {
+                config.Height = Height;
+                config.Width = Width;
+                config.Maximized = false;
+            }
+            config.TopGridHeight = MainGrid.RowDefinitions[0].Height.Value;
+            config.BottomGridHeight = MainGrid.RowDefinitions[2].Height.Value;
+            config.LeftGridWidth = MainGrid.ColumnDefinitions[0].Width.Value;
+            config.RightGridWidth = MainGrid.ColumnDefinitions[2].Width.Value;
+            config.RightTopGridHeight = RightGrid.RowDefinitions[0].Height.Value;
+            config.RightBottomGridHeight = RightGrid.RowDefinitions[2].Height.Value;
+            updateConfig();
+
             Application.Current.Shutdown();
         }
 
