@@ -543,10 +543,11 @@ namespace AemulusModManager
                 var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
                 // Default installation path of VideoLAN.LibVLC.Windows
                 var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
-                MusicPlayer = new VlcMediaPlayer(libDirectory, new string[] { "--mmdevice-backend=wasapi" });
-                MusicPlayer.EndReached += MediaPlayer_EndReached;
-                MusicPlayer.Playing += SetProgressMax;
-                MusicPlayer.PositionChanged += (sender, e) =>
+                MusicPlayer.SourceProvider.CreatePlayer(libDirectory, 
+                    new string[] {"--audio-visual=visual", "--no-visual-peaks", "--no-visual-80-bands", "--effect-fft-window=kaiser", "--effect-list=spectrum" });
+                MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
+                MusicPlayer.SourceProvider.MediaPlayer.Playing += SetProgressMax;
+                MusicPlayer.SourceProvider.MediaPlayer.PositionChanged += (sender, e) =>
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -576,7 +577,7 @@ namespace AemulusModManager
                 (sender as Thumb).RaiseEvent(args);
             }
         }
-        private VlcMediaPlayer MusicPlayer;
+        //private VlcMediaPlayer MusicPlayer.SourceProvider.MediaPlayer;
         private long duration;
         private void SetProgressMax(object sender, VlcMediaPlayerPlayingEventArgs e)
         {
@@ -2900,10 +2901,8 @@ namespace AemulusModManager
             ImageRight.IsEnabled = true;
             imageCount = item.Media.Where(x => x.Type == "image").ToList().Count;
             imageCounter = 0;
-            AudioPlayer.Visibility = Visibility.Collapsed;
-            PlayAudio.Visibility = Visibility.Collapsed;
-            PauseAudio.Visibility = Visibility.Collapsed;
-            ReplayAudio.Visibility = Visibility.Collapsed;
+            AudioPanel.Visibility = Visibility.Collapsed;
+            ImagePanel.Visibility = Visibility.Visible;
             if (imageCount > 0)
             {
                 Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
@@ -2915,20 +2914,16 @@ namespace AemulusModManager
             }
             else
             {
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = item.Image;
-                bitmap.EndInit();
-                Screenshot.Source = bitmap;
-                ImageLeft.IsEnabled = false;
-                ImageRight.IsEnabled = false;
                 currentAudio = item.Media[0].Audio;
-                MusicPlayer.SetMedia(currentAudio);
-                MusicPlayer.Audio.Volume = (int)VolumeSlider.Value;
+                MusicPlayer.SourceProvider.MediaPlayer.SetMedia(currentAudio);
+                MusicPlayer.SourceProvider.MediaPlayer.Audio.Volume = (int)VolumeSlider.Value;
                 AudioDuration.Text = "0:00 / 0:00";
-                MusicPlayer.Stop();
+                MusicPlayer.SourceProvider.MediaPlayer.Stop();
+                ReplayAudio.Visibility = Visibility.Collapsed;
+                PauseAudio.Visibility = Visibility.Collapsed;
                 PlayAudio.Visibility = Visibility.Visible;
-                AudioPlayer.Visibility = Visibility.Visible;
+                AudioPanel.Visibility = Visibility.Visible;
+                ImagePanel.Visibility = Visibility.Collapsed;
             }
             if (imageCount == 1)
             {
@@ -3368,10 +3363,13 @@ namespace AemulusModManager
             }
         }
 
-        private void CloseDesc_Click(object sender, RoutedEventArgs e)
+        private async void CloseDesc_Click(object sender, RoutedEventArgs e)
         {
             DescPanel.Visibility = Visibility.Collapsed;
-            MusicPlayer.ResetMedia();
+            await Task.Run(() =>
+            {
+                MusicPlayer.SourceProvider.MediaPlayer.ResetMedia();
+            });
             duration = 0;
             AudioProgress.Value = 0;
         }
@@ -3411,7 +3409,7 @@ namespace AemulusModManager
             PlayAudio.Visibility = Visibility.Collapsed;
             await Task.Run(() =>
             {
-                MusicPlayer.Play();
+                MusicPlayer.SourceProvider.MediaPlayer.Play();
             });
         }
 
@@ -3421,7 +3419,7 @@ namespace AemulusModManager
             PauseAudio.Visibility = Visibility.Collapsed;
             await Task.Run(() =>
             {
-                MusicPlayer.Pause();
+                MusicPlayer.SourceProvider.MediaPlayer.Pause();
             });
         }
 
@@ -3433,8 +3431,8 @@ namespace AemulusModManager
             PauseAudio.Visibility = Visibility.Visible;
             await Task.Run(() =>
             {
-                MusicPlayer.Stop();
-                MusicPlayer.Play();
+                MusicPlayer.SourceProvider.MediaPlayer.Stop();
+                MusicPlayer.SourceProvider.MediaPlayer.Play();
             });
         }
         private bool IsDragging;
@@ -3447,8 +3445,8 @@ namespace AemulusModManager
                     ReplayAudio.Visibility = Visibility.Collapsed;
                 IsDragging = true;
                 var paused = false;
-                if (MusicPlayer.IsPlaying())
-                    MusicPlayer.Pause();
+                if (MusicPlayer.SourceProvider.MediaPlayer.IsPlaying())
+                    MusicPlayer.SourceProvider.MediaPlayer.Pause();
                 else
                     paused = true;
                 AudioProgress.IsEnabled = true;
@@ -3469,25 +3467,25 @@ namespace AemulusModManager
                         });
                     }
                 });
-                MusicPlayer.Position = (float)(AudioProgress.Value / 100);
+                MusicPlayer.SourceProvider.MediaPlayer.Position = (float)(AudioProgress.Value / 100);
                 if (TimeSpan.FromMilliseconds(duration).Seconds > 30)
-                    MusicPlayer.Position += 0.11f;
-                var pos = MusicPlayer.Position;
+                    MusicPlayer.SourceProvider.MediaPlayer.Position += 0.11f;
+                var pos = MusicPlayer.SourceProvider.MediaPlayer.Position;
                 if (endReached)
                 {
                     AudioProgress.IsEnabled = false;
                     PauseAudio.Visibility = Visibility.Visible;
                     PlayAudio.Visibility = Visibility.Collapsed;
-                    MusicPlayer.Stop();
-                    MusicPlayer.Play();
-                    MusicPlayer.Position = pos;
+                    MusicPlayer.SourceProvider.MediaPlayer.Stop();
+                    MusicPlayer.SourceProvider.MediaPlayer.Play();
+                    MusicPlayer.SourceProvider.MediaPlayer.Position = pos;
                     endReached = false;
                 }
                 if (!paused)
                 {
                     PauseAudio.Visibility = Visibility.Visible;
                     PlayAudio.Visibility = Visibility.Collapsed;
-                    MusicPlayer.Play();
+                    MusicPlayer.SourceProvider.MediaPlayer.Play();
                 }
                 IsDragging = false;
             }
@@ -3495,8 +3493,8 @@ namespace AemulusModManager
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (MusicPlayer != null)
-                MusicPlayer.Audio.Volume = (int)VolumeSlider.Value;
+            if (MusicPlayer.SourceProvider.MediaPlayer != null)
+                MusicPlayer.SourceProvider.MediaPlayer.Audio.Volume = (int)VolumeSlider.Value;
         }
 
         private double unmuteVolume;

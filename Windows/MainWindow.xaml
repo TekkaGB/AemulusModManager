@@ -890,6 +890,12 @@
                                 <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                             </Grid>
                             <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
+                            
+                        </StackPanel>
+                        <StackPanel Name="AudioPanel" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
+                            <Border Margin="20" Background="Black" Width="450" Height="450">
+                                <vlc:VlcControl Name="MusicPlayer" />
+                            </Border>
                             <Border Name="AudioPlayer" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#a0a0a0">
                                 <StackPanel Orientation="Horizontal" Margin="10">
                                     <fa5:ImageAwesome Name="PlayAudio"  Icon="Solid_Play" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Visibility="Collapsed" PreviewMouseLeftButtonDown="PlayAudio_PreviewMouseLeftButtonDown"/>
