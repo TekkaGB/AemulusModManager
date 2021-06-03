@@ -550,7 +550,6 @@ namespace AemulusModManager
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        currentPos = e.NewPosition;
                         AudioProgress.Value = e.NewPosition * 100;
                         TimeSpan current = TimeSpan.FromMilliseconds(duration * e.NewPosition);
                         TimeSpan total = TimeSpan.FromMilliseconds(duration);
@@ -563,10 +562,11 @@ namespace AemulusModManager
 
         }
         private VlcMediaPlayer MusicPlayer;
-        private float currentPos;
         private long duration;
         private void SetProgressMax(object sender, VlcMediaPlayerPlayingEventArgs e)
         {
+            var vlc = (VlcMediaPlayer)sender;
+            duration = vlc.Length;
             Application.Current.Dispatcher.Invoke(() =>
             {
                 if (PlayAudio.Visibility == Visibility.Visible)
@@ -574,38 +574,13 @@ namespace AemulusModManager
                     PlayAudio.Visibility = Visibility.Collapsed;
                     PauseAudio.Visibility = Visibility.Visible;
                 }
+                AudioProgress.IsEnabled = true;
             });
-            var vlc = (VlcMediaPlayer)sender;
-            duration = vlc.Length;
         }
+        private bool endReached;
         private void MediaPlayer_EndReached(object sender, EventArgs e)
         {
-            // Use thread.sleep to continue playing audio while emulating the position
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                PauseAudio.IsEnabled = false;
-            });
-            var current = currentPos * duration;
-            var interval = (int)Math.Floor(((float)duration - current) / 5);
-            while (current <= duration)
-            {
-                if (cancelAudio)
-                {
-                    cancelAudio = false;
-                    return;
-                }        
-                TimeSpan currentTime = TimeSpan.FromMilliseconds(current);
-                TimeSpan totalTime = TimeSpan.FromMilliseconds(duration);
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    AudioProgress.Value = ((double)current / (double)duration) * 100;
-                    AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {2:D1}:{3:D2}",
-                        currentTime.Minutes, currentTime.Seconds,
-                        totalTime.Minutes, totalTime.Seconds);
-                });
-                current += interval;
-                Thread.Sleep(interval);
-            }
+            endReached = true;
             Application.Current.Dispatcher.Invoke(() =>
             {
                 // Emulate completion just in case it ends at 0:20/0:21 for example
@@ -2896,7 +2871,7 @@ namespace AemulusModManager
         private Uri currentAudio;
         private void MoreInfo_Click(object sender, RoutedEventArgs e)
         {
-            cancelAudio = false;
+            AudioProgress.IsEnabled = false;
             Button button = sender as Button;
             var item = button.DataContext as GameBananaRecord;
             DescPanel.DataContext = button.DataContext;
@@ -2916,8 +2891,6 @@ namespace AemulusModManager
             ReplayAudio.Visibility = Visibility.Collapsed;
             if (imageCount > 0)
             {
-                Grid.SetColumnSpan(DescText, 1);
-                ImagePanel.Visibility = Visibility.Visible;
                 Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
                 CaptionText.Text = item.Media[imageCounter].Caption;
                 if (CaptionText.Text != null)
@@ -2927,10 +2900,18 @@ namespace AemulusModManager
             }
             else
             {
-                ImagePanel.Visibility = Visibility.Collapsed;
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = item.Image;
+                bitmap.EndInit();
+                Screenshot.Source = bitmap;
+                ImageLeft.IsEnabled = false;
+                ImageRight.IsEnabled = false;
                 currentAudio = item.Media[0].Audio;
                 MusicPlayer.SetMedia(currentAudio);
+                MusicPlayer.Audio.Volume = (int)VolumeSlider.Value;
                 AudioDuration.Text = "0:00 / 0:00";
+                MusicPlayer.Stop();
                 PlayAudio.Visibility = Visibility.Visible;
                 AudioPlayer.Visibility = Visibility.Visible;
             }
@@ -3371,13 +3352,12 @@ namespace AemulusModManager
                 RefreshFilter();
             }
         }
-        bool cancelAudio;
 
         private void CloseDesc_Click(object sender, RoutedEventArgs e)
         {
-            cancelAudio = true;
             DescPanel.Visibility = Visibility.Collapsed;
             MusicPlayer.ResetMedia();
+            duration = 0;
             AudioProgress.Value = 0;
         }
 
@@ -3432,15 +3412,92 @@ namespace AemulusModManager
 
         private async void ReplayAudio_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            endReached = false;
             PauseAudio.IsEnabled = true;
             ReplayAudio.Visibility = Visibility.Collapsed;
             PauseAudio.Visibility = Visibility.Visible;
-            MusicPlayer.ResetMedia();
-            MusicPlayer.SetMedia(currentAudio);
             await Task.Run(() =>
             {
+                MusicPlayer.Stop();
                 MusicPlayer.Play();
             });
+        }
+        private bool IsDragging;
+
+        private async void AudioProgress_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && !IsDragging)
+            {
+                IsDragging = true;
+                var paused = false;
+                if (endReached)
+                {
+                    AudioProgress.IsEnabled = false;
+                    ReplayAudio.Visibility = Visibility.Collapsed;
+                    PauseAudio.Visibility = Visibility.Visible;
+                    MusicPlayer.Stop();
+                    MusicPlayer.Play();
+                    endReached = false;
+                }
+                if (MusicPlayer.IsPlaying())
+                    MusicPlayer.Pause();
+                else
+                    paused = true;
+                AudioProgress.IsEnabled = true;
+                PlayAudio.Visibility = Visibility.Visible;
+                PauseAudio.Visibility = Visibility.Collapsed;
+                // Await on another thread to not freeze main thread
+                await Task.Run(() =>
+                {
+                    TimeSpan total = TimeSpan.FromMilliseconds(duration);
+                    while (e.LeftButton == MouseButtonState.Pressed)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            TimeSpan current = TimeSpan.FromMilliseconds(duration * (AudioProgress.Value / 100));
+                            AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {2:D1}:{3:D2}",
+                                current.Minutes, current.Seconds,
+                                total.Minutes, total.Seconds);
+                        });
+                    }
+                });
+                MusicPlayer.Position = (float)(AudioProgress.Value / 100);
+                if (TimeSpan.FromMilliseconds(duration).Seconds > 30)
+                    MusicPlayer.Position += 0.11f;
+                if (!paused)
+                {
+                    PauseAudio.Visibility = Visibility.Visible;
+                    PlayAudio.Visibility = Visibility.Collapsed;
+                    MusicPlayer.Play();
+                }
+                IsDragging = false;
+            }
+        }
+
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (MusicPlayer != null)
+                MusicPlayer.Audio.Volume = (int)VolumeSlider.Value;
+        }
+
+        private double unmuteVolume;
+        private void VolumeIcon_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Mute
+            if (VolumeIcon.Icon == FontAwesome5.EFontAwesomeIcon.Solid_VolumeUp)
+            {
+                VolumeIcon.Height = 30;
+                VolumeIcon.Icon = FontAwesome5.EFontAwesomeIcon.Solid_VolumeMute;
+                unmuteVolume = VolumeSlider.Value;
+                VolumeSlider.Value = 0;
+            }
+            // Unmute
+            else
+            {
+                VolumeIcon.Height = 38;
+                VolumeIcon.Icon = FontAwesome5.EFontAwesomeIcon.Solid_VolumeUp;
+                VolumeSlider.Value = unmuteVolume;
+            }
         }
     }
 }

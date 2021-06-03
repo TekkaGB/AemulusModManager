@@ -15,6 +15,110 @@
         <FontFamily x:Key="Jost">../Assets/#Jost</FontFamily>
         <FontFamily x:Key="Monospace">../Assets/#Roboto Mono</FontFamily>
 
+        <Style x:Key="RepeatButtonTransparent"
+       TargetType="{x:Type RepeatButton}">
+            <Setter Property="OverridesDefaultStyle"
+            Value="true" />
+            <Setter Property="Background"
+            Value="Transparent" />
+            <Setter Property="Focusable"
+            Value="false" />
+            <Setter Property="IsTabStop"
+            Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Rectangle Width="{TemplateBinding Width}"
+                           Height="{TemplateBinding Height}"
+                           Fill="{TemplateBinding Background}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <ControlTemplate x:Key="SliderThumbHorizontalDefault"
+                 TargetType="{x:Type Thumb}">
+            <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          UseLayoutRounding="True">
+                <Path x:Name="grip"
+              VerticalAlignment="Center"
+              Fill="#303030"
+              SnapsToDevicePixels="True"
+              Stretch="Fill"
+              UseLayoutRounding="True">
+                    <Path.Data>
+                        <EllipseGeometry Center="0,0"
+                                 RadiusX="10"
+                                 RadiusY="10" />
+                    </Path.Data>
+                </Path>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SliderHorizontal"
+                 TargetType="{x:Type Slider}">
+            <Border x:Name="border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            SnapsToDevicePixels="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto"
+                               MinHeight="{TemplateBinding MinHeight}" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border x:Name="TrackBackground"
+                    Grid.Row="1"
+                    Height="8.0"
+                    Margin="5,0"
+                    VerticalAlignment="center"
+                    Background="{TemplateBinding Foreground}" />
+                    <Border x:Name="TrackDarkener"
+                    Grid.Row="1"
+                    Width="{Binding ActualWidth, ElementName=RightRepeatButton}"
+                    Height="8.0"
+                    Margin="5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="#FF666666" />
+                    <Track x:Name="PART_Track"
+                   Grid.Row="1">
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Command="{x:Static Slider.DecreaseLarge}"
+                                  Style="{StaticResource RepeatButtonTransparent}" />
+                        </Track.DecreaseRepeatButton>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton x:Name="RightRepeatButton"
+                                  Command="{x:Static Slider.IncreaseLarge}"
+                                  Style="{StaticResource RepeatButtonTransparent}" />
+                        </Track.IncreaseRepeatButton>
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb"
+                           Width="18"
+                           Height="18"
+                           VerticalAlignment="Center"
+                           Focusable="False"
+                           OverridesDefaultStyle="True"
+                           Template="{StaticResource SliderThumbHorizontalDefault}" />
+                        </Track.Thumb>
+                    </Track>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <Style TargetType="{x:Type Slider}">
+            <Setter Property="Background"
+            Value="Transparent" />
+            <Setter Property="BorderBrush"
+            Value="Transparent" />
+            <Setter Property="Foreground"
+            Value="#303030" />
+            <Setter Property="Template"
+            Value="{StaticResource SliderHorizontal}" />
+            <Setter Property="IsMoveToPointEnabled"
+            Value="True" />
+        </Style>
+
         <DataTemplate x:Key="ModTemplate">
             <Border CornerRadius="5" Margin="5">
                 <Border.BorderBrush>
@@ -772,24 +876,8 @@
                         <Border Grid.ColumnSpan="2" BorderThickness="0">
                             <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding Path=Title}" TextTrimming="WordEllipsis" Foreground="#f2f2f2" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="45" Padding="3"/>
                         </Border>
-                        <Border Name="AudioPlayer" Visibility="Collapsed" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#a0a0a0">
-                        <StackPanel Orientation="Horizontal" Margin="10">
-                            <fa5:ImageAwesome Name="PlayAudio"  Icon="Solid_Play" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Visibility="Collapsed" PreviewMouseLeftButtonDown="PlayAudio_PreviewMouseLeftButtonDown"/>
-                            <fa5:ImageAwesome Name="PauseAudio" Icon="Solid_Pause" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="25" Visibility="Collapsed" PreviewMouseLeftButtonDown="PauseAudio_PreviewMouseLeftButtonDown"/>
-                            <fa5:ImageAwesome Name="ReplayAudio" Icon="Solid_Redo" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Visibility="Collapsed" PreviewMouseLeftButtonDown="ReplayAudio_PreviewMouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
-                                <fa5:ImageAwesome.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleY="-1"/>
-                                        <RotateTransform Angle="-133.724"/>
-                                            <TranslateTransform Y="1.5"/>
-                                        </TransformGroup>
-                                </fa5:ImageAwesome.RenderTransform>
-                            </fa5:ImageAwesome>
-                                <TextBlock Name="AudioDuration" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#303030"/>
-                                <ProgressBar Name="AudioProgress" Margin="10" Width="350" Height="10" Background="Transparent" Foreground="#303030" BorderThickness="0"/>
-                        </StackPanel>
-                        </Border>
-                        <StackPanel Name="ImagePanel" Visibility="Collapsed" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
+                        
+                        <StackPanel Name="ImagePanel" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                             <Grid HorizontalAlignment="Center" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.15*"/>
@@ -802,6 +890,25 @@
                                 <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                             </Grid>
                             <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
+                            <Border Name="AudioPlayer" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#a0a0a0">
+                                <StackPanel Orientation="Horizontal" Margin="10">
+                                    <fa5:ImageAwesome Name="PlayAudio"  Icon="Solid_Play" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Visibility="Collapsed" PreviewMouseLeftButtonDown="PlayAudio_PreviewMouseLeftButtonDown"/>
+                                    <fa5:ImageAwesome Name="PauseAudio" Icon="Solid_Pause" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="25" Visibility="Collapsed" PreviewMouseLeftButtonDown="PauseAudio_PreviewMouseLeftButtonDown"/>
+                                    <fa5:ImageAwesome Name="ReplayAudio" Icon="Solid_Redo" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Visibility="Collapsed" PreviewMouseLeftButtonDown="ReplayAudio_PreviewMouseLeftButtonDown" RenderTransformOrigin="0.5,0.5">
+                                        <fa5:ImageAwesome.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleY="-1"/>
+                                                <RotateTransform Angle="-133.724"/>
+                                                <TranslateTransform Y="1.5"/>
+                                            </TransformGroup>
+                                        </fa5:ImageAwesome.RenderTransform>
+                                    </fa5:ImageAwesome>
+                                    <TextBlock Name="AudioDuration" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#303030"/>
+                                    <Slider Name="AudioProgress" PreviewMouseMove="AudioProgress_PreviewMouseMove" Minimum="0" Maximum="100" Margin="10" Width="350" Height="18" IsMoveToPointEnabled="True" BorderThickness="0"/>
+                                    <fa5:ImageAwesome Name="VolumeIcon" Icon="Solid_VolumeUp" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="38" PreviewMouseLeftButtonDown="VolumeIcon_PreviewMouseLeftButtonDown"/>
+                                    <Slider Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" Value="100" Minimum="0" Maximum="200" Margin="10" Width="80" Height="18" IsMoveToPointEnabled="True" BorderThickness="0"/>
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
                         <Border Grid.Row="1" Grid.ColumnSpan="2" Background="#404040"/>
                         <RichTextBox Margin="5" Name="DescText" Grid.Row="2" Background="Transparent" BorderThickness="0" IsDocumentEnabled="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Foreground="#f2f2f2" Padding="10,0,10,10" FontSize="18"/>
