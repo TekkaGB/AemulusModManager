@@ -558,8 +558,23 @@ namespace AemulusModManager
                             total.Minutes, total.Seconds);
                     });
                 };
+                VolumeSlider.ApplyTemplate();
+                Thumb thumb = (VolumeSlider.Template.FindName("PART_Track", VolumeSlider) as Track).Thumb;
+                thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
+                AudioProgress.ApplyTemplate();
+                thumb = (AudioProgress.Template.FindName("PART_Track", AudioProgress) as Track).Thumb;
+                thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
             }
 
+        }
+        private void thumb_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && e.MouseDevice.Captured == null)
+            {
+                MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left);
+                args.RoutedEvent = MouseLeftButtonDownEvent;
+                (sender as Thumb).RaiseEvent(args);
+            }
         }
         private VlcMediaPlayer MusicPlayer;
         private long duration;
@@ -3428,17 +3443,10 @@ namespace AemulusModManager
         {
             if (e.LeftButton == MouseButtonState.Pressed && !IsDragging)
             {
+                if (endReached)
+                    ReplayAudio.Visibility = Visibility.Collapsed;
                 IsDragging = true;
                 var paused = false;
-                if (endReached)
-                {
-                    AudioProgress.IsEnabled = false;
-                    ReplayAudio.Visibility = Visibility.Collapsed;
-                    PauseAudio.Visibility = Visibility.Visible;
-                    MusicPlayer.Stop();
-                    MusicPlayer.Play();
-                    endReached = false;
-                }
                 if (MusicPlayer.IsPlaying())
                     MusicPlayer.Pause();
                 else
@@ -3464,6 +3472,17 @@ namespace AemulusModManager
                 MusicPlayer.Position = (float)(AudioProgress.Value / 100);
                 if (TimeSpan.FromMilliseconds(duration).Seconds > 30)
                     MusicPlayer.Position += 0.11f;
+                var pos = MusicPlayer.Position;
+                if (endReached)
+                {
+                    AudioProgress.IsEnabled = false;
+                    PauseAudio.Visibility = Visibility.Visible;
+                    PlayAudio.Visibility = Visibility.Collapsed;
+                    MusicPlayer.Stop();
+                    MusicPlayer.Play();
+                    MusicPlayer.Position = pos;
+                    endReached = false;
+                }
                 if (!paused)
                 {
                     PauseAudio.Visibility = Visibility.Visible;
