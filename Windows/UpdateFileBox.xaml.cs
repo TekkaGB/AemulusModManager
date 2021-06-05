@@ -18,39 +18,54 @@ namespace AemulusModManager.Windows
     {
         public string chosenFileUrl;
         public string chosenFileName;
+        public string host;
         // GameBanana Files
         public UpdateFileBox(List<GameBananaItemFile> files, string packageName)
         {
             InitializeComponent();
             FileList.ItemsSource = files;
             TitleBox.Text = packageName;
+            host = "gamebanana";
         }
         // GitHub Files
         public UpdateFileBox(IReadOnlyList<ReleaseAsset> files, string packageName)
         {
             InitializeComponent();
-            var convList = new List<GameBananaItemFile>();
+
+            TitleBox.Text = packageName;
+            var convList = new List<GithubFile>();
             foreach (var file in files)
             {
-                convList.Add(new GameBananaItemFile()
+                convList.Add(new GithubFile()
                 {
                     FileName = file.Name,
                     Downloads = file.DownloadCount,
-                    DownloadUrl = file.BrowserDownloadUrl,
                     Filesize = file.Size,
-                    Description = file.Label
+                    Description = file.Label,
+                    DateAdded = file.UpdatedAt.DateTime,
+                    DownloadUrl = file.BrowserDownloadUrl
                 });
             }
             FileList.ItemsSource = convList;
+            host = "github";
         }
 
         private void SelectButton_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-           
-            var item = button.DataContext as GameBananaItemFile;
-            chosenFileUrl = item.DownloadUrl;
-            chosenFileName = item.FileName;
+
+            if (host.Equals("gamebanana"))
+            {
+                var item = button.DataContext as GameBananaItemFile;
+                chosenFileUrl = item.DownloadUrl;
+                chosenFileName = item.FileName;
+            }
+            else if (host.Equals("github"))
+            {
+                var item = button.DataContext as GithubFile;
+                chosenFileUrl = item.DownloadUrl;
+                chosenFileName = item.FileName;
+            }
             Close();
         }
 

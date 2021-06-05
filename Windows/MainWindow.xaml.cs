@@ -543,8 +543,14 @@ namespace AemulusModManager
                 var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
                 // Default installation path of VideoLAN.LibVLC.Windows
                 var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
-                MusicPlayer.SourceProvider.CreatePlayer(libDirectory, 
-                    new string[] {"--audio-visual=visual", "--no-visual-peaks", "--no-visual-80-bands", "--effect-fft-window=kaiser", "--effect-list=spectrum" });
+                string[] options = new string[]
+                {
+                    "--effect-list=spectrum",
+                    "--audio-visual=visual",
+                    "--no-visual-peaks",
+                    "--no-visual-80-bands"
+                };
+                MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
                 MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
                 MusicPlayer.SourceProvider.MediaPlayer.Playing += SetProgressMax;
                 MusicPlayer.SourceProvider.MediaPlayer.PositionChanged += (sender, e) =>
@@ -1826,7 +1832,6 @@ namespace AemulusModManager
                 UpdateItem.IsEnabled = false;
                 if (RowUpdatable(row) && !updating && updatesEnabled)
                     UpdateItem.IsEnabled = true;
-                // TODO Fix menu not updating if you right click a not selected item
 
                 // Set image
                 string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";

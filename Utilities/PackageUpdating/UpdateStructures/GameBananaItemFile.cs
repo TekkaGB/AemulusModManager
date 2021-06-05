@@ -45,4 +45,16 @@ namespace AemulusModManager
         public string TimeSinceUpload => StringConverters.FormatTimeAgo(DateTime.UtcNow - DateAdded);
     }
 
+    public class GithubFile
+    {
+        public string FileName { get; set; }
+        public string DownloadUrl { get; set; }
+        public int Downloads { get; set; }
+        public string DownloadString => StringConverters.FormatNumber(Downloads);
+        public long Filesize { get; set; }
+        public string ConvertedFileSize => StringConverters.FormatSize(Filesize);
+        public string Description { get; set; }
+        public DateTime DateAdded { get; set; }
+        public string TimeSinceUpload => StringConverters.FormatTimeAgo(DateTime.UtcNow - DateAdded);
+    }
 }
