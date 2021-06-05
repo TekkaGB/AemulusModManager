@@ -718,6 +718,7 @@ namespace AemulusModManager
                         }
                     }
                     Refresh();
+                    updatePackages();
                 }
             }
 
@@ -1035,7 +1036,7 @@ namespace AemulusModManager
         }
 
         // Refresh both PackageList and DisplayedPackages
-        private void Refresh()
+        private async void Refresh()
         {
             Metadata metadata;
             // First remove all deleted packages and update package id's to match metadata
@@ -1249,15 +1250,18 @@ namespace AemulusModManager
             // Remove older versions of the same id
             CheckVersioning();
 
-            // Update DisplayedPackages
-            App.Current.Dispatcher.Invoke((Action)delegate
+            await Task.Run(() =>
             {
-                ModGrid.ItemsSource = DisplayedPackages;
-                // Trigger select event to refresh description and Preview.png
-                ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
-                // Set top right stats
-                StatText.Text = $"{PackageList.Count} packages • {PackageList.Where(x => x.enabled).Count()} enabled • {Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}", "*", SearchOption.AllDirectories).Length.ToString("N0")} files • " +
-                $"{StringConverters.FormatSize(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").GetDirectorySize())} • v{aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'))}";
+                // Update DisplayedPackages
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    ModGrid.ItemsSource = DisplayedPackages;
+                    // Trigger select event to refresh description and Preview.png
+                    ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
+                    // Set top right stats
+                    StatText.Text = $"{PackageList.Count} packages • {PackageList.Where(x => x.enabled).Count()} enabled • {Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}", "*", SearchOption.AllDirectories).Length.ToString("N0")} files • " +
+                    $"{StringConverters.FormatSize(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").GetDirectorySize())} • v{aemulusVersion.Substring(0, aemulusVersion.LastIndexOf('.'))}";
+                });
             });
             Console.WriteLine($"[INFO] Refreshed!");
         }
@@ -2697,10 +2701,73 @@ namespace AemulusModManager
                 element.ContextMenu.Visibility = Visibility.Visible;
         }
 
-        private void UpdateItem_Click(object sender, RoutedEventArgs e)
+        private void ReplacePackagesXML()
+        {
+            if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
+            {
+                File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml",
+                    $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", true);
+                Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
+                packages = new Packages();
+                DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
+                PackageList = new ObservableCollection<Package>();
+                using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                {
+                    // Call the Deserialize method and cast to the object type.
+                    packages = (Packages)xp.Deserialize(streamWriter);
+                    PackageList = packages.packages;
+                }
+                // Create displayed metadata from packages in PackageList and their respective Package.xml's
+                foreach (var package in PackageList)
+                {
+                    string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
+                    Metadata m;
+                    DisplayedMetadata dm = new DisplayedMetadata();
+                    if (FileIOWrapper.Exists(xml))
+                    {
+                        m = new Metadata();
+                        try
+                        {
+                            using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                            {
+                                try
+                                {
+                                    m = (Metadata)xsp.Deserialize(streamWriter);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                    continue;
+                                }
+                                dm.name = m.name;
+                                dm.id = m.id;
+                                dm.author = m.author;
+                                dm.version = m.version;
+                                dm.link = m.link;
+                                dm.description = m.description;
+                                dm.skippedVersion = m.skippedVersion;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                            continue;
+                        }
+                    }
+                    dm.path = package.path;
+                    dm.enabled = package.enabled;
+                    DisplayedPackages.Add(dm);
+                }
+            }
+        }
+
+        private async void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
             DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            UpdateItemAsync(row);
+            await UpdateItemAsync(row);
+            ReplacePackagesXML();
+            Refresh();
+            updatePackages();
         }
 
         private async Task UpdateItemAsync(DisplayedMetadata row)
@@ -2714,9 +2781,6 @@ namespace AemulusModManager
             Console.WriteLine($"[INFO] Checking for updates for {row.name}");
             await packageUpdater.CheckForUpdate(new DisplayedMetadata[] { row }, game, cancellationToken);
             updating = false;
-            Refresh();
-            updateConfig();
-            updatePackages();
         }
 
         private async Task UpdateAllAsync()
@@ -2761,8 +2825,8 @@ namespace AemulusModManager
                 DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
                 await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
                 updating = false;
+                ReplacePackagesXML();
                 Refresh();
-                updateConfig();
                 updatePackages();
             }
             ModGrid.IsHitTestVisible = true;

@@ -290,7 +290,6 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] No updates available for {row.name}");
                 }
-                // TODO Check if there was no version number
             }
             else
             {
@@ -403,7 +402,7 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"[INFO] {fileName} already exists in downloads, using this instead");
                 }
-                ExtractFile(fileName, game, row, version, update);
+                ExtractFile(fileName, game);
             }
             catch (OperationCanceledException)
             {
@@ -485,150 +484,88 @@ namespace AemulusModManager
             }
         }
 
-        private void ExtractFile(string fileName, string game, DisplayedMetadata row, string version, GameBananaItemUpdate update = null)
+        private void ExtractFile(string file, string game)
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = true;
-            startInfo.FileName = @$"{assemblyLocation}\Dependencies\7z\7z.exe";
-            if (!FileIOWrapper.Exists(startInfo.FileName))
+            if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
             {
-                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
-                return;
-            }
-            // Extract the file
-            startInfo.Arguments = $"x -y \"{assemblyLocation}\\Downloads\\{fileName}\" -o\"{assemblyLocation}\\Downloads\\{row.name.Trim()}\"";
-            Console.WriteLine($"[INFO] Extracting {fileName}");
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.UseShellExecute = false;
+                Directory.CreateDirectory($@"{assemblyLocation}\temp");
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.CreateNoWindow = true;
+                startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
+                if (!FileIOWrapper.Exists(startInfo.FileName))
+                {
+                    MessageBox.Show($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                if (output.Contains("Everything is Ok"))
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.UseShellExecute = false;
+                startInfo.Arguments = $@"x -y ""{assemblyLocation}\Downloads\{file}"" -o""{assemblyLocation}\temp""";
+                using (Process process = new Process())
                 {
-                    Console.WriteLine($"[INFO] Done Extracting {fileName}");
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
                 }
-                else
+                setAttributesNormal(new DirectoryInfo($@"{assemblyLocation}\temp"));
+                foreach (var folder in Directory.GetDirectories($@"{assemblyLocation}\temp", "*", SearchOption.AllDirectories).Where(x => File.Exists($@"{x}\Package.xml") || File.Exists($@"{x}\Mod.xml")))
                 {
-                    Console.WriteLine($"[ERROR] There was an error extracting {fileName}:\n{output}");
-                    // Remove the download as it is likely corrupted
-                    FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
-                    if (Directory.Exists($@"{assemblyLocation}\Downloads\{row.name}"))
+                    string path = $@"{assemblyLocation}\Packages\{game}\{Path.GetFileName(folder)}";
+                    int index = 2;
+                    while (Directory.Exists(path))
                     {
-                        Directory.Delete($@"{assemblyLocation}\Downloads\{row.name}", true);
+                        path = $@"{assemblyLocation}\Packages\{game}\{Path.GetFileName(folder)} ({index})";
+                        index += 1;
                     }
-                    Console.WriteLine(@$"[INFO] Cleaned up {row.name} download files");
-                    return;
+                    MoveDirectory(folder, path);
                 }
-                process.WaitForExit();
-            }
-            // Find the root and move the extracted file to the correct package folder
-            string[] packageRoots = Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name.Trim()}", "Package.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path));
-            packageRoots = packageRoots.Concat(Array.ConvertAll(Directory.GetFiles(@$"{assemblyLocation}\Downloads\{row.name.Trim()}", "Mod.xml", SearchOption.AllDirectories), path => Path.GetDirectoryName(path))).ToArray();
-            if (packageRoots.Length == 1)
-            {
-                // Remove the old package directory
-                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{row.path}", true);
-                Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{row.path})");
-                Directory.Move(packageRoots[0], $@"{assemblyLocation}\Packages\{game}\{row.path}");
-                // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && update != null)
+                var packgeSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*Packages.xml", SearchOption.AllDirectories);
+                if (packgeSetup.Length > 0)
                 {
-                    ChangelogBox changelogBox = new ChangelogBox(update, row.name, $"Successfully updated {row.name}!", true);
-                    changelogBox.Activate();
-                    changelogBox.ShowDialog();
+                    Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
+                    foreach (var xml in packgeSetup)
+                    {
+                        File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
+                    }
                 }
-                // Update the version number in package.xml
-                if (FileIOWrapper.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
-                {
-                    UpdatePackageVersion(row, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", version);
-                }
-                Console.WriteLine($"[INFO] Successfully updated {row.name}");
-            }
-            else if (packageRoots.Length > 1)
-            {
-                // Open a dialog asking which folder to use
-                PackageFolderBox folderBox = new PackageFolderBox(packageRoots, row.name);
-                folderBox.Activate();
-                folderBox.ShowDialog();
-                if (folderBox.chosenFolder == null)
-                {
-                    Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                    return;
-                }
-                // Remove the old package directory
-                Directory.Delete($@"{assemblyLocation}\Packages\{game}\{row.path}", true);
-                Console.WriteLine($@"[INFO] Deleted old installation (Packages\{game}\{row.path})");
-                Directory.Move(folderBox.chosenFolder, $@"{assemblyLocation}\Packages\{game}\{row.path}");
-                // Display the changelog if it hasn't been displayed already and is wanted
-                if (main.updateChangelog && update != null)
-                {
-                    ChangelogBox changelogBox = new ChangelogBox(update, row.name, $"Successfully updated {row.name}!", true);
-                    changelogBox.Activate();
-                    changelogBox.ShowDialog();
-                }
-                // Update the version number in package.xml
-                if (FileIOWrapper.Exists($@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml"))
-                {
-                    UpdatePackageVersion(row, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", version);
-                }
-                Console.WriteLine($"[INFO] Successfully updated {row.name}");
+                FileIOWrapper.Delete(file);
             }
             else
             {
-                Console.WriteLine($"[ERROR] {fileName} does not contain a valid package (no Package.xml is present), ignoring it");
+                MessageBox.Show($"{file} isn't a .zip, .7z, or .rar, couldn't extract...", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{fileName}");
-            if (Directory.Exists($@"{assemblyLocation}\Downloads\{row.name}"))
-            {
-                Directory.Delete($@"{assemblyLocation}\Downloads\{row.name}", true);
-            }
-            Console.WriteLine(@$"[INFO] Cleaned up {row.name} download files");
+            if (Directory.Exists($@"{assemblyLocation}\temp"))
+                Directory.Delete($@"{assemblyLocation}\temp", true);
         }
-
-        private void UpdatePackageVersion(DisplayedMetadata row, string path, string version)
+        private void MoveDirectory(string source, string target)
         {
-            XmlSerializer xsp = new XmlSerializer(typeof(Metadata));
-            Metadata m = null;
-            try
+            var sourcePath = source.TrimEnd('\\', ' ');
+            var targetPath = target.TrimEnd('\\', ' ');
+            var files = Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories)
+                                 .GroupBy(s => Path.GetDirectoryName(s));
+            foreach (var folder in files)
             {
-                using (FileStream streamWriter = FileIOWrapper.Open(path, System.IO.FileMode.Open))
+                var targetFolder = folder.Key.Replace(sourcePath, targetPath);
+                Directory.CreateDirectory(targetFolder);
+                foreach (var file in folder)
                 {
-                    try
-                    {
-                        m = (Metadata)xsp.Deserialize(streamWriter);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($@"[ERROR] Couldn't deserialize {path} ({ex.Message})");
-                    }
+                    var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
+                    if (FileIOWrapper.Exists(targetFile)) FileIOWrapper.Delete(targetFile);
+                    FileIOWrapper.Move(file, targetFile);
                 }
             }
-            catch (Exception ex)
+            Directory.Delete(source, true);
+        }
+        public void setAttributesNormal(DirectoryInfo dir)
+        {
+            foreach (var subDir in dir.GetDirectories())
             {
-                Console.WriteLine($"[ERROR] Error updating package version: {ex.Message}");
+                setAttributesNormal(subDir);
+                subDir.Attributes = FileAttributes.Normal;
             }
-            m.version = version;
-            try
+            foreach (var file in dir.GetFiles())
             {
-                using (FileStream streamWriter = FileIOWrapper.Create(path))
-                {
-                    try
-                    {
-                        xsp.Serialize(streamWriter, m);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($@"[ERROR] Couldn't serialize {path} ({ex.Message})");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[ERROR] Error updating package version: {ex.Message}");
+                file.Attributes = FileAttributes.Normal;
             }
         }
 

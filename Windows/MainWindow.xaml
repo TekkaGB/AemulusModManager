@@ -893,7 +893,7 @@
                             
                         </StackPanel>
                         <StackPanel Name="AudioPanel" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
-                            <Border Margin="20" Background="Black" Width="450" Height="450">
+                            <Border Margin="20" Background="Black" Width="350" Height="350">
                                 <vlc:VlcControl Name="MusicPlayer" />
                             </Border>
                             <Border Name="AudioPlayer" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#a0a0a0">
@@ -910,7 +910,7 @@
                                         </fa5:ImageAwesome.RenderTransform>
                                     </fa5:ImageAwesome>
                                     <TextBlock Name="AudioDuration" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#303030"/>
-                                    <Slider Name="AudioProgress" PreviewMouseMove="AudioProgress_PreviewMouseMove" Minimum="0" Maximum="100" Margin="10" Width="350" Height="18" IsMoveToPointEnabled="True" BorderThickness="0"/>
+                                    <Slider Name="AudioProgress" PreviewMouseMove="AudioProgress_PreviewMouseMove" Minimum="0" Maximum="100" Margin="10" Width="250" Height="18" IsMoveToPointEnabled="True" BorderThickness="0"/>
                                     <fa5:ImageAwesome Name="VolumeIcon" Icon="Solid_VolumeUp" Foreground="#303030" VerticalAlignment="Center" HorizontalAlignment="Center" Height="38" PreviewMouseLeftButtonDown="VolumeIcon_PreviewMouseLeftButtonDown"/>
                                     <Slider Name="VolumeSlider" ValueChanged="VolumeSlider_ValueChanged" Value="100" Minimum="0" Maximum="200" Margin="10" Width="80" Height="18" IsMoveToPointEnabled="True" BorderThickness="0"/>
                                 </StackPanel>
