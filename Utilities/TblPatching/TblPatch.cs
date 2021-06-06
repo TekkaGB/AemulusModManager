@@ -55,7 +55,14 @@ namespace AemulusModManager
         {
             string parent = null;
             if (game == "Persona 4 Golden")
+            {
                 parent = "battle";
+                if (Path.GetFileName(tbl).Equals("ITEMTBL.TBL"))
+                {
+                    parent = "init";
+                    tbl = tbl.Replace(@"battle\ITEMTBL.TBL", @"init\itemtbl.bin");
+                }
+            }
             else if (game == "Persona 5")
                 parent = "table";
             else if (game == "Persona 3 FES")
@@ -63,7 +70,7 @@ namespace AemulusModManager
             PAKPackCMD($@"replace ""{archive}"" {parent}/{Path.GetFileName(tbl)} ""{tbl}""");
         }
 
-        private static string[] p4gTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC" };
+        private static string[] p4gTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC", "ITEMTBL" };
         private static string[] p3fTables = { "SKILL", "SKILL_F", "UNIT", "UNIT_F", "MSG", "PERSONA", "PERSONA_F", "ENCOUNT", "ENCOUNT_F", "EFFECT", "MODEL", "AICALC", "AICALC_F" };
         private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL", "NAME" };
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
@@ -423,7 +430,7 @@ namespace AemulusModManager
                                     }
                                 }
                                 else if (game == "Persona 4 Golden")
-                                    tablePath = $@"{tblDir}\battle\{patch.tbl}.TBL";
+                                    tablePath = patch.tbl.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{patch.tbl}.TBL";
                                 else
                                     tablePath = $@"{tblDir}\table\{patch.tbl}.TBL";
                                 if (patch.tbl == "NAME")
@@ -449,7 +456,7 @@ namespace AemulusModManager
                     if (game == "Persona 3 FES")
                         path = $@"{modDir}\BTL\BATTLE\{table.tableName}.TBL";
                     else if (game == "Persona 4 Golden")
-                        path = $@"{tblDir}\battle\{table.tableName}.TBL";
+                        path = table.tableName.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{table.tableName}.TBL";
                     else
                         path = $@"{tblDir}\table\{table.tableName}.TBL";
                     if (table.tableName == "NAME")
@@ -467,7 +474,10 @@ namespace AemulusModManager
                 // Replace each edited TBL's
                 foreach (string u in editedTables)
                 {
-                    Console.WriteLine($"[INFO] Replacing {u} in {archive}");
+                    if (u == "ITEMTBL.TBL")
+                        Console.WriteLine($"[INFO] Replacing itemtbl.bin in {archive}");
+                    else
+                        Console.WriteLine($"[INFO] Replacing {u} in {archive}");
                     if (game == "Persona 5")
                         repackTbls($@"{tblDir}\table\{u}", $@"{modDir}\{archive}", game);
                     else
@@ -484,6 +494,16 @@ namespace AemulusModManager
         private static List<Section> GetSections(string tbl, string game)
         {
             List<Section> sections = new List<Section>();
+            if (Path.GetFileName(tbl) == "itemtbl.bin")
+            {
+                var file = File.ReadAllBytes(tbl);
+                sections.Add(new Section()
+                {
+                    size = file.Length,
+                    data = file
+                });
+                return sections;
+            }
             bool bigEndian = false;
             if (game == "Persona 5")
                 bigEndian = true;
@@ -797,16 +817,21 @@ namespace AemulusModManager
             {
                 using (BinaryWriter bw = new BinaryWriter(fileStream))
                 {
-                    foreach (var section in sections)
+                    if (game == "Persona 4 Golden" && Path.GetFileName(path).Equals("itemtbl.bin", StringComparison.InvariantCultureIgnoreCase))
+                        bw.Write(sections[0].data);
+                    else
                     {
-                        // Write names size
-                        if (bigEndian)
-                            bw.Write(BitConverter.GetBytes(section.size).Reverse().ToArray());
-                        else
-                            bw.Write(BitConverter.GetBytes(section.size));
-                        bw.Write(section.data);
-                        while (bw.BaseStream.Position % 16 != 0)
-                            bw.Write((byte)0);
+                        foreach (var section in sections)
+                        {
+                            // Write section size
+                            if (bigEndian)
+                                bw.Write(BitConverter.GetBytes(section.size).Reverse().ToArray());
+                            else
+                                bw.Write(BitConverter.GetBytes(section.size));
+                            bw.Write(section.data);
+                            while (bw.BaseStream.Position % 16 != 0)
+                                bw.Write((byte)0);
+                        }
                     }
                 }
             }
