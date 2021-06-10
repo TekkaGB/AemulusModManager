@@ -490,6 +490,13 @@ namespace AemulusModManager
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
                         FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
+                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spr")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spr")))
+                    {
+                        ogPath = Path.ChangeExtension(ogPath, ".spr");
+                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    }
                     if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spd")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spd")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".spd");
@@ -693,6 +700,19 @@ namespace AemulusModManager
                             }
                         }
                     }
+                    else if (Path.GetExtension(file).ToLower() == ".spr")
+                    {
+                        Console.WriteLine($@"[INFO] Merging {file}...");
+                        string sprFolder = Path.ChangeExtension(file, null);
+                        if (Directory.Exists(sprFolder))
+                        {
+                            foreach (var sprFile in Directory.GetFiles(sprFolder, "*", SearchOption.AllDirectories))
+                            {
+                                Console.WriteLine($"[INFO] Replacing {sprFile} in {file}");
+                                sprUtils.replaceTmx(file, sprFile);
+                            }
+                        }
+                    }
                 }
             }
             // Go through mod directory again to delete unpacked files after bringing them in
@@ -703,7 +723,8 @@ namespace AemulusModManager
                     || Path.GetExtension(file).ToLower() == ".pak"
                     || Path.GetExtension(file).ToLower() == ".pac"
                     || Path.GetExtension(file).ToLower() == ".pack"
-                    || Path.GetExtension(file).ToLower() == ".spd")
+                    || Path.GetExtension(file).ToLower() == ".spd"
+                    || Path.GetExtension(file).ToLower() == ".spr")
                     && Directory.Exists(Path.ChangeExtension(file, null))
                     && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
                     && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel"
