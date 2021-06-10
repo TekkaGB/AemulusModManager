@@ -71,7 +71,7 @@ namespace AemulusModManager
                      i <= n1 - 1 && j <= n2 - 1;
                      i++, j++)
             {
-                if (str1[i] != str2[j])
+                if (!str1[i].ToString().Equals(str2[j].ToString(), StringComparison.InvariantCultureIgnoreCase))
                 {
                     break;
                 }
