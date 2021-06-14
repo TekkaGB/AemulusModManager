@@ -405,7 +405,7 @@
     </Window.Resources>
     <Grid>
         
-        <TextBox x:Name="StatText" Background="Transparent" BorderThickness="0" IsReadOnly="True" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
+        <TextBox Panel.ZIndex="3" x:Name="StatText" Background="Transparent" BorderThickness="0" IsReadOnly="True" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="Visibility" Value="Visible"/>

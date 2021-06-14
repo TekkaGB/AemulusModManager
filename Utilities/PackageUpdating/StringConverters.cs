@@ -11,9 +11,9 @@ namespace AemulusModManager.Utilities.PackageUpdating
         {
             int counter = 0;
             decimal number = (decimal)bytes;
-            while (Math.Round(number / 1024) >= 1)
+            while (Math.Round(number / 1000) >= 1)
             {
-                number = number / 1024;
+                number = number / 1000;
                 counter++;
             }
             return bytes != 0 ? string.Format("{0:n2}{1}", number, suffixes[counter]) :
