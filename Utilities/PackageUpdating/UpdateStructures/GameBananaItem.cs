@@ -8,7 +8,24 @@ using System.Text.RegularExpressions;
 
 namespace AemulusModManager
 {
-    /* Disclaimer: These classes are taken (slightly modified) from Reloaded II's Gamebanana Resolver*/
+    public class GameBananaAPIV4
+    {
+        [JsonProperty("_sName")]
+        public string Title { get; set; }
+        [JsonProperty("_aGame")]
+        public GameBananaGame Game { get; set; }
+        [JsonIgnore]
+        public Uri Image => Media.Where(x => x.Type == "image").ToList().Count > 0 ? new Uri($"{Media[0].Base}/{Media[0].File}")
+            : new Uri("https://images.gamebanana.com/static/img/DefaultEmbeddables/Sound.jpg");
+        [JsonProperty("_aPreviewMedia")]
+        public List<GameBananaMedia> Media { get; set; }
+        [JsonProperty("_aSubmitter")]
+        public GameBananaMember Owner { get; set; }
+        [JsonProperty("_aFiles")]
+        public List<GameBananaItemFile> Files { get; set; }
+        [JsonProperty("_aAlternateFileSources")]
+        public List<GameBananaAlternateFileSource> AlternateFileSources { get; set; }
+    }
     public class GameBananaItem
     {
         [JsonProperty("name")]
@@ -61,6 +78,8 @@ namespace AemulusModManager
     {
         [JsonProperty("_idRow")]
         public int ID { get; set; }
+        [JsonProperty("_sName")]
+        public string Name { get; set; }
     }
     public class GameBananaModManagerIntegration
     {
@@ -81,6 +100,10 @@ namespace AemulusModManager
         public GameBananaGame Game { get; set; }
         [JsonProperty("_sProfileUrl")]
         public Uri Link { get; set; }
+        [JsonProperty("_aAlternateFileSources")]
+        public List<GameBananaAlternateFileSource> AlternateFileSources { get; set; }
+        [JsonIgnore]
+        public bool HasAltLinks => AlternateFileSources != null;
         [JsonProperty("_aModManagerIntegrations")]
         public Dictionary<string, List<GameBananaModManagerIntegration>> ModManagerIntegrations { get; set; }
         [JsonIgnore]
@@ -186,6 +209,13 @@ namespace AemulusModManager
             // Trim extra whitespace at start and end
             return html.Trim();
         }
+    }
+    public class GameBananaAlternateFileSource
+    {
+        [JsonProperty("url")]
+        public Uri Url { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; } = "Mirror";
     }
     public class GameBananaModList
     {

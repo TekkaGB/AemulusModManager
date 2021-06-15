@@ -26,7 +26,7 @@ namespace AemulusModManager.Utilities
         private string assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private bool cancelled;
         private HttpClient client = new HttpClient();
-        private GameBananaItem response = new GameBananaItem();
+        private GameBananaAPIV4 response = new GameBananaAPIV4();
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
         private UpdateProgressBox progressBox;
         public async void BrowserDownload(GameBananaRecord record, GameFilter game)
@@ -93,10 +93,10 @@ namespace AemulusModManager.Utilities
                     {
                         await DownloadFile(URL_TO_ARCHIVE, fileName, new Progress<DownloadProgress>(ReportUpdateProgress),
                             CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
-                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Replace(" (PC)", ""));
+                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Name.Replace(" (PC)", ""));
                         if (File.Exists($@"{assemblyLocation}\refresh.aem"))
                             FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
-                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Replace(" (PC)", ""));
+                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Name.Replace(" (PC)", ""));
                     }
                 }
             }
@@ -109,8 +109,8 @@ namespace AemulusModManager.Utilities
             try
             {
                 string responseString = await client.GetStringAsync(URL);
-                response = JsonConvert.DeserializeObject<GameBananaItem>(responseString);
-                fileName = response.Files[DL_ID].FileName;
+                response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
+                fileName = response.Files.Where(x => x.ID == DL_ID).ToArray()[0].FileName;
                 return true;
             }
             catch (Exception e)
@@ -145,8 +145,7 @@ namespace AemulusModManager.Utilities
                 DL_ID = match.Value;
                 string MOD_TYPE = data[1];
                 string MOD_ID = data[2];
-                URL = $"https://api.gamebanana.com/Core/Item/Data?itemtype={MOD_TYPE}&itemid={MOD_ID}&fields=name,Game().name," +
-                    $"Files().aFiles(),Preview().sStructuredDataFullsizeUrl(),Preview().sSubFeedImageUrl(),Owner().name&return_keys=1";
+                URL = $"https://gamebanana.com/apiv4/{MOD_TYPE}/{MOD_ID}";
                 return true;
             }
             catch (Exception e)

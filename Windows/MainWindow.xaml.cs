@@ -28,6 +28,7 @@ using System.Windows.Controls.Primitives;
 using AemulusModManager.Utilities.PackageUpdating;
 using Vlc.DotNet.Core;
 using Vlc.DotNet.Wpf;
+using AemulusModManager.Windows;
 
 namespace AemulusModManager
 {
@@ -726,35 +727,6 @@ namespace AemulusModManager
                     Refresh();
                     updatePackages();
                 }
-            }
-
-            if (game != "")
-            {                
-                var index = -1;
-                switch (game)
-                {
-                    case "Persona 3 FES":
-                        index = 0;
-                        break;
-                    case "Persona 4 Golden":
-                        index = 1;
-                        break;
-                    case "Persona 5":
-                        index = 2;
-                        break;
-                    case "Persona 5 Strikers":
-                        index = 3;
-                        break;
-                }
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    if (index != -1)
-                    {
-                        if (index != GameBox.SelectedIndex)
-                            GameBox.SelectedIndex = index;
-                        Activate();
-                    }
-                });
             }
         }
 
@@ -2951,19 +2923,51 @@ namespace AemulusModManager
             var item = button.DataContext as GameBananaRecord;
             new PackageDownloader().BrowserDownload(item, (GameFilter)GameFilterBox.SelectedIndex);
         }
+        // Mod browser
+        private void AltDownload_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            var item = button.DataContext as GameBananaRecord;
+            var game = "";
+            switch ((GameFilter)GameFilterBox.SelectedIndex)
+            {
+                case GameFilter.P3:
+                    game = "Persona 3 FES";
+                    break;
+                case GameFilter.P4G:
+                    game = "Persona 4 Golden";
+                    break;
+                case GameFilter.P5:
+                    game = "Persona 5";
+                    break;
+                case GameFilter.P5S:
+                    game = "Persona 5 Strikers";
+                    break;
+            }
+            new AltLinkWindow(item.AlternateFileSources, item.Title, game).ShowDialog();
+        }
         private int imageCounter;
         private int imageCount;
         private Uri currentAudio;
         private void MoreInfo_Click(object sender, RoutedEventArgs e)
         {
+            HomepageButton.Content = $"{(TypeBox.SelectedValue as ComboBoxItem).Content.ToString().Trim().TrimEnd('s')} Page";
             AudioProgress.IsEnabled = false;
             Button button = sender as Button;
             var item = button.DataContext as GameBananaRecord;
+            if (item.Compatible)
+                DownloadButton.Visibility = Visibility.Visible;
+            else
+                DownloadButton.Visibility = Visibility.Collapsed;
+            if (item.HasAltLinks)
+                AltButton.Visibility = Visibility.Visible;
+            else
+                AltButton.Visibility = Visibility.Collapsed;
             DescPanel.DataContext = button.DataContext;
             DescText.ScrollToHome();
             var text = "";
-            if (!item.Compatible)
-                text += "This mod can't be installed directly through Aemulus. Download it from the Mod Page and follow the installation instructions.\n\n";
+            if (!item.Compatible && item.HasAltLinks)
+                text += "This mod can't be installed directly through Aemulus from GameBanana. Use the Alt. Downloads button to download from your browser then manually install it.\n\n";
             text += item.ConvertedText;
             DescText.Document = ConvertToFlowDocument(text);
             ImageLeft.IsEnabled = true;

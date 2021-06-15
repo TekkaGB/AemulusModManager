@@ -39,7 +39,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Assets\Aemulus.ico</ApplicationIcon>
+    <ApplicationIcon>newaemulus.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -216,6 +216,9 @@
     <Compile Include="Windows\PackageFolderBox.xaml.cs">
       <DependentUpon>PackageFolderBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AltLinkWindow.xaml.cs">
+      <DependentUpon>AltLinkWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\UpdateFileBox.xaml.cs">
       <DependentUpon>UpdateFileBox.xaml</DependentUpon>
     </Compile>
@@ -290,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\PackageFolderBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AltLinkWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -441,6 +448,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="newaemulus.ico" />
     <None Include="aemulus_overlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -454,6 +462,7 @@
     <Resource Include="Assets\p5icon.png" />
     <Resource Include="Assets\p5sicon.png" />
     <Resource Include="Assets\GameBanana.png" />
+    <Resource Include="aemulus_v3_app.ico" />
     <Content Include="Dependencies\rdb_tool.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

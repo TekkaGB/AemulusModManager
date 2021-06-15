@@ -266,14 +266,16 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion}) but no downloadable files are available.");
-                        NotificationBox notification = new NotificationBox($"{row.name} has an update ({onlineVersion}) but no downloadable files.\nWould you like to go to the page to manually download the update?", false);
-                        notification.ShowDialog();
-                        notification.Activate();
-                        if (notification.YesNo)
-                        {
-                            Process.Start(row.link);
-                        }
+                        Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion}) but there are no downloads directly from GameBanana.");
+                        // Convert the url
+                        Uri uri = CreateUri(row.link);
+                        string itemType = uri.Segments[1];
+                        itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
+                        string itemId = uri.Segments[2];
+                        // Parse the response
+                        string responseString = await client.GetStringAsync($"https://gamebanana.com/apiv4/{itemType}/{itemId}");
+                        var response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
+                        new AltLinkWindow(response.AlternateFileSources, row.name, game).ShowDialog();
                         return;
                     }
                     if (downloadUrl != null && fileName != null)
