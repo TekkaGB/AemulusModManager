@@ -6,6 +6,7 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" SizeChanged="Window_SizeChanged"
         Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
@@ -157,7 +158,7 @@
                             <TextBlock FontFamily="{StaticResource Jost}" Margin="10" Text="{Binding Path=Title}" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="24" VerticalAlignment="Center" />
                         </Border>
                     </Popup>
-                    <fa5:ImageAwesome Foreground="#9a0000" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
+                    <Image gif:ImageBehavior.AnimatedSource="../Assets/loading.gif" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40"/>
                     <StackPanel Grid.Row="2" Margin="10,-5,10,5" Orientation="Horizontal">
                         <Image VerticalAlignment="Center" Source="{Binding Path=Owner.Avatar}" Margin="0,0,10,0" Height="35"/>
                         <TextBlock VerticalAlignment="Center" Foreground="#909090" Text="{Binding Path=Owner.Name}">
@@ -876,7 +877,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="ImageLeft_Click" Name="BigImageLeft" Content="&lt;" Height="50" Width="50" FontWeight="SemiBold" FontSize="20"/>
                                     <Image Grid.Column="1" Name="BigScreenshot" Stretch="Uniform" Margin="20,0,20,0" VerticalAlignment="Center"/>
-                                    <fa5:ImageAwesome Panel.ZIndex="-1" Grid.Column="1" Foreground="#006ac1" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
+                                    <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="../Assets/loading.gif" Panel.ZIndex="-1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40"/>
                                     <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="BigImageRight" Content=">" Height="50" Width="50" FontWeight="SemiBold" FontSize="20"/>
                                 </Grid>
                                 <TextBlock Name="BigCaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" Foreground="#f2f2f2" Padding="5"/>
@@ -924,7 +925,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="ImageLeft_Click" Name="ImageLeft" Content="&lt;" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                                 <Image Grid.Column="1" PreviewMouseLeftButtonDown="Image_Click" Cursor="Hand" Name="Screenshot" Stretch="Uniform" MaxHeight="400" Margin="20,0,20,0" VerticalAlignment="Center"/>
-                                <fa5:ImageAwesome Panel.ZIndex="-1" Grid.Column="1" Foreground="#9a0000" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
+                                <Image Grid.Column="1" gif:ImageBehavior.AnimatedSource="../Assets/loading.gif" Panel.ZIndex="-1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40"/>
                                 <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                             </Grid>
                             <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
@@ -1080,7 +1081,7 @@
                             <ComboBoxItem>50</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
-                    <fa5:ImageAwesome Name="LoadingBar" Foreground="#9a0000" Panel.ZIndex="1" Grid.Row="1" Icon="Solid_Spinner" Height="110" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
+                    <Image Name="LoadingBar" gif:ImageBehavior.AnimatedSource="../Assets/loading.gif" Panel.ZIndex="1" Grid.Row="1" Height="110" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <StackPanel Name="ErrorPanel" Grid.Row="1" Panel.ZIndex="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock FontFamily="{StaticResource Jost}" Name="BrowserMessage" HorizontalAlignment="Center"  Opacity="1" Background="Transparent" Foreground="#f2f2f2" FontWeight="SemiBold" TextWrapping="Wrap" Width="1050" TextAlignment="Center" FontSize="25"/>
                         <Button FontFamily="{StaticResource Jost}" Margin="10" Click="BrowserRefresh" Name="BrowserRefreshButton" Content="Retry" HorizontalAlignment="center" FontSize="18" FontWeight="SemiBold"  Height="40" Width="140" Background="#181818" BorderBrush="#252525" Foreground="#f2f2f2">

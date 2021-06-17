@@ -39,7 +39,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>newaemulus.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Aemulus.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -448,7 +448,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="newaemulus.ico" />
     <None Include="aemulus_overlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -462,7 +461,7 @@
     <Resource Include="Assets\p5icon.png" />
     <Resource Include="Assets\p5sicon.png" />
     <Resource Include="Assets\GameBanana.png" />
-    <Resource Include="aemulus_v3_app.ico" />
+    <Resource Include="Assets\loading.gif" />
     <Content Include="Dependencies\rdb_tool.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
