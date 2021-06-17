@@ -7,7 +7,7 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
         xmlns:local="clr-namespace:AemulusModManager"
-        mc:Ignorable="d"
+        mc:Ignorable="d" SizeChanged="Window_SizeChanged"
         Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
         Background="#151515" Closing="Window_Closing">
     <Window.Resources>
@@ -853,7 +853,45 @@
                     <Grid.Background>
                         <ImageBrush x:Name="BrowserBackground" ImageSource="../Assets/general.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,144,151"/>
                     </Grid.Background>
-
+                    <Grid Grid.RowSpan="3" Name="MediaPanel" Panel.ZIndex="5" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="90"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.RowSpan="4" Grid.ColumnSpan="2" Panel.ZIndex="-1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#080808" Opacity="0.95"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#080808" Opacity="0.95"/>
+                            </Border.Background>
+                        </Border>
+                        <Border>
+                            <StackPanel Margin="10" Name="BigImagePanel" VerticalAlignment="Center" Grid.Row="0">
+                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.15*"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.15*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="ImageLeft_Click" Name="BigImageLeft" Content="&lt;" Height="50" Width="50" FontWeight="SemiBold" FontSize="20"/>
+                                    <Image Grid.Column="1" Name="BigScreenshot" Stretch="Uniform" Margin="20,0,20,0" VerticalAlignment="Center"/>
+                                    <fa5:ImageAwesome Panel.ZIndex="-1" Grid.Column="1" Foreground="#006ac1" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
+                                    <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="BigImageRight" Content=">" Height="50" Width="50" FontWeight="SemiBold" FontSize="20"/>
+                                </Grid>
+                                <TextBlock Name="BigCaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" Foreground="#f2f2f2" Padding="5"/>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Grid.ColumnSpan="2" Margin="20" Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button Click="CloseMedia_Click" Content="Close" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="2"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                     <Grid Grid.RowSpan="3" Name="DescPanel" Panel.ZIndex="4" Visibility="Collapsed">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -885,7 +923,7 @@
                                     <ColumnDefinition Width="0.15*"/>
                                 </Grid.ColumnDefinitions>
                                 <Button HorizontalAlignment="Right" VerticalAlignment="Center" Click="ImageLeft_Click" Name="ImageLeft" Content="&lt;" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
-                                <Image Grid.Column="1" Name="Screenshot" Stretch="Uniform" MaxHeight="400" Margin="20,0,20,0" VerticalAlignment="Center"/>
+                                <Image Grid.Column="1" PreviewMouseLeftButtonDown="Image_Click" Cursor="Hand" Name="Screenshot" Stretch="Uniform" MaxHeight="400" Margin="20,0,20,0" VerticalAlignment="Center"/>
                                 <fa5:ImageAwesome Panel.ZIndex="-1" Grid.Column="1" Foreground="#9a0000" Icon="Solid_Spinner" Height="40" VerticalAlignment="Center" HorizontalAlignment="Center" Spin="True" SpinDuration="2"/>
                                 <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                             </Grid>

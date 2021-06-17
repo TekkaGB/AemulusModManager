@@ -275,7 +275,7 @@ namespace AemulusModManager
                         // Parse the response
                         string responseString = await client.GetStringAsync($"https://gamebanana.com/apiv4/{itemType}/{itemId}");
                         var response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
-                        new AltLinkWindow(response.AlternateFileSources, row.name, game).ShowDialog();
+                        new AltLinkWindow(response.AlternateFileSources, row.name, game, true).ShowDialog();
                         return;
                     }
                     if (downloadUrl != null && fileName != null)

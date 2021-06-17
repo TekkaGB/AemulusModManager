@@ -19,14 +19,16 @@ namespace AemulusModManager.Windows
     /// </summary>
     public partial class AltLinkWindow : Window
     {
-        public AltLinkWindow(List<GameBananaAlternateFileSource> links, string packageName, string game)
+        public AltLinkWindow(List<GameBananaAlternateFileSource> files, string packageName, string game, bool update = false)
         {
             InitializeComponent();
-            FileList.ItemsSource = links;
+            FileList.ItemsSource = files;
             TitleBox.Text = packageName;
-            Description.Text = $"Links from the Alternate File Sources section were found. You can " +
-                $"select one to manually download.\nTo install, extract the downloaded archive into:";
-            PathText.Text = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}";
+            Description.Text = update ? $"Links from the Alternate File Sources section were found. You can " +
+                $"select one to manually download.\nTo update, hit refresh after extracting the downloaded archive into:"
+                : $"Links from the Alternate File Sources section were found. You can " +
+                $"select one to manually download.\nTo install, hit refresh after extracting the downloaded archive into:";
+            PathText.Text = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Mods\{game}";
         }
 
         private void SelectButton_Click(object sender, RoutedEventArgs e)

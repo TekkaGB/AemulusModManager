@@ -2964,6 +2964,7 @@ namespace AemulusModManager
             else
                 AltButton.Visibility = Visibility.Collapsed;
             DescPanel.DataContext = button.DataContext;
+            MediaPanel.DataContext = button.DataContext;
             DescText.ScrollToHome();
             var text = "";
             if (!item.Compatible && item.HasAltLinks)
@@ -2972,18 +2973,29 @@ namespace AemulusModManager
             DescText.Document = ConvertToFlowDocument(text);
             ImageLeft.IsEnabled = true;
             ImageRight.IsEnabled = true;
+            BigImageLeft.IsEnabled = true;
+            BigImageRight.IsEnabled = true;
             imageCount = item.Media.Where(x => x.Type == "image").ToList().Count;
             imageCounter = 0;
             AudioPanel.Visibility = Visibility.Collapsed;
             ImagePanel.Visibility = Visibility.Visible;
             if (imageCount > 0)
             {
-                Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+                var image = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+                Screenshot.Source = image;
+                BigScreenshot.Source = image;
                 CaptionText.Text = item.Media[imageCounter].Caption;
-                if (CaptionText.Text != null)
+                BigCaptionText.Text = item.Media[imageCounter].Caption;
+                if (!String.IsNullOrEmpty(CaptionText.Text))
+                {
+                    BigCaptionText.Visibility = Visibility.Visible;
                     CaptionText.Visibility = Visibility.Visible;
+                }
                 else
+                {
+                    BigCaptionText.Visibility = Visibility.Collapsed;
                     CaptionText.Visibility = Visibility.Collapsed;
+                }
             }
             else
             {
@@ -3002,9 +3014,20 @@ namespace AemulusModManager
             {
                 ImageLeft.IsEnabled = false;
                 ImageRight.IsEnabled = false;
+                BigImageLeft.IsEnabled = false;
+                BigImageRight.IsEnabled = false;
             }
 
             DescPanel.Visibility = Visibility.Visible;
+        }
+        private void CloseMedia_Click(object sender, RoutedEventArgs e)
+        {
+            MediaPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void Image_Click(object sender, RoutedEventArgs e)
+        {
+            MediaPanel.Visibility = Visibility.Visible;
         }
         private void Homepage_Click(object sender, RoutedEventArgs e)
         {
@@ -3453,12 +3476,21 @@ namespace AemulusModManager
             var item = button.DataContext as GameBananaRecord;
             if (--imageCounter == -1)
                 imageCounter = imageCount - 1;
-            Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+            var image = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+            Screenshot.Source = image;
             CaptionText.Text = item.Media[imageCounter].Caption;
-            if (CaptionText.Text != null)
+            BigScreenshot.Source = image;
+            BigCaptionText.Text = item.Media[imageCounter].Caption;
+            if (!String.IsNullOrEmpty(CaptionText.Text))
+            {
+                BigCaptionText.Visibility = Visibility.Visible;
                 CaptionText.Visibility = Visibility.Visible;
+            }
             else
+            {
+                BigCaptionText.Visibility = Visibility.Collapsed;
                 CaptionText.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void ImageRight_Click(object sender, RoutedEventArgs e)
@@ -3467,12 +3499,21 @@ namespace AemulusModManager
             var item = button.DataContext as GameBananaRecord;
             if (++imageCounter == imageCount)
                 imageCounter = 0;
-            Screenshot.Source = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+            var image = new BitmapImage(new Uri($"{item.Media[imageCounter].Base}/{item.Media[imageCounter].File}"));
+            Screenshot.Source = image;
             CaptionText.Text = item.Media[imageCounter].Caption;
-            if (CaptionText.Text != null)
+            BigScreenshot.Source = image;
+            BigCaptionText.Text = item.Media[imageCounter].Caption;
+            if (!String.IsNullOrEmpty(CaptionText.Text))
+            {
+                BigCaptionText.Visibility = Visibility.Visible;
                 CaptionText.Visibility = Visibility.Visible;
+            }
             else
+            {
+                BigCaptionText.Visibility = Visibility.Collapsed;
                 CaptionText.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void PlayAudio_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -3588,6 +3629,11 @@ namespace AemulusModManager
                 VolumeIcon.Icon = FontAwesome5.EFontAwesomeIcon.Solid_VolumeUp;
                 VolumeSlider.Value = unmuteVolume;
             }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            BigScreenshot.MaxHeight = ActualHeight - 240;
         }
     }
 }
