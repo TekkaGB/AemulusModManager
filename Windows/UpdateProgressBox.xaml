@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager.Windows"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Aemulus Package Manager" Height="175" Width="500"
-        ResizeMode="NoResize"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         Background="#151515" ShowActivated="True" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>

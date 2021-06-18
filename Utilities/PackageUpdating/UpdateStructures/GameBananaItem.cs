@@ -147,7 +147,9 @@ namespace AemulusModManager
         [JsonIgnore]
         public bool HasLongCategoryName => CategoryName.Length > 30;
         [JsonIgnore]
-        public bool Compatible => AllFiles != null && Files.Count > 0;
+        public bool HasDownloads => AllFiles != null && Files.Count > 0;
+        [JsonIgnore]
+        public bool Compatible => HasAltLinks || HasDownloads;
 
         [JsonProperty("_tsDateUpdated")]
         public long DateUpdatedLong { get; set; }

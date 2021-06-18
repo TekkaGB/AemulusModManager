@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d"
         Background="#121212"
-        ResizeMode="NoResize"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         Title="Create New Package" Height="383" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:local="clr-namespace:AemulusModManager.Windows"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
         Title="Aemulus Package Manager"
         ResizeMode="NoResize" MinWidth="600" MaxWidth="750"
         Background="#202020" ShowActivated="True" Closing="Window_Closing" SizeToContent="WidthAndHeight">
@@ -263,10 +263,10 @@
                 </Button.Resources>
                 <Grid VerticalAlignment="Center" x:Name="GridItem" Margin="3">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" FontSize="18" FontWeight="Bold" Foreground="#f2f2f2" Text="{Binding Path=Description}"/>
+                    <TextBlock Grid.Row="0" FontSize="18" FontWeight="Bold" Foreground="#f2f2f2" TextWrapping="Wrap" Text="{Binding Path=Description}"/>
                     <TextBlock Grid.Row="1" FontSize="13" TextWrapping="WrapWithOverflow" Foreground="#a2a2a2" Text="{Binding Path=Url}"/>
                 </Grid>
             </Button>

@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AemulusModManager.Windows"
         mc:Ignorable="d"
         Title="Aemulus Package Manager"
-        ResizeMode="NoResize" MinWidth="600"
+        ResizeMode="NoResize" MinWidth="600" WindowStartupLocation="CenterOwner"
         Background="#202020" ShowActivated="True" Closing="Window_Closing" SizeToContent="WidthAndHeight">
     <Window.Resources>
         <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />

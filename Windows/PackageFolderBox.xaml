@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AemulusModManager.Windows"
         mc:Ignorable="d"
         Title="Aemulus Package Manager"
-        ResizeMode="NoResize"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
         Background="#121212" ShowActivated="True" Closing="Window_Closing" SizeToContent="WidthAndHeight">
     <Grid>
         <TextBlock Padding="20" Foreground="White" VerticalAlignment="Top" TextWrapping="WrapWithOverflow" FontSize="15" Text="Multiple Package.xml's found. Please select the correct Aemulus package folder."/>

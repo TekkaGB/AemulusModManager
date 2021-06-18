@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
         Title="Persona 5 Config" Height="250" Width="600" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>

@@ -2921,7 +2921,28 @@ namespace AemulusModManager
         {
             Button button = sender as Button;
             var item = button.DataContext as GameBananaRecord;
-            new PackageDownloader().BrowserDownload(item, (GameFilter)GameFilterBox.SelectedIndex);
+            if (item.HasDownloads)
+                new PackageDownloader().BrowserDownload(item, (GameFilter)GameFilterBox.SelectedIndex);
+            else
+            {
+                var game = "";
+                switch ((GameFilter)GameFilterBox.SelectedIndex)
+                {
+                    case GameFilter.P3:
+                        game = "Persona 3 FES";
+                        break;
+                    case GameFilter.P4G:
+                        game = "Persona 4 Golden";
+                        break;
+                    case GameFilter.P5:
+                        game = "Persona 5";
+                        break;
+                    case GameFilter.P5S:
+                        game = "Persona 5 Strikers";
+                        break;
+                }
+                new AltLinkWindow(item.AlternateFileSources, item.Title, game).ShowDialog();
+            }
         }
         // Mod browser
         private void AltDownload_Click(object sender, RoutedEventArgs e)
@@ -2955,7 +2976,7 @@ namespace AemulusModManager
             AudioProgress.IsEnabled = false;
             Button button = sender as Button;
             var item = button.DataContext as GameBananaRecord;
-            if (item.Compatible)
+            if (item.HasDownloads)
                 DownloadButton.Visibility = Visibility.Visible;
             else
                 DownloadButton.Visibility = Visibility.Collapsed;
@@ -2967,7 +2988,7 @@ namespace AemulusModManager
             MediaPanel.DataContext = button.DataContext;
             DescText.ScrollToHome();
             var text = "";
-            if (!item.Compatible && item.HasAltLinks)
+            if (!item.HasDownloads && item.HasAltLinks)
                 text += "This mod can't be installed directly through Aemulus from GameBanana. Use the Alt. Downloads button to download from your browser then manually install it.\n\n";
             text += item.ConvertedText;
             DescText.Document = ConvertToFlowDocument(text);
