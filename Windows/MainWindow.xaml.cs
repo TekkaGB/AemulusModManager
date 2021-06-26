@@ -30,6 +30,7 @@ using Vlc.DotNet.Core;
 using Vlc.DotNet.Wpf;
 using AemulusModManager.Windows;
 using AemulusModManager.Utilities.Windows;
+using System.ComponentModel;
 
 namespace AemulusModManager
 {
@@ -72,6 +73,7 @@ namespace AemulusModManager
         private CancellationTokenSource cancellationToken;
         private Loadouts loadoutUtils;
         private int lastLoadout;
+        public Prop<bool> showHidden { get; set; }
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
@@ -85,7 +87,6 @@ namespace AemulusModManager
             dm.description = m.description;
             dm.link = m.link;
             dm.skippedVersion = m.skippedVersion;
-            dm.hidden = m.hidden;
             return dm;
         }
 
@@ -250,6 +251,7 @@ namespace AemulusModManager
                 buttons.Add(LaunchButton);
                 buttons.Add(RefreshButton);
                 buttons.Add(DarkMode);
+                buttons.Add(VisibilityButton);
 
                 // Load in Config if it exists
 
@@ -397,6 +399,11 @@ namespace AemulusModManager
                     LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
                     lastLoadout = 0;
                     LoadoutBox.SelectedIndex = 0;
+                    showHidden = new Prop<bool>();
+                    showHidden.Value = false;
+
+                    VisibilityButton.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;
 
                     // Load the current loadout
                     if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
@@ -452,7 +459,6 @@ namespace AemulusModManager
                                     dm.link = m.link;
                                     dm.description = m.description;
                                     dm.skippedVersion = m.skippedVersion;
-                                    dm.hidden = m.hidden;
                                 }
                             }
                             catch (Exception ex)
@@ -464,6 +470,7 @@ namespace AemulusModManager
 
                         dm.path = package.path;
                         dm.enabled = package.enabled;
+                        dm.hidden = package.hidden;
                         DisplayedPackages.Add(dm);
                     }
                     ModGrid.ItemsSource = DisplayedPackages;
@@ -727,7 +734,6 @@ namespace AemulusModManager
                                         dm.link = m.link;
                                         dm.description = m.description;
                                         dm.skippedVersion = m.skippedVersion;
-                                        dm.hidden = m.hidden;
                                     }
                                 }
                                 catch (Exception ex)
@@ -738,6 +744,7 @@ namespace AemulusModManager
                             }
                             dm.path = package.path;
                             dm.enabled = package.enabled;
+                            dm.hidden = package.hidden;
                             DisplayedPackages.Add(dm);
                         }
                     }
@@ -1827,6 +1834,12 @@ namespace AemulusModManager
                 if (RowUpdatable(row) && !updating && updatesEnabled)
                     UpdateItem.IsEnabled = true;
 
+                // Show the correct visibility context menu entry
+                ShowItem.IsEnabled = row.hidden;
+                ShowItem.Visibility = row.hidden ? Visibility.Visible : Visibility.Collapsed;
+                HideItem.IsEnabled = !row.hidden;
+                HideItem.Visibility = !row.hidden ? Visibility.Visible : Visibility.Collapsed;
+
                 // Set image
                 string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
                 FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
@@ -2268,7 +2281,6 @@ namespace AemulusModManager
                                     dm.link = m.link;
                                     dm.description = m.description;
                                     dm.skippedVersion = m.skippedVersion;
-                                    dm.hidden = m.hidden;
                                 }
                                 catch (Exception ex)
                                 {
@@ -2286,6 +2298,7 @@ namespace AemulusModManager
 
                     dm.path = package.path;
                     dm.enabled = package.enabled;
+                    dm.hidden = package.hidden;
                     DisplayedPackages.Add(dm);
                 }
                 ModGrid.ItemsSource = DisplayedPackages;
@@ -2618,7 +2631,6 @@ namespace AemulusModManager
                                         dm.link = m.link;
                                         dm.description = m.description;
                                         dm.skippedVersion = m.skippedVersion;
-                                        dm.hidden = m.hidden;
                                     }
                                 }
                                 catch (Exception ex)
@@ -2629,6 +2641,7 @@ namespace AemulusModManager
                             }
                             dm.path = package.path;
                             dm.enabled = package.enabled;
+                            dm.hidden = package.hidden;
                             DisplayedPackages.Add(dm);
                         }
                         dropped = true;
@@ -2753,7 +2766,6 @@ namespace AemulusModManager
                                 dm.link = m.link;
                                 dm.description = m.description;
                                 dm.skippedVersion = m.skippedVersion;
-                                dm.hidden = m.hidden;
                             }
                         }
                         catch (Exception ex)
@@ -2764,6 +2776,7 @@ namespace AemulusModManager
                     }
                     dm.path = package.path;
                     dm.enabled = package.enabled;
+                    dm.hidden = package.hidden;
                     DisplayedPackages.Add(dm);
                 }
             }
@@ -3732,7 +3745,7 @@ namespace AemulusModManager
                 lastLoadout = LoadoutBox.SelectedIndex;
                 Console.WriteLine($"[INFO] Loadout changed to {LoadoutBox.SelectedItem}");
             }
-            if(IsLoaded)
+            if (IsLoaded)
                 UpdateDisplay();
         }
 
@@ -3788,7 +3801,6 @@ namespace AemulusModManager
                                 dm.link = m.link;
                                 dm.description = m.description;
                                 dm.skippedVersion = m.skippedVersion;
-                                dm.hidden = m.hidden;
                             }
                             catch (Exception ex)
                             {
@@ -3806,6 +3818,7 @@ namespace AemulusModManager
 
                 dm.path = package.path;
                 dm.enabled = package.enabled;
+                dm.hidden = package.hidden;
                 DisplayedPackages.Add(dm);
             }
             ModGrid.ItemsSource = DisplayedPackages;
@@ -3820,6 +3833,66 @@ namespace AemulusModManager
             Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                 "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
                 "the package has no description.)");
+        }
+
+        private void HideItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata package = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (package != null)
+            {
+                Console.WriteLine($"[INFO] Hiding {package.name}");
+                package.hidden = true;
+                foreach (var p in PackageList.ToList())
+                {
+                    if (p.path == package.path)
+
+                        p.hidden = true;
+                }
+                updatePackages();
+                UpdateDisplay();
+            }
+        }
+
+        private void ToggleHiddenClicked(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine($"[INFO] {(showHidden.Value ? "Hiding" : "Showing")} hidden packages");
+            showHidden.Value = !showHidden.Value;
+        }
+
+        // Class to make the showingHidden bool observable
+        public class Prop<T> : INotifyPropertyChanged
+        {
+            private T _value;
+            public T Value
+            {
+                get { return _value; }
+                set { _value = value; NotifyPropertyChanged("Value"); }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            internal void NotifyPropertyChanged(String propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void ShowItem_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayedMetadata package = (DisplayedMetadata)ModGrid.SelectedItem;
+            if (package != null)
+            {
+                Console.WriteLine($"[INFO] Showing {package.name}");
+                package.hidden = false;
+                foreach (var p in PackageList.ToList())
+                {
+                    if (p.path == package.path)
+
+                        p.hidden = false;
+                }
+                updatePackages();
+                UpdateDisplay();
+            }
         }
     }
 }
