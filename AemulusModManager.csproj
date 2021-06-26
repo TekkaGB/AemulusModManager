@@ -173,6 +173,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Utilities\FeedGenerator.cs" />
+    <Compile Include="Utilities\Windows\Loadouts.cs" />
+    <Compile Include="Windows\CreateLoadout.xaml.cs">
+      <DependentUpon>CreateLoadout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
@@ -234,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CreateLoadout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

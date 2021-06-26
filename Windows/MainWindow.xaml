@@ -463,6 +463,7 @@
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
                             <RowDefinition Height="13*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -607,7 +608,7 @@
 
 
 
-                        <Grid Name="MainGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="1">
+                        <Grid Name="MainGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="15*"/>
                                 <RowDefinition Height="Auto"/>
@@ -642,6 +643,15 @@
                                             <Setter Property="FontWeight" Value="SemiBold"/>
                                         </Style>
                                     </DataGrid.Resources>
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="{x:Type DataGridRow}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Hidden}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
                                     <DataGrid.Columns>
                                         <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding enabled, Mode=TwoWay}" IsReadOnly="False" Width="52">
                                             <DataGridCheckBoxColumn.CellStyle>
@@ -840,6 +850,7 @@
                                 </RichTextBox.Resources>
                             </RichTextBox>
                         </Grid>
+                        <ComboBox FontSize="18" FontWeight="SemiBold" x:Name="LoadoutBox" Margin="2,2.5,111.6,2.5" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="LoadoutBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LoadoutItems}" />
                     </Grid>
                 </TabItem.Content>
             </TabItem>

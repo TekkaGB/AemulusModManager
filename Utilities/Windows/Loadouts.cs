@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+
+namespace AemulusModManager.Utilities.Windows
+{
+    public class Loadouts
+    {
+        public ObservableCollection<string> LoadoutItems;
+
+        public Loadouts(string game)
+        {
+            LoadoutItems = new ObservableCollection<string>();
+            LoadLoadout(game);
+        }
+
+        public void LoadLoadout(string game)
+        {
+            string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
+            Console.WriteLine($"[INFO] Loading loadouts for {game}");
+            Directory.CreateDirectory($@"{configPath}\{game}");
+            // If the old single loadout file existed, convert it to the new one with a name of default
+            if (FileIOWrapper.Exists($@"{configPath}\{game.Replace(" ", "")}Packages.xml") && !FileIOWrapper.Exists($@"{configPath}\{game}\Default.xml"))
+            {
+                Console.WriteLine("[INFO] Old loadout detected, converting to new one with name \"Default\"");
+                FileIOWrapper.Move($@"{configPath}\{game.Replace(" ", "")}Packages.xml", $@"{configPath}\{game}\Default.xml");
+            }
+
+            // Get all loadouts for the current game
+            string[] loadoutFiles = Directory.GetFiles($@"{configPath}\{game}").Where((path) => Path.GetExtension(path) == ".xml").ToArray();
+            
+            // Create a default loadout if none exists
+            if(loadoutFiles.Length == 0)
+            {
+                loadoutFiles = loadoutFiles.Append("Default").ToArray();
+            }
+
+            // Change the loadout items to the new ones
+            LoadoutItems.Clear();
+            foreach(string loadout in loadoutFiles)
+            {
+                LoadoutItems.Add(Path.GetFileNameWithoutExtension(loadout));
+            }
+            LoadoutItems.Add("Add new loadout");
+        }
+
+    }
+}
