@@ -53,6 +53,7 @@ namespace AemulusModManager
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
 
     public class ConfigP3F
@@ -69,6 +70,7 @@ namespace AemulusModManager
         public bool advancedLaunchOptions { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
 
     public class ConfigP5
@@ -83,6 +85,7 @@ namespace AemulusModManager
         public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
 
     public class ConfigP5S
@@ -95,6 +98,7 @@ namespace AemulusModManager
         public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
     public class Packages
     {

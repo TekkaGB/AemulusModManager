@@ -64,6 +64,7 @@ namespace AemulusModManager
         public string launcherPath;
         public string elfPath;
         public string cpkLang;
+        public string selectedLoadout;
         private BitmapImage bitmap;
         public List<FontAwesome5.ImageAwesome> buttons;
         private PackageUpdater packageUpdater;
@@ -302,6 +303,7 @@ namespace AemulusModManager
                                     config.p4gConfig.cpkLang = "data_e.cpk";
                                 }
                                 modPath = config.p4gConfig.modDir;
+                                selectedLoadout = config.p4gConfig.loadout;
                                 gamePath = config.p4gConfig.exePath;
                                 launcherPath = config.p4gConfig.reloadedPath;
                                 emptySND = config.p4gConfig.emptySND;
@@ -319,6 +321,7 @@ namespace AemulusModManager
                             else if (game == "Persona 3 FES")
                             {
                                 modPath = config.p3fConfig.modDir;
+                                selectedLoadout = config.p3fConfig.loadout;
                                 gamePath = config.p3fConfig.isoPath;
                                 elfPath = config.p3fConfig.elfPath;
                                 launcherPath = config.p3fConfig.launcherPath;
@@ -336,6 +339,7 @@ namespace AemulusModManager
                             else if (game == "Persona 5")
                             {
                                 modPath = config.p5Config.modDir;
+                                selectedLoadout = config.p5Config.loadout;
                                 gamePath = config.p5Config.gamePath;
                                 launcherPath = config.p5Config.launcherPath;
                                 buildWarning = config.p5Config.buildWarning;
@@ -352,6 +356,7 @@ namespace AemulusModManager
                             else if (game == "Persona 5 Strikers")
                             {
                                 modPath = config.p5sConfig.modDir;
+                                selectedLoadout = config.p5sConfig.loadout;
                                 gamePath = null;
                                 launcherPath = null;
                                 buildWarning = config.p5sConfig.buildWarning;
@@ -397,8 +402,18 @@ namespace AemulusModManager
                     // Initialise loadouts
                     loadoutUtils = new Loadouts(game);
                     LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
-                    lastLoadout = 0;
-                    LoadoutBox.SelectedIndex = 0;
+
+                    if (LoadoutBox.Items.Contains(selectedLoadout))
+                    {
+                        LoadoutBox.SelectedItem = selectedLoadout;
+                        lastLoadout = LoadoutBox.SelectedIndex;
+                    }
+                    else
+                    {
+                        lastLoadout = 0;
+                        LoadoutBox.SelectedIndex = 0;
+                    }
+
                     showHidden = new Prop<bool>();
                     showHidden.Value = false;
 
@@ -2173,6 +2188,7 @@ namespace AemulusModManager
                     case 0:
                         game = "Persona 3 FES";
                         modPath = config.p3fConfig.modDir;
+                        selectedLoadout = config.p3fConfig.loadout;
                         gamePath = config.p3fConfig.isoPath;
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
@@ -2193,6 +2209,7 @@ namespace AemulusModManager
                     case 1:
                         game = "Persona 4 Golden";
                         modPath = config.p4gConfig.modDir;
+                        selectedLoadout = config.p4gConfig.loadout;
                         gamePath = config.p4gConfig.exePath;
                         launcherPath = config.p4gConfig.reloadedPath;
                         emptySND = config.p4gConfig.emptySND;
@@ -2214,6 +2231,7 @@ namespace AemulusModManager
                     case 2:
                         game = "Persona 5";
                         modPath = config.p5Config.modDir;
+                        selectedLoadout = config.p5Config.loadout;
                         gamePath = config.p5Config.gamePath;
                         launcherPath = config.p5Config.launcherPath;
                         buildWarning = config.p5Config.buildWarning;
@@ -2235,6 +2253,7 @@ namespace AemulusModManager
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();
                         modPath = config.p5sConfig.modDir;
+                        selectedLoadout = config.p5sConfig.loadout;
                         gamePath = null;
                         launcherPath = null;
                         buildWarning = config.p5sConfig.buildWarning;
@@ -2280,7 +2299,10 @@ namespace AemulusModManager
 
                 // Update the available loadouts
                 loadoutUtils.LoadLoadout(game);
-                LoadoutBox.SelectedIndex = 0;
+                if (LoadoutBox.Items.Contains(selectedLoadout))
+                    LoadoutBox.SelectedItem = selectedLoadout;
+                else
+                    LoadoutBox.SelectedIndex = 0;
 
                 if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
                 {
@@ -3807,6 +3829,7 @@ namespace AemulusModManager
 
         private void LoadoutBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Add a new loadout
             if (LoadoutBox.SelectedItem != null && LoadoutBox.SelectedItem.ToString() == "Add new loadout")
             {
                 CreateLoadout createLoadout = new CreateLoadout(game);
@@ -3824,6 +3847,23 @@ namespace AemulusModManager
                         Console.WriteLine($"[INFO] Copying {LoadoutBox.Items[lastLoadout]} loadout to {createLoadout.name}");
                         string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
                         FileIOWrapper.Copy($@"{configPath}\{game}\{LoadoutBox.Items[lastLoadout]}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                    }
+                    else
+                    {
+                        // Disable and unhide everything (otherwise the new loadout will copy the current)
+                        foreach (var package in PackageList)
+                        {
+                            package.enabled = false;
+                            package.hidden = false;
+                        }
+                        // Order the package list alphebetically 
+                        var packages = PackageList.ToArray();
+                        IOrderedEnumerable<Package> orderedPackages = packages.OrderBy(item => item.path);
+                        PackageList.Clear();
+                        foreach (var item in orderedPackages)
+                        {
+                            PackageList.Add(item);
+                        }
                     }
 
                     // Add the new loadout
@@ -3843,11 +3883,33 @@ namespace AemulusModManager
                     // Update loadouts
                     loadoutUtils.LoadoutItems.Add("Add new loadout");
                     LoadoutBox.SelectedItem = createLoadout.name;
+
+                    updatePackages();
                 }
             }
+            // Actually change the loadout
             else if (LoadoutBox.SelectedItem != null)
             {
                 lastLoadout = LoadoutBox.SelectedIndex;
+
+                // Update the config
+                selectedLoadout = LoadoutBox.SelectedItem.ToString();
+                switch (game)
+                {
+                    case "Persona 3 FES":
+                        config.p3fConfig.loadout = selectedLoadout;
+                        break;
+                    case "Persona 4 Golden":
+                        config.p4gConfig.loadout = selectedLoadout;
+                        break;
+                    case "Persona 5":
+                        config.p5Config.loadout = selectedLoadout;
+                        break;
+                    case "Persona 5 Strikers":
+                        config.p5sConfig.loadout = selectedLoadout;
+                        break;
+                }
+                updateConfig();
                 Console.WriteLine($"[INFO] Loadout changed to {LoadoutBox.SelectedItem}");
             }
             if (IsLoaded)
@@ -3856,11 +3918,11 @@ namespace AemulusModManager
 
         private void UpdateDisplay()
         {
-            PackageList.Clear();
-            DisplayedPackages.Clear();
 
+            // Load the new loadout xml
             if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml") && LoadoutBox.SelectedItem != null)
             {
+                PackageList.Clear();
                 try
                 {
                     using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
@@ -3881,63 +3943,27 @@ namespace AemulusModManager
                 {
                     Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                 }
-            }
 
-            // Create displayed metadata from packages in PackageList and their respective Package.xml's
-            foreach (var package in PackageList.ToList())
-            {
-                string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
-                Metadata m;
-                DisplayedMetadata dm = new DisplayedMetadata();
-                if (FileIOWrapper.Exists(xml))
+                // Recreate DisplayedPackages to match the newly selected loadout
+                var oldDisplayedPackages = DisplayedPackages.ToList();
+                DisplayedPackages.Clear();
+
+                foreach (var package in PackageList.ToList())
                 {
-                    m = new Metadata();
-                    try
-                    {
-                        using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
-                        {
-                            try
-                            {
-                                m = (Metadata)xsp.Deserialize(streamWriter);
-                                dm.name = m.name;
-                                dm.id = m.id;
-                                dm.author = m.author;
-                                dm.version = m.version;
-                                dm.link = m.link;
-                                dm.description = m.description;
-                                dm.skippedVersion = m.skippedVersion;
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                                continue;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                        continue;
-                    }
+                    // Get the current displayed metadata for the package
+                    var updatedPackage = oldDisplayedPackages.Find(dp => dp.path == package.path);
+
+                    // If updated package is null the game has probbaly changed so we can't use the old displayed packages yet
+                    if (updatedPackage == null)
+                        break;
+
+                    // Change the displayed metadata from the old loadout to match the new one
+                    updatedPackage.enabled = package.enabled;
+                    updatedPackage.hidden = package.hidden;
+                    // Add the updated displayed metadata back to the list
+                    DisplayedPackages.Add(updatedPackage);
                 }
-
-                dm.path = package.path;
-                dm.enabled = package.enabled;
-                dm.hidden = package.hidden;
-                DisplayedPackages.Add(dm);
             }
-            ModGrid.ItemsSource = DisplayedPackages;
-
-            Refresh();
-            updateConfig();
-            updatePackages();
-
-            ImageBehavior.SetAnimatedSource(Preview, bitmap);
-            //ImageBehavior.SetAnimatedSource(PreviewBG, null);
-
-            Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
-                "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
-                "the package has no description.)");
         }
 
         private void HideItem_Click(object sender, RoutedEventArgs e)
@@ -4014,11 +4040,11 @@ namespace AemulusModManager
                 loadoutUtils.LoadoutItems.Remove(LoadoutBox.SelectedItem.ToString());
                 LoadoutBox.SelectedIndex = 0;
             }
-            else if(createLoadout.name != "")
+            else if (createLoadout.name != "")
             {
                 // Rename the current loadout to match the new name
                 FileIOWrapper.Move($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
-                
+
                 // Add the new loadout
                 var currentLoadout = LoadoutBox.SelectedItem;
                 loadoutUtils.LoadoutItems.RemoveAt(loadoutUtils.LoadoutItems.Count - 1);
