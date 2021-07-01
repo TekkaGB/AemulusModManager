@@ -724,7 +724,7 @@ namespace AemulusModManager
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
+                    Console.WriteLine($"[ERROR] Couldn't parse hex string {stringData[i]} ({ex.Message}), skipping...");
                     return sections;
                 }
             }

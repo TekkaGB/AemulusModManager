@@ -27,7 +27,6 @@ using System.Net.Http;
 using System.Windows.Controls.Primitives;
 using AemulusModManager.Utilities.PackageUpdating;
 using Vlc.DotNet.Core;
-using Vlc.DotNet.Wpf;
 using AemulusModManager.Windows;
 using AemulusModManager.Utilities.Windows;
 using System.ComponentModel;
@@ -501,11 +500,6 @@ namespace AemulusModManager
                 else if (game == "Persona 5 Strikers" && config.p5sConfig.modDir != "" && config.p5sConfig.modDir != null)
                     modPath = config.p5sConfig.modDir;
 
-                if (modPath == "" || modPath == null)
-                {
-                    MergeButton.IsHitTestVisible = false;
-                    MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
-                }
                 // Create Packages directory if it doesn't exist
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
@@ -530,7 +524,6 @@ namespace AemulusModManager
                 }
                 else
                 {
-
                     TopArrow.Visibility = Visibility.Collapsed;
                     BottomArrow.Visibility = Visibility.Visible;
                     PriorityPopup.Text = "Switch Order to Prioritize\nthe Top of the Grid";
@@ -556,7 +549,7 @@ namespace AemulusModManager
                 if (config.RightBottomGridHeight != null)
                     RightGrid.RowDefinitions[2].Height = new GridLength((double)config.RightBottomGridHeight, GridUnitType.Star);
 
-                LaunchPopup.Text = $"Launch {game}";
+                LaunchPopup.Text = $"Launch {game}\n(Ctrl+L)";
                 FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
                 fileSystemWatcher.EnableRaisingEvents = true;
@@ -800,8 +793,11 @@ namespace AemulusModManager
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
             });
         }
-
         private void LaunchClick(object sender, RoutedEventArgs e)
+        {
+            LaunchCommand();
+        }
+        private void LaunchCommand()
         {
             if ((gamePath != "" && gamePath != null && launcherPath != "" && launcherPath != null)
                 || (elfPath != "" && elfPath != null && launcherPath != "" && launcherPath != null))
@@ -950,8 +946,12 @@ namespace AemulusModManager
             else
                 Console.WriteLine("[ERROR] Please setup shortcut in config menu.");
         }
-
         private void ConfigWdwClick(object sender, RoutedEventArgs e)
+        {
+            ConfigWdwCommand();
+        }
+
+        private void ConfigWdwCommand()
         {
 
             if (game == "Persona 4 Golden")
@@ -1322,7 +1322,11 @@ namespace AemulusModManager
 
         }
 
-        private async void RefreshClick(object sender, RoutedEventArgs e)
+        private void RefreshClick(object sender, RoutedEventArgs e)
+        {
+            RefreshCommand();
+        }
+        private async void RefreshCommand()
         {
             foreach (var button in buttons)
             {
@@ -1350,10 +1354,21 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
             }
             GameBox.IsHitTestVisible = true;
+            if (String.IsNullOrEmpty(modPath))
+            {
+                MergeButton.IsHitTestVisible = false;
+                MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+            }
+
             LoadoutBox.IsHitTestVisible = true;
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
+        {
+            NewCommand();
+        }
+
+        private void NewCommand()
         {
             Console.WriteLine("[INFO] Creating new package!");
             CreatePackage newPackage = new CreatePackage(null);
@@ -1430,8 +1445,11 @@ namespace AemulusModManager
             }
             return null;
         }
-
-        private async void MergeClick(object sender, RoutedEventArgs e)
+        private void MergeClick(object sender, RoutedEventArgs e)
+        {
+            MergeCommand();
+        }
+        private async void MergeCommand()
         {
             if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
@@ -1943,21 +1961,24 @@ namespace AemulusModManager
 
         private void OpenItem_Click(object sender, RoutedEventArgs e)
         {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (row != null)
+            foreach (var item in ModGrid.SelectedItems)
             {
-                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"))
+                DisplayedMetadata row = (DisplayedMetadata)item;
+                if (row != null)
                 {
-                    try
+                    if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"))
                     {
-                        ProcessStartInfo StartInformation = new ProcessStartInfo();
-                        StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
-                        Process process = Process.Start(StartInformation);
-                        Console.WriteLine($@"[INFO] Opened Packages\{game}\{row.path}.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{row.path} ({ex.Message})");
+                        try
+                        {
+                            ProcessStartInfo StartInformation = new ProcessStartInfo();
+                            StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
+                            Process process = Process.Start(StartInformation);
+                            Console.WriteLine($@"[INFO] Opened Packages\{game}\{row.path}.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{row.path} ({ex.Message})");
+                        }
                     }
                 }
             }
@@ -1965,103 +1986,112 @@ namespace AemulusModManager
 
         private void DeleteItem_Click(object sender, RoutedEventArgs e)
         {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (row != null)
+            var deleted = false;
+            foreach (var item in ModGrid.SelectedItems)
             {
-                NotificationBox notification = new NotificationBox($@"Are you sure you want to delete Packages\{game}\{row.path}?", false);
-                notification.ShowDialog();
-                Activate();
-                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}") && notification.YesNo)
+                var row = (DisplayedMetadata)item;
+                if (row != null)
                 {
-                    Console.WriteLine($@"[INFO] Deleted Packages\{game}\{row.path}.");
-                    try
+                    NotificationBox notification = new NotificationBox($@"Are you sure you want to delete Packages\{game}\{row.path}?", false);
+                    notification.ShowDialog();
+                    Activate();
+                    if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}") && notification.YesNo)
                     {
-                        setAttributesNormal(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"));
-                        DeleteDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}");
+                        Console.WriteLine($@"[INFO] Deleted Packages\{game}\{row.path}.");
+                        try
+                        {
+                            setAttributesNormal(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"));
+                            DeleteDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($@"[ERROR] Couldn't delete Packages\{game}\{row.path} ({ex.Message})");
+                        }
+                        deleted = true;
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($@"[ERROR] Couldn't delete Packages\{game}\{row.path} ({ex.Message})");
-                    }
-                    Refresh();
-                    updateConfig();
-                    updatePackages();
-                    ImageBehavior.SetAnimatedSource(Preview, bitmap);
-
-                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
-                        "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
-                        "the package has no description.)");
                 }
+            }
+            if (deleted)
+            {
+                Refresh();
+                updateConfig();
+                updatePackages();
+                ImageBehavior.SetAnimatedSource(Preview, bitmap);
+
+                Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                    "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                    "the package has no description.)");
             }
         }
 
         private void EditItem_Click(object sender, RoutedEventArgs e)
         {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (row != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
+            foreach (var item in ModGrid.SelectedItems)
             {
-                Metadata m = new Metadata();
-                m.name = row.name;
-                m.author = row.author;
-                m.id = row.id;
-                m.version = row.version;
-                m.link = row.link;
-                m.description = row.description;
-                m.skippedVersion = row.skippedVersion;
-                CreatePackage createPackage = new CreatePackage(m);
-                createPackage.ShowDialog();
-                if (createPackage.metadata != null)
+                DisplayedMetadata row = (DisplayedMetadata)item;
+                if (row != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
                 {
-                    try
+                    Metadata m = new Metadata();
+                    m.name = row.name;
+                    m.author = row.author;
+                    m.id = row.id;
+                    m.version = row.version;
+                    m.link = row.link;
+                    m.description = row.description;
+                    m.skippedVersion = row.skippedVersion;
+                    CreatePackage createPackage = new CreatePackage(m);
+                    createPackage.ShowDialog();
+                    if (createPackage.metadata != null)
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
+                        try
                         {
-                            try
+                            using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
                             {
-                                xsp.Serialize(streamWriter, createPackage.metadata);
+                                try
+                                {
+                                    xsp.Serialize(streamWriter, createPackage.metadata);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($@"[ERROR] Couldn't serialize Packages\{game}\{row.path}\Package.xml ({ex.Message})");
+                                }
                             }
-                            catch (Exception ex)
+                            if (FileIOWrapper.Exists(createPackage.thumbnailPath))
                             {
-                                Console.WriteLine($@"[ERROR] Couldn't serialize Packages\{game}\{row.path}\Package.xml ({ex.Message})");
+                                string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
+                                FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
+                                foreach (var p in previewFiles)
+                                    FileIOWrapper.Delete(p.FullName);
+                                string extension = Path.GetExtension(createPackage.thumbnailPath).ToLower();
+                                FileIOWrapper.Copy(createPackage.thumbnailPath, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Preview{extension}", true);
                             }
                         }
-                        if (FileIOWrapper.Exists(createPackage.thumbnailPath))
+                        catch (Exception ex)
                         {
-                            string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
-                            FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
-                            foreach (var p in previewFiles)
-                                FileIOWrapper.Delete(p.FullName);
-                            string extension = Path.GetExtension(createPackage.thumbnailPath).ToLower();
-                            FileIOWrapper.Copy(createPackage.thumbnailPath, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Preview{extension}", true);
+                            Console.WriteLine($"[ERROR] {ex.Message}");
                         }
-
-                        Refresh();
-                        updateConfig();
-                        updatePackages();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"[ERROR] {ex.Message}");
                     }
                 }
             }
+
+            Refresh();
+            updateConfig();
+            updatePackages();
         }
 
         private async void ZipItem_Click(object sender, RoutedEventArgs e)
         {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            if (row != null && Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"))
+            foreach (var item in ModGrid.SelectedItems)
             {
-                var openFolder = new System.Windows.Forms.SaveFileDialog();
-                openFolder.FileName = $"{row.path}.7z";
-                openFolder.Title = $"Select a file to zip to";
-                openFolder.Filter = "7zip | *.7z";
-                if (openFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                DisplayedMetadata row = (DisplayedMetadata)item;
+                if (row != null && Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"))
                 {
-                    await ZipItem($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}", openFolder.FileName);
-                    ProcessStartInfo StartInformation = new ProcessStartInfo();
-                    StartInformation.FileName = Path.GetDirectoryName(openFolder.FileName);
-                    Process process = Process.Start(StartInformation);
+                    var openFolder = new System.Windows.Forms.SaveFileDialog();
+                    openFolder.FileName = $"{row.path}.7z";
+                    openFolder.Title = $"Select a file to zip to";
+                    openFolder.Filter = "7zip | *.7z";
+                    if (openFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        await ZipItem($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}", openFolder.FileName);
                 }
             }
         }
@@ -2076,15 +2106,18 @@ namespace AemulusModManager
                 startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
                 if (!FileIOWrapper.Exists(startInfo.FileName))
                 {
-                    Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                    Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                     return;
                 }
+
+                if (FileIOWrapper.Exists(output))
+                    FileIOWrapper.Delete(output);
 
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.UseShellExecute = false;
                 startInfo.WorkingDirectory = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}";
                 startInfo.Arguments = $@"a ""{output}"" ""{Path.GetFileName(path)}/*""";
-                Console.WriteLine($@"[INFO] Zipping {path} into {output}\{Path.GetFileName(path)}.7z");
+                Console.WriteLine($@"[INFO] Zipping {path} into {output}");
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
@@ -2097,20 +2130,23 @@ namespace AemulusModManager
 
         private void ConvertCPK_Click(object sender, RoutedEventArgs e)
         {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            foreach (var folder in Directory.GetDirectories($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"))
+            foreach (var item in ModGrid.SelectedItems)
             {
-                if (Path.GetFileName(folder).StartsWith("data0"))
-                    MoveDirectory(folder, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}");
-                else if (Path.GetFileName(folder).StartsWith("movie0"))
-                    MoveDirectory(folder, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\movie");
-            }
-            // Convert the mods.aem file too
-            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem"))
-            {
-                string text = FileIOWrapper.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem");
-                text = Regex.Replace(text, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
-                FileIOWrapper.WriteAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem", text);
+                DisplayedMetadata row = (DisplayedMetadata)item;
+                foreach (var folder in Directory.GetDirectories($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"))
+                {
+                    if (Path.GetFileName(folder).StartsWith("data0"))
+                        MoveDirectory(folder, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\{Path.GetFileNameWithoutExtension(cpkLang)}");
+                    else if (Path.GetFileName(folder).StartsWith("movie0"))
+                        MoveDirectory(folder, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\movie");
+                }
+                // Convert the mods.aem file too
+                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem"))
+                {
+                    string text = FileIOWrapper.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem");
+                    text = Regex.Replace(text, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
+                    FileIOWrapper.WriteAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem", text);
+                }
             }
         }
 
@@ -2118,8 +2154,11 @@ namespace AemulusModManager
         {
             if (e.Key == Key.Space && ModGrid.CurrentColumn.Header.ToString() != "Enabled")
             {
-                var checkbox = ModGrid.Columns[0].GetCellContent(ModGrid.SelectedItem) as CheckBox;
-                checkbox.IsChecked = !checkbox.IsChecked;
+                foreach (var item in ModGrid.SelectedItems)
+                {
+                    var checkbox = ModGrid.Columns[0].GetCellContent(item) as CheckBox;
+                    checkbox.IsChecked = !checkbox.IsChecked;
+                }
             }
         }
 
@@ -2217,12 +2256,12 @@ namespace AemulusModManager
                 HHH.Visibility = Visibility.Collapsed;
                 Inaba.Visibility = Visibility.Collapsed;
                 config.game = game;
-                if (modPath == "" || modPath == null)
+                if (String.IsNullOrEmpty(modPath))
                 {
                     MergeButton.IsHitTestVisible = false;
                     MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
                 }
-                LaunchPopup.Text = $"Launch {game}";
+                LaunchPopup.Text = $"Launch {game}\n(Ctrl+L)";
                 if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                 {
                     Console.WriteLine($@"[INFO] Creating Packages\{game}");
@@ -2383,8 +2422,12 @@ namespace AemulusModManager
 
             Application.Current.Shutdown();
         }
-
         private void FolderButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            FolderCommand();
+        }
+
+        private void FolderCommand()
         {
             if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
             {
@@ -2795,8 +2838,11 @@ namespace AemulusModManager
 
         private async void UpdateItem_Click(object sender, RoutedEventArgs e)
         {
-            DisplayedMetadata row = (DisplayedMetadata)ModGrid.SelectedItem;
-            await UpdateItemAsync(row);
+            foreach (var item in ModGrid.SelectedItems)
+            {
+                DisplayedMetadata row = (DisplayedMetadata)item;
+                await UpdateItemAsync(row);
+            }
             ReplacePackagesXML();
             Refresh();
             updatePackages();
@@ -2848,6 +2894,11 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                 }
                 GameBox.IsHitTestVisible = true;
+                if (String.IsNullOrEmpty(modPath))
+                {
+                    MergeButton.IsHitTestVisible = false;
+                    MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                }
                 LoadoutBox.IsHitTestVisible = true;
                 return;
             }
@@ -2877,6 +2928,11 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
             }
             GameBox.IsHitTestVisible = true;
+            if (String.IsNullOrEmpty(modPath))
+            {
+                MergeButton.IsHitTestVisible = false;
+                MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+            }
             LoadoutBox.IsHitTestVisible = true;
         }
 
@@ -3713,6 +3769,40 @@ namespace AemulusModManager
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             BigScreenshot.MaxHeight = ActualHeight - 240;
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl))
+            {
+                switch (e.Key)
+                {
+                    case Key.R:
+                        if (RefreshButton.IsHitTestVisible)
+                            RefreshCommand();
+                        break;
+                    case Key.B:
+                        if (MergeButton.IsHitTestVisible)
+                            MergeCommand();
+                        break;
+                    case Key.L:
+                        if (LaunchButton.IsHitTestVisible)
+                            LaunchCommand();
+                        break;
+                    case Key.O:
+                        if (FolderButton.IsHitTestVisible)
+                            FolderCommand();
+                        break;
+                    case Key.N:
+                        if (NewButton.IsHitTestVisible)
+                            NewCommand();
+                        break;
+                    case Key.E:
+                        if (ConfigButton.IsHitTestVisible)
+                            ConfigWdwCommand();
+                        break;
+                }
+            }
         }
 
         private void LoadoutBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

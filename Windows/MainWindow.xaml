@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:AemulusModManager" xmlns:local1="clr-namespace:AemulusModManager.Utilities.Windows"
         mc:Ignorable="d" SizeChanged="Window_SizeChanged"
         Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
-        Background="#151515" Closing="Window_Closing">
+        Background="#151515" Closing="Window_Closing" KeyDown="Window_KeyDown">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
         <local1:ShowHiddenConverter x:Key="ShowHiddenConverter"/>
@@ -490,7 +490,11 @@
                                 <Border.Background>
                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
                                 </Border.Background>
-                                <TextBlock Margin="10" Text="Configure Paths and Settings" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                    Configure Paths and Settings
+                                    <LineBreak/>
+                                    (Ctrl+E)
+                                </TextBlock>
                             </Border>
                         </Popup>
                         <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="2" Grid.Row="0" Width="32"/>
@@ -502,7 +506,11 @@
                                 <Border.Background>
                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
                                 </Border.Background>
-                                <TextBlock Margin="10" Text="Refresh Packages in Grid" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                    Refresh Packages in Grid
+                                    <LineBreak/>
+                                    (Ctrl+R)
+                                </TextBlock>
                             </Border>
                         </Popup>
 
@@ -515,7 +523,11 @@
                                 <Border.Background>
                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
                                 </Border.Background>
-                                <TextBlock Margin="10" Text="Build and Merge Package Loadout" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                    Build and Merge Package Loadout
+                                    <LineBreak/>
+                                    (Ctrl+B)
+                                </TextBlock>
                             </Border>
                         </Popup>
                         <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="6" Grid.Row="0" Width="32"/>
@@ -539,7 +551,11 @@
                                 <Border.Background>
                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
                                 </Border.Background>
-                                <TextBlock Margin="10" Text="Open Package Folder" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                    Open Package Folder
+                                    <LineBreak/>
+                                    (Ctrl+O)
+                                </TextBlock>
                             </Border>
                         </Popup>
                         <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="7" Grid.Row="0" Width="23"/>
@@ -564,7 +580,7 @@
                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
                                 </Border.Background>
                                 <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
-                                    Create a New Package
+                                    Create a New Package (Ctrl+N)
                                     <LineBreak/>
                                     or Drag Existing Packages Here
                                 </TextBlock>
@@ -631,7 +647,7 @@
                           EnableColumnVirtualization="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" AlternatingRowBackground="#2A2A2A"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column" HorizontalScrollBarVisibility="Hidden"
-                          SelectionChanged="rowSelected" SelectionMode="Single" RowBackground="#202020" Foreground="#f2f2f2"
+                          SelectionChanged="rowSelected" SelectionMode="Extended" RowBackground="#202020" Foreground="#f2f2f2"
                           LoadingRow="ModGrid_LoadingRow" Background="#202020" ContextMenuOpening="ContextMenu_ContextMenuOpening"
                           HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="4,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
                                     <DataGrid.Resources>
