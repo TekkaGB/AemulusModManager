@@ -711,7 +711,7 @@
                                             <MenuItem Name="ConvertCPK" Header="Convert to CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
                                             <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
                                             <MenuItem Name="HideItem" Header="Hide Package" IsCheckable="False" IsEnabled="False" Click="HideItem_Click" Visibility="Collapsed"/>
-                                            <MenuItem Name="ShowItem" Header="Show Package" IsCheckable="False" IsEnabled="False" Click="ShowItem_Click" Visibility="Collapsed"/>
+                                            <MenuItem Name="ShowItem" Header="Unhide Package" IsCheckable="False" IsEnabled="False" Click="ShowItem_Click" Visibility="Collapsed"/>
                                             <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                                         </ContextMenu>
                                     </DataGrid.ContextMenu>
@@ -862,8 +862,22 @@
                                 </RichTextBox.Resources>
                             </RichTextBox>
                         </Grid>
-                        <ComboBox FontSize="18" FontWeight="SemiBold" x:Name="LoadoutBox" Margin="2,2.5,111.6,2.5" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="LoadoutBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LoadoutItems}" />
-                        <fa5:ImageAwesome Name="VisibilityButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ToggleHiddenClicked" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Icon="{Binding Value, Converter={StaticResource HiddenIconConverter}}" Width="35"/>
+
+                        <fa5:ImageAwesome Name="EditLoadoutButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="EditLoadoutButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Edit" Width="35" Grid.Column="1" Grid.Row="1"/>
+                        <Popup PlacementTarget="{Binding ElementName=EditLoadoutButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=EditLoadoutButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Name="EditLoadoutPopup" Text="Edit Current Loadout Details" Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+
+                        <ComboBox FontSize="18" FontWeight="SemiBold" Name="LoadoutBox" Margin="2,2.5,111.6,2.5" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="LoadoutBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding LoadoutItems}" />
+                        <fa5:ImageAwesome Name="VisibilityButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ToggleHiddenClicked" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Icon="{Binding Value, Converter={StaticResource HiddenIconConverter}}" Width="35"/>
                         <Popup PlacementTarget="{Binding ElementName=VisibilityButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=VisibilityButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>

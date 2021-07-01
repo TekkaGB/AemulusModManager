@@ -23,10 +23,36 @@ namespace AemulusModManager.Windows
     {
         private string game;
         public string name = "";
-        public CreateLoadout(string game)
+        public bool deleteLoadout = false;
+        private string originalName;
+        public CreateLoadout(string game, string currentName = null)
         {
             this.game = game;
+            originalName = currentName;
             InitializeComponent();
+            // Change title and text if editing an existing loadout
+            if (currentName != null)
+            {
+                Title = $"Edit {currentName} loadout";
+                name = currentName;
+                NameBox.Text = currentName;
+                // Remove copy loadou
+                CopyLoadout.IsEnabled = false;
+                CopyLoadout.Visibility = Visibility.Collapsed;
+                // Move the button grid up a row as the checkbox is gone
+                ButtonGrid.SetValue(Grid.RowProperty, 1);
+                Height = 120;
+            }
+            // Make the delete button invisible as this is a new loadout
+            else
+            {
+                DeleteButton.Visibility = Visibility.Collapsed;
+                DeleteButton.IsEnabled = false;
+                ButtonGrid.ColumnDefinitions.RemoveAt(2);
+                CreateButton.SetValue(Grid.ColumnProperty, 1);
+                CancelButton.SetValue(Grid.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+                CancelButton.SetValue(Grid.ColumnProperty, 0);
+            }
         }
 
         private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -44,14 +70,18 @@ namespace AemulusModManager.Windows
             if(NameBox.Text == "Add new loadout")
             {
                 Console.WriteLine("[ERROR] Invalid loadout name, try another one.");
+                NotificationBox notification = new NotificationBox($"Invalid loadout name, try another one.");
+                notification.ShowDialog();
             }
-            else if (!Directory.Exists($@"{System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{NameBox.Text}.xml"))
+            else if (!File.Exists($@"{System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{NameBox.Text}.xml"))
             {
                 Close();
             }
             else
             {
                 Console.WriteLine($"[ERROR] Loadout name {NameBox.Text} already exists, try another one.");
+                NotificationBox notification = new NotificationBox($"Loadout name {NameBox.Text} already exists, try another one.");
+                notification.ShowDialog();
             }
         }
 
@@ -59,6 +89,32 @@ namespace AemulusModManager.Windows
         {
             name = "";
             Close();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if there are more loadouts (you can't delete the last one)
+            string configPath = $@"{System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
+            string[] loadoutFiles = Directory.GetFiles($@"{configPath}\{game}").Where((path) => System.IO.Path.GetExtension(path) == ".xml").ToArray();
+            if(loadoutFiles.Length == 1)
+            {
+                NotificationBox notification = new NotificationBox($"You cannot delete the last loadout");
+                Console.WriteLine("[ERROR] You cannot delete the last loadout");
+                notification.ShowDialog();
+            } 
+            // Confirm that the user wants to delete the loadout
+            else
+            {
+                NotificationBox notification = new NotificationBox($"Are you sure you want to delete {originalName} loadout?\nThis cannot be undone.", false);
+                notification.ShowDialog();
+                if (notification.YesNo)
+                {
+                    deleteLoadout = true;
+                    Close();
+                }
+
+            }
+
         }
     }
 }

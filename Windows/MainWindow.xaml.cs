@@ -252,6 +252,7 @@ namespace AemulusModManager
                 buttons.Add(RefreshButton);
                 buttons.Add(DarkMode);
                 buttons.Add(VisibilityButton);
+                buttons.Add(EditLoadoutButton);
 
                 // Load in Config if it exists
 
@@ -783,6 +784,7 @@ namespace AemulusModManager
                     }
                     ModGrid.IsHitTestVisible = true;
                     GameBox.IsHitTestVisible = true;
+                    LoadoutBox.IsHitTestVisible = true;
                     if (!fromMain && buildFinished)
                     {
                         NotificationBox notification = new NotificationBox("Finished Unpacking!");
@@ -911,6 +913,7 @@ namespace AemulusModManager
                 }
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
+                LoadoutBox.IsHitTestVisible = false;
 
                 try
                 {
@@ -940,6 +943,7 @@ namespace AemulusModManager
                 }
                 ModGrid.IsHitTestVisible = true;
                 GameBox.IsHitTestVisible = true;
+                LoadoutBox.IsHitTestVisible = true;
             }
             else if (game == "Persona 5 Strikers")
                 Process.Start("steam://rungameid/1382330/option0");
@@ -1327,6 +1331,7 @@ namespace AemulusModManager
             }
             GameBox.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
+            LoadoutBox.IsHitTestVisible = false;
             Refresh();
             updateConfig();
             updatePackages();
@@ -1345,6 +1350,7 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
             }
             GameBox.IsHitTestVisible = true;
+            LoadoutBox.IsHitTestVisible = true;
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -1491,6 +1497,7 @@ namespace AemulusModManager
                 }
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
+                LoadoutBox.IsHitTestVisible = false;
 
                 fromMain = true;
 
@@ -1566,6 +1573,7 @@ namespace AemulusModManager
             }
             GameBox.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
+            LoadoutBox.IsHitTestVisible = false;
 
             await unpackThenMerge();
 
@@ -1583,6 +1591,7 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
             }
             GameBox.IsHitTestVisible = true;
+            LoadoutBox.IsHitTestVisible = true;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -2680,6 +2689,7 @@ namespace AemulusModManager
                 }
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
+                LoadoutBox.IsHitTestVisible = false;
 
                 await ExtractPackages(fileList);
 
@@ -2697,6 +2707,7 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                 }
                 GameBox.IsHitTestVisible = true;
+                LoadoutBox.IsHitTestVisible = true;
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -2818,6 +2829,7 @@ namespace AemulusModManager
             }
             GameBox.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
+            LoadoutBox.IsHitTestVisible = false;
             if (config.updateAemulus)
                 await UpdateAemulus();
             if (!updatesEnabled)
@@ -2836,6 +2848,7 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                 }
                 GameBox.IsHitTestVisible = true;
+                LoadoutBox.IsHitTestVisible = true;
                 return;
             }
             if (updateAll)
@@ -2864,6 +2877,7 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
             }
             GameBox.IsHitTestVisible = true;
+            LoadoutBox.IsHitTestVisible = true;
         }
 
         private async Task UpdateAemulus()
@@ -3714,6 +3728,14 @@ namespace AemulusModManager
                 }
                 else
                 {
+                    // Copy existing loadout
+                    if ((bool)createLoadout.CopyLoadout.IsChecked)
+                    {
+                        Console.WriteLine($"[INFO] Copying {LoadoutBox.Items[lastLoadout]} loadout to {createLoadout.name}");
+                        string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
+                        FileIOWrapper.Copy($@"{configPath}\{game}\{LoadoutBox.Items[lastLoadout]}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                    }
+
                     // Add the new loadout
                     var currentLoadout = LoadoutBox.SelectedItem;
                     loadoutUtils.LoadoutItems.RemoveAt(loadoutUtils.LoadoutItems.Count - 1);
@@ -3727,13 +3749,6 @@ namespace AemulusModManager
                         loadoutUtils.LoadoutItems.Add(item);
                     }
 
-                    // Copy existing loadout
-                    if ((bool)createLoadout.CopyLoadout.IsChecked)
-                    {
-                        Console.WriteLine($"[INFO] Copying {LoadoutBox.SelectedItem} loadout to {createLoadout.name}");
-                        string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
-                        FileIOWrapper.Copy($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
-                    }
 
                     // Update loadouts
                     loadoutUtils.LoadoutItems.Add("Add new loadout");
@@ -3893,6 +3908,52 @@ namespace AemulusModManager
                 updatePackages();
                 UpdateDisplay();
             }
+        }
+
+        private void EditLoadoutButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine($"[INFO] Began editing of {LoadoutBox.SelectedItem} loadout");
+            CreateLoadout createLoadout = new CreateLoadout(game, LoadoutBox.SelectedItem.ToString());
+            createLoadout.ShowDialog();
+            string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
+
+            if (createLoadout.deleteLoadout)
+            {
+                FileIOWrapper.Delete($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml");
+                Console.WriteLine($"[INFO] Successfully deleted {LoadoutBox.SelectedItem} loadout");
+                loadoutUtils.LoadoutItems.Remove(LoadoutBox.SelectedItem.ToString());
+                LoadoutBox.SelectedIndex = 0;
+            }
+            else if(createLoadout.name != "")
+            {
+                // Rename the current loadout to match the new name
+                FileIOWrapper.Move($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                
+                // Add the new loadout
+                var currentLoadout = LoadoutBox.SelectedItem;
+                loadoutUtils.LoadoutItems.RemoveAt(loadoutUtils.LoadoutItems.Count - 1);
+                loadoutUtils.LoadoutItems.Remove(currentLoadout.ToString());
+                loadoutUtils.LoadoutItems.Add(createLoadout.name);
+                var loadout = loadoutUtils.LoadoutItems.ToArray();
+                // Sort the loadout alphabetically
+                IOrderedEnumerable<string> orderLoadout = loadout.OrderBy(item => item);
+                loadoutUtils.LoadoutItems.Clear();
+                foreach (string item in orderLoadout)
+                {
+                    loadoutUtils.LoadoutItems.Add(item);
+                }
+
+                // Update loadouts
+                loadoutUtils.LoadoutItems.Add("Add new loadout");
+                LoadoutBox.SelectedItem = createLoadout.name;
+
+                Console.WriteLine($"[INFO] Finished editing loadout");
+            }
+            else
+            {
+                Console.WriteLine($"[INFO] Cancelled editing of {LoadoutBox.SelectedItem} loadout");
+            }
+
         }
     }
 }

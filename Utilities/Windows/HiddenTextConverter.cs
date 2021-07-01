@@ -12,7 +12,7 @@ namespace AemulusModManager.Utilities.Windows
     {
         public object Convert(object showingHidden, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)showingHidden ? "Hide all hidden packages" : "Show all hidden packages";
+            return (bool)showingHidden ? "Hide All Hidden Packages" : "Show All Hidden Packages";
         }
 
         public object ConvertBack(object showingHidden, Type targetType, object parameter, System.Globalization.CultureInfo culture)

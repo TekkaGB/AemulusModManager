@@ -25,13 +25,15 @@
         <Viewbox Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,80,0" Height="20" Grid.Row="1" Grid.Column="1">
             <CheckBox Name="CopyLoadout" Foreground ="White" Content="Copy Current Loadout"/>
         </Viewbox>
-        <Grid Grid.Row="2" Grid.Column="1">
+        <Grid Grid.Row="2" Grid.Column="1" Name="ButtonGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Name="CreateButton" Click="CreateButton_Click" IsEnabled="False" Background="White" Height="25" Width="75"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Confirm</Button>
-            <Button Name="CancelButton" Click="CancelButton_Click" Background="White" Height="25" Width="75" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">Cancel</Button>
+            <Button Name="DeleteButton" Click="DeleteButton_Click" Background="White" Height="25" Width="75"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">Delete</Button>
+            <Button Name="CreateButton" Click="CreateButton_Click" IsEnabled="False" Background="White" Height="25" Width="75"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">Confirm</Button>
+            <Button Name="CancelButton" Click="CancelButton_Click" Background="White" Height="25" Width="75" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left">Cancel</Button>
         </Grid>
     </Grid>
 </Window>
