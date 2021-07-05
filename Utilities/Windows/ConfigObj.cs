@@ -83,6 +83,7 @@ namespace AemulusModManager
         public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
+        public string CpkName { get; set; } = "mod";
     }
 
     public class ConfigP5S

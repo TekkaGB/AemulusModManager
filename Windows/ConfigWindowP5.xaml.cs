@@ -25,6 +25,8 @@ namespace AemulusModManager
                 EBOOTTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
                 RPCS3Textbox.Text = main.launcherPath;
+            if (main.config.p5Config.CpkName != null)
+                CpkNameTextbox.Text = main.config.p5Config.CpkName;
             BuildFinishedBox.IsChecked = main.config.p5Config.buildFinished;
             BuildWarningBox.IsChecked = main.config.p5Config.buildWarning;
             ChangelogBox.IsChecked = main.config.p5Config.updateChangelog;
@@ -127,6 +129,12 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
+            if (main.config.p5Config.CpkName != CpkNameTextbox.Text)
+            {
+                Console.WriteLine($"[INFO] Output Cpk changed to {CpkNameTextbox.Text}.cpk");
+                main.config.p5Config.CpkName = CpkNameTextbox.Text;
+                main.updateConfig();
+            }
             Console.WriteLine("[INFO] Config closed");
         }
 

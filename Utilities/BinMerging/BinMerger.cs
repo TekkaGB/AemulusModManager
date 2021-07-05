@@ -850,7 +850,7 @@ namespace AemulusModManager
             }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.Arguments = $"\"{modDir}\"";
-            Console.WriteLine("[INFO] Building mod.cpk...");
+            Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;

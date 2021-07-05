@@ -1616,7 +1616,7 @@ namespace AemulusModManager
 
                     if (game == "Persona 5")
                     {
-                        path = $@"{modPath}\mod";
+                        path = $@"{modPath}\{config.p5Config.CpkName}";
                         Directory.CreateDirectory(path);
                     }
 
@@ -1669,7 +1669,7 @@ namespace AemulusModManager
                     string path = modPath;
                     if (game == "Persona 5")
                     {
-                        path = $@"{modPath}\mod";
+                        path = $@"{modPath}\{config.p5Config.CpkName}";
                         Directory.CreateDirectory(path);
                     }
 
@@ -1715,8 +1715,10 @@ namespace AemulusModManager
                         if (game == "Persona 5")
                         {
                             binMerge.MakeCpk(path);
-                            if (!FileIOWrapper.Exists($@"{modPath}\mod.cpk"))
-                                Console.WriteLine("[ERROR] Failed to build mod.cpk!");
+                            if (!FileIOWrapper.Exists($@"{path}.cpk"))
+                            {
+                                Console.WriteLine($"[ERROR] Failed to build {path}.cpk!");
+                            }
                         }
 
                         if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
