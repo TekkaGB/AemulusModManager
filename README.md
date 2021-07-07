@@ -345,7 +345,7 @@ Also check to see if some of the modded files are located in your unpacked Origi
 ### What about mods that are made for Mod Compendium?
 These mods just need to have a simple directory change to make them work in Aemulus.  Just drop these mods in the Packages folder and hit refresh.  Aemulus will automatically convert these mods for you.
 
-### Why is my antivirus is acting up?
+### Why is my antivirus acting up?
 For some reason the latest update triggered some of my testers' antivirus programs.  Simply make AemulusPackageManager.exe an exception in order to use it.  The code base is now open source so feel free to look through it and even build it yourself if you're still worried about the antivirus notification.
 
 ## Future Plans
