@@ -40,6 +40,19 @@ namespace AemulusModManager
             bitmap.EndInit();
             Preview.Source = bitmap;
         }
+        public DownloadWindow(string name, string author, Uri image = null)
+        {
+            InitializeComponent();
+            if(image != null)
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = image;
+                bitmap.EndInit();
+                Preview.Source = bitmap;
+            }
+            DownloadText.Text = $"{name}\nSubmitted by {author}";
+        }
         private void Yes_Click(object sender, RoutedEventArgs e)
         {
             YesNo = true;

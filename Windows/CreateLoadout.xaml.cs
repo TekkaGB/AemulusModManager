@@ -25,7 +25,7 @@ namespace AemulusModManager.Windows
         public string name = "";
         public bool deleteLoadout = false;
         private string originalName;
-        public CreateLoadout(string game, string currentName = null)
+        public CreateLoadout(string game, string currentName = null, bool noDelete = false)
         {
             this.game = game;
             originalName = currentName;
@@ -43,8 +43,8 @@ namespace AemulusModManager.Windows
                 ButtonGrid.SetValue(Grid.RowProperty, 1);
                 Height = 120;
             }
-            // Make the delete button invisible as this is a new loadout
-            else
+            // Make the delete button invisible as this is a new loadout or renaming an imported one
+            if(currentName == null || noDelete)
             {
                 DeleteButton.Visibility = Visibility.Collapsed;
                 DeleteButton.IsEnabled = false;

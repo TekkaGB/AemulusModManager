@@ -111,6 +111,7 @@ namespace AemulusModManager
         public bool enabled { get; set; }
         public string id { get; set; }
         public bool hidden { get; set; } = false;
+        public string link { get; set; }
     }
 
     public class Metadata
