@@ -36,7 +36,7 @@ namespace AemulusModManager
 
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.UseShellExecute = false;
-            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + @"Original\Persona 3 FES" + "\" BTL.CVM DATA.CVM";
+            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES" + "\" BTL.CVM DATA.CVM";
             Console.WriteLine($"[INFO] Extracting BTL.CVM and DATA.CVM from {iso}");
             using (Process process = new Process())
             {
