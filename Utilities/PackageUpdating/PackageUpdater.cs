@@ -566,7 +566,7 @@ namespace AemulusModManager
                         File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
                     }
                 }
-                FileIOWrapper.Delete(file);
+                FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{file}");
             }
             else
             {
