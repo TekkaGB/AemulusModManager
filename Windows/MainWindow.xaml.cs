@@ -4122,18 +4122,12 @@ namespace AemulusModManager
                     }
                 }
 
-                // Check if there are any packages (actual folders) that aren't in the old displayed packages
-                string[] allPackages = Directory.GetDirectories($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Packages/{game}").Select(directory => Path.GetFileName(directory)).ToArray();
-                string[] allDisplayedPackages = DisplayedPackages.Select(package => package.path).ToArray();
-                foreach (string package in allPackages)
+                // Check if there are any missing packages 
+                if(DisplayedPackages.Count != PackageList.Count)
                 {
-                    if (!allDisplayedPackages.Contains(package))
-                    {
-                        Refresh();
-                        updatePackages();
-                        UpdateDisplay();
-                        break;
-                    }
+                    Refresh();
+                    updatePackages();
+                    UpdateDisplay();
                 }
             }
         }
