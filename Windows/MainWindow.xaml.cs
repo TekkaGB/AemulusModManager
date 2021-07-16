@@ -4125,11 +4125,14 @@ namespace AemulusModManager
                 }
 
                 // Check if there are any missing packages 
-                if(DisplayedPackages.Count != PackageList.Count)
+                foreach(var package in oldDisplayedPackages)
                 {
-                    Refresh();
-                    updatePackages();
-                    UpdateDisplay();
+                    if(package.id != null && !PackageList.Any(p => p.id == package.id))
+                    {
+                        Refresh();
+                        updatePackages();
+                        UpdateDisplay();
+                    }
                 }
             }
         }
