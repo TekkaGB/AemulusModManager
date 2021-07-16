@@ -72,7 +72,7 @@ namespace AemulusModManager
         private bool updating = false;
         private CancellationTokenSource cancellationToken;
         private Loadouts loadoutUtils;
-        private int lastLoadout;
+        private string lastLoadout;
         private string lastGame;
         public Prop<bool> showHidden { get; set; }
 
@@ -408,11 +408,11 @@ namespace AemulusModManager
                     if (LoadoutBox.Items.Contains(selectedLoadout))
                     {
                         LoadoutBox.SelectedItem = selectedLoadout;
-                        lastLoadout = LoadoutBox.SelectedIndex;
+                        lastLoadout = LoadoutBox.SelectedItem.ToString();
                     }
                     else
                     {
-                        lastLoadout = 0;
+                        lastLoadout = null;
                         LoadoutBox.SelectedIndex = 0;
                     }
 
@@ -765,7 +765,7 @@ namespace AemulusModManager
                         }
                     }
                     Refresh();
-                    updatePackages();
+                    updatePackages(lastLoadout);
                 }
             }
         }
@@ -3987,6 +3987,8 @@ namespace AemulusModManager
 
         private void LoadoutBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lastLoadout == null)
+                lastLoadout = LoadoutBox.Items[0].ToString();
             // Add a new loadout
             if (LoadoutBox.SelectedItem != null && LoadoutBox.SelectedItem.ToString() == "Add new loadout")
             {
@@ -3994,7 +3996,7 @@ namespace AemulusModManager
                 createLoadout.ShowDialog();
                 if (createLoadout.name == "")
                 {
-                    LoadoutBox.SelectedIndex = lastLoadout;
+                    LoadoutBox.SelectedItem = lastLoadout;
                     Console.WriteLine("[INFO] Cancelled loadout creation");
                 }
                 else
@@ -4002,9 +4004,9 @@ namespace AemulusModManager
                     // Copy existing loadout
                     if ((bool)createLoadout.CopyLoadout.IsChecked)
                     {
-                        Console.WriteLine($"[INFO] Copying {LoadoutBox.Items[lastLoadout]} loadout to {createLoadout.name}");
+                        Console.WriteLine($"[INFO] Copying {lastLoadout} loadout to {createLoadout.name}");
                         string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
-                        FileIOWrapper.Copy($@"{configPath}\{game}\{LoadoutBox.Items[lastLoadout]}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                        FileIOWrapper.Copy($@"{configPath}\{game}\{lastLoadout}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
                     }
                     else
                     {
@@ -4048,7 +4050,7 @@ namespace AemulusModManager
             // Actually change the loadout
             else if (LoadoutBox.SelectedItem != null)
             {
-                lastLoadout = LoadoutBox.SelectedIndex;
+                lastLoadout = LoadoutBox.SelectedItem.ToString();
 
                 // Update the config
                 selectedLoadout = LoadoutBox.SelectedItem.ToString();
