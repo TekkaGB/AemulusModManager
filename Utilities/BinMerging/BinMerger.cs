@@ -842,14 +842,14 @@ namespace AemulusModManager
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\CpkMakeC\cpkmakec.exe";
             if (!FileIOWrapper.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{modDir}\"";
+            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME -crc";
             Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
             using (Process process = new Process())
             {
