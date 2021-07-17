@@ -1948,22 +1948,24 @@ namespace AemulusModManager
         // Update config order when rows are changed
         private void ModGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            DisplayedMetadata dm = (DisplayedMetadata)e.Row.Item;
-            foreach (var p in PackageList.ToList())
+            if(IsLoaded)
             {
-                if (dm.path == p.path && PackageList.Count >= DisplayedPackages.Count)
+                DisplayedMetadata dm = (DisplayedMetadata)e.Row.Item;
+                var package = PackageList.FirstOrDefault(package => package.path == dm.path);
+                if(package != null)
                 {
-                    Package temp = p;
-                    PackageList.Remove(p);
+                    Package temp = package;
+                    PackageList.Remove(package);
                     int dmIndex = DisplayedPackages.IndexOf(dm);
                     if (dmIndex != -1 && dmIndex <= PackageList.Count)
                         PackageList.Insert(dmIndex, temp);
                     else
                         PackageList.Add(temp);
+
+                    updateConfig();
+                    updatePackages();
                 }
             }
-            updateConfig();
-            updatePackages();
         }
 
         private FlowDocument ConvertToFlowDocument(string text)
