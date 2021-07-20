@@ -469,7 +469,7 @@
                             <RowDefinition Height="13*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -601,7 +601,7 @@
                                 <TextBlock Name="DarkModePopup" Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
                             </Border>
                         </Popup>
-                        <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="49" Grid.Column="0"  Grid.Row="0" >
+                        <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="50" Width="75"  Grid.Column="0"  Grid.Row="0" >
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
