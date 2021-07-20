@@ -7,12 +7,15 @@
         xmlns:fa5="http://schemas.fontawesome.com/icons/"
         xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
-        xmlns:local="clr-namespace:AemulusModManager"
+        xmlns:local="clr-namespace:AemulusModManager" xmlns:local1="clr-namespace:AemulusModManager.Utilities.Windows"
         mc:Ignorable="d" SizeChanged="Window_SizeChanged"
-        Title="Aemulus Package Manager v" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
+        Title="Aemulus Package Manager" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
         Background="#151515" Closing="Window_Closing" KeyDown="Window_KeyDown">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
+        <local1:ShowHiddenConverter x:Key="ShowHiddenConverter"/>
+        <local1:HiddenIconConverter x:Key="HiddenIconConverter"/>
+        <local1:HiddenTextConverter x:Key="HiddenTextConverter"/>
         <FontFamily x:Key="Jost">../Assets/#Jost</FontFamily>
         <FontFamily x:Key="Monospace">../Assets/#Roboto Mono</FontFamily>
 
@@ -147,7 +150,7 @@
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <TextBlock Grid.Row="1" FontSize="22" FontFamily="{StaticResource Jost}" x:Name="Title" VerticalAlignment="Center" Margin="5" FontWeight="SemiBold" TextTrimming="WordEllipsis" Background="Transparent"  Foreground="#f2f2f2" Text="{Binding Path=Title}"/>
-                        <Popup PlacementTarget="{Binding ElementName=Title}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=Title, Mode=OneWay}" AllowsTransparency="True">
+                    <Popup PlacementTarget="{Binding ElementName=Title}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=Title, Mode=OneWay}" AllowsTransparency="True">
                         <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                             <Border.BorderBrush>
                                 <SolidColorBrush Color="#101010" Opacity="0.9"/>
@@ -194,29 +197,29 @@
                             </TextBlock.Style>
                         </TextBlock>
                     </Grid>
-                        <Popup PlacementTarget="{Binding ElementName=CatGrid}" HorizontalAlignment="Center" AllowsTransparency="True">
-                            <Popup.Style>
-                                <Style TargetType="Popup">
-                                    <Setter Property="IsOpen" Value="True"/>
-                                    <Style.Triggers>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatGrid}" Value="False"/>
-                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatIcon}" Value="False" />
-                                                <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatText}" Value="False" />
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter Property="IsOpen" Value="False"/>
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Popup.Style>
-                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
-                                <Border.BorderBrush>
-                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
-                                </Border.BorderBrush>
-                                <Border.Background>
-                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
-                                </Border.Background>
+                    <Popup PlacementTarget="{Binding ElementName=CatGrid}" HorizontalAlignment="Center" AllowsTransparency="True">
+                        <Popup.Style>
+                            <Style TargetType="Popup">
+                                <Setter Property="IsOpen" Value="True"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatGrid}" Value="False"/>
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatIcon}" Value="False" />
+                                            <Condition Binding="{Binding IsMouseDirectlyOver, ElementName=CatText}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsOpen" Value="False"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Popup.Style>
+                        <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                            </Border.Background>
                             <Grid HorizontalAlignment="Center" Grid.Row="5" Background="Transparent">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -237,7 +240,7 @@
                                 </TextBlock>
                             </Grid>
                         </Border>
-                        </Popup>
+                    </Popup>
                     <Popup MaxWidth="400" PlacementTarget="{Binding ElementName=Desc}" AllowsTransparency="True">
                         <Popup.Style>
                             <Style TargetType="Popup">
@@ -405,7 +408,6 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        
         <TextBox Panel.ZIndex="3" x:Name="StatText" Background="Transparent" BorderThickness="0" IsReadOnly="True" Margin="5" VerticalAlignment="Top" HorizontalAlignment="Right" Width="650" FontFamily="{StaticResource Jost}" Foreground ="#9c9c9c" TextAlignment="Right" FontSize="20">
             <TextBox.Style>
                 <Style TargetType="TextBox">
@@ -458,15 +460,21 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
+            
             <TabItem Name="ManagerTab" FontSize="18" HorizontalAlignment="Center" Header="Manage Packages">
                 <TabItem.Content>
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="50"/>
                             <RowDefinition Height="13*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -476,8 +484,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-
-                        <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0" Icon="Solid_Cog" Width="35"/>
+                        <fa5:ImageAwesome Name="ConfigButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ConfigWdwClick" VerticalAlignment="Center" Grid.Column="6" Grid.Row="0" Icon="Solid_Cog" Width="35"/>
                         <Popup PlacementTarget="{Binding ElementName=ConfigButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=ConfigButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -493,7 +500,7 @@
                                 </TextBlock>
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="2" Grid.Row="0" Width="32"/>
+                        <fa5:ImageAwesome Name="RefreshButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="RefreshClick" VerticalAlignment="Center" Icon="Solid_SyncAlt" Grid.Column="7" Grid.Row="0" Width="32"/>
                         <Popup PlacementTarget="{Binding ElementName=RefreshButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=RefreshButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -510,7 +517,7 @@
                             </Border>
                         </Popup>
 
-                        <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="3" Grid.Row="0" Width="35"/>
+                        <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="8" Grid.Row="0" Width="35"/>
                         <Popup PlacementTarget="{Binding ElementName=MergeButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=MergeButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -526,7 +533,7 @@
                                 </TextBlock>
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="6" Grid.Row="0" Width="32"/>
+                        <fa5:ImageAwesome Name="LaunchButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LaunchClick"  VerticalAlignment="Center" Icon="Solid_Rocket" Grid.Column="9" Grid.Row="0" Width="32"/>
                         <Popup PlacementTarget="{Binding ElementName=LaunchButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=LaunchButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -538,7 +545,7 @@
                                 <TextBlock Name="LaunchPopup" Margin="10" Text="Launch Game" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="5" Grid.Row="0" Width="35"/>
+                        <fa5:ImageAwesome Name="FolderButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="FolderButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_FolderOpen" Grid.Column="11" Grid.Row="0" Width="35"/>
                         <Popup PlacementTarget="{Binding ElementName=FolderButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=FolderButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -554,7 +561,7 @@
                                 </TextBlock>
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="7" Grid.Row="0" Width="23"/>
+                        <fa5:ImageAwesome Name="SwapButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="SwapButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Sort" Grid.Column="12" Grid.Row="0" Width="23"/>
                         <Popup PlacementTarget="{Binding ElementName=SwapButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=SwapButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -566,7 +573,7 @@
                                 <TextBlock Name="PriorityPopup" Margin="10" Text="Switch Order of Priority" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="4" Grid.Row="0" Width="37"/>
+                        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="10" Grid.Row="0" Width="37"/>
                         <Popup PlacementTarget="{Binding ElementName=NewButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=NewButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -582,7 +589,7 @@
                                 </TextBlock>
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="DarkMode" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LightMode_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Adjust" Width="23" Grid.Column="8" Grid.Row="0"/>
+                        <fa5:ImageAwesome Name="DarkMode" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="LightMode_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Adjust" Width="23" Grid.Column="13" Grid.Row="0"/>
                         <Popup PlacementTarget="{Binding ElementName=DarkMode}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=DarkMode, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -594,7 +601,7 @@
                                 <TextBlock Name="DarkModePopup" Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
                             </Border>
                         </Popup>
-                        <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40" Grid.Column="0" Grid.Row="0" >
+                        <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="49" Grid.Column="0"  Grid.Row="0" >
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
@@ -621,9 +628,7 @@
                             </ComboBoxItem>
                         </ComboBox>
 
-
-
-                        <Grid Name="MainGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="1">
+                        <Grid Name="MainGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="14" Grid.Column="0" Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="15*"/>
                                 <RowDefinition Height="Auto"/>
@@ -658,6 +663,22 @@
                                             <Setter Property="FontWeight" Value="SemiBold"/>
                                         </Style>
                                     </DataGrid.Resources>
+                                    <DataGrid.RowStyle>
+                                        <Style TargetType="{x:Type DataGridRow}">
+                                            <Style.Triggers>
+                                                <DataTrigger Value="true">
+                                                    <DataTrigger.Binding>
+                                                        <MultiBinding Converter="{StaticResource ShowHiddenConverter}">
+                                                            <Binding Path="hidden" />
+                                                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Window}}" Path="DataContext.showHidden.Value"/>
+                                                        </MultiBinding>
+                                                    </DataTrigger.Binding>
+
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.RowStyle>
                                     <DataGrid.Columns>
                                         <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding enabled, Mode=TwoWay}" IsReadOnly="False" Width="52">
                                             <DataGridCheckBoxColumn.CellStyle>
@@ -706,6 +727,8 @@
                                             <MenuItem Header="Zip Package" IsCheckable="False" Click="ZipItem_Click"/>
                                             <MenuItem Name="ConvertCPK" Header="Convert to CPK Structure" IsCheckable="False" IsEnabled="False" Click="ConvertCPK_Click"/>
                                             <MenuItem Name="UpdateItem" Header="Check For Updates" IsCheckable="False" IsEnabled="False" Click="UpdateItem_Click"/>
+                                            <MenuItem Name="HideItem" Header="Hide Package" IsCheckable="False" IsEnabled="False" Click="HideItem_Click" Visibility="Collapsed"/>
+                                            <MenuItem Name="ShowItem" Header="Unhide Package" IsCheckable="False" IsEnabled="False" Click="ShowItem_Click" Visibility="Collapsed"/>
                                             <MenuItem Header="Delete Package" IsCheckable="False" Click="DeleteItem_Click"/>
                                         </ContextMenu>
                                     </DataGrid.ContextMenu>
@@ -756,13 +779,13 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Name="Reqs" Visibility="Collapsed" FontSize="20" FontWeight="SemiBold" Width="135" Margin="4,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Foreground="White">Requirements:</TextBlock>
-                                    <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="3" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
-                                        <Button.Template>
-                                            <ControlTemplate>
-                                                <Image Source="../Assets/Inaba.png"/>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                    </Button>
+                                        <Button Name="Inaba" Visibility="Collapsed" Cursor="Hand" Grid.Column="1" Margin="3" HorizontalAlignment="Left" Height="50" Width="50" Click="Inaba_Click">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Image Source="../Assets/Inaba.png"/>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                         <Button Name="HHH" Visibility="Collapsed" Cursor="Hand" Grid.Column="2" HorizontalAlignment="Left" Margin="3" Height="50" Width="50" Click="HHH_Click">
                                             <Button.Template>
                                                 <ControlTemplate>
@@ -856,6 +879,35 @@
                                 </RichTextBox.Resources>
                             </RichTextBox>
                         </Grid>
+
+                        <fa5:ImageAwesome Name="EditLoadoutButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="EditLoadoutButton_PreviewMouseLeftButtonDown" VerticalAlignment="Center" Icon="Solid_Edit" Width="35" Grid.Column="4" Grid.Row="0"/>
+                        <Popup PlacementTarget="{Binding ElementName=EditLoadoutButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=EditLoadoutButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Name="EditLoadoutPopup" Text="Edit Current Loadout Details" Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+
+                        <Border Grid.Column="1" Grid.ColumnSpan="5" Background="#393939" Panel.ZIndex="-1" Margin="10,0,0,0"/>
+                        <ComboBox FontSize="18" FontWeight="SemiBold" Name="LoadoutBox" Margin="15,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="LoadoutBox_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center"  Height="40" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" ItemsSource="{Binding LoadoutItems}" />
+                        <fa5:ImageAwesome Name="VisibilityButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="ToggleHiddenClicked" VerticalAlignment="Center" Grid.Column="5" Grid.Row="0" Icon="{Binding Value, Converter={StaticResource HiddenIconConverter}}" Width="35"/>
+                        <Popup PlacementTarget="{Binding ElementName=VisibilityButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=VisibilityButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Name="ShowHiddenText" Text="{Binding Value, Converter={StaticResource HiddenTextConverter}}" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                            </Border>
+                        </Popup>
+
                     </Grid>
                 </TabItem.Content>
             </TabItem>
@@ -931,7 +983,7 @@
                         <Border Grid.ColumnSpan="2" BorderThickness="0">
                             <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Text="{Binding Path=Title}" TextTrimming="WordEllipsis" Foreground="#f2f2f2" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="45" Padding="3"/>
                         </Border>
-                        
+
                         <StackPanel Name="ImagePanel" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                             <Grid HorizontalAlignment="Center" >
                                 <Grid.ColumnDefinitions>
@@ -945,7 +997,7 @@
                                 <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ImageRight_Click" Name="ImageRight" Content=">" Height="50" Width="50" FontFamily="{StaticResource Jost}" FontWeight="SemiBold" FontSize="20"/>
                             </Grid>
                             <TextBlock Name="CaptionText" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" FontSize="18" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Padding="5"/>
-                            
+
                         </StackPanel>
                         <StackPanel Name="AudioPanel" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2">
                             <Border Margin="20" Background="Black" Width="350" Height="350">
@@ -984,11 +1036,11 @@
                             <Border Name="DownloadButton" Background="#9a0000" Margin="0,0,20,0" CornerRadius="2" Height="50" Width="200">
                                 <Button Margin="3" Click="Download_Click" Content="Download" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
                                     <Button.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="2"/>
-                                    </Style>
-                                </Button.Resources>
-                            </Button>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="2"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
                             </Border>
                             <Button Name="HomepageButton" Click="Homepage_Click" Margin="0,0,20,0" Height="50" Width="200" FontSize="20" FontWeight="SemiBold" Foreground="#f2f2f2">
                                 <Button.Resources>
@@ -1034,16 +1086,16 @@
                             </ComboBoxItem>
                         </ComboBox>
                         <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" Name="FilterBox" Height="40" Width="140" FontSize="18" FontWeight="SemiBold" SelectionChanged="FilterSelectionChanged">
-                            <ComboBoxItem xml:space="preserve"> Featured</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve" IsSelected="True"> Recent</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve"> Popular</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve">Featured</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve" IsSelected="True">Recent</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve">Popular</ComboBoxItem>
                         </ComboBox>
                         <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" FontWeight="SemiBold" FontSize="18" Name="TypeBox" Height="40" Width="125" SelectionChanged="TypeFilterSelectionChanged">
-                            <ComboBoxItem xml:space="preserve" IsSelected="True"> Mods</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve"> WiPs</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve"> Sounds</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve"> Tools</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve"> Tutorials</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve" IsSelected="True">Mods</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve">WiPs</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve">Sounds</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve">Tools</ComboBoxItem>
+                            <ComboBoxItem xml:space="preserve">Tutorials</ComboBoxItem>
                         </ComboBox>
                         <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" Name="CatBox" Height="40" Width="250" SelectionChanged="MainFilterSelectionChanged">
                             <ComboBox.ItemTemplate>

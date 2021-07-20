@@ -28,6 +28,8 @@ using System.Windows.Controls.Primitives;
 using AemulusModManager.Utilities.PackageUpdating;
 using Vlc.DotNet.Core;
 using AemulusModManager.Windows;
+using AemulusModManager.Utilities.Windows;
+using System.ComponentModel;
 
 namespace AemulusModManager
 {
@@ -47,6 +49,7 @@ namespace AemulusModManager
         public string modPath;
         private ObservableCollection<Package> PackageList;
         private ObservableCollection<DisplayedMetadata> DisplayedPackages;
+        private ObservableCollection<ComboBoxItem> LoadoutItems;
         public bool emptySND;
         public bool useCpk;
         public bool buildWarning;
@@ -61,12 +64,17 @@ namespace AemulusModManager
         public string launcherPath;
         public string elfPath;
         public string cpkLang;
+        public string selectedLoadout;
         private BitmapImage bitmap;
         public List<FontAwesome5.ImageAwesome> buttons;
         private PackageUpdater packageUpdater;
         private string aemulusVersion;
         private bool updating = false;
         private CancellationTokenSource cancellationToken;
+        private Loadouts loadoutUtils;
+        private string lastLoadout;
+        private string lastGame;
+        public Prop<bool> showHidden { get; set; }
 
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
@@ -152,14 +160,14 @@ namespace AemulusModManager
             string text = (string)e.Value;
             this.Dispatcher.Invoke(() =>
             {
-            if (text.StartsWith("[INFO]"))
-                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", infoColor);
-            else if (text.StartsWith("[WARNING]"))
-                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", warningColor);
-            else if (text.StartsWith("[ERROR]"))
-                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", errorColor);
-            else
-                ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", normalColor);
+                if (text.StartsWith("[INFO]"))
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", infoColor);
+                else if (text.StartsWith("[WARNING]"))
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", warningColor);
+                else if (text.StartsWith("[ERROR]"))
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", errorColor);
+                else
+                    ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", normalColor);
             });
         }
 
@@ -244,6 +252,8 @@ namespace AemulusModManager
                 buttons.Add(LaunchButton);
                 buttons.Add(RefreshButton);
                 buttons.Add(DarkMode);
+                buttons.Add(VisibilityButton);
+                buttons.Add(EditLoadoutButton);
 
                 // Load in Config if it exists
 
@@ -275,6 +285,7 @@ namespace AemulusModManager
                                 game = "Persona 4 Golden";
                                 config.game = "Persona 4 Golden";
                             }
+                            lastGame = config.game;
 
                             bottomUpPriority = config.bottomUpPriority;
 
@@ -294,6 +305,7 @@ namespace AemulusModManager
                                     config.p4gConfig.cpkLang = "data_e.cpk";
                                 }
                                 modPath = config.p4gConfig.modDir;
+                                selectedLoadout = config.p4gConfig.loadout;
                                 gamePath = config.p4gConfig.exePath;
                                 launcherPath = config.p4gConfig.reloadedPath;
                                 emptySND = config.p4gConfig.emptySND;
@@ -311,6 +323,7 @@ namespace AemulusModManager
                             else if (game == "Persona 3 FES")
                             {
                                 modPath = config.p3fConfig.modDir;
+                                selectedLoadout = config.p3fConfig.loadout;
                                 gamePath = config.p3fConfig.isoPath;
                                 elfPath = config.p3fConfig.elfPath;
                                 launcherPath = config.p3fConfig.launcherPath;
@@ -328,6 +341,7 @@ namespace AemulusModManager
                             else if (game == "Persona 5")
                             {
                                 modPath = config.p5Config.modDir;
+                                selectedLoadout = config.p5Config.loadout;
                                 gamePath = config.p5Config.gamePath;
                                 launcherPath = config.p5Config.launcherPath;
                                 buildWarning = config.p5Config.buildWarning;
@@ -344,6 +358,7 @@ namespace AemulusModManager
                             else if (game == "Persona 5 Strikers")
                             {
                                 modPath = config.p5sConfig.modDir;
+                                selectedLoadout = config.p5sConfig.loadout;
                                 gamePath = null;
                                 launcherPath = null;
                                 buildWarning = config.p5sConfig.buildWarning;
@@ -386,11 +401,28 @@ namespace AemulusModManager
                             break;
                     }
 
-                    if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml"))
+                    // Initialise loadouts
+                    loadoutUtils = new Loadouts(game);
+                    LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
+
+                    if (LoadoutBox.Items.Contains(selectedLoadout))
+                    {
+                        LoadoutBox.SelectedItem = selectedLoadout;
+                        lastLoadout = LoadoutBox.SelectedItem.ToString();
+                    }
+                    else
+                    {
+                        lastLoadout = null;
+                        LoadoutBox.SelectedIndex = 0;
+                    }
+
+
+                    // Load the current loadout
+                    if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
                     {
                         try
                         {
-                            using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                            using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
                             {
                                 // Call the Deserialize method and cast to the object type.
                                 packages = (Packages)xp.Deserialize(streamWriter);
@@ -399,10 +431,15 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
+                            Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                         }
                     }
 
+                    showHidden = new Prop<bool>();
+                    showHidden.Value = packages.showHiddenPackages;
+
+                    VisibilityButton.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;
 
                     if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                     {
@@ -439,6 +476,8 @@ namespace AemulusModManager
                                     dm.link = m.link;
                                     dm.description = m.description;
                                     dm.skippedVersion = m.skippedVersion;
+                                    package.name = m.name;
+                                    package.link = m.link;
                                 }
                             }
                             catch (Exception ex)
@@ -450,6 +489,7 @@ namespace AemulusModManager
 
                         dm.path = package.path;
                         dm.enabled = package.enabled;
+                        dm.hidden = package.hidden;
                         DisplayedPackages.Add(dm);
                     }
                     ModGrid.ItemsSource = DisplayedPackages;
@@ -459,13 +499,17 @@ namespace AemulusModManager
                 {
                     game = "Persona 4 Golden";
                     config.game = "Persona 4 Golden";
+                    lastGame = "Persona 4 Golden";
                     cpkLang = "data_e.cpk";
                     config.p4gConfig.cpkLang = "data_e.cpk";
                     foreach (var button in buttons)
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+
+                    // Initialise loadouts
+                    loadoutUtils = new Loadouts(game);
+                    LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
+                    LoadoutBox.SelectedIndex = 0;
                 }
-
-
 
                 if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "" && config.p4gConfig.modDir != null)
                     modPath = config.p4gConfig.modDir;
@@ -704,6 +748,8 @@ namespace AemulusModManager
                                         dm.link = m.link;
                                         dm.description = m.description;
                                         dm.skippedVersion = m.skippedVersion;
+                                        package.name = m.name;
+                                        package.link = m.link;
                                     }
                                 }
                                 catch (Exception ex)
@@ -714,11 +760,12 @@ namespace AemulusModManager
                             }
                             dm.path = package.path;
                             dm.enabled = package.enabled;
+                            dm.hidden = package.hidden;
                             DisplayedPackages.Add(dm);
                         }
                     }
                     Refresh();
-                    updatePackages();
+                    updatePackages(lastLoadout);
                 }
             }
         }
@@ -752,6 +799,7 @@ namespace AemulusModManager
                     }
                     ModGrid.IsHitTestVisible = true;
                     GameBox.IsHitTestVisible = true;
+                    LoadoutBox.IsHitTestVisible = true;
                     if (!fromMain && buildFinished)
                     {
                         NotificationBox notification = new NotificationBox("Finished Unpacking!");
@@ -883,22 +931,23 @@ namespace AemulusModManager
                 }
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
+                LoadoutBox.IsHitTestVisible = false;
 
-            try 
-            {
-                using (Process process = new Process())
+                try
                 {
-                    process.StartInfo = startInfo;
-                    process.Start();
-                    //process.WaitForExit(); // Freezes aemulus
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        //process.WaitForExit(); // Freezes aemulus
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[ERROR] {ex.Message}");
-            }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"[ERROR] {ex.Message}");
+                }
 
-            foreach (var button in buttons)
+                foreach (var button in buttons)
                 {
                     button.IsHitTestVisible = true;
                     if (game == "Persona 3 FES")
@@ -912,6 +961,7 @@ namespace AemulusModManager
                 }
                 ModGrid.IsHitTestVisible = true;
                 GameBox.IsHitTestVisible = true;
+                LoadoutBox.IsHitTestVisible = true;
             }
             else if (game == "Persona 5 Strikers")
                 Process.Start("steam://rungameid/1382330/option0");
@@ -1027,7 +1077,7 @@ namespace AemulusModManager
                     temp.RemoveAll(x => x.path == package.path);
                     DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
                 }
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                else if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
                 {
                     try
                     {
@@ -1072,19 +1122,39 @@ namespace AemulusModManager
                             continue;
                         }
                         // Add package to list if it doesn't exist
-                        if (!PackageList.ToList().Any(x => x.path == Path.GetFileName(package))
-                            && !DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package)))
+                        bool inPackageList = PackageList.ToList().Any(x => x.path == Path.GetFileName(package));
+                        bool inDisplayedPackages = DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package));
+                        if (!inPackageList || !inDisplayedPackages)
                         {
-                            // Add new package to both collections
-                            DisplayedMetadata dm = InitDisplayedMetadata(metadata);
-                            Package p = new Package();
-                            p.enabled = false;
-                            p.id = metadata.id;
-                            p.path = Path.GetFileName(package);
-                            PackageList.Add(p);
-                            dm.enabled = false;
-                            dm.path = Path.GetFileName(package);
-                            DisplayedPackages.Add(dm);
+                            // Add new package to collections if they're missing
+                            if (!inPackageList)
+                            {
+                                Package p = new Package();
+                                p.enabled = false;
+                                p.id = metadata.id;
+                                p.path = Path.GetFileName(package);
+                                p.name = metadata.name;
+                                p.link = metadata.link;
+                                PackageList.Add(p);
+                            }
+                            if (!inDisplayedPackages)
+                            {
+                                DisplayedMetadata dm = InitDisplayedMetadata(metadata);
+                                dm.enabled = false;
+                                dm.path = Path.GetFileName(package);
+                                DisplayedPackages.Add(dm);
+                            }
+                        }
+                        else
+                        {
+                            // Update the package metadata
+                            Package p = PackageList.ToList().Find(x => x.path == Path.GetFileName(package));
+                            if (p != null)
+                            {
+                                p.link = metadata.link;
+                                p.name = metadata.name;
+                                p.path = Path.GetFileName(package);
+                            }
                         }
                     }
                 }
@@ -1307,6 +1377,7 @@ namespace AemulusModManager
             }
             GameBox.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
+            LoadoutBox.IsHitTestVisible = false;
             Refresh();
             updateConfig();
             updatePackages();
@@ -1330,7 +1401,10 @@ namespace AemulusModManager
                 MergeButton.IsHitTestVisible = false;
                 MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
             }
+
+            LoadoutBox.IsHitTestVisible = true;
         }
+
         private void NewClick(object sender, RoutedEventArgs e)
         {
             NewCommand();
@@ -1483,6 +1557,7 @@ namespace AemulusModManager
                 }
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
+                LoadoutBox.IsHitTestVisible = false;
 
                 fromMain = true;
 
@@ -1501,7 +1576,7 @@ namespace AemulusModManager
                     return;
                 }
 
-                
+
             }
 
             if (game == "Persona 5 Strikers")
@@ -1558,6 +1633,7 @@ namespace AemulusModManager
             }
             GameBox.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
+            LoadoutBox.IsHitTestVisible = false;
 
             await unpackThenMerge();
 
@@ -1575,6 +1651,7 @@ namespace AemulusModManager
                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
             }
             GameBox.IsHitTestVisible = true;
+            LoadoutBox.IsHitTestVisible = true;
 
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -1695,7 +1772,8 @@ namespace AemulusModManager
 
                     if (game != "Persona 5 Strikers")
                     {
-                        await Task.Run(() => {
+                        await Task.Run(() =>
+                        {
                             binMerge.Restart(path, emptySND, game, cpkLang);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                             binMerge.Merge(path, game);
@@ -1761,18 +1839,24 @@ namespace AemulusModManager
             }
         }
 
-        public void updatePackages()
+        public void updatePackages(string loadout = null)
         {
             packages.packages = PackageList;
-            using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml"))
+            if (loadout == null && LoadoutBox.SelectedItem != null)
+                loadout = LoadoutBox.SelectedItem.ToString();
+            // Don't update packages if the current loadout is invalid
+            if (loadout != null)
             {
-                try
+                using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
                 {
-                    xp.Serialize(streamWriter, packages);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($@"[ERROR] Couldn't update Config\{game.Replace(" ", "")}Packages.xml ({ex.Message})");
+                    try
+                    {
+                        xp.Serialize(streamWriter, packages);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($@"[ERROR] Couldn't update Config\{game}\{loadout}.xml ({ex.Message})");
+                    }
                 }
             }
         }
@@ -1823,6 +1907,12 @@ namespace AemulusModManager
                 if (RowUpdatable(row) && !updating && updatesEnabled)
                     UpdateItem.IsEnabled = true;
 
+                // Show the correct visibility context menu entry
+                ShowItem.IsEnabled = row.hidden;
+                ShowItem.Visibility = row.hidden ? Visibility.Visible : Visibility.Collapsed;
+                HideItem.IsEnabled = !row.hidden;
+                HideItem.Visibility = !row.hidden ? Visibility.Visible : Visibility.Collapsed;
+
                 // Set image
                 string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
                 FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
@@ -1858,18 +1948,24 @@ namespace AemulusModManager
         // Update config order when rows are changed
         private void ModGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            DisplayedMetadata dm = (DisplayedMetadata)e.Row.Item;
-            foreach (var p in PackageList.ToList())
+            if(IsLoaded)
             {
-                if (dm.path == p.path)
+                DisplayedMetadata dm = (DisplayedMetadata)e.Row.Item;
+                var package = PackageList.FirstOrDefault(package => package.path == dm.path);
+                if(package != null)
                 {
-                    Package temp = p;
-                    PackageList.Remove(p);
-                    PackageList.Insert(DisplayedPackages.IndexOf(dm), temp);
+                    Package temp = package;
+                    PackageList.Remove(package);
+                    int dmIndex = DisplayedPackages.IndexOf(dm);
+                    if (dmIndex != -1 && dmIndex <= PackageList.Count)
+                        PackageList.Insert(dmIndex, temp);
+                    else
+                        PackageList.Add(temp);
+
+                    updateConfig();
+                    updatePackages();
                 }
             }
-            updateConfig();
-            updatePackages();
         }
 
         private FlowDocument ConvertToFlowDocument(string text)
@@ -2113,7 +2209,8 @@ namespace AemulusModManager
                 foreach (var item in ModGrid.SelectedItems)
                 {
                     var checkbox = ModGrid.Columns[0].GetCellContent(item) as CheckBox;
-                    checkbox.IsChecked = !checkbox.IsChecked;
+                    if (checkbox != null)
+                        checkbox.IsChecked = !checkbox.IsChecked;
                 }
             }
         }
@@ -2129,6 +2226,7 @@ namespace AemulusModManager
                     case 0:
                         game = "Persona 3 FES";
                         modPath = config.p3fConfig.modDir;
+                        selectedLoadout = config.p3fConfig.loadout;
                         gamePath = config.p3fConfig.isoPath;
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
@@ -2149,6 +2247,7 @@ namespace AemulusModManager
                     case 1:
                         game = "Persona 4 Golden";
                         modPath = config.p4gConfig.modDir;
+                        selectedLoadout = config.p4gConfig.loadout;
                         gamePath = config.p4gConfig.exePath;
                         launcherPath = config.p4gConfig.reloadedPath;
                         emptySND = config.p4gConfig.emptySND;
@@ -2170,6 +2269,7 @@ namespace AemulusModManager
                     case 2:
                         game = "Persona 5";
                         modPath = config.p5Config.modDir;
+                        selectedLoadout = config.p5Config.loadout;
                         gamePath = config.p5Config.gamePath;
                         launcherPath = config.p5Config.launcherPath;
                         buildWarning = config.p5Config.buildWarning;
@@ -2191,6 +2291,7 @@ namespace AemulusModManager
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();
                         modPath = config.p5sConfig.modDir;
+                        selectedLoadout = config.p5sConfig.loadout;
                         gamePath = null;
                         launcherPath = null;
                         buildWarning = config.p5sConfig.buildWarning;
@@ -2208,6 +2309,7 @@ namespace AemulusModManager
                         }
                         break;
                 }
+                lastGame = game;
                 Reqs.Visibility = Visibility.Collapsed;
                 HHH.Visibility = Visibility.Collapsed;
                 Inaba.Visibility = Visibility.Collapsed;
@@ -2234,11 +2336,18 @@ namespace AemulusModManager
                 PackageList.Clear();
                 DisplayedPackages.Clear();
 
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml"))
+                // Update the available loadouts
+                loadoutUtils.LoadLoadout(game);
+                if (LoadoutBox.Items.Contains(selectedLoadout))
+                    LoadoutBox.SelectedItem = selectedLoadout;
+                else
+                    LoadoutBox.SelectedIndex = 0;
+
+                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
                         {
                             try
                             {
@@ -2248,13 +2357,13 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($@"[ERROR] Couldn't deseralize Config\{game.Replace(" ", "")}Packages.xml ({ex.Message})");
+                                Console.WriteLine($@"[ERROR] Couldn't deseralize Config\{game}\{LoadoutBox.SelectedItem}.xml ({ex.Message})");
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
+                        Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                     }
                 }
 
@@ -2281,6 +2390,8 @@ namespace AemulusModManager
                                     dm.link = m.link;
                                     dm.description = m.description;
                                     dm.skippedVersion = m.skippedVersion;
+                                    package.name = m.name;
+                                    package.link = m.link;
                                 }
                                 catch (Exception ex)
                                 {
@@ -2298,6 +2409,7 @@ namespace AemulusModManager
 
                     dm.path = package.path;
                     dm.enabled = package.enabled;
+                    dm.hidden = package.hidden;
                     DisplayedPackages.Add(dm);
                 }
                 ModGrid.ItemsSource = DisplayedPackages;
@@ -2513,8 +2625,9 @@ namespace AemulusModManager
 
         private async Task ExtractPackages(string[] fileList)
         {
-            await Task.Run(() =>
+            await Application.Current.Dispatcher.Invoke(async () =>
             {
+                string loadout = null;
                 bool dropped = false;
                 foreach (var file in fileList)
                 {
@@ -2584,8 +2697,11 @@ namespace AemulusModManager
                         //FileIOWrapper.Delete(file);
                         dropped = true;
                     }
-                    else if (Path.GetFileName(file) == $"{game.Replace(" ", "")}Packages.xml")
+                    // Import loadout xml
+                    else if (Path.GetExtension(file) == ".xml")
                     {
+                        var oldPackageList = PackageList;
+                        Console.WriteLine($"[INFO] Trying to import {Path.GetFileName(file)} as a loadout xml");
                         try
                         {
                             packages = new Packages();
@@ -2601,10 +2717,30 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Invalid Packages.xml ({ex.Message})");
+                            Console.WriteLine($"Invalid loadout xml ({ex.Message})");
+                        }
+
+                        loadout = Path.GetFileNameWithoutExtension(file);
+
+                        // Ask to rename the loadout if one with the same name already exists
+                        if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
+                        {
+                            Console.WriteLine("[INFO] A loadout with the same name already exists, please enter a new name for it.");
+                            NotificationBox notification = new NotificationBox("A loadout with the same name already exists, please enter a new name for it.");
+                            notification.ShowDialog();
+                            CreateLoadout createLoadout = new CreateLoadout(game, loadout, true);
+                            createLoadout.ShowDialog();
+                            if (createLoadout.name == "")
+                            {
+                                Console.WriteLine($"[INFO] Cancelled importing {Path.GetFileName(file)}");
+                                return;
+                            }
+                            loadout = createLoadout.name;
                         }
 
                         // Create displayed metadata from packages in PackageList and their respective Package.xml's
+                        Dictionary<int, DisplayedMetadata> missingPackages = new Dictionary<int, DisplayedMetadata>();
+                        int index = 0;
                         foreach (var package in PackageList)
                         {
                             string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
@@ -2633,6 +2769,8 @@ namespace AemulusModManager
                                         dm.link = m.link;
                                         dm.description = m.description;
                                         dm.skippedVersion = m.skippedVersion;
+                                        package.name = m.name;
+                                        package.link = m.link;
                                     }
                                 }
                                 catch (Exception ex)
@@ -2640,16 +2778,102 @@ namespace AemulusModManager
                                     Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                     continue;
                                 }
+                                dm.path = package.path;
+                                dm.enabled = package.enabled;
+                                dm.hidden = package.hidden;
+                                DisplayedPackages.Add(dm);
                             }
-                            dm.path = package.path;
-                            dm.enabled = package.enabled;
-                            DisplayedPackages.Add(dm);
+                            else
+                            {
+                                string linkHost = UrlConverter.Convert(package.link);
+                                // Check if the package is actually missing (may have a different path) and has a valid download link
+                                if ((linkHost == "GameBanana" || linkHost == "GitHub") && oldPackageList.Where(p => p.id == package.id).Count() == 0)
+                                {
+                                    DisplayedMetadata packageMetadata = new DisplayedMetadata
+                                    {
+                                        name = package.name,
+                                        link = package.link,
+                                        path = package.path,
+                                        enabled = package.enabled,
+                                        hidden = package.hidden
+                                    };
+                                    missingPackages.Add(index, packageMetadata);
+                                }
+                            }
+                            index++;
+                        }
+                        // Ask if Aemulus should try and download missing mods
+                        if (missingPackages.Count > 0)
+                        {
+                            bool multiple = missingPackages.Count > 1;
+                            NotificationBox notification = new NotificationBox($"{missingPackages.Count} missing package{(multiple ? "s" : "")} {(multiple ? "were" : "was")} " +
+                                $"found whilst importing {loadout}.\nWould you like Aemulus to try and download {(multiple ? "them" : "it")}?", false);
+                            notification.ShowDialog();
+                            // Try to download missing mods
+                            if (notification.YesNo)
+                            {
+                                updating = true;
+                                cancellationToken = new CancellationTokenSource();
+                                await packageUpdater.CheckForUpdate(missingPackages.Values.ToArray(), game, cancellationToken, true);
+                                updating = false;
+
+                                // Add missing mods to DisplayedPackages with their correct metadata from loadout (enabled, hidden, position, etc)
+                                int numNotDownloaded = 0;
+                                foreach (var package in missingPackages)
+                                {
+                                    // Only add them if they were downloaded
+                                    string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.Value.path}\Package.xml";
+                                    if (FileIOWrapper.Exists(xml))
+                                    {
+                                        // Add the package (copy pasted from above, I know I should make it a seperate function)
+                                        var m = new Metadata();
+                                        DisplayedMetadata dm = new DisplayedMetadata();
+                                        try
+                                        {
+                                            using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                            {
+                                                try
+                                                {
+                                                    m = (Metadata)xsp.Deserialize(streamWriter);
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.Value.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                                    continue;
+                                                }
+                                                dm.name = m.name;
+                                                dm.id = m.id;
+                                                dm.author = m.author;
+                                                dm.version = m.version;
+                                                dm.link = m.link;
+                                                dm.description = m.description;
+                                                dm.skippedVersion = m.skippedVersion;
+                                                package.Value.name = m.name;
+                                                package.Value.link = m.link;
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.Value.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                            continue;
+                                        }
+                                        dm.path = package.Value.path;
+                                        dm.enabled = package.Value.enabled;
+                                        dm.hidden = package.Value.hidden;
+                                        DisplayedPackages.Insert(package.Key - numNotDownloaded, dm);
+                                    }
+                                    else
+                                    {
+                                        numNotDownloaded++;
+                                    }
+                                }
+                            }
                         }
                         dropped = true;
                     }
                     else
                     {
-                        Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, or {game.Replace(" ", "")}Packages.xml, skipping...");
+                        Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, or {game.Replace(" ", "")} loadout xml, skipping...");
                     }
                 }
                 if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"))
@@ -2657,8 +2881,13 @@ namespace AemulusModManager
 
                 if (dropped)
                 {
+                    updatePackages(loadout);
+                    if (loadout != null)
+                    {
+                        loadoutUtils.LoadLoadout(game);
+                        LoadoutBox.SelectedItem = loadout;
+                    }
                     Refresh();
-                    updatePackages();
                 }
             });
         }
@@ -2681,6 +2910,7 @@ namespace AemulusModManager
                 }
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
+                LoadoutBox.IsHitTestVisible = false;
 
                 await ExtractPackages(fileList);
 
@@ -2698,6 +2928,7 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
                 }
                 GameBox.IsHitTestVisible = true;
+                LoadoutBox.IsHitTestVisible = true;
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -2723,6 +2954,7 @@ namespace AemulusModManager
 
         private void ReplacePackagesXML()
         {
+            // TODO work out how to change this
             if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
             {
                 File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml",
@@ -2776,6 +3008,7 @@ namespace AemulusModManager
                     }
                     dm.path = package.path;
                     dm.enabled = package.enabled;
+                    dm.hidden = package.hidden;
                     DisplayedPackages.Add(dm);
                 }
             }
@@ -2820,6 +3053,7 @@ namespace AemulusModManager
             }
             GameBox.IsHitTestVisible = false;
             ModGrid.IsHitTestVisible = false;
+            LoadoutBox.IsHitTestVisible = false;
             if (config.updateAemulus)
                 await UpdateAemulus();
             if (!updatesEnabled)
@@ -2843,6 +3077,7 @@ namespace AemulusModManager
                     MergeButton.IsHitTestVisible = false;
                     MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
                 }
+                LoadoutBox.IsHitTestVisible = true;
                 return;
             }
             if (updateAll)
@@ -2876,6 +3111,7 @@ namespace AemulusModManager
                 MergeButton.IsHitTestVisible = false;
                 MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
             }
+            LoadoutBox.IsHitTestVisible = true;
         }
 
         private async Task UpdateAemulus()
@@ -3743,8 +3979,289 @@ namespace AemulusModManager
                         if (ConfigButton.IsHitTestVisible)
                             ConfigWdwCommand();
                         break;
+                    case Key.H:
+                        if (VisibilityButton.IsHitTestVisible)
+                            ToggleHiddenCommand();
+                        break;
                 }
             }
+        }
+
+        private void LoadoutBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+            if (lastLoadout == null)
+                lastLoadout = LoadoutBox.Items[0].ToString();
+            // Add a new loadout
+            if (LoadoutBox.SelectedItem != null && LoadoutBox.SelectedItem.ToString() == "Add new loadout")
+            {
+                CreateLoadout createLoadout = new CreateLoadout(game);
+                createLoadout.ShowDialog();
+                if (createLoadout.name == "")
+                {
+                    LoadoutBox.SelectedItem = lastLoadout;
+                    Console.WriteLine("[INFO] Cancelled loadout creation");
+                }
+                else
+                {
+                    // Copy existing loadout
+                    if ((bool)createLoadout.CopyLoadout.IsChecked)
+                    {
+                        Console.WriteLine($"[INFO] Copying {lastLoadout} loadout to {createLoadout.name}");
+                        string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
+                        FileIOWrapper.Copy($@"{configPath}\{game}\{lastLoadout}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                    }
+                    else
+                    {
+                        // Disable and unhide everything (otherwise the new loadout will copy the current)
+                        foreach (var package in PackageList)
+                        {
+                            package.enabled = false;
+                            package.hidden = false;
+                        }
+                        // Order the package list alphebetically 
+                        var packages = PackageList.ToArray();
+                        IOrderedEnumerable<Package> orderedPackages = packages.OrderBy(item => item.path);
+                        PackageList.Clear();
+                        foreach (var item in orderedPackages)
+                        {
+                            PackageList.Add(item);
+                        }
+                    }
+
+                    // Add the new loadout
+                    var currentLoadout = LoadoutBox.SelectedItem;
+                    loadoutUtils.LoadoutItems.RemoveAt(loadoutUtils.LoadoutItems.Count - 1);
+                    loadoutUtils.LoadoutItems.Add(createLoadout.name);
+                    var loadout = loadoutUtils.LoadoutItems.ToArray();
+                    // Sort the loadout alphabetically
+                    IOrderedEnumerable<string> orderLoadout = loadout.OrderBy(item => item);
+                    loadoutUtils.LoadoutItems.Clear();
+                    foreach (string item in orderLoadout)
+                    {
+                        loadoutUtils.LoadoutItems.Add(item);
+                    }
+
+
+                    // Update loadouts
+                    loadoutUtils.LoadoutItems.Add("Add new loadout");
+                    LoadoutBox.SelectedItem = createLoadout.name;
+
+                    updatePackages();
+                }
+            }
+            // Actually change the loadout
+            else if (LoadoutBox.SelectedItem != null)
+            {
+                lastLoadout = LoadoutBox.SelectedItem.ToString();
+
+                // Update the config
+                selectedLoadout = LoadoutBox.SelectedItem.ToString();
+                switch (game)
+                {
+                    case "Persona 3 FES":
+                        config.p3fConfig.loadout = selectedLoadout;
+                        break;
+                    case "Persona 4 Golden":
+                        config.p4gConfig.loadout = selectedLoadout;
+                        break;
+                    case "Persona 5":
+                        config.p5Config.loadout = selectedLoadout;
+                        break;
+                    case "Persona 5 Strikers":
+                        config.p5sConfig.loadout = selectedLoadout;
+                        break;
+                }
+                updateConfig();
+                Console.WriteLine($"[INFO] Loadout changed to {LoadoutBox.SelectedItem}");
+            }
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+
+            // Load the new loadout xml
+            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml") && LoadoutBox.SelectedItem != null && lastGame == game)
+            {
+                PackageList.Clear();
+                try
+                {
+                    using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
+                    {
+                        try
+                        {
+                            // Call the Deserialize method and cast to the object type.
+                            packages = (Packages)xp.Deserialize(streamWriter);
+                            PackageList = packages.packages;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($@"[ERROR] Couldn't deseralize Config\{game}\{LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                }
+
+                showHidden.Value = packages.showHiddenPackages;
+                var oldDisplayedPackages = DisplayedPackages.ToList();
+
+                // Recreate DisplayedPackages to match the newly selected loadout
+                DisplayedPackages.Clear();
+
+                // Add all the valid packages to the displayed packages
+                foreach (var package in PackageList.ToList())
+                {
+                    // Get the current displayed metadata for the package
+                    var updatedPackage = oldDisplayedPackages.Find(dp => dp.path == package.path);
+
+                    if (updatedPackage != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                    {
+                        // Change the displayed metadata from the old loadout to match the new one
+                        updatedPackage.enabled = package.enabled;
+                        updatedPackage.hidden = package.hidden;
+                        // Add the updated displayed metadata back to the list
+                        DisplayedPackages.Add(updatedPackage);
+                    }
+                }
+
+                // Check if there are any missing packages 
+                foreach(var package in oldDisplayedPackages)
+                {
+                    if(package.id != null && !PackageList.Any(p => p.id == package.id))
+                    {
+                        Refresh();
+                        updatePackages();
+                        UpdateDisplay();
+                    }
+                }
+            }
+        }
+
+        private void HideItem_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in ModGrid.SelectedItems)
+            {
+                DisplayedMetadata package = (DisplayedMetadata)item;
+                if (package != null)
+                {
+                    Console.WriteLine($"[INFO] Hiding {package.name}");
+                    package.hidden = true;
+                    foreach (var p in PackageList.ToList())
+                    {
+                        if (p.path == package.path)
+
+                            p.hidden = true;
+                    }
+                }
+
+            }
+            updatePackages();
+            UpdateDisplay();
+
+        }
+
+        private void ToggleHiddenClicked(object sender, RoutedEventArgs e)
+        {
+            ToggleHiddenCommand();
+        }
+
+        private void ToggleHiddenCommand()
+        {
+            Console.WriteLine($"[INFO] {(showHidden.Value ? "Hiding" : "Showing")} hidden packages");
+            showHidden.Value = !showHidden.Value;
+            packages.showHiddenPackages = showHidden.Value;
+            updatePackages();
+        }
+
+        // Class to make the showingHidden bool observable
+        public class Prop<T> : INotifyPropertyChanged
+        {
+            private T _value;
+            public T Value
+            {
+                get { return _value; }
+                set { _value = value; NotifyPropertyChanged("Value"); }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            internal void NotifyPropertyChanged(String propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void ShowItem_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in ModGrid.SelectedItems)
+            {
+                DisplayedMetadata package = (DisplayedMetadata)item;
+                if (package != null)
+                {
+                    Console.WriteLine($"[INFO] Showing {package.name}");
+                    package.hidden = false;
+                    foreach (var p in PackageList.ToList())
+                    {
+                        if (p.path == package.path)
+
+                            p.hidden = false;
+                    }
+                }
+
+            }
+            updatePackages();
+            UpdateDisplay();
+        }
+
+        private void EditLoadoutButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine($"[INFO] Began editing of {LoadoutBox.SelectedItem} loadout");
+            CreateLoadout createLoadout = new CreateLoadout(game, LoadoutBox.SelectedItem.ToString());
+            createLoadout.ShowDialog();
+            string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
+
+            if (createLoadout.deleteLoadout)
+            {
+                FileIOWrapper.Delete($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml");
+                Console.WriteLine($"[INFO] Successfully deleted {LoadoutBox.SelectedItem} loadout");
+                loadoutUtils.LoadoutItems.Remove(LoadoutBox.SelectedItem.ToString());
+                LoadoutBox.SelectedIndex = 0;
+            }
+            else if (createLoadout.name != "")
+            {
+                // Rename the current loadout to match the new name
+                FileIOWrapper.Move($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+
+                // Add the new loadout
+                var currentLoadout = LoadoutBox.SelectedItem;
+                loadoutUtils.LoadoutItems.RemoveAt(loadoutUtils.LoadoutItems.Count - 1);
+                loadoutUtils.LoadoutItems.Remove(currentLoadout.ToString());
+                loadoutUtils.LoadoutItems.Add(createLoadout.name);
+                var loadout = loadoutUtils.LoadoutItems.ToArray();
+                // Sort the loadout alphabetically
+                IOrderedEnumerable<string> orderLoadout = loadout.OrderBy(item => item);
+                loadoutUtils.LoadoutItems.Clear();
+                foreach (string item in orderLoadout)
+                {
+                    loadoutUtils.LoadoutItems.Add(item);
+                }
+
+                // Update loadouts
+                loadoutUtils.LoadoutItems.Add("Add new loadout");
+                LoadoutBox.SelectedItem = createLoadout.name;
+
+                Console.WriteLine($"[INFO] Finished editing loadout");
+            }
+            else
+            {
+                Console.WriteLine($"[INFO] Cancelled editing of {LoadoutBox.SelectedItem} loadout");
+            }
+
         }
     }
 }

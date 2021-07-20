@@ -53,6 +53,7 @@ namespace AemulusModManager
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
 
     public class ConfigP3F
@@ -69,6 +70,7 @@ namespace AemulusModManager
         public bool advancedLaunchOptions { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
 
     public class ConfigP5
@@ -84,6 +86,7 @@ namespace AemulusModManager
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
         public string CpkName { get; set; } = "mod";
+        public string loadout { get; set; }
     }
 
     public class ConfigP5S
@@ -96,10 +99,12 @@ namespace AemulusModManager
         public bool updateAll { get; set; } = true;
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
     }
     public class Packages
     {
         public ObservableCollection<Package> packages { get; set; }
+        public bool showHiddenPackages { get; set; } = true;
     }
     public class Package
     {
@@ -107,6 +112,8 @@ namespace AemulusModManager
         public string path { get; set; }
         public bool enabled { get; set; }
         public string id { get; set; }
+        public bool hidden { get; set; } = false;
+        public string link { get; set; }
     }
 
     public class Metadata
@@ -145,6 +152,6 @@ namespace AemulusModManager
         public string link { get; set; }
         public string path { get; set; }
         public string skippedVersion { get; set; }
+        public bool hidden { get; set; } = false;
     }
-
 }

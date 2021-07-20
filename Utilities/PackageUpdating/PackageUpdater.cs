@@ -37,7 +37,7 @@ namespace AemulusModManager
             assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
 
-        public async Task CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken)
+        public async Task CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken, bool downloadingMissing = false)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace AemulusModManager
                         string itemType = uri.Segments[1];
                         itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
                         string itemId = uri.Segments[2];
-                        gameBananaRequestUrl += $"itemtype[]={itemType}&itemid[]={itemId}&fields[]=Updates().bSubmissionHasUpdates(),Updates().aGetLatestUpdates(),Files().aFiles()&";
+                        gameBananaRequestUrl += $"itemtype[]={itemType}&itemid[]={itemId}&fields[]=Updates().bSubmissionHasUpdates(),Updates().aGetLatestUpdates(),Files().aFiles(),Owner().name,Preview().sStructuredDataFullsizeUrl(),name&";
                     }
                     gameBananaRequestUrl += "return_keys=1";
                     // Parse the response
@@ -72,9 +72,9 @@ namespace AemulusModManager
                         {
                             try
                             {
-                                await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                                await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token), downloadingMissing);
                             }
-                            catch(Exception e)
+                            catch (Exception e)
                             {
                                 Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {gameBananaRows[i].name}: {e.Message}");
                             }
@@ -91,7 +91,7 @@ namespace AemulusModManager
                         {
                             Uri uri = CreateUri(row.link);
                             Release latestRelease = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
-                            await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken);
+                            await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken, downloadingMissing);
                         }
                         catch (Exception e)
                         {
@@ -184,9 +184,9 @@ namespace AemulusModManager
                 $"({StringConverters.FormatSize(progress.DownloadedBytes)} of {StringConverters.FormatSize(progress.TotalBytes)})";
         }
 
-        private async Task GameBananaUpdate(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)
+        private async Task GameBananaUpdate(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
         {
-            if (item.HasUpdates)
+            if (!downloadingMissing && item.HasUpdates)
             {
                 GameBananaItemUpdate[] updates = item.Updates;
                 string updateTitle = updates[0].Title;
@@ -214,9 +214,9 @@ namespace AemulusModManager
                 {
                     localVersion = localVersionMatch.Groups["version"].Value;
                 }
-                if(row.skippedVersion != null)
+                if (row.skippedVersion != null)
                 {
-                    if(row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
+                    if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
                     {
                         Console.WriteLine($"[INFO] No updates available for {row.name}");
                         return;
@@ -236,142 +236,178 @@ namespace AemulusModManager
                     }
 
                     // Download the update
-                    Dictionary<String, GameBananaItemFile> files = item.Files;
-                    string downloadUrl, fileName;
-                    // Work out which are Aemulus comptaible by examining the file tree
-                    Dictionary<String, GameBananaItemFile> aemulusCompatibleFiles = new Dictionary<string, GameBananaItemFile>();
-                    foreach (KeyValuePair<string, GameBananaItemFile> file in files)
+                    await GameBananaDownload(item, row, game, progress, cancellationToken, downloadingMissing, updates, onlineVersion, updateIndex);
+
+                }
+                else
+                {
+                    Console.WriteLine($"[INFO] No updates available for {row.name}");
+                }
+            }
+            else if (downloadingMissing)
+            {
+                // Ask if the user wants to download the mod
+                DownloadWindow downloadWindow = new DownloadWindow(row.name, item.Owner, item.EmbedImage);
+                downloadWindow.ShowDialog();
+                if (downloadWindow.YesNo)
+                {
+                    await GameBananaDownload(item, row, game, progress, cancellationToken, downloadingMissing, null, null, 0);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"[INFO] No updates available for {row.name}");
+
+            }
+        }
+
+        private async Task GameBananaDownload(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing, GameBananaItemUpdate[] updates, string onlineVersion, int updateIndex)
+        {
+            Dictionary<String, GameBananaItemFile> files = item.Files;
+            string downloadUrl = null;
+            string fileName = null;
+            // Work out which are Aemulus comptaible by examining the file tree
+            Dictionary<String, GameBananaItemFile> aemulusCompatibleFiles = new Dictionary<string, GameBananaItemFile>();
+            foreach (KeyValuePair<string, GameBananaItemFile> file in files)
+            {
+                if (file.Value.FileMetadata.Values.Count > 0)
+                {
+                    string fileTree = file.Value.FileMetadata.Values.ElementAt(1).ToString();
+                    if (!fileTree.ToLower().Contains(".disable_gb1click") && (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]"))
                     {
-                        if (file.Value.FileMetadata.Values.Count > 0)
-                        {
-                            string fileTree = file.Value.FileMetadata.Values.ElementAt(1).ToString();
-                            if (!fileTree.ToLower().Contains(".disable_gb1click") && (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]"))
-                            {
-                                aemulusCompatibleFiles.Add(file.Key, file.Value);
-                            }
-                        }
+                        aemulusCompatibleFiles.Add(file.Key, file.Value);
                     }
-                    if (aemulusCompatibleFiles.Count > 1)
+                }
+            }
+            if (aemulusCompatibleFiles.Count > 1)
+            {
+                UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles.Values.ToList(), row.name);
+                fileBox.Activate();
+                fileBox.ShowDialog();
+                downloadUrl = fileBox.chosenFileUrl;
+                fileName = fileBox.chosenFileName;
+            }
+            else if (aemulusCompatibleFiles.Count == 1)
+            {
+                downloadUrl = aemulusCompatibleFiles.ElementAt(0).Value.DownloadUrl;
+                fileName = aemulusCompatibleFiles.ElementAt(0).Value.FileName;
+            }
+            else if (!downloadingMissing)
+            {
+                Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion}) but there are no downloads directly from GameBanana.");
+                // Convert the url
+                Uri uri = CreateUri(row.link);
+                string itemType = uri.Segments[1];
+                itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
+                string itemId = uri.Segments[2];
+                // Parse the response
+                string responseString = await client.GetStringAsync($"https://gamebanana.com/apiv4/{itemType}/{itemId}");
+                var response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
+                new AltLinkWindow(response.AlternateFileSources, row.name, game, true).ShowDialog();
+                return;
+            }
+            if (downloadUrl != null && fileName != null)
+            {
+                await DownloadFile(downloadUrl, fileName, game, row, onlineVersion, progress, cancellationToken, downloadingMissing);
+            }
+            else
+            {
+                Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+            }
+        }
+
+        private async Task GitHubUpdate(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
+        {
+            if (downloadingMissing)
+            {
+                // Ask if the user wants to download the mod
+                DownloadWindow downloadWindow = new DownloadWindow(row.name, row.author);
+                downloadWindow.ShowDialog();
+                if (downloadWindow.YesNo)
+                {
+                    await GithubDownload(release, row, game, progress, cancellationToken, downloadingMissing);
+                }
+            }
+            else
+            {
+                Match onlineVersionMatch = Regex.Match(release.TagName, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                string onlineVersion = null;
+                if (onlineVersionMatch.Success)
+                {
+                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                }
+                Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                string localVersion = null;
+                if (localVersionMatch.Success)
+                {
+                    localVersion = localVersionMatch.Groups["version"].Value;
+                }
+                if (row.skippedVersion != null)
+                {
+                    if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
                     {
-                        UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles.Values.ToList(), row.name);
-                        fileBox.Activate();
-                        fileBox.ShowDialog();
-                        downloadUrl = fileBox.chosenFileUrl;
-                        fileName = fileBox.chosenFileName;
-                    }
-                    else if (aemulusCompatibleFiles.Count == 1)
-                    {
-                        downloadUrl = aemulusCompatibleFiles.ElementAt(0).Value.DownloadUrl;
-                        fileName = aemulusCompatibleFiles.ElementAt(0).Value.FileName;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion}) but there are no downloads directly from GameBanana.");
-                        // Convert the url
-                        Uri uri = CreateUri(row.link);
-                        string itemType = uri.Segments[1];
-                        itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
-                        string itemId = uri.Segments[2];
-                        // Parse the response
-                        string responseString = await client.GetStringAsync($"https://gamebanana.com/apiv4/{itemType}/{itemId}");
-                        var response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
-                        new AltLinkWindow(response.AlternateFileSources, row.name, game, true).ShowDialog();
+                        Console.WriteLine($"[INFO] No updates available for {row.name}");
                         return;
                     }
-                    if (downloadUrl != null && fileName != null)
-                    {
-                        await DownloadFile(downloadUrl, fileName, game, row, onlineVersion, progress, cancellationToken, updates[updateIndex]);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                    }
-
                 }
-                else
+                if (UpdateAvailable(onlineVersion, localVersion))
                 {
-                    Console.WriteLine($"[INFO] No updates available for {row.name}");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"[INFO] No updates available for {row.name}");
-
-            }
-        }
-
-        private async Task GitHubUpdate(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)
-        {
-            Match onlineVersionMatch = Regex.Match(release.TagName, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
-            string onlineVersion = null;
-            if (onlineVersionMatch.Success)
-            {
-                onlineVersion = onlineVersionMatch.Groups["version"].Value;
-            }
-            Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
-            string localVersion = null;
-            if (localVersionMatch.Success)
-            {
-                localVersion = localVersionMatch.Groups["version"].Value;
-            }
-            if (row.skippedVersion != null)
-            {
-                if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
-                {
-                    Console.WriteLine($"[INFO] No updates available for {row.name}");
-                    return;
-                }
-            }
-            if (UpdateAvailable(onlineVersion, localVersion))
-            {
-                Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName})");
-                NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
-                notification.ShowDialog();
-                notification.Activate();
-                if (!notification.YesNo)
-                    return;
-                string downloadUrl, fileName;
-                if (release.Assets.Count > 1)
-                {
-                    UpdateFileBox fileBox = new UpdateFileBox(release.Assets, row.name);
-                    fileBox.Activate();
-                    fileBox.ShowDialog();
-                    downloadUrl = fileBox.chosenFileUrl;
-                    fileName = fileBox.chosenFileName;
-                }
-                else if (release.Assets.Count == 1)
-                {
-                    downloadUrl = release.Assets.First().BrowserDownloadUrl;
-                    fileName = release.Assets.First().Name;
-                }
-                else
-                {
-                    Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName}) but no downloadable files are available.");
-                    notification = new NotificationBox($"{row.name} has an update ({release.TagName}) but no downloadable files.\nWould you like to go to the page to manually download the update?", false);
+                    Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName})");
+                    NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
                     notification.ShowDialog();
                     notification.Activate();
-                    if (notification.YesNo)
-                    {
-                        Process.Start(row.link);
-                    }
-                    return;
-                }
-                if (downloadUrl != null && fileName != null)
-                {
-                    await DownloadFile(downloadUrl, fileName, game, row, release.TagName, progress, CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
+                    if (!notification.YesNo)
+                        return;
+                    await GithubDownload(release, row, game, progress, cancellationToken, downloadingMissing);
                 }
                 else
                 {
-                    Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                    Console.WriteLine($"[INFO] No updates available for {row.name}");
                 }
+            }
+
+        }
+
+        private async Task GithubDownload(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
+        {
+            string downloadUrl, fileName;
+            if (release.Assets.Count > 1)
+            {
+                UpdateFileBox fileBox = new UpdateFileBox(release.Assets, row.name);
+                fileBox.Activate();
+                fileBox.ShowDialog();
+                downloadUrl = fileBox.chosenFileUrl;
+                fileName = fileBox.chosenFileName;
+            }
+            else if (release.Assets.Count == 1)
+            {
+                downloadUrl = release.Assets.First().BrowserDownloadUrl;
+                fileName = release.Assets.First().Name;
             }
             else
             {
-                Console.WriteLine($"[INFO] No updates available for {row.name}");
+                Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName}) but no downloadable files are available.");
+                NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}) but no downloadable files.\nWould you like to go to the page to manually download the update?", false);
+                notification.ShowDialog();
+                notification.Activate();
+                if (notification.YesNo)
+                {
+                    Process.Start(row.link);
+                }
+                return;
             }
+            if (downloadUrl != null && fileName != null)
+            {
+                await DownloadFile(downloadUrl, fileName, game, row, release.TagName, progress, CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token), downloadingMissing);
+            }
+            else
+            {
+                Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+            }
+
         }
 
-        private async Task DownloadFile(string uri, string fileName, string game, DisplayedMetadata row, string version, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, GameBananaItemUpdate update = null)
+        private async Task DownloadFile(string uri, string fileName, string game, DisplayedMetadata row, string version, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
         {
             try
             {
@@ -387,7 +423,7 @@ namespace AemulusModManager
                     progressBox.progressBar.Value = 0;
                     progressBox.progressText.Text = $"Downloading {fileName}";
                     progressBox.finished = false;
-                    progressBox.Title = $"{row.name} Update Progress";
+                    progressBox.Title = $"{row.name} {(downloadingMissing ? "Download" : "Update")} Progress";
                     progressBox.Show();
                     progressBox.Activate();
                     Console.WriteLine($"[INFO] Downloading {fileName}");
@@ -530,7 +566,7 @@ namespace AemulusModManager
                         File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
                     }
                 }
-                FileIOWrapper.Delete(file);
+                FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{file}");
             }
             else
             {
