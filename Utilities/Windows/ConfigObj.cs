@@ -104,6 +104,7 @@ namespace AemulusModManager
     public class Packages
     {
         public ObservableCollection<Package> packages { get; set; }
+        public bool showHiddenPackages { get; set; } = true;
     }
     public class Package
     {

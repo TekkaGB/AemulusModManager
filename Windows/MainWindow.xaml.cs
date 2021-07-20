@@ -416,11 +416,6 @@ namespace AemulusModManager
                         LoadoutBox.SelectedIndex = 0;
                     }
 
-                    showHidden = new Prop<bool>();
-                    showHidden.Value = false;
-
-                    VisibilityButton.DataContext = showHidden;
-                    ShowHiddenText.DataContext = showHidden;
 
                     // Load the current loadout
                     if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
@@ -440,6 +435,11 @@ namespace AemulusModManager
                         }
                     }
 
+                    showHidden = new Prop<bool>();
+                    showHidden.Value = packages.showHiddenPackages;
+
+                    VisibilityButton.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;
 
                     if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                     {
@@ -3989,6 +3989,8 @@ namespace AemulusModManager
 
         private void LoadoutBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!IsLoaded)
+                return;
             if (lastLoadout == null)
                 lastLoadout = LoadoutBox.Items[0].ToString();
             // Add a new loadout
@@ -4105,6 +4107,7 @@ namespace AemulusModManager
                     Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                 }
 
+                showHidden.Value = packages.showHiddenPackages;
                 var oldDisplayedPackages = DisplayedPackages.ToList();
 
                 // Recreate DisplayedPackages to match the newly selected loadout
@@ -4171,6 +4174,8 @@ namespace AemulusModManager
         {
             Console.WriteLine($"[INFO] {(showHidden.Value ? "Hiding" : "Showing")} hidden packages");
             showHidden.Value = !showHidden.Value;
+            packages.showHiddenPackages = showHidden.Value;
+            updatePackages();
         }
 
         // Class to make the showingHidden bool observable

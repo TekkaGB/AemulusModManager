@@ -7,33 +7,31 @@
         mc:Ignorable="d"
         Background="#121212"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Title="Create New Loadout" Height="150" Width="500">
+        Title="Create New Loadout" Height="105" Width="420">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="75"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="33"/>
             <RowDefinition Height="33"/>
-            <RowDefinition Height="33"/>
-            <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
         <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" Grid.Column="0">Name</TextBlock>
-        <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="365"></TextBox>
+        <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5,0,5,0"></TextBox>
 
-        <Viewbox Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,80,0" Height="20" Grid.Row="1" Grid.Column="1">
-            <CheckBox Name="CopyLoadout" Foreground ="White" Content="Copy Current Loadout"/>
-        </Viewbox>
-        <Grid Grid.Row="2" Grid.Column="1" Name="ButtonGrid">
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="ButtonGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Name="DeleteButton" Click="DeleteButton_Click" Background="White" Height="25" Width="75"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">Delete</Button>
-            <Button Name="CreateButton" Click="CreateButton_Click" IsEnabled="False" Background="White" Height="25" Width="75"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">Confirm</Button>
-            <Button Name="CancelButton" Click="CancelButton_Click" Background="White" Height="25" Width="75" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left">Cancel</Button>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" Height="20" Margin="5,0,5,0" Grid.Column="0">
+                <CheckBox Name="CopyLoadout" Foreground ="White" Content="Copy Current Loadout"/>
+            </Viewbox>
+            <Button Name="DeleteButton" Click="DeleteButton_Click" Background="White" Height="25" Width="100"  Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">Delete</Button>
+            <Button Name="CreateButton" Click="CreateButton_Click" IsEnabled="False" Background="White" Height="25" Width="100"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">Confirm</Button>
+            <Button Name="CancelButton" Click="CancelButton_Click" Background="White" Height="25" Width="100" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">Cancel</Button>
         </Grid>
     </Grid>
 </Window>

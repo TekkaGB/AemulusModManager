@@ -12,7 +12,7 @@ namespace AemulusModManager.Utilities.Windows
     {
         public object Convert(object showingHidden, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)showingHidden ? "Solid_EyeSlash" : "Solid_Eye";
+            return (bool)showingHidden ? "Solid_Eye" : "Solid_EyeSlash";
         }
 
         public object ConvertBack(object showingHidden, Type targetType, object parameter, System.Globalization.CultureInfo culture)

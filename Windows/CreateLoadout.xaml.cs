@@ -39,8 +39,6 @@ namespace AemulusModManager.Windows
                 // Remove copy loadou
                 CopyLoadout.IsEnabled = false;
                 CopyLoadout.Visibility = Visibility.Collapsed;
-                // Move the button grid up a row as the checkbox is gone
-                ButtonGrid.SetValue(Grid.RowProperty, 1);
                 Height = 120;
             }
             // Make the delete button invisible as this is a new loadout or renaming an imported one
@@ -48,10 +46,6 @@ namespace AemulusModManager.Windows
             {
                 DeleteButton.Visibility = Visibility.Collapsed;
                 DeleteButton.IsEnabled = false;
-                ButtonGrid.ColumnDefinitions.RemoveAt(2);
-                CreateButton.SetValue(Grid.ColumnProperty, 1);
-                CancelButton.SetValue(Grid.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-                CancelButton.SetValue(Grid.ColumnProperty, 0);
             }
         }
 
