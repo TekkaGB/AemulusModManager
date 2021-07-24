@@ -707,65 +707,15 @@ namespace AemulusModManager
                     }
                     if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
                     {
-                        File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml",
-                            $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", true);
-                        Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
-                        packages = new Packages();
-                        DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
-                        PackageList = new ObservableCollection<Package>();
-                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
+                        App.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            // Call the Deserialize method and cast to the object type.
-                            packages = (Packages)xp.Deserialize(streamWriter);
-                            PackageList = packages.packages;
-                        }
-                        // Create displayed metadata from packages in PackageList and their respective Package.xml's
-                        foreach (var package in PackageList)
-                        {
-                            string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
-                            Metadata m;
-                            DisplayedMetadata dm = new DisplayedMetadata();
-                            if (FileIOWrapper.Exists(xml))
-                            {
-                                m = new Metadata();
-                                try
-                                {
-                                    using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
-                                    {
-                                        try
-                                        {
-                                            m = (Metadata)xsp.Deserialize(streamWriter);
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                                            continue;
-                                        }
-                                        dm.name = m.name;
-                                        dm.id = m.id;
-                                        dm.author = m.author;
-                                        dm.version = m.version;
-                                        dm.link = m.link;
-                                        dm.description = m.description;
-                                        dm.skippedVersion = m.skippedVersion;
-                                        package.name = m.name;
-                                        package.link = m.link;
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                                    continue;
-                                }
-                            }
-                            dm.path = package.path;
-                            dm.enabled = package.enabled;
-                            dm.hidden = package.hidden;
-                            DisplayedPackages.Add(dm);
-                        }
+                            ReplacePackagesXML();
+                        });
+                    } else
+                    {
+                        Refresh();
+                        updatePackages(lastLoadout);
                     }
-                    Refresh();
-                    updatePackages(lastLoadout);
                 }
             }
         }
@@ -2337,7 +2287,7 @@ namespace AemulusModManager
                 DisplayedPackages.Clear();
 
                 // Update the available loadouts
-                loadoutUtils.LoadLoadout(game);
+                loadoutUtils.LoadLoadouts(game);
                 if (LoadoutBox.Items.Contains(selectedLoadout))
                     LoadoutBox.SelectedItem = selectedLoadout;
                 else
@@ -2884,7 +2834,7 @@ namespace AemulusModManager
                     updatePackages(loadout);
                     if (loadout != null)
                     {
-                        loadoutUtils.LoadLoadout(game);
+                        loadoutUtils.LoadLoadouts(game);
                         LoadoutBox.SelectedItem = loadout;
                     }
                     Refresh();
@@ -2954,63 +2904,23 @@ namespace AemulusModManager
 
         private void ReplacePackagesXML()
         {
-            // TODO work out how to change this
             if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
             {
+                // Copy the loadout from temp
                 File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml",
-                    $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", true);
+                    $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{game.Replace(" ", "")}Packages.xml", true);
                 Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
-                packages = new Packages();
-                DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
-                PackageList = new ObservableCollection<Package>();
-                using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game.Replace(" ", "")}Packages.xml", FileMode.Open))
-                {
-                    // Call the Deserialize method and cast to the object type.
-                    packages = (Packages)xp.Deserialize(streamWriter);
-                    PackageList = packages.packages;
-                }
-                // Create displayed metadata from packages in PackageList and their respective Package.xml's
-                foreach (var package in PackageList)
-                {
-                    string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
-                    Metadata m;
-                    DisplayedMetadata dm = new DisplayedMetadata();
-                    if (FileIOWrapper.Exists(xml))
-                    {
-                        m = new Metadata();
-                        try
-                        {
-                            using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
-                            {
-                                try
-                                {
-                                    m = (Metadata)xsp.Deserialize(streamWriter);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                                    continue;
-                                }
-                                dm.name = m.name;
-                                dm.id = m.id;
-                                dm.author = m.author;
-                                dm.version = m.version;
-                                dm.link = m.link;
-                                dm.description = m.description;
-                                dm.skippedVersion = m.skippedVersion;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
-                            continue;
-                        }
-                    }
-                    dm.path = package.path;
-                    dm.enabled = package.enabled;
-                    dm.hidden = package.hidden;
-                    DisplayedPackages.Add(dm);
-                }
+                
+                // Load the new loadout
+                loadoutUtils.LoadLoadouts(game);
+
+                // Set the selected loadout to the new one
+                if (loadoutUtils.LoadoutItems.Contains($"{game.Replace(" ", "")}Packages"))
+                    LoadoutBox.SelectedItem = $"{game.Replace(" ", "")}Packages";
+                else if (loadoutUtils.LoadoutItems.Contains(lastLoadout))
+                    LoadoutBox.SelectedItem = lastLoadout;
+                else
+                    LoadoutBox.SelectedIndex = 0;
             }
         }
 
