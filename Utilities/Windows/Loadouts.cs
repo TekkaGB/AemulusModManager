@@ -17,10 +17,10 @@ namespace AemulusModManager.Utilities.Windows
         public Loadouts(string game)
         {
             LoadoutItems = new ObservableCollection<string>();
-            LoadLoadout(game);
+            LoadLoadouts(game);
         }
 
-        public void LoadLoadout(string game)
+        public void LoadLoadouts(string game)
         {
             string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
             Console.WriteLine($"[INFO] Loading loadouts for {game}");
