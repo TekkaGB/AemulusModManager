@@ -2941,7 +2941,8 @@ namespace AemulusModManager
                 DisplayedMetadata row = (DisplayedMetadata)item;
                 await UpdateItemAsync(row);
             }
-            ReplacePackagesXML();
+            if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
+                ReplacePackagesXML();
             Refresh();
             updatePackages();
         }
@@ -3008,7 +3009,8 @@ namespace AemulusModManager
                 DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
                 await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
                 updating = false;
-                ReplacePackagesXML();
+                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
+                    ReplacePackagesXML();
                 Refresh();
                 updatePackages();
             }
