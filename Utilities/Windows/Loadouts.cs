@@ -42,7 +42,7 @@ namespace AemulusModManager.Utilities.Windows
             }
 
             // Change the loadout items to the new ones
-            LoadoutItems.Clear();
+            LoadoutItems = new ObservableCollection<string>();
             foreach(string loadout in loadoutFiles)
             {
                 LoadoutItems.Add(Path.GetFileNameWithoutExtension(loadout));

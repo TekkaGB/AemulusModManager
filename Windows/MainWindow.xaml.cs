@@ -705,13 +705,14 @@ namespace AemulusModManager
                     {
                         Console.WriteLine($@"[ERROR] Couldn't delete refresh.aem ({ex.Message})");
                     }
-                    if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
+                    if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
                     {
                         App.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            ReplacePackagesXML();
+                            ReplacePackagesXML(game);
                         });
-                    } else
+                    }
+                    else
                     {
                         Refresh();
                         updatePackages(lastLoadout);
@@ -2902,21 +2903,30 @@ namespace AemulusModManager
                 element.ContextMenu.Visibility = Visibility.Visible;
         }
 
-        private void ReplacePackagesXML()
+        private void ReplacePackagesXML(string chosenGame = null)
         {
-            if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml"))
+            if (chosenGame == null)
+                chosenGame = game;
+            var xmls = Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", "*.xml", SearchOption.TopDirectoryOnly)
+                .Where(xml => !Path.GetFileName(xml).Equals("Package.xml", StringComparison.InvariantCultureIgnoreCase) && !Path.GetFileName(xml).Equals("Mod.xml", StringComparison.InvariantCultureIgnoreCase)).ToList();
+            if (xmls.Count > 0)
             {
-                // Copy the loadout from temp
-                File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp\{game.Replace(" ", "")}Packages.xml",
-                    $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{game.Replace(" ", "")}Packages.xml", true);
+                var lastXml = String.Empty;
+                foreach (var xml in xmls)
+                {
+                    var replacementXml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{chosenGame}\{Path.GetFileName(xml)}";
+                    if (Path.GetFileName(xml).Equals($"{chosenGame.Replace(" ", "")}Packages.xml", StringComparison.InvariantCultureIgnoreCase))
+                        replacementXml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{chosenGame}\Default.xml";
+                    File.Copy(xml, replacementXml, true);
+                    lastXml = Path.GetFileNameWithoutExtension(xml);
+                }
                 Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
-                
                 // Load the new loadout
-                loadoutUtils.LoadLoadouts(game);
+                loadoutUtils.LoadLoadouts(chosenGame);
 
                 // Set the selected loadout to the new one
-                if (loadoutUtils.LoadoutItems.Contains($"{game.Replace(" ", "")}Packages"))
-                    LoadoutBox.SelectedItem = $"{game.Replace(" ", "")}Packages";
+                if (loadoutUtils.LoadoutItems.Contains(lastXml))
+                    LoadoutBox.SelectedItem = lastXml;
                 else if (loadoutUtils.LoadoutItems.Contains(lastLoadout))
                     LoadoutBox.SelectedItem = lastLoadout;
                 else

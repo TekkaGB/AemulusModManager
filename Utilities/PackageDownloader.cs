@@ -248,8 +248,9 @@ namespace AemulusModManager.Utilities
                         }
                         MoveDirectory(folder, path);
                     }
-                    var packgeSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*Packages.xml", SearchOption.AllDirectories);
-                    if (packgeSetup.Length > 0)
+                    var packgeSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*.xml", SearchOption.TopDirectoryOnly)
+                        .Where(xml => !Path.GetFileName(xml).Equals("Package.xml", StringComparison.InvariantCultureIgnoreCase) && !Path.GetFileName(xml).Equals("Mod.xml", StringComparison.InvariantCultureIgnoreCase)).ToList();
+                    if (packgeSetup.Count > 0)
                     {
                         Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
                         foreach (var xml in packgeSetup)
