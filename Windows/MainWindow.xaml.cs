@@ -2286,6 +2286,7 @@ namespace AemulusModManager
 
                 // Update the available loadouts
                 loadoutUtils.LoadLoadouts(game);
+                LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
                 if (LoadoutBox.Items.Contains(selectedLoadout))
                     LoadoutBox.SelectedItem = selectedLoadout;
                 else
@@ -2833,6 +2834,7 @@ namespace AemulusModManager
                     if (loadout != null)
                     {
                         loadoutUtils.LoadLoadouts(game);
+                        LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
                         LoadoutBox.SelectedItem = loadout;
                     }
                     Refresh();
@@ -2921,6 +2923,7 @@ namespace AemulusModManager
                 Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
                 // Load the new loadout
                 loadoutUtils.LoadLoadouts(chosenGame);
+                LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
 
                 if (game == chosenGame)
                 {
