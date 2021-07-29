@@ -1075,26 +1075,23 @@ namespace AemulusModManager
                         // Add package to list if it doesn't exist
                         bool inPackageList = PackageList.ToList().Any(x => x.path == Path.GetFileName(package));
                         bool inDisplayedPackages = DisplayedPackages.ToList().Any(x => x.path == Path.GetFileName(package));
-                        if (!inPackageList || !inDisplayedPackages)
+                        // Add new package to collections if they're missing
+                        if (!inPackageList)
                         {
-                            // Add new package to collections if they're missing
-                            if (!inPackageList)
-                            {
-                                Package p = new Package();
-                                p.enabled = false;
-                                p.id = metadata.id;
-                                p.path = Path.GetFileName(package);
-                                p.name = metadata.name;
-                                p.link = metadata.link;
-                                PackageList.Add(p);
-                            }
-                            if (!inDisplayedPackages)
-                            {
-                                DisplayedMetadata dm = InitDisplayedMetadata(metadata);
-                                dm.enabled = false;
-                                dm.path = Path.GetFileName(package);
-                                DisplayedPackages.Add(dm);
-                            }
+                            Package p = new Package();
+                            p.enabled = false;
+                            p.id = metadata.id;
+                            p.path = Path.GetFileName(package);
+                            p.name = metadata.name;
+                            p.link = metadata.link;
+                            PackageList.Add(p);
+                        }
+                        if (!inDisplayedPackages)
+                        {
+                            DisplayedMetadata dm = InitDisplayedMetadata(metadata);
+                            dm.enabled = false;
+                            dm.path = Path.GetFileName(package);
+                            DisplayedPackages.Add(dm);
                         }
                         else
                         {
@@ -2911,6 +2908,7 @@ namespace AemulusModManager
                 .Where(xml => !Path.GetFileName(xml).Equals("Package.xml", StringComparison.InvariantCultureIgnoreCase) && !Path.GetFileName(xml).Equals("Mod.xml", StringComparison.InvariantCultureIgnoreCase)).ToList();
             if (xmls.Count > 0)
             {
+                Console.WriteLine("[INFO] Switching over to downloaded loadout... (May take a bit)");
                 var lastXml = String.Empty;
                 foreach (var xml in xmls)
                 {
@@ -2918,19 +2916,41 @@ namespace AemulusModManager
                     if (Path.GetFileName(xml).Equals($"{chosenGame.Replace(" ", "")}Packages.xml", StringComparison.InvariantCultureIgnoreCase))
                         replacementXml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{chosenGame}\Default.xml";
                     File.Copy(xml, replacementXml, true);
-                    lastXml = Path.GetFileNameWithoutExtension(xml);
+                    lastXml = Path.GetFileNameWithoutExtension(replacementXml);
                 }
                 Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
                 // Load the new loadout
                 loadoutUtils.LoadLoadouts(chosenGame);
 
-                // Set the selected loadout to the new one
-                if (loadoutUtils.LoadoutItems.Contains(lastXml))
-                    LoadoutBox.SelectedItem = lastXml;
-                else if (loadoutUtils.LoadoutItems.Contains(lastLoadout))
-                    LoadoutBox.SelectedItem = lastLoadout;
+                if (game == chosenGame)
+                {
+                    if (lastXml == (string)LoadoutBox.SelectedItem)
+                        UpdateDisplay();
+                    else if (loadoutUtils.LoadoutItems.Contains(lastXml))
+                        LoadoutBox.SelectedItem = lastXml;
+                    else if (loadoutUtils.LoadoutItems.Contains(lastLoadout))
+                        LoadoutBox.SelectedItem = lastLoadout;
+                    else
+                        LoadoutBox.SelectedIndex = 0;
+                }
                 else
-                    LoadoutBox.SelectedIndex = 0;
+                {
+                    switch (chosenGame)
+                    {
+                        case "Persona 3 FES":
+                            config.p3fConfig.loadout = lastXml;
+                            break;
+                        case "Persona 4 Golden":
+                            config.p4gConfig.loadout = lastXml;
+                            break;
+                        case "Persona 5":
+                            config.p5Config.loadout = lastXml;
+                            break;
+                        case "Persona 5 Strikers":
+                            config.p5sConfig.loadout = lastXml;
+                            break;
+                    }
+                }
             }
         }
 
@@ -4003,11 +4023,9 @@ namespace AemulusModManager
 
         private void UpdateDisplay()
         {
-
             // Load the new loadout xml
             if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml") && LoadoutBox.SelectedItem != null && lastGame == game)
             {
-                PackageList.Clear();
                 try
                 {
                     using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
@@ -4030,8 +4048,9 @@ namespace AemulusModManager
                 }
 
                 showHidden.Value = packages.showHiddenPackages;
-                var oldDisplayedPackages = DisplayedPackages.ToList();
 
+                var oldDisplayedPackages = DisplayedPackages.ToList();
+                
                 // Recreate DisplayedPackages to match the newly selected loadout
                 DisplayedPackages.Clear();
 
@@ -4039,7 +4058,7 @@ namespace AemulusModManager
                 foreach (var package in PackageList.ToList())
                 {
                     // Get the current displayed metadata for the package
-                    var updatedPackage = oldDisplayedPackages.Find(dp => dp.path == package.path);
+                    var updatedPackage = oldDisplayedPackages.Find(dp => dp.id == package.id);
 
                     if (updatedPackage != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
                     {
@@ -4051,16 +4070,18 @@ namespace AemulusModManager
                     }
                 }
 
+                Refresh();
+                updatePackages();
                 // Check if there are any missing packages 
-                foreach(var package in oldDisplayedPackages)
-                {
-                    if(package.id != null && !PackageList.Any(p => p.id == package.id))
-                    {
-                        Refresh();
-                        updatePackages();
-                        UpdateDisplay();
-                    }
-                }
+                //foreach (var package in oldDisplayedPackages)
+                //{
+                //    if(package.id != null && !PackageList.Any(p => p.id == package.id))
+                //    {
+                //        Refresh();
+                //        updatePackages();
+                //        UpdateDisplay();
+                //    }
+                //}
             }
         }
 
