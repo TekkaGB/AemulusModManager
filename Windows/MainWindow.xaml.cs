@@ -4073,18 +4073,17 @@ namespace AemulusModManager
                     }
                 }
 
-                Refresh();
-                updatePackages();
                 // Check if there are any missing packages 
-                //foreach (var package in oldDisplayedPackages)
-                //{
-                //    if(package.id != null && !PackageList.Any(p => p.id == package.id))
-                //    {
-                //        Refresh();
-                //        updatePackages();
-                //        UpdateDisplay();
-                //    }
-                //}
+                foreach (var package in oldDisplayedPackages)
+                {
+                    if (package.id != null && !PackageList.Any(p => p.id == package.id))
+                    {
+                        Refresh();
+                        updatePackages();
+                        UpdateDisplay();
+                        return;
+                    }
+                }
             }
         }
 
