@@ -2915,6 +2915,7 @@ namespace AemulusModManager
                 foreach (var xml in xmls)
                 {
                     var replacementXml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{chosenGame}\{Path.GetFileName(xml)}";
+                    // Rename original scheme to default
                     if (Path.GetFileName(xml).Equals($"{chosenGame.Replace(" ", "")}Packages.xml", StringComparison.InvariantCultureIgnoreCase))
                         replacementXml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{chosenGame}\Default.xml";
                     File.Copy(xml, replacementXml, true);
@@ -4062,8 +4063,7 @@ namespace AemulusModManager
                 {
                     // Get the current displayed metadata for the package
                     var updatedPackage = oldDisplayedPackages.Find(dp => dp.id == package.id);
-
-                    if (updatedPackage != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                    if (updatedPackage != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{updatedPackage.path}\Package.xml"))
                     {
                         // Change the displayed metadata from the old loadout to match the new one
                         updatedPackage.enabled = package.enabled;
@@ -4073,17 +4073,8 @@ namespace AemulusModManager
                     }
                 }
 
-                // Check if there are any missing packages 
-                foreach (var package in oldDisplayedPackages)
-                {
-                    if (package.id != null && !PackageList.Any(p => p.id == package.id))
-                    {
-                        Refresh();
-                        updatePackages();
-                        UpdateDisplay();
-                        return;
-                    }
-                }
+                Refresh();
+                updatePackages();
             }
         }
 
