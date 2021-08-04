@@ -255,7 +255,7 @@ namespace AemulusModManager.Utilities
                         Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
                         foreach (var xml in packgeSetup)
                         {
-                            File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
+                            FileIOWrapper.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
                         }
                     }
                     FileIOWrapper.Delete(file);
