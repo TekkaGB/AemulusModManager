@@ -45,23 +45,45 @@ namespace AemulusModManager
                 DisplayedMetadata[] gameBananaRows = rows.Where(row => UrlConverter.Convert(row.link) == "GameBanana").ToArray();
                 if (gameBananaRows.Length > 0)
                 {
-
-                    string gameBananaRequestUrl = "https://api.gamebanana.com/Core/Item/Data?";
-                    // GameBanana
-                    foreach (DisplayedMetadata row in gameBananaRows)
+                    var requestUrls = new List<string>();
+                    requestUrls.Add($"https://api.gamebanana.com/Core/Item/Data?");
+                    var urlCount = 0;
+                    foreach (var row in gameBananaRows)
                     {
                         // Convert the url
                         Uri uri = CreateUri(row.link);
                         string itemType = uri.Segments[1];
                         itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
                         string itemId = uri.Segments[2];
-                        gameBananaRequestUrl += $"itemtype[]={itemType}&itemid[]={itemId}&fields[]=Updates().bSubmissionHasUpdates(),Updates().aGetLatestUpdates(),Files().aFiles(),Owner().name,Preview().sStructuredDataFullsizeUrl(),name&";
+                        requestUrls[urlCount] += $"itemtype[]={itemType}&itemid[]={itemId}&fields[]=Updates().bSubmissionHasUpdates(),Updates().aGetLatestUpdates(),Files().aFiles(),Owner().name,Preview().sStructuredDataFullsizeUrl(),name&";
+                        if (requestUrls[urlCount].Length > 1900)
+                        {
+                            requestUrls[urlCount] += "return_keys=1";
+                            ++urlCount;
+                            requestUrls.Add($"https://api.gamebanana.com/Core/Item/Data?");
+                        }
                     }
-                    gameBananaRequestUrl += "return_keys=1";
-                    // Parse the response
-                    string responseString = await client.GetStringAsync(gameBananaRequestUrl);
-                    responseString = responseString.Replace("\"Files().aFiles()\": []", "\"Files().aFiles()\": {}");
-                    GameBananaItem[] response = JsonConvert.DeserializeObject<GameBananaItem[]>(responseString);
+                    if (!requestUrls[urlCount].EndsWith("return_keys=1"))
+                        requestUrls[urlCount] += "return_keys=1";
+                    if (requestUrls[urlCount] == $"https://api.gamebanana.com/Core/Item/Data?return_keys=1")
+                        requestUrls.RemoveAt(urlCount);
+                    List<GameBananaItem> response = new List<GameBananaItem>();
+                    using (var client = new HttpClient())
+                    {
+                        foreach (var requestUrl in requestUrls)
+                        {
+                            var responseString = await client.GetStringAsync(requestUrl);
+                            try
+                            {
+                                var partialResponse = JsonConvert.DeserializeObject<List<GameBananaItem>>(responseString.Replace("\"Files().aFiles()\": []", "\"Files().aFiles()\": {}"));
+                                response = response.Concat(partialResponse).ToList();
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine($"[ERROR] {e.Message}");
+                            }
+                        }
+                    }
                     if (response == null)
                     {
                         Console.WriteLine("[ERROR] Error whilst checking for package updates: No response from GameBanana API");
