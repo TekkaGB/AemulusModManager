@@ -408,14 +408,32 @@ namespace AemulusModManager
                     if (LoadoutBox.Items.Contains(selectedLoadout))
                     {
                         LoadoutBox.SelectedItem = selectedLoadout;
-                        lastLoadout = LoadoutBox.SelectedItem.ToString();
                     }
                     else
                     {
-                        lastLoadout = null;
                         LoadoutBox.SelectedIndex = 0;
                     }
 
+                    lastLoadout = LoadoutBox.SelectedItem.ToString();
+
+                    // Update the config
+                    selectedLoadout = LoadoutBox.SelectedItem.ToString();
+                    switch (game)
+                    {
+                        case "Persona 3 FES":
+                            config.p3fConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona 4 Golden":
+                            config.p4gConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona 5":
+                            config.p5Config.loadout = selectedLoadout;
+                            break;
+                        case "Persona 5 Strikers":
+                            config.p5sConfig.loadout = selectedLoadout;
+                            break;
+                    }
+                    updateConfig();
 
                     // Load the current loadout
                     if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
