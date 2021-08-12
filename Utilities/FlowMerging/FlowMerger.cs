@@ -53,7 +53,7 @@ namespace AemulusModManager.Utilities.FlowMerging
                         }
                         else
                         {
-                            Console.WriteLine($@"[INFO] Cannot find {ogPath}. Make sure you have unpacked the game's files");
+                            Console.WriteLine($@"[ERROR] Cannot find {ogPath}. Make sure you have unpacked the game's files");
                             continue;
                         }
                     }
