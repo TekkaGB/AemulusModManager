@@ -1,0 +1,247 @@
+[
+  {
+    "Index": "0x6000",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0000",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6001",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0001",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6002",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0002",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6003",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0003",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6004",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0004",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6005",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0005",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6006",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0006",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6007",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0007",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6008",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0008",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6009",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0009",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x600a",
+    "ReturnType": "int",
+    "Name": "FCL_FUNCTION_000A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x600b",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_000B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x600c",
+    "ReturnType": "int",
+    "Name": "FCL_FUNCTION_000C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x600d",
+    "ReturnType": "int",
+    "Name": "FCL_FUNCTION_000D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x600e",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_000E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x600f",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_000F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6010",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0010",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6011",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0011",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6012",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0012",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6013",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0013",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x6014",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0014",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6015",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0015",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6016",
+    "ReturnType": "int",
+    "Name": "FCL_FUNCTION_0016",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x6017",
+    "ReturnType": "void",
+    "Name": "FCL_FUNCTION_0017",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6018",
+    "ReturnType": "int",
+    "Name": "FCL_FUNCTION_0018",
+    "Description": "",
+    "Parameters": [
+    ]
+  }
+]

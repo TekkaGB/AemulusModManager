@@ -307,11 +307,6 @@
     "Name": "AI_CHK_ESCAPE",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -320,11 +315,6 @@
     "Name": "AI_CHK_SUMMON",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -333,11 +323,6 @@
     "Name": "AI_CHK_SENSEI",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -580,11 +565,6 @@
     "Name": "AI_CHK_MYGROUP",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -593,11 +573,6 @@
     "Name": "AI_CHK_FRGROUP",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -606,11 +581,6 @@
     "Name": "AI_CHK_ENGROUP",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -645,11 +615,6 @@
     "Name": "AI_CHK_MYHREC",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -990,11 +955,6 @@
         "Type": "int",
         "Name": "param1",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
       }
     ]
   },
@@ -1007,11 +967,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ]
@@ -1242,11 +1197,6 @@
         "Type": "int",
         "Name": "param1",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
       }
     ]
   },
@@ -1259,11 +1209,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ]
@@ -1342,11 +1287,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ]
@@ -1665,11 +1605,6 @@
     "Name": "AI_TAR_APPOINT",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -1678,11 +1613,6 @@
     "Name": "AI_TAR_DOWN",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -1691,11 +1621,6 @@
     "Name": "AI_TAR_STAND",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2029,11 +1954,6 @@
     "Name": "AI_GET_FRLV",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2042,11 +1962,6 @@
     "Name": "AI_GET_ENLV",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2293,11 +2208,6 @@
     "Name": "AI_GET_UNIAPPOINT",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2310,11 +2220,6 @@
         "Type": "int",
         "Name": "param1",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
       }
     ]
   },
@@ -2324,11 +2229,6 @@
     "Name": "AI_GET_UNIHERO",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2425,11 +2325,6 @@
     "Name": "AI_GET_UNILVMAX_EN",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2511,11 +2406,6 @@
     "Name": "AI_GET_NEXT_ID",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -2693,11 +2583,6 @@
     "Name": "AI_GET_UNIRANDOM",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -3062,11 +2947,6 @@
     "Name": "AI_GET_E_NUM",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -3137,11 +3017,6 @@
     "Name": "AI_CHK_BOSS",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -3153,11 +3028,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ]
@@ -3362,11 +3232,6 @@
     "Name": "AI_GET_P_NUM",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {

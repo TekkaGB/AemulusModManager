@@ -2,7 +2,7 @@
   {
     "Index": "0x4000",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0000",
+    "Name": "FCL_FUNCTION_0000",
     "Description": "",
     "Parameters": [
     ]
@@ -10,7 +10,7 @@
   {
     "Index": "0x4001",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0001",
+    "Name": "FCL_FUNCTION_0001",
     "Description": "",
     "Parameters": [
     ]
@@ -18,7 +18,7 @@
   {
     "Index": "0x4002",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0002",
+    "Name": "FCL_FUNCTION_0002",
     "Description": "",
     "Parameters": [
     ]
@@ -26,7 +26,7 @@
   {
     "Index": "0x4003",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0003",
+    "Name": "FCL_FUNCTION_0003",
     "Description": "",
     "Parameters": [
     ]
@@ -34,7 +34,7 @@
   {
     "Index": "0x4004",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0004",
+    "Name": "FCL_FUNCTION_0004",
     "Description": "",
     "Parameters": [
     ]
@@ -42,7 +42,7 @@
   {
     "Index": "0x4005",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0005",
+    "Name": "FCL_FUNCTION_0005",
     "Description": "",
     "Parameters": [
     ]
@@ -50,7 +50,7 @@
   {
     "Index": "0x4006",
     "ReturnType": "void",
-    "Name": "CLD_FUNCTION_0006",
+    "Name": "FCL_FUNCTION_0006",
     "Description": "",
     "Parameters": [
     ]

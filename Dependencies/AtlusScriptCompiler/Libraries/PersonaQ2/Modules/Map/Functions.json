@@ -1,0 +1,55 @@
+[
+  {
+    "Index": "0x7000",
+    "ReturnType": "void",
+    "Name": "MAP_FUNCTION_0000",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x7001",
+    "ReturnType": "void",
+    "Name": "MAP_FUNCTION_0001",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x7002",
+    "ReturnType": "void",
+    "Name": "MAP_FUNCTION_0002",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x7003",
+    "ReturnType": "void",
+    "Name": "MAP_FUNCTION_0003",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x7004",
+    "ReturnType": "int",
+    "Name": "MAP_FUNCTION_0004",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x7005",
+    "ReturnType": "void",
+    "Name": "MAP_FUNCTION_0005",
+    "Description": "",
+    "Parameters": [
+    ]
+  }
+]

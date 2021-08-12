@@ -1,0 +1,1233 @@
+[
+  {
+    "Index": "0x3000",
+    "ReturnType": "void",
+    "Name": "CALL_BG_IMG",
+    "Description": "Address: 0x089B30A4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3001",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0001",
+    "Description": "Address: 0x089B317C",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3002",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0002",
+    "Description": "Address: 0x08991C54",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3003",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0003",
+    "Description": "Address: 0x089B319C",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3004",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0004",
+    "Description": "Address: 0x08A5F338",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3005",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0005",
+    "Description": "Address: 0x08A5F394",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3006",
+    "ReturnType": "int",
+    "Name": "CMM_GET_LV",
+    "Description": "Address: 0x08A5F3D4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3007",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0007",
+    "Description": "Address: 0x08A5F414",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3008",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0008",
+    "Description": "Address: 0x08A5F4A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3009",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0009",
+    "Description": "Address: 0x08A5F704",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300a",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_000A",
+    "Description": "Address: 0x08A5F75C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300b",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_000B",
+    "Description": "Address: 0x08A5F798",
+    "Parameters": []
+  },
+  {
+    "Index": "0x300c",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_000C",
+    "Description": "Address: 0x08A5F8AC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300d",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_000D",
+    "Description": "Address: 0x08A5F9E8",
+    "Parameters": []
+  },
+  {
+    "Index": "0x300e",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_000E",
+    "Description": "Address: 0x08A5FB18",
+    "Parameters": []
+  },
+  {
+    "Index": "0x300f",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_000F",
+    "Description": "Address: 0x08A5F44C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3010",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0010",
+    "Description": "Address: 0x08A5F554",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3011",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0011",
+    "Description": "Address: 0x08A5F62C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3012",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0012",
+    "Description": "Address: 0x08A5F5A8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3013",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0013",
+    "Description": "Address: 0x08A5F680",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3014",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0014",
+    "Description": "Address: 0x08A5FB48",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3015",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0015",
+    "Description": "Address: 0x08A600B4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3016",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0016",
+    "Description": "Address: 0x08A600EC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3017",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0017",
+    "Description": "Address: 0x08A60178",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3018",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0018",
+    "Description": "Address: 0x08A601C0",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3019",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0019",
+    "Description": "Address: 0x08A5F7C0",
+    "Parameters": []
+  },
+  {
+    "Index": "0x301a",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_001A",
+    "Description": "Address: 0x08A601E8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x301b",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_001B",
+    "Description": "Address: 0x08A6023C",
+    "Parameters": []
+  },
+  {
+    "Index": "0x301c",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_001C",
+    "Description": "Address: 0x08A5F820",
+    "Parameters": []
+  },
+  {
+    "Index": "0x301d",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_001D",
+    "Description": "Address: 0x08A5FD7C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x301e",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_001E",
+    "Description": "Address: 0x08A6028C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x301f",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_001F",
+    "Description": "Address: 0x08A60358",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3020",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0020",
+    "Description": "Address: 0x08A60388",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3021",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0021",
+    "Description": "Address: 0x08A603C8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3022",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0022",
+    "Description": "Address: 0x08A5FF38",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3023",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0023",
+    "Description": "Address: 0x08A602C4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3024",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0024",
+    "Description": "Address: 0x08A60264",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3025",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0025",
+    "Description": "Address: 0x08A60428",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3026",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0026",
+    "Description": "Address: 0x08A60458",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3027",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0027",
+    "Description": "Address: 0x08A60488",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3028",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0028",
+    "Description": "Address: 0x08A60550",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3029",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0029",
+    "Description": "Address: 0x08A605BC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302a",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_002A",
+    "Description": "Address: 0x08A602F4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302b",
+    "ReturnType": "void",
+    "Name": "CMM_SET_LV",
+    "Description": "Address: 0x08A60824",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302c",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_002C",
+    "Description": "Address: 0x08A608BC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302d",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_002D",
+    "Description": "Address: 0x08A60904",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302e",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_002E",
+    "Description": "Address: 0x08A60AD0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302f",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_002F",
+    "Description": "Address: 0x08A60B30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3030",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0030",
+    "Description": "Address: 0x08A5F4FC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3031",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0031",
+    "Description": "Address: 0x08A603F8",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3032",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0032",
+    "Description": "Address: 0x08994FFC",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3033",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0033",
+    "Description": "Address: 0x08995050",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3034",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0034",
+    "Description": "Address: 0x08995078",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3035",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0035",
+    "Description": "Address: 0x08991F70",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3036",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0036",
+    "Description": "Address: 0x08992058",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3037",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0037",
+    "Description": "Address: 0x089920B4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3038",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0038",
+    "Description": "Address: 0x089922CC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3039",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0039",
+    "Description": "Address: 0x089924C4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303a",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_003A",
+    "Description": "Address: 0x08992504",
+    "Parameters": []
+  },
+  {
+    "Index": "0x303b",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_003B",
+    "Description": "Address: 0x08992524",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303c",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_003C",
+    "Description": "Address: 0x08992608",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303d",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_003D",
+    "Description": "Address: 0x0899269C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303e",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_003E",
+    "Description": "Address: 0x0899270C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303f",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_003F",
+    "Description": "Address: 0x089927A4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3040",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0040",
+    "Description": "Address: 0x089B31BC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3041",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0041",
+    "Description": "Address: 0x089B3214",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3042",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0042",
+    "Description": "Address: 0x08992858",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3043",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0043",
+    "Description": "Address: 0x089B32AC",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3044",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0044",
+    "Description": "Address: 0x089B32D4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3045",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0045",
+    "Description": "Address: 0x089B3314",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3046",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0046",
+    "Description": "Address: 0x089950A8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3047",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0047",
+    "Description": "Address: 0x089954F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3048",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0048",
+    "Description": "Address: 0x089955B8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3049",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0049",
+    "Description": "Address: 0x089B3394",
+    "Parameters": []
+  },
+  {
+    "Index": "0x304a",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_004A",
+    "Description": "Address: 0x089B3334",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304b",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_004B",
+    "Description": "Address: 0x08995678",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304c",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_004C",
+    "Description": "Address: 0x08995744",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304d",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_004D",
+    "Description": "Address: 0x08995554",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304e",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_004E",
+    "Description": "Address: 0x08992128",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304f",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_004F",
+    "Description": "Address: 0x0899225C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3050",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_0050",
+    "Description": "Address: 0x089957E8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3051",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0051",
+    "Description": "Address: 0x08992CC4",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3052",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0052",
+    "Description": "Address: 0x08992E5C",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3053",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0053",
+    "Description": "Address: 0x089B3234",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3054",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0054",
+    "Description": "Address: 0x089B328C",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3055",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0055",
+    "Description": "Address: 0x08991D38",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3056",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0056",
+    "Description": "Address: 0x08991C34",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3057",
+    "ReturnType": "int",
+    "Name": "FLD_GET_MAJOR",
+    "Description": "Address: 0x08994F64",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3058",
+    "ReturnType": "int",
+    "Name": "FLD_GET_MINOR",
+    "Description": "Address: 0x08994FB0",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3059",
+    "ReturnType": "void",
+    "Name": "EVT_FUNCTION_0059",
+    "Description": "Address: 0x08992EA4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305a",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_005A",
+    "Description": "Address: 0x08995B40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305b",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_005B",
+    "Description": "Address: 0x08995CF8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305c",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_005C",
+    "Description": "Address: 0x08995E7C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  }
+]

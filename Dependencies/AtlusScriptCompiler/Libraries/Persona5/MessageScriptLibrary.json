@@ -6,8 +6,9 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
         "Description": "",
+        "Semantic": "Unused",
         "Parameters": [
         ]
       },
@@ -24,8 +25,9 @@
       },
       {
         "Index": 2,
-        "Name": "@Unused",
+        "Name": "",
         "Description": "",
+        "Semantic": "Unused",
         "Parameters": [
         ]
       },
@@ -45,7 +47,8 @@
       },
       {
         "Index": 5,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -74,7 +77,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -187,9 +191,13 @@
       },
       {
         "Index": 4,
-        "Name": "",
-        "Description": "",
+        "Name": "var",
+        "Description": "Loads name previously defined by SET_MSG_VAR",
         "Parameters": [
+          {
+            "Name": "VariableID",
+            "Description": "The ID of the variable set by SET_MSG_VAR function."
+          }
         ]
       },
       {
@@ -223,7 +231,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -269,7 +278,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "",
         "Description": "",
         "Parameters": [
         ]
@@ -471,9 +481,17 @@
       },
       {
         "Index": 26,
-        "Name": "",
-        "Description": "",
+        "Name": "ref",
+        "Description": "References the caption message",
         "Parameters": [
+          {
+            "Name": "RelativeID",
+            "Description": "This just seems to be a relative ID of the caption message"
+          },
+          {
+            "Name": "GlobalID",
+            "Description": "And this is the actual ID of it (GENERIC_HELP_<this>)."
+          }
         ]
       },
       {
@@ -507,7 +525,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -634,7 +653,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]

@@ -1212,11 +1212,6 @@
         "Type": "int",
         "Name": "param3",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param4",
-        "Description": ""
       }
     ]
   },

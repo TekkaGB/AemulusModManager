@@ -1,0 +1,215 @@
+[
+  {
+    "Name": "SocialStat",
+    "Description": "This enum represents social stats",
+    "Members": [
+      {
+        "Name": "Courage",
+        "Value": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Knowledge",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "Diligence",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Understanding",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "Expression",
+        "Value": 4,
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Name": "Expression",
+    "Description": "This enum represents expression animations that can be played",
+    "Members": [
+      {
+        "Name": "Exclamation",
+        "Value": 0,
+        "Description": ""
+      },
+      {
+        "Name": "DoubleExclamation",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "QuestionMark",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "ExclaimedQuestionMark",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "AngryHash",
+        "Value": 4,
+        "Description": "The red hash symbol"
+      },
+      {
+        "Name": "HappyFlowers",
+        "Value": 5,
+        "Description": ""
+      },
+      {
+        "Name": "GreenNote",
+        "Value": 6,
+        "Description": ""
+      },
+      {
+        "Name": "Hit",
+        "Value": 7,
+        "Description": ""
+      },
+      {
+        "Name": "GreySquigglyBall",
+        "Value": 8,
+        "Description": "I can't think of the word (like a bruh moment)"
+      },
+      {
+        "Name": "RedCheeks",
+        "Value": 9,
+        "Description": ""
+      },
+      {
+        "Name": "TalkingLines",
+        "Value": 10,
+        "Description": ""
+      },
+      {
+        "Name": "AngryLightning",
+        "Value": 11,
+        "Description": "Angry but it's like little lightning bolts"
+      },
+      {
+        "Name": "Heart",
+        "Value": 12,
+        "Description": ""
+      },
+      {
+        "Name": "Sleepy",
+        "Value": 13,
+        "Description": ""
+      },
+      {
+        "Name": "PhoneRing",
+        "Value": 14,
+        "Description": "Pi Pi Pi Pi"
+      },
+      {
+        "Name": "SweatDrop",
+        "Value": 15,
+        "Description": "A single big sweat drop"
+      },
+      {
+        "Name": "QuadSweatDrop",
+        "Value": 16,
+        "Description": "Many sweat drops coming out"
+      },
+      {
+        "Name": "HitWhite",
+        "Value": 17,
+        "Description": "Like hit but white instead of yellowish"
+      },
+      {
+        "Name": "YellowNote",
+        "Value": 18,
+        "Description": "One big yellow note shooting up"
+      },
+      {
+        "Name": "DoubleYellowNote",
+        "Value": 19,
+        "Description": "Two yellow notes shooting up"
+      },
+      {
+        "Name": "QuadYellowNote",
+        "Value": 20,
+        "Description": "Even more yellow notes shooting up (not sure if it's actually 4)"
+      },
+      {
+        "Name": "BrokenHeart",
+        "Value": 21,
+        "Description": ""
+      },
+      {
+        "Name": "Music",
+        "Value": 22,
+        "Description": "Purple swirly music notes, probably used when playing music"
+      },
+      {
+        "Name": "StarsHit",
+        "Value": 23,
+        "Description": "A bunch of yellow stars like you've been hit"
+      },
+      {
+        "Name": "Idea",
+        "Value": 24,
+        "Description": ""
+      },
+      {
+        "Name": "DoubleSweatDrop",
+        "Value": 25,
+        "Description": "Two sweat drops going down"
+      }
+    ]
+  },
+    {
+      "Name": "MessageVarType",
+      "Description": "This enum represents the possible types of message variables (used in [f 2 4 index] in messages)",
+      "Members": [
+        {
+          "Name": "Number",
+          "Value": 0,
+          "Description": ""
+        },
+        {
+          "Name": "Item",
+          "Value": 1,
+          "Description": "Need to use [f 2 5 3 -1 index] in message instead of [f 2 4 index] otherwise the game will crash"
+        },
+        {
+          "Name": "Enemy",
+          "Value": 2,
+          "Description": ""
+        },
+        {
+          "Name": "Arcana",
+          "Value": 3,
+          "Description": ""
+        },
+        {
+          "Name": "ProtagName",
+          "Value": 4,
+          "Description": ""
+        },
+        {
+          "Name": "Weapon",
+          "Value": 5,
+          "Description": ""
+        },
+        {
+          "Name": "??? (Use?)",
+          "Value": 6,
+          "Description": ""
+        },
+        {
+          "Name": "Persona",
+          "Value": 7,
+          "Description": ""
+        }
+      ]
+    }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "Common",
+    "ShortName": "cmn",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Common\\Functions.json"
+  },
+  {
+    "Name": "Window",
+    "ShortName": "wnd",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Window\\Functions.json"
+  },
+  {
+    "Name": "Dungeon",
+    "ShortName": "dng",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Dungeon\\Functions.json"
+  },
+  {
+    "Name": "Battle",
+    "ShortName": "btl",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Battle\\Functions.json"
+  },
+  {
+    "Name": "Event",
+    "ShortName": "evt",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Event\\Functions.json"
+  },
+  {
+    "Name": "Script",
+    "ShortName": "scr",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Script\\Functions.json"
+  },
+  {
+    "Name": "Facility",
+    "ShortName": "fcl",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Facility\\Functions.json"
+  },
+  {
+    "Name": "Map",
+    "ShortName": "map",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Map\\Functions.json"
+  },
+  {
+    "Name": "Camp",
+    "ShortName": "cmp",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "PersonaQ2\\Modules\\Camp\\Functions.json"
+  },
+]

@@ -68,12 +68,14 @@
       {
         "Type": "int",
         "Name": "messageId",
-        "Description": "Id of the message to display."
+        "Description": "Id of the message to display.",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": "Unknown type; assumed int."
+        "Description": "Unknown type; assumed int.",
+        "DefaultValue": "0"
       }
     ]
   },
@@ -169,7 +171,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": "The bit id to check."
+        "Description": "The bit id to check.",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -182,7 +185,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": "The bit id to toggle on."
+        "Description": "The bit id to toggle on.",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -195,7 +199,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": "The bit id to toggle off."
+        "Description": "The bit id to toggle off.",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -506,12 +511,13 @@
     "Index": "0x0024",
     "ReturnType": "int",
     "Name": "SEL",
-    "Description": "Initiates a dialog option selection sequenc.e",
+    "Description": "Initiates a dialog option selection sequence",
     "Parameters": [
       {
         "Type": "int",
         "Name": "messageId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "SelId"
       }
     ]
   },
@@ -594,7 +600,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -1423,7 +1430,8 @@
       {
         "Type": "int",
         "Name": "messageId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -1446,7 +1454,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -1977,7 +1986,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -1990,7 +2000,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -2515,11 +2526,6 @@
     "Name": "MDL_GET_ANIM_COUNT",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
@@ -3174,7 +3180,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -3701,7 +3708,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -3714,7 +3722,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -3727,7 +3736,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -4668,7 +4678,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -5223,7 +5234,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -5611,19 +5623,6 @@
     "Name": "NET_DISCONNECT_MATCH",
     "Description": "",
     "Parameters": [
-    ]
-  },
-  {
-    "Index": "0x017b",
-    "ReturnType": "int",
-    "Name": "FUNCTION_17B",
-    "Description": "",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   }
 ]

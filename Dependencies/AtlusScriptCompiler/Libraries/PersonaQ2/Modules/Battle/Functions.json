@@ -1,0 +1,6449 @@
+[
+  {
+    "Index": "0x3000",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0000",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3001",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0001",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3002",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0002",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3003",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0003",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3004",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0004",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3005",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0005",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3006",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0006",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3007",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0007",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3008",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0008",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3009",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0009",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x300a",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_000A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x300b",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_000B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x300c",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_000C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x300d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_000D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x300e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_000E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300f",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_000F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3010",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0010",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3011",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0011",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3012",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0012",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3013",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0013",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3014",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0014",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3015",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0015",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3016",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0016",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3017",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0017",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3018",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0018",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3019",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0019",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x301a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_001A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x301b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_001B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x301c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_001C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x301d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_001D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x301e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_001E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x301f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_001F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3020",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0020",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3021",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0021",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3022",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0022",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3023",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0023",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3024",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0024",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3025",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0025",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3026",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0026",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3027",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0027",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3028",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0028",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3029",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0029",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x302a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_002A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x302b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_002B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x302c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_002C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x302d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_002D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x302e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_002E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x302f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_002F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3030",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0030",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3031",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0031",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3032",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0032",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3033",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0033",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3034",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0034",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3035",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0035",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3036",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0036",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3037",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0037",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3038",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0038",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3039",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0039",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x303a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_003A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_003B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_003C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_003D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_003E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_003F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3040",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0040",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3041",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0041",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3042",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0042",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3043",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0043",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3044",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0044",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3045",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0045",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3046",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0046",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3047",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0047",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3048",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0048",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3049",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0049",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x304a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_004A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x304b",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_004B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x304c",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_004C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_004D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x304e",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_004E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x304f",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_004F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3050",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0050",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3051",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0051",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3052",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0052",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3053",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0053",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3054",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0054",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3055",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0055",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3056",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0056",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3057",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0057",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3058",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0058",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3059",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0059",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305a",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_005A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305b",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_005B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_005C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x305d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_005D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305e",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_005E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_005F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3060",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0060",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3061",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0061",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3062",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0062",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3063",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0063",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3064",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0064",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3065",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0065",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3066",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0066",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3067",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0067",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3068",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0068",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3069",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0069",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x306a",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_006A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306b",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_006B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_006C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_006D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x306e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_006E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x306f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_006F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3070",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0070",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3071",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0071",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3072",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0072",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3073",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0073",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3074",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0074",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3075",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0075",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3076",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0076",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3077",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0077",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3078",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0078",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3079",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0079",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307a",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_007A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307b",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_007B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307c",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_007C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_007D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_007E",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307f",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_007F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3080",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0080",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3081",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0081",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3082",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0082",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3083",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0083",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3084",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0084",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3085",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0085",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3086",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0086",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3087",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0087",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3088",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0088",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3089",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0089",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_008A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_008B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308c",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_008C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_008D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_008E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308f",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_008F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3090",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0090",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3091",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0091",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3092",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0092",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3093",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0093",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3094",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0094",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3095",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0095",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3096",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0096",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3097",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0097",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3098",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0098",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3099",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0099",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x309a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_009A",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x309b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_009B",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x309c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_009C",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x309d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_009D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x309e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_009E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x309f",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_009F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30a0",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a1",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a2",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a3",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A3",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30a4",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a5",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A5",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30a6",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a7",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a8",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30a9",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00A9",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30aa",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00AA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ab",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00AB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ac",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00AC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ad",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00AD",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30ae",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00AE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30af",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00AF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30b0",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B0",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30b1",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B1",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30b2",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00B2",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30b3",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00B3",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30b4",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30b5",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30b6",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B6",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30b7",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B7",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30b8",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30b9",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00B9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ba",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00BA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30bb",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00BB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30bc",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00BC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30bd",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00BD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30be",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00BE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30bf",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00BF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30c0",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30c1",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C1",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30c2",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30c3",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30c4",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30c5",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00C5",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30c6",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00C6",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30c7",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30c8",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C8",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30c9",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00C9",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30ca",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00CA",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30cb",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00CB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30cc",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00CC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30cd",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00CD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ce",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00CE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30cf",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00CF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30d0",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00D0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30d1",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00D1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30d2",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00D2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30d3",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00D3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30d4",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00D4",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30d5",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00D5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30d6",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00D6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30d7",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00D7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30d8",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00D8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30d9",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00D9",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30da",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00DA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30db",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00DB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30dc",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00DC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30dd",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00DD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30de",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00DE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30df",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00DF",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30e0",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00E0",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30e1",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00E1",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30e2",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00E2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30e3",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00E3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30e4",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00E4",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30e5",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00E5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x30e6",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00E6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30e7",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00E7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30e8",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00E8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30e9",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00E9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ea",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00EA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30eb",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00EB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ec",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00EC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ed",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00ED",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30ee",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00EE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ef",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00EF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30f0",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00F0",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30f1",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30f2",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F2",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30f3",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F3",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30f4",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30f5",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30f6",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30f7",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F7",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30f8",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F8",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30f9",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00F9",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30fa",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00FA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30fb",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00FB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30fc",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00FC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30fd",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_00FD",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x30fe",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00FE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x30ff",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_00FF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3100",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0100",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3101",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0101",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3102",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0102",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3103",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0103",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3104",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0104",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3105",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0105",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3106",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0106",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3107",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0107",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3108",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0108",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3109",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0109",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x310a",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_010A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x310b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_010B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x310c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_010C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x310d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_010D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x310e",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_010E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x310f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_010F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3110",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0110",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3111",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0111",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3112",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0112",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3113",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0113",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3114",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0114",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3115",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0115",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3116",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0116",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3117",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0117",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3118",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0118",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3119",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0119",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x311a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_011A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x311b",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_011B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x311c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_011C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x311d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_011D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x311e",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_011E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x311f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_011F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3120",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0120",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3121",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0121",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3122",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0122",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3123",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0123",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3124",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0124",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3125",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0125",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3126",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0126",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3127",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0127",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3128",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0128",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3129",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0129",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x312a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_012A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x312b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_012B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x312c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_012C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x312d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_012D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x312e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_012E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x312f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_012F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3130",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0130",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3131",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0131",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3132",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0132",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3133",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0133",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3134",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0134",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3135",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0135",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3136",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0136",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3137",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0137",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3138",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0138",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3139",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0139",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x313a",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_013A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x313b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_013B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x313c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_013C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x313d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_013D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x313e",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_013E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x313f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_013F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3140",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0140",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3141",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0141",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3142",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0142",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3143",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0143",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3144",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0144",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3145",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0145",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3146",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0146",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3147",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0147",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3148",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0148",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3149",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0149",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x314a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_014A",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x314b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_014B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x314c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_014C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x314d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_014D",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x314e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_014E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x314f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_014F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3150",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0150",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3151",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0151",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3152",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0152",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x3153",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0153",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3154",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0154",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3155",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0155",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3156",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0156",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3157",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0157",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3158",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0158",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3159",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0159",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x315a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_015A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x315b",
+    "ReturnType": "int",
+    "Name": "BTL_GET_VALUE",
+    "Description": "Code function name: scrBattleCommand_BTL_GET_VALUE",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x315c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_015C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x315d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_015D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x315e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_015E",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x315f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_015F",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3160",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0160",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3161",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0161",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3162",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0162",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3163",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0163",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3164",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0164",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3165",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0165",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3166",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0166",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3167",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0167",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3168",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0168",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3169",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0169",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x316a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_016A",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x316b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_016B",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x316c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_016C",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x316d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_016D",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x316e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_016E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x316f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_016F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3170",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0170",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3171",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0171",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3172",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0172",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3173",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0173",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3174",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0174",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3175",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0175",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3176",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0176",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3177",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0177",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3178",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0178",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3179",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0179",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x317a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_017A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x317b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_017B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x317c",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_017C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x317d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_017D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x317e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_017E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x317f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_017F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3180",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0180",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3181",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0181",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3182",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0182",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3183",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0183",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3184",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0184",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3185",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0185",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3186",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0186",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3187",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0187",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3188",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0188",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3189",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0189",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x318a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_018A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x318b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_018B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x318c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_018C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x318d",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_018D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x318e",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_018E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x318f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_018F",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3190",
+    "ReturnType": "int",
+    "Name": "BTL_FUNCTION_0190",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3191",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0191",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3192",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0192",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3193",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0193",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3194",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0194",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3195",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0195",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3196",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0196",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3197",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0197",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3198",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0198",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3199",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_0199",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x319a",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_019A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x319b",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_019B",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x319c",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_019C",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x319d",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_019D",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x319e",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_019E",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x319f",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_019F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x31a0",
+    "ReturnType": "void",
+    "Name": "BTL_COMBI_ENEMY_ATTACH",
+    "Description": "Code function name: scrBattleCommand_BTL_COMBI_ENEMY_ATTACH",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x31a1",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_01A1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x31a2",
+    "ReturnType": "void",
+    "Name": "BTL_FUNCTION_01A2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  }
+]
