@@ -280,7 +280,7 @@ namespace AemulusModManager
                 return;
 
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
-                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin"));
+                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
             foreach(string file in files)
             {
                 List<string> contents = binMerge.getFileContents(file);
