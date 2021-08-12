@@ -30,6 +30,7 @@ using Vlc.DotNet.Core;
 using AemulusModManager.Windows;
 using AemulusModManager.Utilities.Windows;
 using System.ComponentModel;
+using AemulusModManager.Utilities.FlowMerging;
 
 namespace AemulusModManager
 {
@@ -1720,6 +1721,9 @@ namespace AemulusModManager
 
                     if (game != "Persona 5 Strikers")
                     {
+                        // Compile flow files
+                        FlowMerger.Merge(packages, game);
+
                         await Task.Run(() =>
                         {
                             binMerge.Restart(path, emptySND, game, cpkLang);

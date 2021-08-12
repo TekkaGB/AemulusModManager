@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -62,6 +63,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM");
+            ExtractBfs($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -79,7 +81,7 @@ namespace AemulusModManager
                 return;
             }
             List<string> pacs = new List<string>();
-            List<string> globs = new List<string> { "*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack" };
+            List<string> globs = new List<string> { "*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack", "*.bf" };
             switch (cpk)
             {
                 case "data_e.cpk":
@@ -135,6 +137,7 @@ namespace AemulusModManager
                         }
                     }
                 }
+                ExtractBfs($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{Path.GetFileNameWithoutExtension(pac)}");
             }
             if (FileIOWrapper.Exists($@"{directory}\{cpk}") && !FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpk}"))
             {
@@ -263,11 +266,33 @@ namespace AemulusModManager
             }
             else
                 Console.WriteLine($"[ERROR] Couldn't find ps3.cpk in {directory}.");
+            ExtractBfs($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
             });
         }
+
+        private static void ExtractBfs(string directory)
+        {
+            if (!Directory.Exists(directory))
+                return;
+
+            var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
+                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin"));
+            foreach(string file in files)
+            {
+                List<string> contents = binMerge.getFileContents(file);
+                var bfFiles = contents.Where(x => x.EndsWith(".bf"));
+                foreach(string bf in bfFiles)
+                {
+                    Console.WriteLine($"[INFO] Unpacking {file}");
+                    binMerge.PAKPackCMD($"unpack \"{file}\"");
+                }
+            }
+
+        }
+
     }
 }
