@@ -223,7 +223,6 @@ namespace AemulusModManager
                 // Retrieve initial thumbnail from resource
                 bitmap = new BitmapImage(new Uri("pack://application:,,,/AemulusPackageManager;component/Assets/Preview.png"));
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
-                //ImageBehavior.SetAnimatedSource(PreviewBG, null);
 
                 // Initialize config
                 config = new AemulusConfig();
@@ -380,6 +379,14 @@ namespace AemulusModManager
                     {
                     }
 
+                    if (config.p4gConfig == null)
+                        config.p4gConfig = p4gConfig;
+                    if (config.p3fConfig == null)
+                        config.p3fConfig = p3fConfig;
+                    if (config.p5Config == null)
+                        config.p5Config = p5Config;
+                    if (config.p5sConfig == null)
+                        config.p5sConfig = p5sConfig;
 
                     SwitchThemes();
 
