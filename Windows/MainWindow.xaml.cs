@@ -1,4 +1,4 @@
-﻿using AemulusModManager.Utilities.KT;
+using AemulusModManager.Utilities.KT;
 using AemulusModManager.Utilities;
 using GongSolutions.Wpf.DragDrop.Utilities;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -595,7 +595,13 @@ namespace AemulusModManager
                 fileSystemWatcher.Created += FileSystemWatcher_Created;
                 if (!oneClick)
                     UpdateAllAsync();
+                CreateMediaPlayer();
+            }
 
+        }
+
+        private async void CreateMediaPlayer()
+        {
                 var currentAssembly = Assembly.GetEntryAssembly();
                 var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
                 // Default installation path of VideoLAN.LibVLC.Windows
@@ -607,10 +613,12 @@ namespace AemulusModManager
                     "--no-visual-peaks",
                     "--no-visual-80-bands"
                 };
-                MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
+            await Task.Run(() => { MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options); });
                 MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
                 MusicPlayer.SourceProvider.MediaPlayer.Playing += SetProgressMax;
                 MusicPlayer.SourceProvider.MediaPlayer.PositionChanged += (sender, e) =>
+                {
+                if (Application.Current != null)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -621,6 +629,7 @@ namespace AemulusModManager
                             current.Minutes, current.Seconds,
                             total.Minutes, total.Seconds);
                     });
+                }
                 };
                 VolumeSlider.ApplyTemplate();
                 Thumb thumb = (VolumeSlider.Template.FindName("PART_Track", VolumeSlider) as Track).Thumb;
@@ -630,7 +639,6 @@ namespace AemulusModManager
                 thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
             }
 
-        }
         private void thumb_MouseEnter(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && e.MouseDevice.Captured == null)
@@ -3281,6 +3289,8 @@ namespace AemulusModManager
             else
             {
                 currentAudio = item.Media[0].Audio;
+                // Wait until the music player has been created
+                while (MusicPlayer.SourceProvider.MediaPlayer == null) ;
                 MusicPlayer.SourceProvider.MediaPlayer.SetMedia(currentAudio);
                 MusicPlayer.SourceProvider.MediaPlayer.Audio.Volume = (int)VolumeSlider.Value;
                 AudioDuration.Text = "0:00 / 0:00";
@@ -3745,6 +3755,7 @@ namespace AemulusModManager
             DescPanel.Visibility = Visibility.Collapsed;
             await Task.Run(() =>
             {
+                if (MusicPlayer.SourceProvider.MediaPlayer != null)
                 MusicPlayer.SourceProvider.MediaPlayer.ResetMedia();
             });
             duration = 0;
