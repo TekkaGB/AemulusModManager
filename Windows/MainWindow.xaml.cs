@@ -606,19 +606,27 @@ namespace AemulusModManager
                 if (!oneClick)
                     UpdateAllAsync();
 
-                App.Current.Dispatcher.Invoke(() =>
+                InitializeMediaPlayer();
+            }
+
+        }
+        private async void InitializeMediaPlayer()
+        {
+            await Task.Run(() =>
+            {
+                var currentAssembly = Assembly.GetEntryAssembly();
+                var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
+                // Default installation path of VideoLAN.LibVLC.Windows
+                var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+                string[] options = new string[]
                 {
-                    var currentAssembly = Assembly.GetEntryAssembly();
-                    var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
-                    // Default installation path of VideoLAN.LibVLC.Windows
-                    var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
-                    string[] options = new string[]
-                    {
-                    "--effect-list=spectrum",
-                    "--audio-visual=visual",
-                    "--no-visual-peaks",
-                    "--no-visual-80-bands"
-                    };
+                "--effect-list=spectrum",
+                "--audio-visual=visual",
+                "--no-visual-peaks",
+                "--no-visual-80-bands"
+                };
+                Application.Current.Dispatcher.Invoke(() =>
+                {
                     MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
                     MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
                     MusicPlayer.SourceProvider.MediaPlayer.Playing += SetProgressMax;
@@ -641,8 +649,7 @@ namespace AemulusModManager
                     thumb = (AudioProgress.Template.FindName("PART_Track", AudioProgress) as Track).Thumb;
                     thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
                 });
-            }
-
+            });
         }
         private void thumb_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -1350,39 +1357,48 @@ namespace AemulusModManager
         }
         private async void RefreshCommand()
         {
-            foreach (var button in buttons)
+            await Task.Run(() =>
             {
-                button.IsHitTestVisible = false;
-                button.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            GameBox.IsHitTestVisible = false;
-            ModGrid.IsHitTestVisible = false;
-            LoadoutBox.IsHitTestVisible = false;
-            Refresh();
-            updateConfig();
-            updatePackages();
-            await UpdateAllAsync();
-            ModGrid.IsHitTestVisible = true;
-            foreach (var button in buttons)
-            {
-                button.IsHitTestVisible = true;
-                if (game == "Persona 3 FES")
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                else if (game == "Persona 4 Golden")
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                else if (game == "Persona 5 Strikers")
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
-                else
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
-            }
-            GameBox.IsHitTestVisible = true;
-            if (String.IsNullOrEmpty(modPath))
-            {
-                MergeButton.IsHitTestVisible = false;
-                MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
-            }
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    foreach (var button in buttons)
+                    {
+                        button.IsHitTestVisible = false;
+                        button.Foreground = new SolidColorBrush(Colors.Gray);
+                    }
+                    GameBox.IsHitTestVisible = false;
+                    ModGrid.IsHitTestVisible = false;
+                    LoadoutBox.IsHitTestVisible = false;
+                });
+                Refresh();
+                updateConfig();
+                updatePackages();
+                UpdateAllAsync();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ModGrid.IsHitTestVisible = true;
+                    foreach (var button in buttons)
+                    {
+                        button.IsHitTestVisible = true;
+                        if (game == "Persona 3 FES")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                        else if (game == "Persona 4 Golden")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        else if (game == "Persona 5 Strikers")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                        else
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                    }
+                    GameBox.IsHitTestVisible = true;
+                    if (String.IsNullOrEmpty(modPath))
+                    {
+                        MergeButton.IsHitTestVisible = false;
+                        MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                    }
 
-            LoadoutBox.IsHitTestVisible = true;
+                    LoadoutBox.IsHitTestVisible = true;
+                });
+            });
         }
 
         private void NewClick(object sender, RoutedEventArgs e)
@@ -1822,8 +1838,11 @@ namespace AemulusModManager
         public void updatePackages(string loadout = null)
         {
             packages.packages = PackageList;
-            if (loadout == null && LoadoutBox.SelectedItem != null)
-                loadout = LoadoutBox.SelectedItem.ToString();
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (loadout == null && LoadoutBox.SelectedItem != null)
+                    loadout = LoadoutBox.SelectedItem.ToString();
+            });
             // Don't update packages if the current loadout is invalid
             if (loadout != null)
             {
@@ -3019,80 +3038,92 @@ namespace AemulusModManager
             updating = false;
         }
 
-        private async Task UpdateAllAsync()
+        private async void UpdateAllAsync()
         {
-            if (updating)
+            await Task.Run(async () =>
             {
-                Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
-                return;
-            }
-            foreach (var button in buttons)
-            {
-                button.IsHitTestVisible = false;
-                button.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            GameBox.IsHitTestVisible = false;
-            ModGrid.IsHitTestVisible = false;
-            LoadoutBox.IsHitTestVisible = false;
-            if (config.updateAemulus)
-                await UpdateAemulus();
-            if (!updatesEnabled)
-            {
-                ModGrid.IsHitTestVisible = true;
-                foreach (var button in buttons)
+                if (updating)
                 {
-                    button.IsHitTestVisible = true;
-                    if (game == "Persona 3 FES")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                    else if (game == "Persona 4 Golden")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                    else if (game == "Persona 5 Strikers")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
-                    else
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                    Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
+                    return;
                 }
-                GameBox.IsHitTestVisible = true;
-                if (String.IsNullOrEmpty(modPath))
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    MergeButton.IsHitTestVisible = false;
-                    MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                    foreach (var button in buttons)
+                    {
+                        button.IsHitTestVisible = false;
+                        button.Foreground = new SolidColorBrush(Colors.Gray);
+                    }
+                    GameBox.IsHitTestVisible = false;
+                    ModGrid.IsHitTestVisible = false;
+                    LoadoutBox.IsHitTestVisible = false;
+                });
+                if (config.updateAemulus)
+                    await UpdateAemulus();
+                if (!updatesEnabled)
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        ModGrid.IsHitTestVisible = true;
+                        foreach (var button in buttons)
+                        {
+                            button.IsHitTestVisible = true;
+                            if (game == "Persona 3 FES")
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                            else if (game == "Persona 4 Golden")
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                            else if (game == "Persona 5 Strikers")
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                            else
+                                button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                        }
+                        GameBox.IsHitTestVisible = true;
+                        if (String.IsNullOrEmpty(modPath))
+                        {
+                            MergeButton.IsHitTestVisible = false;
+                            MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        }
+                        LoadoutBox.IsHitTestVisible = true;
+                    });
+                    return;
                 }
-                LoadoutBox.IsHitTestVisible = true;
-                return;
-            }
-            if (updateAll)
-            {
-                updating = true;
-                cancellationToken = new CancellationTokenSource();
-                Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
-                DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
-                await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
-                updating = false;
-                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
-                    ReplacePackagesXML();
-                Refresh();
-                updatePackages();
-            }
-            ModGrid.IsHitTestVisible = true;
-            foreach (var button in buttons)
-            {
-                button.IsHitTestVisible = true;
-                if (game == "Persona 3 FES")
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                else if (game == "Persona 4 Golden")
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                else if (game == "Persona 5 Strikers")
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
-                else
-                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
-            }
-            GameBox.IsHitTestVisible = true;
-            if (String.IsNullOrEmpty(modPath))
-            {
-                MergeButton.IsHitTestVisible = false;
-                MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
-            }
-            LoadoutBox.IsHitTestVisible = true;
+                if (updateAll)
+                {
+                    updating = true;
+                    cancellationToken = new CancellationTokenSource();
+                    Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
+                    DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
+                    await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken);
+                    updating = false;
+                    if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
+                        ReplacePackagesXML();
+                    Refresh();
+                    updatePackages();
+                }
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ModGrid.IsHitTestVisible = true;
+                    foreach (var button in buttons)
+                    {
+                        button.IsHitTestVisible = true;
+                        if (game == "Persona 3 FES")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                        else if (game == "Persona 4 Golden")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        else if (game == "Persona 5 Strikers")
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                        else
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                    }
+                    GameBox.IsHitTestVisible = true;
+                    if (String.IsNullOrEmpty(modPath))
+                    {
+                        MergeButton.IsHitTestVisible = false;
+                        MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                    }
+                    LoadoutBox.IsHitTestVisible = true;
+                });
+            });
         }
 
         private async Task UpdateAemulus()
