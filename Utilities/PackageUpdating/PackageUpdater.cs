@@ -37,8 +37,9 @@ namespace AemulusModManager
             assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
 
-        public async Task CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken, bool downloadingMissing = false)
+        public async Task<bool> CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken, bool downloadingMissing = false)
         {
+            var updated = false;
             try
             {
                 // Check GameBanana Items
@@ -94,7 +95,8 @@ namespace AemulusModManager
                         {
                             try
                             {
-                                await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token), downloadingMissing);
+                                if (await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token), downloadingMissing))
+                                    updated = true;
                             }
                             catch (Exception e)
                             {
@@ -113,7 +115,8 @@ namespace AemulusModManager
                         {
                             Uri uri = CreateUri(row.link);
                             Release latestRelease = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
-                            await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken, downloadingMissing);
+                            if (await GitHubUpdate(latestRelease, row, game, new Progress<DownloadProgress>(ReportUpdateProgress), cancellationToken, downloadingMissing))
+                                updated = true;
                         }
                         catch (Exception e)
                         {
@@ -130,6 +133,7 @@ namespace AemulusModManager
             {
                 Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}");
             }
+            return updated;
         }
 
         public async Task<bool> CheckForAemulusUpdate(string aemulusVersion, CancellationTokenSource cancellationToken)
@@ -206,8 +210,9 @@ namespace AemulusModManager
                 $"({StringConverters.FormatSize(progress.DownloadedBytes)} of {StringConverters.FormatSize(progress.TotalBytes)})";
         }
 
-        private async Task GameBananaUpdate(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
+        private async Task<bool> GameBananaUpdate(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
         {
+            var updated = false;
             if (!downloadingMissing && item.HasUpdates)
             {
                 GameBananaItemUpdate[] updates = item.Updates;
@@ -241,7 +246,7 @@ namespace AemulusModManager
                     if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
                     {
                         Console.WriteLine($"[INFO] No updates available for {row.name}");
-                        return;
+                        return false;
                     }
                 }
                 if (UpdateAvailable(onlineVersion, localVersion))
@@ -254,12 +259,12 @@ namespace AemulusModManager
                     if (!changelogBox.YesNo)
                     {
                         Console.WriteLine($"[INFO] Cancelled update for {row.name}");
-                        return;
+                        return false;
                     }
 
                     // Download the update
                     await GameBananaDownload(item, row, game, progress, cancellationToken, downloadingMissing, updates, onlineVersion, updateIndex);
-
+                    updated = true;
                 }
                 else
                 {
@@ -281,6 +286,7 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] No updates available for {row.name}");
 
             }
+            return updated;
         }
 
         private async Task GameBananaDownload(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing, GameBananaItemUpdate[] updates, string onlineVersion, int updateIndex)
@@ -338,8 +344,9 @@ namespace AemulusModManager
             }
         }
 
-        private async Task GitHubUpdate(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
+        private async Task<bool> GitHubUpdate(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
         {
+            var updated = false;
             if (downloadingMissing)
             {
                 // Ask if the user wants to download the mod
@@ -369,7 +376,7 @@ namespace AemulusModManager
                     if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
                     {
                         Console.WriteLine($"[INFO] No updates available for {row.name}");
-                        return;
+                        return false;
                     }
                 }
                 if (UpdateAvailable(onlineVersion, localVersion))
@@ -379,15 +386,16 @@ namespace AemulusModManager
                     notification.ShowDialog();
                     notification.Activate();
                     if (!notification.YesNo)
-                        return;
+                        return false;
                     await GithubDownload(release, row, game, progress, cancellationToken, downloadingMissing);
+                    updated = true;
                 }
                 else
                 {
                     Console.WriteLine($"[INFO] No updates available for {row.name}");
                 }
             }
-
+            return updated;
         }
 
         private async Task GithubDownload(Release release, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
