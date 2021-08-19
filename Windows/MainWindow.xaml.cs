@@ -31,6 +31,7 @@ using AemulusModManager.Windows;
 using AemulusModManager.Utilities.Windows;
 using System.ComponentModel;
 using AemulusModManager.Utilities.FlowMerging;
+using AemulusModManager.Utilities.BmdPatching;
 
 namespace AemulusModManager
 {
@@ -1714,8 +1715,9 @@ namespace AemulusModManager
 
                     if (game != "Persona 5 Strikers")
                     {
-                        // Compile flow files
+                        // Merge flow and bmd files
                         FlowMerger.Merge(packages, game);
+                        BmdPatcher.Merge(packages, game);
 
                         await Task.Run(() =>
                         {
@@ -1743,6 +1745,9 @@ namespace AemulusModManager
                                 Console.WriteLine($"[ERROR] Failed to build {path}.cpk!");
                             }
                         }
+
+                        // Restore the bmd backups
+                        BmdPatcher.RestoreBackups(packages);
 
                         if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
                             Console.WriteLine("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");

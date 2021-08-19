@@ -12,7 +12,7 @@ namespace AemulusModManager.Utilities.FlowMerging
         private static string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
 
         // List of script compiler args for each game
-        private static Dictionary<string, string[]> gameArgs = new Dictionary<string, string[]>()
+        public static Dictionary<string, string[]> gameArgs = new Dictionary<string, string[]>()
         {
             {"Persona 4 Golden", new string[]{ "V1", "P4G", "P4" } },
             {"Persona 3 FES" , new string[]{ "V1", "P3F", "P3" } },
@@ -57,7 +57,7 @@ namespace AemulusModManager.Utilities.FlowMerging
                             continue;
                         }
                     }
-                    if (!Compile(file, game))
+                    if (!Compile(file, Path.ChangeExtension(file, "bf"), game))
                         continue;
                     string[] compiledFile = { filePath, dir, Path.ChangeExtension(file, "bf") };
                     compiledFiles.Add(compiledFile);
@@ -66,38 +66,27 @@ namespace AemulusModManager.Utilities.FlowMerging
         }
 
         // Compile a flow file, returning true if it compiled successfully otherwise false
-        private static bool Compile(string file, string game)
+        public static bool Compile(string inFile, string outFile, string game)
         {
-            // Get the last modified date of the current bf to see if it compiles successfully
-            string bf = Path.ChangeExtension(file, "bf");
-            if (!File.Exists(bf))
+            if (!File.Exists(inFile))
                 return false;
-            var lastModified = File.GetLastWriteTime(bf);
+            // Get the last modified date of the current bf to see if it compiles successfully
+            var lastModified = File.GetLastWriteTime(outFile);
 
+            // Compile the file
             string[] args = gameArgs[game];
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = true;
-            startInfo.UseShellExecute = false;
-            startInfo.FileName = $"\"{compilerPath}\"";
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{file}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{bf}\"";
-            Console.WriteLine($"[INFO] Compiling {file}");
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-                // Add this: wait until process does its work
-                process.WaitForExit();
-            }
+            string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
+            Console.WriteLine($"[INFO] Compiling {inFile}");
+            ScriptCompilerCommand(compilerArgs);
 
             // Check if the file was written to (successfully compiled)
-            if(File.GetLastWriteTime(bf) > lastModified)
+            if (File.GetLastWriteTime(outFile) > lastModified)
             {
-                Console.WriteLine($"[INFO] Finished compiling {file}");
+                Console.WriteLine($"[INFO] Finished compiling {inFile}");
                 return true;
             } else
             {
-                Console.WriteLine(@$"[ERROR] Error compiling {file}. \nCheck {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AtlusScriptCompiler.log for details.");
+                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AtlusScriptCompiler.log for details.");
                 return false;
             }
         }
@@ -111,6 +100,24 @@ namespace AemulusModManager.Utilities.FlowMerging
             if (game == "Persona 4 Golden" && removeData) idx++; // Account for varying data folder names
             folders = folders.Skip(idx).ToList();
             return string.Join("\\", folders.ToArray());
+        }
+
+        public static void ScriptCompilerCommand(string args)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.UseShellExecute = false;
+            startInfo.FileName = $"\"{compilerPath}\"";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.Arguments = args;
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                // Add this: wait until process does its work
+                process.WaitForExit();
+            }
+
         }
     }
 }
