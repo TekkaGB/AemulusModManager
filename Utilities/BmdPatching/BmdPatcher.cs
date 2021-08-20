@@ -30,7 +30,6 @@ namespace AemulusModManager.Utilities.BmdPatching
                 {
                     string filePath = GetRelativePath(file, dir, game);
                     string[] previousFileArr = foundBmds.FindLast(p => p[0] == filePath);
-                    // TODO make thing use a bmd.bak instead of bmd if it exists
                     string previousFile = previousFileArr == null ? null : previousFileArr[2];
                     // Copy a previously compiled bf so it can be merged
                     if (previousFile != null)
@@ -107,8 +106,12 @@ namespace AemulusModManager.Utilities.BmdPatching
                 foreach (var message in changedMessages)
                 {
                     if (!ogMessages.TryGetValue(message.Key, out string ogMessage)) return;
-                    bmdContent = bmdContent.Replace($"{message.Key}\n{ogMessage}", $"{message.Key}\n{message.Value}");
+                    bmdContent = bmdContent.Replace($"{message.Key}{ogMessage}", $"{message.Key}{message.Value}");
                 }
+                // Add a space after the / for any /[...] as the compiler will break otherwise (happens with skill bmds)
+                Regex regex = new Regex(@"/(\[.*?\])");
+                bmdContent = regex.Replace(bmdContent, @"/ $1");
+
                 // Make a copy of the unmerged bmd (.bmd.bak)
                 FileIOWrapper.Copy(bmds[1], bmds[1] + ".bak", true);
 
