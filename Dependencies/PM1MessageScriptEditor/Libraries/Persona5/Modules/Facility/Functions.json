@@ -1,0 +1,1366 @@
+[
+  {
+    "Index": "0x4000",
+    "ReturnType": "void",
+    "Name": "CALL_WEAPON_SHOP",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4001",
+    "ReturnType": "void",
+    "Name": "CALL_ITEM_SHOP",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4002",
+    "ReturnType": "void",
+    "Name": "CALL_COMBINE_SHOP",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4003",
+    "ReturnType": "void",
+    "Name": "CALL_QUEST_DAYTIME",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4004",
+    "ReturnType": "void",
+    "Name": "SET_QUEST_BEFORE_DUNGEON",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4005",
+    "ReturnType": "void",
+    "Name": "RESET_QUEST_AFTER_DUNGEON",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4006",
+    "ReturnType": "void",
+    "Name": "CHECK_CONSET_QUEST",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4007",
+    "ReturnType": "void",
+    "Name": "START_QUEST_CLEAR_EFFECT",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4008",
+    "ReturnType": "void",
+    "Name": "CHECK_QUEST_CLEAR_ENEMY",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4009",
+    "ReturnType": "void",
+    "Name": "CHECK_QUEST_CLEAR_BOSS",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x400a",
+    "ReturnType": "void",
+    "Name": "CHECK_QUEST_CLEAR_ITEM",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x400b",
+    "ReturnType": "int",
+    "Name": "GET_COMB_MATPER_MAJOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x400c",
+    "ReturnType": "int",
+    "Name": "GET_COMB_MATPER_MINOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x400d",
+    "ReturnType": "int",
+    "Name": "GET_COMB_RETPER_MAJOR",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x400e",
+    "ReturnType": "int",
+    "Name": "GET_COMB_RETPER_MINOR",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x400f",
+    "ReturnType": "void",
+    "Name": "CALL_NAME_ENTRY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4010",
+    "ReturnType": "void",
+    "Name": "FCL_SHOP_CHANGE_FLAG",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4011",
+    "ReturnType": "void",
+    "Name": "UI_MISSION_OFFER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4012",
+    "ReturnType": "void",
+    "Name": "UI_MISSION_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4013",
+    "ReturnType": "int",
+    "Name": "UI_MISSION_CHECK_OFFER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4014",
+    "ReturnType": "int",
+    "Name": "UI_MISSION_CHECK_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4015",
+    "ReturnType": "void",
+    "Name": "MISSION_START_EFFECT",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4016",
+    "ReturnType": "void",
+    "Name": "MISSION_COMPLETE_EFFECT",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4017",
+    "ReturnType": "void",
+    "Name": "CALL_ROUTE_MAP",
+    "Description": "Null function pointer.",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x4018",
+    "ReturnType": "void",
+    "Name": "CALL_ITEM_SHOP_EX",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4019",
+    "ReturnType": "void",
+    "Name": "CALL_WEAPON_SHOP_EX",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x401a",
+    "ReturnType": "int",
+    "Name": "MISSION_GET_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x401b",
+    "ReturnType": "void",
+    "Name": "MISSION_SET_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x401c",
+    "ReturnType": "void",
+    "Name": "MISSION_UPDATE_EVERY_DAY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x401d",
+    "ReturnType": "int",
+    "Name": "CALL_PUBLIC_SHOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x401e",
+    "ReturnType": "void",
+    "Name": "CALL_DIARY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x401f",
+    "ReturnType": "int",
+    "Name": "CHECK_PUBLIC_SHOP_STOCK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4020",
+    "ReturnType": "void",
+    "Name": "CALL_CHAT_CHECK",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4021",
+    "ReturnType": "void",
+    "Name": "CALL_CHAT_LIST",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4022",
+    "ReturnType": "void",
+    "Name": "CALL_QUEST_ORDER",
+    "Description": "Null function pointer.",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4023",
+    "ReturnType": "void",
+    "Name": "CALL_CHAT_DIRECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4024",
+    "ReturnType": "void",
+    "Name": "CALL_WEAPON_SHOP_DATA_LOAD",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4025",
+    "ReturnType": "void",
+    "Name": "CALL_WEAPON_SHOP_END",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4026",
+    "ReturnType": "void",
+    "Name": "CALL_TUTORIAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4027",
+    "ReturnType": "void",
+    "Name": "CALL_GLOBAL_MONEY_PANEL",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4028",
+    "ReturnType": "void",
+    "Name": "DEL_GLOBAL_MONEY_PANEL",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4029",
+    "ReturnType": "void",
+    "Name": "CALL_WANTED_EXP_PANEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x402a",
+    "ReturnType": "void",
+    "Name": "CALL_WANTED_EXP_NO_WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x402b",
+    "ReturnType": "void",
+    "Name": "ADD_REPUTATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x402c",
+    "ReturnType": "void",
+    "Name": "ADD_REPUTATION_NO_WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x402d",
+    "ReturnType": "void",
+    "Name": "ADD_REPUTATION_FORCE_END",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x402e",
+    "ReturnType": "void",
+    "Name": "SET_REPUTATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x402f",
+    "ReturnType": "int",
+    "Name": "GET_REPUTATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4030",
+    "ReturnType": "void",
+    "Name": "CALL_ITEM_SHOP_DATA_LOAD",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4031",
+    "ReturnType": "int",
+    "Name": "CALL_ARBEIT_BOOK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x4032",
+    "ReturnType": "void",
+    "Name": "DIRECT_SUBSCRIBE_ARBEIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4033",
+    "ReturnType": "int",
+    "Name": "CHECK_SUBSCRIBE_ARBEIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4034",
+    "ReturnType": "int",
+    "Name": "CHECK_ENABLE_ARBEIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4035",
+    "ReturnType": "void",
+    "Name": "CALL_WANTED_EXP_BATTLE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4036",
+    "ReturnType": "void",
+    "Name": "RESET_INJECTION_EFFECT",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4037",
+    "ReturnType": "int",
+    "Name": "SKILLCARD_COPY_CHK",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4038",
+    "ReturnType": "int",
+    "Name": "SKILLCARD_LIST_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4039",
+    "ReturnType": "void",
+    "Name": "CALL_PHANTOM_NAME_ENTRY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x403a",
+    "ReturnType": "void",
+    "Name": "EXEC_EVT_COMBINE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x403b",
+    "ReturnType": "int",
+    "Name": "GET_PUBLIC_SHOP_BUY_TYPE_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x403c",
+    "ReturnType": "int",
+    "Name": "GET_PUBLIC_SHOP_ITEM_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x403d",
+    "ReturnType": "int",
+    "Name": "GET_PUBLIC_SHOP_ITEM_BUY_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x403e",
+    "ReturnType": "int",
+    "Name": "CHECK_PUBLIC_SHOP_SET_ITEM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x403f",
+    "ReturnType": "int",
+    "Name": "GET_PUBLIC_SHOP_SET_ITEM_PACK_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4040",
+    "ReturnType": "int",
+    "Name": "GET_PUBLIC_SHOP_SET_ITEM_PACK_ITEM_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4041",
+    "ReturnType": "void",
+    "Name": "PUBLIC_SHOP_BUY_ITEM_COPY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4042",
+    "ReturnType": "void",
+    "Name": "PUBLIC_SHOP_BUY_ITEM_BAG_IN",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4043",
+    "ReturnType": "void",
+    "Name": "CALL_CHAT_READ_UN_READ",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4044",
+    "ReturnType": "void",
+    "Name": "CALL_CONF_COOPERATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4045",
+    "ReturnType": "void",
+    "Name": "CHAT_RESERVE_END",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4046",
+    "ReturnType": "void",
+    "Name": "CALL_CHAT_ARRIVAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4047",
+    "ReturnType": "void",
+    "Name": "CHAT_ALL_CLEAR",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4048",
+    "ReturnType": "int",
+    "Name": "CHAT_GET_ARRIVAL_MONTH",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4049",
+    "ReturnType": "int",
+    "Name": "CHAT_GET_ARRIVAL_DAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x404a",
+    "ReturnType": "void",
+    "Name": "CMB_CELL_ERASE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x404b",
+    "ReturnType": "void",
+    "Name": "CHAT_SET_SWITCH",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x404c",
+    "ReturnType": "int",
+    "Name": "CHAT_CHECK_SWITCH",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x404d",
+    "ReturnType": "void",
+    "Name": "CMB_PREPARE_START",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x404e",
+    "ReturnType": "void",
+    "Name": "CMB_PREPARE_END",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x404f",
+    "ReturnType": "int",
+    "Name": "CHAT_GET_UNREAD_NUM",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4050",
+    "ReturnType": "void",
+    "Name": "OPEN_FAILED_QUEST_LIST",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4051",
+    "ReturnType": "int",
+    "Name": "SYNC_FAILED_QUEST_LIST",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4052",
+    "ReturnType": "void",
+    "Name": "RESTART_FAILED_QUEST_LIST",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4053",
+    "ReturnType": "void",
+    "Name": "CLOSE_FAILED_QUEST_LIST",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4054",
+    "ReturnType": "void",
+    "Name": "CALL_WANTED_EXP_LEVELUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4055",
+    "ReturnType": "int",
+    "Name": "MISSION_GET_NUM_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4056",
+    "ReturnType": "int",
+    "Name": "CHANGE_GLOBAL_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4057",
+    "ReturnType": "int",
+    "Name": "MISSION_GET_RANK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4058",
+    "ReturnType": "void",
+    "Name": "ADD_PUBLIC_SHOP_CHOICE_ITEM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4059",
+    "ReturnType": "void",
+    "Name": "SET_PUBLIC_SHOP_CHOICE_ITEM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x405a",
+    "ReturnType": "void",
+    "Name": "CALL_GLOBAL_MONEY_PANEL_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x405b",
+    "ReturnType": "void",
+    "Name": "CHAT_SET_HOLD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x405c",
+    "ReturnType": "int",
+    "Name": "CHAT_CHECK_HOLD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x405d",
+    "ReturnType": "void",
+    "Name": "CALL_GLOBAL_ITEM_PANEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x405e",
+    "ReturnType": "void",
+    "Name": "DEL_GLOBAL_ITEM_PANEL",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x405f",
+    "ReturnType": "int",
+    "Name": "CHANGE_GLOBAL_ITEM",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x4060",
+    "ReturnType": "int",
+    "Name": "CHANGE_GLOBAL_ITEM_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4061",
+    "ReturnType": "int",
+    "Name": "IMG_CREATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4062",
+    "ReturnType": "void",
+    "Name": "IMG_DELETE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4063",
+    "ReturnType": "void",
+    "Name": "IMG_LOAD_CALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4064",
+    "ReturnType": "void",
+    "Name": "IMG_LOAD_SYNC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4065",
+    "ReturnType": "void",
+    "Name": "IMG_ANIM_CALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4066",
+    "ReturnType": "void",
+    "Name": "IMG_ANIM_SYNC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4067",
+    "ReturnType": "int",
+    "Name": "CHAT_GET_JOIN_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4068",
+    "ReturnType": "void",
+    "Name": "IMG_DSP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4069",
+    "ReturnType": "void",
+    "Name": "IMG_CLS",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x406a",
+    "ReturnType": "int",
+    "Name": "CHANGE_GLOBAL_MONEY_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x406b",
+    "ReturnType": "void",
+    "Name": "OPEN_QUEST_LIST_DISP",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x406c",
+    "ReturnType": "int",
+    "Name": "CMB_GET_PBOOK_REGIST_RATE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x406d",
+    "ReturnType": "int",
+    "Name": "CALL_FICTION_DRAW",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x406e",
+    "ReturnType": "void",
+    "Name": "SET_PUBLIC_SHOP_CHOICE_ITEM_DISCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x406f",
+    "ReturnType": "void",
+    "Name": "CHAT_RESET_DIRECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x4070",
+    "ReturnType": "void",
+    "Name": "CALL_DIFFICULT_SET",
+    "Description": "",
+    "Parameters": [
+    ]
+  }
+]

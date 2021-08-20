@@ -1,0 +1,6 @@
+{
+  "Name": "Shin Megami Tensei III: Nocturne",
+  "ShortName": "smt3",
+  "FlowScriptModulesPath": "Nocturne\\FlowScriptModules.json",
+  "MessageScriptLibraryPath": "Nocturne\\MessageScriptLibrary.json"
+}

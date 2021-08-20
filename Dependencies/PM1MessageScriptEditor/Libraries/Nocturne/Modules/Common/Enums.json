@@ -1,0 +1,4504 @@
+﻿[
+  {
+    "Name": "BattleSkill",
+    "Description": "This enum represents the available skills in battle.",
+    "Members": [
+      {
+        "Name": "Null",
+        "Value": 0,
+        "Description": "Generated from skill name table entry: Null"
+      },
+      {
+        "Name": "Agi",
+        "Value": 1,
+        "Description": "Generated from skill name table entry: Agi"
+      },
+      {
+        "Name": "Agilao",
+        "Value": 2,
+        "Description": "Generated from skill name table entry: Agilao"
+      },
+      {
+        "Name": "Agidyne",
+        "Value": 3,
+        "Description": "Generated from skill name table entry: Agidyne"
+      },
+      {
+        "Name": "Maragi",
+        "Value": 4,
+        "Description": "Generated from skill name table entry: Maragi"
+      },
+      {
+        "Name": "Maragion",
+        "Value": 5,
+        "Description": "Generated from skill name table entry: Maragion"
+      },
+      {
+        "Name": "Maragidyne",
+        "Value": 6,
+        "Description": "Generated from skill name table entry: Maragidyne"
+      },
+      {
+        "Name": "Bufu",
+        "Value": 7,
+        "Description": "Generated from skill name table entry: Bufu"
+      },
+      {
+        "Name": "Bufula",
+        "Value": 8,
+        "Description": "Generated from skill name table entry: Bufula"
+      },
+      {
+        "Name": "Bufudyne",
+        "Value": 9,
+        "Description": "Generated from skill name table entry: Bufudyne"
+      },
+      {
+        "Name": "Mabufu",
+        "Value": 10,
+        "Description": "Generated from skill name table entry: Mabufu"
+      },
+      {
+        "Name": "Mabufula",
+        "Value": 11,
+        "Description": "Generated from skill name table entry: Mabufula"
+      },
+      {
+        "Name": "Mabufudyne",
+        "Value": 12,
+        "Description": "Generated from skill name table entry: Mabufudyne"
+      },
+      {
+        "Name": "Zio",
+        "Value": 13,
+        "Description": "Generated from skill name table entry: Zio"
+      },
+      {
+        "Name": "Zionga",
+        "Value": 14,
+        "Description": "Generated from skill name table entry: Zionga"
+      },
+      {
+        "Name": "Ziodyne",
+        "Value": 15,
+        "Description": "Generated from skill name table entry: Ziodyne"
+      },
+      {
+        "Name": "Mazio",
+        "Value": 16,
+        "Description": "Generated from skill name table entry: Mazio"
+      },
+      {
+        "Name": "Mazionga",
+        "Value": 17,
+        "Description": "Generated from skill name table entry: Mazionga"
+      },
+      {
+        "Name": "Maziodyne",
+        "Value": 18,
+        "Description": "Generated from skill name table entry: Maziodyne"
+      },
+      {
+        "Name": "Zan",
+        "Value": 19,
+        "Description": "Generated from skill name table entry: Zan"
+      },
+      {
+        "Name": "Zanma",
+        "Value": 20,
+        "Description": "Generated from skill name table entry: Zanma"
+      },
+      {
+        "Name": "Zandyne",
+        "Value": 21,
+        "Description": "Generated from skill name table entry: Zandyne"
+      },
+      {
+        "Name": "Mazan",
+        "Value": 22,
+        "Description": "Generated from skill name table entry: Mazan"
+      },
+      {
+        "Name": "Mazanma",
+        "Value": 23,
+        "Description": "Generated from skill name table entry: Mazanma"
+      },
+      {
+        "Name": "Mazandyne",
+        "Value": 24,
+        "Description": "Generated from skill name table entry: Mazandyne"
+      },
+      {
+        "Name": "Megido",
+        "Value": 25,
+        "Description": "Generated from skill name table entry: Megido"
+      },
+      {
+        "Name": "Megidola",
+        "Value": 26,
+        "Description": "Generated from skill name table entry: Megidola"
+      },
+      {
+        "Name": "Megidolaon",
+        "Value": 27,
+        "Description": "Generated from skill name table entry: Megidolaon"
+      },
+      {
+        "Name": "Hama",
+        "Value": 28,
+        "Description": "Generated from skill name table entry: Hama"
+      },
+      {
+        "Name": "Hamaon",
+        "Value": 29,
+        "Description": "Generated from skill name table entry: Hamaon"
+      },
+      {
+        "Name": "Mahama",
+        "Value": 30,
+        "Description": "Generated from skill name table entry: Mahama"
+      },
+      {
+        "Name": "Mahamaon",
+        "Value": 31,
+        "Description": "Generated from skill name table entry: Mahamaon"
+      },
+      {
+        "Name": "Mudo",
+        "Value": 32,
+        "Description": "Generated from skill name table entry: Mudo"
+      },
+      {
+        "Name": "Mudoon",
+        "Value": 33,
+        "Description": "Generated from skill name table entry: Mudoon"
+      },
+      {
+        "Name": "Mamudo",
+        "Value": 34,
+        "Description": "Generated from skill name table entry: Mamudo"
+      },
+      {
+        "Name": "Mamudoon",
+        "Value": 35,
+        "Description": "Generated from skill name table entry: Mamudoon"
+      },
+      {
+        "Name": "Dia",
+        "Value": 36,
+        "Description": "Generated from skill name table entry: Dia"
+      },
+      {
+        "Name": "Diarama",
+        "Value": 37,
+        "Description": "Generated from skill name table entry: Diarama"
+      },
+      {
+        "Name": "Diarahan",
+        "Value": 38,
+        "Description": "Generated from skill name table entry: Diarahan"
+      },
+      {
+        "Name": "Media",
+        "Value": 39,
+        "Description": "Generated from skill name table entry: Media"
+      },
+      {
+        "Name": "Mediarama",
+        "Value": 40,
+        "Description": "Generated from skill name table entry: Mediarama"
+      },
+      {
+        "Name": "Mediarahan",
+        "Value": 41,
+        "Description": "Generated from skill name table entry: Mediarahan"
+      },
+      {
+        "Name": "Makatora",
+        "Value": 42,
+        "Description": "Generated from skill name table entry: Makatora"
+      },
+      {
+        "Name": "Patra",
+        "Value": 43,
+        "Description": "Generated from skill name table entry: Patra"
+      },
+      {
+        "Name": "MePatra",
+        "Value": 44,
+        "Description": "Generated from skill name table entry: Me Patra"
+      },
+      {
+        "Name": "Mutudi",
+        "Value": 45,
+        "Description": "Generated from skill name table entry: Mutudi"
+      },
+      {
+        "Name": "Posumudi",
+        "Value": 46,
+        "Description": "Generated from skill name table entry: Posumudi"
+      },
+      {
+        "Name": "Paraladi",
+        "Value": 47,
+        "Description": "Generated from skill name table entry: Paraladi"
+      },
+      {
+        "Name": "Petradi",
+        "Value": 48,
+        "Description": "Generated from skill name table entry: Petradi"
+      },
+      {
+        "Name": "Recarm",
+        "Value": 49,
+        "Description": "Generated from skill name table entry: Recarm"
+      },
+      {
+        "Name": "Samrecarm",
+        "Value": 50,
+        "Description": "Generated from skill name table entry: Samrecarm"
+      },
+      {
+        "Name": "Recarmdra",
+        "Value": 51,
+        "Description": "Generated from skill name table entry: Recarmdra"
+      },
+      {
+        "Name": "Tarunda",
+        "Value": 52,
+        "Description": "Generated from skill name table entry: Tarunda"
+      },
+      {
+        "Name": "Sukunda",
+        "Value": 53,
+        "Description": "Generated from skill name table entry: Sukunda"
+      },
+      {
+        "Name": "Rakunda",
+        "Value": 54,
+        "Description": "Generated from skill name table entry: Rakunda"
+      },
+      {
+        "Name": "Makajam",
+        "Value": 55,
+        "Description": "Generated from skill name table entry: Makajam"
+      },
+      {
+        "Name": "Makajamon",
+        "Value": 56,
+        "Description": "Generated from skill name table entry: Makajamon"
+      },
+      {
+        "Name": "Dekaja",
+        "Value": 57,
+        "Description": "Generated from skill name table entry: Dekaja"
+      },
+      {
+        "Name": "Reserve",
+        "Value": 58,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Shibaboo",
+        "Value": 59,
+        "Description": "Generated from skill name table entry: Shibaboo"
+      },
+      {
+        "Name": "Dormina",
+        "Value": 60,
+        "Description": "Generated from skill name table entry: Dormina"
+      },
+      {
+        "Name": "Pulinpa",
+        "Value": 61,
+        "Description": "Generated from skill name table entry: Pulinpa"
+      },
+      {
+        "Name": "MarinKarin",
+        "Value": 62,
+        "Description": "Generated from skill name table entry: Marin Karin"
+      },
+      {
+        "Name": "Tentarafoo",
+        "Value": 63,
+        "Description": "Generated from skill name table entry: Tentarafoo"
+      },
+      {
+        "Name": "Tarukaja",
+        "Value": 64,
+        "Description": "Generated from skill name table entry: Tarukaja"
+      },
+      {
+        "Name": "Sukukaja",
+        "Value": 65,
+        "Description": "Generated from skill name table entry: Sukukaja"
+      },
+      {
+        "Name": "Rakukaja",
+        "Value": 66,
+        "Description": "Generated from skill name table entry: Rakukaja"
+      },
+      {
+        "Name": "Makakaja",
+        "Value": 67,
+        "Description": "Generated from skill name table entry: Makakaja"
+      },
+      {
+        "Name": "Tetraja",
+        "Value": 68,
+        "Description": "Generated from skill name table entry: Tetraja"
+      },
+      {
+        "Name": "Makarakarn",
+        "Value": 69,
+        "Description": "Generated from skill name table entry: Makarakarn"
+      },
+      {
+        "Name": "Tetrakarn",
+        "Value": 70,
+        "Description": "Generated from skill name table entry: Tetrakarn"
+      },
+      {
+        "Name": "Analyze",
+        "Value": 71,
+        "Description": "Generated from skill name table entry: Analyze"
+      },
+      {
+        "Name": "Trafuri",
+        "Value": 72,
+        "Description": "Generated from skill name table entry: Trafuri"
+      },
+      {
+        "Name": "Estoma",
+        "Value": 73,
+        "Description": "Generated from skill name table entry: Estoma"
+      },
+      {
+        "Name": "Riberama",
+        "Value": 74,
+        "Description": "Generated from skill name table entry: Riberama"
+      },
+      {
+        "Name": "Liftoma",
+        "Value": 75,
+        "Description": "Generated from skill name table entry: Liftoma"
+      },
+      {
+        "Name": "Lightoma",
+        "Value": 76,
+        "Description": "Generated from skill name table entry: Lightoma"
+      },
+      {
+        "Name": "Dekunda",
+        "Value": 77,
+        "Description": "Generated from skill name table entry: Dekunda"
+      },
+      {
+        "Name": "_0x04E",
+        "Value": 78,
+        "Description": "Generated from skill name table entry: 0x04E"
+      },
+      {
+        "Name": "Pestilence",
+        "Value": 79,
+        "Description": "Generated from skill name table entry: Pestilence"
+      },
+      {
+        "Name": "_0x050",
+        "Value": 80,
+        "Description": "Generated from skill name table entry: 0x050"
+      },
+      {
+        "Name": "_0x051",
+        "Value": 81,
+        "Description": "Generated from skill name table entry: 0x051"
+      },
+      {
+        "Name": "_0x052",
+        "Value": 82,
+        "Description": "Generated from skill name table entry: 0x052"
+      },
+      {
+        "Name": "_0x053",
+        "Value": 83,
+        "Description": "Generated from skill name table entry: 0x053"
+      },
+      {
+        "Name": "_0x054",
+        "Value": 84,
+        "Description": "Generated from skill name table entry: 0x054"
+      },
+      {
+        "Name": "_0x055",
+        "Value": 85,
+        "Description": "Generated from skill name table entry: 0x055"
+      },
+      {
+        "Name": "_0x056",
+        "Value": 86,
+        "Description": "Generated from skill name table entry: 0x056"
+      },
+      {
+        "Name": "_0x057",
+        "Value": 87,
+        "Description": "Generated from skill name table entry: 0x057"
+      },
+      {
+        "Name": "_0x058",
+        "Value": 88,
+        "Description": "Generated from skill name table entry: 0x058"
+      },
+      {
+        "Name": "_0x059",
+        "Value": 89,
+        "Description": "Generated from skill name table entry: 0x059"
+      },
+      {
+        "Name": "_0x05A",
+        "Value": 90,
+        "Description": "Generated from skill name table entry: 0x05A"
+      },
+      {
+        "Name": "_0x05B",
+        "Value": 91,
+        "Description": "Generated from skill name table entry: 0x05B"
+      },
+      {
+        "Name": "_0x05C",
+        "Value": 92,
+        "Description": "Generated from skill name table entry: 0x05C"
+      },
+      {
+        "Name": "_0x05D",
+        "Value": 93,
+        "Description": "Generated from skill name table entry: 0x05D"
+      },
+      {
+        "Name": "_0x05E",
+        "Value": 94,
+        "Description": "Generated from skill name table entry: 0x05E"
+      },
+      {
+        "Name": "_0x05F",
+        "Value": 95,
+        "Description": "Generated from skill name table entry: 0x05F"
+      },
+      {
+        "Name": "Lunge",
+        "Value": 96,
+        "Description": "Generated from skill name table entry: Lunge"
+      },
+      {
+        "Name": "HellThrust",
+        "Value": 97,
+        "Description": "Generated from skill name table entry: Hell Thrust"
+      },
+      {
+        "Name": "Berserk",
+        "Value": 98,
+        "Description": "Generated from skill name table entry: Berserk"
+      },
+      {
+        "Name": "Tempest",
+        "Value": 99,
+        "Description": "Generated from skill name table entry: Tempest"
+      },
+      {
+        "Name": "HadesBlast",
+        "Value": 100,
+        "Description": "Generated from skill name table entry: Hades Blast"
+      },
+      {
+        "Name": "HeatWave",
+        "Value": 101,
+        "Description": "Generated from skill name table entry: Heat Wave"
+      },
+      {
+        "Name": "Blight",
+        "Value": 102,
+        "Description": "Generated from skill name table entry: Blight"
+      },
+      {
+        "Name": "BrutalSlash",
+        "Value": 103,
+        "Description": "Generated from skill name table entry: Brutal Slash"
+      },
+      {
+        "Name": "Hassohappa",
+        "Value": 104,
+        "Description": "Generated from skill name table entry: Hassohappa"
+      },
+      {
+        "Name": "DarkSword",
+        "Value": 105,
+        "Description": "Generated from skill name table entry: Dark Sword"
+      },
+      {
+        "Name": "StasisBlade",
+        "Value": 106,
+        "Description": "Generated from skill name table entry: Stasis Blade"
+      },
+      {
+        "Name": "MightyGust",
+        "Value": 107,
+        "Description": "Generated from skill name table entry: Mighty Gust"
+      },
+      {
+        "Name": "Deathbound",
+        "Value": 108,
+        "Description": "Generated from skill name table entry: Deathbound"
+      },
+      {
+        "Name": "Guillotine",
+        "Value": 109,
+        "Description": "Generated from skill name table entry: Guillotine"
+      },
+      {
+        "Name": "ChaosBlade",
+        "Value": 110,
+        "Description": "Generated from skill name table entry: Chaos Blade"
+      },
+      {
+        "Name": "NeedleRush",
+        "Value": 111,
+        "Description": "Generated from skill name table entry: Needle Rush"
+      },
+      {
+        "Name": "StunNeedle",
+        "Value": 112,
+        "Description": "Generated from skill name table entry: Stun Needle"
+      },
+      {
+        "Name": "ToxicSting",
+        "Value": 113,
+        "Description": "Generated from skill name table entry: Toxic Sting"
+      },
+      {
+        "Name": "AridNeedle",
+        "Value": 114,
+        "Description": "Generated from skill name table entry: Arid Needle"
+      },
+      {
+        "Name": "Sacrifice",
+        "Value": 115,
+        "Description": "Generated from skill name table entry: Sacrifice"
+      },
+      {
+        "Name": "Kamikaze",
+        "Value": 116,
+        "Description": "Generated from skill name table entry: Kamikaze"
+      },
+      {
+        "Name": "FeralBite",
+        "Value": 117,
+        "Description": "Generated from skill name table entry: Feral Bite"
+      },
+      {
+        "Name": "VenomBite",
+        "Value": 118,
+        "Description": "Generated from skill name table entry: Venom Bite"
+      },
+      {
+        "Name": "CharmBite",
+        "Value": 119,
+        "Description": "Generated from skill name table entry: Charm Bite"
+      },
+      {
+        "Name": "StoneBite",
+        "Value": 120,
+        "Description": "Generated from skill name table entry: Stone Bite"
+      },
+      {
+        "Name": "StunBite",
+        "Value": 121,
+        "Description": "Generated from skill name table entry: Stun Bite"
+      },
+      {
+        "Name": "HellFang",
+        "Value": 122,
+        "Description": "Generated from skill name table entry: Hell Fang"
+      },
+      {
+        "Name": "FeralClaw",
+        "Value": 123,
+        "Description": "Generated from skill name table entry: Feral Claw"
+      },
+      {
+        "Name": "VenomClaw",
+        "Value": 124,
+        "Description": "Generated from skill name table entry: Venom Claw"
+      },
+      {
+        "Name": "StunClaw",
+        "Value": 125,
+        "Description": "Generated from skill name table entry: Stun Claw"
+      },
+      {
+        "Name": "IronClaw",
+        "Value": 126,
+        "Description": "Generated from skill name table entry: Iron Claw"
+      },
+      {
+        "Name": "GodlyLight",
+        "Value": 127,
+        "Description": "Generated from skill name table entry: Godly Light"
+      },
+      {
+        "Name": "Reserve1",
+        "Value": 128,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve2",
+        "Value": 129,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve3",
+        "Value": 130,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "DeadlyFury",
+        "Value": 131,
+        "Description": "Generated from skill name table entry: Deadly Fury"
+      },
+      {
+        "Name": "Reserve4",
+        "Value": 132,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "XerosBeat",
+        "Value": 133,
+        "Description": "Generated from skill name table entry: Xeros-Beat"
+      },
+      {
+        "Name": "Reserve5",
+        "Value": 134,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve6",
+        "Value": 135,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "DivineShot",
+        "Value": 136,
+        "Description": "Generated from skill name table entry: Divine Shot"
+      },
+      {
+        "Name": "Attack",
+        "Value": 137,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack1",
+        "Value": 138,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack2",
+        "Value": 139,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack3",
+        "Value": 140,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Reserve7",
+        "Value": 141,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve8",
+        "Value": 142,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "JavelinRain",
+        "Value": 143,
+        "Description": "Generated from skill name table entry: Javelin Rain"
+      },
+      {
+        "Name": "OniKagura",
+        "Value": 144,
+        "Description": "Generated from skill name table entry: Oni-Kagura"
+      },
+      {
+        "Name": "Reserve9",
+        "Value": 145,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve10",
+        "Value": 146,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Freikugel",
+        "Value": 147,
+        "Description": "Generated from skill name table entry: Freikugel"
+      },
+      {
+        "Name": "Reserve11",
+        "Value": 148,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve12",
+        "Value": 149,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve13",
+        "Value": 150,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve14",
+        "Value": 151,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "LastResort",
+        "Value": 152,
+        "Description": "Generated from skill name table entry: Last Resort"
+      },
+      {
+        "Name": "FoulHavoc",
+        "Value": 153,
+        "Description": "Generated from skill name table entry: Foul Havoc"
+      },
+      {
+        "Name": "Reserve15",
+        "Value": 154,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Earthquake",
+        "Value": 155,
+        "Description": "Generated from skill name table entry: Earthquake"
+      },
+      {
+        "Name": "_0x09C",
+        "Value": 156,
+        "Description": "Generated from skill name table entry: 0x09C"
+      },
+      {
+        "Name": "_0x09D",
+        "Value": 157,
+        "Description": "Generated from skill name table entry: 0x09D"
+      },
+      {
+        "Name": "HolyMelody",
+        "Value": 158,
+        "Description": "Generated from skill name table entry: Holy Melody"
+      },
+      {
+        "Name": "EvilMelody",
+        "Value": 159,
+        "Description": "Generated from skill name table entry: Evil Melody"
+      },
+      {
+        "Name": "SpiralViper",
+        "Value": 160,
+        "Description": "Generated from skill name table entry: Spiral Viper"
+      },
+      {
+        "Name": "MagmaAxis",
+        "Value": 161,
+        "Description": "Generated from skill name table entry: Magma Axis"
+      },
+      {
+        "Name": "_0x0A2",
+        "Value": 162,
+        "Description": "Generated from skill name table entry: 0x0A2"
+      },
+      {
+        "Name": "GaeaRage",
+        "Value": 163,
+        "Description": "Generated from skill name table entry: Gaea Rage"
+      },
+      {
+        "Name": "Counter",
+        "Value": 164,
+        "Description": "Generated from skill name table entry: Counter"
+      },
+      {
+        "Name": "Retaliate",
+        "Value": 165,
+        "Description": "Generated from skill name table entry: Retaliate"
+      },
+      {
+        "Name": "Avenge",
+        "Value": 166,
+        "Description": "Generated from skill name table entry: Avenge"
+      },
+      {
+        "Name": "ExtraHit",
+        "Value": 167,
+        "Description": "Generated from skill name table entry: Extra Hit"
+      },
+      {
+        "Name": "Tentacle",
+        "Value": 168,
+        "Description": "Generated from skill name table entry: Tentacle"
+      },
+      {
+        "Name": "Attack4",
+        "Value": 169,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack5",
+        "Value": 170,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack6",
+        "Value": 171,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack7",
+        "Value": 172,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack8",
+        "Value": 173,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack9",
+        "Value": 174,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "Attack10",
+        "Value": 175,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "FireBreath",
+        "Value": 176,
+        "Description": "Generated from skill name table entry: Fire Breath"
+      },
+      {
+        "Name": "Hellfire",
+        "Value": 177,
+        "Description": "Generated from skill name table entry: Hellfire"
+      },
+      {
+        "Name": "Prominence",
+        "Value": 178,
+        "Description": "Generated from skill name table entry: Prominence"
+      },
+      {
+        "Name": "Ragnarok",
+        "Value": 179,
+        "Description": "Generated from skill name table entry: Ragnarok"
+      },
+      {
+        "Name": "IceBreath",
+        "Value": 180,
+        "Description": "Generated from skill name table entry: Ice Breath"
+      },
+      {
+        "Name": "GlacialBlast",
+        "Value": 181,
+        "Description": "Generated from skill name table entry: Glacial Blast"
+      },
+      {
+        "Name": "Shock",
+        "Value": 182,
+        "Description": "Generated from skill name table entry: Shock"
+      },
+      {
+        "Name": "BoltStorm",
+        "Value": 183,
+        "Description": "Generated from skill name table entry: Bolt Storm"
+      },
+      {
+        "Name": "WingBuffet",
+        "Value": 184,
+        "Description": "Generated from skill name table entry: Wing Buffet"
+      },
+      {
+        "Name": "Tornado",
+        "Value": 185,
+        "Description": "Generated from skill name table entry: Tornado"
+      },
+      {
+        "Name": "WindCutter",
+        "Value": 186,
+        "Description": "Generated from skill name table entry: Wind Cutter"
+      },
+      {
+        "Name": "WetWind",
+        "Value": 187,
+        "Description": "Generated from skill name table entry: Wet Wind"
+      },
+      {
+        "Name": "Thunderclap",
+        "Value": 188,
+        "Description": "Generated from skill name table entry: Thunderclap"
+      },
+      {
+        "Name": "HolyWrath",
+        "Value": 189,
+        "Description": "Generated from skill name table entry: Holy Wrath"
+      },
+      {
+        "Name": "Deathtouch",
+        "Value": 190,
+        "Description": "Generated from skill name table entry: Deathtouch"
+      },
+      {
+        "Name": "ManaDrain",
+        "Value": 191,
+        "Description": "Generated from skill name table entry: Mana Drain"
+      },
+      {
+        "Name": "LifeDrain",
+        "Value": 192,
+        "Description": "Generated from skill name table entry: Life Drain"
+      },
+      {
+        "Name": "VioletFlash",
+        "Value": 193,
+        "Description": "Generated from skill name table entry: Violet Flash"
+      },
+      {
+        "Name": "Starlight",
+        "Value": 194,
+        "Description": "Generated from skill name table entry: Starlight"
+      },
+      {
+        "Name": "Radiance",
+        "Value": 195,
+        "Description": "Generated from skill name table entry: Radiance"
+      },
+      {
+        "Name": "HellGaze",
+        "Value": 196,
+        "Description": "Generated from skill name table entry: Hell Gaze"
+      },
+      {
+        "Name": "StoneGaze",
+        "Value": 197,
+        "Description": "Generated from skill name table entry: Stone Gaze"
+      },
+      {
+        "Name": "MuteGaze",
+        "Value": 198,
+        "Description": "Generated from skill name table entry: Mute Gaze"
+      },
+      {
+        "Name": "EvilGaze",
+        "Value": 199,
+        "Description": "Generated from skill name table entry: Evil Gaze"
+      },
+      {
+        "Name": "Reserve16",
+        "Value": 200,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "BaelsBane",
+        "Value": 201,
+        "Description": "Generated from skill name table entry: Bael's Bane"
+      },
+      {
+        "Name": "ToxicCloud",
+        "Value": 202,
+        "Description": "Generated from skill name table entry: Toxic Cloud"
+      },
+      {
+        "Name": "WarCry",
+        "Value": 203,
+        "Description": "Generated from skill name table entry: War Cry"
+      },
+      {
+        "Name": "FogBreath",
+        "Value": 204,
+        "Description": "Generated from skill name table entry: Fog Breath"
+      },
+      {
+        "Name": "Taunt",
+        "Value": 205,
+        "Description": "Generated from skill name table entry: Taunt"
+      },
+      {
+        "Name": "Debilitate",
+        "Value": 206,
+        "Description": "Generated from skill name table entry: Debilitate"
+      },
+      {
+        "Name": "DismalTune",
+        "Value": 207,
+        "Description": "Generated from skill name table entry: Dismal Tune"
+      },
+      {
+        "Name": "SolNiger",
+        "Value": 208,
+        "Description": "Generated from skill name table entry: Sol Niger"
+      },
+      {
+        "Name": "StunGaze",
+        "Value": 209,
+        "Description": "Generated from skill name table entry: Stun Gaze"
+      },
+      {
+        "Name": "Lullaby",
+        "Value": 210,
+        "Description": "Generated from skill name table entry: Lullaby"
+      },
+      {
+        "Name": "BindingCry",
+        "Value": 211,
+        "Description": "Generated from skill name table entry: Binding Cry"
+      },
+      {
+        "Name": "EternalRest",
+        "Value": 212,
+        "Description": "Generated from skill name table entry: Eternal Rest"
+      },
+      {
+        "Name": "SonicWave",
+        "Value": 213,
+        "Description": "Generated from skill name table entry: Sonic Wave"
+      },
+      {
+        "Name": "SexyGaze",
+        "Value": 214,
+        "Description": "Generated from skill name table entry: Sexy Gaze"
+      },
+      {
+        "Name": "Allure",
+        "Value": 215,
+        "Description": "Generated from skill name table entry: Allure"
+      },
+      {
+        "Name": "PanicVoice",
+        "Value": 216,
+        "Description": "Generated from skill name table entry: Panic Voice"
+      },
+      {
+        "Name": "Intoxicate",
+        "Value": 217,
+        "Description": "Generated from skill name table entry: Intoxicate"
+      },
+      {
+        "Name": "Prayer",
+        "Value": 218,
+        "Description": "Generated from skill name table entry: Prayer"
+      },
+      {
+        "Name": "BeastEye",
+        "Value": 219,
+        "Description": "Generated from skill name table entry: Beast Eye"
+      },
+      {
+        "Name": "DragonEye",
+        "Value": 220,
+        "Description": "Generated from skill name table entry: Dragon Eye"
+      },
+      {
+        "Name": "InfiniteLight",
+        "Value": 221,
+        "Description": "Generated from skill name table entry: Infinite Light"
+      },
+      {
+        "Name": "Summon",
+        "Value": 222,
+        "Description": "Generated from skill name table entry: Summon"
+      },
+      {
+        "Name": "BeckonCall",
+        "Value": 223,
+        "Description": "Generated from skill name table entry: Beckon Call"
+      },
+      {
+        "Name": "Focus",
+        "Value": 224,
+        "Description": "Generated from skill name table entry: Focus"
+      },
+      {
+        "Name": "Retreat",
+        "Value": 225,
+        "Description": "Generated from skill name table entry: Retreat"
+      },
+      {
+        "Name": "Gathering",
+        "Value": 226,
+        "Description": "Generated from skill name table entry: Gathering"
+      },
+      {
+        "Name": "DarkHowl",
+        "Value": 227,
+        "Description": "Generated from skill name table entry: Dark Howl"
+      },
+      {
+        "Name": "Reserve17",
+        "Value": 228,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Laughter",
+        "Value": 229,
+        "Description": "Generated from skill name table entry: Laughter"
+      },
+      {
+        "Name": "DivineWill",
+        "Value": 230,
+        "Description": "Generated from skill name table entry: Divine Will"
+      },
+      {
+        "Name": "Reserve18",
+        "Value": 231,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "FoulUnion",
+        "Value": 232,
+        "Description": "Generated from skill name table entry: Foul Union"
+      },
+      {
+        "Name": "Replicate",
+        "Value": 233,
+        "Description": "Generated from skill name table entry: Replicate"
+      },
+      {
+        "Name": "Aurora",
+        "Value": 234,
+        "Description": "Generated from skill name table entry: Aurora"
+      },
+      {
+        "Name": "FireofSinai",
+        "Value": 235,
+        "Description": "Generated from skill name table entry: Fire of Sinai"
+      },
+      {
+        "Name": "Conjuration",
+        "Value": 236,
+        "Description": "Generated from skill name table entry: Conjuration"
+      },
+      {
+        "Name": "Reserve19",
+        "Value": 237,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve20",
+        "Value": 238,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve21",
+        "Value": 239,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve22",
+        "Value": 240,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "VastLight",
+        "Value": 241,
+        "Description": "Generated from skill name table entry: Vast Light"
+      },
+      {
+        "Name": "GodsCurse",
+        "Value": 242,
+        "Description": "Generated from skill name table entry: God's Curse"
+      },
+      {
+        "Name": "HellsCall",
+        "Value": 243,
+        "Description": "Generated from skill name table entry: Hell's Call"
+      },
+      {
+        "Name": "IcyDeath",
+        "Value": 244,
+        "Description": "Generated from skill name table entry: Icy Death"
+      },
+      {
+        "Name": "Mirage",
+        "Value": 245,
+        "Description": "Generated from skill name table entry: Mirage"
+      },
+      {
+        "Name": "Reserve23",
+        "Value": 246,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "LostMacca!",
+        "Value": 247,
+        "Description": "Generated from skill name table entry: Lost Macca!"
+      },
+      {
+        "Name": "Reserve24",
+        "Value": 248,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "WildDance",
+        "Value": 249,
+        "Description": "Generated from skill name table entry: Wild Dance"
+      },
+      {
+        "Name": "Domination",
+        "Value": 250,
+        "Description": "Generated from skill name table entry: Domination"
+      },
+      {
+        "Name": "Samrecarm1",
+        "Value": 251,
+        "Description": "Generated from skill name table entry: Samrecarm"
+      },
+      {
+        "Name": "Gathering1",
+        "Value": 252,
+        "Description": "Generated from skill name table entry: Gathering"
+      },
+      {
+        "Name": "Apocalypse",
+        "Value": 253,
+        "Description": "Generated from skill name table entry: Apocalypse"
+      },
+      {
+        "Name": "PhaseShift",
+        "Value": 254,
+        "Description": "Generated from skill name table entry: Phase Shift"
+      },
+      {
+        "Name": "Summon1",
+        "Value": 255,
+        "Description": "Generated from skill name table entry: (Summon)"
+      },
+      {
+        "Name": "Attack11",
+        "Value": 256,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "FireofSinai1",
+        "Value": 257,
+        "Description": "Generated from skill name table entry: Fire of Sinai"
+      },
+      {
+        "Name": "Attack12",
+        "Value": 258,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "DeathFlies",
+        "Value": 259,
+        "Description": "Generated from skill name table entry: Death Flies"
+      },
+      {
+        "Name": "DeathFlies1",
+        "Value": 260,
+        "Description": "Generated from skill name table entry: Death Flies"
+      },
+      {
+        "Name": "SoulDivide",
+        "Value": 261,
+        "Description": "Generated from skill name table entry: Soul Divide"
+      },
+      {
+        "Name": "EAndI",
+        "Value": 262,
+        "Description": "Generated from skill name table entry: E & I"
+      },
+      {
+        "Name": "Rebellion",
+        "Value": 263,
+        "Description": "Generated from skill name table entry: Rebellion"
+      },
+      {
+        "Name": "BulletTime",
+        "Value": 264,
+        "Description": "Generated from skill name table entry: Bullet-Time"
+      },
+      {
+        "Name": "Provoke",
+        "Value": 265,
+        "Description": "Generated from skill name table entry: Provoke"
+      },
+      {
+        "Name": "Stinger",
+        "Value": 266,
+        "Description": "Generated from skill name table entry: Stinger"
+      },
+      {
+        "Name": "Roundtrip",
+        "Value": 267,
+        "Description": "Generated from skill name table entry: Roundtrip"
+      },
+      {
+        "Name": "Whirlwind",
+        "Value": 268,
+        "Description": "Generated from skill name table entry: Whirlwind"
+      },
+      {
+        "Name": "Showtime",
+        "Value": 269,
+        "Description": "Generated from skill name table entry: Showtime"
+      },
+      {
+        "Name": "Attack13",
+        "Value": 270,
+        "Description": "Generated from skill name table entry: Attack"
+      },
+      {
+        "Name": "EvilGleam",
+        "Value": 271,
+        "Description": "Generated from skill name table entry: Evil Gleam"
+      },
+      {
+        "Name": "RootofEvil",
+        "Value": 272,
+        "Description": "Generated from skill name table entry: Root of Evil"
+      },
+      {
+        "Name": "HighKing",
+        "Value": 273,
+        "Description": "Generated from skill name table entry: High King"
+      },
+      {
+        "Name": "HolyStar",
+        "Value": 274,
+        "Description": "Generated from skill name table entry: Holy Star"
+      },
+      {
+        "Name": "Andalucia",
+        "Value": 275,
+        "Description": "Generated from skill name table entry: Andalucia"
+      },
+      {
+        "Name": "RedCapote",
+        "Value": 276,
+        "Description": "Generated from skill name table entry: Red Capote"
+      },
+      {
+        "Name": "Startle",
+        "Value": 277,
+        "Description": "Generated from skill name table entry: Startle"
+      },
+      {
+        "Name": "Preach",
+        "Value": 278,
+        "Description": "Generated from skill name table entry: Preach"
+      },
+      {
+        "Name": "Meditation",
+        "Value": 279,
+        "Description": "Generated from skill name table entry: Meditation"
+      },
+      {
+        "Name": "Terrorblade",
+        "Value": 280,
+        "Description": "Generated from skill name table entry: Terrorblade"
+      },
+      {
+        "Name": "HellSpin",
+        "Value": 281,
+        "Description": "Generated from skill name table entry: Hell Spin"
+      },
+      {
+        "Name": "HellExhaust",
+        "Value": 282,
+        "Description": "Generated from skill name table entry: Hell Exhaust"
+      },
+      {
+        "Name": "HellBurner",
+        "Value": 283,
+        "Description": "Generated from skill name table entry: Hell Burner"
+      },
+      {
+        "Name": "HellThrottle",
+        "Value": 284,
+        "Description": "Generated from skill name table entry: Hell Throttle"
+      },
+      {
+        "Name": "DeathLust",
+        "Value": 285,
+        "Description": "Generated from skill name table entry: Death Lust"
+      },
+      {
+        "Name": "BeastRoar",
+        "Value": 286,
+        "Description": "Generated from skill name table entry: Beast Roar"
+      },
+      {
+        "Name": "GodsBow",
+        "Value": 287,
+        "Description": "Generated from skill name table entry: God's Bow"
+      },
+      {
+        "Name": "Reserve25",
+        "Value": 288,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve26",
+        "Value": 289,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "LifeBonus",
+        "Value": 290,
+        "Description": "Generated from skill name table entry: Life Bonus"
+      },
+      {
+        "Name": "LifeGain",
+        "Value": 291,
+        "Description": "Generated from skill name table entry: Life Gain"
+      },
+      {
+        "Name": "LifeSurge",
+        "Value": 292,
+        "Description": "Generated from skill name table entry: Life Surge"
+      },
+      {
+        "Name": "ManaBonus",
+        "Value": 293,
+        "Description": "Generated from skill name table entry: Mana Bonus"
+      },
+      {
+        "Name": "ManaGain",
+        "Value": 294,
+        "Description": "Generated from skill name table entry: Mana Gain"
+      },
+      {
+        "Name": "ManaSurge",
+        "Value": 295,
+        "Description": "Generated from skill name table entry: Mana Surge"
+      },
+      {
+        "Name": "FastRetreat",
+        "Value": 296,
+        "Description": "Generated from skill name table entry: Fast Retreat"
+      },
+      {
+        "Name": "Reserve27",
+        "Value": 297,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "MindsEye",
+        "Value": 298,
+        "Description": "Generated from skill name table entry: Mind's Eye"
+      },
+      {
+        "Name": "Might",
+        "Value": 299,
+        "Description": "Generated from skill name table entry: Might"
+      },
+      {
+        "Name": "BrightMight",
+        "Value": 300,
+        "Description": "Generated from skill name table entry: Bright Might"
+      },
+      {
+        "Name": "DarkMight",
+        "Value": 301,
+        "Description": "Generated from skill name table entry: Dark Might"
+      },
+      {
+        "Name": "DrainAttack",
+        "Value": 302,
+        "Description": "Generated from skill name table entry: Drain Attack"
+      },
+      {
+        "Name": "Reserve28",
+        "Value": 303,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "AttackAll",
+        "Value": 304,
+        "Description": "Generated from skill name table entry: Attack All"
+      },
+      {
+        "Name": "Counter1",
+        "Value": 305,
+        "Description": "Generated from skill name table entry: Counter"
+      },
+      {
+        "Name": "Retaliate1",
+        "Value": 306,
+        "Description": "Generated from skill name table entry: Retaliate"
+      },
+      {
+        "Name": "Avenge1",
+        "Value": 307,
+        "Description": "Generated from skill name table entry: Avenge"
+      },
+      {
+        "Name": "Reserve29",
+        "Value": 308,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "FireBoost",
+        "Value": 309,
+        "Description": "Generated from skill name table entry: Fire Boost"
+      },
+      {
+        "Name": "IceBoost",
+        "Value": 310,
+        "Description": "Generated from skill name table entry: Ice Boost"
+      },
+      {
+        "Name": "ElecBoost",
+        "Value": 311,
+        "Description": "Generated from skill name table entry: Elec Boost"
+      },
+      {
+        "Name": "ForceBoost",
+        "Value": 312,
+        "Description": "Generated from skill name table entry: Force Boost"
+      },
+      {
+        "Name": "AntiPhys",
+        "Value": 313,
+        "Description": "Generated from skill name table entry: Anti-Phys"
+      },
+      {
+        "Name": "AntiFire",
+        "Value": 314,
+        "Description": "Generated from skill name table entry: Anti-Fire"
+      },
+      {
+        "Name": "AntiIce",
+        "Value": 315,
+        "Description": "Generated from skill name table entry: Anti-Ice"
+      },
+      {
+        "Name": "AntiElec",
+        "Value": 316,
+        "Description": "Generated from skill name table entry: Anti-Elec"
+      },
+      {
+        "Name": "AntiForce",
+        "Value": 317,
+        "Description": "Generated from skill name table entry: Anti-Force"
+      },
+      {
+        "Name": "AntiExpel",
+        "Value": 318,
+        "Description": "Generated from skill name table entry: Anti-Expel"
+      },
+      {
+        "Name": "AntiDeath",
+        "Value": 319,
+        "Description": "Generated from skill name table entry: Anti-Death"
+      },
+      {
+        "Name": "AntiCurse",
+        "Value": 320,
+        "Description": "Generated from skill name table entry: Anti-Curse"
+      },
+      {
+        "Name": "AntiNerve",
+        "Value": 321,
+        "Description": "Generated from skill name table entry: Anti-Nerve"
+      },
+      {
+        "Name": "AntiMind",
+        "Value": 322,
+        "Description": "Generated from skill name table entry: Anti-Mind"
+      },
+      {
+        "Name": "VoidPhys",
+        "Value": 323,
+        "Description": "Generated from skill name table entry: Void Phys"
+      },
+      {
+        "Name": "VoidFire",
+        "Value": 324,
+        "Description": "Generated from skill name table entry: Void Fire"
+      },
+      {
+        "Name": "VoidIce",
+        "Value": 325,
+        "Description": "Generated from skill name table entry: Void Ice"
+      },
+      {
+        "Name": "VoidElec",
+        "Value": 326,
+        "Description": "Generated from skill name table entry: Void Elec"
+      },
+      {
+        "Name": "VoidForce",
+        "Value": 327,
+        "Description": "Generated from skill name table entry: Void Force"
+      },
+      {
+        "Name": "VoidExpel",
+        "Value": 328,
+        "Description": "Generated from skill name table entry: Void Expel"
+      },
+      {
+        "Name": "VoidDeath",
+        "Value": 329,
+        "Description": "Generated from skill name table entry: Void Death"
+      },
+      {
+        "Name": "VoidCurse",
+        "Value": 330,
+        "Description": "Generated from skill name table entry: Void Curse"
+      },
+      {
+        "Name": "VoidNerve",
+        "Value": 331,
+        "Description": "Generated from skill name table entry: Void Nerve"
+      },
+      {
+        "Name": "VoidMind",
+        "Value": 332,
+        "Description": "Generated from skill name table entry: Void Mind"
+      },
+      {
+        "Name": "PhysDrain",
+        "Value": 333,
+        "Description": "Generated from skill name table entry: Phys Drain"
+      },
+      {
+        "Name": "FireDrain",
+        "Value": 334,
+        "Description": "Generated from skill name table entry: Fire Drain"
+      },
+      {
+        "Name": "IceDrain",
+        "Value": 335,
+        "Description": "Generated from skill name table entry: Ice Drain"
+      },
+      {
+        "Name": "ElecDrain",
+        "Value": 336,
+        "Description": "Generated from skill name table entry: Elec Drain"
+      },
+      {
+        "Name": "ForceDrain",
+        "Value": 337,
+        "Description": "Generated from skill name table entry: Force Drain"
+      },
+      {
+        "Name": "PhysRepel",
+        "Value": 338,
+        "Description": "Generated from skill name table entry: Phys Repel"
+      },
+      {
+        "Name": "FireRepel",
+        "Value": 339,
+        "Description": "Generated from skill name table entry: Fire Repel"
+      },
+      {
+        "Name": "IceRepel",
+        "Value": 340,
+        "Description": "Generated from skill name table entry: Ice Repel"
+      },
+      {
+        "Name": "ElecRepel",
+        "Value": 341,
+        "Description": "Generated from skill name table entry: Elec Repel"
+      },
+      {
+        "Name": "ForceRepel",
+        "Value": 342,
+        "Description": "Generated from skill name table entry: Force Repel"
+      },
+      {
+        "Name": "Reserve30",
+        "Value": 343,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve31",
+        "Value": 344,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Endure",
+        "Value": 345,
+        "Description": "Generated from skill name table entry: Endure"
+      },
+      {
+        "Name": "LifeAid",
+        "Value": 346,
+        "Description": "Generated from skill name table entry: Life Aid"
+      },
+      {
+        "Name": "ManaAid",
+        "Value": 347,
+        "Description": "Generated from skill name table entry: Mana Aid"
+      },
+      {
+        "Name": "VictoryCry",
+        "Value": 348,
+        "Description": "Generated from skill name table entry: Victory Cry"
+      },
+      {
+        "Name": "LifeRefill",
+        "Value": 349,
+        "Description": "Generated from skill name table entry: Life Refill"
+      },
+      {
+        "Name": "ManaRefill",
+        "Value": 350,
+        "Description": "Generated from skill name table entry: Mana Refill"
+      },
+      {
+        "Name": "ThiefsLore",
+        "Value": 351,
+        "Description": "Generated from skill name table entry: Thief's Lore"
+      },
+      {
+        "Name": "Reserve32",
+        "Value": 352,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "LuckyFind",
+        "Value": 353,
+        "Description": "Generated from skill name table entry: Lucky Find"
+      },
+      {
+        "Name": "Watchful",
+        "Value": 354,
+        "Description": "Generated from skill name table entry: Watchful"
+      },
+      {
+        "Name": "Charisma",
+        "Value": 355,
+        "Description": "Generated from skill name table entry: Charisma"
+      },
+      {
+        "Name": "Reserve33",
+        "Value": 356,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Pierce",
+        "Value": 357,
+        "Description": "Generated from skill name table entry: Pierce"
+      },
+      {
+        "Name": "_0x166",
+        "Value": 358,
+        "Description": "Generated from skill name table entry: 0x166"
+      },
+      {
+        "Name": "_0x167",
+        "Value": 359,
+        "Description": "Generated from skill name table entry: 0x167"
+      },
+      {
+        "Name": "NeverYield",
+        "Value": 360,
+        "Description": "Generated from skill name table entry: Never Yield"
+      },
+      {
+        "Name": "SonsOath",
+        "Value": 361,
+        "Description": "Generated from skill name table entry: Son's Oath"
+      },
+      {
+        "Name": "_0x16A",
+        "Value": 362,
+        "Description": "Generated from skill name table entry: 0x16A"
+      },
+      {
+        "Name": "_0x16B",
+        "Value": 363,
+        "Description": "Generated from skill name table entry: 0x16B"
+      },
+      {
+        "Name": "_0x16C",
+        "Value": 364,
+        "Description": "Generated from skill name table entry: 0x16C"
+      },
+      {
+        "Name": "_0x16D",
+        "Value": 365,
+        "Description": "Generated from skill name table entry: 0x16D"
+      },
+      {
+        "Name": "_0x16E",
+        "Value": 366,
+        "Description": "Generated from skill name table entry: 0x16E"
+      },
+      {
+        "Name": "_0x16F",
+        "Value": 367,
+        "Description": "Generated from skill name table entry: 0x16F"
+      },
+      {
+        "Name": "_0x170",
+        "Value": 368,
+        "Description": "Generated from skill name table entry: 0x170"
+      },
+      {
+        "Name": "_0x171",
+        "Value": 369,
+        "Description": "Generated from skill name table entry: 0x171"
+      },
+      {
+        "Name": "_0x172",
+        "Value": 370,
+        "Description": "Generated from skill name table entry: 0x172"
+      },
+      {
+        "Name": "_0x173",
+        "Value": 371,
+        "Description": "Generated from skill name table entry: 0x173"
+      },
+      {
+        "Name": "_0x174",
+        "Value": 372,
+        "Description": "Generated from skill name table entry: 0x174"
+      },
+      {
+        "Name": "_0x175",
+        "Value": 373,
+        "Description": "Generated from skill name table entry: 0x175"
+      },
+      {
+        "Name": "_0x176",
+        "Value": 374,
+        "Description": "Generated from skill name table entry: 0x176"
+      },
+      {
+        "Name": "_0x177",
+        "Value": 375,
+        "Description": "Generated from skill name table entry: 0x177"
+      },
+      {
+        "Name": "_0x178",
+        "Value": 376,
+        "Description": "Generated from skill name table entry: 0x178"
+      },
+      {
+        "Name": "_0x179",
+        "Value": 377,
+        "Description": "Generated from skill name table entry: 0x179"
+      },
+      {
+        "Name": "_0x17A",
+        "Value": 378,
+        "Description": "Generated from skill name table entry: 0x17A"
+      },
+      {
+        "Name": "_0x17B",
+        "Value": 379,
+        "Description": "Generated from skill name table entry: 0x17B"
+      },
+      {
+        "Name": "_0x17C",
+        "Value": 380,
+        "Description": "Generated from skill name table entry: 0x17C"
+      },
+      {
+        "Name": "_0x17D",
+        "Value": 381,
+        "Description": "Generated from skill name table entry: 0x17D"
+      },
+      {
+        "Name": "_0x17E",
+        "Value": 382,
+        "Description": "Generated from skill name table entry: 0x17E"
+      },
+      {
+        "Name": "_0x17F",
+        "Value": 383,
+        "Description": "Generated from skill name table entry: 0x17F"
+      },
+      {
+        "Name": "Talk",
+        "Value": 384,
+        "Description": "Generated from skill name table entry: Talk"
+      },
+      {
+        "Name": "Scout",
+        "Value": 385,
+        "Description": "Generated from skill name table entry: Scout"
+      },
+      {
+        "Name": "Kidnap",
+        "Value": 386,
+        "Description": "Generated from skill name table entry: Kidnap"
+      },
+      {
+        "Name": "Seduce",
+        "Value": 387,
+        "Description": "Generated from skill name table entry: Seduce"
+      },
+      {
+        "Name": "Brainwash",
+        "Value": 388,
+        "Description": "Generated from skill name table entry: Brainwash"
+      },
+      {
+        "Name": "Reserve34",
+        "Value": 389,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "DarkPledge",
+        "Value": 390,
+        "Description": "Generated from skill name table entry: Dark Pledge"
+      },
+      {
+        "Name": "Wooing",
+        "Value": 391,
+        "Description": "Generated from skill name table entry: Wooing"
+      },
+      {
+        "Name": "Beseech",
+        "Value": 392,
+        "Description": "Generated from skill name table entry: Beseech"
+      },
+      {
+        "Name": "SoulRecruit",
+        "Value": 393,
+        "Description": "Generated from skill name table entry: Soul Recruit"
+      },
+      {
+        "Name": "Mischief",
+        "Value": 394,
+        "Description": "Generated from skill name table entry: Mischief"
+      },
+      {
+        "Name": "DeathPact",
+        "Value": 395,
+        "Description": "Generated from skill name table entry: Death Pact"
+      },
+      {
+        "Name": "Pester",
+        "Value": 396,
+        "Description": "Generated from skill name table entry: Pester"
+      },
+      {
+        "Name": "Begging",
+        "Value": 397,
+        "Description": "Generated from skill name table entry: Begging"
+      },
+      {
+        "Name": "Threaten",
+        "Value": 398,
+        "Description": "Generated from skill name table entry: Threaten"
+      },
+      {
+        "Name": "StoneHunt",
+        "Value": 399,
+        "Description": "Generated from skill name table entry: Stone Hunt"
+      },
+      {
+        "Name": "Trade",
+        "Value": 400,
+        "Description": "Generated from skill name table entry: Trade"
+      },
+      {
+        "Name": "Loan",
+        "Value": 401,
+        "Description": "Generated from skill name table entry: Loan"
+      },
+      {
+        "Name": "Reserve35",
+        "Value": 402,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve36",
+        "Value": 403,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve37",
+        "Value": 404,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve38",
+        "Value": 405,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve39",
+        "Value": 406,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve40",
+        "Value": 407,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve41",
+        "Value": 408,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Haggle",
+        "Value": 409,
+        "Description": "Generated from skill name table entry: Haggle"
+      },
+      {
+        "Name": "Arbitration",
+        "Value": 410,
+        "Description": "Generated from skill name table entry: Arbitration"
+      },
+      {
+        "Name": "Detain",
+        "Value": 411,
+        "Description": "Generated from skill name table entry: Detain"
+      },
+      {
+        "Name": "Gonnection",
+        "Value": 412,
+        "Description": "Generated from skill name table entry: Gonnection"
+      },
+      {
+        "Name": "Persuade",
+        "Value": 413,
+        "Description": "Generated from skill name table entry: Persuade"
+      },
+      {
+        "Name": "Intimidate",
+        "Value": 414,
+        "Description": "Generated from skill name table entry: Intimidate"
+      },
+      {
+        "Name": "Nag",
+        "Value": 415,
+        "Description": "Generated from skill name table entry: Nag"
+      },
+      {
+        "Name": "Reserve42",
+        "Value": 416,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve43",
+        "Value": 417,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "MaidenPlea",
+        "Value": 418,
+        "Description": "Generated from skill name table entry: Maiden Plea"
+      },
+      {
+        "Name": "WineParty",
+        "Value": 419,
+        "Description": "Generated from skill name table entry: Wine Party"
+      },
+      {
+        "Name": "Flatter",
+        "Value": 420,
+        "Description": "Generated from skill name table entry: Flatter"
+      },
+      {
+        "Name": "JiveTalk",
+        "Value": 421,
+        "Description": "Generated from skill name table entry: Jive Talk"
+      },
+      {
+        "Name": "_0x1A6",
+        "Value": 422,
+        "Description": "Generated from skill name table entry: 0x1A6"
+      },
+      {
+        "Name": "_0x1A7",
+        "Value": 423,
+        "Description": "Generated from skill name table entry: 0x1A7"
+      },
+      {
+        "Name": "_0x1A8",
+        "Value": 424,
+        "Description": "Generated from skill name table entry: 0x1A8"
+      },
+      {
+        "Name": "_0x1A9",
+        "Value": 425,
+        "Description": "Generated from skill name table entry: 0x1A9"
+      },
+      {
+        "Name": "_0x1AA",
+        "Value": 426,
+        "Description": "Generated from skill name table entry: 0x1AA"
+      },
+      {
+        "Name": "_0x1AB",
+        "Value": 427,
+        "Description": "Generated from skill name table entry: 0x1AB"
+      },
+      {
+        "Name": "_0x1AC",
+        "Value": 428,
+        "Description": "Generated from skill name table entry: 0x1AC"
+      },
+      {
+        "Name": "_0x1AD",
+        "Value": 429,
+        "Description": "Generated from skill name table entry: 0x1AD"
+      },
+      {
+        "Name": "_0x1AE",
+        "Value": 430,
+        "Description": "Generated from skill name table entry: 0x1AE"
+      },
+      {
+        "Name": "_0x1AF",
+        "Value": 431,
+        "Description": "Generated from skill name table entry: 0x1AF"
+      },
+      {
+        "Name": "_0x1B0",
+        "Value": 432,
+        "Description": "Generated from skill name table entry: 0x1B0"
+      },
+      {
+        "Name": "_0x1B1",
+        "Value": 433,
+        "Description": "Generated from skill name table entry: 0x1B1"
+      },
+      {
+        "Name": "_0x1B2",
+        "Value": 434,
+        "Description": "Generated from skill name table entry: 0x1B2"
+      },
+      {
+        "Name": "_0x1B3",
+        "Value": 435,
+        "Description": "Generated from skill name table entry: 0x1B3"
+      },
+      {
+        "Name": "_0x1B4",
+        "Value": 436,
+        "Description": "Generated from skill name table entry: 0x1B4"
+      },
+      {
+        "Name": "_0x1B5",
+        "Value": 437,
+        "Description": "Generated from skill name table entry: 0x1B5"
+      },
+      {
+        "Name": "_0x1B6",
+        "Value": 438,
+        "Description": "Generated from skill name table entry: 0x1B6"
+      },
+      {
+        "Name": "_0x1B7",
+        "Value": 439,
+        "Description": "Generated from skill name table entry: 0x1B7"
+      },
+      {
+        "Name": "_0x1B8",
+        "Value": 440,
+        "Description": "Generated from skill name table entry: 0x1B8"
+      },
+      {
+        "Name": "_0x1B9",
+        "Value": 441,
+        "Description": "Generated from skill name table entry: 0x1B9"
+      },
+      {
+        "Name": "_0x1BA",
+        "Value": 442,
+        "Description": "Generated from skill name table entry: 0x1BA"
+      },
+      {
+        "Name": "_0x1BB",
+        "Value": 443,
+        "Description": "Generated from skill name table entry: 0x1BB"
+      },
+      {
+        "Name": "_0x1BC",
+        "Value": 444,
+        "Description": "Generated from skill name table entry: 0x1BC"
+      },
+      {
+        "Name": "_0x1BD",
+        "Value": 445,
+        "Description": "Generated from skill name table entry: 0x1BD"
+      },
+      {
+        "Name": "_0x1BE",
+        "Value": 446,
+        "Description": "Generated from skill name table entry: 0x1BE"
+      },
+      {
+        "Name": "_0x1BF",
+        "Value": 447,
+        "Description": "Generated from skill name table entry: 0x1BF"
+      },
+      {
+        "Name": "_0x1C0",
+        "Value": 448,
+        "Description": "Generated from skill name table entry: 0x1C0"
+      },
+      {
+        "Name": "_0x1C1",
+        "Value": 449,
+        "Description": "Generated from skill name table entry: 0x1C1"
+      },
+      {
+        "Name": "_0x1C2",
+        "Value": 450,
+        "Description": "Generated from skill name table entry: 0x1C2"
+      },
+      {
+        "Name": "_0x1C3",
+        "Value": 451,
+        "Description": "Generated from skill name table entry: 0x1C3"
+      },
+      {
+        "Name": "_0x1C4",
+        "Value": 452,
+        "Description": "Generated from skill name table entry: 0x1C4"
+      },
+      {
+        "Name": "_0x1C5",
+        "Value": 453,
+        "Description": "Generated from skill name table entry: 0x1C5"
+      },
+      {
+        "Name": "_0x1C6",
+        "Value": 454,
+        "Description": "Generated from skill name table entry: 0x1C6"
+      },
+      {
+        "Name": "_0x1C7",
+        "Value": 455,
+        "Description": "Generated from skill name table entry: 0x1C7"
+      },
+      {
+        "Name": "_0x1C8",
+        "Value": 456,
+        "Description": "Generated from skill name table entry: 0x1C8"
+      },
+      {
+        "Name": "_0x1C9",
+        "Value": 457,
+        "Description": "Generated from skill name table entry: 0x1C9"
+      },
+      {
+        "Name": "_0x1CA",
+        "Value": 458,
+        "Description": "Generated from skill name table entry: 0x1CA"
+      },
+      {
+        "Name": "_0x1CB",
+        "Value": 459,
+        "Description": "Generated from skill name table entry: 0x1CB"
+      },
+      {
+        "Name": "_0x1CC",
+        "Value": 460,
+        "Description": "Generated from skill name table entry: 0x1CC"
+      },
+      {
+        "Name": "_0x1CD",
+        "Value": 461,
+        "Description": "Generated from skill name table entry: 0x1CD"
+      },
+      {
+        "Name": "_0x1CE",
+        "Value": 462,
+        "Description": "Generated from skill name table entry: 0x1CE"
+      },
+      {
+        "Name": "_0x1CF",
+        "Value": 463,
+        "Description": "Generated from skill name table entry: 0x1CF"
+      },
+      {
+        "Name": "_0x1D0",
+        "Value": 464,
+        "Description": "Generated from skill name table entry: 0x1D0"
+      },
+      {
+        "Name": "_0x1D1",
+        "Value": 465,
+        "Description": "Generated from skill name table entry: 0x1D1"
+      },
+      {
+        "Name": "_0x1D2",
+        "Value": 466,
+        "Description": "Generated from skill name table entry: 0x1D2"
+      },
+      {
+        "Name": "_0x1D3",
+        "Value": 467,
+        "Description": "Generated from skill name table entry: 0x1D3"
+      },
+      {
+        "Name": "_0x1D4",
+        "Value": 468,
+        "Description": "Generated from skill name table entry: 0x1D4"
+      },
+      {
+        "Name": "_0x1D5",
+        "Value": 469,
+        "Description": "Generated from skill name table entry: 0x1D5"
+      },
+      {
+        "Name": "_0x1D6",
+        "Value": 470,
+        "Description": "Generated from skill name table entry: 0x1D6"
+      },
+      {
+        "Name": "_0x1D7",
+        "Value": 471,
+        "Description": "Generated from skill name table entry: 0x1D7"
+      },
+      {
+        "Name": "_0x1D8",
+        "Value": 472,
+        "Description": "Generated from skill name table entry: 0x1D8"
+      },
+      {
+        "Name": "_0x1D9",
+        "Value": 473,
+        "Description": "Generated from skill name table entry: 0x1D9"
+      },
+      {
+        "Name": "_0x1DA",
+        "Value": 474,
+        "Description": "Generated from skill name table entry: 0x1DA"
+      },
+      {
+        "Name": "_0x1DB",
+        "Value": 475,
+        "Description": "Generated from skill name table entry: 0x1DB"
+      },
+      {
+        "Name": "_0x1DC",
+        "Value": 476,
+        "Description": "Generated from skill name table entry: 0x1DC"
+      },
+      {
+        "Name": "_0x1DD",
+        "Value": 477,
+        "Description": "Generated from skill name table entry: 0x1DD"
+      },
+      {
+        "Name": "_0x1DE",
+        "Value": 478,
+        "Description": "Generated from skill name table entry: 0x1DE"
+      },
+      {
+        "Name": "_0x1DF",
+        "Value": 479,
+        "Description": "Generated from skill name table entry: 0x1DF"
+      },
+      {
+        "Name": "_0x1E0",
+        "Value": 480,
+        "Description": "Generated from skill name table entry: 0x1E0"
+      },
+      {
+        "Name": "_0x1E1",
+        "Value": 481,
+        "Description": "Generated from skill name table entry: 0x1E1"
+      },
+      {
+        "Name": "_0x1E2",
+        "Value": 482,
+        "Description": "Generated from skill name table entry: 0x1E2"
+      },
+      {
+        "Name": "_0x1E3",
+        "Value": 483,
+        "Description": "Generated from skill name table entry: 0x1E3"
+      },
+      {
+        "Name": "_0x1E4",
+        "Value": 484,
+        "Description": "Generated from skill name table entry: 0x1E4"
+      },
+      {
+        "Name": "_0x1E5",
+        "Value": 485,
+        "Description": "Generated from skill name table entry: 0x1E5"
+      },
+      {
+        "Name": "_0x1E6",
+        "Value": 486,
+        "Description": "Generated from skill name table entry: 0x1E6"
+      },
+      {
+        "Name": "_0x1E7",
+        "Value": 487,
+        "Description": "Generated from skill name table entry: 0x1E7"
+      },
+      {
+        "Name": "_0x1E8",
+        "Value": 488,
+        "Description": "Generated from skill name table entry: 0x1E8"
+      },
+      {
+        "Name": "_0x1E9",
+        "Value": 489,
+        "Description": "Generated from skill name table entry: 0x1E9"
+      },
+      {
+        "Name": "_0x1EA",
+        "Value": 490,
+        "Description": "Generated from skill name table entry: 0x1EA"
+      },
+      {
+        "Name": "_0x1EB",
+        "Value": 491,
+        "Description": "Generated from skill name table entry: 0x1EB"
+      },
+      {
+        "Name": "_0x1EC",
+        "Value": 492,
+        "Description": "Generated from skill name table entry: 0x1EC"
+      },
+      {
+        "Name": "_0x1ED",
+        "Value": 493,
+        "Description": "Generated from skill name table entry: 0x1ED"
+      },
+      {
+        "Name": "_0x1EE",
+        "Value": 494,
+        "Description": "Generated from skill name table entry: 0x1EE"
+      },
+      {
+        "Name": "_0x1EF",
+        "Value": 495,
+        "Description": "Generated from skill name table entry: 0x1EF"
+      },
+      {
+        "Name": "CallAngel",
+        "Value": 496,
+        "Description": "Generated from skill name table entry: Call Angel"
+      },
+      {
+        "Name": "CallSoldier",
+        "Value": 497,
+        "Description": "Generated from skill name table entry: Call Soldier"
+      },
+      {
+        "Name": "CallSouls",
+        "Value": 498,
+        "Description": "Generated from skill name table entry: Call Souls"
+      },
+      {
+        "Name": "CallEvil",
+        "Value": 499,
+        "Description": "Generated from skill name table entry: Call Evil"
+      },
+      {
+        "Name": "_0x1F4",
+        "Value": 500,
+        "Description": "Generated from skill name table entry: 0x1F4"
+      },
+      {
+        "Name": "_0x1F5",
+        "Value": 501,
+        "Description": "Generated from skill name table entry: 0x1F5"
+      },
+      {
+        "Name": "_0x1F6",
+        "Value": 502,
+        "Description": "Generated from skill name table entry: 0x1F6"
+      },
+      {
+        "Name": "_0x1F7",
+        "Value": 503,
+        "Description": "Generated from skill name table entry: 0x1F7"
+      },
+      {
+        "Name": "_0x1F8",
+        "Value": 504,
+        "Description": "Generated from skill name table entry: 0x1F8"
+      },
+      {
+        "Name": "_0x1F9",
+        "Value": 505,
+        "Description": "Generated from skill name table entry: 0x1F9"
+      },
+      {
+        "Name": "_0x1FA",
+        "Value": 506,
+        "Description": "Generated from skill name table entry: 0x1FA"
+      },
+      {
+        "Name": "_0x1FB",
+        "Value": 507,
+        "Description": "Generated from skill name table entry: 0x1FB"
+      },
+      {
+        "Name": "_0x1FC",
+        "Value": 508,
+        "Description": "Generated from skill name table entry: 0x1FC"
+      },
+      {
+        "Name": "_0x1FD",
+        "Value": 509,
+        "Description": "Generated from skill name table entry: 0x1FD"
+      },
+      {
+        "Name": "_0x1FE",
+        "Value": 510,
+        "Description": "Generated from skill name table entry: 0x1FE"
+      },
+      {
+        "Name": "_0x1FF",
+        "Value": 511,
+        "Description": "Generated from skill name table entry: 0x1FF"
+      }
+    ]
+  },
+  {
+    "Name": "BattleUnit",
+    "Description": "This enum represents the available skills in battle.",
+    "Members": [
+      {
+        "Name": "_00",
+        "Value": 0,
+        "Description": "Generated from skill name table entry: 00"
+      },
+      {
+        "Name": "Vishnu",
+        "Value": 1,
+        "Description": "Generated from skill name table entry: Vishnu"
+      },
+      {
+        "Name": "Mithra",
+        "Value": 2,
+        "Description": "Generated from skill name table entry: Mithra"
+      },
+      {
+        "Name": "Amaterasu",
+        "Value": 3,
+        "Description": "Generated from skill name table entry: Amaterasu"
+      },
+      {
+        "Name": "Odin",
+        "Value": 4,
+        "Description": "Generated from skill name table entry: Odin"
+      },
+      {
+        "Name": "Atavaka",
+        "Value": 5,
+        "Description": "Generated from skill name table entry: Atavaka"
+      },
+      {
+        "Name": "Horus",
+        "Value": 6,
+        "Description": "Generated from skill name table entry: Horus"
+      },
+      {
+        "Name": "Laksmi",
+        "Value": 7,
+        "Description": "Generated from skill name table entry: Laksmi"
+      },
+      {
+        "Name": "Scathach",
+        "Value": 8,
+        "Description": "Generated from skill name table entry: Scathach"
+      },
+      {
+        "Name": "Sarasvati",
+        "Value": 9,
+        "Description": "Generated from skill name table entry: Sarasvati"
+      },
+      {
+        "Name": "Sati",
+        "Value": 10,
+        "Description": "Generated from skill name table entry: Sati"
+      },
+      {
+        "Name": "Uzume",
+        "Value": 11,
+        "Description": "Generated from skill name table entry: Uzume"
+      },
+      {
+        "Name": "Shiva",
+        "Value": 12,
+        "Description": "Generated from skill name table entry: Shiva"
+      },
+      {
+        "Name": "BeijiWeng",
+        "Value": 13,
+        "Description": "Generated from skill name table entry: Beiji-Weng"
+      },
+      {
+        "Name": "WuKong",
+        "Value": 14,
+        "Description": "Generated from skill name table entry: Wu Kong"
+      },
+      {
+        "Name": "Dionysus",
+        "Value": 15,
+        "Description": "Generated from skill name table entry: Dionysus"
+      },
+      {
+        "Name": "Kali",
+        "Value": 16,
+        "Description": "Generated from skill name table entry: Kali"
+      },
+      {
+        "Name": "Skadi",
+        "Value": 17,
+        "Description": "Generated from skill name table entry: Skadi"
+      },
+      {
+        "Name": "Parvati",
+        "Value": 18,
+        "Description": "Generated from skill name table entry: Parvati"
+      },
+      {
+        "Name": "Kushinada",
+        "Value": 19,
+        "Description": "Generated from skill name table entry: Kushinada"
+      },
+      {
+        "Name": "KikuriHime",
+        "Value": 20,
+        "Description": "Generated from skill name table entry: Kikuri-Hime"
+      },
+      {
+        "Name": "Bishamon",
+        "Value": 21,
+        "Description": "Generated from skill name table entry: Bishamon"
+      },
+      {
+        "Name": "Thor",
+        "Value": 22,
+        "Description": "Generated from skill name table entry: Thor"
+      },
+      {
+        "Name": "Jikoku",
+        "Value": 23,
+        "Description": "Generated from skill name table entry: Jikoku"
+      },
+      {
+        "Name": "Mikazuchi",
+        "Value": 24,
+        "Description": "Generated from skill name table entry: Mikazuchi"
+      },
+      {
+        "Name": "Okuninushi",
+        "Value": 25,
+        "Description": "Generated from skill name table entry: Okuninushi"
+      },
+      {
+        "Name": "Koumoku",
+        "Value": 26,
+        "Description": "Generated from skill name table entry: Koumoku"
+      },
+      {
+        "Name": "Zouchou",
+        "Value": 27,
+        "Description": "Generated from skill name table entry: Zouchou"
+      },
+      {
+        "Name": "Minakata",
+        "Value": 28,
+        "Description": "Generated from skill name table entry: Minakata"
+      },
+      {
+        "Name": "Chimera",
+        "Value": 29,
+        "Description": "Generated from skill name table entry: Chimera"
+      },
+      {
+        "Name": "Baihu",
+        "Value": 30,
+        "Description": "Generated from skill name table entry: Baihu"
+      },
+      {
+        "Name": "Senri",
+        "Value": 31,
+        "Description": "Generated from skill name table entry: Senri"
+      },
+      {
+        "Name": "FengHuang",
+        "Value": 32,
+        "Description": "Generated from skill name table entry: Feng Huang"
+      },
+      {
+        "Name": "Shiisaa",
+        "Value": 33,
+        "Description": "Generated from skill name table entry: Shiisaa"
+      },
+      {
+        "Name": "CaiZhi",
+        "Value": 34,
+        "Description": "Generated from skill name table entry: Cai-Zhi"
+      },
+      {
+        "Name": "Unicorn",
+        "Value": 35,
+        "Description": "Generated from skill name table entry: Unicorn"
+      },
+      {
+        "Name": "Flaemis",
+        "Value": 36,
+        "Description": "Generated from skill name table entry: Flaemis"
+      },
+      {
+        "Name": "Aquans",
+        "Value": 37,
+        "Description": "Generated from skill name table entry: Aquans"
+      },
+      {
+        "Name": "Aeros",
+        "Value": 38,
+        "Description": "Generated from skill name table entry: Aeros"
+      },
+      {
+        "Name": "Erthys",
+        "Value": 39,
+        "Description": "Generated from skill name table entry: Erthys"
+      },
+      {
+        "Name": "SakiMitama",
+        "Value": 40,
+        "Description": "Generated from skill name table entry: Saki Mitama"
+      },
+      {
+        "Name": "KusiMitama",
+        "Value": 41,
+        "Description": "Generated from skill name table entry: Kusi Mitama"
+      },
+      {
+        "Name": "NigiMitama",
+        "Value": 42,
+        "Description": "Generated from skill name table entry: Nigi Mitama"
+      },
+      {
+        "Name": "AraMitama",
+        "Value": 43,
+        "Description": "Generated from skill name table entry: Ara Mitama"
+      },
+      {
+        "Name": "Efreet",
+        "Value": 44,
+        "Description": "Generated from skill name table entry: Efreet"
+      },
+      {
+        "Name": "Purski",
+        "Value": 45,
+        "Description": "Generated from skill name table entry: Purski"
+      },
+      {
+        "Name": "Onkot",
+        "Value": 46,
+        "Description": "Generated from skill name table entry: Onkot"
+      },
+      {
+        "Name": "Jinn",
+        "Value": 47,
+        "Description": "Generated from skill name table entry: Jinn"
+      },
+      {
+        "Name": "Karasu",
+        "Value": 48,
+        "Description": "Generated from skill name table entry: Karasu"
+      },
+      {
+        "Name": "Dis",
+        "Value": 49,
+        "Description": "Generated from skill name table entry: Dis"
+      },
+      {
+        "Name": "Isora",
+        "Value": 50,
+        "Description": "Generated from skill name table entry: Isora"
+      },
+      {
+        "Name": "Apsaras",
+        "Value": 51,
+        "Description": "Generated from skill name table entry: Apsaras"
+      },
+      {
+        "Name": "Koppa",
+        "Value": 52,
+        "Description": "Generated from skill name table entry: Koppa"
+      },
+      {
+        "Name": "Titania",
+        "Value": 53,
+        "Description": "Generated from skill name table entry: Titania"
+      },
+      {
+        "Name": "Oberon",
+        "Value": 54,
+        "Description": "Generated from skill name table entry: Oberon"
+      },
+      {
+        "Name": "Troll",
+        "Value": 55,
+        "Description": "Generated from skill name table entry: Troll"
+      },
+      {
+        "Name": "Setanta",
+        "Value": 56,
+        "Description": "Generated from skill name table entry: Setanta"
+      },
+      {
+        "Name": "Kelpie",
+        "Value": 57,
+        "Description": "Generated from skill name table entry: Kelpie"
+      },
+      {
+        "Name": "PyroJack",
+        "Value": 58,
+        "Description": "Generated from skill name table entry: Pyro Jack"
+      },
+      {
+        "Name": "HighPixie",
+        "Value": 59,
+        "Description": "Generated from skill name table entry: High Pixie"
+      },
+      {
+        "Name": "JackFrost",
+        "Value": 60,
+        "Description": "Generated from skill name table entry: Jack Frost"
+      },
+      {
+        "Name": "Pixie",
+        "Value": 61,
+        "Description": "Generated from skill name table entry: Pixie"
+      },
+      {
+        "Name": "Throne",
+        "Value": 62,
+        "Description": "Generated from skill name table entry: Throne"
+      },
+      {
+        "Name": "Dominion",
+        "Value": 63,
+        "Description": "Generated from skill name table entry: Dominion"
+      },
+      {
+        "Name": "Virtue",
+        "Value": 64,
+        "Description": "Generated from skill name table entry: Virtue"
+      },
+      {
+        "Name": "Power",
+        "Value": 65,
+        "Description": "Generated from skill name table entry: Power"
+      },
+      {
+        "Name": "Principality",
+        "Value": 66,
+        "Description": "Generated from skill name table entry: Principality"
+      },
+      {
+        "Name": "Archangel",
+        "Value": 67,
+        "Description": "Generated from skill name table entry: Archangel"
+      },
+      {
+        "Name": "Angel",
+        "Value": 68,
+        "Description": "Generated from skill name table entry: Angel"
+      },
+      {
+        "Name": "Flauros",
+        "Value": 69,
+        "Description": "Generated from skill name table entry: Flauros"
+      },
+      {
+        "Name": "Decarabia",
+        "Value": 70,
+        "Description": "Generated from skill name table entry: Decarabia"
+      },
+      {
+        "Name": "Ose",
+        "Value": 71,
+        "Description": "Generated from skill name table entry: Ose"
+      },
+      {
+        "Name": "Berith",
+        "Value": 72,
+        "Description": "Generated from skill name table entry: Berith"
+      },
+      {
+        "Name": "Eligor",
+        "Value": 73,
+        "Description": "Generated from skill name table entry: Eligor"
+      },
+      {
+        "Name": "Forneus",
+        "Value": 74,
+        "Description": "Generated from skill name table entry: Forneus"
+      },
+      {
+        "Name": "Yurlungur",
+        "Value": 75,
+        "Description": "Generated from skill name table entry: Yurlungur"
+      },
+      {
+        "Name": "Quetzalcoatl",
+        "Value": 76,
+        "Description": "Generated from skill name table entry: Quetzalcoatl"
+      },
+      {
+        "Name": "RajaNaga",
+        "Value": 77,
+        "Description": "Generated from skill name table entry: Raja Naga"
+      },
+      {
+        "Name": "Mizuchi",
+        "Value": 78,
+        "Description": "Generated from skill name table entry: Mizuchi"
+      },
+      {
+        "Name": "Naga",
+        "Value": 79,
+        "Description": "Generated from skill name table entry: Naga"
+      },
+      {
+        "Name": "Nozuchi",
+        "Value": 80,
+        "Description": "Generated from skill name table entry: Nozuchi"
+      },
+      {
+        "Name": "Cerberus",
+        "Value": 81,
+        "Description": "Generated from skill name table entry: Cerberus"
+      },
+      {
+        "Name": "Orthrus",
+        "Value": 82,
+        "Description": "Generated from skill name table entry: Orthrus"
+      },
+      {
+        "Name": "Sparna",
+        "Value": 83,
+        "Description": "Generated from skill name table entry: Sparna"
+      },
+      {
+        "Name": "BadbCatha",
+        "Value": 84,
+        "Description": "Generated from skill name table entry: Badb Catha"
+      },
+      {
+        "Name": "Inugami",
+        "Value": 85,
+        "Description": "Generated from skill name table entry: Inugami"
+      },
+      {
+        "Name": "Nekomata",
+        "Value": 86,
+        "Description": "Generated from skill name table entry: Nekomata"
+      },
+      {
+        "Name": "Gogmagog",
+        "Value": 87,
+        "Description": "Generated from skill name table entry: Gogmagog"
+      },
+      {
+        "Name": "Titan",
+        "Value": 88,
+        "Description": "Generated from skill name table entry: Titan"
+      },
+      {
+        "Name": "Sarutahiko",
+        "Value": 89,
+        "Description": "Generated from skill name table entry: Sarutahiko"
+      },
+      {
+        "Name": "Sudama",
+        "Value": 90,
+        "Description": "Generated from skill name table entry: Sudama"
+      },
+      {
+        "Name": "HuaPo",
+        "Value": 91,
+        "Description": "Generated from skill name table entry: Hua Po"
+      },
+      {
+        "Name": "Kodama",
+        "Value": 92,
+        "Description": "Generated from skill name table entry: Kodama"
+      },
+      {
+        "Name": "ShikiOuji",
+        "Value": 93,
+        "Description": "Generated from skill name table entry: Shiki-Ouji"
+      },
+      {
+        "Name": "Oni",
+        "Value": 94,
+        "Description": "Generated from skill name table entry: Oni"
+      },
+      {
+        "Name": "Ikusa",
+        "Value": 95,
+        "Description": "Generated from skill name table entry: Ikusa"
+      },
+      {
+        "Name": "Momunofu",
+        "Value": 96,
+        "Description": "Generated from skill name table entry: Momunofu"
+      },
+      {
+        "Name": "Shikigami",
+        "Value": 97,
+        "Description": "Generated from skill name table entry: Shikigami"
+      },
+      {
+        "Name": "Rangda",
+        "Value": 98,
+        "Description": "Generated from skill name table entry: Rangda"
+      },
+      {
+        "Name": "Dakini",
+        "Value": 99,
+        "Description": "Generated from skill name table entry: Dakini"
+      },
+      {
+        "Name": "Yaksini",
+        "Value": 100,
+        "Description": "Generated from skill name table entry: Yaksini"
+      },
+      {
+        "Name": "Shikome",
+        "Value": 101,
+        "Description": "Generated from skill name table entry: Shikome"
+      },
+      {
+        "Name": "Taraka",
+        "Value": 102,
+        "Description": "Generated from skill name table entry: Taraka"
+      },
+      {
+        "Name": "DatsueBa",
+        "Value": 103,
+        "Description": "Generated from skill name table entry: Datsue-Ba"
+      },
+      {
+        "Name": "Mada",
+        "Value": 104,
+        "Description": "Generated from skill name table entry: Mada"
+      },
+      {
+        "Name": "Girimehkala",
+        "Value": 105,
+        "Description": "Generated from skill name table entry: Girimehkala"
+      },
+      {
+        "Name": "TaoTie",
+        "Value": 106,
+        "Description": "Generated from skill name table entry: Tao Tie"
+      },
+      {
+        "Name": "Pazuzu",
+        "Value": 107,
+        "Description": "Generated from skill name table entry: Pazuzu"
+      },
+      {
+        "Name": "Baphomet",
+        "Value": 108,
+        "Description": "Generated from skill name table entry: Baphomet"
+      },
+      {
+        "Name": "Mot",
+        "Value": 109,
+        "Description": "Generated from skill name table entry: Mot"
+      },
+      {
+        "Name": "Aciel",
+        "Value": 110,
+        "Description": "Generated from skill name table entry: Aciel"
+      },
+      {
+        "Name": "Surt",
+        "Value": 111,
+        "Description": "Generated from skill name table entry: Surt"
+      },
+      {
+        "Name": "Abaddon",
+        "Value": 112,
+        "Description": "Generated from skill name table entry: Abaddon"
+      },
+      {
+        "Name": "Loki",
+        "Value": 113,
+        "Description": "Generated from skill name table entry: Loki"
+      },
+      {
+        "Name": "Lilith",
+        "Value": 114,
+        "Description": "Generated from skill name table entry: Lilith"
+      },
+      {
+        "Name": "Nyx",
+        "Value": 115,
+        "Description": "Generated from skill name table entry: Nyx"
+      },
+      {
+        "Name": "QueenMab",
+        "Value": 116,
+        "Description": "Generated from skill name table entry: Queen Mab"
+      },
+      {
+        "Name": "Succubus",
+        "Value": 117,
+        "Description": "Generated from skill name table entry: Succubus"
+      },
+      {
+        "Name": "Incubus",
+        "Value": 118,
+        "Description": "Generated from skill name table entry: Incubus"
+      },
+      {
+        "Name": "Fomor",
+        "Value": 119,
+        "Description": "Generated from skill name table entry: Fomor"
+      },
+      {
+        "Name": "Lilim",
+        "Value": 120,
+        "Description": "Generated from skill name table entry: Lilim"
+      },
+      {
+        "Name": "Hresvelgr",
+        "Value": 121,
+        "Description": "Generated from skill name table entry: Hresvelgr"
+      },
+      {
+        "Name": "Mothman",
+        "Value": 122,
+        "Description": "Generated from skill name table entry: Mothman"
+      },
+      {
+        "Name": "Raiju",
+        "Value": 123,
+        "Description": "Generated from skill name table entry: Raiju"
+      },
+      {
+        "Name": "Nue",
+        "Value": 124,
+        "Description": "Generated from skill name table entry: Nue"
+      },
+      {
+        "Name": "Bicorn",
+        "Value": 125,
+        "Description": "Generated from skill name table entry: Bicorn"
+      },
+      {
+        "Name": "Zhen",
+        "Value": 126,
+        "Description": "Generated from skill name table entry: Zhen"
+      },
+      {
+        "Name": "Rakshasa",
+        "Value": 127,
+        "Description": "Generated from skill name table entry: Rakshasa"
+      },
+      {
+        "Name": "Legion",
+        "Value": 128,
+        "Description": "Generated from skill name table entry: Legion"
+      },
+      {
+        "Name": "Yaka",
+        "Value": 129,
+        "Description": "Generated from skill name table entry: Yaka"
+      },
+      {
+        "Name": "Choronzon",
+        "Value": 130,
+        "Description": "Generated from skill name table entry: Choronzon"
+      },
+      {
+        "Name": "Preta",
+        "Value": 131,
+        "Description": "Generated from skill name table entry: Preta"
+      },
+      {
+        "Name": "Shadow",
+        "Value": 132,
+        "Description": "Generated from skill name table entry: Shadow"
+      },
+      {
+        "Name": "BlackOoze",
+        "Value": 133,
+        "Description": "Generated from skill name table entry: Black Ooze"
+      },
+      {
+        "Name": "Blob",
+        "Value": 134,
+        "Description": "Generated from skill name table entry: Blob"
+      },
+      {
+        "Name": "Slime",
+        "Value": 135,
+        "Description": "Generated from skill name table entry: Slime"
+      },
+      {
+        "Name": "MouRyo",
+        "Value": 136,
+        "Description": "Generated from skill name table entry: Mou-Ryo"
+      },
+      {
+        "Name": "WilloWisp",
+        "Value": 137,
+        "Description": "Generated from skill name table entry: Will o' Wisp"
+      },
+      {
+        "Name": "Michael",
+        "Value": 138,
+        "Description": "Generated from skill name table entry: Michael"
+      },
+      {
+        "Name": "Gabriel",
+        "Value": 139,
+        "Description": "Generated from skill name table entry: Gabriel"
+      },
+      {
+        "Name": "Raphael",
+        "Value": 140,
+        "Description": "Generated from skill name table entry: Raphael"
+      },
+      {
+        "Name": "Uriel",
+        "Value": 141,
+        "Description": "Generated from skill name table entry: Uriel"
+      },
+      {
+        "Name": "Ganesha",
+        "Value": 142,
+        "Description": "Generated from skill name table entry: Ganesha"
+      },
+      {
+        "Name": "Valkyrie",
+        "Value": 143,
+        "Description": "Generated from skill name table entry: Valkyrie"
+      },
+      {
+        "Name": "Arahabaki",
+        "Value": 144,
+        "Description": "Generated from skill name table entry: Arahabaki"
+      },
+      {
+        "Name": "Kurama",
+        "Value": 145,
+        "Description": "Generated from skill name table entry: Kurama"
+      },
+      {
+        "Name": "Hanuman",
+        "Value": 146,
+        "Description": "Generated from skill name table entry: Hanuman"
+      },
+      {
+        "Name": "CuChulainn",
+        "Value": 147,
+        "Description": "Generated from skill name table entry: Cu Chulainn"
+      },
+      {
+        "Name": "Long",
+        "Value": 148,
+        "Description": "Generated from skill name table entry: Long"
+      },
+      {
+        "Name": "GuiXian",
+        "Value": 149,
+        "Description": "Generated from skill name table entry: Gui Xian"
+      },
+      {
+        "Name": "Barong",
+        "Value": 150,
+        "Description": "Generated from skill name table entry: Barong"
+      },
+      {
+        "Name": "Makami",
+        "Value": 151,
+        "Description": "Generated from skill name table entry: Makami"
+      },
+      {
+        "Name": "Garuda",
+        "Value": 152,
+        "Description": "Generated from skill name table entry: Garuda"
+      },
+      {
+        "Name": "Yatagarasu",
+        "Value": 153,
+        "Description": "Generated from skill name table entry: Yatagarasu"
+      },
+      {
+        "Name": "Gurr",
+        "Value": 154,
+        "Description": "Generated from skill name table entry: Gurr"
+      },
+      {
+        "Name": "Albion",
+        "Value": 155,
+        "Description": "Generated from skill name table entry: Albion"
+      },
+      {
+        "Name": "Manikin",
+        "Value": 156,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin1",
+        "Value": 157,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin2",
+        "Value": 158,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin3",
+        "Value": 159,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin4",
+        "Value": 160,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Samael",
+        "Value": 161,
+        "Description": "Generated from skill name table entry: Samael"
+      },
+      {
+        "Name": "Manikin5",
+        "Value": 162,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin6",
+        "Value": 163,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin7",
+        "Value": 164,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin8",
+        "Value": 165,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Manikin9",
+        "Value": 166,
+        "Description": "Generated from skill name table entry: Manikin"
+      },
+      {
+        "Name": "Pisaca",
+        "Value": 167,
+        "Description": "Generated from skill name table entry: Pisaca"
+      },
+      {
+        "Name": "Kaiwan",
+        "Value": 168,
+        "Description": "Generated from skill name table entry: Kaiwan"
+      },
+      {
+        "Name": "KinKi",
+        "Value": 169,
+        "Description": "Generated from skill name table entry: Kin-Ki"
+      },
+      {
+        "Name": "SuiKi",
+        "Value": 170,
+        "Description": "Generated from skill name table entry: Sui-Ki"
+      },
+      {
+        "Name": "FuuKi",
+        "Value": 171,
+        "Description": "Generated from skill name table entry: Fuu-Ki"
+      },
+      {
+        "Name": "OngyoKi",
+        "Value": 172,
+        "Description": "Generated from skill name table entry: Ongyo-Ki"
+      },
+      {
+        "Name": "Clotho",
+        "Value": 173,
+        "Description": "Generated from skill name table entry: Clotho"
+      },
+      {
+        "Name": "Lachesis",
+        "Value": 174,
+        "Description": "Generated from skill name table entry: Lachesis"
+      },
+      {
+        "Name": "Atropos",
+        "Value": 175,
+        "Description": "Generated from skill name table entry: Atropos"
+      },
+      {
+        "Name": "Loa",
+        "Value": 176,
+        "Description": "Generated from skill name table entry: Loa"
+      },
+      {
+        "Name": "Chatterskull",
+        "Value": 177,
+        "Description": "Generated from skill name table entry: Chatterskull"
+      },
+      {
+        "Name": "Phantom",
+        "Value": 178,
+        "Description": "Generated from skill name table entry: Phantom"
+      },
+      {
+        "Name": "_0xB3",
+        "Value": 179,
+        "Description": "Generated from skill name table entry: 0xB3"
+      },
+      {
+        "Name": "_0xB4",
+        "Value": 180,
+        "Description": "Generated from skill name table entry: 0xB4"
+      },
+      {
+        "Name": "_0xB5",
+        "Value": 181,
+        "Description": "Generated from skill name table entry: 0xB5"
+      },
+      {
+        "Name": "_0xB6",
+        "Value": 182,
+        "Description": "Generated from skill name table entry: 0xB6"
+      },
+      {
+        "Name": "_0xB7",
+        "Value": 183,
+        "Description": "Generated from skill name table entry: 0xB7"
+      },
+      {
+        "Name": "_0xB8",
+        "Value": 184,
+        "Description": "Generated from skill name table entry: 0xB8"
+      },
+      {
+        "Name": "_0xB9",
+        "Value": 185,
+        "Description": "Generated from skill name table entry: 0xB9"
+      },
+      {
+        "Name": "_0xBA",
+        "Value": 186,
+        "Description": "Generated from skill name table entry: 0xBA"
+      },
+      {
+        "Name": "_0xBB",
+        "Value": 187,
+        "Description": "Generated from skill name table entry: 0xBB"
+      },
+      {
+        "Name": "_0xBC",
+        "Value": 188,
+        "Description": "Generated from skill name table entry: 0xBC"
+      },
+      {
+        "Name": "_0xBD",
+        "Value": 189,
+        "Description": "Generated from skill name table entry: 0xBD"
+      },
+      {
+        "Name": "_0xBE",
+        "Value": 190,
+        "Description": "Generated from skill name table entry: 0xBE"
+      },
+      {
+        "Name": "_0xBF",
+        "Value": 191,
+        "Description": "Generated from skill name table entry: 0xBF"
+      },
+      {
+        "Name": "Dante",
+        "Value": 192,
+        "Description": "Generated from skill name table entry: Dante"
+      },
+      {
+        "Name": "Metatron",
+        "Value": 193,
+        "Description": "Generated from skill name table entry: Metatron"
+      },
+      {
+        "Name": "Beelzebub",
+        "Value": 194,
+        "Description": "Generated from skill name table entry: Beelzebub"
+      },
+      {
+        "Name": "PaleRider",
+        "Value": 195,
+        "Description": "Generated from skill name table entry: Pale Rider"
+      },
+      {
+        "Name": "WhiteRider",
+        "Value": 196,
+        "Description": "Generated from skill name table entry: White Rider"
+      },
+      {
+        "Name": "RedRider",
+        "Value": 197,
+        "Description": "Generated from skill name table entry: Red Rider"
+      },
+      {
+        "Name": "BlackRider",
+        "Value": 198,
+        "Description": "Generated from skill name table entry: Black Rider"
+      },
+      {
+        "Name": "Matador",
+        "Value": 199,
+        "Description": "Generated from skill name table entry: Matador"
+      },
+      {
+        "Name": "HellBiker",
+        "Value": 200,
+        "Description": "Generated from skill name table entry: Hell Biker"
+      },
+      {
+        "Name": "Daisoujou",
+        "Value": 201,
+        "Description": "Generated from skill name table entry: Daisoujou"
+      },
+      {
+        "Name": "TheHarlot",
+        "Value": 202,
+        "Description": "Generated from skill name table entry: The Harlot"
+      },
+      {
+        "Name": "Trumpeter",
+        "Value": 203,
+        "Description": "Generated from skill name table entry: Trumpeter"
+      },
+      {
+        "Name": "Futomimi",
+        "Value": 204,
+        "Description": "Generated from skill name table entry: Futomimi"
+      },
+      {
+        "Name": "Sakahagi",
+        "Value": 205,
+        "Description": "Generated from skill name table entry: Sakahagi"
+      },
+      {
+        "Name": "BlackFrost",
+        "Value": 206,
+        "Description": "Generated from skill name table entry: Black Frost"
+      },
+      {
+        "Name": "Beelzebub1",
+        "Value": 207,
+        "Description": "Generated from skill name table entry: Beelzebub"
+      },
+      {
+        "Name": "_0xD0",
+        "Value": 208,
+        "Description": "Generated from skill name table entry: 0xD0"
+      },
+      {
+        "Name": "_0xD1",
+        "Value": 209,
+        "Description": "Generated from skill name table entry: 0xD1"
+      },
+      {
+        "Name": "_0xD2",
+        "Value": 210,
+        "Description": "Generated from skill name table entry: 0xD2"
+      },
+      {
+        "Name": "_0xD3",
+        "Value": 211,
+        "Description": "Generated from skill name table entry: 0xD3"
+      },
+      {
+        "Name": "_0xD4",
+        "Value": 212,
+        "Description": "Generated from skill name table entry: 0xD4"
+      },
+      {
+        "Name": "_0xD5",
+        "Value": 213,
+        "Description": "Generated from skill name table entry: 0xD5"
+      },
+      {
+        "Name": "_0xD6",
+        "Value": 214,
+        "Description": "Generated from skill name table entry: 0xD6"
+      },
+      {
+        "Name": "_0xD7",
+        "Value": 215,
+        "Description": "Generated from skill name table entry: 0xD7"
+      },
+      {
+        "Name": "_0xD8",
+        "Value": 216,
+        "Description": "Generated from skill name table entry: 0xD8"
+      },
+      {
+        "Name": "_0xD9",
+        "Value": 217,
+        "Description": "Generated from skill name table entry: 0xD9"
+      },
+      {
+        "Name": "_0xDA",
+        "Value": 218,
+        "Description": "Generated from skill name table entry: 0xDA"
+      },
+      {
+        "Name": "_0xDB",
+        "Value": 219,
+        "Description": "Generated from skill name table entry: 0xDB"
+      },
+      {
+        "Name": "_0xDC",
+        "Value": 220,
+        "Description": "Generated from skill name table entry: 0xDC"
+      },
+      {
+        "Name": "_0xDD",
+        "Value": 221,
+        "Description": "Generated from skill name table entry: 0xDD"
+      },
+      {
+        "Name": "_0xDE",
+        "Value": 222,
+        "Description": "Generated from skill name table entry: 0xDE"
+      },
+      {
+        "Name": "_0xDF",
+        "Value": 223,
+        "Description": "Generated from skill name table entry: 0xDF"
+      },
+      {
+        "Name": "_0xE0",
+        "Value": 224,
+        "Description": "Generated from skill name table entry: 0xE0"
+      },
+      {
+        "Name": "_0xE1",
+        "Value": 225,
+        "Description": "Generated from skill name table entry: 0xE1"
+      },
+      {
+        "Name": "_0xE2",
+        "Value": 226,
+        "Description": "Generated from skill name table entry: 0xE2"
+      },
+      {
+        "Name": "_0xE3",
+        "Value": 227,
+        "Description": "Generated from skill name table entry: 0xE3"
+      },
+      {
+        "Name": "_0xE4",
+        "Value": 228,
+        "Description": "Generated from skill name table entry: 0xE4"
+      },
+      {
+        "Name": "_0xE5",
+        "Value": 229,
+        "Description": "Generated from skill name table entry: 0xE5"
+      },
+      {
+        "Name": "_0xE6",
+        "Value": 230,
+        "Description": "Generated from skill name table entry: 0xE6"
+      },
+      {
+        "Name": "_0xE7",
+        "Value": 231,
+        "Description": "Generated from skill name table entry: 0xE7"
+      },
+      {
+        "Name": "_0xE8",
+        "Value": 232,
+        "Description": "Generated from skill name table entry: 0xE8"
+      },
+      {
+        "Name": "_0xE9",
+        "Value": 233,
+        "Description": "Generated from skill name table entry: 0xE9"
+      },
+      {
+        "Name": "_0xEA",
+        "Value": 234,
+        "Description": "Generated from skill name table entry: 0xEA"
+      },
+      {
+        "Name": "_0xEB",
+        "Value": 235,
+        "Description": "Generated from skill name table entry: 0xEB"
+      },
+      {
+        "Name": "_0xEC",
+        "Value": 236,
+        "Description": "Generated from skill name table entry: 0xEC"
+      },
+      {
+        "Name": "_0xED",
+        "Value": 237,
+        "Description": "Generated from skill name table entry: 0xED"
+      },
+      {
+        "Name": "_0xEE",
+        "Value": 238,
+        "Description": "Generated from skill name table entry: 0xEE"
+      },
+      {
+        "Name": "_0xEF",
+        "Value": 239,
+        "Description": "Generated from skill name table entry: 0xEF"
+      },
+      {
+        "Name": "_0xF0",
+        "Value": 240,
+        "Description": "Generated from skill name table entry: 0xF0"
+      },
+      {
+        "Name": "_0xF1",
+        "Value": 241,
+        "Description": "Generated from skill name table entry: 0xF1"
+      },
+      {
+        "Name": "_0xF2",
+        "Value": 242,
+        "Description": "Generated from skill name table entry: 0xF2"
+      },
+      {
+        "Name": "_0xF3",
+        "Value": 243,
+        "Description": "Generated from skill name table entry: 0xF3"
+      },
+      {
+        "Name": "_0xF4",
+        "Value": 244,
+        "Description": "Generated from skill name table entry: 0xF4"
+      },
+      {
+        "Name": "_0xF5",
+        "Value": 245,
+        "Description": "Generated from skill name table entry: 0xF5"
+      },
+      {
+        "Name": "_0xF6",
+        "Value": 246,
+        "Description": "Generated from skill name table entry: 0xF6"
+      },
+      {
+        "Name": "_0xF7",
+        "Value": 247,
+        "Description": "Generated from skill name table entry: 0xF7"
+      },
+      {
+        "Name": "_0xF8",
+        "Value": 248,
+        "Description": "Generated from skill name table entry: 0xF8"
+      },
+      {
+        "Name": "_0xF9",
+        "Value": 249,
+        "Description": "Generated from skill name table entry: 0xF9"
+      },
+      {
+        "Name": "_0xFA",
+        "Value": 250,
+        "Description": "Generated from skill name table entry: 0xFA"
+      },
+      {
+        "Name": "_0xFB",
+        "Value": 251,
+        "Description": "Generated from skill name table entry: 0xFB"
+      },
+      {
+        "Name": "_0xFC",
+        "Value": 252,
+        "Description": "Generated from skill name table entry: 0xFC"
+      },
+      {
+        "Name": "_0xFD",
+        "Value": 253,
+        "Description": "Generated from skill name table entry: 0xFD"
+      },
+      {
+        "Name": "_0xFE",
+        "Value": 254,
+        "Description": "Generated from skill name table entry: 0xFE"
+      },
+      {
+        "Name": "Protegonist",
+        "Value": 255,
+        "Description": "Generated from skill name table entry: Protegonist"
+      },
+      {
+        "Name": "Forneus1",
+        "Value": 256,
+        "Description": "Generated from skill name table entry: Forneus"
+      },
+      {
+        "Name": "Specter",
+        "Value": 257,
+        "Description": "Generated from skill name table entry: Specter"
+      },
+      {
+        "Name": "Ahriman",
+        "Value": 258,
+        "Description": "Generated from skill name table entry: Ahriman"
+      },
+      {
+        "Name": "Noah",
+        "Value": 259,
+        "Description": "Generated from skill name table entry: Noah"
+      },
+      {
+        "Name": "Incubus1",
+        "Value": 260,
+        "Description": "Generated from skill name table entry: Incubus"
+      },
+      {
+        "Name": "Koppa1",
+        "Value": 261,
+        "Description": "Generated from skill name table entry: Koppa"
+      },
+      {
+        "Name": "Kaiwan1",
+        "Value": 262,
+        "Description": "Generated from skill name table entry: Kaiwan"
+      },
+      {
+        "Name": "Ose1",
+        "Value": 263,
+        "Description": "Generated from skill name table entry: Ose"
+      },
+      {
+        "Name": "Kagutsuchi",
+        "Value": 264,
+        "Description": "Generated from skill name table entry: Kagutsuchi"
+      },
+      {
+        "Name": "Mizuchi1",
+        "Value": 265,
+        "Description": "Generated from skill name table entry: Mizuchi"
+      },
+      {
+        "Name": "KinKi1",
+        "Value": 266,
+        "Description": "Generated from skill name table entry: Kin-Ki"
+      },
+      {
+        "Name": "SuiKi1",
+        "Value": 267,
+        "Description": "Generated from skill name table entry: Sui-Ki"
+      },
+      {
+        "Name": "FuuKi1",
+        "Value": 268,
+        "Description": "Generated from skill name table entry: Fuu-Ki"
+      },
+      {
+        "Name": "OngyoKi1",
+        "Value": 269,
+        "Description": "Generated from skill name table entry: Ongyo-Ki"
+      },
+      {
+        "Name": "Clotho1",
+        "Value": 270,
+        "Description": "Generated from skill name table entry: Clotho"
+      },
+      {
+        "Name": "Lachesis1",
+        "Value": 271,
+        "Description": "Generated from skill name table entry: Lachesis"
+      },
+      {
+        "Name": "Atropos1",
+        "Value": 272,
+        "Description": "Generated from skill name table entry: Atropos"
+      },
+      {
+        "Name": "Specter1",
+        "Value": 273,
+        "Description": "Generated from skill name table entry: Specter"
+      },
+      {
+        "Name": "Girimehkala1",
+        "Value": 274,
+        "Description": "Generated from skill name table entry: Girimehkala"
+      },
+      {
+        "Name": "Specter2",
+        "Value": 275,
+        "Description": "Generated from skill name table entry: Specter"
+      },
+      {
+        "Name": "Aciel1",
+        "Value": 276,
+        "Description": "Generated from skill name table entry: Aciel"
+      },
+      {
+        "Name": "Skadi1",
+        "Value": 277,
+        "Description": "Generated from skill name table entry: Skadi"
+      },
+      {
+        "Name": "Albion1",
+        "Value": 278,
+        "Description": "Generated from skill name table entry: Albion"
+      },
+      {
+        "Name": "Urthona",
+        "Value": 279,
+        "Description": "Generated from skill name table entry: Urthona"
+      },
+      {
+        "Name": "Urizen",
+        "Value": 280,
+        "Description": "Generated from skill name table entry: Urizen"
+      },
+      {
+        "Name": "Luvah",
+        "Value": 281,
+        "Description": "Generated from skill name table entry: Luvah"
+      },
+      {
+        "Name": "Tharmus",
+        "Value": 282,
+        "Description": "Generated from skill name table entry: Tharmus"
+      },
+      {
+        "Name": "Futomimi1",
+        "Value": 283,
+        "Description": "Generated from skill name table entry: Futomimi"
+      },
+      {
+        "Name": "Gabriel1",
+        "Value": 284,
+        "Description": "Generated from skill name table entry: Gabriel"
+      },
+      {
+        "Name": "Raphael1",
+        "Value": 285,
+        "Description": "Generated from skill name table entry: Raphael"
+      },
+      {
+        "Name": "Uriel1",
+        "Value": 286,
+        "Description": "Generated from skill name table entry: Uriel"
+      },
+      {
+        "Name": "Samael1",
+        "Value": 287,
+        "Description": "Generated from skill name table entry: Samael"
+      },
+      {
+        "Name": "BaalAvatar",
+        "Value": 288,
+        "Description": "Generated from skill name table entry: Baal Avatar"
+      },
+      {
+        "Name": "OseHallel",
+        "Value": 289,
+        "Description": "Generated from skill name table entry: Ose Hallel"
+      },
+      {
+        "Name": "FlaurosHallel",
+        "Value": 290,
+        "Description": "Generated from skill name table entry: Flauros Hallel"
+      },
+      {
+        "Name": "Ahriman1",
+        "Value": 291,
+        "Description": "Generated from skill name table entry: Ahriman"
+      },
+      {
+        "Name": "Noah1",
+        "Value": 292,
+        "Description": "Generated from skill name table entry: Noah"
+      },
+      {
+        "Name": "Kagutsuchi1",
+        "Value": 293,
+        "Description": "Generated from skill name table entry: Kagutsuchi"
+      },
+      {
+        "Name": "Specter3",
+        "Value": 294,
+        "Description": "Generated from skill name table entry: Specter"
+      },
+      {
+        "Name": "Specter4",
+        "Value": 295,
+        "Description": "Generated from skill name table entry: Specter"
+      },
+      {
+        "Name": "Specter5",
+        "Value": 296,
+        "Description": "Generated from skill name table entry: Specter"
+      },
+      {
+        "Name": "Mizuchi2",
+        "Value": 297,
+        "Description": "Generated from skill name table entry: Mizuchi"
+      },
+      {
+        "Name": "Reserve",
+        "Value": 298,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Sakahagi1",
+        "Value": 299,
+        "Description": "Generated from skill name table entry: Sakahagi"
+      },
+      {
+        "Name": "Orthrus1",
+        "Value": 300,
+        "Description": "Generated from skill name table entry: Orthrus"
+      },
+      {
+        "Name": "Yaksini1",
+        "Value": 301,
+        "Description": "Generated from skill name table entry: Yaksini"
+      },
+      {
+        "Name": "Thor1",
+        "Value": 302,
+        "Description": "Generated from skill name table entry: Thor"
+      },
+      {
+        "Name": "BlackFrost1",
+        "Value": 303,
+        "Description": "Generated from skill name table entry: Black Frost"
+      },
+      {
+        "Name": "Karasu1",
+        "Value": 304,
+        "Description": "Generated from skill name table entry: Karasu"
+      },
+      {
+        "Name": "Karasu2",
+        "Value": 305,
+        "Description": "Generated from skill name table entry: Karasu"
+      },
+      {
+        "Name": "Karasu3",
+        "Value": 306,
+        "Description": "Generated from skill name table entry: Karasu"
+      },
+      {
+        "Name": "Eligor1",
+        "Value": 307,
+        "Description": "Generated from skill name table entry: Eligor"
+      },
+      {
+        "Name": "Eligor2",
+        "Value": 308,
+        "Description": "Generated from skill name table entry: Eligor"
+      },
+      {
+        "Name": "Eligor3",
+        "Value": 309,
+        "Description": "Generated from skill name table entry: Eligor"
+      },
+      {
+        "Name": "Kelpie1",
+        "Value": 310,
+        "Description": "Generated from skill name table entry: Kelpie"
+      },
+      {
+        "Name": "Kelpie2",
+        "Value": 311,
+        "Description": "Generated from skill name table entry: Kelpie"
+      },
+      {
+        "Name": "Berith1",
+        "Value": 312,
+        "Description": "Generated from skill name table entry: Berith"
+      },
+      {
+        "Name": "Succubus1",
+        "Value": 313,
+        "Description": "Generated from skill name table entry: Succubus"
+      },
+      {
+        "Name": "HighPixie1",
+        "Value": 314,
+        "Description": "Generated from skill name table entry: High Pixie"
+      },
+      {
+        "Name": "Kaiwan2",
+        "Value": 315,
+        "Description": "Generated from skill name table entry: Kaiwan"
+      },
+      {
+        "Name": "Nekomata1",
+        "Value": 316,
+        "Description": "Generated from skill name table entry: Nekomata"
+      },
+      {
+        "Name": "Troll1",
+        "Value": 317,
+        "Description": "Generated from skill name table entry: Troll"
+      },
+      {
+        "Name": "WilloWisp1",
+        "Value": 318,
+        "Description": "Generated from skill name table entry: Will o' Wisp"
+      },
+      {
+        "Name": "Preta1",
+        "Value": 319,
+        "Description": "Generated from skill name table entry: Preta"
+      },
+      {
+        "Name": "Bishamon1",
+        "Value": 320,
+        "Description": "Generated from skill name table entry: Bishamon"
+      },
+      {
+        "Name": "Mara",
+        "Value": 321,
+        "Description": "Generated from skill name table entry: Mara"
+      },
+      {
+        "Name": "Bishamon2",
+        "Value": 322,
+        "Description": "Generated from skill name table entry: Bishamon"
+      },
+      {
+        "Name": "Jikoku1",
+        "Value": 323,
+        "Description": "Generated from skill name table entry: Jikoku"
+      },
+      {
+        "Name": "Koumoku1",
+        "Value": 324,
+        "Description": "Generated from skill name table entry: Koumoku"
+      },
+      {
+        "Name": "Zouchou1",
+        "Value": 325,
+        "Description": "Generated from skill name table entry: Zouchou"
+      },
+      {
+        "Name": "Clotho2",
+        "Value": 326,
+        "Description": "Generated from skill name table entry: Clotho"
+      },
+      {
+        "Name": "Lachesis2",
+        "Value": 327,
+        "Description": "Generated from skill name table entry: Lachesis"
+      },
+      {
+        "Name": "Atropos2",
+        "Value": 328,
+        "Description": "Generated from skill name table entry: Atropos"
+      },
+      {
+        "Name": "Mithra1",
+        "Value": 329,
+        "Description": "Generated from skill name table entry: Mithra"
+      },
+      {
+        "Name": "Masakado",
+        "Value": 330,
+        "Description": "Generated from skill name table entry: Masakado"
+      },
+      {
+        "Name": "StationHand",
+        "Value": 331,
+        "Description": "Generated from skill name table entry: Station Hand"
+      },
+      {
+        "Name": "Loki1",
+        "Value": 332,
+        "Description": "Generated from skill name table entry: Loki"
+      },
+      {
+        "Name": "Mada1",
+        "Value": 333,
+        "Description": "Generated from skill name table entry: Mada"
+      },
+      {
+        "Name": "Mot1",
+        "Value": 334,
+        "Description": "Generated from skill name table entry: Mot"
+      },
+      {
+        "Name": "Surt1",
+        "Value": 335,
+        "Description": "Generated from skill name table entry: Surt"
+      },
+      {
+        "Name": "PyroJack1",
+        "Value": 336,
+        "Description": "Generated from skill name table entry: Pyro Jack"
+      },
+      {
+        "Name": "Thor2",
+        "Value": 337,
+        "Description": "Generated from skill name table entry: Thor"
+      },
+      {
+        "Name": "Shade",
+        "Value": 338,
+        "Description": "Generated from skill name table entry: Shade"
+      },
+      {
+        "Name": "Dante1",
+        "Value": 339,
+        "Description": "Generated from skill name table entry: Dante"
+      },
+      {
+        "Name": "Dante2",
+        "Value": 340,
+        "Description": "Generated from skill name table entry: Dante"
+      },
+      {
+        "Name": "Dante3",
+        "Value": 341,
+        "Description": "Generated from skill name table entry: Dante"
+      },
+      {
+        "Name": "Metatron1",
+        "Value": 342,
+        "Description": "Generated from skill name table entry: Metatron"
+      },
+      {
+        "Name": "Beelzebub2",
+        "Value": 343,
+        "Description": "Generated from skill name table entry: Beelzebub"
+      },
+      {
+        "Name": "Lucifer",
+        "Value": 344,
+        "Description": "Generated from skill name table entry: Lucifer"
+      },
+      {
+        "Name": "PaleRider1",
+        "Value": 345,
+        "Description": "Generated from skill name table entry: Pale Rider"
+      },
+      {
+        "Name": "WhiteRider1",
+        "Value": 346,
+        "Description": "Generated from skill name table entry: White Rider"
+      },
+      {
+        "Name": "RedRider1",
+        "Value": 347,
+        "Description": "Generated from skill name table entry: Red Rider"
+      },
+      {
+        "Name": "BlackRider1",
+        "Value": 348,
+        "Description": "Generated from skill name table entry: Black Rider"
+      },
+      {
+        "Name": "Matador1",
+        "Value": 349,
+        "Description": "Generated from skill name table entry: Matador"
+      },
+      {
+        "Name": "HellBiker1",
+        "Value": 350,
+        "Description": "Generated from skill name table entry: Hell Biker"
+      },
+      {
+        "Name": "Daisoujou1",
+        "Value": 351,
+        "Description": "Generated from skill name table entry: Daisoujou"
+      },
+      {
+        "Name": "TheHarlot1",
+        "Value": 352,
+        "Description": "Generated from skill name table entry: The Harlot"
+      },
+      {
+        "Name": "Trumpeter1",
+        "Value": 353,
+        "Description": "Generated from skill name table entry: Trumpeter"
+      },
+      {
+        "Name": "Futomimi2",
+        "Value": 354,
+        "Description": "Generated from skill name table entry: Futomimi"
+      },
+      {
+        "Name": "Sakahagi2",
+        "Value": 355,
+        "Description": "Generated from skill name table entry: Sakahagi"
+      },
+      {
+        "Name": "SevenEye",
+        "Value": 356,
+        "Description": "Generated from skill name table entry: Seven-Eye"
+      },
+      {
+        "Name": "BeelzebubM",
+        "Value": 357,
+        "Description": "Generated from skill name table entry: BeelzebubM"
+      },
+      {
+        "Name": "Loa1",
+        "Value": 358,
+        "Description": "Generated from skill name table entry: Loa"
+      },
+      {
+        "Name": "Virtue1",
+        "Value": 359,
+        "Description": "Generated from skill name table entry: Virtue"
+      },
+      {
+        "Name": "Power1",
+        "Value": 360,
+        "Description": "Generated from skill name table entry: Power"
+      },
+      {
+        "Name": "Legion1",
+        "Value": 361,
+        "Description": "Generated from skill name table entry: Legion"
+      },
+      {
+        "Name": "Reserve1",
+        "Value": 362,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve2",
+        "Value": 363,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve3",
+        "Value": 364,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve4",
+        "Value": 365,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve5",
+        "Value": 366,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve6",
+        "Value": 367,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve7",
+        "Value": 368,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve8",
+        "Value": 369,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve9",
+        "Value": 370,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve10",
+        "Value": 371,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve11",
+        "Value": 372,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve12",
+        "Value": 373,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve13",
+        "Value": 374,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve14",
+        "Value": 375,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve15",
+        "Value": 376,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve16",
+        "Value": 377,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve17",
+        "Value": 378,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve18",
+        "Value": 379,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve19",
+        "Value": 380,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve20",
+        "Value": 381,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve21",
+        "Value": 382,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve22",
+        "Value": 383,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Reserve23",
+        "Value": 384,
+        "Description": "Generated from skill name table entry: Reserve"
+      },
+      {
+        "Name": "Null",
+        "Value": 385,
+        "Description": "Generated from skill name table entry: None"
+      }
+    ]
+  }
+]

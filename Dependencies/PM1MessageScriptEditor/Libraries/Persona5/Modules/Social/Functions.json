@@ -1,0 +1,2235 @@
+[
+  {
+    "Index": "0x3000",
+    "ReturnType": "void",
+    "Name": "CALL_EVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3001",
+    "ReturnType": "void",
+    "Name": "EVT_ASSET_OVERWRITE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3002",
+    "ReturnType": "int",
+    "Name": "EVT_GET_RESHND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3003",
+    "ReturnType": "int",
+    "Name": "EVT_GET_ASSET_RESHND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3004",
+    "ReturnType": "void",
+    "Name": "CHARA_CAMERA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3005",
+    "ReturnType": "int",
+    "Name": "EVT_GET_ANIMCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3006",
+    "ReturnType": "int",
+    "Name": "EVT_GET_ANIMCOUNT_U",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3007",
+    "ReturnType": "int",
+    "Name": "EVT_GET_ANIMCOUNT_D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3008",
+    "ReturnType": "int",
+    "Name": "EVT_GET_ANIMCOUNT_L",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3009",
+    "ReturnType": "int",
+    "Name": "EVT_GET_ANIMCOUNT_R",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x300a",
+    "ReturnType": "void",
+    "Name": "CUTIN_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300b",
+    "ReturnType": "void",
+    "Name": "CUTIN_STOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300c",
+    "ReturnType": "void",
+    "Name": "CMM_OPEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300d",
+    "ReturnType": "int",
+    "Name": "CMM_EXIST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300e",
+    "ReturnType": "int",
+    "Name": "CMM_GET_LV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x300f",
+    "ReturnType": "void",
+    "Name": "CMM_LVUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3010",
+    "ReturnType": "bool",
+    "Name": "CMM_CHK_LVUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3011",
+    "ReturnType": "void",
+    "Name": "CMM_ADD_POINT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3012",
+    "ReturnType": "void",
+    "Name": "CMM_ADD_POINT_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3013",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_REVERSE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3014",
+    "ReturnType": "void",
+    "Name": "CMM_SET_REVERSE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3015",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_BROKEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3016",
+    "ReturnType": "void",
+    "Name": "CMM_SET_BROKEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3017",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_CALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3018",
+    "ReturnType": "void",
+    "Name": "CMM_SET_PROMISE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3019",
+    "ReturnType": "int",
+    "Name": "CMM_GET_PROMISE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x301a",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_PROMISE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x301b",
+    "ReturnType": "int",
+    "Name": "CMM_GET_PROMISE_DAY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x301c",
+    "ReturnType": "void",
+    "Name": "CMM_SETUP_EVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x301d",
+    "ReturnType": "void",
+    "Name": "CMM_EXEC_EVENT",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x301e",
+    "ReturnType": "int",
+    "Name": "CMM_GET_EVENT_TYPE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x301f",
+    "ReturnType": "void",
+    "Name": "CMM_VSET_COMMUNITY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3020",
+    "ReturnType": "int",
+    "Name": "CMM_VSET_PS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3021",
+    "ReturnType": "int",
+    "Name": "CMM_VSET_PSID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3022",
+    "ReturnType": "void",
+    "Name": "CMM_FRIEND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3023",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_EVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3024",
+    "ReturnType": "void",
+    "Name": "CMM_ACTIVE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3025",
+    "ReturnType": "int",
+    "Name": "CMM_GET_LOVER_HIGH",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3026",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_ARCANA_PSSTOCKLV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3027",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_INVITE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3028",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_FIX_INVITE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3029",
+    "ReturnType": "void",
+    "Name": "CMM_SET_INVITE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302a",
+    "ReturnType": "int",
+    "Name": "CMM_CNV_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302b",
+    "ReturnType": "int",
+    "Name": "CMM_GET_CLUB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302c",
+    "ReturnType": "void",
+    "Name": "CMM_ARBEIT_PAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302d",
+    "ReturnType": "int",
+    "Name": "CMM_ARBEIT_PAY_RECEIVE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x302e",
+    "ReturnType": "int",
+    "Name": "CMM_ARBEIT_GET_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x302f",
+    "ReturnType": "void",
+    "Name": "CMM_RANKUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3030",
+    "ReturnType": "void",
+    "Name": "CMM_EVERY_DAY_UPDATE_SUDDEN_DEATH",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3031",
+    "ReturnType": "void",
+    "Name": "CMM_INC_SUDDEN_DEATH_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3032",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_SUDDEN_DEATH_DOUBT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3033",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_SUDDEN_DEATH",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3034",
+    "ReturnType": "void",
+    "Name": "CMM_SET_SUDDEN_DEATH_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3035",
+    "ReturnType": "void",
+    "Name": "CMM_DEC_SUDDEN_DEATH_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3036",
+    "ReturnType": "void",
+    "Name": "CMM_SET_SUDDEN_DEATH_FLAGT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3037",
+    "ReturnType": "void",
+    "Name": "CMM_RESET_SUDDEN_DEATH_FLAG",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3038",
+    "ReturnType": "void",
+    "Name": "CMM_GET_PERSONA_DAY_TIME_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x3039",
+    "ReturnType": "int",
+    "Name": "CMM_MO_GET_INDEX",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303a",
+    "ReturnType": "int",
+    "Name": "CMM_MO_CHK_DAY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303b",
+    "ReturnType": "int",
+    "Name": "CMM_MO_CHK_DAY_RECEIVE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x303c",
+    "ReturnType": "int",
+    "Name": "CMM_MO_GET_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303d",
+    "ReturnType": "int",
+    "Name": "CMM_MO_SET_ITEM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303e",
+    "ReturnType": "void",
+    "Name": "CMM_MO_VSET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x303f",
+    "ReturnType": "void",
+    "Name": "CMM_DEC2_SUDDEN_DEATH_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3040",
+    "ReturnType": "void",
+    "Name": "CMM_START_AUTO_COMMAND",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3041",
+    "ReturnType": "int",
+    "Name": "CMM_SYNC_AUTO_COMMAND",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3042",
+    "ReturnType": "void",
+    "Name": "CMM_NEWS_PAPER",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3043",
+    "ReturnType": "void",
+    "Name": "CMM_NEWS_PAPER_SYNC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3044",
+    "ReturnType": "void",
+    "Name": "MISSION_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3045",
+    "ReturnType": "void",
+    "Name": "MISSION_START_SYNC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3046",
+    "ReturnType": "void",
+    "Name": "MISSION_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3047",
+    "ReturnType": "void",
+    "Name": "MISSION_SCRIPT_EXEC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3048",
+    "ReturnType": "void",
+    "Name": "LBX_IN_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3049",
+    "ReturnType": "void",
+    "Name": "LBX_IN_SYNC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x304a",
+    "ReturnType": "void",
+    "Name": "LBX_OUT_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304b",
+    "ReturnType": "void",
+    "Name": "LBX_OUT_SYNC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x304c",
+    "ReturnType": "void",
+    "Name": "CUTIN_START2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304d",
+    "ReturnType": "void",
+    "Name": "CUTIN_START3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304e",
+    "ReturnType": "void",
+    "Name": "CUTIN_START4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304f",
+    "ReturnType": "void",
+    "Name": "CALL_EVENT_TEST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x3050",
+    "ReturnType": "void",
+    "Name": "EVT_MONOTONE_START",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3051",
+    "ReturnType": "void",
+    "Name": "EVT_MONOTONE_END",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3052",
+    "ReturnType": "void",
+    "Name": "EVT_MODEL_ADD_ROTATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3053",
+    "ReturnType": "void",
+    "Name": "CALL_EVENT_PREPARE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3054",
+    "ReturnType": "void",
+    "Name": "CHAT_WAIT_PAD",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3055",
+    "ReturnType": "void",
+    "Name": "CHAT_SEL_LINE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3056",
+    "ReturnType": "void",
+    "Name": "CHAT_SET_SEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3057",
+    "ReturnType": "int",
+    "Name": "CHAT_GET_SEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3058",
+    "ReturnType": "void",
+    "Name": "CALL_BOOK_READ",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3059",
+    "ReturnType": "int",
+    "Name": "CMM_BOOK_READ",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305a",
+    "ReturnType": "int",
+    "Name": "CMM_BOOK_SEARCH",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305b",
+    "ReturnType": "int",
+    "Name": "CMM_BOOK_ACCESS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305c",
+    "ReturnType": "int",
+    "Name": "CMM_BOOK_READ_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305d",
+    "ReturnType": "int",
+    "Name": "CHAT_CHECK_READ",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305e",
+    "ReturnType": "void",
+    "Name": "CHAT_SET_READ",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x305f",
+    "ReturnType": "int",
+    "Name": "CMM_BOOK_SIZE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3060",
+    "ReturnType": "int",
+    "Name": "CMM_RAPID_BUTTON_ACTION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x3061",
+    "ReturnType": "int",
+    "Name": "CMM_DAICE_BUTTON_ACTION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x3062",
+    "ReturnType": "int",
+    "Name": "CMM_GOLF_BUTTON_ACTION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3063",
+    "ReturnType": "void",
+    "Name": "CMM_SET_INVITE_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3064",
+    "ReturnType": "int",
+    "Name": "CMM_GET_INVITE_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3065",
+    "ReturnType": "void",
+    "Name": "CMM_COUNTUP_REVERSE_DAY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3066",
+    "ReturnType": "int",
+    "Name": "CMM_GET_REVERSE_DAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3067",
+    "ReturnType": "void",
+    "Name": "CMM_START_REVERSE_RENDITION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3068",
+    "ReturnType": "void",
+    "Name": "CMM_START_CANCEL_REVERSE_RENDITION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3069",
+    "ReturnType": "void",
+    "Name": "CMM_START_BROKEN_RENDITION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306a",
+    "ReturnType": "void",
+    "Name": "CMM_FUNC_LIST_DRAW_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x306b",
+    "ReturnType": "void",
+    "Name": "CMM_FUNC_LIST_DRAW_END",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x306c",
+    "ReturnType": "int",
+    "Name": "CMM_CHECK_NOW_ACTIVE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306d",
+    "ReturnType": "int",
+    "Name": "CMM_FLAG_CONVERT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306e",
+    "ReturnType": "void",
+    "Name": "CMM_AREA_NAME_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x306f",
+    "ReturnType": "void",
+    "Name": "CMM_TIMEWARP",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3070",
+    "ReturnType": "int",
+    "Name": "CMM_CHECK_ENABLE_FUNC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3071",
+    "ReturnType": "void",
+    "Name": "EVT_SET_LOCAL_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3072",
+    "ReturnType": "int",
+    "Name": "EVT_GET_LOCAL_COUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3073",
+    "ReturnType": "int",
+    "Name": "CHAT_CHECK_ARRIVAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3074",
+    "ReturnType": "int",
+    "Name": "CHAT_GET_ARRIVAL_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3075",
+    "ReturnType": "int",
+    "Name": "CHAT_CHECK_PASS_TIME_ARRIVAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3076",
+    "ReturnType": "void",
+    "Name": "CALL_STAFF_ROLL",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3077",
+    "ReturnType": "void",
+    "Name": "EVT_SET_LOCAL_DATA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3078",
+    "ReturnType": "int",
+    "Name": "EVT_GET_LOCAL_DATA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3079",
+    "ReturnType": "int",
+    "Name": "CMM_RAPID_BUTTON_ACTION2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x307a",
+    "ReturnType": "int",
+    "Name": "CMM_DAICE_BUTTON_ACTION2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x307b",
+    "ReturnType": "int",
+    "Name": "CMM_DAICE_BUTTON_GET_DAICE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x307c",
+    "ReturnType": "int",
+    "Name": "CMM_GOLF_BUTTON_ACTION2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int."
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x307d",
+    "ReturnType": "int",
+    "Name": "CMM_COMMAND_BUTTON_ACTION2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x307e",
+    "ReturnType": "void",
+    "Name": "CMM_INTERROGATION_IN",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x307f",
+    "ReturnType": "void",
+    "Name": "CMM_SET_LV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3080",
+    "ReturnType": "void",
+    "Name": "INIT_IME_DRIVER",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3081",
+    "ReturnType": "void",
+    "Name": "END_IME_DRIVER",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3082",
+    "ReturnType": "void",
+    "Name": "EVT_SE_PLAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3083",
+    "ReturnType": "void",
+    "Name": "EVT_SE_STOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3084",
+    "ReturnType": "void",
+    "Name": "KFEVT_EPL_READ",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3085",
+    "ReturnType": "void",
+    "Name": "KFEVT_EPL_READ_SYNC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3086",
+    "ReturnType": "void",
+    "Name": "KFEVT_EPL_FREE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3087",
+    "ReturnType": "void",
+    "Name": "KFEVT_EPL_PLAY",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3088",
+    "ReturnType": "int",
+    "Name": "GET_CHAT_INVITE_TIMING",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3089",
+    "ReturnType": "void",
+    "Name": "MDL_ANIM_LINK_EVTSE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308a",
+    "ReturnType": "void",
+    "Name": "INVITE_WORK_INIT",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x308b",
+    "ReturnType": "void",
+    "Name": "SET_INVITE_WORK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308c",
+    "ReturnType": "int",
+    "Name": "GET_INVITE_WORK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308d",
+    "ReturnType": "int",
+    "Name": "GET_INVITE_CORP_MAX",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x308e",
+    "ReturnType": "void",
+    "Name": "EVT_SET_LOG_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x308f",
+    "ReturnType": "int",
+    "Name": "CMM_CHECK_ENABLE_FUNC_DETAIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3090",
+    "ReturnType": "int",
+    "Name": "GET_PM_CHAT_INVITE_TYPE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3091",
+    "ReturnType": "void",
+    "Name": "CMM_TIMEWARP_FADE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3092",
+    "ReturnType": "int",
+    "Name": "CHECK_PUBLIC_HOLIDAY_NEXTDAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3093",
+    "ReturnType": "void",
+    "Name": "SET_STR_PUBLIC_HOLIDAY_NEXTDAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3094",
+    "ReturnType": "int",
+    "Name": "GET_CONQUEST_DUNGEON",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x3095",
+    "ReturnType": "int",
+    "Name": "GET_DUNGEON_INVITE_CHAT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3096",
+    "ReturnType": "void",
+    "Name": "EVT_SET_ENABLE_CTRL_KEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  }
+]

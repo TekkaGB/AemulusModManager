@@ -1,0 +1,34 @@
+[
+  {
+    "Name": "Common",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4\\Modules\\Common\\Functions.json"
+  },
+  {
+    "Name": "Field",
+    "ShortName": "Field",
+    "Description": "Field related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4\\Modules\\Field\\Functions.json"
+  },
+  {
+    "Name": "AI",
+    "ShortName": "AI",
+    "Description": "AI related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona4\\Modules\\AI\\Enums.json",
+    "FunctionsPath": "Persona4\\Modules\\AI\\Functions.json"
+  },
+  {
+    "Name": "Event",
+    "ShortName": "Event",
+    "Description": "Event related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona4\\Modules\\Event\\Functions.json"
+  },
+]
