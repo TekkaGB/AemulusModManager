@@ -1,0 +1,204 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
+
+namespace AemulusModManager.Utilities.FileMerging
+{
+    class Utils
+    {
+        static string messagePattern = @"(\[.+ .+\])\s+((?:\[.*\s+?)+)";
+        private static string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
+
+        public static bool CompilerExists()
+        {
+            if (!File.Exists(compilerPath))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {compilerPath}. Please check if it was blocked by your anti-virus.");
+                return false;
+            }
+            return true;
+        }
+
+        // List of script compiler args for each game
+        public static Dictionary<string, string[]> gameArgs = new Dictionary<string, string[]>()
+        {
+            {"Persona 4 Golden", new string[]{ "V1", "P4G", "P4" } },
+            {"Persona 3 FES" , new string[]{ "V1", "P3F", "P3" } },
+            {"Persona 5", new string[]{"V3BE", "P5", "P5"} }
+        };
+
+        // Compile a file with script compiler, returning true if it compiled successfully otherwise false
+        public static bool Compile(string inFile, string outFile, string game)
+        {
+            if (!File.Exists(inFile))
+                return false;
+            // Get the last modified date of the current bf to see if it compiles successfully
+            var lastModified = File.GetLastWriteTime(outFile);
+
+            // Compile the file
+            string[] args = gameArgs[game];
+            string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
+            Console.WriteLine($"[INFO] Compiling {inFile}");
+            ScriptCompilerCommand(compilerArgs);
+
+            // Check if the file was written to (successfully compiled)
+            if (File.GetLastWriteTime(outFile) > lastModified)
+            {
+                Console.WriteLine($"[INFO] Finished compiling {inFile}");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AtlusScriptCompiler.log for details.");
+                return false;
+            }
+        }
+
+        // Gets the path for a file relative to the game's file system
+        // e.g. field/script/...
+        public static string GetRelativePath(string file, string dir, string game, bool removeData = true)
+        {
+            List<string> folders = new List<string>(file.Split(char.Parse("\\")));
+            int idx = folders.IndexOf(Path.GetFileName(dir)) + 1;
+            if (game == "Persona 4 Golden" && removeData) idx++; // Account for varying data folder names
+            folders = folders.Skip(idx).ToList();
+            return string.Join("\\", folders.ToArray());
+        }
+
+        public static void ScriptCompilerCommand(string args)
+        {
+            RunCommand(compilerPath, args);
+        }
+
+        public static void RunCommand(string file, string args)
+        {
+            if (!File.Exists(file))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {file}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.UseShellExecute = false;
+            startInfo.FileName = $"\"{file}\"";
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.Arguments = args;
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                // Add this: wait until process does its work
+                process.WaitForExit();
+            }
+        }
+
+        public static Dictionary<string, string> GetMessages(string file)
+        {
+            try
+            {
+                // Read the text of the msg
+                string text = File.ReadAllText(file);
+                Regex rg = new Regex(messagePattern);
+                MatchCollection matches = rg.Matches(text);
+                // Add all of the found messages into the list to be returned
+                Dictionary<string, string> messages = new Dictionary<string, string>();
+                foreach (Match match in matches)
+                {
+                    // Group[1] is the message name e.g [msg name]
+                    // Group[2] is the actual message content
+                    messages.Add(match.Groups[1].Value, match.Groups[2].Value);
+
+                }
+                return messages;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error reading {file}. Cancelling bmd merging");
+            }
+            return null;
+        }
+
+        public static void MergeFiles(string game, string[] files, Dictionary<string, string>[] messages, Dictionary<string, string> ogMessages)
+        {
+            // Compare the messages to find any that need to be overwritten
+            Dictionary<string, string> changedMessages = new Dictionary<string, string>();
+            foreach (var ogMessage in ogMessages)
+            {
+                // Check both files to be merged for the current original message
+                foreach (var messageArr in messages)
+                {
+                    if (messageArr.TryGetValue(ogMessage.Key, out string messageContent))
+                    {
+                        // If the message in the new file is different from the old it needs to be changed
+                        if (messageContent != ogMessage.Value)
+                        {
+                            if (changedMessages.ContainsKey(ogMessage.Key))
+                                changedMessages.Remove(ogMessage.Key);
+                            changedMessages.Add(ogMessage.Key, messageContent);
+                        }
+                    }
+                    else
+                    {
+                        // The message wasn't in the original, therefore it should be changed (as it's new)
+                        if (changedMessages.ContainsKey(ogMessage.Key))
+                            changedMessages.Remove(ogMessage.Key);
+                        changedMessages.Add(ogMessage.Key, messageContent);
+                    }
+                }
+            }
+
+            if (changedMessages.Count <= 0)
+                return;
+            try
+            {
+                // Modify the current file with the changes
+                string msgFile = Path.ChangeExtension(files[1], "msg");
+                string fileContent = File.ReadAllText(msgFile);
+                foreach (var message in changedMessages)
+                {
+                    if (!ogMessages.TryGetValue(message.Key, out string ogMessage)) continue;
+                    fileContent = fileContent.Replace($"{message.Key}{ogMessage}", $"{message.Key}{message.Value}");
+                }
+                // Add a space after the / for any /[...] as the compiler will break otherwise (happens with skill bmds)
+                Regex regex = new Regex(@"/(\[.*?\])");
+                fileContent = regex.Replace(fileContent, @"/ $1");
+
+                // Make a copy of the unmerged file (.file.bak)
+                FileIOWrapper.Copy(files[1], files[1] + ".bak", true);
+
+                // Write the changes to the msg and compile it
+                File.WriteAllText(msgFile, fileContent);
+                Utils.Compile(msgFile, files[1], game);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error reading {files[1]}. Cancelling {Path.GetExtension(files[0])} merging");
+            }
+        }
+
+        // Restore all of the .*.bak files to .* for the next time they will be merged
+        public static void RestoreBackups(List<string> modList)
+        {
+            foreach (string modDir in modList)
+            {
+                // Find all bak files
+                string[] bakFiles = Directory.GetFiles(modDir, "*.*.bak", SearchOption.AllDirectories);
+                foreach (string file in bakFiles)
+                {
+                    // Replace the existing file with the backup
+                    string newFile = file.Substring(0, file.Length - 4);
+                    if (File.Exists(newFile))
+                        File.Delete(newFile);
+                    File.Move(file, newFile);
+                }
+            }
+        }
+
+
+    }
+}

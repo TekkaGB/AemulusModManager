@@ -30,8 +30,7 @@ using Vlc.DotNet.Core;
 using AemulusModManager.Windows;
 using AemulusModManager.Utilities.Windows;
 using System.ComponentModel;
-using AemulusModManager.Utilities.FlowMerging;
-using AemulusModManager.Utilities.BmdPatching;
+using AemulusModManager.Utilities.FileMerging;
 
 namespace AemulusModManager
 {
@@ -1715,9 +1714,10 @@ namespace AemulusModManager
 
                     if (game != "Persona 5 Strikers")
                     {
-                        // Merge flow and bmd files
+                        // Merge flow, bmd and pm1 files
                         FlowMerger.Merge(packages, game);
-                        BmdPatcher.Merge(packages, game);
+                        BmdMerger.Merge(packages, game);
+                        PM1Merger.Merge(packages, game);
 
                         await Task.Run(() =>
                         {
@@ -1746,8 +1746,8 @@ namespace AemulusModManager
                             }
                         }
 
-                        // Restore the bmd backups
-                        BmdPatcher.RestoreBackups(packages);
+                        // Restore the bmd and pm1 backups
+                        Utils.RestoreBackups(packages);
 
                         if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
                             Console.WriteLine("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");

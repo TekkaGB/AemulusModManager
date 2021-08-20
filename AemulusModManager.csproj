@@ -172,8 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities\FileMerging\PM1Merger.cs" />
     <Compile Include="Utilities\FeedGenerator.cs" />
-    <Compile Include="Utilities\FlowMerging\FlowMerger.cs" />
+    <Compile Include="Utilities\FileMerging\FlowMerger.cs" />
+    <Compile Include="Utilities\FileMerging\Utils.cs" />
     <Compile Include="Utilities\Windows\HiddenIconConverter.cs" />
     <Compile Include="Utilities\Windows\HiddenTextConverter.cs" />
     <Compile Include="Utilities\Windows\ShowHiddenConverter.cs" />
@@ -184,8 +186,7 @@
     <Compile Include="Windows\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\BmdPatching\BmdObj.cs" />
-    <Compile Include="Utilities\BmdPatching\BmdPatcher.cs" />
+    <Compile Include="Utilities\FileMerging\BmdMerger.cs" />
     <Compile Include="Utilities\FileIOWrapper.cs" />
     <Compile Include="Utilities\KT\Merger.cs" />
     <Compile Include="Utilities\PackageDownloader.cs" />
@@ -369,12 +370,18 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Dependencies\AtlusScriptCompiler\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
     <ItemGroup>
-      <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\**">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <TargetPath>Dependencies\AtlusScriptCompiler\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
-      </ContentWithTargetPath>
-    </ItemGroup>
+    <ContentWithTargetPath Include="Dependencies\PM1MessageScriptEditor\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Dependencies\PM1MessageScriptEditor\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
@@ -414,6 +421,10 @@
     <Content Include="Dependencies\CpkMakeC\CpkMaker.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Dependencies\PM1MessageScriptEditor\Antlr4.Runtime.dll" />
+    <Content Include="Dependencies\PM1MessageScriptEditor\AtlusScriptLibrary.dll" />
+    <Content Include="Dependencies\PM1MessageScriptEditor\Newtonsoft.Json.dll" />
+    <Content Include="Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe" />
     <Content Include="Dependencies\rdb_tool.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
