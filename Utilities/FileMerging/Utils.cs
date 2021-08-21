@@ -10,11 +10,19 @@ namespace AemulusModManager.Utilities.FileMerging
 {
     class Utils
     {
-        static string messagePattern = @"(\[.+ .+\])\s+((?:\[.*\s+?)+)";
-        private static string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
-
-        public static bool CompilerExists()
+        public static bool CompilerExists(bool pm1 = false)
         {
+            string compilerPath;
+            // Decide which compiler it is
+            if (!pm1)
+            {
+                compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
+            }
+            else
+            {
+                compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe";
+            }
+            // Check if it exists
             if (!File.Exists(compilerPath))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {compilerPath}. Please check if it was blocked by your anti-virus.");
@@ -40,10 +48,18 @@ namespace AemulusModManager.Utilities.FileMerging
             var lastModified = File.GetLastWriteTime(outFile);
 
             // Compile the file
-            string[] args = gameArgs[game];
-            string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
             Console.WriteLine($"[INFO] Compiling {inFile}");
-            ScriptCompilerCommand(compilerArgs);
+            if (Path.GetExtension(outFile) == ".pm1")
+            {
+                string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe";
+                Utils.RunCommand(compilerPath, $"\"{inFile}\"");
+            }
+            else
+            {
+                string[] args = gameArgs[game];
+                string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
+                ScriptCompilerCommand(compilerArgs);
+            }
 
             // Check if the file was written to (successfully compiled)
             if (File.GetLastWriteTime(outFile) > lastModified)
@@ -71,6 +87,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
         public static void ScriptCompilerCommand(string args)
         {
+            string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
             RunCommand(compilerPath, args);
         }
 
@@ -102,6 +119,7 @@ namespace AemulusModManager.Utilities.FileMerging
             try
             {
                 // Read the text of the msg
+                string messagePattern = @"(\[.+ .+\])\s+((?:\[.*\s+?)+)";
                 string text = File.ReadAllText(file);
                 Regex rg = new Regex(messagePattern);
                 MatchCollection matches = rg.Matches(text);
@@ -162,7 +180,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 foreach (var message in changedMessages)
                 {
                     if (!ogMessages.TryGetValue(message.Key, out string ogMessage)) continue;
-                    fileContent = fileContent.Replace($"{message.Key}{ogMessage}", $"{message.Key}{message.Value}");
+                    fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
                 }
                 // Add a space after the / for any /[...] as the compiler will break otherwise (happens with skill bmds)
                 Regex regex = new Regex(@"/(\[.*?\])");
@@ -173,7 +191,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
                 // Write the changes to the msg and compile it
                 File.WriteAllText(msgFile, fileContent);
-                Utils.Compile(msgFile, files[1], game);
+                Compile(msgFile, files[1], game);
             }
             catch (Exception e)
             {
