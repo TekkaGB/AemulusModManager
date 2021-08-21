@@ -28,11 +28,8 @@ namespace AemulusModManager.Utilities.FileMerging
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(file, dir, game, false)}";
                         MergeBmds(new string[] { previousFile, file }, ogPath, game);
                     }
-                    else
-                    {
-                        string[] foundBmd = { filePath, dir, file };
-                        foundBmds.Add(foundBmd);
-                    }
+                    string[] foundBmd = { filePath, dir, file };
+                    foundBmds.Add(foundBmd);
                 }
             }
         }

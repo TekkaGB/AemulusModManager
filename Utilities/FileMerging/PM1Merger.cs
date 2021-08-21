@@ -11,6 +11,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
         public static void Merge(List<string> ModList, string game)
         {
+            if (!Utils.CompilerExists(true)) return;
             List<string[]> foundFiles = new List<string[]>();
 
             foreach (string dir in ModList)
@@ -28,11 +29,8 @@ namespace AemulusModManager.Utilities.FileMerging
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(file, dir, game, false)}";
                         MergePm1s(new string[] { previousFile, file }, ogPath, game);
                     }
-                    else
-                    {
-                        string[] foundBmd = { filePath, dir, file };
-                        foundFiles.Add(foundBmd);
-                    }
+                    string[] foundPm1 = { filePath, dir, file };
+                    foundFiles.Add(foundPm1);
                 }
             }
         }
@@ -63,7 +61,6 @@ namespace AemulusModManager.Utilities.FileMerging
             try
             {
                 // Decompile the pm1 to a msg that can be read easily
-                string[] args = Utils.gameArgs[game];
                 string msgFile = Path.ChangeExtension(file, "msg");
                 Utils.RunCommand(compilerPath, $"\"{file}\"");
 
