@@ -175,6 +175,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".tbp" && Path.GetExtension(file).ToLower() != ".rar"
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
+                        && Path.GetExtension(file).ToLower() != ".bak"
                         && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
