@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace AemulusModManager.Utilities.FileMerging
@@ -15,12 +16,33 @@ namespace AemulusModManager.Utilities.FileMerging
 
             foreach (string dir in ModList)
             {
-                string[] flowFiles = Directory.GetFiles(dir, "*.flow", SearchOption.AllDirectories);
+                var flowFiles = Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories)
+                    .Where(s => s.ToLower().EndsWith(".flow") || s.ToLower().EndsWith(".bf"));
+
                 foreach (string file in flowFiles)
                 {
+
                     string bf = Path.ChangeExtension(file, "bf");
                     string filePath = Utils.GetRelativePath(bf, dir, game);
-                    string[] previousFileArr = compiledFiles.FindLast(p => p[0]== filePath);
+
+                    // If the current file is a bf check if it has a corresponding flow
+                    if (file == bf)
+                    {
+                        // Ignore the current file if a flow exists (as it'll be compiled)
+                        if (File.Exists(Path.ChangeExtension(file, "flow")))
+                        {
+                            continue;
+                        }
+                        // This is a standalone bf, add it so it can be used as a base
+                        else
+                        {
+                            string[] bfFile = { filePath, dir, bf };
+                            compiledFiles.Add(bfFile);
+                            continue;
+                        }
+                    }
+
+                    string[] previousFileArr = compiledFiles.FindLast(p => p[0] == filePath);
                     string previousFile = previousFileArr == null ? null : previousFileArr[2];
                     // Copy a previously compiled bf so it can be merged
                     if (previousFile != null)
