@@ -57,6 +57,10 @@ namespace AemulusModManager.Utilities.FileMerging
             else
             {
                 string[] args = gameArgs[game];
+                // Persona 5 bmds have a different outformat than their bfs
+                if (game == "Persona 5" && Path.GetExtension(inFile) == ".msg")
+                    args[0] = "V1BE";
+
                 string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
                 ScriptCompilerCommand(compilerArgs);
             }
