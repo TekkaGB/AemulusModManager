@@ -2889,7 +2889,9 @@ namespace AemulusModManager
                 Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp", true);
                 // Load the new loadout
                 loadoutUtils.LoadLoadouts(chosenGame);
+                loadoutHandled = true;
                 LoadoutBox.ItemsSource = loadoutUtils.LoadoutItems;
+                loadoutHandled = false;
 
                 if (game == chosenGame)
                 {
