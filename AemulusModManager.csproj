@@ -346,6 +346,8 @@
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
+    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Custom\Enums.json" />
+    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Custom\Functions.json" />
     <None Include="Dependencies\MakeCpk\filtered_data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -376,7 +378,7 @@
       <TargetPath>Dependencies\AtlusScriptCompiler\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <ContentWithTargetPath Include="Dependencies\PM1MessageScriptEditor\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>Dependencies\PM1MessageScriptEditor\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
