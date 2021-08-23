@@ -642,6 +642,7 @@ namespace AemulusModManager
                                                     spdUtils.replaceDDS(spdPath, f);
                                                 else
                                                     spdUtils.replaceSPDKey(spdPath, f);
+                                                Console.WriteLine($"[INFO] Replacing {spdPath} in {f}");
                                                 PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{spdPath}\" \"{file2}\"");
                                                 PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                             }
@@ -662,6 +663,7 @@ namespace AemulusModManager
                                             spdUtils.replaceDDS(spdPath, f);
                                         else
                                             spdUtils.replaceSPDKey(spdPath, f);
+                                        Console.WriteLine($"[INFO] Replacing {spdPath} in {f}");
                                         PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{spdPath}\" \"{bin}\"");
                                     }
                                     else if (Path.GetExtension(longestPrefix).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
