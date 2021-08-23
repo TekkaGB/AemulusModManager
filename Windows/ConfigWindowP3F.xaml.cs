@@ -185,7 +185,9 @@ namespace AemulusModManager
         private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
         {
             string pcsx2Exe = selectExe("Select pcsx2.exe", ".exe");
-            if (Path.GetFileName(pcsx2Exe) == "pcsx2.exe")
+            if (Path.GetFileName(pcsx2Exe) == "pcsx2.exe"
+                || Path.GetFileName(pcsx2Exe) == "pcsx2x64-avx2.exe"
+                || Path.GetFileName(pcsx2Exe) == "pcsx2x64.exe")
             {
                 main.launcherPath = pcsx2Exe;
                 main.config.p3fConfig.launcherPath = pcsx2Exe;
