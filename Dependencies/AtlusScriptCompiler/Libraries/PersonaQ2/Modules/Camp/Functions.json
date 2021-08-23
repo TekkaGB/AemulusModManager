@@ -1,0 +1,371 @@
+[
+  {
+    "Index": "0x8000",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0000",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8001",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0001",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8002",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0002",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8003",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0003",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8004",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0004",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8005",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0005",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x8006",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0006",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8007",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0007",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8008",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0008",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8009",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0009",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x800a",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_000A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x800b",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_000B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x800c",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_000C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x800d",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_000D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x800e",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_000E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x800f",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_000F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8010",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0010",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x8011",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0011",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8012",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0012",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x8013",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0013",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x8014",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0014",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x8015",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0015",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x8016",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0016",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8017",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0017",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8018",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0018",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x8019",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_0019",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x801a",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_001A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x801b",
+    "ReturnType": "int",
+    "Name": "CAMP_FUNCTION_001B",
+    "Description": "",
+    "Parameters": [
+    ]
+  }
+]

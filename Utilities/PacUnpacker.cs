@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -44,7 +45,7 @@ namespace AemulusModManager
                 process.Start();
                 process.WaitForExit();
             }
-            startInfo.Arguments = "x -y \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL *.SPR -r";
+            startInfo.Arguments = "x -y \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM" + "\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL" + "\" *.BIN *.PAK *.PAC *.TBL *.SPR *.BF *.BMD *.PM1 *.bf *.bmd *.pm1 -r";
             Console.WriteLine($"[INFO] Extracting base files from BTL.CVM");
             using (Process process = new Process())
             {
@@ -53,7 +54,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM");
-            startInfo.Arguments = "x -y \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM" + "\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA" + "\" *.BIN *.PAK *.PAC *.SPR -r";
+            startInfo.Arguments = "x -y \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM" + "\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA" + "\" *.BIN *.PAK *.PAC *.TBL *.SPR *.BF *.BMD *.PM1 *.bf *.bmd *.pm1 -r";
             Console.WriteLine($"[INFO] Extracting base files from DATA.CVM");
             using (Process process = new Process())
             {
@@ -62,6 +63,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
             FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM");
+            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -79,7 +81,7 @@ namespace AemulusModManager
                 return;
             }
             List<string> pacs = new List<string>();
-            List<string> globs = new List<string> { "*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack" };
+            List<string> globs = new List<string> { "*[!0-9].bin", "*2[0-1][0-9].bin", "*.arc", "*.pac", "*.pack", "*.bf", "*.bmd", "*.pm1" };
             switch (cpk)
             {
                 case "data_e.cpk":
@@ -135,6 +137,7 @@ namespace AemulusModManager
                         }
                     }
                 }
+                ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{Path.GetFileNameWithoutExtension(pac)}");
             }
             if (FileIOWrapper.Exists($@"{directory}\{cpk}") && !FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpk}"))
             {
@@ -263,11 +266,38 @@ namespace AemulusModManager
             }
             else
                 Console.WriteLine($"[ERROR] Couldn't find ps3.cpk in {directory}.");
+            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
             });
         }
+
+        private static void ExtractWantedFiles(string directory)
+        {
+            if (!Directory.Exists(directory))
+                return;
+
+            var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
+                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
+            foreach(string file in files)
+            {
+                List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
+                // Check if there are any files we want (or files that could have files we want) and unpack them if so
+                bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
+                if(contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
+                {
+                    Console.WriteLine($"[INFO] Unpacking {file}");
+                    binMerge.PAKPackCMD($"unpack \"{file}\"");
+
+                    // Search the location of the unpacked container for wanted files
+                    if (containersFound)
+                        ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file),Path.GetFileNameWithoutExtension(file)));
+                }
+            }
+
+        }
+
     }
 }

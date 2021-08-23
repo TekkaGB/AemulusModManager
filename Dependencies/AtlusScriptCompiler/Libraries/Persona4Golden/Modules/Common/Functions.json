@@ -8,7 +8,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -37,7 +38,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "SelId"
       }
     ]
   },
@@ -83,7 +85,7 @@
   {
     "Index": "0x0007",
     "ReturnType": "void",
-    "Name": "SET_SEL_CHOICE_KEYBIND",
+    "Name": "SEL_CHK_PAD",
     "Description": "Selects choice from SEL or ADV_SEL when the specified key is pressed, 14 being the back button",
     "Parameters": [
       {
@@ -120,7 +122,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -133,7 +136,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -146,7 +150,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -159,7 +164,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -200,7 +206,7 @@
   {
     "Index": "0x0010",
     "ReturnType": "void",
-    "Name": "NS_WAIT",
+    "Name": "WAIT",
     "Description": "Makes the game wait for a certain amount of time,not sure what the input actually is ig,sec,ms,etc",
     "Parameters": [
       {
@@ -554,12 +560,14 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Message on bottom right of select menu"
+        "Description": "Message on bottom right of select menu",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": "Select options"
+        "Description": "Select options",
+        "Semantic": "SelId"
       },
       {
         "Type": "int",
@@ -987,17 +995,17 @@
   {
     "Index": "0x0041",
     "ReturnType": "void",
-    "Name": "FUNCTION_0041",
-    "Description": "",
+    "Name": "PLAY_EXPRESSION",
+    "Description": "Plays an 'expression' animation (heart, sweat, lightbulb, etc) above the specified model",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "model",
+        "Description": "The model to play the expression on (0 is the player)"
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Expression",
+        "Name": "expression",
         "Description": ""
       }
     ]
@@ -1009,13 +1017,13 @@
     "Description": "Code function name: shdScript_sub_81038D40",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SocialStat",
+        "Name": "socialStatId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "increaseAmount",
         "Description": ""
       }
     ]
@@ -1041,12 +1049,12 @@
   {
     "Index": "0x0044",
     "ReturnType": "int",
-    "Name": "FUNCTION_0044",
-    "Description": "",
+    "Name": "GET_SOCIAL_STAT_LEVEL",
+    "Description": "Gets the current level of the specified social stat (from 1 to 5)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SocialStat",
+        "Name": "statId",
         "Description": ""
       }
     ]
@@ -1118,8 +1126,8 @@
   {
     "Index": "0x0048",
     "ReturnType": "int",
-    "Name": "GET_PERSONA",
-    "Description": "",
+    "Name": "GET_CURRENT_PERSONA",
+    "Description": "Returns the id of the currently equipped Persona",
     "Parameters": [
     ]
   },
@@ -1666,17 +1674,17 @@
   {
     "Index": "0x0076",
     "ReturnType": "void",
-    "Name": "FUNCTION_0076",
-    "Description": "",
+    "Name": "NS_PLAY_EXPRESSION",
+    "Description": "Seems to work similarly to play expression but on models other than the player? Check comu98 where the cat uses it for its expressions",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "modelId",
+        "Description": "Or something like that"
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Expression",
+        "Name": "expression",
         "Description": ""
       }
     ]
@@ -1941,13 +1949,13 @@
   {
     "Index": "0x008f",
     "ReturnType": "int",
-    "Name": "FUNCTION_008F",
-    "Description": "Code function name: insectScript___sub_8129C6DC",
+    "Name": "RANDOM_BUG",
+    "Description": "Generates the id of a random bug (used in the bug catching minigame)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "Unknown type; assumed int"
+        "Name": "bait",
+        "Description": "Some kind of indicator of what bait was used which probably affects the chance of getting specific bugs. Bait is an unused feature, in game 0 is always used."
       }
     ]
   },
@@ -1991,8 +1999,8 @@
   {
     "Index": "0x0094",
     "ReturnType": "int",
-    "Name": "FUNCTION_0094",
-    "Description": "",
+    "Name": "RNG2",
+    "Description": "Generates a random number between 0 and param1. Seems to be exactly the same as the other RNG function, used in night hangout events",
     "Parameters": [
       {
         "Type": "int",
@@ -2005,7 +2013,7 @@
     "Index": "0x0095",
     "ReturnType": "int",
     "Name": "FUNCTION_0095",
-    "Description": "",
+    "Description": "Appears in the bug catching minigame flowscript (e860_510a) but doesn't seem to do anything",
     "Parameters": [
       {
         "Type": "int",
@@ -2051,8 +2059,8 @@
   {
     "Index": "0x0099",
     "ReturnType": "int",
-    "Name": "LEARN_BONUS_SKILL",
-    "Description": "",
+    "Name": "FUNCTION_0099",
+    "Description": "LEARN_BONUS_SKILL",
     "Parameters": [
       {
         "Type": "int",
@@ -2141,31 +2149,31 @@
   {
     "Index": "0x009e",
     "ReturnType": "int",
-    "Name": "FUNCTION_009E",
-    "Description": "",
+    "Name": "SCOOTER_SKILL_AVAILABLE",
+    "Description": "Checks if the party member has any more new skills to learn from scooter rides (probably) ",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "unitId",
+        "Description": "The party member you want to check"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "If 0 checks for moves to remember, if 1 checks for new moves"
       }
     ]
   },
   {
     "Index": "0x009f",
     "ReturnType": "int",
-    "Name": "FUNCTION_009F",
-    "Description": "Code function name: cmpMisc_sub_81165D4C",
+    "Name": "LEARN_BONUS_SKILL_BEACH",
+    "Description": "Gives a persona a bonus skill (used when gazing at the beach)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Only 1 and 0 seem to work (the game only uses 1 where this is called)"
       }
     ]
   },

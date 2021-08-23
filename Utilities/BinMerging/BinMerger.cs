@@ -15,7 +15,7 @@ namespace AemulusModManager
         private static string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PAKPack\PAKPack.exe";
 
         // Use PAKPack command
-        private static void PAKPackCMD(string args)
+        public static void PAKPackCMD(string args)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -33,7 +33,7 @@ namespace AemulusModManager
             }
         }
 
-        private static List<string> getFileContents(string path)
+        public static List<string> getFileContents(string path)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -174,6 +174,8 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".zip" && Path.GetExtension(file).ToLower() != ".json"
                         && Path.GetExtension(file).ToLower() != ".tbp" && Path.GetExtension(file).ToLower() != ".rar"
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
+                        && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
+                        && Path.GetExtension(file).ToLower() != ".bak"
                         && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));

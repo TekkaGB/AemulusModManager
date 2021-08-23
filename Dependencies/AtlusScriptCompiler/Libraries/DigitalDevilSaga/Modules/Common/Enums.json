@@ -1,0 +1,5054 @@
+﻿[
+  {
+    "Name": "BattleSkill",
+    "Description": "This enum represents the available skills in battle",
+    "Members": [
+      {
+        "Name": "_0x000",
+        "Value": 0,
+        "Description": "Generated from table entry: 0x000"
+      },
+      {
+        "Name": "Agi",
+        "Value": 1,
+        "Description": "Generated from table entry: Agi"
+      },
+      {
+        "Name": "Agilao",
+        "Value": 2,
+        "Description": "Generated from table entry: Agilao"
+      },
+      {
+        "Name": "Agidyne",
+        "Value": 3,
+        "Description": "Generated from table entry: Agidyne"
+      },
+      {
+        "Name": "Maragi",
+        "Value": 4,
+        "Description": "Generated from table entry: Maragi"
+      },
+      {
+        "Name": "Maragion",
+        "Value": 5,
+        "Description": "Generated from table entry: Maragion"
+      },
+      {
+        "Name": "Maragidyne",
+        "Value": 6,
+        "Description": "Generated from table entry: Maragidyne"
+      },
+      {
+        "Name": "FlameBreath",
+        "Value": 7,
+        "Description": "Generated from table entry: Flame Breath"
+      },
+      {
+        "Name": "_0x008",
+        "Value": 8,
+        "Description": "Generated from table entry: 0x008"
+      },
+      {
+        "Name": "_0x009",
+        "Value": 9,
+        "Description": "Generated from table entry: 0x009"
+      },
+      {
+        "Name": "Bufu",
+        "Value": 10,
+        "Description": "Generated from table entry: Bufu"
+      },
+      {
+        "Name": "Bufula",
+        "Value": 11,
+        "Description": "Generated from table entry: Bufula"
+      },
+      {
+        "Name": "Bufudyne",
+        "Value": 12,
+        "Description": "Generated from table entry: Bufudyne"
+      },
+      {
+        "Name": "Mabufu",
+        "Value": 13,
+        "Description": "Generated from table entry: Mabufu"
+      },
+      {
+        "Name": "Mabufula",
+        "Value": 14,
+        "Description": "Generated from table entry: Mabufula"
+      },
+      {
+        "Name": "Mabufudyne",
+        "Value": 15,
+        "Description": "Generated from table entry: Mabufudyne"
+      },
+      {
+        "Name": "FrostBreath",
+        "Value": 16,
+        "Description": "Generated from table entry: Frost Breath"
+      },
+      {
+        "Name": "_0x011",
+        "Value": 17,
+        "Description": "Generated from table entry: 0x011"
+      },
+      {
+        "Name": "_0x012",
+        "Value": 18,
+        "Description": "Generated from table entry: 0x012"
+      },
+      {
+        "Name": "Zio",
+        "Value": 19,
+        "Description": "Generated from table entry: Zio"
+      },
+      {
+        "Name": "Zionga",
+        "Value": 20,
+        "Description": "Generated from table entry: Zionga"
+      },
+      {
+        "Name": "Ziodyne",
+        "Value": 21,
+        "Description": "Generated from table entry: Ziodyne"
+      },
+      {
+        "Name": "Mazio",
+        "Value": 22,
+        "Description": "Generated from table entry: Mazio"
+      },
+      {
+        "Name": "Mazionga",
+        "Value": 23,
+        "Description": "Generated from table entry: Mazionga"
+      },
+      {
+        "Name": "Maziodyne",
+        "Value": 24,
+        "Description": "Generated from table entry: Maziodyne"
+      },
+      {
+        "Name": "BoltFlare",
+        "Value": 25,
+        "Description": "Generated from table entry: Bolt Flare"
+      },
+      {
+        "Name": "_0x01A",
+        "Value": 26,
+        "Description": "Generated from table entry: 0x01A"
+      },
+      {
+        "Name": "_0x01B",
+        "Value": 27,
+        "Description": "Generated from table entry: 0x01B"
+      },
+      {
+        "Name": "Zan",
+        "Value": 28,
+        "Description": "Generated from table entry: Zan"
+      },
+      {
+        "Name": "Zanma",
+        "Value": 29,
+        "Description": "Generated from table entry: Zanma"
+      },
+      {
+        "Name": "Zandyne",
+        "Value": 30,
+        "Description": "Generated from table entry: Zandyne"
+      },
+      {
+        "Name": "Mazan",
+        "Value": 31,
+        "Description": "Generated from table entry: Mazan"
+      },
+      {
+        "Name": "Mazanma",
+        "Value": 32,
+        "Description": "Generated from table entry: Mazanma"
+      },
+      {
+        "Name": "Mazandyne",
+        "Value": 33,
+        "Description": "Generated from table entry: Mazandyne"
+      },
+      {
+        "Name": "ShockWave",
+        "Value": 34,
+        "Description": "Generated from table entry: Shock Wave"
+      },
+      {
+        "Name": "_0x023",
+        "Value": 35,
+        "Description": "Generated from table entry: 0x023"
+      },
+      {
+        "Name": "_0x024",
+        "Value": 36,
+        "Description": "Generated from table entry: 0x024"
+      },
+      {
+        "Name": "Tera",
+        "Value": 37,
+        "Description": "Generated from table entry: Tera"
+      },
+      {
+        "Name": "Terazi",
+        "Value": 38,
+        "Description": "Generated from table entry: Terazi"
+      },
+      {
+        "Name": "Teradyne",
+        "Value": 39,
+        "Description": "Generated from table entry: Teradyne"
+      },
+      {
+        "Name": "Matera",
+        "Value": 40,
+        "Description": "Generated from table entry: Matera"
+      },
+      {
+        "Name": "Materazi",
+        "Value": 41,
+        "Description": "Generated from table entry: Materazi"
+      },
+      {
+        "Name": "Materadyne",
+        "Value": 42,
+        "Description": "Generated from table entry: Materadyne"
+      },
+      {
+        "Name": "Avalanche",
+        "Value": 43,
+        "Description": "Generated from table entry: Avalanche"
+      },
+      {
+        "Name": "_0x02C",
+        "Value": 44,
+        "Description": "Generated from table entry: 0x02C"
+      },
+      {
+        "Name": "_0x02D",
+        "Value": 45,
+        "Description": "Generated from table entry: 0x02D"
+      },
+      {
+        "Name": "Megido",
+        "Value": 46,
+        "Description": "Generated from table entry: Megido"
+      },
+      {
+        "Name": "Megidola",
+        "Value": 47,
+        "Description": "Generated from table entry: Megidola"
+      },
+      {
+        "Name": "Megidolaon",
+        "Value": 48,
+        "Description": "Generated from table entry: Megidolaon"
+      },
+      {
+        "Name": "HPThief",
+        "Value": 49,
+        "Description": "Generated from table entry: HP Thief"
+      },
+      {
+        "Name": "MPThief",
+        "Value": 50,
+        "Description": "Generated from table entry: MP Thief"
+      },
+      {
+        "Name": "_0x033",
+        "Value": 51,
+        "Description": "Generated from table entry: 0x033"
+      },
+      {
+        "Name": "LastWord",
+        "Value": 52,
+        "Description": "Generated from table entry: Last Word"
+      },
+      {
+        "Name": "DeathMarch",
+        "Value": 53,
+        "Description": "Generated from table entry: Death March"
+      },
+      {
+        "Name": "_0x036",
+        "Value": 54,
+        "Description": "Generated from table entry: 0x036"
+      },
+      {
+        "Name": "Rage",
+        "Value": 55,
+        "Description": "Generated from table entry: Rage"
+      },
+      {
+        "Name": "PsychoRage",
+        "Value": 56,
+        "Description": "Generated from table entry: Psycho Rage"
+      },
+      {
+        "Name": "Vanity",
+        "Value": 57,
+        "Description": "Generated from table entry: Vanity"
+      },
+      {
+        "Name": "Revert",
+        "Value": 58,
+        "Description": "Generated from table entry: Revert"
+      },
+      {
+        "Name": "Marevert",
+        "Value": 59,
+        "Description": "Generated from table entry: Marevert"
+      },
+      {
+        "Name": "Hama",
+        "Value": 60,
+        "Description": "Generated from table entry: Hama"
+      },
+      {
+        "Name": "Hamaon",
+        "Value": 61,
+        "Description": "Generated from table entry: Hamaon"
+      },
+      {
+        "Name": "Mahama",
+        "Value": 62,
+        "Description": "Generated from table entry: Mahama"
+      },
+      {
+        "Name": "Mahamaon",
+        "Value": 63,
+        "Description": "Generated from table entry: Mahamaon"
+      },
+      {
+        "Name": "Xanadu",
+        "Value": 64,
+        "Description": "Generated from table entry: Xanadu"
+      },
+      {
+        "Name": "Mudo",
+        "Value": 65,
+        "Description": "Generated from table entry: Mudo"
+      },
+      {
+        "Name": "Mudoon",
+        "Value": 66,
+        "Description": "Generated from table entry: Mudoon"
+      },
+      {
+        "Name": "Mamudo",
+        "Value": 67,
+        "Description": "Generated from table entry: Mamudo"
+      },
+      {
+        "Name": "Mamudoon",
+        "Value": 68,
+        "Description": "Generated from table entry: Mamudoon"
+      },
+      {
+        "Name": "Curse",
+        "Value": 69,
+        "Description": "Generated from table entry: Curse"
+      },
+      {
+        "Name": "BloodCurse",
+        "Value": 70,
+        "Description": "Generated from table entry: Blood Curse"
+      },
+      {
+        "Name": "StoneGaze",
+        "Value": 71,
+        "Description": "Generated from table entry: Stone Gaze"
+      },
+      {
+        "Name": "_0x048",
+        "Value": 72,
+        "Description": "Generated from table entry: 0x048"
+      },
+      {
+        "Name": "Makajam",
+        "Value": 73,
+        "Description": "Generated from table entry: Makajam"
+      },
+      {
+        "Name": "Makajamon",
+        "Value": 74,
+        "Description": "Generated from table entry: Makajamon"
+      },
+      {
+        "Name": "DreamHaze",
+        "Value": 75,
+        "Description": "Generated from table entry: Dream Haze"
+      },
+      {
+        "Name": "Dormina",
+        "Value": 76,
+        "Description": "Generated from table entry: Dormina"
+      },
+      {
+        "Name": "CalmDeath",
+        "Value": 77,
+        "Description": "Generated from table entry: Calm Death"
+      },
+      {
+        "Name": "StunSphere",
+        "Value": 78,
+        "Description": "Generated from table entry: Stun Sphere"
+      },
+      {
+        "Name": "StunWave",
+        "Value": 79,
+        "Description": "Generated from table entry: Stun Wave"
+      },
+      {
+        "Name": "FoulBreath",
+        "Value": 80,
+        "Description": "Generated from table entry: Foul Breath"
+      },
+      {
+        "Name": "_0x051",
+        "Value": 81,
+        "Description": "Generated from table entry: 0x051"
+      },
+      {
+        "Name": "_0x052",
+        "Value": 82,
+        "Description": "Generated from table entry: 0x052"
+      },
+      {
+        "Name": "Pulinpa",
+        "Value": 83,
+        "Description": "Generated from table entry: Pulinpa"
+      },
+      {
+        "Name": "Tentarafoo",
+        "Value": 84,
+        "Description": "Generated from table entry: Tentarafoo"
+      },
+      {
+        "Name": "SonicWave",
+        "Value": 85,
+        "Description": "Generated from table entry: Sonic Wave"
+      },
+      {
+        "Name": "MarinKarin",
+        "Value": 86,
+        "Description": "Generated from table entry: Marin Karin"
+      },
+      {
+        "Name": "Allure",
+        "Value": 87,
+        "Description": "Generated from table entry: Allure"
+      },
+      {
+        "Name": "_0x058",
+        "Value": 88,
+        "Description": "Generated from table entry: 0x058"
+      },
+      {
+        "Name": "CelestialRay",
+        "Value": 89,
+        "Description": "Generated from table entry: Celestial Ray"
+      },
+      {
+        "Name": "Cocytus",
+        "Value": 90,
+        "Description": "Generated from table entry: Cocytus"
+      },
+      {
+        "Name": "_0x05B",
+        "Value": 91,
+        "Description": "Generated from table entry: 0x05B"
+      },
+      {
+        "Name": "_0x05C",
+        "Value": 92,
+        "Description": "Generated from table entry: 0x05C"
+      },
+      {
+        "Name": "_0x05D",
+        "Value": 93,
+        "Description": "Generated from table entry: 0x05D"
+      },
+      {
+        "Name": "DeathFlies",
+        "Value": 94,
+        "Description": "Generated from table entry: Death Flies"
+      },
+      {
+        "Name": "FireofSinai",
+        "Value": 95,
+        "Description": "Generated from table entry: Fire of Sinai"
+      },
+      {
+        "Name": "_0x060",
+        "Value": 96,
+        "Description": "Generated from table entry: 0x060"
+      },
+      {
+        "Name": "_0x061",
+        "Value": 97,
+        "Description": "Generated from table entry: 0x061"
+      },
+      {
+        "Name": "_0x062",
+        "Value": 98,
+        "Description": "Generated from table entry: 0x062"
+      },
+      {
+        "Name": "_0x063",
+        "Value": 99,
+        "Description": "Generated from table entry: 0x063"
+      },
+      {
+        "Name": "_0x064",
+        "Value": 100,
+        "Description": "Generated from table entry: 0x064"
+      },
+      {
+        "Name": "_0x065",
+        "Value": 101,
+        "Description": "Generated from table entry: 0x065"
+      },
+      {
+        "Name": "_0x066",
+        "Value": 102,
+        "Description": "Generated from table entry: 0x066"
+      },
+      {
+        "Name": "_0x067",
+        "Value": 103,
+        "Description": "Generated from table entry: 0x067"
+      },
+      {
+        "Name": "_0x068",
+        "Value": 104,
+        "Description": "Generated from table entry: 0x068"
+      },
+      {
+        "Name": "_0x069",
+        "Value": 105,
+        "Description": "Generated from table entry: 0x069"
+      },
+      {
+        "Name": "_0x06A",
+        "Value": 106,
+        "Description": "Generated from table entry: 0x06A"
+      },
+      {
+        "Name": "_0x06B",
+        "Value": 107,
+        "Description": "Generated from table entry: 0x06B"
+      },
+      {
+        "Name": "_0x06C",
+        "Value": 108,
+        "Description": "Generated from table entry: 0x06C"
+      },
+      {
+        "Name": "_0x06D",
+        "Value": 109,
+        "Description": "Generated from table entry: 0x06D"
+      },
+      {
+        "Name": "_0x06E",
+        "Value": 110,
+        "Description": "Generated from table entry: 0x06E"
+      },
+      {
+        "Name": "_0x06F",
+        "Value": 111,
+        "Description": "Generated from table entry: 0x06F"
+      },
+      {
+        "Name": "BodyRush",
+        "Value": 112,
+        "Description": "Generated from table entry: Body Rush"
+      },
+      {
+        "Name": "NeedleRush",
+        "Value": 113,
+        "Description": "Generated from table entry: Needle Rush"
+      },
+      {
+        "Name": "PoisonDart",
+        "Value": 114,
+        "Description": "Generated from table entry: Poison Dart"
+      },
+      {
+        "Name": "VenomClaw",
+        "Value": 115,
+        "Description": "Generated from table entry: Venom Claw"
+      },
+      {
+        "Name": "RavingSlash",
+        "Value": 116,
+        "Description": "Generated from table entry: Raving Slash"
+      },
+      {
+        "Name": "DeathSpray",
+        "Value": 117,
+        "Description": "Generated from table entry: Death Spray"
+      },
+      {
+        "Name": "StunNeedle",
+        "Value": 118,
+        "Description": "Generated from table entry: Stun Needle"
+      },
+      {
+        "Name": "MadRush",
+        "Value": 119,
+        "Description": "Generated from table entry: Mad Rush"
+      },
+      {
+        "Name": "DoubleSlash",
+        "Value": 120,
+        "Description": "Generated from table entry: Double Slash"
+      },
+      {
+        "Name": "HellThrust",
+        "Value": 121,
+        "Description": "Generated from table entry: Hell Thrust"
+      },
+      {
+        "Name": "HellFang",
+        "Value": 122,
+        "Description": "Generated from table entry: Hell Fang"
+      },
+      {
+        "Name": "Comatose",
+        "Value": 123,
+        "Description": "Generated from table entry: Comatose"
+      },
+      {
+        "Name": "CharmSlash",
+        "Value": 124,
+        "Description": "Generated from table entry: Charm Slash"
+      },
+      {
+        "Name": "SakuraRage",
+        "Value": 125,
+        "Description": "Generated from table entry: Sakura Rage"
+      },
+      {
+        "Name": "PowerWave",
+        "Value": 126,
+        "Description": "Generated from table entry: Power Wave"
+      },
+      {
+        "Name": "MindScream",
+        "Value": 127,
+        "Description": "Generated from table entry: Mind Scream"
+      },
+      {
+        "Name": "DeathBlow",
+        "Value": 128,
+        "Description": "Generated from table entry: Death Blow"
+      },
+      {
+        "Name": "ChiBlast",
+        "Value": 129,
+        "Description": "Generated from table entry: Chi Blast"
+      },
+      {
+        "Name": "MuteBlow",
+        "Value": 130,
+        "Description": "Generated from table entry: Mute Blow"
+      },
+      {
+        "Name": "SkullCleave",
+        "Value": 131,
+        "Description": "Generated from table entry: Skull Cleave"
+      },
+      {
+        "Name": "DemonRage",
+        "Value": 132,
+        "Description": "Generated from table entry: Demon Rage"
+      },
+      {
+        "Name": "_0x085",
+        "Value": 133,
+        "Description": "Generated from table entry: 0x085"
+      },
+      {
+        "Name": "VileBlade",
+        "Value": 134,
+        "Description": "Generated from table entry: Vile Blade"
+      },
+      {
+        "Name": "VenomFang",
+        "Value": 135,
+        "Description": "Generated from table entry: Venom Fang"
+      },
+      {
+        "Name": "Genocide",
+        "Value": 136,
+        "Description": "Generated from table entry: Genocide"
+      },
+      {
+        "Name": "GateofHell",
+        "Value": 137,
+        "Description": "Generated from table entry: Gate of Hell"
+      },
+      {
+        "Name": "Executioner",
+        "Value": 138,
+        "Description": "Generated from table entry: Executioner"
+      },
+      {
+        "Name": "Bloodbath",
+        "Value": 139,
+        "Description": "Generated from table entry: Bloodbath"
+      },
+      {
+        "Name": "Revelation",
+        "Value": 140,
+        "Description": "Generated from table entry: Revelation"
+      },
+      {
+        "Name": "Ragnarok",
+        "Value": 141,
+        "Description": "Generated from table entry: Ragnarok"
+      },
+      {
+        "Name": "Counter",
+        "Value": 142,
+        "Description": "Generated from table entry: Counter"
+      },
+      {
+        "Name": "Counterstrike",
+        "Value": 143,
+        "Description": "Generated from table entry: Counterstrike"
+      },
+      {
+        "Name": "HighCounter",
+        "Value": 144,
+        "Description": "Generated from table entry: High Counter"
+      },
+      {
+        "Name": "_0x091",
+        "Value": 145,
+        "Description": "Generated from table entry: 0x091"
+      },
+      {
+        "Name": "_0x092",
+        "Value": 146,
+        "Description": "Generated from table entry: 0x092"
+      },
+      {
+        "Name": "_0x093",
+        "Value": 147,
+        "Description": "Generated from table entry: 0x093"
+      },
+      {
+        "Name": "_0x094",
+        "Value": 148,
+        "Description": "Generated from table entry: 0x094"
+      },
+      {
+        "Name": "_0x095",
+        "Value": 149,
+        "Description": "Generated from table entry: 0x095"
+      },
+      {
+        "Name": "_0x096",
+        "Value": 150,
+        "Description": "Generated from table entry: 0x096"
+      },
+      {
+        "Name": "_0x097",
+        "Value": 151,
+        "Description": "Generated from table entry: 0x097"
+      },
+      {
+        "Name": "_0x098",
+        "Value": 152,
+        "Description": "Generated from table entry: 0x098"
+      },
+      {
+        "Name": "_0x099",
+        "Value": 153,
+        "Description": "Generated from table entry: 0x099"
+      },
+      {
+        "Name": "_0x09A",
+        "Value": 154,
+        "Description": "Generated from table entry: 0x09A"
+      },
+      {
+        "Name": "_0x09B",
+        "Value": 155,
+        "Description": "Generated from table entry: 0x09B"
+      },
+      {
+        "Name": "_0x09C",
+        "Value": 156,
+        "Description": "Generated from table entry: 0x09C"
+      },
+      {
+        "Name": "_0x09D",
+        "Value": 157,
+        "Description": "Generated from table entry: 0x09D"
+      },
+      {
+        "Name": "_0x09E",
+        "Value": 158,
+        "Description": "Generated from table entry: 0x09E"
+      },
+      {
+        "Name": "_0x09F",
+        "Value": 159,
+        "Description": "Generated from table entry: 0x09F"
+      },
+      {
+        "Name": "Dia",
+        "Value": 160,
+        "Description": "Generated from table entry: Dia"
+      },
+      {
+        "Name": "Diarama",
+        "Value": 161,
+        "Description": "Generated from table entry: Diarama"
+      },
+      {
+        "Name": "Diarahan",
+        "Value": 162,
+        "Description": "Generated from table entry: Diarahan"
+      },
+      {
+        "Name": "Media",
+        "Value": 163,
+        "Description": "Generated from table entry: Media"
+      },
+      {
+        "Name": "Mediarama",
+        "Value": 164,
+        "Description": "Generated from table entry: Mediarama"
+      },
+      {
+        "Name": "Mediarahan",
+        "Value": 165,
+        "Description": "Generated from table entry: Mediarahan"
+      },
+      {
+        "Name": "Patra",
+        "Value": 166,
+        "Description": "Generated from table entry: Patra"
+      },
+      {
+        "Name": "MePatra",
+        "Value": 167,
+        "Description": "Generated from table entry: Me Patra"
+      },
+      {
+        "Name": "Closdi",
+        "Value": 168,
+        "Description": "Generated from table entry: Closdi"
+      },
+      {
+        "Name": "Posumudi",
+        "Value": 169,
+        "Description": "Generated from table entry: Posumudi"
+      },
+      {
+        "Name": "_0x0AA",
+        "Value": 170,
+        "Description": "Generated from table entry: 0x0AA"
+      },
+      {
+        "Name": "Recarm",
+        "Value": 171,
+        "Description": "Generated from table entry: Recarm"
+      },
+      {
+        "Name": "Samarecarm",
+        "Value": 172,
+        "Description": "Generated from table entry: Samarecarm"
+      },
+      {
+        "Name": "Recarmdra",
+        "Value": 173,
+        "Description": "Generated from table entry: Recarmdra"
+      },
+      {
+        "Name": "Salvation",
+        "Value": 174,
+        "Description": "Generated from table entry: Salvation"
+      },
+      {
+        "Name": "Makatora",
+        "Value": 175,
+        "Description": "Generated from table entry: Makatora"
+      },
+      {
+        "Name": "Tarunda",
+        "Value": 176,
+        "Description": "Generated from table entry: Tarunda"
+      },
+      {
+        "Name": "Sukunda",
+        "Value": 177,
+        "Description": "Generated from table entry: Sukunda"
+      },
+      {
+        "Name": "Rakunda",
+        "Value": 178,
+        "Description": "Generated from table entry: Rakunda"
+      },
+      {
+        "Name": "Makanda",
+        "Value": 179,
+        "Description": "Generated from table entry: Makanda"
+      },
+      {
+        "Name": "Dekunda",
+        "Value": 180,
+        "Description": "Generated from table entry: Dekunda"
+      },
+      {
+        "Name": "Tarukaja",
+        "Value": 181,
+        "Description": "Generated from table entry: Tarukaja"
+      },
+      {
+        "Name": "Sukukaja",
+        "Value": 182,
+        "Description": "Generated from table entry: Sukukaja"
+      },
+      {
+        "Name": "Rakukaja",
+        "Value": 183,
+        "Description": "Generated from table entry: Rakukaja"
+      },
+      {
+        "Name": "Makakaja",
+        "Value": 184,
+        "Description": "Generated from table entry: Makakaja"
+      },
+      {
+        "Name": "Dekaja",
+        "Value": 185,
+        "Description": "Generated from table entry: Dekaja"
+      },
+      {
+        "Name": "_0x0BA",
+        "Value": 186,
+        "Description": "Generated from table entry: 0x0BA"
+      },
+      {
+        "Name": "_0x0BB",
+        "Value": 187,
+        "Description": "Generated from table entry: 0x0BB"
+      },
+      {
+        "Name": "_0x0BC",
+        "Value": 188,
+        "Description": "Generated from table entry: 0x0BC"
+      },
+      {
+        "Name": "Taunt",
+        "Value": 189,
+        "Description": "Generated from table entry: Taunt"
+      },
+      {
+        "Name": "Debilitate",
+        "Value": 190,
+        "Description": "Generated from table entry: Debilitate"
+      },
+      {
+        "Name": "Analyze",
+        "Value": 191,
+        "Description": "Generated from table entry: Analyze"
+      },
+      {
+        "Name": "PowerCharge",
+        "Value": 192,
+        "Description": "Generated from table entry: Power Charge"
+      },
+      {
+        "Name": "MindCharge",
+        "Value": 193,
+        "Description": "Generated from table entry: Mind Charge"
+      },
+      {
+        "Name": "Retreat",
+        "Value": 194,
+        "Description": "Generated from table entry: Retreat"
+      },
+      {
+        "Name": "Reinforcements",
+        "Value": 195,
+        "Description": "Generated from table entry: Reinforcements"
+      },
+      {
+        "Name": "_0x0C4",
+        "Value": 196,
+        "Description": "Generated from table entry: 0x0C4"
+      },
+      {
+        "Name": "_0x0C5",
+        "Value": 197,
+        "Description": "Generated from table entry: 0x0C5"
+      },
+      {
+        "Name": "_0x0C6",
+        "Value": 198,
+        "Description": "Generated from table entry: 0x0C6"
+      },
+      {
+        "Name": "_0x0C7",
+        "Value": 199,
+        "Description": "Generated from table entry: 0x0C7"
+      },
+      {
+        "Name": "_0x0C8",
+        "Value": 200,
+        "Description": "Generated from table entry: 0x0C8"
+      },
+      {
+        "Name": "_0x0C9",
+        "Value": 201,
+        "Description": "Generated from table entry: 0x0C9"
+      },
+      {
+        "Name": "_0x0CA",
+        "Value": 202,
+        "Description": "Generated from table entry: 0x0CA"
+      },
+      {
+        "Name": "Support",
+        "Value": 203,
+        "Description": "Generated from table entry: Support"
+      },
+      {
+        "Name": "Backup",
+        "Value": 204,
+        "Description": "Generated from table entry: Backup"
+      },
+      {
+        "Name": "Summon",
+        "Value": 205,
+        "Description": "Generated from table entry: Summon"
+      },
+      {
+        "Name": "Achedi",
+        "Value": 206,
+        "Description": "Generated from table entry: Achedi"
+      },
+      {
+        "Name": "Paraladi",
+        "Value": 207,
+        "Description": "Generated from table entry: Paraladi"
+      },
+      {
+        "Name": "Petradi",
+        "Value": 208,
+        "Description": "Generated from table entry: Petradi"
+      },
+      {
+        "Name": "SongofGrace",
+        "Value": 209,
+        "Description": "Generated from table entry: Song of Grace"
+      },
+      {
+        "Name": "SongofGrace1",
+        "Value": 210,
+        "Description": "Generated from table entry: Song of Grace"
+      },
+      {
+        "Name": "CelestialGift",
+        "Value": 211,
+        "Description": "Generated from table entry: Celestial Gift"
+      },
+      {
+        "Name": "Cursedi",
+        "Value": 212,
+        "Description": "Generated from table entry: Cursedi"
+      },
+      {
+        "Name": "ElementCore",
+        "Value": 213,
+        "Description": "Generated from table entry: Element Core"
+      },
+      {
+        "Name": "_0x0D6",
+        "Value": 214,
+        "Description": "Generated from table entry: 0x0D6"
+      },
+      {
+        "Name": "_0x0D7",
+        "Value": 215,
+        "Description": "Generated from table entry: 0x0D7"
+      },
+      {
+        "Name": "_0x0D8",
+        "Value": 216,
+        "Description": "Generated from table entry: 0x0D8"
+      },
+      {
+        "Name": "_0x0D9",
+        "Value": 217,
+        "Description": "Generated from table entry: 0x0D9"
+      },
+      {
+        "Name": "_0x0DA",
+        "Value": 218,
+        "Description": "Generated from table entry: 0x0DA"
+      },
+      {
+        "Name": "_0x0DB",
+        "Value": 219,
+        "Description": "Generated from table entry: 0x0DB"
+      },
+      {
+        "Name": "_0x0DC",
+        "Value": 220,
+        "Description": "Generated from table entry: 0x0DC"
+      },
+      {
+        "Name": "_0x0DD",
+        "Value": 221,
+        "Description": "Generated from table entry: 0x0DD"
+      },
+      {
+        "Name": "_0x0DE",
+        "Value": 222,
+        "Description": "Generated from table entry: 0x0DE"
+      },
+      {
+        "Name": "_0x0DF",
+        "Value": 223,
+        "Description": "Generated from table entry: 0x0DF"
+      },
+      {
+        "Name": "Devour",
+        "Value": 224,
+        "Description": "Generated from table entry: Devour"
+      },
+      {
+        "Name": "Consume",
+        "Value": 225,
+        "Description": "Generated from table entry: Consume"
+      },
+      {
+        "Name": "DevilFeast",
+        "Value": 226,
+        "Description": "Generated from table entry: Devil Feast"
+      },
+      {
+        "Name": "Ingest",
+        "Value": 227,
+        "Description": "Generated from table entry: Ingest"
+      },
+      {
+        "Name": "FeedFrenzy",
+        "Value": 228,
+        "Description": "Generated from table entry: Feed Frenzy"
+      },
+      {
+        "Name": "Insatiable",
+        "Value": 229,
+        "Description": "Generated from table entry: Insatiable"
+      },
+      {
+        "Name": "GreatFeast",
+        "Value": 230,
+        "Description": "Generated from table entry: Great Feast"
+      },
+      {
+        "Name": "WhiteBanquet",
+        "Value": 231,
+        "Description": "Generated from table entry: White Banquet"
+      },
+      {
+        "Name": "BlackBanquet",
+        "Value": 232,
+        "Description": "Generated from table entry: Black Banquet"
+      },
+      {
+        "Name": "LastMeal",
+        "Value": 233,
+        "Description": "Generated from table entry: Last Meal"
+      },
+      {
+        "Name": "_0x0EA",
+        "Value": 234,
+        "Description": "Generated from table entry: 0x0EA"
+      },
+      {
+        "Name": "_0x0EB",
+        "Value": 235,
+        "Description": "Generated from table entry: 0x0EB"
+      },
+      {
+        "Name": "_0x0EC",
+        "Value": 236,
+        "Description": "Generated from table entry: 0x0EC"
+      },
+      {
+        "Name": "_0x0ED",
+        "Value": 237,
+        "Description": "Generated from table entry: 0x0ED"
+      },
+      {
+        "Name": "_0x0EE",
+        "Value": 238,
+        "Description": "Generated from table entry: 0x0EE"
+      },
+      {
+        "Name": "_0x0EF",
+        "Value": 239,
+        "Description": "Generated from table entry: 0x0EF"
+      },
+      {
+        "Name": "_0x0F0",
+        "Value": 240,
+        "Description": "Generated from table entry: 0x0F0"
+      },
+      {
+        "Name": "_0x0F1",
+        "Value": 241,
+        "Description": "Generated from table entry: 0x0F1"
+      },
+      {
+        "Name": "_0x0F2",
+        "Value": 242,
+        "Description": "Generated from table entry: 0x0F2"
+      },
+      {
+        "Name": "_0x0F3",
+        "Value": 243,
+        "Description": "Generated from table entry: 0x0F3"
+      },
+      {
+        "Name": "_0x0F4",
+        "Value": 244,
+        "Description": "Generated from table entry: 0x0F4"
+      },
+      {
+        "Name": "_0x0F5",
+        "Value": 245,
+        "Description": "Generated from table entry: 0x0F5"
+      },
+      {
+        "Name": "_0x0F6",
+        "Value": 246,
+        "Description": "Generated from table entry: 0x0F6"
+      },
+      {
+        "Name": "_0x0F7",
+        "Value": 247,
+        "Description": "Generated from table entry: 0x0F7"
+      },
+      {
+        "Name": "_0x0F8",
+        "Value": 248,
+        "Description": "Generated from table entry: 0x0F8"
+      },
+      {
+        "Name": "_0x0F9",
+        "Value": 249,
+        "Description": "Generated from table entry: 0x0F9"
+      },
+      {
+        "Name": "_0x0FA",
+        "Value": 250,
+        "Description": "Generated from table entry: 0x0FA"
+      },
+      {
+        "Name": "_0x0FB",
+        "Value": 251,
+        "Description": "Generated from table entry: 0x0FB"
+      },
+      {
+        "Name": "_0x0FC",
+        "Value": 252,
+        "Description": "Generated from table entry: 0x0FC"
+      },
+      {
+        "Name": "_0x0FD",
+        "Value": 253,
+        "Description": "Generated from table entry: 0x0FD"
+      },
+      {
+        "Name": "_0x0FE",
+        "Value": 254,
+        "Description": "Generated from table entry: 0x0FE"
+      },
+      {
+        "Name": "_0x0FF",
+        "Value": 255,
+        "Description": "Generated from table entry: 0x0FF"
+      },
+      {
+        "Name": "JavelinRain",
+        "Value": 256,
+        "Description": "Generated from table entry: Javelin Rain"
+      },
+      {
+        "Name": "XerosBeat",
+        "Value": 257,
+        "Description": "Generated from table entry: Xeros-Beat"
+      },
+      {
+        "Name": "HeatWave",
+        "Value": 258,
+        "Description": "Generated from table entry: Heat Wave"
+      },
+      {
+        "Name": "_0x103",
+        "Value": 259,
+        "Description": "Generated from table entry: 0x103"
+      },
+      {
+        "Name": "_0x104",
+        "Value": 260,
+        "Description": "Generated from table entry: 0x104"
+      },
+      {
+        "Name": "_0x105",
+        "Value": 261,
+        "Description": "Generated from table entry: 0x105"
+      },
+      {
+        "Name": "_0x106",
+        "Value": 262,
+        "Description": "Generated from table entry: 0x106"
+      },
+      {
+        "Name": "_0x107",
+        "Value": 263,
+        "Description": "Generated from table entry: 0x107"
+      },
+      {
+        "Name": "_0x108",
+        "Value": 264,
+        "Description": "Generated from table entry: 0x108"
+      },
+      {
+        "Name": "_0x109",
+        "Value": 265,
+        "Description": "Generated from table entry: 0x109"
+      },
+      {
+        "Name": "_0x10A",
+        "Value": 266,
+        "Description": "Generated from table entry: 0x10A"
+      },
+      {
+        "Name": "_0x10B",
+        "Value": 267,
+        "Description": "Generated from table entry: 0x10B"
+      },
+      {
+        "Name": "_0x10C",
+        "Value": 268,
+        "Description": "Generated from table entry: 0x10C"
+      },
+      {
+        "Name": "_0x10D",
+        "Value": 269,
+        "Description": "Generated from table entry: 0x10D"
+      },
+      {
+        "Name": "_0x10E",
+        "Value": 270,
+        "Description": "Generated from table entry: 0x10E"
+      },
+      {
+        "Name": "_0x10F",
+        "Value": 271,
+        "Description": "Generated from table entry: 0x10F"
+      },
+      {
+        "Name": "Ration",
+        "Value": 272,
+        "Description": "Generated from table entry: Ration"
+      },
+      {
+        "Name": "BraveRation",
+        "Value": 273,
+        "Description": "Generated from table entry: Brave Ration"
+      },
+      {
+        "Name": "HeroRation",
+        "Value": 274,
+        "Description": "Generated from table entry: Hero Ration"
+      },
+      {
+        "Name": "SablePack",
+        "Value": 275,
+        "Description": "Generated from table entry: Sable Pack"
+      },
+      {
+        "Name": "SauteBox",
+        "Value": 276,
+        "Description": "Generated from table entry: Saute Box"
+      },
+      {
+        "Name": "MedicalKit",
+        "Value": 277,
+        "Description": "Generated from table entry: Medical Kit"
+      },
+      {
+        "Name": "ChakraDrop",
+        "Value": 278,
+        "Description": "Generated from table entry: Chakra Drop"
+      },
+      {
+        "Name": "ChakraPot",
+        "Value": 279,
+        "Description": "Generated from table entry: Chakra Pot"
+      },
+      {
+        "Name": "GreatChakra",
+        "Value": 280,
+        "Description": "Generated from table entry: Great Chakra"
+      },
+      {
+        "Name": "SomaDroplet",
+        "Value": 281,
+        "Description": "Generated from table entry: Soma Droplet"
+      },
+      {
+        "Name": "Soma",
+        "Value": 282,
+        "Description": "Generated from table entry: Soma"
+      },
+      {
+        "Name": "MuscleDrink",
+        "Value": 283,
+        "Description": "Generated from table entry: Muscle Drink"
+      },
+      {
+        "Name": "DisAche",
+        "Value": 284,
+        "Description": "Generated from table entry: Dis-Ache"
+      },
+      {
+        "Name": "OddMorsel",
+        "Value": 285,
+        "Description": "Generated from table entry: Odd Morsel"
+      },
+      {
+        "Name": "MoldyRoll",
+        "Value": 286,
+        "Description": "Generated from table entry: Moldy Roll"
+      },
+      {
+        "Name": "RancidGravy",
+        "Value": 287,
+        "Description": "Generated from table entry: Rancid Gravy"
+      },
+      {
+        "Name": "_0x120",
+        "Value": 288,
+        "Description": "Generated from table entry: 0x120"
+      },
+      {
+        "Name": "_0x121",
+        "Value": 289,
+        "Description": "Generated from table entry: 0x121"
+      },
+      {
+        "Name": "_0x122",
+        "Value": 290,
+        "Description": "Generated from table entry: 0x122"
+      },
+      {
+        "Name": "_0x123",
+        "Value": 291,
+        "Description": "Generated from table entry: 0x123"
+      },
+      {
+        "Name": "_0x124",
+        "Value": 292,
+        "Description": "Generated from table entry: 0x124"
+      },
+      {
+        "Name": "_0x125",
+        "Value": 293,
+        "Description": "Generated from table entry: 0x125"
+      },
+      {
+        "Name": "_0x126",
+        "Value": 294,
+        "Description": "Generated from table entry: 0x126"
+      },
+      {
+        "Name": "_0x127",
+        "Value": 295,
+        "Description": "Generated from table entry: 0x127"
+      },
+      {
+        "Name": "_0x128",
+        "Value": 296,
+        "Description": "Generated from table entry: 0x128"
+      },
+      {
+        "Name": "_0x129",
+        "Value": 297,
+        "Description": "Generated from table entry: 0x129"
+      },
+      {
+        "Name": "_0x12A",
+        "Value": 298,
+        "Description": "Generated from table entry: 0x12A"
+      },
+      {
+        "Name": "_0x12B",
+        "Value": 299,
+        "Description": "Generated from table entry: 0x12B"
+      },
+      {
+        "Name": "_0x12C",
+        "Value": 300,
+        "Description": "Generated from table entry: 0x12C"
+      },
+      {
+        "Name": "_0x12D",
+        "Value": 301,
+        "Description": "Generated from table entry: 0x12D"
+      },
+      {
+        "Name": "_0x12E",
+        "Value": 302,
+        "Description": "Generated from table entry: 0x12E"
+      },
+      {
+        "Name": "_0x12F",
+        "Value": 303,
+        "Description": "Generated from table entry: 0x12F"
+      },
+      {
+        "Name": "Bullet",
+        "Value": 304,
+        "Description": "Generated from table entry: Bullet"
+      },
+      {
+        "Name": "ChargeAmmo",
+        "Value": 305,
+        "Description": "Generated from table entry: Charge Ammo"
+      },
+      {
+        "Name": "TranqAmmo",
+        "Value": 306,
+        "Description": "Generated from table entry: Tranq Ammo"
+      },
+      {
+        "Name": "ShotShell",
+        "Value": 307,
+        "Description": "Generated from table entry: Shot Shell"
+      },
+      {
+        "Name": "NerveAmmo",
+        "Value": 308,
+        "Description": "Generated from table entry: Nerve Ammo"
+      },
+      {
+        "Name": "FrigidAmmo",
+        "Value": 309,
+        "Description": "Generated from table entry: Frigid Ammo"
+      },
+      {
+        "Name": "MetalJacket",
+        "Value": 310,
+        "Description": "Generated from table entry: Metal Jacket"
+      },
+      {
+        "Name": "HollowPoint",
+        "Value": 311,
+        "Description": "Generated from table entry: Hollow Point"
+      },
+      {
+        "Name": "CharmAmmo",
+        "Value": 312,
+        "Description": "Generated from table entry: Charm Ammo"
+      },
+      {
+        "Name": "IronAmmo",
+        "Value": 313,
+        "Description": "Generated from table entry: Iron Ammo"
+      },
+      {
+        "Name": "NeutronAmmo",
+        "Value": 314,
+        "Description": "Generated from table entry: Neutron Ammo"
+      },
+      {
+        "Name": "_0x13B",
+        "Value": 315,
+        "Description": "Generated from table entry: 0x13B"
+      },
+      {
+        "Name": "SilverAmmo",
+        "Value": 316,
+        "Description": "Generated from table entry: Silver Ammo"
+      },
+      {
+        "Name": "ForgedAmmo",
+        "Value": 317,
+        "Description": "Generated from table entry: Forged Ammo"
+      },
+      {
+        "Name": "DeadEnd",
+        "Value": 318,
+        "Description": "Generated from table entry: Dead End"
+      },
+      {
+        "Name": "_0x13F",
+        "Value": 319,
+        "Description": "Generated from table entry: 0x13F"
+      },
+      {
+        "Name": "Matama",
+        "Value": 320,
+        "Description": "Generated from table entry: Matama"
+      },
+      {
+        "Name": "_0x141",
+        "Value": 321,
+        "Description": "Generated from table entry: 0x141"
+      },
+      {
+        "Name": "_0x142",
+        "Value": 322,
+        "Description": "Generated from table entry: 0x142"
+      },
+      {
+        "Name": "_0x143",
+        "Value": 323,
+        "Description": "Generated from table entry: 0x143"
+      },
+      {
+        "Name": "_0x144",
+        "Value": 324,
+        "Description": "Generated from table entry: 0x144"
+      },
+      {
+        "Name": "_0x145",
+        "Value": 325,
+        "Description": "Generated from table entry: 0x145"
+      },
+      {
+        "Name": "_0x146",
+        "Value": 326,
+        "Description": "Generated from table entry: 0x146"
+      },
+      {
+        "Name": "_0x147",
+        "Value": 327,
+        "Description": "Generated from table entry: 0x147"
+      },
+      {
+        "Name": "_0x148",
+        "Value": 328,
+        "Description": "Generated from table entry: 0x148"
+      },
+      {
+        "Name": "_0x149",
+        "Value": 329,
+        "Description": "Generated from table entry: 0x149"
+      },
+      {
+        "Name": "_0x14A",
+        "Value": 330,
+        "Description": "Generated from table entry: 0x14A"
+      },
+      {
+        "Name": "_0x14B",
+        "Value": 331,
+        "Description": "Generated from table entry: 0x14B"
+      },
+      {
+        "Name": "_0x14C",
+        "Value": 332,
+        "Description": "Generated from table entry: 0x14C"
+      },
+      {
+        "Name": "_0x14D",
+        "Value": 333,
+        "Description": "Generated from table entry: 0x14D"
+      },
+      {
+        "Name": "_0x14E",
+        "Value": 334,
+        "Description": "Generated from table entry: 0x14E"
+      },
+      {
+        "Name": "_0x14F",
+        "Value": 335,
+        "Description": "Generated from table entry: 0x14F"
+      },
+      {
+        "Name": "VoidPhys",
+        "Value": 336,
+        "Description": "Generated from table entry: Void Phys"
+      },
+      {
+        "Name": "VoidFire",
+        "Value": 337,
+        "Description": "Generated from table entry: Void Fire"
+      },
+      {
+        "Name": "VoidIce",
+        "Value": 338,
+        "Description": "Generated from table entry: Void Ice"
+      },
+      {
+        "Name": "VoidElec",
+        "Value": 339,
+        "Description": "Generated from table entry: Void Elec"
+      },
+      {
+        "Name": "VoidForce",
+        "Value": 340,
+        "Description": "Generated from table entry: Void Force"
+      },
+      {
+        "Name": "VoidEarth",
+        "Value": 341,
+        "Description": "Generated from table entry: Void Earth"
+      },
+      {
+        "Name": "VoidExpel",
+        "Value": 342,
+        "Description": "Generated from table entry: Void Expel"
+      },
+      {
+        "Name": "VoidDeath",
+        "Value": 343,
+        "Description": "Generated from table entry: Void Death"
+      },
+      {
+        "Name": "VoidCharm",
+        "Value": 344,
+        "Description": "Generated from table entry: Void Charm"
+      },
+      {
+        "Name": "VoidPoison",
+        "Value": 345,
+        "Description": "Generated from table entry: Void Poison"
+      },
+      {
+        "Name": "VoidMute",
+        "Value": 346,
+        "Description": "Generated from table entry: Void Mute"
+      },
+      {
+        "Name": "VoidPanic",
+        "Value": 347,
+        "Description": "Generated from table entry: Void Panic"
+      },
+      {
+        "Name": "VoidNerve",
+        "Value": 348,
+        "Description": "Generated from table entry: Void Nerve"
+      },
+      {
+        "Name": "PhysDrain",
+        "Value": 349,
+        "Description": "Generated from table entry: Phys Drain"
+      },
+      {
+        "Name": "FireDrain",
+        "Value": 350,
+        "Description": "Generated from table entry: Fire Drain"
+      },
+      {
+        "Name": "IceDrain",
+        "Value": 351,
+        "Description": "Generated from table entry: Ice Drain"
+      },
+      {
+        "Name": "ElecDrain",
+        "Value": 352,
+        "Description": "Generated from table entry: Elec Drain"
+      },
+      {
+        "Name": "ForceDrain",
+        "Value": 353,
+        "Description": "Generated from table entry: Force Drain"
+      },
+      {
+        "Name": "EarthDrain",
+        "Value": 354,
+        "Description": "Generated from table entry: Earth Drain"
+      },
+      {
+        "Name": "PhysDrain1",
+        "Value": 355,
+        "Description": "Generated from table entry: Phys Drain"
+      },
+      {
+        "Name": "FireRepel",
+        "Value": 356,
+        "Description": "Generated from table entry: Fire Repel"
+      },
+      {
+        "Name": "IceRepel",
+        "Value": 357,
+        "Description": "Generated from table entry: Ice Repel"
+      },
+      {
+        "Name": "ElecRepel",
+        "Value": 358,
+        "Description": "Generated from table entry: Elec Repel"
+      },
+      {
+        "Name": "ForceRepel",
+        "Value": 359,
+        "Description": "Generated from table entry: Force Repel"
+      },
+      {
+        "Name": "EarthRepel",
+        "Value": 360,
+        "Description": "Generated from table entry: Earth Repel"
+      },
+      {
+        "Name": "ExpelRepel",
+        "Value": 361,
+        "Description": "Generated from table entry: Expel Repel"
+      },
+      {
+        "Name": "DeathRepel",
+        "Value": 362,
+        "Description": "Generated from table entry: Death Repel"
+      },
+      {
+        "Name": "Tetraja",
+        "Value": 363,
+        "Description": "Generated from table entry: Tetraja"
+      },
+      {
+        "Name": "PhysRepel",
+        "Value": 364,
+        "Description": "Generated from table entry: Phys Repel"
+      },
+      {
+        "Name": "MagicRepel",
+        "Value": 365,
+        "Description": "Generated from table entry: Magic Repel"
+      },
+      {
+        "Name": "_0x16E",
+        "Value": 366,
+        "Description": "Generated from table entry: 0x16E"
+      },
+      {
+        "Name": "_0x16F",
+        "Value": 367,
+        "Description": "Generated from table entry: 0x16F"
+      },
+      {
+        "Name": "Reunite",
+        "Value": 368,
+        "Description": "Generated from table entry: Reunite"
+      },
+      {
+        "Name": "Absorb",
+        "Value": 369,
+        "Description": "Generated from table entry: Absorb"
+      },
+      {
+        "Name": "Cannibalize",
+        "Value": 370,
+        "Description": "Generated from table entry: Cannibalize"
+      },
+      {
+        "Name": "Cannibalize1",
+        "Value": 371,
+        "Description": "Generated from table entry: Cannibalize"
+      },
+      {
+        "Name": "Cannibalize2",
+        "Value": 372,
+        "Description": "Generated from table entry: Cannibalize"
+      },
+      {
+        "Name": "DeathFlies1",
+        "Value": 373,
+        "Description": "Generated from table entry: Death Flies"
+      },
+      {
+        "Name": "FireofSinai1",
+        "Value": 374,
+        "Description": "Generated from table entry: Fire of Sinai"
+      },
+      {
+        "Name": "Cocytus1",
+        "Value": 375,
+        "Description": "Generated from table entry: Cocytus"
+      },
+      {
+        "Name": "FrostRush",
+        "Value": 376,
+        "Description": "Generated from table entry: Frost Rush"
+      },
+      {
+        "Name": "HungerWave",
+        "Value": 377,
+        "Description": "Generated from table entry: Hunger Wave"
+      },
+      {
+        "Name": "HungerWave1",
+        "Value": 378,
+        "Description": "Generated from table entry: Hunger Wave"
+      },
+      {
+        "Name": "Annihilate",
+        "Value": 379,
+        "Description": "Generated from table entry: Annihilate"
+      },
+      {
+        "Name": "HPThief1",
+        "Value": 380,
+        "Description": "Generated from table entry: HP Thief"
+      },
+      {
+        "Name": "Attack",
+        "Value": 381,
+        "Description": "Generated from table entry: Attack"
+      },
+      {
+        "Name": "Attack1",
+        "Value": 382,
+        "Description": "Generated from table entry: Attack"
+      },
+      {
+        "Name": "MPThief1",
+        "Value": 383,
+        "Description": "Generated from table entry: MP Thief"
+      },
+      {
+        "Name": "Skewer",
+        "Value": 384,
+        "Description": "Generated from table entry: Skewer"
+      },
+      {
+        "Name": "FireStorm",
+        "Value": 385,
+        "Description": "Generated from table entry: Fire Storm"
+      },
+      {
+        "Name": "Whirlwind",
+        "Value": 386,
+        "Description": "Generated from table entry: Whirlwind"
+      },
+      {
+        "Name": "Reserve",
+        "Value": 387,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "WindsofHell",
+        "Value": 388,
+        "Description": "Generated from table entry: Winds of Hell"
+      },
+      {
+        "Name": "Leech",
+        "Value": 389,
+        "Description": "Generated from table entry: Leech"
+      },
+      {
+        "Name": "ZotzilahaBane",
+        "Value": 390,
+        "Description": "Generated from table entry: Zotzilaha Bane"
+      },
+      {
+        "Name": "SpiralEdge",
+        "Value": 391,
+        "Description": "Generated from table entry: Spiral Edge"
+      },
+      {
+        "Name": "DragonQuake",
+        "Value": 392,
+        "Description": "Generated from table entry: Dragon Quake"
+      },
+      {
+        "Name": "DragonThrash",
+        "Value": 393,
+        "Description": "Generated from table entry: Dragon Thrash"
+      },
+      {
+        "Name": "Rend",
+        "Value": 394,
+        "Description": "Generated from table entry: Rend"
+      },
+      {
+        "Name": "Camouflage",
+        "Value": 395,
+        "Description": "Generated from table entry: Camouflage"
+      },
+      {
+        "Name": "HungerWave2",
+        "Value": 396,
+        "Description": "Generated from table entry: Hunger Wave"
+      },
+      {
+        "Name": "InfiniteWind",
+        "Value": 397,
+        "Description": "Generated from table entry: Infinite Wind"
+      },
+      {
+        "Name": "Impale",
+        "Value": 398,
+        "Description": "Generated from table entry: Impale"
+      },
+      {
+        "Name": "HimaAlaya",
+        "Value": 399,
+        "Description": "Generated from table entry: Hima Alaya"
+      },
+      {
+        "Name": "Vaikunta",
+        "Value": 400,
+        "Description": "Generated from table entry: Vaikunta"
+      },
+      {
+        "Name": "Bhairava",
+        "Value": 401,
+        "Description": "Generated from table entry: Bhairava"
+      },
+      {
+        "Name": "Reserve1",
+        "Value": 402,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "_0x193",
+        "Value": 403,
+        "Description": "Generated from table entry: 0x193"
+      },
+      {
+        "Name": "_0x194",
+        "Value": 404,
+        "Description": "Generated from table entry: 0x194"
+      },
+      {
+        "Name": "_0x195",
+        "Value": 405,
+        "Description": "Generated from table entry: 0x195"
+      },
+      {
+        "Name": "_0x196",
+        "Value": 406,
+        "Description": "Generated from table entry: 0x196"
+      },
+      {
+        "Name": "_0x197",
+        "Value": 407,
+        "Description": "Generated from table entry: 0x197"
+      },
+      {
+        "Name": "_0x198",
+        "Value": 408,
+        "Description": "Generated from table entry: 0x198"
+      },
+      {
+        "Name": "_0x199",
+        "Value": 409,
+        "Description": "Generated from table entry: 0x199"
+      },
+      {
+        "Name": "_0x19A",
+        "Value": 410,
+        "Description": "Generated from table entry: 0x19A"
+      },
+      {
+        "Name": "_0x19B",
+        "Value": 411,
+        "Description": "Generated from table entry: 0x19B"
+      },
+      {
+        "Name": "_0x19C",
+        "Value": 412,
+        "Description": "Generated from table entry: 0x19C"
+      },
+      {
+        "Name": "_0x19D",
+        "Value": 413,
+        "Description": "Generated from table entry: 0x19D"
+      },
+      {
+        "Name": "_0x19E",
+        "Value": 414,
+        "Description": "Generated from table entry: 0x19E"
+      },
+      {
+        "Name": "_0x19F",
+        "Value": 415,
+        "Description": "Generated from table entry: 0x19F"
+      },
+      {
+        "Name": "ItemDrop",
+        "Value": 416,
+        "Description": "Generated from table entry: Item Drop"
+      },
+      {
+        "Name": "Cannibalize3",
+        "Value": 417,
+        "Description": "Generated from table entry: Cannibalize"
+      },
+      {
+        "Name": "Attack2",
+        "Value": 418,
+        "Description": "Generated from table entry: Attack"
+      },
+      {
+        "Name": "Attack3",
+        "Value": 419,
+        "Description": "Generated from table entry: Attack"
+      },
+      {
+        "Name": "Attack4",
+        "Value": 420,
+        "Description": "Generated from table entry: Attack"
+      },
+      {
+        "Name": "Attack5",
+        "Value": 421,
+        "Description": "Generated from table entry: Attack"
+      },
+      {
+        "Name": "Guard",
+        "Value": 422,
+        "Description": "Generated from table entry: Guard"
+      },
+      {
+        "Name": "GaeaRage",
+        "Value": 423,
+        "Description": "Generated from table entry: Gaea Rage"
+      },
+      {
+        "Name": "CelestialRay1",
+        "Value": 424,
+        "Description": "Generated from table entry: Celestial Ray"
+      },
+      {
+        "Name": "Rend1",
+        "Value": 425,
+        "Description": "Generated from table entry: Rend"
+      },
+      {
+        "Name": "Rend2",
+        "Value": 426,
+        "Description": "Generated from table entry: Rend"
+      },
+      {
+        "Name": "Pyriphlegethon",
+        "Value": 427,
+        "Description": "Generated from table entry: Pyriphlegethon"
+      },
+      {
+        "Name": "SeraphLore",
+        "Value": 428,
+        "Description": "Generated from table entry: Seraph Lore"
+      },
+      {
+        "Name": "Reincarnate",
+        "Value": 429,
+        "Description": "Generated from table entry: Reincarnate"
+      },
+      {
+        "Name": "Phlegethon",
+        "Value": 430,
+        "Description": "Generated from table entry: Phlegethon"
+      },
+      {
+        "Name": "_0x1AF",
+        "Value": 431,
+        "Description": "Generated from table entry: 0x1AF"
+      },
+      {
+        "Name": "Maragi1",
+        "Value": 432,
+        "Description": "Generated from table entry: Maragi"
+      },
+      {
+        "Name": "Maragion1",
+        "Value": 433,
+        "Description": "Generated from table entry: Maragion"
+      },
+      {
+        "Name": "Maragidyne1",
+        "Value": 434,
+        "Description": "Generated from table entry: Maragidyne"
+      },
+      {
+        "Name": "Trisagion",
+        "Value": 435,
+        "Description": "Generated from table entry: Trisagion"
+      },
+      {
+        "Name": "Mabufu1",
+        "Value": 436,
+        "Description": "Generated from table entry: Mabufu"
+      },
+      {
+        "Name": "Mabufula1",
+        "Value": 437,
+        "Description": "Generated from table entry: Mabufula"
+      },
+      {
+        "Name": "Mabufudyne1",
+        "Value": 438,
+        "Description": "Generated from table entry: Mabufudyne"
+      },
+      {
+        "Name": "Fimbulvet",
+        "Value": 439,
+        "Description": "Generated from table entry: Fimbulvet"
+      },
+      {
+        "Name": "Mazio1",
+        "Value": 440,
+        "Description": "Generated from table entry: Mazio"
+      },
+      {
+        "Name": "Mazionga1",
+        "Value": 441,
+        "Description": "Generated from table entry: Mazionga"
+      },
+      {
+        "Name": "Maziodyne1",
+        "Value": 442,
+        "Description": "Generated from table entry: Maziodyne"
+      },
+      {
+        "Name": "Narukami",
+        "Value": 443,
+        "Description": "Generated from table entry: Narukami"
+      },
+      {
+        "Name": "Mazan1",
+        "Value": 444,
+        "Description": "Generated from table entry: Mazan"
+      },
+      {
+        "Name": "Mazanma1",
+        "Value": 445,
+        "Description": "Generated from table entry: Mazanma"
+      },
+      {
+        "Name": "Mazandyne1",
+        "Value": 446,
+        "Description": "Generated from table entry: Mazandyne"
+      },
+      {
+        "Name": "Vayaviya",
+        "Value": 447,
+        "Description": "Generated from table entry: Vayaviya"
+      },
+      {
+        "Name": "Matera1",
+        "Value": 448,
+        "Description": "Generated from table entry: Matera"
+      },
+      {
+        "Name": "Materazi1",
+        "Value": 449,
+        "Description": "Generated from table entry: Materazi"
+      },
+      {
+        "Name": "Materadyne1",
+        "Value": 450,
+        "Description": "Generated from table entry: Materadyne"
+      },
+      {
+        "Name": "Titan",
+        "Value": 451,
+        "Description": "Generated from table entry: Titan"
+      },
+      {
+        "Name": "Vanity1",
+        "Value": 452,
+        "Description": "Generated from table entry: Vanity"
+      },
+      {
+        "Name": "Mahama1",
+        "Value": 453,
+        "Description": "Generated from table entry: Mahama"
+      },
+      {
+        "Name": "Mahamaon1",
+        "Value": 454,
+        "Description": "Generated from table entry: Mahamaon"
+      },
+      {
+        "Name": "Xanadu1",
+        "Value": 455,
+        "Description": "Generated from table entry: Xanadu"
+      },
+      {
+        "Name": "Mamudo1",
+        "Value": 456,
+        "Description": "Generated from table entry: Mamudo"
+      },
+      {
+        "Name": "Mamudoon1",
+        "Value": 457,
+        "Description": "Generated from table entry: Mamudoon"
+      },
+      {
+        "Name": "_0x1CA",
+        "Value": 458,
+        "Description": "Generated from table entry: 0x1CA"
+      },
+      {
+        "Name": "_0x1CB",
+        "Value": 459,
+        "Description": "Generated from table entry: 0x1CB"
+      },
+      {
+        "Name": "_0x1CC",
+        "Value": 460,
+        "Description": "Generated from table entry: 0x1CC"
+      },
+      {
+        "Name": "_0x1CD",
+        "Value": 461,
+        "Description": "Generated from table entry: 0x1CD"
+      },
+      {
+        "Name": "_0x1CE",
+        "Value": 462,
+        "Description": "Generated from table entry: 0x1CE"
+      },
+      {
+        "Name": "VileBlade1",
+        "Value": 463,
+        "Description": "Generated from table entry: Vile Blade"
+      },
+      {
+        "Name": "_0x1D0",
+        "Value": 464,
+        "Description": "Generated from table entry: 0x1D0"
+      },
+      {
+        "Name": "Genocide1",
+        "Value": 465,
+        "Description": "Generated from table entry: Genocide"
+      },
+      {
+        "Name": "MicroNova",
+        "Value": 466,
+        "Description": "Generated from table entry: Micro Nova"
+      },
+      {
+        "Name": "GangBlast",
+        "Value": 467,
+        "Description": "Generated from table entry: Gang Blast"
+      },
+      {
+        "Name": "CrystalDust",
+        "Value": 468,
+        "Description": "Generated from table entry: Crystal Dust"
+      },
+      {
+        "Name": "SkyThrust",
+        "Value": 469,
+        "Description": "Generated from table entry: Sky Thrust"
+      },
+      {
+        "Name": "TripleThreat",
+        "Value": 470,
+        "Description": "Generated from table entry: Triple Threat"
+      },
+      {
+        "Name": "MillenniaCurse",
+        "Value": 471,
+        "Description": "Generated from table entry: Millennia Curse"
+      },
+      {
+        "Name": "AngelicGrace",
+        "Value": 472,
+        "Description": "Generated from table entry: Angelic Grace"
+      },
+      {
+        "Name": "_0x1D9",
+        "Value": 473,
+        "Description": "Generated from table entry: 0x1D9"
+      },
+      {
+        "Name": "PrimalDance",
+        "Value": 474,
+        "Description": "Generated from table entry: Primal Dance"
+      },
+      {
+        "Name": "InstantKill",
+        "Value": 475,
+        "Description": "Generated from table entry: Instant Kill"
+      },
+      {
+        "Name": "BlackSun",
+        "Value": 476,
+        "Description": "Generated from table entry: Black Sun"
+      },
+      {
+        "Name": "DemonFury",
+        "Value": 477,
+        "Description": "Generated from table entry: Demon Fury"
+      },
+      {
+        "Name": "Damnation",
+        "Value": 478,
+        "Description": "Generated from table entry: Damnation"
+      },
+      {
+        "Name": "SeraphGrace",
+        "Value": 479,
+        "Description": "Generated from table entry: Seraph Grace"
+      },
+      {
+        "Name": "Crossfire",
+        "Value": 480,
+        "Description": "Generated from table entry: Crossfire"
+      },
+      {
+        "Name": "IceShot",
+        "Value": 481,
+        "Description": "Generated from table entry: Ice Shot"
+      },
+      {
+        "Name": "FreezeShot",
+        "Value": 482,
+        "Description": "Generated from table entry: Freeze Shot"
+      },
+      {
+        "Name": "BlizzardShot",
+        "Value": 483,
+        "Description": "Generated from table entry: Blizzard Shot"
+      },
+      {
+        "Name": "FireShot",
+        "Value": 484,
+        "Description": "Generated from table entry: Fire Shot"
+      },
+      {
+        "Name": "FlameShot",
+        "Value": 485,
+        "Description": "Generated from table entry: Flame Shot"
+      },
+      {
+        "Name": "InfernoShot",
+        "Value": 486,
+        "Description": "Generated from table entry: Inferno Shot"
+      },
+      {
+        "Name": "EarthShot",
+        "Value": 487,
+        "Description": "Generated from table entry: Earth Shot"
+      },
+      {
+        "Name": "QuakeShot",
+        "Value": 488,
+        "Description": "Generated from table entry: Quake Shot"
+      },
+      {
+        "Name": "SeismicShot",
+        "Value": 489,
+        "Description": "Generated from table entry: Seismic Shot"
+      },
+      {
+        "Name": "WindShot",
+        "Value": 490,
+        "Description": "Generated from table entry: Wind Shot"
+      },
+      {
+        "Name": "GaleShot",
+        "Value": 491,
+        "Description": "Generated from table entry: Gale Shot"
+      },
+      {
+        "Name": "TornadoShot",
+        "Value": 492,
+        "Description": "Generated from table entry: Tornado Shot"
+      },
+      {
+        "Name": "ElecShot",
+        "Value": 493,
+        "Description": "Generated from table entry: Elec Shot"
+      },
+      {
+        "Name": "ThunderShot",
+        "Value": 494,
+        "Description": "Generated from table entry: Thunder Shot"
+      },
+      {
+        "Name": "NeutronShot",
+        "Value": 495,
+        "Description": "Generated from table entry: Neutron Shot"
+      },
+      {
+        "Name": "_0x1F0",
+        "Value": 496,
+        "Description": "Generated from table entry: 0x1F0"
+      },
+      {
+        "Name": "_0x1F1",
+        "Value": 497,
+        "Description": "Generated from table entry: 0x1F1"
+      },
+      {
+        "Name": "_0x1F2",
+        "Value": 498,
+        "Description": "Generated from table entry: 0x1F2"
+      },
+      {
+        "Name": "MePatra1",
+        "Value": 499,
+        "Description": "Generated from table entry: Me Patra"
+      },
+      {
+        "Name": "Makajamon1",
+        "Value": 500,
+        "Description": "Generated from table entry: Makajamon"
+      },
+      {
+        "Name": "PhysRepel1",
+        "Value": 501,
+        "Description": "Generated from table entry: Phys Repel"
+      },
+      {
+        "Name": "MagicRepel1",
+        "Value": 502,
+        "Description": "Generated from table entry: Magic Repel"
+      },
+      {
+        "Name": "Media1",
+        "Value": 503,
+        "Description": "Generated from table entry: Media"
+      },
+      {
+        "Name": "Mediarama1",
+        "Value": 504,
+        "Description": "Generated from table entry: Mediarama"
+      },
+      {
+        "Name": "Mediarahan1",
+        "Value": 505,
+        "Description": "Generated from table entry: Mediarahan"
+      },
+      {
+        "Name": "Debilitate1",
+        "Value": 506,
+        "Description": "Generated from table entry: Debilitate"
+      },
+      {
+        "Name": "Dekunda1",
+        "Value": 507,
+        "Description": "Generated from table entry: Dekunda"
+      },
+      {
+        "Name": "Dekaja1",
+        "Value": 508,
+        "Description": "Generated from table entry: Dekaja"
+      },
+      {
+        "Name": "Megido1",
+        "Value": 509,
+        "Description": "Generated from table entry: Megido"
+      },
+      {
+        "Name": "Megidola1",
+        "Value": 510,
+        "Description": "Generated from table entry: Megidola"
+      },
+      {
+        "Name": "Megidolaon1",
+        "Value": 511,
+        "Description": "Generated from table entry: Megidolaon"
+      },
+      {
+        "Name": "LifeBonus",
+        "Value": 512,
+        "Description": "Generated from table entry: Life Bonus"
+      },
+      {
+        "Name": "LifeGain",
+        "Value": 513,
+        "Description": "Generated from table entry: Life Gain"
+      },
+      {
+        "Name": "LifeSurge",
+        "Value": 514,
+        "Description": "Generated from table entry: Life Surge"
+      },
+      {
+        "Name": "ManaBonus",
+        "Value": 515,
+        "Description": "Generated from table entry: Mana Bonus"
+      },
+      {
+        "Name": "ManaGain",
+        "Value": 516,
+        "Description": "Generated from table entry: Mana Gain"
+      },
+      {
+        "Name": "ManaSurge",
+        "Value": 517,
+        "Description": "Generated from table entry: Mana Surge"
+      },
+      {
+        "Name": "Critical",
+        "Value": 518,
+        "Description": "Generated from table entry: Critical"
+      },
+      {
+        "Name": "MAXCritical",
+        "Value": 519,
+        "Description": "Generated from table entry: MAX Critical"
+      },
+      {
+        "Name": "MINCritical",
+        "Value": 520,
+        "Description": "Generated from table entry: MIN Critical"
+      },
+      {
+        "Name": "_0x209",
+        "Value": 521,
+        "Description": "Generated from table entry: 0x209"
+      },
+      {
+        "Name": "_0x20A",
+        "Value": 522,
+        "Description": "Generated from table entry: 0x20A"
+      },
+      {
+        "Name": "_0x20B",
+        "Value": 523,
+        "Description": "Generated from table entry: 0x20B"
+      },
+      {
+        "Name": "_0x20C",
+        "Value": 524,
+        "Description": "Generated from table entry: 0x20C"
+      },
+      {
+        "Name": "FireBoost",
+        "Value": 525,
+        "Description": "Generated from table entry: Fire Boost"
+      },
+      {
+        "Name": "IceBoost",
+        "Value": 526,
+        "Description": "Generated from table entry: Ice Boost"
+      },
+      {
+        "Name": "ElecBoost",
+        "Value": 527,
+        "Description": "Generated from table entry: Elec Boost"
+      },
+      {
+        "Name": "ForceBoost",
+        "Value": 528,
+        "Description": "Generated from table entry: Force Boost"
+      },
+      {
+        "Name": "EarthBoost",
+        "Value": 529,
+        "Description": "Generated from table entry: Earth Boost"
+      },
+      {
+        "Name": "FireAmp",
+        "Value": 530,
+        "Description": "Generated from table entry: Fire Amp"
+      },
+      {
+        "Name": "IceAmp",
+        "Value": 531,
+        "Description": "Generated from table entry: Ice Amp"
+      },
+      {
+        "Name": "ElecAmp",
+        "Value": 532,
+        "Description": "Generated from table entry: Elec Amp"
+      },
+      {
+        "Name": "ForceAmp",
+        "Value": 533,
+        "Description": "Generated from table entry: Force Amp"
+      },
+      {
+        "Name": "EarthAmp",
+        "Value": 534,
+        "Description": "Generated from table entry: Earth Amp"
+      },
+      {
+        "Name": "_0x217",
+        "Value": 535,
+        "Description": "Generated from table entry: 0x217"
+      },
+      {
+        "Name": "_0x218",
+        "Value": 536,
+        "Description": "Generated from table entry: 0x218"
+      },
+      {
+        "Name": "Counter1",
+        "Value": 537,
+        "Description": "Generated from table entry: Counter"
+      },
+      {
+        "Name": "Counterstrike1",
+        "Value": 538,
+        "Description": "Generated from table entry: Counterstrike"
+      },
+      {
+        "Name": "HighCounter1",
+        "Value": 539,
+        "Description": "Generated from table entry: High Counter"
+      },
+      {
+        "Name": "_0x21C",
+        "Value": 540,
+        "Description": "Generated from table entry: 0x21C"
+      },
+      {
+        "Name": "_0x21D",
+        "Value": 541,
+        "Description": "Generated from table entry: 0x21D"
+      },
+      {
+        "Name": "AttackAll",
+        "Value": 542,
+        "Description": "Generated from table entry: Attack All"
+      },
+      {
+        "Name": "SharedKarma",
+        "Value": 543,
+        "Description": "Generated from table entry: Shared Karma"
+      },
+      {
+        "Name": "MutualKarma",
+        "Value": 544,
+        "Description": "Generated from table entry: Mutual Karma"
+      },
+      {
+        "Name": "AtmaBonus",
+        "Value": 545,
+        "Description": "Generated from table entry: Atma Bonus"
+      },
+      {
+        "Name": "_0x222",
+        "Value": 546,
+        "Description": "Generated from table entry: 0x222"
+      },
+      {
+        "Name": "_0x223",
+        "Value": 547,
+        "Description": "Generated from table entry: 0x223"
+      },
+      {
+        "Name": "_0x224",
+        "Value": 548,
+        "Description": "Generated from table entry: 0x224"
+      },
+      {
+        "Name": "IronStomach",
+        "Value": 549,
+        "Description": "Generated from table entry: Iron Stomach"
+      },
+      {
+        "Name": "_0x226",
+        "Value": 550,
+        "Description": "Generated from table entry: 0x226"
+      },
+      {
+        "Name": "_0x227",
+        "Value": 551,
+        "Description": "Generated from table entry: 0x227"
+      },
+      {
+        "Name": "_0x228",
+        "Value": 552,
+        "Description": "Generated from table entry: 0x228"
+      },
+      {
+        "Name": "IngestMana",
+        "Value": 553,
+        "Description": "Generated from table entry: Ingest Mana"
+      },
+      {
+        "Name": "_0x22A",
+        "Value": 554,
+        "Description": "Generated from table entry: 0x22A"
+      },
+      {
+        "Name": "AutoSoma",
+        "Value": 555,
+        "Description": "Generated from table entry: Auto Soma"
+      },
+      {
+        "Name": "ChakraWalk",
+        "Value": 556,
+        "Description": "Generated from table entry: Chakra Walk"
+      },
+      {
+        "Name": "NullRisks",
+        "Value": 557,
+        "Description": "Generated from table entry: Null Risks"
+      },
+      {
+        "Name": "FirstStrike",
+        "Value": 558,
+        "Description": "Generated from table entry: First Strike"
+      },
+      {
+        "Name": "NullCritical",
+        "Value": 559,
+        "Description": "Generated from table entry: Null Critical"
+      },
+      {
+        "Name": "QuickEscape",
+        "Value": 560,
+        "Description": "Generated from table entry: Quick Escape"
+      },
+      {
+        "Name": "CloseCall",
+        "Value": 561,
+        "Description": "Generated from table entry: Close Call"
+      },
+      {
+        "Name": "QuickCure",
+        "Value": 562,
+        "Description": "Generated from table entry: Quick Cure"
+      },
+      {
+        "Name": "_0x233",
+        "Value": 563,
+        "Description": "Generated from table entry: 0x233"
+      },
+      {
+        "Name": "_0x234",
+        "Value": 564,
+        "Description": "Generated from table entry: 0x234"
+      },
+      {
+        "Name": "_0x235",
+        "Value": 565,
+        "Description": "Generated from table entry: 0x235"
+      },
+      {
+        "Name": "_0x236",
+        "Value": 566,
+        "Description": "Generated from table entry: 0x236"
+      },
+      {
+        "Name": "_0x237",
+        "Value": 567,
+        "Description": "Generated from table entry: 0x237"
+      },
+      {
+        "Name": "_0x238",
+        "Value": 568,
+        "Description": "Generated from table entry: 0x238"
+      },
+      {
+        "Name": "_0x239",
+        "Value": 569,
+        "Description": "Generated from table entry: 0x239"
+      },
+      {
+        "Name": "_0x23A",
+        "Value": 570,
+        "Description": "Generated from table entry: 0x23A"
+      },
+      {
+        "Name": "_0x23B",
+        "Value": 571,
+        "Description": "Generated from table entry: 0x23B"
+      },
+      {
+        "Name": "PhysResist",
+        "Value": 572,
+        "Description": "Generated from table entry: Phys Resist"
+      },
+      {
+        "Name": "FireResist",
+        "Value": 573,
+        "Description": "Generated from table entry: Fire Resist"
+      },
+      {
+        "Name": "IceResist",
+        "Value": 574,
+        "Description": "Generated from table entry: Ice Resist"
+      },
+      {
+        "Name": "ElecResist",
+        "Value": 575,
+        "Description": "Generated from table entry: Elec Resist"
+      },
+      {
+        "Name": "ForceResist",
+        "Value": 576,
+        "Description": "Generated from table entry: Force Resist"
+      },
+      {
+        "Name": "EarthResist",
+        "Value": 577,
+        "Description": "Generated from table entry: Earth Resist"
+      },
+      {
+        "Name": "ExpelResist",
+        "Value": 578,
+        "Description": "Generated from table entry: Expel Resist"
+      },
+      {
+        "Name": "DeathResist",
+        "Value": 579,
+        "Description": "Generated from table entry: Death Resist"
+      },
+      {
+        "Name": "NullCharm",
+        "Value": 580,
+        "Description": "Generated from table entry: Null Charm"
+      },
+      {
+        "Name": "NullPoison",
+        "Value": 581,
+        "Description": "Generated from table entry: Null Poison"
+      },
+      {
+        "Name": "NullMute",
+        "Value": 582,
+        "Description": "Generated from table entry: Null Mute"
+      },
+      {
+        "Name": "NullPanic",
+        "Value": 583,
+        "Description": "Generated from table entry: Null Panic"
+      },
+      {
+        "Name": "NullNerve",
+        "Value": 584,
+        "Description": "Generated from table entry: Null Nerve"
+      },
+      {
+        "Name": "NullAttack",
+        "Value": 585,
+        "Description": "Generated from table entry: Null Attack"
+      },
+      {
+        "Name": "NullSleep",
+        "Value": 586,
+        "Description": "Generated from table entry: Null Sleep"
+      },
+      {
+        "Name": "KillAdjust",
+        "Value": 587,
+        "Description": "Generated from table entry: Kill Adjust"
+      },
+      {
+        "Name": "APDivide",
+        "Value": 588,
+        "Description": "Generated from table entry: AP Divide"
+      },
+      {
+        "Name": "APGetter",
+        "Value": 589,
+        "Description": "Generated from table entry: AP Getter"
+      },
+      {
+        "Name": "DevourMana",
+        "Value": 590,
+        "Description": "Generated from table entry: Devour Mana"
+      },
+      {
+        "Name": "NullPhys",
+        "Value": 591,
+        "Description": "Generated from table entry: Null Phys"
+      },
+      {
+        "Name": "ManaWalk",
+        "Value": 592,
+        "Description": "Generated from table entry: Mana Walk"
+      },
+      {
+        "Name": "NullExpel",
+        "Value": 593,
+        "Description": "Generated from table entry: Null Expel"
+      },
+      {
+        "Name": "NullDeath",
+        "Value": 594,
+        "Description": "Generated from table entry: Null Death"
+      },
+      {
+        "Name": "NullAilment",
+        "Value": 595,
+        "Description": "Generated from table entry: Null Ailment"
+      },
+      {
+        "Name": "PhysAbsorb",
+        "Value": 596,
+        "Description": "Generated from table entry: Phys Absorb"
+      },
+      {
+        "Name": "RepelExpel",
+        "Value": 597,
+        "Description": "Generated from table entry: Repel Expel"
+      },
+      {
+        "Name": "RepelDeath",
+        "Value": 598,
+        "Description": "Generated from table entry: Repel Death"
+      },
+      {
+        "Name": "NullElement",
+        "Value": 599,
+        "Description": "Generated from table entry: Null Element"
+      },
+      {
+        "Name": "RepelElement",
+        "Value": 600,
+        "Description": "Generated from table entry: Repel Element"
+      },
+      {
+        "Name": "HumanForm",
+        "Value": 601,
+        "Description": "Generated from table entry: Human Form"
+      },
+      {
+        "Name": "_0x25A",
+        "Value": 602,
+        "Description": "Generated from table entry: 0x25A"
+      },
+      {
+        "Name": "_0x25B",
+        "Value": 603,
+        "Description": "Generated from table entry: 0x25B"
+      },
+      {
+        "Name": "_0x25C",
+        "Value": 604,
+        "Description": "Generated from table entry: 0x25C"
+      },
+      {
+        "Name": "_0x25D",
+        "Value": 605,
+        "Description": "Generated from table entry: 0x25D"
+      },
+      {
+        "Name": "_0x25E",
+        "Value": 606,
+        "Description": "Generated from table entry: 0x25E"
+      },
+      {
+        "Name": "_0x25F",
+        "Value": 607,
+        "Description": "Generated from table entry: 0x25F"
+      },
+      {
+        "Name": "ndaSkill",
+        "Value": 608,
+        "Description": "Generated from table entry: -nda Skill"
+      },
+      {
+        "Name": "kajaSkill",
+        "Value": 609,
+        "Description": "Generated from table entry: -kaja Skill"
+      },
+      {
+        "Name": "ERepelSkill",
+        "Value": 610,
+        "Description": "Generated from table entry: E.Repel Skill"
+      },
+      {
+        "Name": "VoidSkill",
+        "Value": 611,
+        "Description": "Generated from table entry: Void Skill"
+      },
+      {
+        "Name": "DrainSkill",
+        "Value": 612,
+        "Description": "Generated from table entry: Drain Skill"
+      },
+      {
+        "Name": "RepelSkill",
+        "Value": 613,
+        "Description": "Generated from table entry: Repel Skill"
+      },
+      {
+        "Name": "HuntSkill",
+        "Value": 614,
+        "Description": "Generated from table entry: Hunt Skill"
+      },
+      {
+        "Name": "_1HitSkill",
+        "Value": 615,
+        "Description": "Generated from table entry: 1-Hit Skill"
+      },
+      {
+        "Name": "AilmentSkill",
+        "Value": 616,
+        "Description": "Generated from table entry: Ailment Skill"
+      },
+      {
+        "Name": "MudoSkill",
+        "Value": 617,
+        "Description": "Generated from table entry: Mudo Skill"
+      },
+      {
+        "Name": "ForceSkill",
+        "Value": 618,
+        "Description": "Generated from table entry: Force Skill"
+      },
+      {
+        "Name": "StunSkill",
+        "Value": 619,
+        "Description": "Generated from table entry: Stun Skill"
+      },
+      {
+        "Name": "MegidoSkill",
+        "Value": 620,
+        "Description": "Generated from table entry: Megido Skill"
+      },
+      {
+        "Name": "_0x26D",
+        "Value": 621,
+        "Description": "Generated from table entry: 0x26D"
+      },
+      {
+        "Name": "_0x26E",
+        "Value": 622,
+        "Description": "Generated from table entry: 0x26E"
+      },
+      {
+        "Name": "_0x26F",
+        "Value": 623,
+        "Description": "Generated from table entry: 0x26F"
+      }
+    ]
+  },
+  {
+    "Name": "BattleUnit",
+    "Description": "This enum represents the available units in battle",
+    "Members": [
+      {
+        "Name": "_0x000",
+        "Value": 0,
+        "Description": "Generated from table entry: 0x000"
+      },
+      {
+        "Name": "Laksmi",
+        "Value": 1,
+        "Description": "Generated from table entry: Laksmi"
+      },
+      {
+        "Name": "Isis",
+        "Value": 2,
+        "Description": "Generated from table entry: Isis"
+      },
+      {
+        "Name": "Parvati",
+        "Value": 3,
+        "Description": "Generated from table entry: Parvati"
+      },
+      {
+        "Name": "Sati",
+        "Value": 4,
+        "Description": "Generated from table entry: Sati"
+      },
+      {
+        "Name": "Kushinada",
+        "Value": 5,
+        "Description": "Generated from table entry: Kushinada"
+      },
+      {
+        "Name": "Sarasvati",
+        "Value": 6,
+        "Description": "Generated from table entry: Sarasvati"
+      },
+      {
+        "Name": "Uzume",
+        "Value": 7,
+        "Description": "Generated from table entry: Uzume"
+      },
+      {
+        "Name": "Pazuzu",
+        "Value": 8,
+        "Description": "Generated from table entry: Pazuzu"
+      },
+      {
+        "Name": "Ganesha",
+        "Value": 9,
+        "Description": "Generated from table entry: Ganesha"
+      },
+      {
+        "Name": "WuKong",
+        "Value": 10,
+        "Description": "Generated from table entry: Wu Kong"
+      },
+      {
+        "Name": "Arahabaki",
+        "Value": 11,
+        "Description": "Generated from table entry: Arahabaki"
+      },
+      {
+        "Name": "Okuninushi",
+        "Value": 12,
+        "Description": "Generated from table entry: Okuninushi"
+      },
+      {
+        "Name": "Hanuman",
+        "Value": 13,
+        "Description": "Generated from table entry: Hanuman"
+      },
+      {
+        "Name": "Valkyrie",
+        "Value": 14,
+        "Description": "Generated from table entry: Valkyrie"
+      },
+      {
+        "Name": "Atavaka",
+        "Value": 15,
+        "Description": "Generated from table entry: Atavaka"
+      },
+      {
+        "Name": "Rakshasa",
+        "Value": 16,
+        "Description": "Generated from table entry: Rakshasa"
+      },
+      {
+        "Name": "Karasu",
+        "Value": 17,
+        "Description": "Generated from table entry: Karasu"
+      },
+      {
+        "Name": "Hresvelgr",
+        "Value": 18,
+        "Description": "Generated from table entry: Hresvelgr"
+      },
+      {
+        "Name": "Sparna",
+        "Value": 19,
+        "Description": "Generated from table entry: Sparna"
+      },
+      {
+        "Name": "Horus",
+        "Value": 20,
+        "Description": "Generated from table entry: Horus"
+      },
+      {
+        "Name": "BlackOoze",
+        "Value": 21,
+        "Description": "Generated from table entry: Black Ooze"
+      },
+      {
+        "Name": "Gurr",
+        "Value": 22,
+        "Description": "Generated from table entry: Gurr"
+      },
+      {
+        "Name": "Virtue",
+        "Value": 23,
+        "Description": "Generated from table entry: Virtue"
+      },
+      {
+        "Name": "Macha",
+        "Value": 24,
+        "Description": "Generated from table entry: Macha"
+      },
+      {
+        "Name": "Principality",
+        "Value": 25,
+        "Description": "Generated from table entry: Principality"
+      },
+      {
+        "Name": "Garuda",
+        "Value": 26,
+        "Description": "Generated from table entry: Garuda"
+      },
+      {
+        "Name": "Archangel",
+        "Value": 27,
+        "Description": "Generated from table entry: Archangel"
+      },
+      {
+        "Name": "BadbCatha",
+        "Value": 28,
+        "Description": "Generated from table entry: Badb Catha"
+      },
+      {
+        "Name": "Samael",
+        "Value": 29,
+        "Description": "Generated from table entry: Samael"
+      },
+      {
+        "Name": "Gorgon",
+        "Value": 30,
+        "Description": "Generated from table entry: Gorgon"
+      },
+      {
+        "Name": "Jatayu",
+        "Value": 31,
+        "Description": "Generated from table entry: Jatayu"
+      },
+      {
+        "Name": "Yurlungur",
+        "Value": 32,
+        "Description": "Generated from table entry: Yurlungur"
+      },
+      {
+        "Name": "Girimehkala",
+        "Value": 33,
+        "Description": "Generated from table entry: Girimehkala"
+      },
+      {
+        "Name": "Nidhoggr",
+        "Value": 34,
+        "Description": "Generated from table entry: Nidhoggr"
+      },
+      {
+        "Name": "_0x023",
+        "Value": 35,
+        "Description": "Generated from table entry: 0x023"
+      },
+      {
+        "Name": "Tarrasque",
+        "Value": 36,
+        "Description": "Generated from table entry: Tarrasque"
+      },
+      {
+        "Name": "Mizuchi",
+        "Value": 37,
+        "Description": "Generated from table entry: Mizuchi"
+      },
+      {
+        "Name": "Nozuchi",
+        "Value": 38,
+        "Description": "Generated from table entry: Nozuchi"
+      },
+      {
+        "Name": "TanKi",
+        "Value": 39,
+        "Description": "Generated from table entry: Tan-Ki"
+      },
+      {
+        "Name": "Cockatrice",
+        "Value": 40,
+        "Description": "Generated from table entry: Cockatrice"
+      },
+      {
+        "Name": "Decarabia",
+        "Value": 41,
+        "Description": "Generated from table entry: Decarabia"
+      },
+      {
+        "Name": "Forneus",
+        "Value": 42,
+        "Description": "Generated from table entry: Forneus"
+      },
+      {
+        "Name": "Titania",
+        "Value": 43,
+        "Description": "Generated from table entry: Titania"
+      },
+      {
+        "Name": "QueenMab",
+        "Value": 44,
+        "Description": "Generated from table entry: Queen Mab"
+      },
+      {
+        "Name": "CuChulainn",
+        "Value": 45,
+        "Description": "Generated from table entry: Cu Chulainn"
+      },
+      {
+        "Name": "Baphomet",
+        "Value": 46,
+        "Description": "Generated from table entry: Baphomet"
+      },
+      {
+        "Name": "Succubus",
+        "Value": 47,
+        "Description": "Generated from table entry: Succubus"
+      },
+      {
+        "Name": "Jinn",
+        "Value": 48,
+        "Description": "Generated from table entry: Jinn"
+      },
+      {
+        "Name": "Onkot",
+        "Value": 49,
+        "Description": "Generated from table entry: Onkot"
+      },
+      {
+        "Name": "PyroJack",
+        "Value": 50,
+        "Description": "Generated from table entry: Pyro Jack"
+      },
+      {
+        "Name": "Blob",
+        "Value": 51,
+        "Description": "Generated from table entry: Blob"
+      },
+      {
+        "Name": "Apsaras",
+        "Value": 52,
+        "Description": "Generated from table entry: Apsaras"
+      },
+      {
+        "Name": "HighPixie",
+        "Value": 53,
+        "Description": "Generated from table entry: High Pixie"
+      },
+      {
+        "Name": "JackFrost",
+        "Value": 54,
+        "Description": "Generated from table entry: Jack Frost"
+      },
+      {
+        "Name": "Lilim",
+        "Value": 55,
+        "Description": "Generated from table entry: Lilim"
+      },
+      {
+        "Name": "Slime",
+        "Value": 56,
+        "Description": "Generated from table entry: Slime"
+      },
+      {
+        "Name": "Pixie",
+        "Value": 57,
+        "Description": "Generated from table entry: Pixie"
+      },
+      {
+        "Name": "Taown",
+        "Value": 58,
+        "Description": "Generated from table entry: Taown"
+      },
+      {
+        "Name": "Catoblepas",
+        "Value": 59,
+        "Description": "Generated from table entry: Catoblepas"
+      },
+      {
+        "Name": "_0x03C",
+        "Value": 60,
+        "Description": "Generated from table entry: 0x03C"
+      },
+      {
+        "Name": "Senri",
+        "Value": 61,
+        "Description": "Generated from table entry: Senri"
+      },
+      {
+        "Name": "Raiju",
+        "Value": 62,
+        "Description": "Generated from table entry: Raiju"
+      },
+      {
+        "Name": "Thoth",
+        "Value": 63,
+        "Description": "Generated from table entry: Thoth"
+      },
+      {
+        "Name": "Nue",
+        "Value": 64,
+        "Description": "Generated from table entry: Nue"
+      },
+      {
+        "Name": "CaiZhi",
+        "Value": 65,
+        "Description": "Generated from table entry: Cai-Zhi"
+      },
+      {
+        "Name": "Unicorn",
+        "Value": 66,
+        "Description": "Generated from table entry: Unicorn"
+      },
+      {
+        "Name": "Mothman",
+        "Value": 67,
+        "Description": "Generated from table entry: Mothman"
+      },
+      {
+        "Name": "Nekomata",
+        "Value": 68,
+        "Description": "Generated from table entry: Nekomata"
+      },
+      {
+        "Name": "Kelpie",
+        "Value": 69,
+        "Description": "Generated from table entry: Kelpie"
+      },
+      {
+        "Name": "Shiisaa",
+        "Value": 70,
+        "Description": "Generated from table entry: Shiisaa"
+      },
+      {
+        "Name": "Bicorn",
+        "Value": 71,
+        "Description": "Generated from table entry: Bicorn"
+      },
+      {
+        "Name": "Empusa",
+        "Value": 72,
+        "Description": "Generated from table entry: Empusa"
+      },
+      {
+        "Name": "Isora",
+        "Value": 73,
+        "Description": "Generated from table entry: Isora"
+      },
+      {
+        "Name": "Alp",
+        "Value": 74,
+        "Description": "Generated from table entry: Alp"
+      },
+      {
+        "Name": "OngyoKi",
+        "Value": 75,
+        "Description": "Generated from table entry: Ongyo-Ki"
+      },
+      {
+        "Name": "ShikiOuji",
+        "Value": 76,
+        "Description": "Generated from table entry: Shiki-Ouji"
+      },
+      {
+        "Name": "Girimehkala1",
+        "Value": 77,
+        "Description": "Generated from table entry: Girimehkala"
+      },
+      {
+        "Name": "Purski",
+        "Value": 78,
+        "Description": "Generated from table entry: Purski"
+      },
+      {
+        "Name": "FuuKi",
+        "Value": 79,
+        "Description": "Generated from table entry: Fuu-Ki"
+      },
+      {
+        "Name": "Phantom",
+        "Value": 80,
+        "Description": "Generated from table entry: Phantom"
+      },
+      {
+        "Name": "SuiKi",
+        "Value": 81,
+        "Description": "Generated from table entry: Sui-Ki"
+      },
+      {
+        "Name": "Turdak",
+        "Value": 82,
+        "Description": "Generated from table entry: Turdak"
+      },
+      {
+        "Name": "KinKi",
+        "Value": 83,
+        "Description": "Generated from table entry: Kin-Ki"
+      },
+      {
+        "Name": "Fomor",
+        "Value": 84,
+        "Description": "Generated from table entry: Fomor"
+      },
+      {
+        "Name": "Ikusa",
+        "Value": 85,
+        "Description": "Generated from table entry: Ikusa"
+      },
+      {
+        "Name": "Chatterskull",
+        "Value": 86,
+        "Description": "Generated from table entry: Chatterskull"
+      },
+      {
+        "Name": "GyuKi",
+        "Value": 87,
+        "Description": "Generated from table entry: Gyu-Ki"
+      },
+      {
+        "Name": "MouRyo",
+        "Value": 88,
+        "Description": "Generated from table entry: Mou-Ryo"
+      },
+      {
+        "Name": "Yaka",
+        "Value": 89,
+        "Description": "Generated from table entry: Yaka"
+      },
+      {
+        "Name": "Ghoul",
+        "Value": 90,
+        "Description": "Generated from table entry: Ghoul"
+      },
+      {
+        "Name": "TempleGuard",
+        "Value": 91,
+        "Description": "Generated from table entry: Temple Guard"
+      },
+      {
+        "Name": "KikuriHime",
+        "Value": 92,
+        "Description": "Generated from table entry: Kikuri-Hime"
+      },
+      {
+        "Name": "Naga",
+        "Value": 93,
+        "Description": "Generated from table entry: Naga"
+      },
+      {
+        "Name": "SakiMitama",
+        "Value": 94,
+        "Description": "Generated from table entry: Saki Mitama"
+      },
+      {
+        "Name": "KusiMitama",
+        "Value": 95,
+        "Description": "Generated from table entry: Kusi Mitama"
+      },
+      {
+        "Name": "NigiMitama",
+        "Value": 96,
+        "Description": "Generated from table entry: Nigi Mitama"
+      },
+      {
+        "Name": "AraMitama",
+        "Value": 97,
+        "Description": "Generated from table entry: Ara Mitama"
+      },
+      {
+        "Name": "Omoikane",
+        "Value": 98,
+        "Description": "Generated from table entry: Omoikane"
+      },
+      {
+        "Name": "Onmoraki",
+        "Value": 99,
+        "Description": "Generated from table entry: Onmoraki"
+      },
+      {
+        "Name": "Apis",
+        "Value": 100,
+        "Description": "Generated from table entry: Apis"
+      },
+      {
+        "Name": "_0x065",
+        "Value": 101,
+        "Description": "Generated from table entry: 0x065"
+      },
+      {
+        "Name": "Preta",
+        "Value": 102,
+        "Description": "Generated from table entry: Preta"
+      },
+      {
+        "Name": "_0x067",
+        "Value": 103,
+        "Description": "Generated from table entry: 0x067"
+      },
+      {
+        "Name": "_0x068",
+        "Value": 104,
+        "Description": "Generated from table entry: 0x068"
+      },
+      {
+        "Name": "_0x069",
+        "Value": 105,
+        "Description": "Generated from table entry: 0x069"
+      },
+      {
+        "Name": "_0x06A",
+        "Value": 106,
+        "Description": "Generated from table entry: 0x06A"
+      },
+      {
+        "Name": "_0x06B",
+        "Value": 107,
+        "Description": "Generated from table entry: 0x06B"
+      },
+      {
+        "Name": "_0x06C",
+        "Value": 108,
+        "Description": "Generated from table entry: 0x06C"
+      },
+      {
+        "Name": "_0x06D",
+        "Value": 109,
+        "Description": "Generated from table entry: 0x06D"
+      },
+      {
+        "Name": "_0x06E",
+        "Value": 110,
+        "Description": "Generated from table entry: 0x06E"
+      },
+      {
+        "Name": "_0x06F",
+        "Value": 111,
+        "Description": "Generated from table entry: 0x06F"
+      },
+      {
+        "Name": "Reserve",
+        "Value": 112,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve1",
+        "Value": 113,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve2",
+        "Value": 114,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve3",
+        "Value": 115,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve4",
+        "Value": 116,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve5",
+        "Value": 117,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve6",
+        "Value": 118,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve7",
+        "Value": 119,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve8",
+        "Value": 120,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve9",
+        "Value": 121,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve10",
+        "Value": 122,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve11",
+        "Value": 123,
+        "Description": "Generated from table entry: (Reserve)"
+      },
+      {
+        "Name": "Reserve12",
+        "Value": 124,
+        "Description": "Generated from table entry: (Reserve)"
+      },
+      {
+        "Name": "Reserve13",
+        "Value": 125,
+        "Description": "Generated from table entry: (Reserve)"
+      },
+      {
+        "Name": "Reserve14",
+        "Value": 126,
+        "Description": "Generated from table entry: (Reserve)"
+      },
+      {
+        "Name": "Reserve15",
+        "Value": 127,
+        "Description": "Generated from table entry: (Reserve)"
+      },
+      {
+        "Name": "Reserve16",
+        "Value": 128,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve17",
+        "Value": 129,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve18",
+        "Value": 130,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve19",
+        "Value": 131,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve20",
+        "Value": 132,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve21",
+        "Value": 133,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve22",
+        "Value": 134,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve23",
+        "Value": 135,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve24",
+        "Value": 136,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve25",
+        "Value": 137,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve26",
+        "Value": 138,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve27",
+        "Value": 139,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve28",
+        "Value": 140,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve29",
+        "Value": 141,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve30",
+        "Value": 142,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve31",
+        "Value": 143,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve32",
+        "Value": 144,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve33",
+        "Value": 145,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve34",
+        "Value": 146,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve35",
+        "Value": 147,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve36",
+        "Value": 148,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve37",
+        "Value": 149,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve38",
+        "Value": 150,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve39",
+        "Value": 151,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve40",
+        "Value": 152,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve41",
+        "Value": 153,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve42",
+        "Value": 154,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve43",
+        "Value": 155,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve44",
+        "Value": 156,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve45",
+        "Value": 157,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve46",
+        "Value": 158,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve47",
+        "Value": 159,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve48",
+        "Value": 160,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve49",
+        "Value": 161,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve50",
+        "Value": 162,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve51",
+        "Value": 163,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve52",
+        "Value": 164,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve53",
+        "Value": 165,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "Reserve54",
+        "Value": 166,
+        "Description": "Generated from table entry: Reserve"
+      },
+      {
+        "Name": "_0x0A7",
+        "Value": 167,
+        "Description": "Generated from table entry: 0x0A7"
+      },
+      {
+        "Name": "_0x0A8",
+        "Value": 168,
+        "Description": "Generated from table entry: 0x0A8"
+      },
+      {
+        "Name": "_0x0A9",
+        "Value": 169,
+        "Description": "Generated from table entry: 0x0A9"
+      },
+      {
+        "Name": "_0x0AA",
+        "Value": 170,
+        "Description": "Generated from table entry: 0x0AA"
+      },
+      {
+        "Name": "_0x0AB",
+        "Value": 171,
+        "Description": "Generated from table entry: 0x0AB"
+      },
+      {
+        "Name": "_0x0AC",
+        "Value": 172,
+        "Description": "Generated from table entry: 0x0AC"
+      },
+      {
+        "Name": "_0x0AD",
+        "Value": 173,
+        "Description": "Generated from table entry: 0x0AD"
+      },
+      {
+        "Name": "_0x0AE",
+        "Value": 174,
+        "Description": "Generated from table entry: 0x0AE"
+      },
+      {
+        "Name": "_0x0AF",
+        "Value": 175,
+        "Description": "Generated from table entry: 0x0AF"
+      },
+      {
+        "Name": "_0x0B0",
+        "Value": 176,
+        "Description": "Generated from table entry: 0x0B0"
+      },
+      {
+        "Name": "_0x0B1",
+        "Value": 177,
+        "Description": "Generated from table entry: 0x0B1"
+      },
+      {
+        "Name": "_0x0B2",
+        "Value": 178,
+        "Description": "Generated from table entry: 0x0B2"
+      },
+      {
+        "Name": "_0x0B3",
+        "Value": 179,
+        "Description": "Generated from table entry: 0x0B3"
+      },
+      {
+        "Name": "_0x0B4",
+        "Value": 180,
+        "Description": "Generated from table entry: 0x0B4"
+      },
+      {
+        "Name": "_0x0B5",
+        "Value": 181,
+        "Description": "Generated from table entry: 0x0B5"
+      },
+      {
+        "Name": "_0x0B6",
+        "Value": 182,
+        "Description": "Generated from table entry: 0x0B6"
+      },
+      {
+        "Name": "_0x0B7",
+        "Value": 183,
+        "Description": "Generated from table entry: 0x0B7"
+      },
+      {
+        "Name": "_0x0B8",
+        "Value": 184,
+        "Description": "Generated from table entry: 0x0B8"
+      },
+      {
+        "Name": "_0x0B9",
+        "Value": 185,
+        "Description": "Generated from table entry: 0x0B9"
+      },
+      {
+        "Name": "_0x0BA",
+        "Value": 186,
+        "Description": "Generated from table entry: 0x0BA"
+      },
+      {
+        "Name": "_0x0BB",
+        "Value": 187,
+        "Description": "Generated from table entry: 0x0BB"
+      },
+      {
+        "Name": "_0x0BC",
+        "Value": 188,
+        "Description": "Generated from table entry: 0x0BC"
+      },
+      {
+        "Name": "_0x0BD",
+        "Value": 189,
+        "Description": "Generated from table entry: 0x0BD"
+      },
+      {
+        "Name": "_0x0BE",
+        "Value": 190,
+        "Description": "Generated from table entry: 0x0BE"
+      },
+      {
+        "Name": "_0x0BF",
+        "Value": 191,
+        "Description": "Generated from table entry: 0x0BF"
+      },
+      {
+        "Name": "_0x0C0",
+        "Value": 192,
+        "Description": "Generated from table entry: 0x0C0"
+      },
+      {
+        "Name": "_0x0C1",
+        "Value": 193,
+        "Description": "Generated from table entry: 0x0C1"
+      },
+      {
+        "Name": "_0x0C2",
+        "Value": 194,
+        "Description": "Generated from table entry: 0x0C2"
+      },
+      {
+        "Name": "_0x0C3",
+        "Value": 195,
+        "Description": "Generated from table entry: 0x0C3"
+      },
+      {
+        "Name": "_0x0C4",
+        "Value": 196,
+        "Description": "Generated from table entry: 0x0C4"
+      },
+      {
+        "Name": "_0x0C5",
+        "Value": 197,
+        "Description": "Generated from table entry: 0x0C5"
+      },
+      {
+        "Name": "_0x0C6",
+        "Value": 198,
+        "Description": "Generated from table entry: 0x0C6"
+      },
+      {
+        "Name": "_0x0C7",
+        "Value": 199,
+        "Description": "Generated from table entry: 0x0C7"
+      },
+      {
+        "Name": "_0x0C8",
+        "Value": 200,
+        "Description": "Generated from table entry: 0x0C8"
+      },
+      {
+        "Name": "_0x0C9",
+        "Value": 201,
+        "Description": "Generated from table entry: 0x0C9"
+      },
+      {
+        "Name": "_0x0CA",
+        "Value": 202,
+        "Description": "Generated from table entry: 0x0CA"
+      },
+      {
+        "Name": "_0x0CB",
+        "Value": 203,
+        "Description": "Generated from table entry: 0x0CB"
+      },
+      {
+        "Name": "_0x0CC",
+        "Value": 204,
+        "Description": "Generated from table entry: 0x0CC"
+      },
+      {
+        "Name": "_0x0CD",
+        "Value": 205,
+        "Description": "Generated from table entry: 0x0CD"
+      },
+      {
+        "Name": "_0x0CE",
+        "Value": 206,
+        "Description": "Generated from table entry: 0x0CE"
+      },
+      {
+        "Name": "_0x0CF",
+        "Value": 207,
+        "Description": "Generated from table entry: 0x0CF"
+      },
+      {
+        "Name": "_0x0D0",
+        "Value": 208,
+        "Description": "Generated from table entry: 0x0D0"
+      },
+      {
+        "Name": "_0x0D1",
+        "Value": 209,
+        "Description": "Generated from table entry: 0x0D1"
+      },
+      {
+        "Name": "_0x0D2",
+        "Value": 210,
+        "Description": "Generated from table entry: 0x0D2"
+      },
+      {
+        "Name": "_0x0D3",
+        "Value": 211,
+        "Description": "Generated from table entry: 0x0D3"
+      },
+      {
+        "Name": "_0x0D4",
+        "Value": 212,
+        "Description": "Generated from table entry: 0x0D4"
+      },
+      {
+        "Name": "_0x0D5",
+        "Value": 213,
+        "Description": "Generated from table entry: 0x0D5"
+      },
+      {
+        "Name": "_0x0D6",
+        "Value": 214,
+        "Description": "Generated from table entry: 0x0D6"
+      },
+      {
+        "Name": "_0x0D7",
+        "Value": 215,
+        "Description": "Generated from table entry: 0x0D7"
+      },
+      {
+        "Name": "_0x0D8",
+        "Value": 216,
+        "Description": "Generated from table entry: 0x0D8"
+      },
+      {
+        "Name": "_0x0D9",
+        "Value": 217,
+        "Description": "Generated from table entry: 0x0D9"
+      },
+      {
+        "Name": "_0x0DA",
+        "Value": 218,
+        "Description": "Generated from table entry: 0x0DA"
+      },
+      {
+        "Name": "_0x0DB",
+        "Value": 219,
+        "Description": "Generated from table entry: 0x0DB"
+      },
+      {
+        "Name": "_0x0DC",
+        "Value": 220,
+        "Description": "Generated from table entry: 0x0DC"
+      },
+      {
+        "Name": "_0x0DD",
+        "Value": 221,
+        "Description": "Generated from table entry: 0x0DD"
+      },
+      {
+        "Name": "_0x0DE",
+        "Value": 222,
+        "Description": "Generated from table entry: 0x0DE"
+      },
+      {
+        "Name": "_0x0DF",
+        "Value": 223,
+        "Description": "Generated from table entry: 0x0DF"
+      },
+      {
+        "Name": "_0x0E0",
+        "Value": 224,
+        "Description": "Generated from table entry: 0x0E0"
+      },
+      {
+        "Name": "_0x0E1",
+        "Value": 225,
+        "Description": "Generated from table entry: 0x0E1"
+      },
+      {
+        "Name": "_0x0E2",
+        "Value": 226,
+        "Description": "Generated from table entry: 0x0E2"
+      },
+      {
+        "Name": "_0x0E3",
+        "Value": 227,
+        "Description": "Generated from table entry: 0x0E3"
+      },
+      {
+        "Name": "_0x0E4",
+        "Value": 228,
+        "Description": "Generated from table entry: 0x0E4"
+      },
+      {
+        "Name": "_0x0E5",
+        "Value": 229,
+        "Description": "Generated from table entry: 0x0E5"
+      },
+      {
+        "Name": "_0x0E6",
+        "Value": 230,
+        "Description": "Generated from table entry: 0x0E6"
+      },
+      {
+        "Name": "_0x0E7",
+        "Value": 231,
+        "Description": "Generated from table entry: 0x0E7"
+      },
+      {
+        "Name": "_0x0E8",
+        "Value": 232,
+        "Description": "Generated from table entry: 0x0E8"
+      },
+      {
+        "Name": "_0x0E9",
+        "Value": 233,
+        "Description": "Generated from table entry: 0x0E9"
+      },
+      {
+        "Name": "_0x0EA",
+        "Value": 234,
+        "Description": "Generated from table entry: 0x0EA"
+      },
+      {
+        "Name": "_0x0EB",
+        "Value": 235,
+        "Description": "Generated from table entry: 0x0EB"
+      },
+      {
+        "Name": "_0x0EC",
+        "Value": 236,
+        "Description": "Generated from table entry: 0x0EC"
+      },
+      {
+        "Name": "_0x0ED",
+        "Value": 237,
+        "Description": "Generated from table entry: 0x0ED"
+      },
+      {
+        "Name": "_0x0EE",
+        "Value": 238,
+        "Description": "Generated from table entry: 0x0EE"
+      },
+      {
+        "Name": "_0x0EF",
+        "Value": 239,
+        "Description": "Generated from table entry: 0x0EF"
+      },
+      {
+        "Name": "_0x0F0",
+        "Value": 240,
+        "Description": "Generated from table entry: 0x0F0"
+      },
+      {
+        "Name": "_0x0F1",
+        "Value": 241,
+        "Description": "Generated from table entry: 0x0F1"
+      },
+      {
+        "Name": "_0x0F2",
+        "Value": 242,
+        "Description": "Generated from table entry: 0x0F2"
+      },
+      {
+        "Name": "_0x0F3",
+        "Value": 243,
+        "Description": "Generated from table entry: 0x0F3"
+      },
+      {
+        "Name": "_0x0F4",
+        "Value": 244,
+        "Description": "Generated from table entry: 0x0F4"
+      },
+      {
+        "Name": "_0x0F5",
+        "Value": 245,
+        "Description": "Generated from table entry: 0x0F5"
+      },
+      {
+        "Name": "_0x0F6",
+        "Value": 246,
+        "Description": "Generated from table entry: 0x0F6"
+      },
+      {
+        "Name": "_0x0F7",
+        "Value": 247,
+        "Description": "Generated from table entry: 0x0F7"
+      },
+      {
+        "Name": "_0x0F8",
+        "Value": 248,
+        "Description": "Generated from table entry: 0x0F8"
+      },
+      {
+        "Name": "_0x0F9",
+        "Value": 249,
+        "Description": "Generated from table entry: 0x0F9"
+      },
+      {
+        "Name": "_0x0FA",
+        "Value": 250,
+        "Description": "Generated from table entry: 0x0FA"
+      },
+      {
+        "Name": "_0x0FB",
+        "Value": 251,
+        "Description": "Generated from table entry: 0x0FB"
+      },
+      {
+        "Name": "_0x0FC",
+        "Value": 252,
+        "Description": "Generated from table entry: 0x0FC"
+      },
+      {
+        "Name": "_0x0FD",
+        "Value": 253,
+        "Description": "Generated from table entry: 0x0FD"
+      },
+      {
+        "Name": "_0x0FE",
+        "Value": 254,
+        "Description": "Generated from table entry: 0x0FE"
+      },
+      {
+        "Name": "_0x0FF",
+        "Value": 255,
+        "Description": "Generated from table entry: 0x0FF"
+      },
+      {
+        "Name": "_0x100",
+        "Value": 256,
+        "Description": "Generated from table entry: 0x100"
+      },
+      {
+        "Name": "Hayagriva",
+        "Value": 257,
+        "Description": "Generated from table entry: Hayagriva"
+      },
+      {
+        "Name": "Camazotz",
+        "Value": 258,
+        "Description": "Generated from table entry: Camazotz"
+      },
+      {
+        "Name": "Camazotz1",
+        "Value": 259,
+        "Description": "Generated from table entry: Camazotz"
+      },
+      {
+        "Name": "Camazotz2",
+        "Value": 260,
+        "Description": "Generated from table entry: Camazotz"
+      },
+      {
+        "Name": "Usas",
+        "Value": 261,
+        "Description": "Generated from table entry: Usas"
+      },
+      {
+        "Name": "Agni",
+        "Value": 262,
+        "Description": "Generated from table entry: Agni"
+      },
+      {
+        "Name": "RahuHead",
+        "Value": 263,
+        "Description": "Generated from table entry: Rahu (Head)"
+      },
+      {
+        "Name": "RahuBody",
+        "Value": 264,
+        "Description": "Generated from table entry: Rahu (Body)"
+      },
+      {
+        "Name": "Metatron",
+        "Value": 265,
+        "Description": "Generated from table entry: Metatron"
+      },
+      {
+        "Name": "CerberusR",
+        "Value": 266,
+        "Description": "Generated from table entry: Cerberus (R)"
+      },
+      {
+        "Name": "Catoblepas1",
+        "Value": 267,
+        "Description": "Generated from table entry: Catoblepas"
+      },
+      {
+        "Name": "Isis1",
+        "Value": 268,
+        "Description": "Generated from table entry: Isis"
+      },
+      {
+        "Name": "Nidhoggr1",
+        "Value": 269,
+        "Description": "Generated from table entry: Nidhoggr"
+      },
+      {
+        "Name": "Ravana",
+        "Value": 270,
+        "Description": "Generated from table entry: Ravana"
+      },
+      {
+        "Name": "Ravana1",
+        "Value": 271,
+        "Description": "Generated from table entry: Ravana"
+      },
+      {
+        "Name": "Beelzebub",
+        "Value": 272,
+        "Description": "Generated from table entry: Beelzebub"
+      },
+      {
+        "Name": "Beelzebub1",
+        "Value": 273,
+        "Description": "Generated from table entry: Beelzebub"
+      },
+      {
+        "Name": "Orochi",
+        "Value": 274,
+        "Description": "Generated from table entry: Orochi"
+      },
+      {
+        "Name": "HuangLong",
+        "Value": 275,
+        "Description": "Generated from table entry: Huang Long"
+      },
+      {
+        "Name": "TempleGuard1",
+        "Value": 276,
+        "Description": "Generated from table entry: Temple Guard"
+      },
+      {
+        "Name": "Vasuki",
+        "Value": 277,
+        "Description": "Generated from table entry: Vasuki"
+      },
+      {
+        "Name": "Garuda1",
+        "Value": 278,
+        "Description": "Generated from table entry: Garuda"
+      },
+      {
+        "Name": "Jatayu1",
+        "Value": 279,
+        "Description": "Generated from table entry: Jatayu"
+      },
+      {
+        "Name": "Ananta",
+        "Value": 280,
+        "Description": "Generated from table entry: Ananta"
+      },
+      {
+        "Name": "Harihara",
+        "Value": 281,
+        "Description": "Generated from table entry: Harihara"
+      },
+      {
+        "Name": "Harihara1",
+        "Value": 282,
+        "Description": "Generated from table entry: Harihara"
+      },
+      {
+        "Name": "Harihara2",
+        "Value": 283,
+        "Description": "Generated from table entry: Harihara"
+      },
+      {
+        "Name": "Ghoul1",
+        "Value": 284,
+        "Description": "Generated from table entry: Ghoul"
+      },
+      {
+        "Name": "Nidhoggr2",
+        "Value": 285,
+        "Description": "Generated from table entry: Nidhoggr"
+      },
+      {
+        "Name": "Cockatrice1",
+        "Value": 286,
+        "Description": "Generated from table entry: Cockatrice"
+      },
+      {
+        "Name": "Empusa1",
+        "Value": 287,
+        "Description": "Generated from table entry: Empusa"
+      },
+      {
+        "Name": "Tarrasque1",
+        "Value": 288,
+        "Description": "Generated from table entry: Tarrasque"
+      },
+      {
+        "Name": "Lilim1",
+        "Value": 289,
+        "Description": "Generated from table entry: Lilim"
+      },
+      {
+        "Name": "GyuKi1",
+        "Value": 290,
+        "Description": "Generated from table entry: Gyu-Ki"
+      },
+      {
+        "Name": "Macha1",
+        "Value": 291,
+        "Description": "Generated from table entry: Macha"
+      },
+      {
+        "Name": "Rahu",
+        "Value": 292,
+        "Description": "Generated from table entry: Rahu"
+      },
+      {
+        "Name": "Jinana",
+        "Value": 293,
+        "Description": "Generated from table entry: Jinana"
+      },
+      {
+        "Name": "BadbCatha1",
+        "Value": 294,
+        "Description": "Generated from table entry: Badb Catha"
+      },
+      {
+        "Name": "Apis1",
+        "Value": 295,
+        "Description": "Generated from table entry: Apis"
+      },
+      {
+        "Name": "Bicorn1",
+        "Value": 296,
+        "Description": "Generated from table entry: Bicorn"
+      },
+      {
+        "Name": "Onkot1",
+        "Value": 297,
+        "Description": "Generated from table entry: Onkot"
+      },
+      {
+        "Name": "Uzume1",
+        "Value": 298,
+        "Description": "Generated from table entry: Uzume"
+      },
+      {
+        "Name": "Ikusa1",
+        "Value": 299,
+        "Description": "Generated from table entry: Ikusa"
+      },
+      {
+        "Name": "Turdak1",
+        "Value": 300,
+        "Description": "Generated from table entry: Turdak"
+      },
+      {
+        "Name": "Unicorn1",
+        "Value": 301,
+        "Description": "Generated from table entry: Unicorn"
+      },
+      {
+        "Name": "CerberusC",
+        "Value": 302,
+        "Description": "Generated from table entry: Cerberus (C)"
+      },
+      {
+        "Name": "CerberusL",
+        "Value": 303,
+        "Description": "Generated from table entry: Cerberus (L)"
+      },
+      {
+        "Name": "Agni1",
+        "Value": 304,
+        "Description": "Generated from table entry: Agni"
+      },
+      {
+        "Name": "Archangel1",
+        "Value": 305,
+        "Description": "Generated from table entry: Archangel"
+      },
+      {
+        "Name": "Heat",
+        "Value": 306,
+        "Description": "Generated from table entry: Heat"
+      },
+      {
+        "Name": "Kelpie1",
+        "Value": 307,
+        "Description": "Generated from table entry: Kelpie"
+      },
+      {
+        "Name": "Nue1",
+        "Value": 308,
+        "Description": "Generated from table entry: Nue"
+      },
+      {
+        "Name": "Onkot2",
+        "Value": 309,
+        "Description": "Generated from table entry: Onkot"
+      },
+      {
+        "Name": "Atavaka1",
+        "Value": 310,
+        "Description": "Generated from table entry: Atavaka"
+      },
+      {
+        "Name": "KingFrost",
+        "Value": 311,
+        "Description": "Generated from table entry: King Frost"
+      },
+      {
+        "Name": "FengHuang",
+        "Value": 312,
+        "Description": "Generated from table entry: Feng Huang"
+      },
+      {
+        "Name": "Long",
+        "Value": 313,
+        "Description": "Generated from table entry: Long"
+      },
+      {
+        "Name": "GuiXian",
+        "Value": 314,
+        "Description": "Generated from table entry: Gui Xian"
+      },
+      {
+        "Name": "Baihu",
+        "Value": 315,
+        "Description": "Generated from table entry: Baihu"
+      },
+      {
+        "Name": "Demifiend",
+        "Value": 316,
+        "Description": "Generated from table entry: Demi-fiend"
+      },
+      {
+        "Name": "FireCore",
+        "Value": 317,
+        "Description": "Generated from table entry: Fire Core"
+      },
+      {
+        "Name": "WaterCore",
+        "Value": 318,
+        "Description": "Generated from table entry: Water Core"
+      },
+      {
+        "Name": "ElecCore",
+        "Value": 319,
+        "Description": "Generated from table entry: Elec Core"
+      },
+      {
+        "Name": "WindCore",
+        "Value": 320,
+        "Description": "Generated from table entry: Wind Core"
+      },
+      {
+        "Name": "EarthCore",
+        "Value": 321,
+        "Description": "Generated from table entry: Earth Core"
+      },
+      {
+        "Name": "GoldCore",
+        "Value": 322,
+        "Description": "Generated from table entry: Gold Core"
+      },
+      {
+        "Name": "JackFrost1",
+        "Value": 323,
+        "Description": "Generated from table entry: Jack Frost"
+      },
+      {
+        "Name": "Baphomet1",
+        "Value": 324,
+        "Description": "Generated from table entry: Baphomet"
+      },
+      {
+        "Name": "Pixie1",
+        "Value": 325,
+        "Description": "Generated from table entry: Pixie"
+      },
+      {
+        "Name": "HunterDemon",
+        "Value": 326,
+        "Description": "Generated from table entry: Hunter Demon"
+      },
+      {
+        "Name": "JackFrost2",
+        "Value": 327,
+        "Description": "Generated from table entry: Jack Frost"
+      },
+      {
+        "Name": "PyroJack1",
+        "Value": 328,
+        "Description": "Generated from table entry: Pyro Jack"
+      },
+      {
+        "Name": "Valkyrie1",
+        "Value": 329,
+        "Description": "Generated from table entry: Valkyrie"
+      },
+      {
+        "Name": "CuChulainn1",
+        "Value": 330,
+        "Description": "Generated from table entry: Cu Chulainn"
+      },
+      {
+        "Name": "Girimehkala2",
+        "Value": 331,
+        "Description": "Generated from table entry: Girimehkala"
+      },
+      {
+        "Name": "Arahabaki1",
+        "Value": 332,
+        "Description": "Generated from table entry: Arahabaki"
+      },
+      {
+        "Name": "Pixie2",
+        "Value": 333,
+        "Description": "Generated from table entry: Pixie"
+      },
+      {
+        "Name": "Titania1",
+        "Value": 334,
+        "Description": "Generated from table entry: Titania"
+      },
+      {
+        "Name": "Parvati1",
+        "Value": 335,
+        "Description": "Generated from table entry: Parvati"
+      },
+      {
+        "Name": "Titania2",
+        "Value": 336,
+        "Description": "Generated from table entry: Titania"
+      },
+      {
+        "Name": "CuChulainn2",
+        "Value": 337,
+        "Description": "Generated from table entry: Cu Chulainn"
+      },
+      {
+        "Name": "Jinn1",
+        "Value": 338,
+        "Description": "Generated from table entry: Jinn"
+      },
+      {
+        "Name": "Fomor1",
+        "Value": 339,
+        "Description": "Generated from table entry: Fomor"
+      },
+      {
+        "Name": "JackFrost3",
+        "Value": 340,
+        "Description": "Generated from table entry: Jack Frost"
+      },
+      {
+        "Name": "Omoikane1",
+        "Value": 341,
+        "Description": "Generated from table entry: Omoikane"
+      },
+      {
+        "Name": "Omoikane2",
+        "Value": 342,
+        "Description": "Generated from table entry: Omoikane"
+      },
+      {
+        "Name": "Omoikane3",
+        "Value": 343,
+        "Description": "Generated from table entry: Omoikane"
+      },
+      {
+        "Name": "_0x158",
+        "Value": 344,
+        "Description": "Generated from table entry: 0x158"
+      },
+      {
+        "Name": "_0x159",
+        "Value": 345,
+        "Description": "Generated from table entry: 0x159"
+      },
+      {
+        "Name": "_0x15A",
+        "Value": 346,
+        "Description": "Generated from table entry: 0x15A"
+      },
+      {
+        "Name": "_0x15B",
+        "Value": 347,
+        "Description": "Generated from table entry: 0x15B"
+      },
+      {
+        "Name": "_0x15C",
+        "Value": 348,
+        "Description": "Generated from table entry: 0x15C"
+      },
+      {
+        "Name": "_0x15D",
+        "Value": 349,
+        "Description": "Generated from table entry: 0x15D"
+      },
+      {
+        "Name": "_0x15E",
+        "Value": 350,
+        "Description": "Generated from table entry: 0x15E"
+      },
+      {
+        "Name": "_0x15F",
+        "Value": 351,
+        "Description": "Generated from table entry: 0x15F"
+      },
+      {
+        "Name": "_0x160",
+        "Value": 352,
+        "Description": "Generated from table entry: 0x160"
+      },
+      {
+        "Name": "_0x161",
+        "Value": 353,
+        "Description": "Generated from table entry: 0x161"
+      },
+      {
+        "Name": "_0x162",
+        "Value": 354,
+        "Description": "Generated from table entry: 0x162"
+      },
+      {
+        "Name": "_0x163",
+        "Value": 355,
+        "Description": "Generated from table entry: 0x163"
+      },
+      {
+        "Name": "_0x164",
+        "Value": 356,
+        "Description": "Generated from table entry: 0x164"
+      },
+      {
+        "Name": "_0x165",
+        "Value": 357,
+        "Description": "Generated from table entry: 0x165"
+      },
+      {
+        "Name": "_0x166",
+        "Value": 358,
+        "Description": "Generated from table entry: 0x166"
+      },
+      {
+        "Name": "_0x167",
+        "Value": 359,
+        "Description": "Generated from table entry: 0x167"
+      },
+      {
+        "Name": "_0x168",
+        "Value": 360,
+        "Description": "Generated from table entry: 0x168"
+      },
+      {
+        "Name": "_0x169",
+        "Value": 361,
+        "Description": "Generated from table entry: 0x169"
+      },
+      {
+        "Name": "_0x16A",
+        "Value": 362,
+        "Description": "Generated from table entry: 0x16A"
+      },
+      {
+        "Name": "_0x16B",
+        "Value": 363,
+        "Description": "Generated from table entry: 0x16B"
+      },
+      {
+        "Name": "_0x16C",
+        "Value": 364,
+        "Description": "Generated from table entry: 0x16C"
+      },
+      {
+        "Name": "_0x16D",
+        "Value": 365,
+        "Description": "Generated from table entry: 0x16D"
+      },
+      {
+        "Name": "_0x16E",
+        "Value": 366,
+        "Description": "Generated from table entry: 0x16E"
+      },
+      {
+        "Name": "_0x16F",
+        "Value": 367,
+        "Description": "Generated from table entry: 0x16F"
+      },
+      {
+        "Name": "_0x170",
+        "Value": 368,
+        "Description": "Generated from table entry: 0x170"
+      },
+      {
+        "Name": "_0x171",
+        "Value": 369,
+        "Description": "Generated from table entry: 0x171"
+      },
+      {
+        "Name": "_0x172",
+        "Value": 370,
+        "Description": "Generated from table entry: 0x172"
+      },
+      {
+        "Name": "_0x173",
+        "Value": 371,
+        "Description": "Generated from table entry: 0x173"
+      },
+      {
+        "Name": "_0x174",
+        "Value": 372,
+        "Description": "Generated from table entry: 0x174"
+      },
+      {
+        "Name": "_0x175",
+        "Value": 373,
+        "Description": "Generated from table entry: 0x175"
+      },
+      {
+        "Name": "_0x176",
+        "Value": 374,
+        "Description": "Generated from table entry: 0x176"
+      },
+      {
+        "Name": "_0x177",
+        "Value": 375,
+        "Description": "Generated from table entry: 0x177"
+      },
+      {
+        "Name": "_0x178",
+        "Value": 376,
+        "Description": "Generated from table entry: 0x178"
+      },
+      {
+        "Name": "_0x179",
+        "Value": 377,
+        "Description": "Generated from table entry: 0x179"
+      },
+      {
+        "Name": "_0x17A",
+        "Value": 378,
+        "Description": "Generated from table entry: 0x17A"
+      },
+      {
+        "Name": "_0x17B",
+        "Value": 379,
+        "Description": "Generated from table entry: 0x17B"
+      },
+      {
+        "Name": "_0x17C",
+        "Value": 380,
+        "Description": "Generated from table entry: 0x17C"
+      },
+      {
+        "Name": "_0x17D",
+        "Value": 381,
+        "Description": "Generated from table entry: 0x17D"
+      },
+      {
+        "Name": "_0x17E",
+        "Value": 382,
+        "Description": "Generated from table entry: 0x17E"
+      },
+      {
+        "Name": "_0x17F",
+        "Value": 383,
+        "Description": "Generated from table entry: 0x17F"
+      }
+    ]
+  }
+]

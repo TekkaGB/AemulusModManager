@@ -1,0 +1,652 @@
+[
+  {
+    "Index": 0,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "clr",
+        "Description": "Sets the current text color to the color specified by the given color index.",
+        "Parameters": [
+          {
+            "Name": "colorIndex",
+            "Description": "The index of the color to set the current text color to."
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 1,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "w",
+        "Description": "Wait for player input.",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 10,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 2,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "s",
+        "Description": "Indicates the start of a line",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 3,
+    "Name": "",
+    "Description": "Voice playing functions.",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "vp",
+        "Description": "Plays a voice sound cue from a specified sound bank.",
+        "Parameters": [
+          {
+            "Name": "eventIdMajor",
+            "Description": "Major id of the event."
+          },
+          {
+            "Name": "eventIdMinor",
+            "Description": "Minor id of the event."
+          },
+          {
+            "Name": "eventIdSub",
+            "Description": "Sub id of the event."
+          },
+          {
+            "Name": "cueId",
+            "Description": "The id of the sound que in the sound bank."
+          },
+          {
+            "Name": "param5",
+            "Description": "Unknown value."
+          },
+          {
+            "Name": "param6",
+            "Description": "Unknown value."
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 4,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "bup",
+        "Description": "Sets the bustup to display.",
+        "Parameters": [
+          {
+            "Name": "param1",
+            "Description": "Unknown value."
+          },
+          {
+            "Name": "characterId",
+            "Description": "The id of the character."
+          },
+          {
+            "Name": "expressionId",
+            "Description": "The id of the character's expression."
+          },
+          {
+            "Name": "costumeId",
+            "Description": "The id of the character's costume."
+          },
+          {
+            "Name": "param5",
+            "Description": "Unknown value."
+          }
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 10,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 11,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 12,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 13,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 14,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 15,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 16,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 17,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 18,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 19,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 20,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 21,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 22,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 23,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 24,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 25,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 26,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 27,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 28,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 29,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 5,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 10,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 11,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 12,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 13,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 14,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 15,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 16,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 6,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "@Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  }
+
+]

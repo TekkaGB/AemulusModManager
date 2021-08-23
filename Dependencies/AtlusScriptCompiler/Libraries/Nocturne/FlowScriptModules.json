@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Name": "Common",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Nocturne\\Modules\\Common\\Enums.json",
+    "FunctionsPath": "Nocturne\\Modules\\Common\\Functions.json"
+  }
+]

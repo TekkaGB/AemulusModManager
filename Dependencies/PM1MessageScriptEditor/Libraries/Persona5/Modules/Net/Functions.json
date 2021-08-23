@@ -1,0 +1,96 @@
+[
+  {
+    "Index": "0x5000",
+    "ReturnType": "void",
+    "Name": "NET_SET_AFTER_SCHOOL_ACTION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5001",
+    "ReturnType": "void",
+    "Name": "NET_SET_NIGHT_ACTION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5002",
+    "ReturnType": "void",
+    "Name": "NET_SET_ANSER_SELECT_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5003",
+    "ReturnType": "void",
+    "Name": "NET_SET_ANSER_SUCCESS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5004",
+    "ReturnType": "void",
+    "Name": "NET_SET_STRATEGY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5005",
+    "ReturnType": "void",
+    "Name": "NET_SET_STRATEGY_SUCCESS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5006",
+    "ReturnType": "void",
+    "Name": "NET_START_AUDIENCE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x5007",
+    "ReturnType": "void",
+    "Name": "NET_STOP_AUDIENCE",
+    "Description": "",
+    "Parameters": [
+    ]
+  }
+]

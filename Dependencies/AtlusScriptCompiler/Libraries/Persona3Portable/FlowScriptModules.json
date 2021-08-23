@@ -1,0 +1,50 @@
+﻿[
+  {
+    "Name": "Common",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona3Portable\\Enums.json",
+    "FunctionsPath": "Persona3Portable\\Modules\\Common\\Functions.json"
+  },
+  {
+    "Name": "Field",
+    "ShortName": "Field",
+    "Description": "Field related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona3Portable\\Enums.json",
+    "FunctionsPath": "Persona3Portable\\Modules\\Field\\Functions.json"
+  },
+  {
+    "Name": "AI",
+    "ShortName": "AI",
+    "Description": "AI related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona3Portable\\Enums.json",
+    "FunctionsPath": "Persona3Portable\\Modules\\AI\\Functions.json"
+  },
+  {
+    "Name": "Event",
+    "ShortName": "Event",
+    "Description": "Event related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona3Portable\\Modules\\Event\\Functions.json"
+  },
+  {
+    "Name": "Facility",
+    "ShortName": "Facility",
+    "Description": "Facility/Call related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona3Portable\\Enums.json",
+    "FunctionsPath": "Persona3Portable\\Modules\\Facility\\Functions.json"
+  },
+  {
+    "Name": "Shared",
+    "ShortName": "Shared data",
+    "Description": "",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona3Portable\\Enums.json",
+    "FunctionsPath": "Persona3Portable\\Modules\\Shared\\Functions.json"
+  }
+]

@@ -1,0 +1,680 @@
+[
+  {
+    "Index": "0x1000",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0000",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1001",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0001",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1002",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0002",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1003",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0003",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1004",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0004",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1005",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0005",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1006",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0006",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1007",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0007",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1008",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0008",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1009",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0009",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100a",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_000A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100b",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_000B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100c",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_000C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100d",
+    "ReturnType": "int",
+    "Name": "FLD_NPC_MODEL_LOAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "major",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "minor",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100e",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_000E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100f",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_000F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1010",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0010",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1011",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0011",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1012",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0012",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1013",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0013",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1014",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0014",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1015",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0015",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1016",
+    "ReturnType": "int",
+    "Name": "CALL_BATTLE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "encounterId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1017",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_ROTATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "degrees",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "speed",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1018",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_ROTATE_BEHIND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "degrees",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "speed",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1019",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0019",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101a",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_001A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101b",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_001B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101c",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_001C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101d",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_001D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101e",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_001E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101f",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_001F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1020",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0020",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1021",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0021",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1022",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0022",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1023",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0023",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1024",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0024",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1025",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0025",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1026",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0026",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1027",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0027",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1028",
+    "ReturnType": "void",
+    "Name": "FLD_EFFECT_TRAESTO_START",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1029",
+    "ReturnType": "int",
+    "Name": "FLD_FUNCTION_0029",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102a",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_002A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102b",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_002B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102c",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_002C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x102d",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_002D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102e",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_002E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102f",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_002F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1030",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0030",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1031",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0031",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1032",
+    "ReturnType": "void",
+    "Name": "FLD_FUNCTION_0032",
+    "Description": "",
+    "Parameters": [
+    ]
+  }
+]

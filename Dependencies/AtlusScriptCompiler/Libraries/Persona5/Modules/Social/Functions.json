@@ -878,11 +878,6 @@
         "Type": "int",
         "Name": "param1",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
       }
     ]
   },

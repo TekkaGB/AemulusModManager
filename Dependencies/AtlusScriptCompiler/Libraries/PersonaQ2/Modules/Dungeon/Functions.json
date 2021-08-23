@@ -1,0 +1,5028 @@
+[
+  {
+    "Index": "0x1000",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0000",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1001",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0001",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1002",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0002",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1003",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0003",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1004",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0004",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1005",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0005",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1006",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0006",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1007",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0007",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1008",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0008",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1009",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0009",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_000A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x100b",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_000B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x100c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_000C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100d",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_000D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x100e",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_000E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x100f",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_000F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1010",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0010",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1011",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0011",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1012",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0012",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1013",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0013",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1014",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0014",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1015",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0015",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1016",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0016",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1017",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0017",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1018",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0018",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1019",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0019",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_001A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_001B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_001C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101d",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_001D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x101e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_001E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_001F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1020",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0020",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1021",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0021",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1022",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0022",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1023",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0023",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1024",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0024",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1025",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0025",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1026",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0026",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1027",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0027",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1028",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0028",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1029",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0029",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_002A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x102b",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_002B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x102c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_002C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x102d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_002D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_002E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x102f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_002F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1030",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0030",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1031",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0031",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1032",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0032",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1033",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0033",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1034",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0034",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1035",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0035",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1036",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0036",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1037",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0037",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1038",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0038",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1039",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0039",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x103a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_003A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x103b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_003B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_003C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_003D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x103e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_003E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x103f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_003F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1040",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0040",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1041",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0041",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1042",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0042",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1043",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0043",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1044",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0044",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1045",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0045",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1046",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0046",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1047",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0047",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1048",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0048",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1049",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0049",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_004A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x104b",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_004B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x104c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_004C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_004D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x104e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_004E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_004F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1050",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0050",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1051",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0051",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1052",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0052",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1053",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0053",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1054",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0054",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1055",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0055",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1056",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0056",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1057",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0057",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1058",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0058",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1059",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0059",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x105a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_005A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105b",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_005B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_005C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_005D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105e",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_005E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_005F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1060",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0060",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1061",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0061",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1062",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0062",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1063",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0063",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1064",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0064",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1065",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0065",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1066",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0066",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1067",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0067",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1068",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0068",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1069",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0069",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x106a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_006A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x106b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_006B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x106c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_006C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x106d",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_006D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x106e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_006E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x106f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_006F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1070",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0070",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1071",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0071",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1072",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0072",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1073",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0073",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1074",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0074",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1075",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0075",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1076",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0076",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1077",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0077",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1078",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0078",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1079",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0079",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_007A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x107b",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_007B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x107c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_007C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x107d",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_007D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_007E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x107f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_007F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1080",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0080",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1081",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0081",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1082",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0082",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1083",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0083",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1084",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0084",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1085",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0085",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1086",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0086",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1087",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0087",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x1088",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0088",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1089",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0089",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x108a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_008A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_008B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_008C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x108d",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_008D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_008E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108f",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_008F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1090",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0090",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1091",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0091",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1092",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0092",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1093",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0093",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1094",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0094",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1095",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0095",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1096",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0096",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1097",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0097",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1098",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0098",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1099",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0099",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_009A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_009B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_009C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_009D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109e",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_009E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_009F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a0",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a1",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a2",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a3",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x10a4",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00A4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a5",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00A5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a6",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a7",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a8",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a9",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00A9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10aa",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00AA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x10ab",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00AB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ac",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00AC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ad",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00AD",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ae",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00AE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10af",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00AF",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10b0",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00B0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x10b1",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b2",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b3",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b4",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b5",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B5",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10b6",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B6",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10b7",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00B7",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10b8",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00B8",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10b9",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00B9",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ba",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00BA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bb",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00BB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bc",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00BC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bd",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00BD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10be",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00BE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bf",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00BF",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10c0",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c1",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c2",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c3",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00C3",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10c4",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c5",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C5",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10c6",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C6",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10c7",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c8",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c9",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00C9",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ca",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00CA",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10cb",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00CB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10cc",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00CC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10cd",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00CD",
+    "Description": "Code function name: DgScrCom_sub_372B38",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ce",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00CE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10cf",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00CF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d0",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00D0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d1",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00D1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d2",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00D2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d3",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00D3",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10d4",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00D4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d5",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00D5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d6",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00D6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x10d7",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00D7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d8",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00D8",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10d9",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00D9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10da",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00DA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10db",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00DB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10dc",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00DC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10dd",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00DD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10de",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00DE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10df",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00DF",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10e0",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e1",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e2",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E2",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10e3",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e4",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00E4",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10e5",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e6",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e7",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e8",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00E8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x10e9",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00E9",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ea",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00EA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10eb",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00EB",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ec",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00EC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ed",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00ED",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ee",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00EE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ef",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00EF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f0",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f1",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f2",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f3",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f4",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00F4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f5",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F5",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10f6",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F6",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10f7",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f8",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00F8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f9",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00F9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10fa",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_00FA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10fb",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00FB",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10fc",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00FC",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10fd",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00FD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x10fe",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00FE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x10ff",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_00FF",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1100",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0100",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1101",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0101",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1102",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0102",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1103",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0103",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1104",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0104",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1105",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0105",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1106",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0106",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1107",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0107",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1108",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0108",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1109",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0109",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x110a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_010A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x110b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_010B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x110c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_010C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x110d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_010D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x110e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_010E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x110f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_010F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1110",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0110",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1111",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0111",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1112",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0112",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1113",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0113",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1114",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0114",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1115",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0115",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1116",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0116",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1117",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0117",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1118",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0118",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1119",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0119",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x111a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_011A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x111b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_011B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x111c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_011C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x111d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_011D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x111e",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_011E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x111f",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_011F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1120",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0120",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1121",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0121",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1122",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0122",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1123",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0123",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1124",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0124",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1125",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0125",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1126",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0126",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1127",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0127",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1128",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0128",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1129",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0129",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x112a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_012A",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x112b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_012B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x112c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_012C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x112d",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_012D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x112e",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_012E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x112f",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_012F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1130",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0130",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1131",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0131",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1132",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0132",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1133",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0133",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1134",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0134",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1135",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0135",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1136",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0136",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1137",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0137",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1138",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0138",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1139",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0139",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x113a",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_013A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x113b",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_013B",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x113c",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_013C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x113d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_013D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x113e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_013E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x113f",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_013F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1140",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0140",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1141",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0141",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1142",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0142",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1143",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0143",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1144",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0144",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1145",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0145",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1146",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0146",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1147",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0147",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1148",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0148",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1149",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0149",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x114a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_014A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x114b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_014B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x114c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_014C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x114d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_014D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x114e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_014E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x114f",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_014F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1150",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0150",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1151",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0151",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1152",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0152",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1153",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0153",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1154",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0154",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1155",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0155",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1156",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0156",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1157",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0157",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1158",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0158",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1159",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0159",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x115a",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_015A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x115b",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_015B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x115c",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_015C",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x115d",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_015D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x115e",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_015E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x115f",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_015F",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x1160",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0160",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1161",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0161",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1162",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0162",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1163",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0163",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1164",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0164",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1165",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0165",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1166",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0166",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1167",
+    "ReturnType": "int",
+    "Name": "DNG_FUNCTION_0167",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1168",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0168",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1169",
+    "ReturnType": "void",
+    "Name": "DNG_FUNCTION_0169",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  }
+]

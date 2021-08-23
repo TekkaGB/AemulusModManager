@@ -4,7 +4,7 @@
     "ShortName": "Common",
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "Persona3FES\\Modules\\Common\\Enums.json",
     "FunctionsPath": "Persona3FES\\Modules\\Common\\Functions.json"
   }
 ]

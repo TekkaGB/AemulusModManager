@@ -1,6 +1,6 @@
 # Aemulus Package Manager P3F PS2/P4G PC/P5 PS3/P5S PC
 ## Introduction
-The wait is finally over!  No longer will you have to manually merge conflicting bin files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, Persona 5, and Persona 5 Strikers.
+The wait is finally over!  No longer will you have to manually merge conflicting bin, bmd, pm1, bf and tbl files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, Persona 5, and Persona 5 Strikers.
 
 ## How to Use
 ### Prerequisites
@@ -31,18 +31,12 @@ The first thing you'll want to do is click the Config button on the top left.  F
 
 This feature unpacks mergeable files locally on your system. This way, Aemulus can grab the unchanged assets in files like init_free.bin immediately, which saves a lot of time in the long run when building and downloading mods.
 
-You only need to do this once for each game you want to mod.  If you download another update for Aemulus Package Manager, you can just move the contents of the Original folder to the new update's one without having to unpack again.
-
-Open the Config menu and click Unpack Base Files, if the previous paths weren't setup already, it will prompt you to select the appropriate file/folder to start unpacking. You'll find the unpacked files for Aemulus in your Original/<Persona Game Name> folder.
+You only need to do this once for each game you want to mod. To do so, open the Config menu and click Unpack Base Files, if the previous paths weren't setup already, it will prompt you to select the appropriate file/folder to start unpacking. You'll find the unpacked files for Aemulus in your Original/<Persona Game Name> folder.
   
 Persona 5 Strikers doesn't need to unpack any base files but instead makes copies of the original files and rdbs that will be patched and replaced on the first run through. 
 
 ### Adding Packages
-Once you've set up Aemulus, drop your mods/packages into the Packages folder found in the same folder as AemulusPackageManager.exe. You can access this folder quickly by clicking the opened folder icon.
-
-# <img src="https://i.imgur.com/63zWgb5.png">
-
-Once you click Refresh or relaunch the program, you'll see all of your packages in the middle of the Aemulus window.
+Once you've set up Aemulus, you can install packages either directly from [GameBanana](https://gamebanana.com/) or through the "Download Packages" section built into Aemulus. You can also drag and drop zipped packages that you have manually downloaded onto the new packages button to automatically install them.
 
 You can also click the New button on the top right to create a directory along with metadata and a preview.  The directory will pop up when you click confirm and you can drop the contents of the mod inside.
 
@@ -58,16 +52,21 @@ Remember, any mod will work with Aemulus, but the mod creator has to provide a m
 ### Final Step - Merging and Building Your Loadout
 Please note that Aemulus will completely erase the previous contents of your output folder (with the exception of Persona 5 which makes and clears a 'mod' folder in the output directory selected) when creating a loadout. Back up your current folder if you aren't sure about the changes you're making, and make sure not to use a location like Desktop for your output.
 
-Finally, to merge all supported bin files and build your loadout (as well as patch tables if you have it enabled), just click the Hammer button at the top to build.  The console at the bottom will print what Aemulus manager is currently doing. 
+Finally, to merge all supported files and build your loadout, just click the Hammer button at the top to build.  The console at the bottom will print what Aemulus manager is currently doing. 
 
 Don't worry if it seems like the console is stuck on "unpacking" something. Some files take longer than others to unpack.
 
 A window will pop up once everything is complete. Congratulations, you're all done!
 Now when you run your chosen Persona game, the game will utilize your brand new loadout (that is if you setup mod loading correctly).
 
+### Sharing and Creating Loadouts
+As of version 5.3.0 Aemulus supports package loadouts. These allow you to quickly switch which packages are enabled, hidden and the order of packages. These loadouts can also easily be shared and imported. 
+
+To share loadouts you can simply send anyone the loadout xml which is located in the Config/Game folder in Aemulus. Once you have a loadout xml you can import it by dragging and dropping it onto the new package button. This will add the loadout to your list, also prompting you to download any mods in the loadout that you don't already have installed (if they have a valid link).
+
 ## How Bin Merging Works
 ### The mods.aem File
-Aemulus now supports loose file merging, but this section may still be useful for mods that edit bin files in other folders or if you want to add Aemulus support to a legacy mod.
+**Aemulus now supports loose file merging, but this section may still be useful for mods that edit bin files in other folders or if you want to add Aemulus support to a legacy mod.**
 
 In order to support merging bin files, each mod/package that edits the bin file needs a mods.aem file in its folder.  This is just a text file with a changed extension that you can open with Notepad or any other text editor.
 
@@ -102,6 +101,16 @@ If you're curious how the program actually works, I'll run you through it here.
 3. Goes through each packages' contents and copies and overwrites all contents (excluding mods.aem and .tblpatch files) it over to the mods directory you had to select.
 4. If there's a conflict with a bin file, it unpacks the entire bin and refers to mods.aem to copy over the loose files to the mods directory, then deletes the unpacked files.
 5. Merges all the loose files with the bins then deletes all the loose files.
+
+### Bf/Flow Merging
+
+To create a mod that supports bf merging you replace the bf in the package with a flow file which **uses hooks** to change functions. For example if you had a mod which edited f007.bf, you would simply put the .flow file which you used to create the bf in the same place with the exact same name (so f007.flow in this case). You do not need to supply your own f007.bf, in fact if you do it will be replaced by an original copy anyway when building.
+
+When Aemulus builds your mod it will see that there is a flow file and then copy the original bf from the game's unpacked files into the same folder as that flow. [Atlus Script Compiler](https://github.com/TGEnigma/Atlus-Script-Tools) will then attempt to compile the flow, the same way you would do it manually. Also, if there are any bf files with the same name and location in the previous packages instead of copying from the original files it will copy the bf from them.
+
+### Bmd and Pm1 Merging
+
+Bmd and Pm1 merging is done entirely automatically, meaning no additional work is required for mod authors. The way it works internally is the pm1s or bmds to be merged are compared with their original version by decompiling them into msg files. Then any messages that are different to the original are added to a list, if both files edit the same message the higher priority one will be added. Then all of the changed messages are replaced in a msg files which is finally recompiled as a bmd or pm1 to be used.
 
 ## How Table Patching Works
 New Feature Added in v1.1!
@@ -353,6 +362,3 @@ I have a lot of ideas in mind to keep on improving Aemulus.  These include the f
 
 - Improve my code and algorithms to optimize the merging process
 - Add separators between mods (requested by Pixelguin to use for his modpack)
-- Drag and drop mod/package folders onto interface to easily add to manager
-- Merging bf and pm1 files
-- Implement version checks

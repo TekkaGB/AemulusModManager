@@ -1,0 +1,6520 @@
+﻿[
+  {
+    "Index": "0x0000",
+    "ReturnType": "void",
+    "Name": "MSG",
+    "Description": "sub_38D920;",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "",
+        "Semantic": "MsgId"
+      }
+    ]
+  },
+  {
+    "Index": "0x0001",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0001",
+    "Description": "sub_38E0D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0002",
+    "ReturnType": "void",
+    "Name": "MSG_FUNCTION_0002",
+    "Description": "sub_38E140",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0003",
+    "ReturnType": "int",
+    "Name": "MSG_FUNCTION_0003",
+    "Description": "sub_38DE30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0004",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0004",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0005",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0005",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0006",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0006",
+    "Description": "sub_38E070",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0007",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0007",
+    "Description": "sub_346870",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0008",
+    "ReturnType": "void",
+    "Name": "CMN_FUNCTION_0008",
+    "Description": "sub_3468B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0009",
+    "ReturnType": "void",
+    "Name": "CMN_FUNCTION_0009",
+    "Description": "sub_346910",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_000A",
+    "Description": "sub_346970",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000B",
+    "Description": "sub_346A00",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x000c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000C",
+    "Description": "sub_346A30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000D",
+    "Description": "sub_1BBEB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000E",
+    "Description": "sub_1BBF10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000f",
+    "ReturnType": "void",
+    "Name": "CMN_FUNCTION_000F",
+    "Description": "sub_346B10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param8",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0010",
+    "ReturnType": "void",
+    "Name": "PUT",
+    "Description": "sub_346A90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0011",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0011",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0012",
+    "ReturnType": "void",
+    "Name": "PUTSTR",
+    "Description": "sub_346AD0",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0013",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0013",
+    "Description": "sub_346BB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0014",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0014",
+    "Description": "sub_346BF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0015",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0015",
+    "Description": "sub_346C30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0016",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0016",
+    "Description": "None",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0017",
+    "ReturnType": "int",
+    "Name": "CMN_FUNCTION_0017",
+    "Description": "sub_346C80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0018",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0018",
+    "Description": "sub_346D90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0019",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0019",
+    "Description": "sub_346E00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_001A",
+    "Description": "sub_346E40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_001B",
+    "Description": "sub_346EA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001c",
+    "ReturnType": "void",
+    "Name": "SET_MSG_VAR",
+    "Description": "SET_MSG_VAR",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "index",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "val",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "type",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001D",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x001e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001E",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x001f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001F",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0020",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0020",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0021",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0021",
+    "Description": "sub_1BB930",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0022",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0022",
+    "Description": "Null pointer",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0023",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0023",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0024",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0024",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0025",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0025",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0026",
+    "ReturnType": "void",
+    "Name": "MSG_FUNCTION_0026",
+    "Description": "sub_38DA30; itfMesManager.c",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0027",
+    "ReturnType": "void",
+    "Name": "MSG_FUNCTION_0027",
+    "Description": "sub_38DC10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0028",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0028",
+    "Description": "sub_38E3E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0029",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0029",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x002a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002A",
+    "Description": "sub_3F7840",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x002b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002B",
+    "Description": "sub_3F78C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x002c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002C",
+    "Description": "sub_3F7970",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x002d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002D",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x002e",
+    "ReturnType": "float",
+    "Name": "FUNCTION_002E",
+    "Description": "sub_346F20",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x002f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002F",
+    "Description": "Null pointer",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0030",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0030",
+    "Description": "sub_2FDA00",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0031",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0031",
+    "Description": "sub_2FD9C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0032",
+    "ReturnType": "float",
+    "Name": "FUNCTION_0032",
+    "Description": "sub_2FC600",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0033",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0033",
+    "Description": "sub_2BB910",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0034",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0034",
+    "Description": "sub_2BB9C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0035",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0035",
+    "Description": "sub_2BBA70",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0036",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0036",
+    "Description": "sub_2BBB20",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0037",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0037",
+    "Description": "sub_2BBBD0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0038",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0038",
+    "Description": "sub_2BBC80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0039",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0039",
+    "Description": "sub_2BBD30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003A",
+    "Description": "sub_2BBDE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003B",
+    "Description": "sub_2BBE90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003C",
+    "Description": "sub_2BBF40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003D",
+    "Description": "sub_2BBFF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003E",
+    "Description": "sub_2BC0A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003F",
+    "Description": "sub_2BC150",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0040",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0040",
+    "Description": "sub_2BC200",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0041",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0041",
+    "Description": "sub_2BC2B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0042",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0042",
+    "Description": "sub_2BC360",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0043",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0043",
+    "Description": "sub_2BC410",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0044",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0044",
+    "Description": "sub_2BC4C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0045",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0045",
+    "Description": "sub_2BC570",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0046",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0046",
+    "Description": "sub_2BC5C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0047",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0047",
+    "Description": "sub_2BC610",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0048",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0048",
+    "Description": "sub_2BC660",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0049",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0049",
+    "Description": "sub_2BC710",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_004A",
+    "Description": "sub_2BC7C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_004B",
+    "Description": "sub_2BC870",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_004C",
+    "Description": "sub_2BC920",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_004D",
+    "Description": "sub_2BC9D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_004E",
+    "Description": "sub_2BCA80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_004F",
+    "Description": "sub_2BCB30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0050",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0050",
+    "Description": "sub_2BCBE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0051",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0051",
+    "Description": "sub_2BCC90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0052",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0052",
+    "Description": "sub_2BCD40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0053",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0053",
+    "Description": "sub_2BCDF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0054",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0054",
+    "Description": "sub_2BCEA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0055",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0055",
+    "Description": "sub_2BCF50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0056",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0056",
+    "Description": "sub_2BD000",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0057",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0057",
+    "Description": "sub_2BD0B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0058",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0058",
+    "Description": "sub_2BD160",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0059",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0059",
+    "Description": "sub_2BD210",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x005a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_005A",
+    "Description": "sub_2BD2C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x005b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_005B",
+    "Description": "sub_2BD310",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x005c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_005C",
+    "Description": "sub_2BD360",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x005d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_005D",
+    "Description": "sub_2BD3B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x005e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_005E",
+    "Description": "sub_2BD460",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x005f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_005F",
+    "Description": "sub_2C0640",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0060",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0060",
+    "Description": "sub_2C06B0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0061",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0061",
+    "Description": "sub_2C0720",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0062",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0062",
+    "Description": "sub_2C0790",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0063",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0063",
+    "Description": "sub_2C0800",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0064",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0064",
+    "Description": "sub_2C08B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0065",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0065",
+    "Description": "sub_2C0960",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0066",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0066",
+    "Description": "sub_2C0A10",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0067",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0067",
+    "Description": "sub_2C0A80",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0068",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0068",
+    "Description": "sub_2C0AF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0069",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0069",
+    "Description": "sub_2C0BA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006A",
+    "Description": "sub_2C0C50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006B",
+    "Description": "sub_2C0D00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006C",
+    "Description": "sub_2C0DB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006D",
+    "Description": "sub_2C0E60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006E",
+    "Description": "sub_2C0F10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006F",
+    "Description": "sub_2C0FC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0070",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0070",
+    "Description": "sub_2BB560",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0071",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0071",
+    "Description": "sub_2BB5A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0072",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0072",
+    "Description": "sub_2BB6C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0073",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0073",
+    "Description": "sub_2BB700",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0074",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0074",
+    "Description": "sub_2BB7A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0075",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0075",
+    "Description": "sub_2C5430",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0076",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0076",
+    "Description": "sub_1BBA80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0077",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0077",
+    "Description": "sub_40E640",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0078",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0078",
+    "Description": "sub_1BBC60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0079",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0079",
+    "Description": "sub_1BBE00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x007a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007A",
+    "Description": "sub_1BBE50",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x007b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007B",
+    "Description": "sub_34AB70",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x007c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_007C",
+    "Description": "sub_34ABB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x007d",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_007D",
+    "Description": "sub_34AFB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x007e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007E",
+    "Description": "sub_1BBE80",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x007f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007F",
+    "Description": "sub_1BBF90",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0080",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0080",
+    "Description": "sub_1BBFC0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0081",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0081",
+    "Description": "sub_1BBFF0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0082",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0082",
+    "Description": "sub_1BC020",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0083",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0083",
+    "Description": "sub_1BC050",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0084",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0084",
+    "Description": "sub_1BC080",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0085",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0085",
+    "Description": "sub_16CA40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0086",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0086",
+    "Description": "sub_16CC00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0087",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0087",
+    "Description": "sub_1BC130",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0088",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0088",
+    "Description": "sub_1BC1D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0089",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0089",
+    "Description": "sub_1BC200",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x008a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_008A",
+    "Description": "sub_1BC6D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x008b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_008B",
+    "Description": "sub_2C1070",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x008c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_008C",
+    "Description": "sub_2C10E0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x008d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_008D",
+    "Description": "sub_2C1150",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x008e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_008E",
+    "Description": "sub_2BD510",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x008f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_008F",
+    "Description": "sub_2BD560",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0090",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0090",
+    "Description": "sub_2BB8D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0091",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0091",
+    "Description": "sub_33BB50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0092",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0092",
+    "Description": "sub_33BBC0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0093",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0093",
+    "Description": "sub_2FDB20",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0094",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0094",
+    "Description": "sub_272710",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0095",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0095",
+    "Description": "sub_2C11C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0096",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0096",
+    "Description": "sub_2C1270",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0097",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0097",
+    "Description": "sub_2C1320",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0098",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0098",
+    "Description": "sub_2C13D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0099",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0099",
+    "Description": "sub_2C1480",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x009a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_009A",
+    "Description": "sub_2C1530",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x009b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_009B",
+    "Description": "sub_2C15E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x009c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_009C",
+    "Description": "sub_2C1690",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x009d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_009D",
+    "Description": "sub_2BD5B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x009e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_009E",
+    "Description": "sub_2BD660",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x009f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_009F",
+    "Description": "sub_2BD710",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A0",
+    "Description": "sub_2BD7C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A1",
+    "Description": "sub_2BD870",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A2",
+    "Description": "sub_2BD920",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A3",
+    "Description": "sub_2BD9D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A4",
+    "Description": "sub_2BDA80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A5",
+    "Description": "sub_2BB830",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A6",
+    "Description": "sub_272860",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00a7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A7",
+    "Description": "sub_2BDB30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A8",
+    "Description": "sub_2BDC20",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A9",
+    "Description": "sub_2BDD10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00aa",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AA",
+    "Description": "sub_2BDE00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ab",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AB",
+    "Description": "sub_2BDF40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ac",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AC",
+    "Description": "sub_2BE000",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ad",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AD",
+    "Description": "sub_2BE0F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ae",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AE",
+    "Description": "sub_2BE1E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00af",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AF",
+    "Description": "sub_2BE2D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00B0",
+    "Description": "sub_2BE3C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00B1",
+    "Description": "sub_2BE4B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00B2",
+    "Description": "sub_2BE5A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00B3",
+    "Description": "sub_2BE640",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00B4",
+    "Description": "sub_2C1740",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00b5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00B5",
+    "Description": "sub_34B1A0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00b6",
+    "ReturnType": "void",
+    "Name": "CUTIN_FUNCTION_00B6",
+    "Description": "sub_3829A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00B7",
+    "Description": "sub_382BE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b8",
+    "ReturnType": "int",
+    "Name": "EVT_FUNCTION_00B8",
+    "Description": "sub_379180",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00B9",
+    "Description": "sub_3A8590",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ba",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00BA",
+    "Description": "sub_34AC10",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00bb",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00BB",
+    "Description": "sub_34AD60",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00bc",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BC",
+    "Description": "sub_40E6A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00bd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BD",
+    "Description": "sub_40E700",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00be",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BE",
+    "Description": "None",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00bf",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BF",
+    "Description": "None",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00c0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C0",
+    "Description": "sub_1BC700",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C1",
+    "Description": "sub_1BC7D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C2",
+    "Description": "sub_1BC880",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C3",
+    "Description": "sub_1BC8D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C4",
+    "Description": "sub_1BC980",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C5",
+    "Description": "sub_1BC9D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C6",
+    "Description": "sub_1BCBA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C7",
+    "Description": "sub_1BCBF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C8",
+    "Description": "sub_1BCC40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00C9",
+    "Description": "sub_1BCC90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ca",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00CA",
+    "Description": "sub_1BCCE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00cb",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00CB",
+    "Description": "sub_1BCD70",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00cc",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00CC",
+    "Description": "sub_1BCEC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00cd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CD",
+    "Description": "sub_1BCF40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ce",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CE",
+    "Description": "sub_40E7D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00cf",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_00CF",
+    "Description": "sub_34B280",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d0",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_00D0",
+    "Description": "sub_34B5D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00D1",
+    "Description": "sub_16CD90",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00d2",
+    "ReturnType": "void",
+    "Name": "G_DATA_FUNCTION_00D2",
+    "Description": "sub_16CDC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d3",
+    "ReturnType": "void",
+    "Name": "G_DATA_FUNCTION_00D3",
+    "Description": "sub_16CE50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00D4",
+    "Description": "sub_16CC40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D5",
+    "Description": "sub_16CC90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D6",
+    "Description": "sub_1BBD80",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00d7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00D7",
+    "Description": "sub_1BCFC0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00d8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D8",
+    "Description": "sub_1BCFF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00d9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D9",
+    "Description": "sub_1BD050",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00da",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_00DA",
+    "Description": "sub_34BB40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00db",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_00DB",
+    "Description": "sub_34BBC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00dc",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_00DC",
+    "Description": "sub_34BC90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00dd",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_00DD",
+    "Description": "sub_34B080",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00de",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DE",
+    "Description": "sub_34B130",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00df",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_00DF",
+    "Description": "sub_34B670",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e0",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_00E0",
+    "Description": "sub_34B840",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00e1",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_00E1",
+    "Description": "sub_34B8E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00e2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E2",
+    "Description": "sub_1BD0B0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E3",
+    "Description": "sub_1BD0E0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E4",
+    "Description": "sub_1BD210",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E5",
+    "Description": "sub_1BD2A0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E6",
+    "Description": "sub_1BD2D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E7",
+    "Description": "sub_1BD300",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E8",
+    "Description": "sub_1BD330",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00e9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E9",
+    "Description": "sub_1BC480",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ea",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_00EA",
+    "Description": "sub_34BD60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00eb",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00EB",
+    "Description": "sub_2BB640",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ec",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00EC",
+    "Description": "sub_2BF3F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ed",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00ED",
+    "Description": "sub_2BF4D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ee",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00EE",
+    "Description": "sub_2BF580",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ef",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00EF",
+    "Description": "sub_2BF630",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F0",
+    "Description": "sub_2BF6E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F1",
+    "Description": "sub_2BF790",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F2",
+    "Description": "sub_2BF840",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F3",
+    "Description": "sub_2BF8F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F4",
+    "Description": "sub_2BF9A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F5",
+    "Description": "sub_2BFA50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F6",
+    "Description": "sub_2BFB00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F7",
+    "Description": "sub_2BFBB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F8",
+    "Description": "sub_2C2140",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F9",
+    "Description": "sub_2C2210",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00fa",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00FA",
+    "Description": "sub_2C2290",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00fb",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00FB",
+    "Description": "sub_2C2370",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00fc",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00FC",
+    "Description": "sub_2C2410",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00fd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FD",
+    "Description": "sub_2C2580",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00fe",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00FE",
+    "Description": "sub_2C2640",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ff",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00FF",
+    "Description": "sub_2C26E0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0100",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0100",
+    "Description": "sub_2C27C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0101",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0101",
+    "Description": "sub_2C28C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0102",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0102",
+    "Description": "sub_2C29A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0103",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0103",
+    "Description": "sub_2C3650",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0104",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0104",
+    "Description": "sub_2C3780",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0105",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0105",
+    "Description": "sub_2C38B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0106",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0106",
+    "Description": "sub_2C3D20",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0107",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0107",
+    "Description": "sub_2C3E50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0108",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0108",
+    "Description": "sub_2C3F80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0109",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0109",
+    "Description": "sub_2C39E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010A",
+    "Description": "sub_2C3A90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010B",
+    "Description": "sub_2C3B40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010C",
+    "Description": "sub_2C40B0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x010d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010D",
+    "Description": "sub_2C41C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010E",
+    "Description": "sub_2C4350",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x010f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010F",
+    "Description": "sub_2C4470",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0110",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0110",
+    "Description": "sub_2C2A80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0111",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0111",
+    "Description": "sub_2C2B60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0112",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0112",
+    "Description": "sub_2C2C40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0113",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0113",
+    "Description": "sub_2C3BF0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0114",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0114",
+    "Description": "sub_1BD470",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0115",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0115",
+    "Description": "sub_1BD4B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0116",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0116",
+    "Description": "sub_1BD240",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0117",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0117",
+    "Description": "sub_1BC820",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0118",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0118",
+    "Description": "sub_1BC920",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0119",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0119",
+    "Description": "sub_1BC750",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_011A",
+    "Description": "sub_1BCDC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011B",
+    "Description": "sub_1BCE30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011C",
+    "Description": "sub_1BD500",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011d",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_011D",
+    "Description": "sub_34BE30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011E",
+    "Description": "sub_2C1A50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_011F",
+    "Description": "sub_1BD6E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0120",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0120",
+    "Description": "sub_1BD740",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0121",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_0121",
+    "Description": "sub_34BF00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0122",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_0122",
+    "Description": "sub_34BFB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0123",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0123",
+    "Description": "sub_1BD620",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0124",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_0124",
+    "Description": "sub_34C060",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0125",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_0125",
+    "Description": "sub_34C1A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0126",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0126",
+    "Description": "sub_34C250",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0127",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0127",
+    "Description": "sub_17EE40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0128",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0128",
+    "Description": "sub_1BBCC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0129",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0129",
+    "Description": "sub_34C300",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x012a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012A",
+    "Description": "sub_34C3C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x012b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_012B",
+    "Description": "sub_2BFC60",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x012c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_012C",
+    "Description": "sub_2BFCB0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x012d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_012D",
+    "Description": "sub_2BFD00",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x012e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012E",
+    "Description": "sub_2C1B10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x012f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012F",
+    "Description": "sub_2C1B90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0130",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0130",
+    "Description": "sub_1BD790",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0131",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0131",
+    "Description": "sub_1BD7C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0132",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0132",
+    "Description": "sub_1BD810",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0133",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0133",
+    "Description": "sub_2C5500",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0134",
+    "ReturnType": "void",
+    "Name": "FRSTATUS_FUNCTION_0134",
+    "Description": "sub_166030",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0135",
+    "ReturnType": "void",
+    "Name": "FRSTATUS_FUNCTION_0135",
+    "Description": "sub_1660F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0136",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0136",
+    "Description": "sub_1661C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0137",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0137",
+    "Description": "sub_1BD8B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0138",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0138",
+    "Description": "sub_1BD950",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0139",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0139",
+    "Description": "sub_1BE190",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x013a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_013A",
+    "Description": "sub_1BE1F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x013b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013B",
+    "Description": "sub_1BD590",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x013c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013C",
+    "Description": "sub_1BE3E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x013d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013D",
+    "Description": "sub_2C17D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x013e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_013E",
+    "Description": "sub_2C1C10",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x013f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013F",
+    "Description": "sub_2C1880",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0140",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0140",
+    "Description": "sub_2C3C40",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0141",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0141",
+    "Description": "sub_167320",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0142",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0142",
+    "Description": "sub_167410",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0143",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0143",
+    "Description": "sub_2C47C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0144",
+    "ReturnType": "void",
+    "Name": "CAMP_FUNCTION_0144",
+    "Description": "sub_168030",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0145",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0145",
+    "Description": "sub_1686A0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0146",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0146",
+    "Description": "None",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0147",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0147",
+    "Description": "None",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0148",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0148",
+    "Description": "sub_2C24B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0149",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0149",
+    "Description": "sub_2C48E0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x014a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014A",
+    "Description": "sub_2C4920",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x014b",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_014B",
+    "Description": "sub_34B950",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x014c",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_014C",
+    "Description": "sub_34B9D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x014d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014D",
+    "Description": "sub_34BB10",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x014e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_014E",
+    "Description": "sub_40E810",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x014f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_014F",
+    "Description": "sub_40E8F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0150",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0150",
+    "Description": "sub_40EA60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0151",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0151",
+    "Description": "sub_40ECE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0152",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0152",
+    "Description": "sub_40EBB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0153",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0153",
+    "Description": "sub_1BE4A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0154",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0154",
+    "Description": "sub_1BE520",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0155",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0155",
+    "Description": "sub_1BE580",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0156",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0156",
+    "Description": "sub_1BE5E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0157",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0157",
+    "Description": "sub_2C45E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0158",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0158",
+    "Description": "sub_2BE6E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0159",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0159",
+    "Description": "sub_2BE7F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x015a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_015A",
+    "Description": "sub_2BE900",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x015b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_015B",
+    "Description": "sub_2BEA10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x015c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_015C",
+    "Description": "sub_2BEB60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x015d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_015D",
+    "Description": "sub_2BEC30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x015e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_015E",
+    "Description": "sub_2BED40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x015f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_015F",
+    "Description": "sub_2BEE50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0160",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0160",
+    "Description": "sub_2BEF60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0161",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0161",
+    "Description": "sub_2BF070",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0162",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0162",
+    "Description": "sub_2BF180",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0163",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0163",
+    "Description": "sub_2BF290",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0164",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0164",
+    "Description": "sub_2BF340",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0165",
+    "ReturnType": "int",
+    "Name": "FLD_MODEL_FUNCTION_0165",
+    "Description": "sub_1BDE10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0166",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0166",
+    "Description": "sub_1BDF30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0167",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0167",
+    "Description": "sub_1BE120",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0168",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0168",
+    "Description": "sub_1BEAD0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0169",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0169",
+    "Description": "sub_1BD180",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x016a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016A",
+    "Description": "sub_40F350",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x016b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016B",
+    "Description": "sub_40F3A0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x016c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016C",
+    "Description": "sub_40F3E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x016d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016D",
+    "Description": "sub_40F410",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x016e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016E",
+    "Description": "sub_40F4C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x016f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016F",
+    "Description": "sub_40F550",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0170",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0170",
+    "Description": "sub_40F5A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0171",
+    "ReturnType": "void",
+    "Name": "BR_FRIEND_FUNCTION_0171",
+    "Description": "sub_1F1FF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0172",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0172",
+    "Description": "sub_34C370",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0173",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0173",
+    "Description": "sub_1BED90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0174",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0174",
+    "Description": "sub_1BEE00",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0175",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0175",
+    "Description": "sub_2C4960",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0176",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0176",
+    "Description": "sub_2C49B0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0177",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0177",
+    "Description": "sub_2C49E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0178",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0178",
+    "Description": "sub_1BEE30",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0179",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0179",
+    "Description": "sub_1BEE90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x017a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_017A",
+    "Description": "sub_2C4B30",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x017b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017B",
+    "Description": "sub_40F5D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x017c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017C",
+    "Description": "sub_2C4B60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x017d",
+    "ReturnType": "int",
+    "Name": "COMU_FUNCTION_017D",
+    "Description": "sub_34C430",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x017e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017E",
+    "Description": "sub_40F690",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x017f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017F",
+    "Description": "sub_2C4C00",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0180",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0180",
+    "Description": "sub_2C4C40",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0181",
+    "ReturnType": "void",
+    "Name": "AI_FUNCTION_0181",
+    "Description": "sub_2C4AA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0182",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0182",
+    "Description": "sub_2C4CC0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0183",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0183",
+    "Description": "sub_1BEB90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0184",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0184",
+    "Description": "sub_1BED40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0185",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0185",
+    "Description": "sub_1BEC30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0186",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0186",
+    "Description": "sub_1BECA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0187",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0187",
+    "Description": "sub_1BECE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0188",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0188",
+    "Description": "sub_2C1C50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0189",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0189",
+    "Description": "sub_2C1CD0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x018a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_018A",
+    "Description": "sub_40EE90",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x018b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_018B",
+    "Description": "sub_1BEF40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x018c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018C",
+    "Description": "sub_17CCE0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x018d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018D",
+    "Description": "sub_1BF000",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x018e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_018E",
+    "Description": "sub_1BF060",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x018f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018F",
+    "Description": "sub_184A20",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0190",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0190",
+    "Description": "sub_184A50",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x0191",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0191",
+    "Description": "sub_1BBB60",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0192",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0192",
+    "Description": "sub_2C5540",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0193",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0193",
+    "Description": "sub_2C5580",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0194",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0194",
+    "Description": "sub_2BFD50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0195",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0195",
+    "Description": "sub_2C1D70",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0196",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0196",
+    "Description": "sub_2C1DE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0197",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0197",
+    "Description": "sub_2C1E50",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0198",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0198",
+    "Description": "sub_2C1EC0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0199",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0199",
+    "Description": "sub_2C1F30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x019a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_019A",
+    "Description": "sub_2C2D20",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x019b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_019B",
+    "Description": "sub_2C2E30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x019c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_019C",
+    "Description": "sub_2C2F60",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x019d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_019D",
+    "Description": "sub_2C4D20",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x019e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019E",
+    "Description": "sub_34C510",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x019f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019F",
+    "Description": "sub_40F700",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A0",
+    "Description": "sub_1BD1C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01a1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A1",
+    "Description": "sub_40F240",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01a2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A2",
+    "Description": "sub_40F7B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A3",
+    "Description": "sub_40F7F0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01a4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A4",
+    "Description": "sub_40F860",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01a5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A5",
+    "Description": "sub_40F8B0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01a6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A6",
+    "Description": "sub_40F900",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A7",
+    "Description": "sub_40F970",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01a8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A8",
+    "Description": "sub_34C5B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a9",
+    "ReturnType": "void",
+    "Name": "COMU_FUNCTION_01A9",
+    "Description": "sub_34C600",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01aa",
+    "ReturnType": "void",
+    "Name": "MOVIE_PLAY",
+    "Description": "sub_10B8E0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ab",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AB",
+    "Description": "sub_10B9C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01ac",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AC",
+    "Description": "sub_1BE2C0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ad",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AD",
+    "Description": "None",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01ae",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01AE",
+    "Description": "sub_2BFE00",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01af",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01AF",
+    "Description": "sub_2BFF30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B0",
+    "Description": "sub_2C4D70",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01b1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B1",
+    "Description": "sub_2C4DE0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01b2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B2",
+    "Description": "sub_2C4E50",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B3",
+    "Description": "sub_2C4F60",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B4",
+    "Description": "sub_2C5000",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B5",
+    "Description": "sub_2C50A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B6",
+    "Description": "sub_2C5160",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B7",
+    "Description": "sub_2C5240",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01b8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B8",
+    "Description": "sub_2C5280",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01b9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B9",
+    "Description": "sub_2C52D0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01ba",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BA",
+    "Description": "sub_2C5310",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01bb",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BB",
+    "Description": "sub_2C18F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01bc",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BC",
+    "Description": "sub_2C19A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01bd",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01BD",
+    "Description": "sub_2C5350",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01be",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01BE",
+    "Description": "sub_2C0230",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01bf",
+    "ReturnType": "void",
+    "Name": "CALL_NAME_ENTRY",
+    "Description": "sub_44A310",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01c0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C0",
+    "Description": "sub_44A3C0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01c1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C1",
+    "Description": "sub_2C51F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C2",
+    "Description": "sub_272940",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01c3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C3",
+    "Description": "sub_272970",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01c4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C4",
+    "Description": "sub_2C4CF0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01c5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C5",
+    "Description": "sub_2C4C80",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01c6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C6",
+    "Description": "sub_2C0300",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C7",
+    "Description": "sub_2C03F0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C8",
+    "Description": "sub_2C1FA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C9",
+    "Description": "sub_2C2010",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01ca",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01CA",
+    "Description": "sub_2C2060",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01cb",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01CB",
+    "Description": "sub_2C20D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01cc",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01CC",
+    "Description": "sub_2C3110",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01cd",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01CD",
+    "Description": "sub_2C3270",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ce",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01CE",
+    "Description": "sub_2C33D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01cf",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01CF",
+    "Description": "sub_2C04A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D0",
+    "Description": "sub_1BE700",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01d1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D1",
+    "Description": "sub_1BE7D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D2",
+    "Description": "sub_2BB740",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D3",
+    "Description": "sub_1BB9D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d4",
+    "ReturnType": "void",
+    "Name": "EDSR_FUNCTION_01D4",
+    "Description": "sub_270590",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01d5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D5",
+    "Description": "sub_1BF090",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D6",
+    "Description": "sub_1BF110",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D7",
+    "Description": "sub_40F600",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01d8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D8",
+    "Description": "sub_40F650",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01d9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D9",
+    "Description": "sub_1BE910",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01da",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DA",
+    "Description": "sub_2BFFF0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01db",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DB",
+    "Description": "sub_2C00B0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01dc",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DC",
+    "Description": "sub_2C0170",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01dd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DD",
+    "Description": "sub_1BC580",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01de",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DE",
+    "Description": "sub_2C0590",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01df",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DF",
+    "Description": "sub_2C4A70",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e0",
+    "ReturnType": "void",
+    "Name": "GAME_CLEAR_FUNCTION_01E0",
+    "Description": "sub_184FB0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E1",
+    "Description": "sub_185040",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01E2",
+    "Description": "sub_1BEBF0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01E3",
+    "Description": "sub_1BCAA0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E4",
+    "Description": "sub_1BD5F0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01E5",
+    "Description": "sub_2C3540",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E6",
+    "Description": "sub_40F2B0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E7",
+    "Description": "sub_1BF3F0",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x01e8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01E8",
+    "Description": "sub_1BF440",
+    "Parameters": [
+    ]
+  }
+]

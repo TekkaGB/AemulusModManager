@@ -172,7 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities\FileMerging\PM1Merger.cs" />
     <Compile Include="Utilities\FeedGenerator.cs" />
+    <Compile Include="Utilities\FileMerging\FlowMerger.cs" />
+    <Compile Include="Utilities\FileMerging\Utils.cs" />
     <Compile Include="Utilities\Windows\HiddenIconConverter.cs" />
     <Compile Include="Utilities\Windows\HiddenTextConverter.cs" />
     <Compile Include="Utilities\Windows\ShowHiddenConverter.cs" />
@@ -183,8 +186,7 @@
     <Compile Include="Windows\DownloadWindow.xaml.cs">
       <DependentUpon>DownloadWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\BmdPatching\BmdObj.cs" />
-    <Compile Include="Utilities\BmdPatching\BmdPatcher.cs" />
+    <Compile Include="Utilities\FileMerging\BmdMerger.cs" />
     <Compile Include="Utilities\FileIOWrapper.cs" />
     <Compile Include="Utilities\KT\Merger.cs" />
     <Compile Include="Utilities\PackageDownloader.cs" />
@@ -344,93 +346,8 @@
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
-    <None Include="Dependencies\AtlusScriptCompiler\Charsets\P3.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Charsets\P4.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Charsets\P5.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona3FES.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona3FES\FlowScriptModules.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona3FES\MessageScriptLibrary.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona3FES\Modules\Common\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\FlowScriptModules.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\MessageScriptLibrary.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\AI\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\AI\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\Calendar\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\Common\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\Event\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\Field\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona4Golden\Modules\Unknown\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\FlowScriptModules.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\MessageScriptLibrary.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\AI\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\AI\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Common\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Common\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Facility\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Field\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Field\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Net\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Social\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Custom\Enums.json" />
+    <None Include="Dependencies\AtlusScriptCompiler\Libraries\Persona5\Modules\Custom\Functions.json" />
     <None Include="Dependencies\MakeCpk\filtered_data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -456,6 +373,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Dependencies\AtlusScriptCompiler\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Dependencies\PM1MessageScriptEditor\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Dependencies\PM1MessageScriptEditor\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -473,6 +402,18 @@
     <Resource Include="Assets\p5sicon.png" />
     <Resource Include="Assets\GameBanana.png" />
     <Resource Include="Assets\loading.gif" />
+    <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll" />
+    <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.pdb" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusMessageScriptExtractor.exe" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusMessageScriptExtractor.pdb" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.pdb" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.dll" />
+    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.pdb" />
+    <Content Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.dll" />
+    <Resource Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.xml" />
     <Content Include="Dependencies\CpkMakeC\CpkBinder.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -482,6 +423,10 @@
     <Content Include="Dependencies\CpkMakeC\CpkMaker.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Dependencies\PM1MessageScriptEditor\Antlr4.Runtime.dll" />
+    <Content Include="Dependencies\PM1MessageScriptEditor\AtlusScriptLibrary.dll" />
+    <Content Include="Dependencies\PM1MessageScriptEditor\Newtonsoft.Json.dll" />
+    <Content Include="Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe" />
     <Content Include="Dependencies\rdb_tool.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -493,24 +438,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Dependencies\7z\License.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Dependencies\MakeCpk\CpkMaker.dll">
