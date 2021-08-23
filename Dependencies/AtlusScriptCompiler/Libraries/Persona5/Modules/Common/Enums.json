@@ -41,27 +41,27 @@
       {
         "Name": "Left",
         "Value": 7,
-        "Description": "The dpad down button."
-      },
-      {
-        "Name": "L1",
-        "Value": 8,
-        "Description": "The L1 button."
-      },
-      {
-        "Name": "R1",
-        "Value": 9,
-        "Description": "The R1 button."
+        "Description": "The dpad Left button."
       },
       {
         "Name": "L2",
-        "Value": 10,
+        "Value": 8,
         "Description": "The L2 button."
       },
       {
         "Name": "R2",
-        "Value": 11,
+        "Value": 9,
         "Description": "The R2 button."
+      },
+      {
+        "Name": "L1",
+        "Value": 10,
+        "Description": "The L1 button."
+      },
+      {
+        "Name": "R1",
+        "Value": 11,
+        "Description": "The R1 button."
       },
       {
         "Name": "Triangle",
@@ -89,5 +89,1953 @@
         "Description": "Any button."
       }
     ]
-  }
+  },
+  {
+	"Name": "PartyMember",
+	"Description": "This enum represents the available units in battle.",
+	"Members": [
+	  {
+		"Name": "Protagonist",
+		"Value": 1,
+		"Description": ""
+	  },
+	  {
+		"Name": "Ryuji",
+		"Value": 2,
+		"Description": ""
+	  },
+	  {
+		"Name": "Morgana",
+		"Value": 3,
+		"Description": ""
+	  },
+	  {
+		"Name": "Ann",
+		"Value": 4,
+		"Description": ""
+	  },
+	  {
+		"Name": "Yusuke",
+		"Value": 5,
+		"Description": ""
+	  },
+	  {
+		"Name": "Makoto",
+		"Value": 6,
+		"Description": ""
+	  },
+	  {
+		"Name": "Haru",
+		"Value": 7,
+		"Description": ""
+	  },
+	  {
+		"Name": "Futaba",
+		"Value": 8,
+		"Description": ""
+	  },
+	  {
+		"Name": "Akechi",
+		"Value": 9,
+		"Description": ""
+	  },
+	  {
+		"Name": "Kasumi",
+		"Value": 10,
+		"Description": ""
+	  }
+    ]
+  },
+  {
+	"Name": "EquipSlotID",
+	"Description": "This enum represents the available units in battle.",
+	"Members": [
+	  {
+		"Name": "MeleeWeapon",
+		"Value": 0,
+		"Description": ""
+	  },
+	  {
+		"Name": "Armor",
+		"Value": 1,
+		"Description": ""
+	  },
+	  {
+		"Name": "Accessory",
+		"Value": 2,
+		"Description": ""
+	  },
+	  {
+		"Name": "Outfit",
+		"Value": 3,
+		"Description": ""
+	  },
+	  {
+		"Name": "RangedWeapon",
+		"Value": 4,
+		"Description": ""
+	  }
+    ]
+  },
+    {
+	"Name":  "PersonaID",
+	"Members":  [
+		{
+			"Name":  "_000_000",
+			"Value":  0
+		},
+		{
+			"Name":  "_001_Metatron",
+			"Value":  1
+		},
+		{
+			"Name":  "_002_Beelzebub",
+			"Value":  2
+		},
+		{
+			"Name":  "_003_CuChulainn",
+			"Value":  3
+		},
+		{
+			"Name":  "_004_JackoLantern",
+			"Value":  4
+		},
+		{
+			"Name":  "_005_JackFrost",
+			"Value":  5
+		},
+		{
+			"Name":  "_006_Pixie",
+			"Value":  6
+		},
+		{
+			"Name":  "_007_Cerberus",
+			"Value":  7
+		},
+		{
+			"Name":  "_008_Lilim",
+			"Value":  8
+		},
+		{
+			"Name":  "_009_Eligor",
+			"Value":  9
+		},
+		{
+			"Name":  "_010_Odin",
+			"Value":  10
+		},
+		{
+			"Name":  "_011_HuaPo",
+			"Value":  11
+		},
+		{
+			"Name":  "_012_Decarabia",
+			"Value":  12
+		},
+		{
+			"Name":  "_013_Mara",
+			"Value":  13
+		},
+		{
+			"Name":  "_014_Ose",
+			"Value":  14
+		},
+		{
+			"Name":  "_015_Thor",
+			"Value":  15
+		},
+		{
+			"Name":  "_016_Unicorn",
+			"Value":  16
+		},
+		{
+			"Name":  "_017_Uriel",
+			"Value":  17
+		},
+		{
+			"Name":  "_018_Sarasvati",
+			"Value":  18
+		},
+		{
+			"Name":  "_019_Valkyrie",
+			"Value":  19
+		},
+		{
+			"Name":  "_020_Yaksini",
+			"Value":  20
+		},
+		{
+			"Name":  "_021_Ganesha",
+			"Value":  21
+		},
+		{
+			"Name":  "_022_Anubis",
+			"Value":  22
+		},
+		{
+			"Name":  "_023_Mot",
+			"Value":  23
+		},
+		{
+			"Name":  "_024_Raphael",
+			"Value":  24
+		},
+		{
+			"Name":  "_025_Scathach",
+			"Value":  25
+		},
+		{
+			"Name":  "_026_HighPixie",
+			"Value":  26
+		},
+		{
+			"Name":  "_027_Barong",
+			"Value":  27
+		},
+		{
+			"Name":  "_028_Girimehkala",
+			"Value":  28
+		},
+		{
+			"Name":  "_029_KingFrost",
+			"Value":  29
+		},
+		{
+			"Name":  "_030_Narcissus",
+			"Value":  30
+		},
+		{
+			"Name":  "_031_Isis",
+			"Value":  31
+		},
+		{
+			"Name":  "_032_Lamia",
+			"Value":  32
+		},
+		{
+			"Name":  "_033_Legion",
+			"Value":  33
+		},
+		{
+			"Name":  "_034_Rakshasa",
+			"Value":  34
+		},
+		{
+			"Name":  "_035_Mokoi",
+			"Value":  35
+		},
+		{
+			"Name":  "_036_Forneus",
+			"Value":  36
+		},
+		{
+			"Name":  "_037_Setanta",
+			"Value":  37
+		},
+		{
+			"Name":  "_038_Titania",
+			"Value":  38
+		},
+		{
+			"Name":  "_039_Incubus",
+			"Value":  39
+		},
+		{
+			"Name":  "_040_Oni",
+			"Value":  40
+		},
+		{
+			"Name":  "_041_Lilith",
+			"Value":  41
+		},
+		{
+			"Name":  "_042_Rangda",
+			"Value":  42
+		},
+		{
+			"Name":  "_043_Makami",
+			"Value":  43
+		},
+		{
+			"Name":  "_044_Parvati",
+			"Value":  44
+		},
+		{
+			"Name":  "_045_Gabriel",
+			"Value":  45
+		},
+		{
+			"Name":  "_046_ZaouGongen",
+			"Value":  46
+		},
+		{
+			"Name":  "_047_Alice",
+			"Value":  47
+		},
+		{
+			"Name":  "_048_Kali",
+			"Value":  48
+		},
+		{
+			"Name":  "_049_KuramaTengu",
+			"Value":  49
+		},
+		{
+			"Name":  "_050_Oberon",
+			"Value":  50
+		},
+		{
+			"Name":  "_051_ShikiOuji",
+			"Value":  51
+		},
+		{
+			"Name":  "_052_YamatanoOrochi",
+			"Value":  52
+		},
+		{
+			"Name":  "_053_Orobas",
+			"Value":  53
+		},
+		{
+			"Name":  "_054_Hanuman",
+			"Value":  54
+		},
+		{
+			"Name":  "_055_Archangel",
+			"Value":  55
+		},
+		{
+			"Name":  "_056_Obariyon",
+			"Value":  56
+		},
+		{
+			"Name":  "_057_QueenMab",
+			"Value":  57
+		},
+		{
+			"Name":  "_058_Sandalphon",
+			"Value":  58
+		},
+		{
+			"Name":  "_059_Abaddon",
+			"Value":  59
+		},
+		{
+			"Name":  "_060_Shiisaa",
+			"Value":  60
+		},
+		{
+			"Name":  "_061_Sandman",
+			"Value":  61
+		},
+		{
+			"Name":  "_062_Belial",
+			"Value":  62
+		},
+		{
+			"Name":  "_063_LeananSidhe",
+			"Value":  63
+		},
+		{
+			"Name":  "_064_Cybele",
+			"Value":  64
+		},
+		{
+			"Name":  "_065_Chernobog",
+			"Value":  65
+		},
+		{
+			"Name":  "_066_Flauros",
+			"Value":  66
+		},
+		{
+			"Name":  "_067_IpponDatara",
+			"Value":  67
+		},
+		{
+			"Name":  "_068_Orthrus",
+			"Value":  68
+		},
+		{
+			"Name":  "_069_Succubus",
+			"Value":  69
+		},
+		{
+			"Name":  "_070_Mothman",
+			"Value":  70
+		},
+		{
+			"Name":  "_071_RESERVE",
+			"Value":  71
+		},
+		{
+			"Name":  "_072_Dominion",
+			"Value":  72
+		},
+		{
+			"Name":  "_073_Nekomata",
+			"Value":  73
+		},
+		{
+			"Name":  "_074_BlackFrost",
+			"Value":  74
+		},
+		{
+			"Name":  "_075_Arahabaki",
+			"Value":  75
+		},
+		{
+			"Name":  "_076_Angel",
+			"Value":  76
+		},
+		{
+			"Name":  "_077_Skadi",
+			"Value":  77
+		},
+		{
+			"Name":  "_078_KikuriHime",
+			"Value":  78
+		},
+		{
+			"Name":  "_079_ChiYou",
+			"Value":  79
+		},
+		{
+			"Name":  "_080_Power",
+			"Value":  80
+		},
+		{
+			"Name":  "_081_Inugami",
+			"Value":  81
+		},
+		{
+			"Name":  "_082_Nebiros",
+			"Value":  82
+		},
+		{
+			"Name":  "_083_RESERVE",
+			"Value":  83
+		},
+		{
+			"Name":  "_084_Slime",
+			"Value":  84
+		},
+		{
+			"Name":  "_085_Anzu",
+			"Value":  85
+		},
+		{
+			"Name":  "_086_Yatagarasu",
+			"Value":  86
+		},
+		{
+			"Name":  "_087_Yoshitsune",
+			"Value":  87
+		},
+		{
+			"Name":  "_088_TakeMinakata",
+			"Value":  88
+		},
+		{
+			"Name":  "_089_AmenoUzume",
+			"Value":  89
+		},
+		{
+			"Name":  "_090_Kushinada",
+			"Value":  90
+		},
+		{
+			"Name":  "_091_Kumbhanda",
+			"Value":  91
+		},
+		{
+			"Name":  "_092_OngyoKi",
+			"Value":  92
+		},
+		{
+			"Name":  "_093_KinKi",
+			"Value":  93
+		},
+		{
+			"Name":  "_094_SuiKi",
+			"Value":  94
+		},
+		{
+			"Name":  "_095_FuuKi",
+			"Value":  95
+		},
+		{
+			"Name":  "_096_Jatayu",
+			"Value":  96
+		},
+		{
+			"Name":  "_097_Kaiwan",
+			"Value":  97
+		},
+		{
+			"Name":  "_098_Kelpie",
+			"Value":  98
+		},
+		{
+			"Name":  "_099_Thoth",
+			"Value":  99
+		},
+		{
+			"Name":  "_100_Dionysus",
+			"Value":  100
+		},
+		{
+			"Name":  "_101_Apsaras",
+			"Value":  101
+		},
+		{
+			"Name":  "_102_Andras",
+			"Value":  102
+		},
+		{
+			"Name":  "_103_RESERVE",
+			"Value":  103
+		},
+		{
+			"Name":  "_104_Koropokguru",
+			"Value":  104
+		},
+		{
+			"Name":  "_105_KoppaTengu",
+			"Value":  105
+		},
+		{
+			"Name":  "_106_Regent",
+			"Value":  106
+		},
+		{
+			"Name":  "_107_QueensNecklace",
+			"Value":  107
+		},
+		{
+			"Name":  "_108_StoneofScone",
+			"Value":  108
+		},
+		{
+			"Name":  "_109_KohiNoor",
+			"Value":  109
+		},
+		{
+			"Name":  "_110_Orlov",
+			"Value":  110
+		},
+		{
+			"Name":  "_111_EmperorsAmulet",
+			"Value":  111
+		},
+		{
+			"Name":  "_112_HopeDiamond",
+			"Value":  112
+		},
+		{
+			"Name":  "_113_CrystalSkull",
+			"Value":  113
+		},
+		{
+			"Name":  "_114_RESERVE",
+			"Value":  114
+		},
+		{
+			"Name":  "_115_RESERVE",
+			"Value":  115
+		},
+		{
+			"Name":  "_116_RESERVE",
+			"Value":  116
+		},
+		{
+			"Name":  "_117_RESERVE",
+			"Value":  117
+		},
+		{
+			"Name":  "_118_RESERVE",
+			"Value":  118
+		},
+		{
+			"Name":  "_119_RESERVE",
+			"Value":  119
+		},
+		{
+			"Name":  "_120_RESERVE",
+			"Value":  120
+		},
+		{
+			"Name":  "_121_Mandrake",
+			"Value":  121
+		},
+		{
+			"Name":  "_122_Baal",
+			"Value":  122
+		},
+		{
+			"Name":  "_123_Dakini",
+			"Value":  123
+		},
+		{
+			"Name":  "_124_Silky",
+			"Value":  124
+		},
+		{
+			"Name":  "_125_Bugs",
+			"Value":  125
+		},
+		{
+			"Name":  "_126_BlackOoze",
+			"Value":  126
+		},
+		{
+			"Name":  "_127_Bicorn",
+			"Value":  127
+		},
+		{
+			"Name":  "_128_Mithras",
+			"Value":  128
+		},
+		{
+			"Name":  "_129_Sudama",
+			"Value":  129
+		},
+		{
+			"Name":  "_130_Kodama",
+			"Value":  130
+		},
+		{
+			"Name":  "_131_Agathion",
+			"Value":  131
+		},
+		{
+			"Name":  "_132_Onmoraki",
+			"Value":  132
+		},
+		{
+			"Name":  "_133_Nue",
+			"Value":  133
+		},
+		{
+			"Name":  "_134_Pisaca",
+			"Value":  134
+		},
+		{
+			"Name":  "_135_Melchizedek",
+			"Value":  135
+		},
+		{
+			"Name":  "_136_Baphomet",
+			"Value":  136
+		},
+		{
+			"Name":  "_137_RajaNaga",
+			"Value":  137
+		},
+		{
+			"Name":  "_138_Naga",
+			"Value":  138
+		},
+		{
+			"Name":  "_139_Garuda",
+			"Value":  139
+		},
+		{
+			"Name":  "_140_Moloch",
+			"Value":  140
+		},
+		{
+			"Name":  "_141_Norn",
+			"Value":  141
+		},
+		{
+			"Name":  "_142_Belphegor",
+			"Value":  142
+		},
+		{
+			"Name":  "_143_Berith",
+			"Value":  143
+		},
+		{
+			"Name":  "_144_Choronzon",
+			"Value":  144
+		},
+		{
+			"Name":  "_145_RESERVE",
+			"Value":  145
+		},
+		{
+			"Name":  "_146_RESERVE",
+			"Value":  146
+		},
+		{
+			"Name":  "_147_RESERVE",
+			"Value":  147
+		},
+		{
+			"Name":  "_148_RESERVE",
+			"Value":  148
+		},
+		{
+			"Name":  "_149_RESERVE",
+			"Value":  149
+		},
+		{
+			"Name":  "_150_RESERVE",
+			"Value":  150
+		},
+		{
+			"Name":  "_151_NigiMitama",
+			"Value":  151
+		},
+		{
+			"Name":  "_152_KushiMitama",
+			"Value":  152
+		},
+		{
+			"Name":  "_153_AraMitama",
+			"Value":  153
+		},
+		{
+			"Name":  "_154_SakiMitama",
+			"Value":  154
+		},
+		{
+			"Name":  "_155_RESERVE",
+			"Value":  155
+		},
+		{
+			"Name":  "_156_Shiva",
+			"Value":  156
+		},
+		{
+			"Name":  "_157_Michael",
+			"Value":  157
+		},
+		{
+			"Name":  "_158_Asura",
+			"Value":  158
+		},
+		{
+			"Name":  "_159_Mada",
+			"Value":  159
+		},
+		{
+			"Name":  "_160_MotherHarlot",
+			"Value":  160
+		},
+		{
+			"Name":  "_161_Clotho",
+			"Value":  161
+		},
+		{
+			"Name":  "_162_Lachesis",
+			"Value":  162
+		},
+		{
+			"Name":  "_163_Atropos",
+			"Value":  163
+		},
+		{
+			"Name":  "_164_Ardha",
+			"Value":  164
+		},
+		{
+			"Name":  "_165_RESERVE",
+			"Value":  165
+		},
+		{
+			"Name":  "_166_Vishnu",
+			"Value":  166
+		},
+		{
+			"Name":  "_167_Hariti",
+			"Value":  167
+		},
+		{
+			"Name":  "_168_Yurlungur",
+			"Value":  168
+		},
+		{
+			"Name":  "_169_Hecatoncheires",
+			"Value":  169
+		},
+		{
+			"Name":  "_170_Satanael",
+			"Value":  170
+		},
+		{
+			"Name":  "_171_RESERVE",
+			"Value":  171
+		},
+		{
+			"Name":  "_172_RESERVE",
+			"Value":  172
+		},
+		{
+			"Name":  "_173_RESERVE",
+			"Value":  173
+		},
+		{
+			"Name":  "_174_RESERVE",
+			"Value":  174
+		},
+		{
+			"Name":  "_175_RESERVE",
+			"Value":  175
+		},
+		{
+			"Name":  "_176_RESERVE",
+			"Value":  176
+		},
+		{
+			"Name":  "_177_RESERVE",
+			"Value":  177
+		},
+		{
+			"Name":  "_178_RESERVE",
+			"Value":  178
+		},
+		{
+			"Name":  "_179_RESERVE",
+			"Value":  179
+		},
+		{
+			"Name":  "_180_RESERVE",
+			"Value":  180
+		},
+		{
+			"Name":  "_181_Orpheus",
+			"Value":  181
+		},
+		{
+			"Name":  "_182_Thanatos",
+			"Value":  182
+		},
+		{
+			"Name":  "_183_Izanagi",
+			"Value":  183
+		},
+		{
+			"Name":  "_184_MagatsuIzanagi",
+			"Value":  184
+		},
+		{
+			"Name":  "_185_Kaguya",
+			"Value":  185
+		},
+		{
+			"Name":  "_186_Ariadne",
+			"Value":  186
+		},
+		{
+			"Name":  "_187_Asterius",
+			"Value":  187
+		},
+		{
+			"Name":  "_188_Tsukiyomi",
+			"Value":  188
+		},
+		{
+			"Name":  "_189_Messiah",
+			"Value":  189
+		},
+		{
+			"Name":  "_190_MessiahPicaro",
+			"Value":  190
+		},
+		{
+			"Name":  "_191_OrpheusPicaro",
+			"Value":  191
+		},
+		{
+			"Name":  "_192_ThanatosPicaro",
+			"Value":  192
+		},
+		{
+			"Name":  "_193_IzanagiPicaro",
+			"Value":  193
+		},
+		{
+			"Name":  "_194_MIzanagiPicaro",
+			"Value":  194
+		},
+		{
+			"Name":  "_195_KaguyaPicaro",
+			"Value":  195
+		},
+		{
+			"Name":  "_196_AriadnePicaro",
+			"Value":  196
+		},
+		{
+			"Name":  "_197_AsteriusPicaro",
+			"Value":  197
+		},
+		{
+			"Name":  "_198_TsukiyomiPicaro",
+			"Value":  198
+		},
+		{
+			"Name":  "_199_Satanael",
+			"Value":  199
+		},
+		{
+			"Name":  "_200_",
+			"Value":  200
+		},
+		{
+			"Name":  "_201_Arsene",
+			"Value":  201
+		},
+		{
+			"Name":  "_202_CaptainKidd",
+			"Value":  202
+		},
+		{
+			"Name":  "_203_Zorro",
+			"Value":  203
+		},
+		{
+			"Name":  "_204_Carmen",
+			"Value":  204
+		},
+		{
+			"Name":  "_205_Goemon",
+			"Value":  205
+		},
+		{
+			"Name":  "_206_Johanna",
+			"Value":  206
+		},
+		{
+			"Name":  "_207_Milady",
+			"Value":  207
+		},
+		{
+			"Name":  "_208_Necronomicon",
+			"Value":  208
+		},
+		{
+			"Name":  "_209_RobinHood",
+			"Value":  209
+		},
+		{
+			"Name":  "_210_Loki",
+			"Value":  210
+		},
+		{
+			"Name":  "_211_Satanael",
+			"Value":  211
+		},
+		{
+			"Name":  "_212_SeitenTaisei",
+			"Value":  212
+		},
+		{
+			"Name":  "_213_Mercurius",
+			"Value":  213
+		},
+		{
+			"Name":  "_214_Hecate",
+			"Value":  214
+		},
+		{
+			"Name":  "_215_KamuSusanoo",
+			"Value":  215
+		},
+		{
+			"Name":  "_216_Anat",
+			"Value":  216
+		},
+		{
+			"Name":  "_217_Astarte",
+			"Value":  217
+		},
+		{
+			"Name":  "_218_Prometheus",
+			"Value":  218
+		},
+		{
+			"Name":  "_219_Loki",
+			"Value":  219
+		},
+		{
+			"Name":  "_220_Arsene",
+			"Value":  220
+		},
+		{
+			"Name":  "_221_CaptainKidd",
+			"Value":  221
+		},
+		{
+			"Name":  "_222_Zorro",
+			"Value":  222
+		},
+		{
+			"Name":  "_223_Carmen",
+			"Value":  223
+		},
+		{
+			"Name":  "_224_Goemon",
+			"Value":  224
+		},
+		{
+			"Name":  "_225_Johanna",
+			"Value":  225
+		},
+		{
+			"Name":  "_226_Milady",
+			"Value":  226
+		},
+		{
+			"Name":  "_227_Necronomicon",
+			"Value":  227
+		},
+		{
+			"Name":  "_228_RobinHood",
+			"Value":  228
+		},
+		{
+			"Name":  "_229_RESERVE",
+			"Value":  229
+		},
+		{
+			"Name":  "_230_Lucifer",
+			"Value":  230
+		},
+		{
+			"Name":  "_231_SeitenTaisei",
+			"Value":  231
+		},
+		{
+			"Name":  "_232_Mercurius",
+			"Value":  232
+		},
+		{
+			"Name":  "_233_Hecate",
+			"Value":  233
+		},
+		{
+			"Name":  "_234_KamuSusanoo",
+			"Value":  234
+		},
+		{
+			"Name":  "_235_Anat",
+			"Value":  235
+		},
+		{
+			"Name":  "_236_Astarte",
+			"Value":  236
+		},
+		{
+			"Name":  "_237_Prometheus",
+			"Value":  237
+		},
+		{
+			"Name":  "_238_Loki",
+			"Value":  238
+		},
+		{
+			"Name":  "_239_RESERVE",
+			"Value":  239
+		},
+		{
+			"Name":  "_240_RESERVE",
+			"Value":  240
+		},
+		{
+			"Name":  "_241_RESERVE",
+			"Value":  241
+		},
+		{
+			"Name":  "_242_RESERVE",
+			"Value":  242
+		},
+		{
+			"Name":  "_243_RESERVE",
+			"Value":  243
+		},
+		{
+			"Name":  "_244_RESERVE",
+			"Value":  244
+		},
+		{
+			"Name":  "_245_RESERVE",
+			"Value":  245
+		},
+		{
+			"Name":  "_246_RESERVE",
+			"Value":  246
+		},
+		{
+			"Name":  "_247_RESERVE",
+			"Value":  247
+		},
+		{
+			"Name":  "_248_RESERVE",
+			"Value":  248
+		},
+		{
+			"Name":  "_249_RESERVE",
+			"Value":  249
+		},
+		{
+			"Name":  "_250_RESERVE",
+			"Value":  250
+		},
+		{
+			"Name":  "_251_RESERVE",
+			"Value":  251
+		},
+		{
+			"Name":  "_252_Satan",
+			"Value":  252
+		},
+		{
+			"Name":  "_253_Lucifer",
+			"Value":  253
+		},
+		{
+			"Name":  "_254_Kohryu",
+			"Value":  254
+		},
+		{
+			"Name":  "_255_Okuninushi",
+			"Value":  255
+		},
+		{
+			"Name":  "_256_Norn",
+			"Value":  256
+		},
+		{
+			"Name":  "_257_RESERVE",
+			"Value":  257
+		},
+		{
+			"Name":  "_258_RESERVE",
+			"Value":  258
+		},
+		{
+			"Name":  "_259_Futsunushi",
+			"Value":  259
+		},
+		{
+			"Name":  "_260_RESERVE",
+			"Value":  260
+		},
+		{
+			"Name":  "_261_Seth",
+			"Value":  261
+		},
+		{
+			"Name":  "_262_Ishtar",
+			"Value":  262
+		},
+		{
+			"Name":  "_263_RESERVE",
+			"Value":  263
+		},
+		{
+			"Name":  "_264_Surt",
+			"Value":  264
+		},
+		{
+			"Name":  "_265_Siegfried",
+			"Value":  265
+		},
+		{
+			"Name":  "_266_Lakshmi",
+			"Value":  266
+		},
+		{
+			"Name":  "_267_RESERVE",
+			"Value":  267
+		},
+		{
+			"Name":  "_268_RESERVE",
+			"Value":  268
+		},
+		{
+			"Name":  "_269_ExBelphegor",
+			"Value":  269
+		},
+		{
+			"Name":  "_270_RESERVE",
+			"Value":  270
+		},
+		{
+			"Name":  "_271_Garuda",
+			"Value":  271
+		},
+		{
+			"Name":  "_272_Fortuna",
+			"Value":  272
+		},
+		{
+			"Name":  "_273_Suzaku",
+			"Value":  273
+		},
+		{
+			"Name":  "_274_Seiryu",
+			"Value":  274
+		},
+		{
+			"Name":  "_275_Genbu",
+			"Value":  275
+		},
+		{
+			"Name":  "_276_Byakko",
+			"Value":  276
+		},
+		{
+			"Name":  "_277_Bishamonten",
+			"Value":  277
+		},
+		{
+			"Name":  "_278_Koumokuten",
+			"Value":  278
+		},
+		{
+			"Name":  "_279_Jikokuten",
+			"Value":  279
+		},
+		{
+			"Name":  "_280_Zouchouten",
+			"Value":  280
+		},
+		{
+			"Name":  "_281_HellBiker",
+			"Value":  281
+		},
+		{
+			"Name":  "_282_Daisoujou",
+			"Value":  282
+		},
+		{
+			"Name":  "_283_Trumpeter",
+			"Value":  283
+		},
+		{
+			"Name":  "_284_WhiteRider",
+			"Value":  284
+		},
+		{
+			"Name":  "_285_Matador",
+			"Value":  285
+		},
+		{
+			"Name":  "_286_PaleRider",
+			"Value":  286
+		},
+		{
+			"Name":  "_287_Horus",
+			"Value":  287
+		},
+		{
+			"Name":  "_288_RESERVE",
+			"Value":  288
+		},
+		{
+			"Name":  "_289_Attis",
+			"Value":  289
+		},
+		{
+			"Name":  "_290_RESERVE",
+			"Value":  290
+		},
+		{
+			"Name":  "_291_RESERVE",
+			"Value":  291
+		},
+		{
+			"Name":  "_292_Sraosha",
+			"Value":  292
+		},
+		{
+			"Name":  "_293_Berith",
+			"Value":  293
+		},
+		{
+			"Name":  "_294_RESERVE",
+			"Value":  294
+		},
+		{
+			"Name":  "_295_Mitra",
+			"Value":  295
+		},
+		{
+			"Name":  "_296_Phoenix",
+			"Value":  296
+		},
+		{
+			"Name":  "_297_Principality",
+			"Value":  297
+		},
+		{
+			"Name":  "_298_NekoShogun",
+			"Value":  298
+		},
+		{
+			"Name":  "_299_Vasuki",
+			"Value":  299
+		},
+		{
+			"Name":  "_300_Ananta",
+			"Value":  300
+		},
+		{
+			"Name":  "_301_Throne",
+			"Value":  301
+		},
+		{
+			"Name":  "_302_RESERVE",
+			"Value":  302
+		},
+		{
+			"Name":  "_303_Quetzalcoatl",
+			"Value":  303
+		},
+		{
+			"Name":  "_304_RedRider",
+			"Value":  304
+		},
+		{
+			"Name":  "_305_BlackRider",
+			"Value":  305
+		},
+		{
+			"Name":  "_306_RESERVE",
+			"Value":  306
+		},
+		{
+			"Name":  "_307_ExMoloch",
+			"Value":  307
+		},
+		{
+			"Name":  "_308_Pazuzu",
+			"Value":  308
+		},
+		{
+			"Name":  "_309_RESERVE",
+			"Value":  309
+		},
+		{
+			"Name":  "_310_Slime",
+			"Value":  310
+		},
+		{
+			"Name":  "_311_JackoLantern",
+			"Value":  311
+		},
+		{
+			"Name":  "_312_Agathion",
+			"Value":  312
+		},
+		{
+			"Name":  "_313_Mandrake",
+			"Value":  313
+		},
+		{
+			"Name":  "_314_Shiisaa",
+			"Value":  314
+		},
+		{
+			"Name":  "_315_JackFrost",
+			"Value":  315
+		},
+		{
+			"Name":  "_316_Sudama",
+			"Value":  316
+		},
+		{
+			"Name":  "_317_Onmoraki",
+			"Value":  317
+		},
+		{
+			"Name":  "_318_Bugs",
+			"Value":  318
+		},
+		{
+			"Name":  "_319_Pixie",
+			"Value":  319
+		},
+		{
+			"Name":  "_320_Pixie",
+			"Value":  320
+		},
+		{
+			"Name":  "_321_Ardha",
+			"Value":  321
+		},
+		{
+			"Name":  "_322_RESERVE",
+			"Value":  322
+		},
+		{
+			"Name":  "_323_RESERVE",
+			"Value":  323
+		},
+		{
+			"Name":  "_324_RESERVE",
+			"Value":  324
+		},
+		{
+			"Name":  "_325_RESERVE",
+			"Value":  325
+		},
+		{
+			"Name":  "_326_RESERVE",
+			"Value":  326
+		},
+		{
+			"Name":  "_327_RESERVE",
+			"Value":  327
+		},
+		{
+			"Name":  "_328_RESERVE",
+			"Value":  328
+		},
+		{
+			"Name":  "_329_RESERVE",
+			"Value":  329
+		},
+		{
+			"Name":  "_330_RESERVE",
+			"Value":  330
+		},
+		{
+			"Name":  "_331_RESERVE",
+			"Value":  331
+		},
+		{
+			"Name":  "_332_RESERVE",
+			"Value":  332
+		},
+		{
+			"Name":  "_333_RESERVE",
+			"Value":  333
+		},
+		{
+			"Name":  "_334_RESERVE",
+			"Value":  334
+		},
+		{
+			"Name":  "_335_RESERVE",
+			"Value":  335
+		},
+		{
+			"Name":  "_336_RESERVE",
+			"Value":  336
+		},
+		{
+			"Name":  "_337_RESERVE",
+			"Value":  337
+		},
+		{
+			"Name":  "_338_RESERVE",
+			"Value":  338
+		},
+		{
+			"Name":  "_339_RESERVE",
+			"Value":  339
+		},
+		{
+			"Name":  "_340_RESERVE",
+			"Value":  340
+		},
+		{
+			"Name":  "_341_RESERVE",
+			"Value":  341
+		},
+		{
+			"Name":  "_342_RESERVE",
+			"Value":  342
+		},
+		{
+			"Name":  "_343_RESERVE",
+			"Value":  343
+		},
+		{
+			"Name":  "_344_RESERVE",
+			"Value":  344
+		},
+		{
+			"Name":  "_345_RESERVE",
+			"Value":  345
+		},
+		{
+			"Name":  "_346_RESERVE",
+			"Value":  346
+		},
+		{
+			"Name":  "_347_RESERVE",
+			"Value":  347
+		},
+		{
+			"Name":  "_348_RESERVE",
+			"Value":  348
+		},
+		{
+			"Name":  "_349_RESERVE",
+			"Value":  349
+		},
+		{
+			"Name":  "_350_RESERVE",
+			"Value":  350
+		},
+		{
+			"Name":  "_351_P5Unused",
+			"Value":  351
+		},
+		{
+			"Name":  "_352_P5Unused",
+			"Value":  352
+		},
+		{
+			"Name":  "_353_P5Unused",
+			"Value":  353
+		},
+		{
+			"Name":  "_354_P6Unused",
+			"Value":  354
+		},
+		{
+			"Name":  "_355_P5Unused",
+			"Value":  355
+		},
+		{
+			"Name":  "_356_P5Unused",
+			"Value":  356
+		},
+		{
+			"Name":  "_357_P5Unused",
+			"Value":  357
+		},
+		{
+			"Name":  "_358_P5Unused",
+			"Value":  358
+		},
+		{
+			"Name":  "_359_P5Unused",
+			"Value":  359
+		},
+		{
+			"Name":  "_360_P5Unused",
+			"Value":  360
+		},
+		{
+			"Name":  "_361_P5Unused",
+			"Value":  361
+		},
+		{
+			"Name":  "_362_P5Unused",
+			"Value":  362
+		},
+		{
+			"Name":  "_363_P5Unused",
+			"Value":  363
+		},
+		{
+			"Name":  "_364_P5Unused",
+			"Value":  364
+		},
+		{
+			"Name":  "_365_P5Unused",
+			"Value":  365
+		},
+		{
+			"Name":  "_366_P5Unused",
+			"Value":  366
+		},
+		{
+			"Name":  "_367_P5Unused",
+			"Value":  367
+		},
+		{
+			"Name":  "_368_P5Unused",
+			"Value":  368
+		},
+		{
+			"Name":  "_369_P5Unused",
+			"Value":  369
+		},
+		{
+			"Name":  "_370_P5Unused",
+			"Value":  370
+		},
+		{
+			"Name":  "_371_P5Unused",
+			"Value":  371
+		},
+		{
+			"Name":  "_372_P5Unused",
+			"Value":  372
+		},
+		{
+			"Name":  "_373_P5Unused",
+			"Value":  373
+		},
+		{
+			"Name":  "_374_P5Unused",
+			"Value":  374
+		},
+		{
+			"Name":  "_375_P5Unused",
+			"Value":  375
+		},
+		{
+			"Name":  "_376_P5Unused",
+			"Value":  376
+		},
+		{
+			"Name":  "_377_P5Unused",
+			"Value":  377
+		},
+		{
+			"Name":  "_378_P5Unused",
+			"Value":  378
+		},
+		{
+			"Name":  "_379_P5Unused",
+			"Value":  379
+		},
+		{
+			"Name":  "_380_P5Unused",
+			"Value":  380
+		},
+		{
+			"Name":  "_381_P5Unused",
+			"Value":  381
+		},
+		{
+			"Name":  "_382_P5Unused",
+			"Value":  382
+		},
+		{
+			"Name":  "_383_P5Unused",
+			"Value":  383
+		},
+		{
+			"Name":  "_384_P5Unused",
+			"Value":  384
+		},
+		{
+			"Name":  "_385_P5Unused",
+			"Value":  385
+		},
+		{
+			"Name":  "_386_P5Unused",
+			"Value":  386
+		},
+		{
+			"Name":  "_387_P5Unused",
+			"Value":  387
+		},
+		{
+			"Name":  "_388_P5Unused",
+			"Value":  388
+		},
+		{
+			"Name":  "_389_P5Unused",
+			"Value":  389
+		},
+		{
+			"Name":  "_390_P5Unused",
+			"Value":  390
+		},
+		{
+			"Name":  "_391_P5Unused",
+			"Value":  391
+		},
+		{
+			"Name":  "_392_P5Unused",
+			"Value":  392
+		},
+		{
+			"Name":  "_393_P5Unused",
+			"Value":  393
+		},
+		{
+			"Name":  "_394_P5Unused",
+			"Value":  394
+		},
+		{
+			"Name":  "_395_P5Unused",
+			"Value":  395
+		},
+		{
+			"Name":  "_396_P5Unused",
+			"Value":  396
+		},
+		{
+			"Name":  "_397_P5Unused",
+			"Value":  397
+		},
+		{
+			"Name":  "_398_P5Unused",
+			"Value":  398
+		},
+		{
+			"Name":  "_399_P5Unused",
+			"Value":  399
+		},
+		{
+			"Name":  "_400_P5Unused",
+			"Value":  400
+		},
+		{
+			"Name":  "_401_P5Unused",
+			"Value":  401
+		},
+		{
+			"Name":  "_402_P5Unused",
+			"Value":  402
+		},
+		{
+			"Name":  "_403_P5Unused",
+			"Value":  403
+		},
+		{
+			"Name":  "_404_P5Unused",
+			"Value":  404
+		},
+		{
+			"Name":  "_405_P5Unused",
+			"Value":  405
+		},
+		{
+			"Name":  "_406_P5Unused",
+			"Value":  406
+		},
+		{
+			"Name":  "_407_P5Unused",
+			"Value":  407
+		},
+		{
+			"Name":  "_408_P5Unused",
+			"Value":  408
+		},
+		{
+			"Name":  "_409_P5Unused",
+			"Value":  409
+		},
+		{
+			"Name":  "_410_P5Unused",
+			"Value":  410
+		},
+		{
+			"Name":  "_411_P5Unused",
+			"Value":  411
+		},
+		{
+			"Name":  "_412_P5Unused",
+			"Value":  412
+		},
+		{
+			"Name":  "_413_P5Unused",
+			"Value":  413
+		},
+		{
+			"Name":  "_414_P5Unused",
+			"Value":  414
+		},
+		{
+			"Name":  "_415_P5Unused",
+			"Value":  415
+		},
+		{
+			"Name":  "_416_P5Unused",
+			"Value":  416
+		},
+		{
+			"Name":  "_417_P5Unused",
+			"Value":  417
+		},
+		{
+			"Name":  "_418_P5Unused",
+			"Value":  418
+		},
+		{
+			"Name":  "_419_P5Unused",
+			"Value":  419
+		},
+		{
+			"Name":  "_420_P5Unused",
+			"Value":  420
+		},
+		{
+			"Name":  "_421_P5Unused",
+			"Value":  421
+		},
+		{
+			"Name":  "_422_P5Unused",
+			"Value":  422
+		},
+		{
+			"Name":  "_423_P5Unused",
+			"Value":  423
+		},
+		{
+			"Name":  "_424_P5Unused",
+			"Value":  424
+		},
+		{
+			"Name":  "_425_P5Unused",
+			"Value":  425
+		},
+		{
+			"Name":  "_426_P5Unused",
+			"Value":  426
+		},
+		{
+			"Name":  "_427_P5Unused",
+			"Value":  427
+		},
+		{
+			"Name":  "_428_P5Unused",
+			"Value":  428
+		},
+		{
+			"Name":  "_429_P5Unused",
+			"Value":  429
+		},
+		{
+			"Name":  "_430_P5Unused",
+			"Value":  430
+		},
+		{
+			"Name":  "_431_P5Unused",
+			"Value":  431
+		},
+		{
+			"Name":  "_432_P5Unused",
+			"Value":  432
+		},
+		{
+			"Name":  "_433_P5Unused",
+			"Value":  433
+		},
+		{
+			"Name":  "_434_P5Unused",
+			"Value":  434
+		},
+		{
+			"Name":  "_435_P5Unused",
+			"Value":  435
+		},
+		{
+			"Name":  "_436_P5Unused",
+			"Value":  436
+		},
+		{
+			"Name":  "_437_P5Unused",
+			"Value":  437
+		},
+		{
+			"Name":  "_438_P5Unused",
+			"Value":  438
+		},
+		{
+			"Name":  "_439_P5Unused",
+			"Value":  439
+		},
+		{
+			"Name":  "_440_P5Unused",
+			"Value":  440
+		},
+		{
+			"Name":  "_441_P5Unused",
+			"Value":  441
+		},
+		{
+			"Name":  "_442_P5Unused",
+			"Value":  442
+		},
+		{
+			"Name":  "_443_P5Unused",
+			"Value":  443
+		},
+		{
+			"Name":  "_444_P5Unused",
+			"Value":  444
+		},
+		{
+			"Name":  "_445_P5Unused",
+			"Value":  445
+		},
+		{
+			"Name":  "_446_P5Unused",
+			"Value":  446
+		},
+		{
+			"Name":  "_447_P5Unused",
+			"Value":  447
+		},
+		{
+			"Name":  "_448_P5Unused",
+			"Value":  448
+		},
+		{
+			"Name":  "_449_P5Unused",
+			"Value":  449
+		},
+		{
+			"Name":  "_450_P5Unused",
+			"Value":  450
+		},
+		{
+			"Name":  "_451_P5Unused",
+			"Value":  451
+		},
+		{
+			"Name":  "_452_P5Unused",
+			"Value":  452
+		},
+		{
+			"Name":  "_453_P5Unused",
+			"Value":  453
+		},
+		{
+			"Name":  "_454_P5Unused",
+			"Value":  454
+		},
+		{
+			"Name":  "_455_P5Unused",
+			"Value":  455
+		},
+		{
+			"Name":  "_456_P5Unused",
+			"Value":  456
+		},
+		{
+			"Name":  "_457_P5Unused",
+			"Value":  457
+		},
+		{
+			"Name":  "_458_P5Unused",
+			"Value":  458
+		},
+		{
+			"Name":  "_459_P5Unused",
+			"Value":  459
+		},
+		{
+			"Name":  "_460_RESERVE",
+			"Value":  460
+		},
+		{
+			"Name":  "_461_RESERVE",
+			"Value":  461
+		},
+		{
+			"Name":  "_462_RESERVE",
+			"Value":  462
+		},
+		{
+			"Name":  "_463_RESERVE",
+			"Value":  463
+		}
+	]
+    }
 ]

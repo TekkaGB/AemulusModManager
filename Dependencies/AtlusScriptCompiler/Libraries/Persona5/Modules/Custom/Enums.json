@@ -8677,4 +8677,66 @@
 		}
 	]
   },
+  {
+	"Name": "EquipSlotID",
+	"Description": "This enum represents the available units in battle.",
+	"Members": [
+	  {
+		"Name": "MeleeWeapon",
+		"Value": 0,
+		"Description": ""
+	  },
+	  {
+		"Name": "Armor",
+		"Value": 1,
+		"Description": ""
+	  },
+	  {
+		"Name": "Accessory",
+		"Value": 2,
+		"Description": ""
+	  },
+	  {
+		"Name": "Outfit",
+		"Value": 3,
+		"Description": ""
+	  },
+	  {
+		"Name": "RangedWeapon",
+		"Value": 4,
+		"Description": ""
+	  }
+    ]
+  },
+  {
+	"Name": "TacticState",
+	"Description": "This enum represents the state of a player unit's tactics",
+	"Members": [
+	  {
+		"Name": "ActFreely",
+		"Value": 0,
+		"Description": ""
+	  },
+	  {
+		"Name": "FullAssault",
+		"Value": 1,
+		"Description": ""
+	  },
+	  {
+		"Name": "ConserveSP",
+		"Value": 2,
+		"Description": ""
+	  },
+	  {
+		"Name": "HealSupport",
+		"Value": 3,
+		"Description": ""
+	  },
+	  {
+		"Name": "DirectControl",
+		"Value": 4,
+		"Description": ""
+	  }
+    ]
+  }
 ]

@@ -1,0 +1,163 @@
+[
+  {
+    "Index": "0x6000",
+    "ReturnType": "void",
+    "Name": "EX_PRINTF",
+    "Description": "",
+    "Semantic": "Variadic",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "value",
+        "Description": "Value to print."
+      }
+    ]
+  },
+  {
+    "Index": "0x6001",
+    "ReturnType": "void",
+    "Name": "AI_ACT_PERSONA_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PersonaID",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "BattleSkill",
+        "Name": "skill",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x6002",
+    "ReturnType": "int",
+    "Name": "GET_ENCOUNTER_ID",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6003",
+    "ReturnType": "int",
+    "Name": "GET_EQUIPPED_PERSONA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6004",
+    "ReturnType": "void",
+    "Name": "PERSONA_EVOLUTION2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "PersonaID",
+        "Name": "personaID",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6005",
+    "ReturnType": "int",
+    "Name": "GET_SEQ_ID",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6006",
+    "ReturnType": "int",
+    "Name": "GET_LEARNABLE_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "SkillSlotID",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "targetLv",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6007",
+    "ReturnType": "int",
+    "Name": "GET_PLAYER_LV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6008",
+    "ReturnType": "void",
+    "Name": "SET_TACTICS_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "TacticState",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6009",
+    "ReturnType": "void",
+    "Name": "CALL_NAVI_DIALOGUE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  }
+]
