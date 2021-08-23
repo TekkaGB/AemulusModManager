@@ -175,7 +175,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".tbp" && Path.GetExtension(file).ToLower() != ".rar"
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
-                        && Path.GetExtension(file).ToLower() != ".bak"
+                        && Path.GetExtension(file).ToLower() != ".back"
                         && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
@@ -299,6 +299,7 @@ namespace AemulusModManager
                                 }
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                                 FileIOWrapper.Copy(file, binPath, true);
+                                Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
                         else if (Path.GetExtension(file).ToLower() == ".spd")
@@ -324,6 +325,7 @@ namespace AemulusModManager
                             {
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                                 FileIOWrapper.Copy(file, binPath, true);
+                                Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
                         else

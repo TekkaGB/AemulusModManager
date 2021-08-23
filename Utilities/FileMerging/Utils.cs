@@ -197,8 +197,8 @@ namespace AemulusModManager.Utilities.FileMerging
                 Regex regex = new Regex(@"/(\[.*?\])");
                 fileContent = regex.Replace(fileContent, @"/ $1");
 
-                // Make a copy of the unmerged file (.file.bak)
-                FileIOWrapper.Copy(files[1], files[1] + ".bak", true);
+                // Make a copy of the unmerged file (.file.back)
+                FileIOWrapper.Copy(files[1], files[1] + ".back", true);
 
                 // Write the changes to the msg and compile it
                 File.WriteAllText(msgFile, fileContent);
@@ -210,13 +210,13 @@ namespace AemulusModManager.Utilities.FileMerging
             }
         }
 
-        // Restore all of the .*.bak files to .* for the next time they will be merged
+        // Restore all of the .*.back files to .* for the next time they will be merged
         public static void RestoreBackups(List<string> modList)
         {
             foreach (string modDir in modList)
             {
                 // Find all bak files
-                string[] bakFiles = Directory.GetFiles(modDir, "*.*.bak", SearchOption.AllDirectories);
+                string[] bakFiles = Directory.GetFiles(modDir, "*.*.back", SearchOption.AllDirectories);
                 foreach (string file in bakFiles)
                 {
                     // Replace the existing file with the backup
