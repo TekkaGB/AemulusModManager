@@ -126,7 +126,7 @@ namespace AemulusModManager
         {
             List<SpdHeaderHelper> ddsHelpers = new List<SpdHeaderHelper>();
             byte[] spdBytes = FileIOWrapper.ReadAllBytes(spd);
-            byte[] pattern = Encoding.ASCII.GetBytes("DDS");
+            byte[] pattern = Encoding.ASCII.GetBytes("DDS |");
             int offset = 0;
             int found = 0;
             SpdHeaderHelper helper;
