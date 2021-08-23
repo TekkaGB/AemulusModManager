@@ -160,15 +160,16 @@ namespace AemulusModManager.Utilities.FileMerging
                             changedMessages.Add(ogMessage.Key, messageContent);
                         }
                     }
-                    else
-                    {
-                        // The message wasn't in the original, therefore it should be changed (as it's new)
-                        if (changedMessages.ContainsKey(ogMessage.Key))
-                            changedMessages.Remove(ogMessage.Key);
-                        changedMessages.Add(ogMessage.Key, messageContent);
-                    }
                 }
             }
+
+            // Get any completely new messages
+            // (only checks the lower priority msg as the higher one is the one where text is replaced so any additions in there will persist)
+            var newMessages = messages[0].Where(m => !ogMessages.ContainsKey(m.Key));
+            // Add all of the new messages to the changed messages
+            foreach (var newMessage in newMessages)
+                changedMessages.Add(newMessage.Key, newMessage.Value);
+
 
             if (changedMessages.Count <= 0)
                 return;
@@ -179,8 +180,14 @@ namespace AemulusModManager.Utilities.FileMerging
                 string fileContent = File.ReadAllText(msgFile);
                 foreach (var message in changedMessages)
                 {
-                    if (!ogMessages.TryGetValue(message.Key, out string ogMessage)) continue;
-                    fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
+                    if (!ogMessages.TryGetValue(message.Key, out string ogMessage))
+                    {
+                        fileContent += $"{message.Key}\r\n{message.Value}";
+                    }
+                    else
+                    {
+                        fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
+                    }
                 }
                 // Add a space after the / for any /[...] as the compiler will break otherwise (happens with skill bmds)
                 Regex regex = new Regex(@"/(\[.*?\])");
