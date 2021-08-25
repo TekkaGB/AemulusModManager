@@ -41,7 +41,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Check that the original bmd exists
             if (!File.Exists(ogPath))
             {
-                Console.WriteLine($@"[ERROR] Cannot find {ogPath}. Make sure you have unpacked the game's files");
+                Console.WriteLine($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed");
                 return;
             }
 

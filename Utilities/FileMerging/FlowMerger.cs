@@ -17,7 +17,7 @@ namespace AemulusModManager.Utilities.FileMerging
             foreach (string dir in ModList)
             {
                 var flowFiles = Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories)
-                    .Where(s => s.ToLower().EndsWith(".flow") || s.ToLower().EndsWith(".bf"));
+                    .Where(s => (s.ToLower().EndsWith(".flow") || s.ToLower().EndsWith(".bf")) && !s.ToLower().EndsWith(".bf.flow"));
 
                 foreach (string file in flowFiles)
                 {
@@ -60,7 +60,7 @@ namespace AemulusModManager.Utilities.FileMerging
                         }
                         else
                         {
-                            Console.WriteLine($@"[ERROR] Cannot find {ogPath}. Make sure you have unpacked the game's files");
+                            Console.WriteLine($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed");
                             continue;
                         }
                     }
