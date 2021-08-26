@@ -24,9 +24,8 @@ namespace AemulusModManager.Utilities.FileMerging
 
                     string bf = Path.ChangeExtension(file, "bf");
                     string filePath = Utils.GetRelativePath(bf, dir, game);
-
                     // If the current file is a bf check if it has a corresponding flow
-                    if (file == bf)
+                    if (file.Equals(bf, StringComparison.InvariantCultureIgnoreCase))
                     {
                         // Ignore the current file if a flow exists (as it'll be compiled)
                         if (File.Exists(Path.ChangeExtension(file, "flow")))
