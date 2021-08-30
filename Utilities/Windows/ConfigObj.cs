@@ -76,9 +76,6 @@ namespace AemulusModManager
     public class ConfigP3P
     {
         public string modDir { get; set; }
-        public string isoPath { get; set; }
-        public string elfPath { get; set; }
-
         public string p3pDir { get; set; }
 
         public string launcherPath { get; set; }

@@ -1569,7 +1569,7 @@ namespace AemulusModManager
                         if (selectedPath != null)
                         {
                             gamePath = selectedPath;
-                            config.p3pConfig.isoPath = gamePath;
+                            config.p3pConfig.p3pDir = gamePath;
                             updateConfig();
                         }
                         else Console.WriteLine("[ERROR] Incorrect file chosen.");
@@ -2259,8 +2259,7 @@ namespace AemulusModManager
                         game = "Persona 3 Portable";
                         modPath = config.p3pConfig.modDir;
                         selectedLoadout = config.p3pConfig.loadout;
-                        gamePath = config.p3pConfig.isoPath;
-                        elfPath = config.p3pConfig.elfPath;
+                        gamePath = config.p3pConfig.p3pDir;
                         launcherPath = config.p3pConfig.launcherPath;
                         buildWarning = config.p3pConfig.buildWarning;
                         buildFinished = config.p3pConfig.buildFinished;

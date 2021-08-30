@@ -224,7 +224,7 @@ namespace AemulusModManager
                 if (selectedPath != null)
                 {
                     main.gamePath = selectedPath;
-                    main.config.p3pConfig.isoPath = main.gamePath;
+                    main.config.p3pConfig.p3pDir = main.gamePath;
                     main.updateConfig();
                 }
                 else
