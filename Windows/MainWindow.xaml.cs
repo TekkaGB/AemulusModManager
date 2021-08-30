@@ -423,14 +423,17 @@ namespace AemulusModManager
                         case "Persona 3 FES":
                             GameBox.SelectedIndex = 0;
                             break;
-                        case "Persona 4 Golden":
+                        case "Persona 3 Portable":
                             GameBox.SelectedIndex = 1;
                             break;
-                        case "Persona 5":
+                        case "Persona 4 Golden":
                             GameBox.SelectedIndex = 2;
                             break;
-                        case "Persona 5 Strikers":
+                        case "Persona 5":
                             GameBox.SelectedIndex = 3;
+                            break;
+                        case "Persona 5 Strikers":
+                            GameBox.SelectedIndex = 4;
                             break;
                     }
 
@@ -1400,6 +1403,8 @@ namespace AemulusModManager
                     button.IsHitTestVisible = true;
                     if (game == "Persona 3 FES")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                    else if (game == "Persona 3 Portable")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                     else if (game == "Persona 4 Golden")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
                     else if (game == "Persona 5 Strikers")
