@@ -22,8 +22,6 @@ namespace AemulusModManager
 
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
-            if (main.gamePath != null)
-                ISOTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.elfPath != null)
@@ -178,7 +176,6 @@ namespace AemulusModManager
                 main.gamePath = p3pPath;
                 main.config.p3pConfig.isoPath = p3pPath;
                 main.updateConfig();
-                ISOTextbox.Text = p3pPath;
             }
         }
 
