@@ -32,12 +32,12 @@
 
         <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="310"/>
 
-        <TextBox Name="ELFTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="3" Grid.Column="2" TextChanged="ELFTextbox_TextChanged" Margin="5,9,5,12"/>
+        <TextBox x:Name="P3PTextBox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="3" Grid.Column="2" TextChanged="ELFTextbox_TextChanged" Margin="5,9,5,12"/>
         <TextBox Name="PCSX2Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="4" Grid.Column="2" Margin="5,10,5,11"/>
 
         <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
-        <Button Height="20" Width="60" Content="Browse" Name="ELFButton" Click="SetupELFShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="3" Margin="23,9,24,12"/>
-        <Button Height="20" Width="60" Content="Browse" Name="PCSX2Button" Click="SetupPCSX2Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="23,10,24,11"/>
+        <Button Height="20" Width="60" Content="Browse" Name="P3PButton" Click="SetupGameDirectory" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="3" Margin="23,9,24,12"/>
+        <Button Height="20" Width="60" Content="Browse" Name="PPSSPPButton" Click="SetupPPSSPPShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="23,10,24,11"/>
 
         <CheckBox Name="AdvancedLaunchOptions" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked" Margin="29,10,31,15">
             <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>

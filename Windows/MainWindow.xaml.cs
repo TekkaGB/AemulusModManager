@@ -65,6 +65,7 @@ namespace AemulusModManager
         public string gamePath;
         public string launcherPath;
         public string elfPath;
+        public string p3pDir;
         public string cpkLang;
         public string selectedLoadout;
         private BitmapImage bitmap;
@@ -970,6 +971,12 @@ namespace AemulusModManager
             else if (game == "Persona 3 FES")
             {
                 ConfigWindowP3F cWindow = new ConfigWindowP3F(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 3 Portable")
+            {
+                ConfigWindowP3P cWindow = new ConfigWindowP3P(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }

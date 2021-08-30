@@ -24,8 +24,8 @@ namespace AemulusModManager
                 OutputTextbox.Text = main.modPath;
             if (main.launcherPath != null)
                 PCSX2Textbox.Text = main.launcherPath;
-            if (main.elfPath != null)
-                ELFTextbox.Text = main.elfPath;
+            if (main.p3pDir != null)
+                P3PTextBox.Text = main.p3pDir;
             AdvancedLaunchOptions.IsChecked = main.config.p3pConfig.advancedLaunchOptions;
             BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
@@ -45,7 +45,7 @@ namespace AemulusModManager
                 main.config.p3pConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
@@ -164,32 +164,18 @@ namespace AemulusModManager
             return null;
         }
 
-        private void SetupISOShortcut(object sender, RoutedEventArgs e)
+        private void SetupPPSSPPShortcut(object sender, RoutedEventArgs e)
         {
-            string p3pPath = openFolder();
-            if (p3pPath != null && Path.GetExtension(p3pPath).ToLower() == ".iso")
+            string ppssppExe = selectExe("Select ppsspp.exe", ".exe");
+            if (Path.GetFileName(ppssppExe) == "PPSSPP.exe"
+                || Path.GetFileName(ppssppExe) == "ppsspp.exe"
+                || Path.GetFileName(ppssppExe) == "PPSSPPWindows.exe"
+                || Path.GetFileName(ppssppExe) == "PPSSPPWindows64.exe")
             {
-                Console.WriteLine("[ERROR] You need to unpack the game first.");
-            }
-            else
-            {
-                main.gamePath = p3pPath;
-                main.config.p3pConfig.isoPath = p3pPath;
+                main.launcherPath = ppssppExe;
+                main.config.p3pConfig.launcherPath = ppssppExe;
                 main.updateConfig();
-            }
-        }
-
-        private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
-        {
-            string pcsx2Exe = selectExe("Select pcsx2.exe", ".exe");
-            if (Path.GetFileName(pcsx2Exe) == "pcsx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64-avx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64.exe")
-            {
-                main.launcherPath = pcsx2Exe;
-                main.config.p3fConfig.launcherPath = pcsx2Exe;
-                main.updateConfig();
-                PCSX2Textbox.Text = pcsx2Exe;
+                PCSX2Textbox.Text = ppssppExe;
             }
             else
             {
@@ -197,35 +183,18 @@ namespace AemulusModManager
             }
         }
 
-        private void SetupELFShortcut(object sender, RoutedEventArgs e)
+        private void SetupGameDirectory(object sender, RoutedEventArgs e)
         {
-            string elf = selectExe("Select ELF/SLUS", "");
-            if (elf != null)
+            var directory = openFolder();
+            if (directory != null)
             {
-                try
-                {
-                    // Read the first four bytes, verify that they end in "ELF"
-                    using BinaryReader reader = new BinaryReader(new FileStream(elf, FileMode.Open));
-                    string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
-                    if (!magic.EndsWith("ELF"))
-                    {
-                        Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
-                        return;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[ERROR] An exception occurred while trying to read the specified ELF/SLUS file: {ex.Message}");
-                }
-
-                main.elfPath = elf;
-                main.config.p3fConfig.elfPath = elf;
+                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                main.config.p3pConfig.p3pDir = directory;
+                main.modPath = directory;
+                main.MergeButton.IsHitTestVisible = true;
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                 main.updateConfig();
-                ELFTextbox.Text = elf;
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] No ELF/SLUS file specified.");
+                OutputTextbox.Text = directory;
             }
         }
 
@@ -251,11 +220,11 @@ namespace AemulusModManager
         {
             if (main.gamePath == null || main.gamePath == "")
             {
-                string selectedPath = selectExe("Select P3F's iso to unpack", ".iso");
+                string selectedPath = selectExe("Select P3P's iso to unpack", ".iso");
                 if (selectedPath != null)
                 {
                     main.gamePath = selectedPath;
-                    main.config.p3fConfig.isoPath = main.gamePath;
+                    main.config.p3pConfig.isoPath = main.gamePath;
                     main.updateConfig();
                 }
                 else
