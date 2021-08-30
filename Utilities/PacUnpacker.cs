@@ -89,7 +89,7 @@ namespace AemulusModManager
             Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\CpkMakeC\cpkmakec.exe";
             if (!FileIOWrapper.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
@@ -105,9 +105,11 @@ namespace AemulusModManager
 
             if (FileIOWrapper.Exists($@"{directory}\PSP_GAME\USRDIR\umd0.cpk"))
             {
-                directory = directory + @"\PSP_GAME\USRDIR";
+                directory = directory + @"\PSP_GAME\USRDIR\umd0.cpk";
+                string extractPath = $@"""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable""";
                 Console.WriteLine($"[INFO] Extracting umd0.cpk");
-                startInfo.Arguments = $@"-X -d ""{directory}"" -i umd0.cpk"; //{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable
+                //Yes I'm adding a comment here. I had to MANUALLY ADD the "s. I wanna commit :naodead:
+                startInfo.Arguments = Convert.ToChar(34) + directory + Convert.ToChar(34) + " -extract=" + extractPath;
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;

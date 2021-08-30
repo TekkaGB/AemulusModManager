@@ -575,6 +575,8 @@ namespace AemulusModManager
                     modPath = config.p4gConfig.modDir;
                 else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "" && config.p3fConfig.modDir != null)
                     modPath = config.p3fConfig.modDir;
+                else if (game == "Persona 3 Portable" && config.p3pConfig.modDir != "" && config.p3pConfig.modDir != null)
+                    modPath = config.p3pConfig.modDir;
                 else if (game == "Persona 5" && config.p5Config.modDir != "" && config.p5Config.modDir != null)
                     modPath = config.p5Config.modDir;
                 else if (game == "Persona 5 Strikers" && config.p5sConfig.modDir != "" && config.p5sConfig.modDir != null)
@@ -583,6 +585,7 @@ namespace AemulusModManager
                 // Create Packages directory if it doesn't exist
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 Portable");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Strikers");
@@ -1532,7 +1535,8 @@ namespace AemulusModManager
             if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
-                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
+                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")) 
+                    || (game == "Persona 3 Portable" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
             {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
@@ -1605,7 +1609,8 @@ namespace AemulusModManager
                 if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
-                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
+                    || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
+                    || (game == "Persona 3 Portable" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}")))
                 {
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                     return;
@@ -1698,6 +1703,12 @@ namespace AemulusModManager
                     if (game == "Persona 5")
                     {
                         path = $@"{modPath}\{config.p5Config.CpkName}";
+                        Directory.CreateDirectory(path);
+                    }
+
+                    if (game == "Persona 3 Portable")
+                    {
+                        path = $@"{modPath}\{config.p3pConfig.modDir}\umd0";
                         Directory.CreateDirectory(path);
                     }
 
