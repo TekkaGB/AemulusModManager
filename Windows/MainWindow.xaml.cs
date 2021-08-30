@@ -799,6 +799,8 @@ namespace AemulusModManager
                     PacUnpacker.Unpack(directory, cpkLang);
                 else if (game == "Persona 3 FES")
                     PacUnpacker.Unzip(directory);
+                else if (game == "Persona 3 Portable")
+                    PacUnpacker.UnUMD(directory);
                 else if (game == "Persona 5")
                     PacUnpacker.UnpackCPK(directory);
                 else if (game == "Persona 5 Strikers")

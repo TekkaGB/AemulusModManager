@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using AemulusModManager.Utilities;
+using AemulusModManager.Windows;
 
 namespace AemulusModManager
 {
@@ -69,6 +70,56 @@ namespace AemulusModManager
             {
                 Mouse.OverrideCursor = null;
             });
+        }
+
+        // P3P
+
+        public static void UnUMD(string directory)
+        {
+            
+            if (!Directory.Exists(directory))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {directory}. Please correct the file path in config.");
+                return;
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
+            if (!FileIOWrapper.Exists(startInfo.FileName))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+                return;
+            }
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+
+            if (FileIOWrapper.Exists($@"{directory}\PSP_GAME\USRDIR\umd0.cpk"))
+            {
+                directory = directory + @"\PSP_GAME\USRDIR";
+                Console.WriteLine($"[INFO] Extracting umd0.cpk");
+                startInfo.Arguments = $@"-X -d ""{directory}"" -i umd0.cpk"; //{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    while (!process.HasExited)
+                    {
+                        string text = process.StandardOutput.ReadLine();
+                        if (text != "" && text != null)
+                            Console.WriteLine($"[INFO] {text}");
+                    }
+                }
+            } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk in {directory}.");
         }
 
         // P4G
@@ -157,7 +208,7 @@ namespace AemulusModManager
             });
         }
 
-        // Any game that uses CPK archives
+        // P5
         public static void UnpackCPK(string directory)
         {
             if (!Directory.Exists(directory))
