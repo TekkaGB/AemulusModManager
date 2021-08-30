@@ -14,6 +14,7 @@ namespace AemulusModManager.Utilities
     public enum GameFilter
     {
         P3,
+        P3P,
         P4G,
         P5,
         P5S
@@ -123,6 +124,9 @@ namespace AemulusModManager.Utilities
                 {
                     case GameFilter.P3:
                         url += "8502&";
+                        break;
+                    case GameFilter.P3P:
+                        url += "8583&";
                         break;
                     case GameFilter.P4G:
                         url += "8263&";
