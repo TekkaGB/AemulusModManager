@@ -27,7 +27,7 @@
 
         <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"/>
         <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P3P game folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20" Margin="0,9,0,12"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PPSSPP.exe Path" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,14,5,9"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PPSSPP.exe Path" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="10,0,20,40" Height="42" Grid.RowSpan="2" Width="77"/>
         <TextBlock Foreground="LightGray" Text="P3P Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
 
         <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="310"/>
@@ -40,7 +40,7 @@
         <Button Height="20" Width="60" Content="Browse" Name="PPSSPPButton" Click="SetupPPSSPPShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="23,10,24,11"/>
 
         <CheckBox Name="AdvancedLaunchOptions" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked" Margin="29,10,31,15">
-            <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>
+            <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13" Width="244" Height="20" RenderTransformOrigin="0.498,0.437"/>
         </CheckBox>
 
         <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,6" Grid.RowSpan="2">

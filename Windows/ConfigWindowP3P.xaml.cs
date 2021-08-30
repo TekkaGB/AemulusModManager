@@ -24,8 +24,8 @@ namespace AemulusModManager
                 OutputTextbox.Text = main.modPath;
             if (main.launcherPath != null)
                 PCSX2Textbox.Text = main.launcherPath;
-            if (main.p3pDir != null)
-                P3PTextBox.Text = main.p3pDir;
+            if (main.gamePath != null)
+                P3PTextBox.Text = main.gamePath;
             AdvancedLaunchOptions.IsChecked = main.config.p3pConfig.advancedLaunchOptions;
             BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
@@ -190,11 +190,11 @@ namespace AemulusModManager
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
                 main.config.p3pConfig.p3pDir = directory;
-                main.modPath = directory;
+                main.gamePath = directory;
                 main.MergeButton.IsHitTestVisible = true;
                 main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                 main.updateConfig();
-                OutputTextbox.Text = directory;
+                P3PTextBox.Text = directory;
             }
         }
 

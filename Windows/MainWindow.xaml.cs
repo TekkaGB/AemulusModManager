@@ -65,7 +65,6 @@ namespace AemulusModManager
         public string gamePath;
         public string launcherPath;
         public string elfPath;
-        public string p3pDir;
         public string cpkLang;
         public string selectedLoadout;
         private BitmapImage bitmap;
@@ -346,21 +345,20 @@ namespace AemulusModManager
                             }
                             else if (game == "Persona 3 Portable")
                             {
-                                modPath = config.p3fConfig.modDir;
-                                selectedLoadout = config.p3fConfig.loadout;
-                                gamePath = config.p3fConfig.isoPath;
-                                elfPath = config.p3fConfig.elfPath;
-                                launcherPath = config.p3fConfig.launcherPath;
-                                buildWarning = config.p3fConfig.buildWarning;
-                                buildFinished = config.p3fConfig.buildFinished;
-                                updateChangelog = config.p3fConfig.updateChangelog;
-                                updateAll = config.p3fConfig.updateAll;
-                                updatesEnabled = config.p3fConfig.updatesEnabled;
-                                deleteOldVersions = config.p3fConfig.deleteOldVersions;
+                                modPath = config.p3pConfig.modDir;
+                                selectedLoadout = config.p3pConfig.loadout;
+                                gamePath = config.p3pConfig.p3pDir;
+                                launcherPath = config.p3pConfig.launcherPath;
+                                buildWarning = config.p3pConfig.buildWarning;
+                                buildFinished = config.p3pConfig.buildFinished;
+                                updateChangelog = config.p3pConfig.updateChangelog;
+                                updateAll = config.p3pConfig.updateAll;
+                                updatesEnabled = config.p3pConfig.updatesEnabled;
+                                deleteOldVersions = config.p3pConfig.deleteOldVersions;
                                 useCpk = false;
                                 ConvertCPK.Visibility = Visibility.Collapsed;
                                 foreach (var button in buttons)
-                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                             }
                             else if (game == "Persona 5")
                             {
@@ -831,6 +829,7 @@ namespace AemulusModManager
         private void LaunchCommand()
         {
             if ((gamePath != "" && gamePath != null && launcherPath != "" && launcherPath != null)
+                || gamePath != null || gamePath != ""
                 || (elfPath != "" && elfPath != null && launcherPath != "" && launcherPath != null))
             {
                 if (game != "Persona 3 FES")
@@ -921,6 +920,15 @@ namespace AemulusModManager
                         }
                         startInfo.Arguments += $" \"{tempGamePath}\"";
                     }
+                }
+                else if (game == "Persona 3 Portable")
+                {
+                    if (!Directory.Exists(gamePath))
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        return;
+                    }
+                    startInfo.Arguments = $"\"{gamePath}\"";
                 }
                 else if (game == "Persona 5")
                 {
