@@ -25,7 +25,7 @@ namespace AemulusModManager
 
         private static void unpackTbls(string archive, string game)
         {
-            if (game == "Persona 3 FES")
+            if (game == "Persona 3 FES" || game == "Persona 3 Portable")
                 return;
             PAKPackCMD($@"unpack ""{archive}"" ""{tblDir}""");
         }
@@ -111,7 +111,9 @@ namespace AemulusModManager
                 }
             }
             else if (game == "Persona 5")
+            {
                 archive = @"battle\table.pac";
+            }   
             if (game != "Persona 3 FES")
             {
                 if (!File.Exists($@"{modDir}\{archive}"))
