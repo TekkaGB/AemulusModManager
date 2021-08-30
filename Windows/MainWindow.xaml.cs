@@ -37,6 +37,7 @@ namespace AemulusModManager
     public partial class MainWindow : Window
     {
         public AemulusConfig config;
+        public ConfigP3P p3pConfig;
         public ConfigP3F p3fConfig;
         public ConfigP4G p4gConfig;
         public ConfigP5 p5Config;
