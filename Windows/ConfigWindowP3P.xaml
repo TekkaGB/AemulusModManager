@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 3 Portable Config" Height="265.109" Width="550" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 3 Portable Config" Height="277.929" Width="591.667" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>

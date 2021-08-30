@@ -220,7 +220,7 @@ namespace AemulusModManager
         {
             if (main.gamePath == null || main.gamePath == "")
             {
-                string selectedPath = selectExe("Select P3P's iso to unpack", ".iso");
+                string selectedPath = selectExe("Select UMD0.cpk to unpack it", ".cpk");
                 if (selectedPath != null)
                 {
                     main.gamePath = selectedPath;
