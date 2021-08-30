@@ -23,6 +23,7 @@ namespace AemulusModManager
         public bool bottomUpPriority { get; set; }
         public bool updateAemulus { get; set; } = true;
         public bool darkMode { get; set; } = true;
+        public ConfigP3P p3pConfig { get; set; }
         public ConfigP3F p3fConfig { get; set; }
         public ConfigP4G p4gConfig { get; set; }
         public ConfigP5 p5Config { get; set; }
