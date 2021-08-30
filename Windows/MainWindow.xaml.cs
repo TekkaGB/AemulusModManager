@@ -1546,6 +1546,17 @@ namespace AemulusModManager
                         else
                             Console.WriteLine("[ERROR] Incorrect file chosen.");
                     }
+                    else if (game == "Persona 3 Portable")
+                    {
+                        selectedPath = selectExe("Select P3P's EBOOT.bin to unpack", ".bin");
+                        if (selectedPath != null)
+                        {
+                            gamePath = selectedPath;
+                            config.p3pConfig.isoPath = gamePath;
+                            updateConfig();
+                        }
+                        else Console.WriteLine("[ERROR] Incorrect file chosen.");
+                    }
                     else if (game == "Persona 5")
                     {
                         selectedPath = selectExe("Select P5's EBOOT.BIN to unpack", ".bin");
