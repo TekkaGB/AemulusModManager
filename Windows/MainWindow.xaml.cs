@@ -1083,7 +1083,7 @@ namespace AemulusModManager
                 {
                     var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
                     if (FileIOWrapper.Exists(targetFile)) FileIOWrapper.Delete(targetFile);
-                    FileIOWrapper.Move(file, targetFile);
+                    FileIOWrapper.Copy(file, targetFile);
                 }
             }
         }
@@ -1855,10 +1855,15 @@ namespace AemulusModManager
                     }
                     else if (game == "Persona 3 Portable")
                     {
+                        Console.WriteLine($"[INFO] Deleted umd0 folder");
                         binMerge.Restart(path, emptySND, game, cpkLang);
                         File.Delete(path + ".cpk");
                         CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
+                        binMerge.Unpack(packages, path, useCpk, cpkLang, game);
+                        binMerge.Merge(path, game);
                         binMerge.MakeCpk(path, false);
+                        Merger.DeleteDirectory(path);
+                        Console.WriteLine($"[INFO] Deleted umd0 folder");
                     }
                     else
                     {
