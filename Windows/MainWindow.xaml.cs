@@ -283,7 +283,7 @@ namespace AemulusModManager
                             else
                                 config = (AemulusConfig)xs.Deserialize(streamWriter);
                             game = config.game;
-                            if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5" && game != "Persona 5 Strikers")
+                            if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 3 Portable" && game != "Persona 5" && game != "Persona 5 Strikers")
                             {
                                 game = "Persona 4 Golden";
                                 config.game = "Persona 4 Golden";
@@ -326,6 +326,24 @@ namespace AemulusModManager
                                     button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
                             }
                             else if (game == "Persona 3 FES")
+                            {
+                                modPath = config.p3fConfig.modDir;
+                                selectedLoadout = config.p3fConfig.loadout;
+                                gamePath = config.p3fConfig.isoPath;
+                                elfPath = config.p3fConfig.elfPath;
+                                launcherPath = config.p3fConfig.launcherPath;
+                                buildWarning = config.p3fConfig.buildWarning;
+                                buildFinished = config.p3fConfig.buildFinished;
+                                updateChangelog = config.p3fConfig.updateChangelog;
+                                updateAll = config.p3fConfig.updateAll;
+                                updatesEnabled = config.p3fConfig.updatesEnabled;
+                                deleteOldVersions = config.p3fConfig.deleteOldVersions;
+                                useCpk = false;
+                                ConvertCPK.Visibility = Visibility.Collapsed;
+                                foreach (var button in buttons)
+                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                            }
+                            else if (game == "Persona 3 Portable")
                             {
                                 modPath = config.p3fConfig.modDir;
                                 selectedLoadout = config.p3fConfig.loadout;
