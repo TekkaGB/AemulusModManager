@@ -2223,6 +2223,27 @@ namespace AemulusModManager
                         }
                         break;
                     case 1:
+                        game = "Persona 3 Portable";
+                        modPath = config.p3pConfig.modDir;
+                        selectedLoadout = config.p3pConfig.loadout;
+                        gamePath = config.p3pConfig.isoPath;
+                        elfPath = config.p3pConfig.elfPath;
+                        launcherPath = config.p3pConfig.launcherPath;
+                        buildWarning = config.p3pConfig.buildWarning;
+                        buildFinished = config.p3pConfig.buildFinished;
+                        updateChangelog = config.p3pConfig.updateChangelog;
+                        updateAll = config.p3pConfig.updateAll;
+                        updatesEnabled = config.p3pConfig.updatesEnabled;
+                        deleteOldVersions = config.p3pConfig.deleteOldVersions;
+                        useCpk = true;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
+                            button.IsHitTestVisible = true;
+                        }
+                        break;
+                    case 2:
                         game = "Persona 4 Golden";
                         modPath = config.p4gConfig.modDir;
                         selectedLoadout = config.p4gConfig.loadout;
@@ -2244,7 +2265,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 2:
+                    case 3:
                         game = "Persona 5";
                         modPath = config.p5Config.modDir;
                         selectedLoadout = config.p5Config.loadout;
@@ -2264,7 +2285,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 3:
+                    case 4:
                         game = "Persona 5 Strikers";
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();

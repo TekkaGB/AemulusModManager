@@ -22,7 +22,8 @@ namespace AemulusModManager
 
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
-            
+            if (main.gamePath != null)
+                ISOTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.elfPath != null)
@@ -165,7 +166,21 @@ namespace AemulusModManager
             return null;
         }
 
-        
+        private void SetupISOShortcut(object sender, RoutedEventArgs e)
+        {
+            string p3pPath = openFolder();
+            if (p3pPath != null && Path.GetExtension(p3pPath).ToLower() == ".iso")
+            {
+                Console.WriteLine("[ERROR] You need to unpack the game first.");
+            }
+            else
+            {
+                main.gamePath = p3pPath;
+                main.config.p3pConfig.isoPath = p3pPath;
+                main.updateConfig();
+                ISOTextbox.Text = p3pPath;
+            }
+        }
 
         private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
         {
@@ -175,7 +190,7 @@ namespace AemulusModManager
                 || Path.GetFileName(pcsx2Exe) == "pcsx2x64.exe")
             {
                 main.launcherPath = pcsx2Exe;
-                main.config.p3pConfig.launcherPath = pcsx2Exe;
+                main.config.p3fConfig.launcherPath = pcsx2Exe;
                 main.updateConfig();
                 PCSX2Textbox.Text = pcsx2Exe;
             }
@@ -207,7 +222,7 @@ namespace AemulusModManager
                 }
 
                 main.elfPath = elf;
-                main.config.p3pConfig.elfPath = elf;
+                main.config.p3fConfig.elfPath = elf;
                 main.updateConfig();
                 ELFTextbox.Text = elf;
             }
@@ -220,8 +235,8 @@ namespace AemulusModManager
         private string selectExe(string title, string extension)
         {
             string type = "Application";
-            if (extension == ".iso")
-                type = "PS2 Disc";
+            if (extension == ".exe")
+                type = "PPSSPP Executable";
             var openExe = new CommonOpenFileDialog();
             openExe.Filters.Add(new CommonFileDialogFilter(type, $"*{extension}"));
             openExe.EnsurePathExists = true;
@@ -243,7 +258,7 @@ namespace AemulusModManager
                 if (selectedPath != null)
                 {
                     main.gamePath = selectedPath;
-                    main.config.p3pConfig.isoPath = main.gamePath;
+                    main.config.p3fConfig.isoPath = main.gamePath;
                     main.updateConfig();
                 }
                 else
