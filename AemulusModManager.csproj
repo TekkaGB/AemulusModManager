@@ -402,6 +402,7 @@
     <Resource Include="Assets\p5sicon.png" />
     <Resource Include="Assets\GameBanana.png" />
     <Resource Include="Assets\loading.gif" />
+    <Resource Include="Assets\p3pIcon.png" />
     <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll" />
     <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml" />
     <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe" />
