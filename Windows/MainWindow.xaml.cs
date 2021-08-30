@@ -1069,6 +1069,25 @@ namespace AemulusModManager
             Directory.Delete(source, true);
         }
 
+        public static void CopyDirectory(string source, string target)
+        {
+            var sourcePath = source.TrimEnd('\\', ' ');
+            var targetPath = target.TrimEnd('\\', ' ');
+            var files = Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories)
+                                 .GroupBy(s => Path.GetDirectoryName(s));
+            foreach (var folder in files)
+            {
+                var targetFolder = folder.Key.Replace(sourcePath, targetPath);
+                Directory.CreateDirectory(targetFolder);
+                foreach (var file in folder)
+                {
+                    var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
+                    if (FileIOWrapper.Exists(targetFile)) FileIOWrapper.Delete(targetFile);
+                    FileIOWrapper.Move(file, targetFile);
+                }
+            }
+        }
+
         // Refresh both PackageList and DisplayedPackages
         private async void Refresh()
         {
@@ -1738,7 +1757,10 @@ namespace AemulusModManager
                             return;
                         }
                     }
+                    if (game == "Persona 3 Portable")
+                    {
 
+                    }
                     if (game != "Persona 5 Strikers")
                         binMerge.Restart(path, emptySND, game, cpkLang);
                     else
@@ -1791,7 +1813,7 @@ namespace AemulusModManager
                         }
                     }
 
-                    if (game != "Persona 5 Strikers" || game != "Persona 3 Portable")
+                    if (game != "Persona 5 Strikers" && game != "Persona 3 Portable")
                     {
                         // Merge flow, bmd and pm1 files
                         FlowMerger.Merge(packages, game);
@@ -1831,12 +1853,20 @@ namespace AemulusModManager
                         if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
                             Console.WriteLine("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");
                     }
+                    else if (game == "Persona 3 Portable")
+                    {
+                        binMerge.Restart(path, emptySND, game, cpkLang);
+                        File.Delete(path + ".cpk");
+                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
+                        binMerge.MakeCpk(path, false);
+                    }
                     else
                     {
                         Merger.Restart(path);
                         Merger.Merge(packages, path);
                         Merger.Patch(path);
                     }
+                    
 
                     Console.WriteLine("[INFO] Finished Building!");
                     Application.Current.Dispatcher.Invoke(() =>

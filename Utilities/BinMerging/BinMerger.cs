@@ -844,7 +844,7 @@ namespace AemulusModManager
             return checksumString;
         }
 
-        public static void MakeCpk(string modDir)
+        public static void MakeCpk(string modDir, bool UseCrc = true)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -855,7 +855,10 @@ namespace AemulusModManager
                 return;
             }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME -crc";
+            if (UseCrc)
+                startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME -crc";
+            else
+                startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME";
             Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
             using (Process process = new Process())
             {
@@ -864,5 +867,6 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
         }
+
     }
 }
