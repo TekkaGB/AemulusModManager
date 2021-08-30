@@ -626,7 +626,7 @@ namespace AemulusModManager
                     "--no-visual-peaks",
                     "--no-visual-80-bands"
                 };
-                Application.Current.Dispatcher.Invoke(() =>
+                /*Application.Current.Dispatcher.Invoke(() =>
                 {
                     MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
                     MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
@@ -649,7 +649,7 @@ namespace AemulusModManager
                     AudioProgress.ApplyTemplate();
                     thumb = (AudioProgress.Template.FindName("PART_Track", AudioProgress) as Track).Thumb;
                     thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
-                });
+                });*/
             });
         }
         private void thumb_MouseEnter(object sender, MouseEventArgs e)
