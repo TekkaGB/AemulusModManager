@@ -65,6 +65,7 @@ namespace AemulusModManager
         public string gamePath;
         public string launcherPath;
         public string elfPath;
+        public string p3pDir;
         public string cpkLang;
         public string selectedLoadout;
         private BitmapImage bitmap;

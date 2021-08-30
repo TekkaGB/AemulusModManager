@@ -78,6 +78,9 @@ namespace AemulusModManager
         public string modDir { get; set; }
         public string isoPath { get; set; }
         public string elfPath { get; set; }
+
+        public string p3pDir { get; set; }
+
         public string launcherPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
