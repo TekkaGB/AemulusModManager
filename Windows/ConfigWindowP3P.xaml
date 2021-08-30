@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 3 Portable Config" Height="276.556" Width="550" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 3 Portable Config" Height="265.109" Width="550" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -39,7 +39,7 @@
         <Button Height="20" Width="60" Content="Browse" Name="P3PButton" Click="SetupGameDirectory" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="3" Margin="23,9,24,12"/>
         <Button Height="20" Width="60" Content="Browse" Name="PPSSPPButton" Click="SetupPPSSPPShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="23,10,24,11"/>
 
-        <CheckBox Name="AdvancedLaunchOptions" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked" Margin="29,10,31,15">
+        <CheckBox Name="AdvancedLaunchOptions" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked" Margin="29,11,31,10" Height="20">
             <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>
         </CheckBox>
 
