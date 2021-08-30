@@ -157,7 +157,7 @@ namespace AemulusModManager
             });
         }
 
-
+        // Any game that uses CPK archives
         public static void UnpackCPK(string directory)
         {
             if (!Directory.Exists(directory))
