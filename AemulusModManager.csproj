@@ -180,6 +180,9 @@
     <Compile Include="Utilities\Windows\HiddenTextConverter.cs" />
     <Compile Include="Utilities\Windows\ShowHiddenConverter.cs" />
     <Compile Include="Utilities\Windows\Loadouts.cs" />
+    <Compile Include="Windows\ConfigWindowP3P.xaml.cs">
+      <DependentUpon>ConfigWindowP3P.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\CreateLoadout.xaml.cs">
       <DependentUpon>CreateLoadout.xaml</DependentUpon>
     </Compile>
@@ -245,6 +248,10 @@
     <Page Include="Controls\ScrollViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfigWindowP3P.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\CreateLoadout.xaml">
       <SubType>Designer</SubType>
