@@ -3169,6 +3169,9 @@ namespace AemulusModManager
                     case GameFilter.P3:
                         game = "Persona 3 FES";
                         break;
+                    case GameFilter.P3P:
+                        game = "Persona 3 Portable";
+                        break;
                     case GameFilter.P4G:
                         game = "Persona 4 Golden";
                         break;
@@ -3192,6 +3195,9 @@ namespace AemulusModManager
             {
                 case GameFilter.P3:
                     game = "Persona 3 FES";
+                    break;
+                case GameFilter.P3P:
+                    game = "Persona 3 Portable";
                     break;
                 case GameFilter.P4G:
                     game = "Persona 4 Golden";
@@ -3333,7 +3339,7 @@ namespace AemulusModManager
                 LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
-                var gameIDS = new string[] { "8502", "8263", "7545", "9099" };
+                var gameIDS = new string[] { "8502", "8583", "8263", "7545", "9099" };
                 var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
@@ -3508,6 +3514,7 @@ namespace AemulusModManager
             bgs = new List<BitmapImage>();
             var bgUrls = new string[] {
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p3p.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p4g.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/sophia.png"};
@@ -3690,12 +3697,15 @@ namespace AemulusModManager
                         gameID = "8502";
                         break;
                     case 1:
-                        gameID = "8263";
+                        gameID = "8583";
                         break;
                     case 2:
-                        gameID = "7545";
+                        gameID = "8263";
                         break;
                     case 3:
+                        gameID = "7545";
+                        break;
+                    case 4:
                         gameID = "9099";
                         break;
                 }

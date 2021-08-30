@@ -37,6 +37,9 @@ namespace AemulusModManager.Utilities
                 case GameFilter.P3:
                     gameName = "Persona 3 FES";
                     break;
+                case GameFilter.P3P:
+                    gameName = "Persona 3 Portable";
+                    break;
                 case GameFilter.P4G:
                     gameName = "Persona 4 Golden";
                     break;
