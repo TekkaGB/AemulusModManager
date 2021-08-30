@@ -23,6 +23,7 @@ namespace AemulusModManager
         public bool bottomUpPriority { get; set; }
         public bool updateAemulus { get; set; } = true;
         public bool darkMode { get; set; } = true;
+        public ConfigP3P p3pConfig { get; set; }
         public ConfigP3F p3fConfig { get; set; }
         public ConfigP4G p4gConfig { get; set; }
         public ConfigP5 p5Config { get; set; }
@@ -72,7 +73,22 @@ namespace AemulusModManager
         public bool updatesEnabled { get; set; } = true;
         public string loadout { get; set; }
     }
-
+    public class ConfigP3P
+    {
+        public string modDir { get; set; }
+        public string isoPath { get; set; }
+        public string elfPath { get; set; }
+        public string launcherPath { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool advancedLaunchOptions { get; set; }
+        public bool deleteOldVersions { get; set; }
+        public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
+    }
     public class ConfigP5
     {
         public string modDir { get; set; }
