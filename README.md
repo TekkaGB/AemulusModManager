@@ -1,4 +1,4 @@
-# Aemulus Package Manager P3F PS2/P4G PC/P5 PS3/P5S PC
+# Aemulus Package Manager P3F PS2/P3P PSP/P4G PC/P5 PS3/P5S PC
 ## Introduction
 The wait is finally over!  No longer will you have to manually merge conflicting bin, bmd, pm1, bf and tbl files found in different mods.  This is the latest and greatest mod package manager, made specifically for Persona 4 Golden on PC, Persona 3 FES, Persona 5, and Persona 5 Strikers.
 
@@ -11,6 +11,8 @@ For YACPKTool to unpack/pack cpk's for Persona 5, you'll need [Microsoft Visual 
 For Persona 4 Golden on PC, [make sure you've set up Reloaded-II and the P4G mod loader first and foremost.](https://gamebanana.com/tuts/13379)
 
 For Persona 3 FES, [setup HostFS for mod loading.](https://shrinefox.com/guides/2020/04/10/modding-using-hostfs-on-pcsx2-p3-p4-smt3/)
+
+For Persona 3 Portable, you'll have to MANUALLY repack the iso to be used on an actual console.
 
 For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
