@@ -121,6 +121,10 @@ namespace AemulusModManager
                             Console.WriteLine($"[INFO] {text}");
                     }
                 }
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
             } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk in {directory}.");
         }
 
