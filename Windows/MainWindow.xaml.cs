@@ -1708,7 +1708,7 @@ namespace AemulusModManager
 
                     if (game == "Persona 3 Portable")
                     {
-                        path = $@"{modPath}\{config.p3pConfig.modDir}\umd0";
+                        path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
                         Directory.CreateDirectory(path);
                     }
 
@@ -1765,6 +1765,12 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                     }
 
+                    if (game == "Persona 3 Portable")
+                    {
+                        path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
+                        Directory.CreateDirectory(path);
+                    }
+
                     if (buildWarning && Directory.EnumerateFileSystemEntries(path).Any())
                     {
                         bool YesNo = false;
@@ -1785,7 +1791,7 @@ namespace AemulusModManager
                         }
                     }
 
-                    if (game != "Persona 5 Strikers")
+                    if (game != "Persona 5 Strikers" || game != "Persona 3 Portable")
                     {
                         // Merge flow, bmd and pm1 files
                         FlowMerger.Merge(packages, game);

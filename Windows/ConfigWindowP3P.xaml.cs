@@ -43,7 +43,7 @@ namespace AemulusModManager
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
                 main.config.p3pConfig.modDir = directory;
-                main.modPath = directory;
+                main.modPath = directory + Convert.ToChar(92) + "umd0";
                 main.MergeButton.IsHitTestVisible = true;
                 main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                 main.updateConfig();
