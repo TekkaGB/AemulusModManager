@@ -61,7 +61,8 @@ namespace AemulusModManager
         [JsonProperty("_sIconUrl")]
         public Uri Icon { get; set; }
         [JsonIgnore]
-        public bool HasIcon => Icon.OriginalString.Length > 0;
+        public bool HasIcon = true;
+        //public bool HasIcon => Icon.OriginalString.Length > 0;
     }
     public class GameBananaMember
     {
@@ -72,7 +73,8 @@ namespace AemulusModManager
         [JsonProperty("_sUpicUrl")]
         public Uri Upic { get; set; }
         [JsonIgnore]
-        public bool HasUpic => Upic.OriginalString.Length > 0;
+        public bool HasUpic = true;
+        //public bool HasUpic => Upic.OriginalString.Length > 0;
     }
     public class GameBananaGame
     {
