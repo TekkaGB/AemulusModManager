@@ -22,8 +22,7 @@ namespace AemulusModManager
 
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
-            if (main.gamePath != null)
-                ISOTextbox.Text = main.gamePath;
+            
             if (main.launcherPath != null)
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.elfPath != null)
@@ -166,21 +165,7 @@ namespace AemulusModManager
             return null;
         }
 
-        private void SetupISOShortcut(object sender, RoutedEventArgs e)
-        {
-            string p3fIso = selectExe("Select Persona 3 FES ISO", ".iso");
-            if (p3fIso != null && Path.GetExtension(p3fIso).ToLower() == ".iso")
-            {
-                main.gamePath = p3fIso;
-                main.config.p3pConfig.isoPath = p3fIso;
-                main.updateConfig();
-                ISOTextbox.Text = p3fIso;
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] Invalid ISO.");
-            }
-        }
+        
 
         private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
         {
