@@ -974,6 +974,12 @@ namespace AemulusModManager
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
+            else if (game == "Persona 3 Portable")
+            {
+                ConfigWindowP3P cWindow = new ConfigWindowP3P(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
             else if (game == "Persona 5")
             {
                 ConfigWindowP5 cWindow = new ConfigWindowP5(this) { Owner = this };
