@@ -73,6 +73,7 @@ namespace AemulusModManager
         private static string[] p4gTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC", "ITEMTBL" };
         private static string[] p3fTables = { "SKILL", "SKILL_F", "UNIT", "UNIT_F", "MSG", "PERSONA", "PERSONA_F", "ENCOUNT", "ENCOUNT_F", "EFFECT", "MODEL", "AICALC", "AICALC_F" };
         private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL", "NAME" };
+        private static string[] p3pTables = { "EFFECT", "ENCOUNT", "MODEL", "MSG", "PERSONA", "SKILL", "PERSONA","UNIT"};
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
             if (!File.Exists(exePath))

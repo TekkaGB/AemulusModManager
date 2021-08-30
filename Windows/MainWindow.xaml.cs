@@ -632,6 +632,7 @@ namespace AemulusModManager
                 if (config.RightBottomGridHeight != null)
                     RightGrid.RowDefinitions[2].Height = new GridLength((double)config.RightBottomGridHeight, GridUnitType.Star);
 
+
                 LaunchPopup.Text = $"Launch {game}\n(Ctrl+L)";
                 FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
