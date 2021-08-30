@@ -11,11 +11,11 @@ namespace AemulusModManager
     /// <summary>
     /// Interaction logic for ConfigWindow.xaml
     /// </summary>
-    public partial class ConfigWindowP3F : Window
+    public partial class ConfigWindowP3P : Window
     {
         private MainWindow main;
 
-        public ConfigWindowP3F(MainWindow _main)
+        public ConfigWindowP3P(MainWindow _main)
         {
             main = _main;
             InitializeComponent();
@@ -28,13 +28,13 @@ namespace AemulusModManager
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.elfPath != null)
                 ELFTextbox.Text = main.elfPath;
-            AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
-            BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
-            BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
-            ChangelogBox.IsChecked = main.config.p3fConfig.updateChangelog;
-            DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
-            UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
-            UpdateBox.IsChecked = main.config.p3fConfig.updatesEnabled;
+            AdvancedLaunchOptions.IsChecked = main.config.p3pConfig.advancedLaunchOptions;
+            BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
+            BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
+            ChangelogBox.IsChecked = main.config.p3pConfig.updateChangelog;
+            DeleteBox.IsChecked = main.config.p3pConfig.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p3pConfig.updateAll;
+            UpdateBox.IsChecked = main.config.p3pConfig.updatesEnabled;
             Console.WriteLine("[INFO] Config launched");
         }
 
@@ -44,7 +44,7 @@ namespace AemulusModManager
             if (directory != null)
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.p3fConfig.modDir = directory;
+                main.config.p3pConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
                 main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
@@ -56,57 +56,57 @@ namespace AemulusModManager
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
-            main.config.p3fConfig.buildWarning = true;
+            main.config.p3pConfig.buildWarning = true;
             main.updateConfig();
         }
 
         private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = false;
-            main.config.p3fConfig.buildWarning = false;
+            main.config.p3pConfig.buildWarning = false;
             main.updateConfig();
         }
         private void BuildFinishedChecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = true;
-            main.config.p3fConfig.buildFinished = true;
+            main.config.p3pConfig.buildFinished = true;
             main.updateConfig();
         }
         private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = false;
-            main.config.p3fConfig.buildFinished = false;
+            main.config.p3pConfig.buildFinished = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
-            main.config.p3fConfig.updateChangelog = true;
+            main.config.p3pConfig.updateChangelog = true;
             main.updateConfig();
         }
         private void ChangelogUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = false;
-            main.config.p3fConfig.updateChangelog = false;
+            main.config.p3pConfig.updateChangelog = false;
             main.updateConfig();
         }
         private void UpdateAllChecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = true;
-            main.config.p3fConfig.updateAll = true;
+            main.config.p3pConfig.updateAll = true;
             main.updateConfig();
         }
 
         private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = false;
-            main.config.p3fConfig.updateAll = false;
+            main.config.p3pConfig.updateAll = false;
             main.updateConfig();
         }
         private void UpdateChecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = true;
-            main.config.p3fConfig.updatesEnabled = true;
+            main.config.p3pConfig.updatesEnabled = true;
             main.updateConfig();
             UpdateAllBox.IsEnabled = true;
         }
@@ -114,7 +114,7 @@ namespace AemulusModManager
         private void UpdateUnchecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = false;
-            main.config.p3fConfig.updatesEnabled = false;
+            main.config.p3pConfig.updatesEnabled = false;
             main.updateConfig();
             UpdateAllBox.IsChecked = false;
             UpdateAllBox.IsEnabled = false;
@@ -122,24 +122,24 @@ namespace AemulusModManager
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;
-            main.config.p3fConfig.deleteOldVersions = true;
+            main.config.p3pConfig.deleteOldVersions = true;
             main.updateConfig();
         }
         private void DeleteUnchecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = false;
-            main.config.p3fConfig.deleteOldVersions = false;
+            main.config.p3pConfig.deleteOldVersions = false;
             main.updateConfig();
         }
 
         private void AdvancedLaunchOptionsChecked(object sender, RoutedEventArgs e)
         {
-            main.p3fConfig.advancedLaunchOptions = true;
+            main.p3pConfig.advancedLaunchOptions = true;
             main.updateConfig();
         }
         private void AdvancedLaunchOptionsUnchecked(object sender, RoutedEventArgs e)
         {
-            main.p3fConfig.advancedLaunchOptions = false;
+            main.p3pConfig.advancedLaunchOptions = false;
             main.updateConfig();
         }
 
@@ -168,17 +168,17 @@ namespace AemulusModManager
 
         private void SetupISOShortcut(object sender, RoutedEventArgs e)
         {
-            string p3fIso = selectExe("Select Persona 3 FES ISO", ".iso");
-            if (p3fIso != null && Path.GetExtension(p3fIso).ToLower() == ".iso")
+            string p3pPath = openFolder();
+            if (p3pPath != null && Path.GetExtension(p3pPath).ToLower() == ".iso")
             {
-                main.gamePath = p3fIso;
-                main.config.p3fConfig.isoPath = p3fIso;
-                main.updateConfig();
-                ISOTextbox.Text = p3fIso;
+                Console.WriteLine("[ERROR] You need to unpack the game first.");
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid ISO.");
+                main.gamePath = p3pPath;
+                main.config.p3pConfig.isoPath = p3pPath;
+                main.updateConfig();
+                ISOTextbox.Text = p3pPath;
             }
         }
 
@@ -235,8 +235,8 @@ namespace AemulusModManager
         private string selectExe(string title, string extension)
         {
             string type = "Application";
-            if (extension == ".iso")
-                type = "PS2 Disc";
+            if (extension == ".exe")
+                type = "PPSSPP Executable";
             var openExe = new CommonOpenFileDialog();
             openExe.Filters.Add(new CommonFileDialogFilter(type, $"*{extension}"));
             openExe.EnsurePathExists = true;
