@@ -232,8 +232,10 @@ namespace AemulusModManager
                 p5sConfig = new ConfigP5S();
                 p4gConfig = new ConfigP4G();
                 p3fConfig = new ConfigP3F();
+                p3pConfig = new ConfigP3P();
                 config.p4gConfig = p4gConfig;
                 config.p3fConfig = p3fConfig;
+                config.p3pConfig = p3pConfig;
                 config.p5Config = p5Config;
                 config.p5sConfig = p5sConfig;
 
@@ -292,6 +294,8 @@ namespace AemulusModManager
 
                             if (config.p3fConfig != null)
                                 p3fConfig = config.p3fConfig;
+                            if (config.p3pConfig != null)
+                                p3pConfig = config.p3pConfig;
                             if (config.p4gConfig != null)
                                 p4gConfig = config.p4gConfig;
                             if (config.p5Config != null)
@@ -385,6 +389,8 @@ namespace AemulusModManager
                         config.p4gConfig = p4gConfig;
                     if (config.p3fConfig == null)
                         config.p3fConfig = p3fConfig;
+                    if (config.p3pConfig == null)
+                        config.p3pConfig = p3pConfig;
                     if (config.p5Config == null)
                         config.p5Config = p5Config;
                     if (config.p5sConfig == null)
@@ -431,6 +437,9 @@ namespace AemulusModManager
                     selectedLoadout = LoadoutBox.SelectedItem.ToString();
                     switch (game)
                     {
+                        case "Persona 3 Portable":
+                            config.p3pConfig.loadout = selectedLoadout;
+                            break;
                         case "Persona 3 FES":
                             config.p3fConfig.loadout = selectedLoadout;
                             break;
