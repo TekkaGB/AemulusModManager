@@ -1861,6 +1861,10 @@ namespace AemulusModManager
                         CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
                         binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                         binMerge.Merge(path, game);
+                        if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
+                        {
+                            tblPatch.Patch(packages, path, useCpk, cpkLang, game);
+                        }
                         binMerge.MakeCpk(path, false);
                         Merger.DeleteDirectory(path);
                         Console.WriteLine($"[INFO] Deleted umd0 folder");
