@@ -114,7 +114,7 @@ namespace AemulusModManager
             {
                 archive = @"battle\table.pac";
             }   
-            if (game != "Persona 3 FES")
+            if (game != "Persona 3 FES" && game != "Persona 3 Portable")
             {
                 if (!File.Exists($@"{modDir}\{archive}"))
                 {
@@ -159,10 +159,8 @@ namespace AemulusModManager
                         Console.WriteLine("[ERROR] Improper .tblpatch format.");
                         continue;
                     }
-
                     // Name of tbl file
                     string tblName = Encoding.ASCII.GetString(SliceArray(file, 0, 3));
-
                     switch (tblName)
                     {
                         case "SKL":
@@ -304,15 +302,11 @@ namespace AemulusModManager
                             Console.WriteLine($"[ERROR] Unknown tbl name for {t}.");
                             continue;
                     }
-
-
-
                     // Keep track of which TBL's were edited
                     if (!editedTables.Contains(tblName))
                     {
                         editedTables.Add(tblName);
                     }
-
                     if (tblName != "NAME.TBL")
                     {
                         if (file.Length < 12)
@@ -361,7 +355,7 @@ namespace AemulusModManager
                             fileContents.CopyTo(tblBytes, offset);
                             File.WriteAllBytes(tblPath, tblBytes);
                         }
-                        else
+                        else if (game == "Persona 3 Portable")
                         {
                             if (!File.Exists($@"{modDir}\data\battle\{tblName}"))
                             {
@@ -373,7 +367,7 @@ namespace AemulusModManager
                                 }
                                 else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{tblName}"))
                                 {
-                                    Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
+                                    Console.WriteLine($"[WARNING] {tblName}.TBL not found in output directory or Original directory.");
                                     continue;
                                 }
                             }
@@ -428,6 +422,7 @@ namespace AemulusModManager
                             {
                                 if ((game == "Persona 4 Golden" && !p4gTables.Contains(patch.tbl))
                                     || (game == "Persona 3 FES" && !p3fTables.Contains(patch.tbl))
+                                    || (game == "Persona 3 Portable" && !p3pTables.Contains(patch.tbl))
                                     || (game == "Persona 5" && !p5Tables.Contains(patch.tbl)))
                                 {
                                     Console.WriteLine($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
@@ -513,7 +508,7 @@ namespace AemulusModManager
 
             }
 
-            if (game != "Persona 3 FES")
+            if (game != "Persona 3 FES" && game != "Persona 3 Portable")
             {
                 // Replace each edited TBL's
                 foreach (string u in editedTables)

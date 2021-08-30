@@ -1549,6 +1549,7 @@ namespace AemulusModManager
         {
             MergeCommand();
         }
+        //private async void MergeCommand()
         private async void MergeCommand()
         {
             if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
@@ -1620,7 +1621,7 @@ namespace AemulusModManager
                 fromMain = true;
 
                 if (game == "Persona 3 FES")
-                    await pacUnpack(gamePath);
+                    pacUnpack(gamePath);
                 else if (game != "Persona 5 Strikers")
                     await pacUnpack(Path.GetDirectoryName(gamePath));
                 fromMain = false;
@@ -1756,10 +1757,6 @@ namespace AemulusModManager
                             Console.WriteLine($"[INFO] Cancelled emptying output folder");
                             return;
                         }
-                    }
-                    if (game == "Persona 3 Portable")
-                    {
-
                     }
                     if (game != "Persona 5 Strikers")
                         binMerge.Restart(path, emptySND, game, cpkLang);
