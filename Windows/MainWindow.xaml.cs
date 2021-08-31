@@ -1717,8 +1717,16 @@ namespace AemulusModManager
                     packages.Reverse();
                 if (packages.Count == 0)
                 {
-                    Console.WriteLine("[WARNING] No packages enabled in loadout, emptying output folder...");
+                    
                     string path = modPath;
+
+                    if (game == "Persona 3 Portable")
+                    {
+                        path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
+                        Console.WriteLine($"[WARNING] No packages enabled in loadout, Rebuilding Vanilla CPK...");
+                    }
+                    else
+                        Console.WriteLine("[WARNING] No packages enabled in loadout, emptying output folder...");
 
                     if (game == "Persona 5")
                     {
@@ -1726,18 +1734,8 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                     }
 
-                    if (game == "Persona 3 Portable")
-                    {
-                        path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
-                        Directory.CreateDirectory(path);
-                        Console.WriteLine($"[INFO] Rebuilding Vanilla CPK");
-                        binMerge.Restart(path, emptySND, game, cpkLang);
-                        File.Delete(path + ".cpk");
-                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
-                        binMerge.MakeCpk(path, false);
-                    }
-
-                    if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
+                    
+                    if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers" && game != "Persona 3 Portable")
                     {
                         Console.WriteLine($"[INFO] Output folder already empty");
                         return;
@@ -1753,6 +1751,8 @@ namespace AemulusModManager
                             NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path}?", false);
                             if (game == "Persona 5 Strikers")
                                 notification = new NotificationBox($"Confirm DELETING THE MODIFIED CONTENTS of {path}?", false);
+                            else if (game == "Persona 3 Portable")
+                                notification = new NotificationBox($"Confirm Rebuilding {path}.cpk?", false);
                             notification.ShowDialog();
                             YesNo = notification.YesNo;
                             Mouse.OverrideCursor = Cursors.Wait;
@@ -1767,13 +1767,24 @@ namespace AemulusModManager
                         binMerge.Restart(path, emptySND, game, cpkLang);
                     else
                         Merger.Restart(path);
-                    Console.WriteLine("[INFO] Finished emptying output folder!");
+                    if (game == "Persona 3 Portable")
+                    {
+                        File.Delete(path + ".cpk");
+                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
+                        binMerge.MakeCpk(path, false);
+                        Console.WriteLine("[INFO] Finished Rebuilding Vanilla CPK!");
+                    }
+                    else
+                        Console.WriteLine("[INFO] Finished emptying output folder!");
+
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
                         if (buildWarning)
                         {
                             NotificationBox notification = new NotificationBox("Finished emptying output folder!");
+                            if (game == "Persona 3 Portable")
+                                notification = new NotificationBox("Finished Rebuilding Vanilla CPK!");
                             notification.ShowDialog();
                             Activate();
                         }
