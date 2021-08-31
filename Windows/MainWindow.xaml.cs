@@ -1772,6 +1772,10 @@ namespace AemulusModManager
                         File.Delete(path + ".cpk");
                         CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
                         binMerge.MakeCpk(path, false);
+                        if (!p3pConfig.leaveUmd)
+                        {
+                            binMerge.DeleteDirectory(path);
+                        }
                         Console.WriteLine("[INFO] Finished Rebuilding Vanilla CPK!");
                     }
                     else
@@ -1879,9 +1883,9 @@ namespace AemulusModManager
                             tblPatch.Patch(packages, path, useCpk, cpkLang, game);
                         }
                         binMerge.MakeCpk(path, false);
-                        if (!p3pConfig.advancedLaunchOptions)
+                        if (!p3pConfig.leaveUmd)
                         {
-                            Merger.DeleteDirectory(path);
+                            binMerge.DeleteDirectory(path);
                         }
                         Console.WriteLine($"[INFO] Deleted umd0 folder");
                     }

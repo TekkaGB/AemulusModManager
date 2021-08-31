@@ -84,7 +84,7 @@ namespace AemulusModManager
         public bool updateConfirm { get; set; } = true;
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
-        public bool advancedLaunchOptions { get; set; }
+        public bool leaveUmd { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool updatesEnabled { get; set; } = true;
         public string loadout { get; set; }

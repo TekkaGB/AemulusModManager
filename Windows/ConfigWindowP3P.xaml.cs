@@ -26,7 +26,7 @@ namespace AemulusModManager
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.gamePath != null)
                 P3PTextBox.Text = main.gamePath;
-            AdvancedLaunchOptions.IsChecked = main.config.p3pConfig.advancedLaunchOptions;
+            AdvancedLaunchOptions.IsChecked = main.config.p3pConfig.leaveUmd;
             BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
             ChangelogBox.IsChecked = main.config.p3pConfig.updateChangelog;
@@ -132,12 +132,12 @@ namespace AemulusModManager
 
         private void AdvancedLaunchOptionsChecked(object sender, RoutedEventArgs e)
         {
-            main.p3pConfig.advancedLaunchOptions = true;
+            main.p3pConfig.leaveUmd = true;
             main.updateConfig();
         }
         private void AdvancedLaunchOptionsUnchecked(object sender, RoutedEventArgs e)
         {
-            main.p3pConfig.advancedLaunchOptions = false;
+            main.p3pConfig.leaveUmd = false;
             main.updateConfig();
         }
 
