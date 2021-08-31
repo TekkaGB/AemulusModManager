@@ -1730,6 +1730,11 @@ namespace AemulusModManager
                     {
                         path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
                         Directory.CreateDirectory(path);
+                        Console.WriteLine($"[INFO] Rebuilding Vanilla CPK");
+                        binMerge.Restart(path, emptySND, game, cpkLang);
+                        File.Delete(path + ".cpk");
+                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
+                        binMerge.MakeCpk(path, false);
                     }
 
                     if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
