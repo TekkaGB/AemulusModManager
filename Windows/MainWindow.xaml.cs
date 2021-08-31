@@ -499,11 +499,11 @@ namespace AemulusModManager
                         }
                     }
 
-                    /*showHidden = new Prop<bool>();
+                    showHidden = new Prop<bool>();
                     showHidden.Value = packages.showHiddenPackages;
 
                     VisibilityButton.DataContext = showHidden;
-                    ShowHiddenText.DataContext = showHidden;*/
+                    ShowHiddenText.DataContext = showHidden;
 
                     if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                     {
@@ -666,7 +666,7 @@ namespace AemulusModManager
                     "--no-visual-peaks",
                     "--no-visual-80-bands"
                 };
-                /*Application.Current.Dispatcher.Invoke(() =>
+                Application.Current.Dispatcher.Invoke(() =>
                 {
                     MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
                     MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
@@ -689,7 +689,7 @@ namespace AemulusModManager
                     AudioProgress.ApplyTemplate();
                     thumb = (AudioProgress.Template.FindName("PART_Track", AudioProgress) as Track).Thumb;
                     thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
-                });*/
+                });
             });
         }
         private void thumb_MouseEnter(object sender, MouseEventArgs e)
@@ -829,6 +829,7 @@ namespace AemulusModManager
                 if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
+                    || (game == "Persona 3 Portable" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data"))
                     || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
                     || (game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc")))
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
