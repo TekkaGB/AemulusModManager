@@ -36,6 +36,7 @@ namespace AemulusModManager.Utilities.FileMerging
         {
             {"Persona 4 Golden", new string[]{ "V1", "P4G", "P4" } },
             {"Persona 3 FES" , new string[]{ "V1", "P3F", "P3" } },
+            {"Persona 3 Portable", new string[]{ "V1", "P3P", "P3"} },
             {"Persona 5", new string[]{"V3BE", "P5", "P5"} }
         };
 
