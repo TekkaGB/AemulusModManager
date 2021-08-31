@@ -107,7 +107,7 @@ namespace AemulusModManager
             {
                 directory = directory + @"\PSP_GAME\USRDIR\umd0.cpk";
                 string extractPath = $@"""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable""";
-                Console.WriteLine($"[INFO] Extracting umd0.cpk");
+                Console.WriteLine($@"[INFO] Extracting umd0.cpk to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
                 //Yes I'm adding a comment here. I had to MANUALLY ADD the "s. I wanna commit :naodead:
                 startInfo.Arguments = Convert.ToChar(34) + directory + Convert.ToChar(34) + " -extract=" + extractPath;
                 using (Process process = new Process())
@@ -117,9 +117,11 @@ namespace AemulusModManager
                     while (!process.HasExited)
                     {
                         string text = process.StandardOutput.ReadLine();
-                        if (text != "" && text != null)
-                            Console.WriteLine($"[INFO] {text}");
+                        //ugly output
+                        /*if (text != "" && text != null)
+                            Console.WriteLine($"[INFO] {text}");*/
                     }
+                    Console.WriteLine($"[INFO] Finished unpacking umd0.cpk");
                 }
                 Application.Current.Dispatcher.Invoke(() =>
                 {
