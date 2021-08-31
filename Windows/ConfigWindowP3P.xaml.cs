@@ -199,9 +199,8 @@ namespace AemulusModManager
             }
         }
 
-        private string selectExe(string title, string extension)
+        private string selectExe(string title, string extension, string type = "Application")
         {
-            string type = "Application";
             if (extension == ".exe")
                 type = "PPSSPP Executable";
             var openExe = new CommonOpenFileDialog();
@@ -221,10 +220,10 @@ namespace AemulusModManager
         {
             if (main.gamePath == null || main.gamePath == "")
             {
-                string selectedPath = selectExe("Select UMD0.cpk to unpack it", ".cpk");
+                string selectedPath = selectExe("Select UMD0.cpk to unpack it", ".cpk", "umd0.cpk");
                 if (selectedPath != null)
                 {
-                    main.gamePath = selectedPath;
+                    main.gamePath = Path.GetDirectoryName(selectedPath).Replace(@"\PSP_GAME\USRDIR", "");
                     main.config.p3pConfig.p3pDir = main.gamePath;
                     main.updateConfig();
                 }
