@@ -1879,7 +1879,10 @@ namespace AemulusModManager
                             tblPatch.Patch(packages, path, useCpk, cpkLang, game);
                         }
                         binMerge.MakeCpk(path, false);
-                        Merger.DeleteDirectory(path);
+                        if (!p3pConfig.advancedLaunchOptions)
+                        {
+                            Merger.DeleteDirectory(path);
+                        }
                         Console.WriteLine($"[INFO] Deleted umd0 folder");
                     }
                     else

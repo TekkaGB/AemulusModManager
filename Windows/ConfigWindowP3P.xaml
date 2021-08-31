@@ -40,7 +40,7 @@
         <Button Height="20" Width="60" Content="Browse" Name="PPSSPPButton" Click="SetupPPSSPPShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="23,10,24,11"/>
 
         <CheckBox Name="AdvancedLaunchOptions" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked" Margin="29,11,31,10" Height="20">
-            <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>
+            <TextBlock Text="Don't delete umd0 build folder" Foreground="White" FontSize="13"/>
         </CheckBox>
 
         <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,0,6" Grid.RowSpan="2">
