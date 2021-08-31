@@ -1621,7 +1621,7 @@ namespace AemulusModManager
                 fromMain = true;
 
                 if (game == "Persona 3 FES")
-                    pacUnpack(gamePath);
+                    await pacUnpack(gamePath);
                 else if (game != "Persona 5 Strikers")
                     await pacUnpack(Path.GetDirectoryName(gamePath));
                 fromMain = false;
