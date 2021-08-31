@@ -30,7 +30,7 @@
         <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PPSSPP.exe Path" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="10,0,20,40" Height="42" Grid.RowSpan="2" Width="77"/>
         <TextBlock Foreground="LightGray" Text="P3P Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
 
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="310"/>
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="310" TextChanged="OutputTextbox_TextChanged"/>
 
         <TextBox x:Name="P3PTextBox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="3" Grid.Column="2" TextChanged="ELFTextbox_TextChanged" Margin="5,9,5,12"/>
         <TextBox Name="PCSX2Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="4" Grid.Column="2" Margin="5,10,5,11"/>

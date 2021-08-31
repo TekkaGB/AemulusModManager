@@ -43,7 +43,7 @@ namespace AemulusModManager
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
                 main.config.p3pConfig.modDir = directory;
-                main.modPath = directory + Convert.ToChar(92) + "umd0";
+                main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
                 main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(255, 79, 193));
                 main.updateConfig();
@@ -252,6 +252,11 @@ namespace AemulusModManager
         }
 
         private void ELFTextbox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
+
+        private void OutputTextbox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
 
         }

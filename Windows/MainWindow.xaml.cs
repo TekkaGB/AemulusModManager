@@ -436,6 +436,12 @@ namespace AemulusModManager
                             break;
                     }
 
+                    showHidden = new Prop<bool>();
+                    showHidden.Value = packages.showHiddenPackages;
+
+                    VisibilityButton.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;
+
                     // Initialise loadouts
                     loadoutUtils = new Loadouts(game);
                     loadoutHandled = true;
@@ -493,11 +499,11 @@ namespace AemulusModManager
                         }
                     }
 
-                    showHidden = new Prop<bool>();
+                    /*showHidden = new Prop<bool>();
                     showHidden.Value = packages.showHiddenPackages;
 
                     VisibilityButton.DataContext = showHidden;
-                    ShowHiddenText.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;*/
 
                     if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                     {
@@ -4158,7 +4164,15 @@ namespace AemulusModManager
                     Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                 }
 
-                showHidden.Value = packages.showHiddenPackages;
+                if (showHidden == null)
+                {
+                    showHidden = new Prop<bool>();
+                    showHidden.Value = true;
+
+                    VisibilityButton.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;
+                }
+                else showHidden.Value = packages.showHiddenPackages;
 
                 var oldDisplayedPackages = DisplayedPackages.ToList();
                 
