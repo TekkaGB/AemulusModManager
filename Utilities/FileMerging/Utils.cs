@@ -169,7 +169,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
             // Get any completely new messages
             // (only checks the lower priority msg as the higher one is the one where text is replaced so any additions in there will persist)
-            var newMessages = messages[0].Where(m => !ogMessages.ContainsKey(m.Key));
+            var newMessages = messages[0].Where(m => !ogMessages.ContainsKey(m.Key) && !messages[1].ContainsKey(m.Key));
             // Add all of the new messages to the changed messages
             foreach (var newMessage in newMessages)
                 changedMessages.Add(newMessage.Key, newMessage.Value);
@@ -186,7 +186,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 {
                     if (!ogMessages.TryGetValue(message.Key, out string ogMessage))
                     {
-                        fileContent += $"{message.Key}\r\n{message.Value}";
+                        fileContent += $"{message.Key}\r\n{message.Value}\r\n";
                     }
                     else
                     {
