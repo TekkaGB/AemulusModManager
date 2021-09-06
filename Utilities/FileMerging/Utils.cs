@@ -124,7 +124,7 @@ namespace AemulusModManager.Utilities.FileMerging
             {
                 // Read the text of the msg
                 string messagePattern = @"(\[.+ .+\])\s+((?:\[.*\s+?)+)";
-                string text = File.ReadAllText(file);
+                string text = File.ReadAllText(file).Replace("[x 0x80 0x80]", " ");
                 Regex rg = new Regex(messagePattern);
                 MatchCollection matches = rg.Matches(text);
                 // Add all of the found messages into the list to be returned
