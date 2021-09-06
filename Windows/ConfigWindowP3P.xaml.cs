@@ -241,7 +241,7 @@ namespace AemulusModManager
                 button.Foreground = new SolidColorBrush(Colors.Gray);
             }
             main.GameBox.IsHitTestVisible = false;
-            await main.pacUnpack(main.gamePath);
+            await main.pacUnpack(main.modPath);
             UnpackButton.IsHitTestVisible = true;
         }
 

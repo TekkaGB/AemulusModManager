@@ -103,13 +103,12 @@ namespace AemulusModManager
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
 
-            if (FileIOWrapper.Exists($@"{directory}\PSP_GAME\USRDIR\umd0.cpk"))
+            if (FileIOWrapper.Exists($@"{directory}\umd0.cpk"))
             {
-                directory = directory + @"\PSP_GAME\USRDIR\umd0.cpk";
                 string extractPath = $@"""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable""";
                 Console.WriteLine($@"[INFO] Extracting umd0.cpk to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
                 //Yes I'm adding a comment here. I had to MANUALLY ADD the "s. I wanna commit :naodead:
-                startInfo.Arguments = Convert.ToChar(34) + directory + Convert.ToChar(34) + " -extract=" + extractPath;
+                startInfo.Arguments = Convert.ToChar(34) + directory + @"\umd0.cpk" + Convert.ToChar(34) + " -extract=" + extractPath;
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
@@ -117,24 +116,33 @@ namespace AemulusModManager
                     while (!process.HasExited)
                     {
                         string text = process.StandardOutput.ReadLine();
-                        //ugly output
+                        //ugly output begone
                         /*if (text != "" && text != null)
                             Console.WriteLine($"[INFO] {text}");*/
                     }
                     Console.WriteLine($"[INFO] Finished unpacking umd0.cpk");
                 }
-                //Next two lines would be for BF and BMD merging.
-
-                //Console.WriteLine($"[INFO] Extracting script and text files");
+                //BMD and BF Merging prep
+                Console.WriteLine($"[INFO] Extracting script and text files");
+                BMDUnpack(directory);
+                BFUnpack(directory);
                 //P3PExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data");
                 Console.WriteLine($"[INFO] Finished Extracting!");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
                 });
-            } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk in {directory}.");
+            } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk in {directory}."); 
+        }
 
-            
+        private static void BMDUnpack(string directory)
+        {
+
+        }
+
+        private static void BFUnpack(string directory)
+        {
+
         }
 
         // P4G
