@@ -108,7 +108,7 @@ namespace AemulusModManager
                 string extractPath = $@"""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable""";
                 Console.WriteLine($@"[INFO] Extracting umd0.cpk to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
                 //Yes I'm adding a comment here. I had to MANUALLY ADD the "s. I wanna commit :naodead:
-                startInfo.Arguments = Convert.ToChar(34) + directory + @"\umd0.cpk" + Convert.ToChar(34) + " -extract=" + extractPath;
+                startInfo.Arguments = "\"" + directory + @"\umd0.cpk" + "\"" + " -extract=" + extractPath;
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
