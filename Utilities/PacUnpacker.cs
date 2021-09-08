@@ -123,9 +123,9 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] Finished unpacking umd0.cpk");
                 }
                 //BMD and BF Merging prep
-                Console.WriteLine($"[INFO] Extracting script and text files");
-                BMDUnpack(directory);
-                BFUnpack(directory);
+                //Console.WriteLine($"[INFO] Extracting script and text files");
+                //BMDUnpack(directory);
+                //BFUnpack(directory);
                 //P3PExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data");
                 Console.WriteLine($"[INFO] Finished Extracting!");
                 Application.Current.Dispatcher.Invoke(() =>

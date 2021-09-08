@@ -140,7 +140,7 @@ namespace AemulusModManager
         {
             try
             {
-                Uri uri = CreateUri($"https://github.com/TekkaGB/AemulusModManager");
+                Uri uri = CreateUri($"https://github.com/shujynx/AemulusModManager");
                 Release release = await gitHubClient.Repository.Release.GetLatest(uri.Segments[1].Replace("/", ""), uri.Segments[2].Replace("/", ""));
                 Match onlineVersionMatch = Regex.Match(release.TagName, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                 string onlineVersion = null;
