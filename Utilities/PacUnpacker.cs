@@ -123,26 +123,14 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] Finished unpacking umd0.cpk");
                 }
                 //BMD and BF Merging prep
-                //Console.WriteLine($"[INFO] Extracting script and text files");
-                //BMDUnpack(directory);
-                //BFUnpack(directory);
-                //P3PExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data");
+                Console.WriteLine($"[INFO] Extracting script and text files");
+                P3PExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data");
                 Console.WriteLine($"[INFO] Finished Extracting!");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
                 });
             } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk in {directory}."); 
-        }
-
-        private static void BMDUnpack(string directory)
-        {
-
-        }
-
-        private static void BFUnpack(string directory)
-        {
-
         }
 
         // P4G
@@ -351,29 +339,29 @@ namespace AemulusModManager
         {
             if (!Directory.Exists(directory))
                 return;
-
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
                 Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
             foreach (string file in files)
             {
-                if(File.ReadAllText(file).ToLower().Contains(".bf") || File.ReadAllText(file).Contains(".bmd"))
+                if (!file.Contains("bustup"))
                 {
-                    List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
-                    // Check if there are any files we want (or files that could have files we want) and unpack them if so
-                    bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
-                    if (contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
+                    if (File.ReadAllText(file).Contains(".bf") || File.ReadAllText(file).Contains(".bmd"))
                     {
-                        Console.WriteLine($"[INFO] Unpacking {file}");
-                        binMerge.PAKPackCMD($"unpack \"{file}\"");
+                        List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
+                        // Check if there are any files we want (or files that could have files we want) and unpack them if so
+                        bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
+                        if (contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
+                        {
+                            Console.WriteLine($"[INFO] Unpacking {file}");
+                            binMerge.PAKPackCMD($"unpack \"{file}\"");
 
-                        // Search the location of the unpacked container for wanted files
-                        if (containersFound)
-                            ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file)));
+                            // Search the location of the unpacked container for wanted files
+                            if (containersFound)
+                                ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file)));
+                        }
                     }
                 }
-                
             }
-
         }
         private static void ExtractWantedFiles(string directory)
         {
