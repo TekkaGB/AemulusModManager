@@ -1891,8 +1891,13 @@ namespace AemulusModManager
                         File.Delete(path + ".cpk");
                         CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data", path + @"\data");
                         Directory.CreateDirectory(path + @"\data");
-                        binMerge.Unpack(packages, path + @"\extract", useCpk, cpkLang, game);
-                        binMerge.Merge(path + @"\extract", game);
+                        FlowMerger.Merge(packages, game);
+                        BmdMerger.Merge(packages, game);
+                        await Task.Run(() =>
+                        {
+                            binMerge.Unpack(packages, path + @"\extract", useCpk, cpkLang, game);
+                            binMerge.Merge(path + @"\extract", game);
+                        });
                         MoveDirectory(path + @"\extract", path);
                         if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                         {

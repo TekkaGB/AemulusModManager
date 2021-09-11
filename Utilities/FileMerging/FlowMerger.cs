@@ -52,6 +52,10 @@ namespace AemulusModManager.Utilities.FileMerging
                     {
                         // Get the path of the file in original
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(bf, dir, game, false)}";
+                        if (game == "Persona 3 Portable")
+                        {
+                            ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\extracted\{Utils.GetRelativePath(bf, dir, game, false)}";
+                        }
                         // Copy the original file to be used as a base
                         if (FileIOWrapper.Exists(ogPath))
                         {
