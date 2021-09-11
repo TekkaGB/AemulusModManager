@@ -1567,7 +1567,7 @@ namespace AemulusModManager
             {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
-
+                string selPath = "";
                 if (gamePath == "" || gamePath == null)
                 {
                     string selectedPath;
@@ -1598,13 +1598,12 @@ namespace AemulusModManager
                     else if (game == "Persona 3 Portable")
                     {
                         selectedPath = selectExe("Select P3P's EBOOT.bin to unpack", ".bin");
-                        if (selectedPath != null)
+                        if (selectedPath == null)
                         {
-                            gamePath = selectedPath;
-                            config.p3pConfig.p3pDir = gamePath;
-                            updateConfig();
+                            Console.WriteLine("[ERROR] Incorrect file chosen.");
                         }
-                        else Console.WriteLine("[ERROR] Incorrect file chosen.");
+                        else
+                            selPath = selectedPath;
                     }
                     else if (game == "Persona 5")
                     {
@@ -1620,7 +1619,7 @@ namespace AemulusModManager
                     }
                 }
 
-                if ((gamePath == "" || gamePath == null) && game != "Persona 5 Strikers")
+                if ((gamePath == "" || gamePath == null) && game != "Persona 5 Strikers" && game != "Persona 3 Portable")
                     return;
 
                 DisableUI();
@@ -1629,8 +1628,16 @@ namespace AemulusModManager
 
                 if (game == "Persona 3 FES")
                     await pacUnpack(gamePath);
+                else if (game == "Persona 3 Portable")
+                {
+                    if (selPath != "")
+                        await pacUnpack(selPath);
+                    else
+                        return;
+                }
                 else if (game != "Persona 5 Strikers")
                     await pacUnpack(Path.GetDirectoryName(gamePath));
+
                 fromMain = false;
 
                 if ((game == "Persona 4 Golden" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Path.GetFileNameWithoutExtension(cpkLang)}"))
@@ -1729,7 +1736,7 @@ namespace AemulusModManager
 
                     if (game == "Persona 3 Portable")
                     {
-                        path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
+                        path = $@"{modPath}\umd0";
                         Console.WriteLine($"[WARNING] No packages enabled in loadout, Rebuilding Vanilla CPK...");
                     }
                     else
@@ -1777,7 +1784,7 @@ namespace AemulusModManager
                     if (game == "Persona 3 Portable")
                     {
                         File.Delete(path + ".cpk");
-                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
+                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data", path + @"\data");
                         binMerge.MakeCpk(path, false);
                         if (!p3pConfig.leaveUmd)
                         {
@@ -1813,7 +1820,7 @@ namespace AemulusModManager
 
                     if (game == "Persona 3 Portable")
                     {
-                        path = $@"{modPath}" + Convert.ToChar(92) + "umd0";
+                        path = $@"{modPath}\umd0";
                         Directory.CreateDirectory(path);
                     }
 
@@ -1882,9 +1889,11 @@ namespace AemulusModManager
                         Console.WriteLine($"[INFO] Deleted umd0 folder");
                         binMerge.Restart(path, emptySND, game, cpkLang);
                         File.Delete(path + ".cpk");
-                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable", path);
-                        binMerge.Unpack(packages, path, useCpk, cpkLang, game);
-                        binMerge.Merge(path, game);
+                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data", path + @"\data");
+                        Directory.CreateDirectory(path + @"\data");
+                        binMerge.Unpack(packages, path + @"\extract", useCpk, cpkLang, game);
+                        binMerge.Merge(path + @"\extract", game);
+                        MoveDirectory(path + @"\extract", path);
                         if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                         {
                             tblPatch.Patch(packages, path, useCpk, cpkLang, game);

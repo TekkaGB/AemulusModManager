@@ -148,7 +148,7 @@ namespace AemulusModManager
         }
 
         // Used for selecting
-        private string openFolder()
+        private string openFolder(string title = "Select Output Folder")
         {
             var openFolder = new CommonOpenFileDialog();
             openFolder.AllowNonFileSystemItems = true;
@@ -156,7 +156,7 @@ namespace AemulusModManager
             openFolder.EnsurePathExists = true;
             openFolder.EnsureValidNames = true;
             openFolder.Multiselect = false;
-            openFolder.Title = "Select Output Folder";
+            openFolder.Title = title;
             if (openFolder.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 return openFolder.FileName;
@@ -186,10 +186,12 @@ namespace AemulusModManager
 
         private void SetupGameDirectory(object sender, RoutedEventArgs e)
         {
-            var directory = openFolder();
+            var directory = openFolder("Select Game Folder");
+            
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Console.WriteLine($"[INFO] Setting game folder to {directory}");
+                
                 main.config.p3pConfig.p3pDir = directory;
                 main.gamePath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -218,21 +220,13 @@ namespace AemulusModManager
         // Use 7zip on iso
         private async void UnpackPacsClick(object sender, RoutedEventArgs e)
         {
-            if (main.gamePath == null || main.gamePath == "")
+            string selectedPath = selectExe("Select UMD0.cpk to unpack it", ".cpk", "umd0.cpk");
+            if (selectedPath == null)
             {
-                string selectedPath = selectExe("Select UMD0.cpk to unpack it", ".cpk", "umd0.cpk");
-                if (selectedPath != null)
-                {
-                    main.gamePath = Path.GetDirectoryName(selectedPath).Replace(@"\PSP_GAME\USRDIR", "");
-                    main.config.p3pConfig.p3pDir = main.gamePath;
-                    main.updateConfig();
-                }
-                else
-                {
-                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
-                    return;
-                }
+                Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                return;
             }
+
             main.ModGrid.IsHitTestVisible = false;
             UnpackButton.IsHitTestVisible = false;
             foreach (var button in main.buttons)
@@ -241,7 +235,7 @@ namespace AemulusModManager
                 button.Foreground = new SolidColorBrush(Colors.Gray);
             }
             main.GameBox.IsHitTestVisible = false;
-            await main.pacUnpack(main.modPath);
+            await main.pacUnpack(selectedPath);
             UnpackButton.IsHitTestVisible = true;
         }
 

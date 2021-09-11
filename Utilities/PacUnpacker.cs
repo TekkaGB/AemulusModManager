@@ -74,12 +74,12 @@ namespace AemulusModManager
 
         // P3P
 
-        public static void UnUMD(string directory)
+        public static void UnUMD(string umd0cpk)
         {
             
-            if (!Directory.Exists(directory))
+            if (!File.Exists(umd0cpk))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {directory}. Please correct the file path in config.");
+                Console.WriteLine($"[ERROR] Couldn't find {umd0cpk}. Please correct the file path in config.");
                 return;
             }
             Application.Current.Dispatcher.Invoke(() =>
@@ -103,12 +103,12 @@ namespace AemulusModManager
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
 
-            if (FileIOWrapper.Exists($@"{directory}\umd0.cpk"))
+            if (FileIOWrapper.Exists(umd0cpk))
             {
                 string extractPath = $@"""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable""";
-                Console.WriteLine($@"[INFO] Extracting umd0.cpk to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
-                //Yes I'm adding a comment here. I had to MANUALLY ADD the "s. I wanna commit :naodead:
-                startInfo.Arguments = "\"" + directory + @"\umd0.cpk" + "\"" + " -extract=" + extractPath;
+                Console.WriteLine($@"[INFO] Extracting umd0.cpk to {extractPath.Replace("\"","")}...");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\extracted");
+                startInfo.Arguments = $"\"{umd0cpk}\" -extract={extractPath}";
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
@@ -124,13 +124,13 @@ namespace AemulusModManager
                 }
                 //BMD and BF Merging prep
                 Console.WriteLine($"[INFO] Extracting script and text files");
-                P3PExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data");
+                P3PExtractWantedFiles($@"{extractPath.Replace("\"","")}\data");
                 Console.WriteLine($"[INFO] Finished Extracting!");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
                 });
-            } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk in {directory}."); 
+            } else Console.WriteLine($"[ERROR] Couldn't find umd0.cpk"); 
         }
 
         // P4G
@@ -339,6 +339,7 @@ namespace AemulusModManager
         {
             if (!Directory.Exists(directory))
                 return;
+            string extractdir = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable";
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
                 Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
             foreach (string file in files)
@@ -353,8 +354,7 @@ namespace AemulusModManager
                         if (contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
                         {
                             Console.WriteLine($"[INFO] Unpacking {file}");
-                            binMerge.PAKPackCMD($"unpack \"{file}\"");
-
+                            binMerge.PAKPackCMD($"unpack \"{file}\" \"{file.Replace(@"\Persona 3 Portable\data", @"\Persona 3 Portable\extracted")}\"");
                             // Search the location of the unpacked container for wanted files
                             if (containersFound)
                                 ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file)));
