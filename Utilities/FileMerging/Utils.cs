@@ -214,6 +214,25 @@ namespace AemulusModManager.Utilities.FileMerging
             // Make a copy of the unmerged file (.file.back)
             try
             {
+                // Modify the current file with the changes
+                string msgFile = Path.ChangeExtension(files[1], "msg");
+                string fileContent = File.ReadAllText(msgFile);
+                foreach (var message in changedMessages)
+                {
+                    if (!ogMessages.TryGetValue(message.Key, out string ogMessage))
+                    {
+                        fileContent += $"{message.Key}\r\n{message.Value}\r\n";
+                    }
+                    else
+                    {
+                        fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
+                    }
+                }
+                // Add a space after the / for any /[...] as the compiler will break otherwise (happens with skill bmds)
+                Regex regex = new Regex(@"/(\[.*?\])");
+                fileContent = regex.Replace(fileContent, @"/ $1");
+
+                // Make a copy of the unmerged file (.file.back)
                 FileIOWrapper.Copy(files[1], files[1] + ".back", true);
             }
             catch (Exception e)
