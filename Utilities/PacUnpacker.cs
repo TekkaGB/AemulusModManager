@@ -341,7 +341,7 @@ namespace AemulusModManager
                 return;
             string extractdir = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable";
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
-                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
+                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak") || s.ToLower().EndsWith(".abin"));
             foreach (string file in files)
             {
                 if (!file.Contains("bustup"))
@@ -350,7 +350,7 @@ namespace AemulusModManager
                     {
                         List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
                         // Check if there are any files we want (or files that could have files we want) and unpack them if so
-                        bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
+                        bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak") || x.EndsWith(".abin"));
                         if (contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
                         {
                             Console.WriteLine($"[INFO] Unpacking {file}");
