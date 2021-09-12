@@ -58,19 +58,11 @@ namespace AemulusModManager.Utilities.FileMerging
 
         private static Dictionary<string, string> GetPm1Messages(string file, string game)
         {
-            try
-            {
-                // Decompile the pm1 to a msg that can be read easily
-                string msgFile = Path.ChangeExtension(file, "msg");
-                Utils.RunCommand(compilerPath, $"\"{file}\"");
+            // Decompile the pm1 to a msg that can be read easily
+            string msgFile = Path.ChangeExtension(file, "msg");
+            Utils.RunCommand(compilerPath, $"\"{file}\"");
 
-                return Utils.GetMessages(msgFile);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"[ERROR] Error reading {file}. Cancelling pm1 merging");
-            }
-            return null;
+            return Utils.GetMessages(msgFile, "pm1");
         }
     }
 }
