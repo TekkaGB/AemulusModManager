@@ -300,7 +300,7 @@ namespace AemulusModManager
             {
                 if (file.Value.FileMetadata.Values.Count > 0)
                 {
-                    string fileTree = file.Value.FileMetadata.Values.ElementAt(1).ToString();
+                    string fileTree = file.Value.FileMetadata["_aMetadata"].ToString();
                     if (!fileTree.ToLower().Contains(".disable_gb1click") && (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]"))
                     {
                         aemulusCompatibleFiles.Add(file.Key, file.Value);

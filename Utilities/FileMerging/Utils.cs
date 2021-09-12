@@ -50,7 +50,7 @@ namespace AemulusModManager.Utilities.FileMerging
             {
                 lastModified = File.GetLastWriteTime(outFile);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine($"[ERROR] Error getting last write time for {outFile}: {e.Message}. Cancelling {Path.GetExtension(outFile)} merging");
                 return false;
@@ -133,7 +133,7 @@ namespace AemulusModManager.Utilities.FileMerging
             {
                 // Read the text of the msg
                 string messagePattern = @"(\[.+ .+\])\s+((?:\[.*\s+?)+)";
-                string text = File.ReadAllText(file);
+                string text = File.ReadAllText(file).Replace("[x 0x80 0x80]", " ");
                 Regex rg = new Regex(messagePattern);
                 MatchCollection matches = rg.Matches(text);
                 // Add all of the found messages into the list to be returned
@@ -178,7 +178,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
             // Get any completely new messages
             // (only checks the lower priority msg as the higher one is the one where text is replaced so any additions in there will persist)
-            var newMessages = messages[0].Where(m => !ogMessages.ContainsKey(m.Key));
+            var newMessages = messages[0].Where(m => !ogMessages.ContainsKey(m.Key) && !messages[1].ContainsKey(m.Key));
             // Add all of the new messages to the changed messages
             foreach (var newMessage in newMessages)
                 changedMessages.Add(newMessage.Key, newMessage.Value);
@@ -203,13 +203,14 @@ namespace AemulusModManager.Utilities.FileMerging
             {
                 if (!ogMessages.TryGetValue(message.Key, out string ogMessage))
                 {
-                    fileContent += $"{message.Key}\r\n{message.Value}";
+                    fileContent += $"{message.Key}\r\n{message.Value}\r\n";
                 }
                 else
                 {
                     fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
                 }
             }
+
             // Make a copy of the unmerged file (.file.back)
             try
             {
@@ -218,6 +219,7 @@ namespace AemulusModManager.Utilities.FileMerging
             catch (Exception e)
             {
                 Console.WriteLine($"[ERROR] Error backing up {files[1]}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                return;
             }
 
             // Write the changes to the msg and compile it
@@ -228,6 +230,7 @@ namespace AemulusModManager.Utilities.FileMerging
             catch (Exception e)
             {
                 Console.WriteLine($"[ERROR] Error writing changes to {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                return;
             }
             Compile(msgFile, files[1], game);
         }
