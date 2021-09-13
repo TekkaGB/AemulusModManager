@@ -88,6 +88,7 @@ namespace AemulusModManager.Utilities
         {
             if (ParseProtocol(line))
             {
+                // don't get data from the api if we aren't using the api
                 if (!USE_API | await GetData())
                 {
 
@@ -149,7 +150,7 @@ namespace AemulusModManager.Utilities
         {
             try
             {
-                // new! it can now be either aemulus:path_to_archive,mod_type,mod_id or aemulus:path_to_archive,path_to_png,mod_name
+                // new! it can now be either aemulus:path_to_archive,mod_type,mod_id or aemulus:path_to_archive,path_to_png,mod_name,author
                 line = line.Replace("aemulus:", "");
                 string[] data = line.Split(',');
                 URL_TO_ARCHIVE = data[0];
@@ -158,8 +159,8 @@ namespace AemulusModManager.Utilities
                 DL_ID = match.Value;
                 string MOD_TYPE = data[1];
                 string MOD_ID = data[2];
-                var httpMatch = Regex.Match(MOD_TYPE, @"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$");
-                if (httpMatch.Success)
+                // if it has 4 fields (because of author)
+                if (data.Length == 4)
                 {
                     USE_API = false;
                     URL_TO_PNG = MOD_TYPE;
