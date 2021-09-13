@@ -154,7 +154,7 @@ namespace AemulusModManager.Utilities
         {
             try
             {
-                // new! it can now be either aemulus:path_to_archive,mod_type,mod_id or aemulus:path_to_archive,path_to_png,mod_name,author
+                // new! it can now be either aemulus:path_to_archive,mod_type,mod_id or aemulus:path_to_archive,path_to_png,mod_name,author,game
                 line = line.Replace("aemulus:", "");
                 string[] data = line.Split(',');
                 URL_TO_ARCHIVE = data[0];
