@@ -21,9 +21,13 @@ namespace AemulusModManager.Utilities
     {
         private string URL_TO_ARCHIVE;
         private string URL;
+        private string URL_TO_PNG;
+        private string MOD_NAME;
+        private string AUTHOR; 
         private string DL_ID;
         private string fileName;
         private string assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        private bool USE_API = true;
         private bool cancelled;
         private HttpClient client = new HttpClient();
         private GameBananaAPIV4 response = new GameBananaAPIV4();
@@ -84,9 +88,17 @@ namespace AemulusModManager.Utilities
         {
             if (ParseProtocol(line))
             {
-                if (await GetData())
+                if (!USE_API | await GetData())
                 {
-                    DownloadWindow downloadWindow = new DownloadWindow(response);
+
+                    DownloadWindow downloadWindow = null;
+                    if (USE_API)
+                    {
+                        downloadWindow = new DownloadWindow(response);
+                    } else
+                    {
+                        downloadWindow = new DownloadWindow(MOD_NAME, AUTHOR, new Uri(URL_TO_PNG));
+                    }
                     downloadWindow.ShowDialog();
                     downloadWindow.Activate();
                     if (downloadWindow.YesNo)
@@ -137,6 +149,7 @@ namespace AemulusModManager.Utilities
         {
             try
             {
+                // new! it can now be either aemulus:path_to_archive,mod_type,mod_id or aemulus:path_to_archive,path_to_png,mod_name
                 line = line.Replace("aemulus:", "");
                 string[] data = line.Split(',');
                 URL_TO_ARCHIVE = data[0];
@@ -145,7 +158,22 @@ namespace AemulusModManager.Utilities
                 DL_ID = match.Value;
                 string MOD_TYPE = data[1];
                 string MOD_ID = data[2];
-                URL = $"https://gamebanana.com/apiv4/{MOD_TYPE}/{MOD_ID}";
+                var httpMatch = Regex.Match(MOD_TYPE, @"^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_]*)?$");
+                if (httpMatch.Success)
+                {
+                    USE_API = false;
+                    URL_TO_PNG = MOD_TYPE;
+                    MOD_NAME = MOD_ID;
+                    AUTHOR = data[3];
+                    fileName = GetFilenameFromUrl(URL_TO_ARCHIVE);
+                } else
+                {
+                    USE_API = true;
+                    URL = $"https://gamebanana.com/apiv4/{MOD_TYPE}/{MOD_ID}";
+                }
+    
+                
+                
                 return true;
             }
             catch (Exception e)
@@ -153,6 +181,10 @@ namespace AemulusModManager.Utilities
                 MessageBox.Show($"Error while parsing {line}: {e.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
+        }
+        public static string GetFilenameFromUrl(string url)
+        {
+            return String.IsNullOrEmpty(url.Trim()) || !url.Contains(".") ? string.Empty : Path.GetFileName(new Uri(url).AbsolutePath);
         }
         private async Task DownloadFile(string uri, string fileName, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken)
         {
