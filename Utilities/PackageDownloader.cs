@@ -25,6 +25,7 @@ namespace AemulusModManager.Utilities
         private string MOD_NAME;
         private string AUTHOR; 
         private string DL_ID;
+        private string GAME;
         private string fileName;
         private string assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         private bool USE_API = true;
@@ -89,7 +90,9 @@ namespace AemulusModManager.Utilities
             if (ParseProtocol(line))
             {
                 // don't get data from the api if we aren't using the api
-                if (!USE_API | await GetData())
+                // !! APPARENTLY | DOESN'T SHORT CIRCUT
+                // OOPSIES
+                if (!USE_API || await GetData())
                 {
 
                     DownloadWindow downloadWindow = null;
@@ -106,10 +109,10 @@ namespace AemulusModManager.Utilities
                     {
                         await DownloadFile(URL_TO_ARCHIVE, fileName, new Progress<DownloadProgress>(ReportUpdateProgress),
                             CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
-                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Name.Replace(" (PC)", ""));
+                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", GAME);
                         if (File.Exists($@"{assemblyLocation}\refresh.aem"))
                             FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
-                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Name.Replace(" (PC)", ""));
+                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", GAME);
                     }
                 }
             }
@@ -123,6 +126,7 @@ namespace AemulusModManager.Utilities
             {
                 string responseString = await client.GetStringAsync(URL);
                 response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
+                GAME = response.Game.Name.Replace(" (PC)", "");
                 fileName = response.Files.Where(x => x.ID == DL_ID).ToArray()[0].FileName;
                 return true;
             }
@@ -159,14 +163,22 @@ namespace AemulusModManager.Utilities
                 DL_ID = match.Value;
                 string MOD_TYPE = data[1];
                 string MOD_ID = data[2];
-                // if it has 4 fields (because of author)
-                if (data.Length == 4)
+                // if it has 5 fields (because of author and game)
+                if (data.Length == 5)
                 {
                     USE_API = false;
                     URL_TO_PNG = MOD_TYPE;
-                    MOD_NAME = MOD_ID;
-                    AUTHOR = data[3];
+                   
+                    MOD_NAME = Uri.UnescapeDataString(MOD_ID);
+                    AUTHOR = Uri.UnescapeDataString(data[3]);
+                    GAME = Uri.UnescapeDataString(data[4]);
+               
                     fileName = GetFilenameFromUrl(URL_TO_ARCHIVE);
+                    if (string.IsNullOrEmpty(fileName))
+                    {
+                        throw new Exception("Invalid path to archive");
+                    }
+                    Debug.WriteLine(fileName);
                 } else
                 {
                     USE_API = true;
