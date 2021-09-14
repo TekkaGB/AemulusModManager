@@ -21,7 +21,6 @@ namespace AemulusModManager.Utilities.FileMerging
 
                 foreach (string file in flowFiles)
                 {
-
                     string bf = Path.ChangeExtension(file, "bf");
                     string filePath = Utils.GetRelativePath(bf, dir, game);
                     // If the current file is a bf check if it has a corresponding flow

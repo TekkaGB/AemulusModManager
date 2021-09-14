@@ -1534,9 +1534,10 @@ namespace AemulusModManager
             }
         }
 
-        private string selectExe(string title, string extension)
+        private string selectExe(string title, string extension, string type = "")
         {
-            string type = "Application";
+            if (type == "")
+                type = "Application";
             if (extension == ".iso")
                 type = "PS2 Disc";
             else if (extension == ".bin")
@@ -1568,6 +1569,12 @@ namespace AemulusModManager
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
                 string selPath = "";
+                if (game == "Persona 3 Portable")
+                {
+                    selPath = selectExe("Select P3P's UMD0.cpk to unpack", ".cpk", "UMD0.cpk");
+                    if (selPath == null)
+                        Console.WriteLine("[ERROR] Incorrect file chosen.");
+                }
                 if (gamePath == "" || gamePath == null)
                 {
                     string selectedPath;
@@ -1595,16 +1602,6 @@ namespace AemulusModManager
                         else
                             Console.WriteLine("[ERROR] Incorrect file chosen.");
                     }
-                    else if (game == "Persona 3 Portable")
-                    {
-                        selectedPath = selectExe("Select P3P's EBOOT.bin to unpack", ".bin");
-                        if (selectedPath == null)
-                        {
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
-                        }
-                        else
-                            selPath = selectedPath;
-                    }
                     else if (game == "Persona 5")
                     {
                         selectedPath = selectExe("Select P5's EBOOT.BIN to unpack", ".bin");
@@ -1619,7 +1616,7 @@ namespace AemulusModManager
                     }
                 }
 
-                if ((gamePath == "" || gamePath == null) && game != "Persona 5 Strikers" && game != "Persona 3 Portable")
+                if ((gamePath == "" || gamePath == null) && game != "Persona 5 Strikers")
                     return;
 
                 DisableUI();
@@ -1784,7 +1781,9 @@ namespace AemulusModManager
                     if (game == "Persona 3 Portable")
                     {
                         File.Delete(path + ".cpk");
+                        Console.WriteLine("[INFO] Copying Original Game's Files");
                         CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data", path + @"\data");
+                        Console.WriteLine("[INFO] Finished Copying Original Game's Files");
                         binMerge.MakeCpk(path, false);
                         if (!p3pConfig.leaveUmd)
                         {
@@ -1889,8 +1888,10 @@ namespace AemulusModManager
                         Console.WriteLine($"[INFO] Deleted umd0 folder");
                         binMerge.Restart(path, emptySND, game, cpkLang);
                         File.Delete(path + ".cpk");
-                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data", path + @"\data");
                         Directory.CreateDirectory(path + @"\data");
+                        Console.WriteLine("[INFO] Copying Original Game's Files...");
+                        CopyDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data", path + @"\data");
+                        Console.WriteLine("[INFO] Finished Copying Original Game's Files");
                         FlowMerger.Merge(packages, game);
                         BmdMerger.Merge(packages, game);
                         await Task.Run(() =>
@@ -1907,8 +1908,9 @@ namespace AemulusModManager
                         if (!p3pConfig.leaveUmd)
                         {
                             binMerge.DeleteDirectory(path);
+                            Console.WriteLine($"[INFO] Deleted umd0 folder");
                         }
-                        Console.WriteLine($"[INFO] Deleted umd0 folder");
+                        
                     }
                     else
                     {

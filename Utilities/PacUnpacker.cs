@@ -354,33 +354,16 @@ namespace AemulusModManager
                         if (contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
                         {
                             Console.WriteLine($"[INFO] Unpacking {file}");
-                            binMerge.PAKPackCMD($"unpack \"{file}\" \"{file.Replace(@"\Persona 3 Portable\data", @"\Persona 3 Portable\extracted")}\"");
+                            binMerge.PAKPackCMD($"unpack \"{file}\" \"{Path.Combine(Path.GetDirectoryName(file.Replace(@"\Persona 3 Portable\data", @"\Persona 3 Portable\extracted\data")), Path.GetFileNameWithoutExtension(file))}\"");
                             // Search the location of the unpacked container for wanted files
                             if (containersFound)
-                                ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file)));
+                                ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file.Replace(@"\Persona 3 Portable\data", @"\Persona 3 Portable\extracted\data")), Path.GetFileNameWithoutExtension(file)));
                         }
                     }
                 }
             }
 
 
-            foreach (string file in Directory.GetFiles(directory.Replace(@"\Persona 3 Portable\data", @"\Persona 3 Portable\extracted")))
-            {
-                if (File.ReadAllText(file).Contains(".bf") || File.ReadAllText(file).Contains(".bmd"))
-                {
-                    List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
-                    // Check if there are any files we want (or files that could have files we want) and unpack them if so
-                    bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
-                    if (contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
-                    {
-                        Console.WriteLine($"[INFO] Unpacking {file}");
-                        binMerge.PAKPackCMD($"unpack \"{file}\"");
-                        // Search the location of the unpacked container for wanted files
-                        if (containersFound)
-                            ExtractWantedFiles(Path.Combine(Path.GetDirectoryName(file), Path.GetFileNameWithoutExtension(file)));
-                    }
-                }
-            }
         }
         private static void ExtractWantedFiles(string directory)
         {
@@ -388,12 +371,12 @@ namespace AemulusModManager
                 return;
 
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
-                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
+                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak") || s.ToLower().EndsWith(".abin"));
             foreach(string file in files)
             {
                 List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
                 // Check if there are any files we want (or files that could have files we want) and unpack them if so
-                bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
+                bool containersFound = contents.Exists(x =>  x.EndsWith(".bin") || x.EndsWith(".abin") || x.EndsWith(".pac") || x.EndsWith(".pak")) ;
                 if(contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
                 {
                     Console.WriteLine($"[INFO] Unpacking {file}");
