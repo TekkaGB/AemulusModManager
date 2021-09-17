@@ -219,7 +219,7 @@ namespace AemulusModManager
                 PackageList = new ObservableCollection<Package>();
 
                 // Initialise package updater
-                packageUpdater = new PackageUpdater(this);
+                packageUpdater = new PackageUpdater();
 
                 // Retrieve initial thumbnail from resource
                 bitmap = new BitmapImage(new Uri("pack://application:,,,/AemulusPackageManager;component/Assets/Preview.png"));
