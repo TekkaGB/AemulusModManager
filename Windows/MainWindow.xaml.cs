@@ -3397,13 +3397,15 @@ namespace AemulusModManager
                     gameCounter++;
                 }
             }
+            filterSelect = true;
             GameFilterBox.SelectedIndex = GameBox.SelectedIndex;
+            FilterBox.ItemsSource = FilterBoxList;
             CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
             SubCatBox.ItemsSource = None;
-            BrowserBackground.ImageSource = bgs[GameFilterBox.SelectedIndex];
-            filterSelect = true;
             CatBox.SelectedIndex = 0;
             SubCatBox.SelectedIndex = 0;
+            FilterBox.SelectedIndex = 0;
+            BrowserBackground.ImageSource = bgs[GameFilterBox.SelectedIndex];
             filterSelect = false;
             RefreshFilter();
             selected = true;
@@ -3450,6 +3452,7 @@ namespace AemulusModManager
         }
         // Used to not trigger events while another event is still functioning
         private static bool filterSelect;
+        private static bool searched = false;
         // Filter events
         private async void RefreshFilter()
         {
@@ -3462,6 +3465,8 @@ namespace AemulusModManager
             RightPage.IsEnabled = false;
             PageBox.IsEnabled = false;
             PerPageBox.IsEnabled = false;
+            SearchBar.IsEnabled = false;
+            SearchButton.IsEnabled = false;
             ErrorPanel.Visibility = Visibility.Collapsed;
             filterSelect = true;
             PageBox.SelectedValue = page;
@@ -3469,8 +3474,9 @@ namespace AemulusModManager
             Page.Text = $"Page {page}";
             LoadingBar.Visibility = Visibility.Visible;
             FeedBox.Visibility = Visibility.Collapsed;
+            var search = searched ? SearchBar.Text : null;
             await FeedGenerator.GetFeed(page, (GameFilter)GameFilterBox.SelectedIndex, (TypeFilter)TypeBox.SelectedIndex, (FeedFilter)FilterBox.SelectedIndex, (GameBananaCategory)CatBox.SelectedItem,
-                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10);
+                (GameBananaCategory)SubCatBox.SelectedItem, (PerPageBox.SelectedIndex + 1) * 10, search);
             FeedBox.ItemsSource = FeedGenerator.CurrentFeed.Records;
             if (FeedGenerator.error)
             {
@@ -3519,11 +3525,31 @@ namespace AemulusModManager
             PageBox.IsEnabled = true;
             PerPageBox.IsEnabled = true;
             GameFilterBox.IsEnabled = true;
+            SearchBar.IsEnabled = true;
+            SearchButton.IsEnabled = true;
         }
 
         private void FilterSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (IsLoaded)
+            if (IsLoaded && !filterSelect)
+            {
+                if (!searched)
+                {
+                    filterSelect = true;
+                    var temp = FilterBox.SelectedIndex;
+                    FilterBox.ItemsSource = FilterBoxList;
+                    FilterBox.SelectedIndex = temp;
+                    filterSelect = false;
+                }
+                SearchBar.Clear();
+                searched = false;
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void PerPageSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsLoaded && !filterSelect)
             {
                 page = 1;
                 RefreshFilter();
@@ -3533,9 +3559,16 @@ namespace AemulusModManager
         {
             if (IsLoaded && !filterSelect)
             {
+                SearchBar.Clear();
+                searched = false;
                 // Change background to match game
                 BrowserBackground.ImageSource = bgs[GameFilterBox.SelectedIndex];
                 filterSelect = true;
+                if (!searched)
+                {
+                    FilterBox.ItemsSource = FilterBoxList;
+                    FilterBox.SelectedIndex = 0;
+                }
                 // Set categories
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
                     CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
@@ -3557,7 +3590,14 @@ namespace AemulusModManager
         {
             if (IsLoaded && !filterSelect)
             {
+                SearchBar.Clear();
+                searched = false;
                 filterSelect = true;
+                if (!searched)
+                {
+                    FilterBox.ItemsSource = FilterBoxList;
+                    FilterBox.SelectedIndex = 0;
+                }
                 // Set categories
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
                     CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
@@ -3579,7 +3619,14 @@ namespace AemulusModManager
         {
             if (IsLoaded && !filterSelect)
             {
+                SearchBar.Clear();
+                searched = false;
                 filterSelect = true;
+                if (!searched)
+                {
+                    FilterBox.ItemsSource = FilterBoxList;
+                    FilterBox.SelectedIndex = 0;
+                }
                 // Set Categories
                 var cat = (GameBananaCategory)CatBox.SelectedValue;
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == cat.ID))
@@ -3596,6 +3643,8 @@ namespace AemulusModManager
         {
             if (!filterSelect && IsLoaded)
             {
+                SearchBar.Clear();
+                searched = false;
                 page = 1;
                 RefreshFilter();
             }
@@ -4136,6 +4185,43 @@ namespace AemulusModManager
                 Console.WriteLine($"[INFO] Cancelled editing of {LoadoutBox.SelectedItem} loadout");
             }
 
+        }
+        private void Search()
+        {
+            if (!filterSelect && IsLoaded && !String.IsNullOrWhiteSpace(SearchBar.Text))
+            {
+                filterSelect = true;
+                FilterBox.ItemsSource = FilterBoxListWhenSearched;
+                FilterBox.SelectedIndex = 3;
+                // Set categories
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
+                    CatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == 0).OrderBy(y => y.ID));
+                else
+                    CatBox.ItemsSource = None;
+                CatBox.SelectedIndex = 0;
+                var cat = (GameBananaCategory)CatBox.SelectedValue;
+                if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == cat.ID))
+                    SubCatBox.ItemsSource = All.Concat(cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Where(x => x.RootID == cat.ID).OrderBy(y => y.ID));
+                else
+                    SubCatBox.ItemsSource = None;
+                SubCatBox.SelectedIndex = 0;
+                filterSelect = false;
+                searched = true;
+                page = 1;
+                RefreshFilter();
+            }
+        }
+        private void SearchBar_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Search();
+        }
+        private static readonly List<string> FilterBoxList = new string[] { "Featured", "Recent", "Popular" }.ToList();
+        private static readonly List<string> FilterBoxListWhenSearched = new string[] { "Featured", "Recent", "Popular", "- - -" }.ToList();
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            Search();
         }
     }
 }

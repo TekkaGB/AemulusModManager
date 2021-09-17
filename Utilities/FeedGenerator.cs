@@ -22,7 +22,8 @@ namespace AemulusModManager.Utilities
     {
         Featured,
         Recent,
-        Popular
+        Popular,
+        None
     }
     public enum TypeFilter
     {
@@ -45,7 +46,7 @@ namespace AemulusModManager.Utilities
                 return -1;
             return Double.Parse(keys.First());
         }
-        public static async Task GetFeed(int page, GameFilter game, TypeFilter type, FeedFilter filter, GameBananaCategory category, GameBananaCategory subcategory, int perPage)
+        public static async Task GetFeed(int page, GameFilter game, TypeFilter type, FeedFilter filter, GameBananaCategory category, GameBananaCategory subcategory, int perPage, string search)
         {
             error = false;
             if (feed == null)
@@ -55,7 +56,7 @@ namespace AemulusModManager.Utilities
                 feed.Remove(feed.Aggregate((l, r) => DateTime.Compare(l.Value.TimeFetched, r.Value.TimeFetched) < 0 ? l : r).Key);
             using (var httpClient = new HttpClient())
             {
-                var requestUrl = GenerateUrl(page, game, type, filter, category, subcategory, perPage);
+                var requestUrl = GenerateUrl(page, game, type, filter, category, subcategory, perPage, search);
                 if (feed.ContainsKey(requestUrl) && feed[requestUrl].IsValid)
                 {
                     CurrentFeed = feed[requestUrl];
@@ -91,10 +92,10 @@ namespace AemulusModManager.Utilities
                     feed[requestUrl] = CurrentFeed;
             }
         }
-        private static string GenerateUrl(int page, GameFilter game, TypeFilter type, FeedFilter filter, GameBananaCategory category, GameBananaCategory subcategory, int perPage)
+        private static string GenerateUrl(int page, GameFilter game, TypeFilter type, FeedFilter filter, GameBananaCategory category, GameBananaCategory subcategory, int perPage, string search)
         {
             // Base
-            var url = "https://gamebanana.com/apiv4/";
+            var url = "https://gamebanana.com/apiv6/";
             switch (type)
             {
                 case TypeFilter.Mods:
@@ -114,7 +115,26 @@ namespace AemulusModManager.Utilities
                     break;
             }
             // Different starting endpoint if requesting all mods instead of specific category
-            if (category.ID != null)
+            if (search != null)
+            {
+                url += $"ByName?_sName=*{search}*&_idGameRow=";
+                switch (game)
+                {
+                    case GameFilter.P3:
+                        url += "8502&";
+                        break;
+                    case GameFilter.P4G:
+                        url += "8263&";
+                        break;
+                    case GameFilter.P5:
+                        url += "7545&";
+                        break;
+                    case GameFilter.P5S:
+                        url += "9099&";
+                        break;
+                }
+            }
+            else if (category.ID != null)
                 url += "ByCategory?";
             else
             {
@@ -136,7 +156,8 @@ namespace AemulusModManager.Utilities
                 }
             }
             // Consistent args
-            url += $"&_aArgs[]=_sbIsNsfw = false&_sRecordSchema=FileDaddy&_nPerpage={perPage}";
+            url += $"_csvProperties=_sName,_sModelName,_sProfileUrl,_aSubmitter,_tsDateUpdated,_tsDateAdded,_aPreviewMedia,_sText,_sDescription,_aCategory,_aRootCategory,_aGame,_nViewCount," +
+                $"_nLikeCount,_nDownloadCount,_aFiles,_aModManagerIntegrations&_aArgs[]=_sbIsNsfw = false&_nPerpage={perPage}";
             // Sorting filter
             switch (filter)
             {

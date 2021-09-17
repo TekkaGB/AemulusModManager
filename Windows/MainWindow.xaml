@@ -9,7 +9,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:AemulusModManager" xmlns:local1="clr-namespace:AemulusModManager.Utilities.Windows"
         mc:Ignorable="d" SizeChanged="Window_SizeChanged"
-        Title="Aemulus Package Manager" Height="720" Width="1180" MinHeight="720" MinWidth="1180"
+        Title="Aemulus Package Manager" Height="720" Width="1280" MinHeight="720" MinWidth="1280"
         Background="#151515" Closing="Window_Closing" KeyDown="Window_KeyDown">
     <Window.Resources>
         <local:UrlConverter x:Key="UrlConverter"/>
@@ -1058,8 +1058,17 @@
                             </Button>
                         </StackPanel>
                     </Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <ComboBox IsEnabled="False" Margin="0,0,15,0" Name="GameFilterBox" Height="40" Width="230" FontSize="18" FontWeight="SemiBold" SelectionChanged="GameFilterSelectionChanged">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="85"/>
+                            <ColumnDefinition Width="0.65*"/>
+                            <ColumnDefinition Width="0.65*"/>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition Width="1.2*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0" Margin="10,0,0,0"  IsEnabled="False" Name="GameFilterBox" Height="40" Width="75" FontSize="18" FontWeight="SemiBold" SelectionChanged="GameFilterSelectionChanged">
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
@@ -1085,19 +1094,15 @@
                                 </StackPanel>
                             </ComboBoxItem>
                         </ComboBox>
-                        <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" Name="FilterBox" Height="40" Width="140" FontSize="18" FontWeight="SemiBold" SelectionChanged="FilterSelectionChanged">
-                            <ComboBoxItem xml:space="preserve">Featured</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve" IsSelected="True">Recent</ComboBoxItem>
-                            <ComboBoxItem xml:space="preserve">Popular</ComboBoxItem>
-                        </ComboBox>
-                        <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" FontWeight="SemiBold" FontSize="18" Name="TypeBox" Height="40" Width="125" SelectionChanged="TypeFilterSelectionChanged">
+                        <ComboBox Grid.Column="1" Margin="5,0,5,0" FontFamily="{StaticResource Jost}" IsEnabled="False" Name="FilterBox" Height="40" MinWidth="140" FontSize="18" FontWeight="SemiBold" SelectionChanged="FilterSelectionChanged"/>
+                        <ComboBox Grid.Column="2" Margin="0,0,5,0" FontFamily="{StaticResource Jost}" IsEnabled="False" FontWeight="SemiBold" FontSize="18" Name="TypeBox" Height="40" MinWidth="140" SelectionChanged="TypeFilterSelectionChanged">
                             <ComboBoxItem xml:space="preserve" IsSelected="True">Mods</ComboBoxItem>
                             <ComboBoxItem xml:space="preserve">WiPs</ComboBoxItem>
                             <ComboBoxItem xml:space="preserve">Sounds</ComboBoxItem>
                             <ComboBoxItem xml:space="preserve">Tools</ComboBoxItem>
                             <ComboBoxItem xml:space="preserve">Tutorials</ComboBoxItem>
                         </ComboBox>
-                        <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,15,0" Name="CatBox" Height="40" Width="250" SelectionChanged="MainFilterSelectionChanged">
+                        <ComboBox Grid.Column="3" FontFamily="{StaticResource Jost}" IsEnabled="False" Margin="0,0,5,0" Name="CatBox" Height="40" MinWidth="250" SelectionChanged="MainFilterSelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
@@ -1107,7 +1112,7 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <ComboBox FontFamily="{StaticResource Jost}" Margin="0,0,15,0" IsEnabled="False" Name="SubCatBox" Height="40" Width="250" SelectionChanged="SubFilterSelectionChanged">
+                        <ComboBox Grid.Column="4" FontFamily="{StaticResource Jost}" Margin="0,0,5,0" IsEnabled="False" Name="SubCatBox" Height="40" MinWidth="250" SelectionChanged="SubFilterSelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
@@ -1117,9 +1122,12 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-
-                        <Image Name="GB" VerticalAlignment="Center" HorizontalAlignment="Center" Height="45" Source="../Assets/GameBanana.png" Cursor="Hand" MouseLeftButtonDown="GameBanana_Click"/>
-                    </StackPanel>
+                        <TextBox Margin="0,0,40,0" Grid.Column="5" IsEnabled="False" KeyDown="SearchBar_KeyDown" Name="SearchBar" Height="40" MinWidth="100" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <Button Grid.Column="5" IsEnabled="False" HorizontalAlignment="Right" Click="SearchButton_Click" Name="SearchButton" Height="40" Width="40">
+                            <fa5:ImageAwesome Icon="Solid_Search" Foreground="#f2f2f2" Margin="3"/>
+                        </Button>
+                        <Image Grid.Column="6" Name="GB" VerticalAlignment="Center" HorizontalAlignment="Center" Height="45" Source="../Assets/GameBanana.png" Cursor="Hand" MouseLeftButtonDown="GameBanana_Click"/>
+                    </Grid>
                     <Popup PlacementTarget="{Binding ElementName=GB}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=GB, Mode=OneWay}" AllowsTransparency="True">
                         <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                             <Border.BorderBrush>
@@ -1141,7 +1149,7 @@
                         <TextBlock FontFamily="{StaticResource Jost}" Margin="0,0,15,0" Foreground="#f2f2f2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold">
                             Per Page:
                         </TextBlock>
-                        <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Name="PerPageBox" SelectionChanged="FilterSelectionChanged" Height="40" VerticalAlignment="Center">
+                        <ComboBox FontFamily="{StaticResource Jost}" IsEnabled="False" Name="PerPageBox" SelectionChanged="PerPageSelectionChanged" Height="40" VerticalAlignment="Center">
                             <ComboBoxItem>10</ComboBoxItem>
                             <ComboBoxItem IsSelected="True">20</ComboBoxItem>
                             <ComboBoxItem>30</ComboBoxItem>
