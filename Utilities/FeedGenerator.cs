@@ -155,9 +155,10 @@ namespace AemulusModManager.Utilities
                         break;
                 }
             }
+            var extraProps = type == TypeFilter.Tutorials ? String.Empty : ",_nDownloadCount,_aFiles,_aModManagerIntegrations";
             // Consistent args
             url += $"_csvProperties=_sName,_sModelName,_sProfileUrl,_aSubmitter,_tsDateUpdated,_tsDateAdded,_aPreviewMedia,_sText,_sDescription,_aCategory,_aRootCategory,_aGame,_nViewCount," +
-                $"_nLikeCount,_nDownloadCount,_aFiles,_aModManagerIntegrations&_aArgs[]=_sbIsNsfw = false&_nPerpage={perPage}";
+                $"_nLikeCount{extraProps}&_aArgs[]=_sbIsNsfw = false&_nPerpage={perPage}";
             // Sorting filter
             switch (filter)
             {
