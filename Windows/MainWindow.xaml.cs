@@ -1651,13 +1651,11 @@ namespace AemulusModManager
                         bool YesNo = false;
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            Mouse.OverrideCursor = null;
                             NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path}?", false);
                             if (game == "Persona 5 Strikers")
                                 notification = new NotificationBox($"Confirm DELETING THE MODIFIED CONTENTS of {path}?", false);
                             notification.ShowDialog();
                             YesNo = notification.YesNo;
-                            Mouse.OverrideCursor = Cursors.Wait;
                         });
                         if (!YesNo)
                         {
@@ -1697,13 +1695,11 @@ namespace AemulusModManager
                         bool YesNo = false;
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            Mouse.OverrideCursor = null;
                             NotificationBox notification = new NotificationBox($"Confirm DELETING THE ENTIRE CONTENTS of {path} before building?", false);
                             if (game == "Persona 5 Strikers")
                                 notification = new NotificationBox($"Confirm DELETING THE ENTIRE MODIFIED CONTENTS of {path}?", false);
                             notification.ShowDialog();
                             YesNo = notification.YesNo;
-                            Mouse.OverrideCursor = Cursors.Wait;
                         });
                         if (!YesNo)
                         {
@@ -1879,7 +1875,6 @@ namespace AemulusModManager
                         img.CacheOption = BitmapCacheOption.OnLoad;
                         img.EndInit();
                         ImageBehavior.SetAnimatedSource(Preview, img);
-                        //ImageBehavior.SetAnimatedSource(PreviewBG, img);
                     }
                     catch (Exception ex)
                     {
@@ -1889,7 +1884,6 @@ namespace AemulusModManager
                 else
                 {
                     ImageBehavior.SetAnimatedSource(Preview, bitmap);
-                    //ImageBehavior.SetAnimatedSource(PreviewBG, null);
                 }
 
             }
@@ -2364,6 +2358,7 @@ namespace AemulusModManager
                     dm.hidden = package.hidden;
                     DisplayedPackages.Add(dm);
                 }
+                showHidden.Value = packages.showHiddenPackages;
                 ModGrid.ItemsSource = DisplayedPackages;
 
                 Refresh();
@@ -2371,7 +2366,7 @@ namespace AemulusModManager
                 updatePackages();
 
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
-                //ImageBehavior.SetAnimatedSource(PreviewBG, null);
+                
 
                 Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                     "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
