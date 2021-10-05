@@ -40,7 +40,7 @@ namespace AemulusModManager.Utilities.FileMerging
         };
 
         // Compile a file with script compiler, returning true if it compiled successfully otherwise false
-        public static bool Compile(string inFile, string outFile, string game)
+        public static bool Compile(string inFile, string outFile, string game, string modName = "")
         {
             if (!File.Exists(inFile))
                 return false;
@@ -82,7 +82,18 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             else
             {
-                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AtlusScriptCompiler.log for details.");
+                // Copy over script compiler mod since there was an error
+                string assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                string newLog = $@"{assemblyPath}\Logs\{modName}{(modName == "" ? "" : " - ")}{Path.GetFileName(inFile)}.log";
+                if (File.Exists($@"{assemblyPath}\AtlusScriptCompiler.log"))
+                {
+                    if (File.Exists(newLog))
+                        File.Delete(newLog);
+                    if (!Directory.Exists($@"{assemblyPath}\Logs"))
+                        Directory.CreateDirectory($@"{assemblyPath}\Logs");
+                    File.Move($@"{assemblyPath}\AtlusScriptCompiler.log", newLog);
+                }
+                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {newLog} for details.");
                 return false;
             }
         }
