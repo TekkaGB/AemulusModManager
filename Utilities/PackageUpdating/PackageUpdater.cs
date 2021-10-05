@@ -26,14 +26,12 @@ namespace AemulusModManager
         private readonly HttpClient client;
         private GitHubClient gitHubClient;
         private UpdateProgressBox progressBox;
-        private MainWindow main;
         private string assemblyLocation;
 
-        public PackageUpdater(MainWindow mainWindow)
+        public PackageUpdater()
         {
             client = new HttpClient();
             gitHubClient = new GitHubClient(new ProductHeaderValue("Aemulus"));
-            main = mainWindow;
             assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
 
@@ -46,42 +44,59 @@ namespace AemulusModManager
                 DisplayedMetadata[] gameBananaRows = rows.Where(row => UrlConverter.Convert(row.link) == "GameBanana").ToArray();
                 if (gameBananaRows.Length > 0)
                 {
-                    var requestUrls = new List<string>();
-                    requestUrls.Add($"https://api.gamebanana.com/Core/Item/Data?");
-                    var urlCount = 0;
+                    var requestUrls = new Dictionary<string, List<string>>();
+                    var urlCounts = new Dictionary<string, int>();
+                    var modList = new Dictionary<string, List<DisplayedMetadata>>();
                     foreach (var row in gameBananaRows)
                     {
                         // Convert the url
                         Uri uri = CreateUri(row.link);
-                        string itemType = uri.Segments[1];
-                        itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
-                        string itemId = uri.Segments[2];
-                        requestUrls[urlCount] += $"itemtype[]={itemType}&itemid[]={itemId}&fields[]=Updates().bSubmissionHasUpdates(),Updates().aGetLatestUpdates(),Files().aFiles(),Owner().name,Preview().sStructuredDataFullsizeUrl(),name&";
-                        if (requestUrls[urlCount].Length > 1900)
-                        {
-                            requestUrls[urlCount] += "return_keys=1";
-                            ++urlCount;
-                            requestUrls.Add($"https://api.gamebanana.com/Core/Item/Data?");
-                        }
+                        string MOD_TYPE = uri.Segments[1];
+                        MOD_TYPE = char.ToUpper(MOD_TYPE[0]) + MOD_TYPE.Substring(1, MOD_TYPE.Length - 3);
+                        string MOD_ID = uri.Segments[2];
+                        if (!urlCounts.ContainsKey(MOD_TYPE))
+                            urlCounts.Add(MOD_TYPE, 0);
+                        int index = urlCounts[MOD_TYPE];
+                        if (!modList.ContainsKey(MOD_TYPE))
+                            modList.Add(MOD_TYPE, new List<DisplayedMetadata>());
+                        modList[MOD_TYPE].Add(row);
+                        if (!requestUrls.ContainsKey(MOD_TYPE))
+                            requestUrls.Add(MOD_TYPE, new string[] { $"https://gamebanana.com/apiv6/{MOD_TYPE}/Multi?_csvProperties=_aModManagerIntegrations,_sName,_bHasUpdates,_aLatestUpdates,_aFiles,_aPreviewMedia,_aAlternateFileSources&_csvRowIds=" }.ToList());
+                        else if (requestUrls[MOD_TYPE].Count == index)
+                            requestUrls[MOD_TYPE].Add($"https://gamebanana.com/apiv6/{MOD_TYPE}/Multi?_csvProperties=_aModManagerIntegrations,_sName,_bHasUpdates,_aLatestUpdates,_aFiles,_aPreviewMedia,_aAlternateFileSources&_csvRowIds=");
+                        requestUrls[MOD_TYPE][index] += $"{MOD_ID},";
+                        if (requestUrls[MOD_TYPE][index].Length > 1990)
+                            urlCounts[MOD_TYPE]++;
                     }
-                    if (!requestUrls[urlCount].EndsWith("return_keys=1"))
-                        requestUrls[urlCount] += "return_keys=1";
-                    if (requestUrls[urlCount] == $"https://api.gamebanana.com/Core/Item/Data?return_keys=1")
-                        requestUrls.RemoveAt(urlCount);
-                    List<GameBananaItem> response = new List<GameBananaItem>();
+                    // Remove extra comma
+                    foreach (var key in requestUrls.Keys)
+                    {
+                        var counter = 0;
+                        foreach (var requestUrl in requestUrls[key].ToList())
+                        {
+                            if (requestUrl.EndsWith(","))
+                                requestUrls[key][counter] = requestUrl.Substring(0, requestUrl.Length - 1);
+                            counter++;
+                        }
+
+                    }
+                    List<GameBananaAPIV4> response = new List<GameBananaAPIV4>();
                     using (var client = new HttpClient())
                     {
-                        foreach (var requestUrl in requestUrls)
+                        foreach (var type in requestUrls)
                         {
-                            var responseString = await client.GetStringAsync(requestUrl);
-                            try
+                            foreach (var requestUrl in type.Value)
                             {
-                                var partialResponse = JsonConvert.DeserializeObject<List<GameBananaItem>>(responseString.Replace("\"Files().aFiles()\": []", "\"Files().aFiles()\": {}"));
-                                response = response.Concat(partialResponse).ToList();
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine($"[ERROR] {e.Message}");
+                                var responseString = await client.GetStringAsync(requestUrl);
+                                try
+                                {
+                                    var partialResponse = JsonConvert.DeserializeObject<List<GameBananaAPIV4>>(responseString.Replace("\"_aModManagerIntegrations\": []", "\"_aModManagerIntegrations\": {}"));
+                                    response = response.Concat(partialResponse).ToList();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine($"[ERROR] {e.Message}");
+                                }
                             }
                         }
                     }
@@ -91,16 +106,26 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        for (int i = 0; i < gameBananaRows.Length; i++)
+                        var convertedModList = new List<DisplayedMetadata>();
+                        var count = 0;
+                        foreach (var type in modList)
+                        {
+                            foreach (var mod in type.Value)
+                            {
+                                convertedModList.Add(mod);
+                                count++;
+                            }
+                        }
+                        for (int i = 0; i < convertedModList.Count; i++)
                         {
                             try
                             {
-                                if (await GameBananaUpdate(response[i], gameBananaRows[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token), downloadingMissing))
+                                if (await GameBananaUpdate(response[i], convertedModList[i], game, new Progress<DownloadProgress>(ReportUpdateProgress), CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token), downloadingMissing))
                                     updated = true;
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {gameBananaRows[i].name}: {e.Message}");
+                                Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {convertedModList[i].name}: {e.Message}");
                             }
                         }
                     }
@@ -210,10 +235,10 @@ namespace AemulusModManager
                 $"({StringConverters.FormatSize(progress.DownloadedBytes)} of {StringConverters.FormatSize(progress.TotalBytes)})";
         }
 
-        private async Task<bool> GameBananaUpdate(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
+        private async Task<bool> GameBananaUpdate(GameBananaAPIV4 item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing)
         {
             var updated = false;
-            if (!downloadingMissing && item.HasUpdates)
+            if (!downloadingMissing && item.HasUpdates != null && (bool)item.HasUpdates)
             {
                 GameBananaItemUpdate[] updates = item.Updates;
                 string updateTitle = updates[0].Title;
@@ -274,7 +299,7 @@ namespace AemulusModManager
             else if (downloadingMissing)
             {
                 // Ask if the user wants to download the mod
-                DownloadWindow downloadWindow = new DownloadWindow(row.name, item.Owner, item.EmbedImage);
+                DownloadWindow downloadWindow = new DownloadWindow(row.name, item.Owner.Name, item.Image);
                 downloadWindow.ShowDialog();
                 if (downloadWindow.YesNo)
                 {
@@ -289,27 +314,15 @@ namespace AemulusModManager
             return updated;
         }
 
-        private async Task GameBananaDownload(GameBananaItem item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing, GameBananaItemUpdate[] updates, string onlineVersion, int updateIndex)
+        private async Task GameBananaDownload(GameBananaAPIV4 item, DisplayedMetadata row, string game, Progress<DownloadProgress> progress, CancellationTokenSource cancellationToken, bool downloadingMissing, GameBananaItemUpdate[] updates, string onlineVersion, int updateIndex)
         {
-            Dictionary<String, GameBananaItemFile> files = item.Files;
             string downloadUrl = null;
             string fileName = null;
             // Work out which are Aemulus comptaible by examining the file tree
-            Dictionary<String, GameBananaItemFile> aemulusCompatibleFiles = new Dictionary<string, GameBananaItemFile>();
-            foreach (KeyValuePair<string, GameBananaItemFile> file in files)
-            {
-                if (file.Value.FileMetadata.Values.Count > 0)
-                {
-                    string fileTree = file.Value.FileMetadata["_aMetadata"].ToString();
-                    if (!fileTree.ToLower().Contains(".disable_gb1click") && (fileTree.ToLower().Contains("package.xml") || fileTree.ToLower().Contains("mod.xml") || fileTree == "[]"))
-                    {
-                        aemulusCompatibleFiles.Add(file.Key, file.Value);
-                    }
-                }
-            }
+            List<GameBananaItemFile> aemulusCompatibleFiles = item.Files.Where(x => item.ModManagerIntegrations.ContainsKey(x.ID)).ToList();
             if (aemulusCompatibleFiles.Count > 1)
             {
-                UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles.Values.ToList(), row.name);
+                UpdateFileBox fileBox = new UpdateFileBox(aemulusCompatibleFiles, row.name);
                 fileBox.Activate();
                 fileBox.ShowDialog();
                 downloadUrl = fileBox.chosenFileUrl;
@@ -317,21 +330,13 @@ namespace AemulusModManager
             }
             else if (aemulusCompatibleFiles.Count == 1)
             {
-                downloadUrl = aemulusCompatibleFiles.ElementAt(0).Value.DownloadUrl;
-                fileName = aemulusCompatibleFiles.ElementAt(0).Value.FileName;
+                downloadUrl = aemulusCompatibleFiles.ElementAt(0).DownloadUrl;
+                fileName = aemulusCompatibleFiles.ElementAt(0).FileName;
             }
             else if (!downloadingMissing)
             {
                 Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion}) but there are no downloads directly from GameBanana.");
-                // Convert the url
-                Uri uri = CreateUri(row.link);
-                string itemType = uri.Segments[1];
-                itemType = char.ToUpper(itemType[0]) + itemType.Substring(1, itemType.Length - 3);
-                string itemId = uri.Segments[2];
-                // Parse the response
-                string responseString = await client.GetStringAsync($"https://gamebanana.com/apiv4/{itemType}/{itemId}");
-                var response = JsonConvert.DeserializeObject<GameBananaAPIV4>(responseString);
-                new AltLinkWindow(response.AlternateFileSources, row.name, game, true).ShowDialog();
+                new AltLinkWindow(item.AlternateFileSources, row.name, game, true).ShowDialog();
                 return;
             }
             if (downloadUrl != null && fileName != null)

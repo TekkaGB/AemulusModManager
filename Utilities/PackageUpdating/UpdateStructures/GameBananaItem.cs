@@ -25,6 +25,12 @@ namespace AemulusModManager
         public List<GameBananaItemFile> Files { get; set; }
         [JsonProperty("_aAlternateFileSources")]
         public List<GameBananaAlternateFileSource> AlternateFileSources { get; set; }
+        [JsonProperty("_bHasUpdates")]
+        public bool? HasUpdates { get; set; }
+        [JsonProperty("_aLatestUpdates")]
+        public GameBananaItemUpdate[] Updates { get; set; }
+        [JsonProperty("_aModManagerIntegrations")]
+        public Dictionary<string, List<GameBananaModManagerIntegration>> ModManagerIntegrations { get; set; }
     }
     public class GameBananaItem
     {

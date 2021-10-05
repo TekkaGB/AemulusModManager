@@ -145,7 +145,7 @@ namespace AemulusModManager.Utilities
                 DL_ID = match.Value;
                 string MOD_TYPE = data[1];
                 string MOD_ID = data[2];
-                URL = $"https://gamebanana.com/apiv4/{MOD_TYPE}/{MOD_ID}";
+                URL = $"https://gamebanana.com/apiv6/{MOD_TYPE}/{MOD_ID}?_csvProperties=_sName,_aGame,_sProfileUrl,_aPreviewMedia,_sDescription,_aSubmitter,_aCategory,_aSuperCategory,_aFiles,_tsDateUpdated,_aAlternateFileSources,_bHasUpdates,_aLatestUpdates";
                 return true;
             }
             catch (Exception e)
