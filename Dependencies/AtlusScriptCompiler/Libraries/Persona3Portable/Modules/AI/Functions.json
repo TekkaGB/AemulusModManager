@@ -210,12 +210,12 @@
   {
     "Index": "0x2010",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0010",
+    "Name": "BUFF_ALLIES_CHECK",
     "Description": "Address: 0x089FC8BC",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "Effect",
         "Description": ""
       }
     ]
@@ -223,7 +223,7 @@
   {
     "Index": "0x2011",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0011",
+    "Name": "DEBUFF_ENEMIES_CHECK",
     "Description": "Address: 0x089FC908",
     "Parameters": [
       {
@@ -538,7 +538,7 @@
   {
     "Index": "0x202c",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_002C",
+    "Name": "AI_TAR_RND",
     "Description": "Address: 0x089FF0F0",
     "Parameters": []
   },
@@ -579,7 +579,7 @@
   {
     "Index": "0x2031",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0031",
+    "Name": "AI_NOTBAD",
     "Description": "Address: 0x089FF1E4",
     "Parameters": [
       {
@@ -592,7 +592,7 @@
   {
     "Index": "0x2032",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0032",
+    "Name": "AI_ID",
     "Description": "Address: 0x089FF28C",
     "Parameters": [
       {
@@ -605,7 +605,7 @@
   {
     "Index": "0x2033",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0033",
+    "Name": "AI_MINE",
     "Description": "Address: 0x089FF2D0",
     "Parameters": []
   },
@@ -658,7 +658,7 @@
   {
     "Index": "0x2038",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0038",
+    "Name": "AI_WEAK",
     "Description": "Address: 0x089FF3F4",
     "Parameters": [
       {
@@ -723,19 +723,19 @@
   {
     "Index": "0x203d",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_003D",
+    "Name": "AI_ACT_WEAPON",
     "Description": "Address: 0x089FC168",
     "Parameters": []
   },
   {
     "Index": "0x203e",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_003E",
-    "Description": "Address: 0x089FC198",
+    "Name": "AI_ACT_SKILL",
+    "Description": "Perform skill given",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
@@ -1899,7 +1899,7 @@
   {
     "Index": "0x2097",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0097",
+    "Name": "AI_RND",
     "Description": "Address: 0x08A03F2C",
     "Parameters": [
       {
@@ -2273,7 +2273,7 @@
   {
     "Index": "0x20b0",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00B0",
+    "Name": "AI_ACT_PERSONA",
     "Description": "Address: 0x08A03444",
     "Parameters": [
       {
@@ -2282,8 +2282,8 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
@@ -2325,7 +2325,7 @@
   {
     "Index": "0x20b5",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00B5",
+    "Name": "AI_ACT_ATTACK",
     "Description": "Address: 0x08A034B0",
     "Parameters": [
       {
@@ -2862,12 +2862,12 @@
   {
     "Index": "0x20db",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00DB",
+    "Name": "BUFF_SELF_CHECK",
     "Description": "Address: 0x089FEE70",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "Effect",
         "Description": ""
       }
     ]

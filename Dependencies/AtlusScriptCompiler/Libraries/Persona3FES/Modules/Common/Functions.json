@@ -935,12 +935,12 @@
   {
     "Index": "0x0043",
     "ReturnType": "int",
-    "Name": "FUNCTION_0043",
+    "Name": "BUFF_ALLIES_CHECK",
     "Description": "002C8100",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "Effect",
         "Description": ""
       }
     ]
@@ -948,12 +948,12 @@
   {
     "Index": "0x0044",
     "ReturnType": "int",
-    "Name": "FUNCTION_0044",
+    "Name": "DEBUFF_ENEMIES_CHECK",
     "Description": "002C81B0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "Effect",
         "Description": ""
       }
     ]
@@ -4095,7 +4095,7 @@
   {
     "Index": "0x0133",
     "ReturnType": "int",
-    "Name": "RNG",
+    "Name": "AI_RND",
     "Description": "Returns random number from 0 to range given",
     "Parameters": [
       {
@@ -5068,7 +5068,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "BattleSkill",
         "Name": "Skill",
         "Description": ""
       }
@@ -6119,12 +6119,12 @@
   {
     "Index": "0x01c7",
     "ReturnType": "int",
-    "Name": "FUNCTION_01C7",
+    "Name": "BUFF_SELF_CHECK",
     "Description": "002CC0E0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "Effect",
         "Description": ""
       }
     ]
