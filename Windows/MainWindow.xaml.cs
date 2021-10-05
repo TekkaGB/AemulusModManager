@@ -66,6 +66,7 @@ namespace AemulusModManager
         public string elfPath;
         public string cpkLang;
         public string selectedLoadout;
+        public string lastUnpacked;
         private BitmapImage bitmap;
         public List<FontAwesome5.ImageAwesome> buttons;
         private PackageUpdater packageUpdater;
@@ -307,6 +308,7 @@ namespace AemulusModManager
                                 modPath = config.p4gConfig.modDir;
                                 selectedLoadout = config.p4gConfig.loadout;
                                 gamePath = config.p4gConfig.exePath;
+                                lastUnpacked = config.p4gConfig.lastUnpacked;
                                 launcherPath = config.p4gConfig.reloadedPath;
                                 emptySND = config.p4gConfig.emptySND;
                                 cpkLang = config.p4gConfig.cpkLang;
@@ -325,6 +327,7 @@ namespace AemulusModManager
                                 modPath = config.p3fConfig.modDir;
                                 selectedLoadout = config.p3fConfig.loadout;
                                 gamePath = config.p3fConfig.isoPath;
+                                lastUnpacked = config.p3fConfig.lastUnpacked;
                                 elfPath = config.p3fConfig.elfPath;
                                 launcherPath = config.p3fConfig.launcherPath;
                                 buildWarning = config.p3fConfig.buildWarning;
@@ -343,6 +346,7 @@ namespace AemulusModManager
                                 modPath = config.p5Config.modDir;
                                 selectedLoadout = config.p5Config.loadout;
                                 gamePath = config.p5Config.gamePath;
+                                lastUnpacked = config.p5Config.lastUnpacked;
                                 launcherPath = config.p5Config.launcherPath;
                                 buildWarning = config.p5Config.buildWarning;
                                 buildFinished = config.p5Config.buildFinished;
@@ -788,8 +792,28 @@ namespace AemulusModManager
                     || (game == "Persona 3 FES" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\DATA")
                     && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL"))
                     || (game == "Persona 5" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}"))
-                    || (game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc")))
+                    || (game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc"))
+                    || (game != "Persona 5 Strikers" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
+                else
+                {
+                    // Build succeeded, set last unpacked
+                    lastUnpacked = aemulusVersion;
+                    switch(game)
+                    {
+                        case "Persona 4 Golden":
+                            config.p4gConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 3 FES":
+                            config.p3fConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 5":
+                            config.p5Config.lastUnpacked = lastUnpacked;
+                            break;
+                    }
+                    updateConfig();
+                }
+
             });
         }
         private void LaunchClick(object sender, RoutedEventArgs e)
@@ -1552,6 +1576,39 @@ namespace AemulusModManager
 
             }
 
+            // Check if the games files need to be unpacked again (for flow merging)
+            if (game != "Persona 5 Strikers" && lastUnpacked == null)
+            {
+                var bfFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories);
+                if (bfFiles.Count() == 0)
+                {
+                    Console.WriteLine($"[INFO] Unpacking game files to allow bf merging for {game}.");
+                    DisableUI();
+                    fromMain = true;
+                    await pacUnpack(Path.GetDirectoryName(gamePath));
+                    fromMain = false;
+                }
+                else
+                {
+                    // There are bf files so it must have been unpacked since that was added
+                    lastUnpacked = aemulusVersion;
+                    switch (game)
+                    {
+                        case "Persona 4 Golden":
+                            config.p4gConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 3 FES":
+                            config.p3fConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 5":
+                            config.p5Config.lastUnpacked = lastUnpacked;
+                            break;
+                    }
+                    updateConfig();
+
+                }
+            }
+
             if (game == "Persona 5 Strikers")
             {
                 bool backedUp = true;
@@ -1892,11 +1949,11 @@ namespace AemulusModManager
         // Update config order when rows are changed
         private void ModGrid_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            if(IsLoaded)
+            if (IsLoaded)
             {
                 DisplayedMetadata dm = (DisplayedMetadata)e.Row.Item;
                 var package = PackageList.FirstOrDefault(package => package.path == dm.path);
-                if(package != null)
+                if (package != null)
                 {
                     Package temp = package;
                     PackageList.Remove(package);
@@ -2172,6 +2229,7 @@ namespace AemulusModManager
                         modPath = config.p3fConfig.modDir;
                         selectedLoadout = config.p3fConfig.loadout;
                         gamePath = config.p3fConfig.isoPath;
+                        lastUnpacked = config.p3fConfig.lastUnpacked;
                         elfPath = config.p3fConfig.elfPath;
                         launcherPath = config.p3fConfig.launcherPath;
                         buildWarning = config.p3fConfig.buildWarning;
@@ -2193,6 +2251,7 @@ namespace AemulusModManager
                         modPath = config.p4gConfig.modDir;
                         selectedLoadout = config.p4gConfig.loadout;
                         gamePath = config.p4gConfig.exePath;
+                        lastUnpacked = config.p4gConfig.lastUnpacked;
                         launcherPath = config.p4gConfig.reloadedPath;
                         emptySND = config.p4gConfig.emptySND;
                         cpkLang = config.p4gConfig.cpkLang;
@@ -2215,6 +2274,7 @@ namespace AemulusModManager
                         modPath = config.p5Config.modDir;
                         selectedLoadout = config.p5Config.loadout;
                         gamePath = config.p5Config.gamePath;
+                        lastUnpacked = config.p5Config.lastUnpacked;
                         launcherPath = config.p5Config.launcherPath;
                         buildWarning = config.p5Config.buildWarning;
                         buildFinished = config.p5Config.buildFinished;
@@ -3704,7 +3764,7 @@ namespace AemulusModManager
             await Task.Run(() =>
             {
                 if (MusicPlayer.SourceProvider.MediaPlayer != null)
-                MusicPlayer.SourceProvider.MediaPlayer.ResetMedia();
+                    MusicPlayer.SourceProvider.MediaPlayer.ResetMedia();
             });
             duration = 0;
             AudioProgress.Value = 0;
@@ -4036,7 +4096,7 @@ namespace AemulusModManager
                 showHidden.Value = packages.showHiddenPackages;
 
                 var oldDisplayedPackages = DisplayedPackages.ToList();
-                
+
                 // Recreate DisplayedPackages to match the newly selected loadout
                 DisplayedPackages.Clear();
 
