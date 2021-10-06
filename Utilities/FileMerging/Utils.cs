@@ -40,19 +40,28 @@ namespace AemulusModManager.Utilities.FileMerging
         };
 
         // Compile a file with script compiler, returning true if it compiled successfully otherwise false
-        public static bool Compile(string inFile, string outFile, string game)
+        public static bool Compile(string inFile, string outFile, string game, string modName = "")
         {
             if (!File.Exists(inFile))
                 return false;
             // Get the last modified date of the current bf to see if it compiles successfully
-            var lastModified = File.GetLastWriteTime(outFile);
+            DateTime lastModified;
+            try
+            {
+                lastModified = File.GetLastWriteTime(outFile);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error getting last write time for {outFile}: {e.Message}. Cancelling {Path.GetExtension(outFile)} merging");
+                return false;
+            }
 
             // Compile the file
             Console.WriteLine($"[INFO] Compiling {inFile}");
             if (Path.GetExtension(outFile) == ".pm1")
             {
                 string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe";
-                Utils.RunCommand(compilerPath, $"\"{inFile}\"");
+                RunCommand(compilerPath, $"\"{inFile}\"");
             }
             else
             {
@@ -73,7 +82,18 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             else
             {
-                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AtlusScriptCompiler.log for details.");
+                // Copy over script compiler mod since there was an error
+                string assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                string newLog = $@"{assemblyPath}\Logs\{modName}{(modName == "" ? "" : " - ")}{Path.GetFileName(inFile)}.log";
+                if (File.Exists($@"{assemblyPath}\AtlusScriptCompiler.log"))
+                {
+                    if (File.Exists(newLog))
+                        File.Delete(newLog);
+                    if (!Directory.Exists($@"{assemblyPath}\Logs"))
+                        Directory.CreateDirectory($@"{assemblyPath}\Logs");
+                    File.Move($@"{assemblyPath}\AtlusScriptCompiler.log", newLog);
+                }
+                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {newLog} for details.");
                 return false;
             }
         }
@@ -118,7 +138,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
         }
 
-        public static Dictionary<string, string> GetMessages(string file)
+        public static Dictionary<string, string> GetMessages(string file, string fileType)
         {
             try
             {
@@ -140,7 +160,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error reading {file}. Cancelling bmd merging");
+                Console.WriteLine($"[ERROR] Error reading {file}: {e.Message}. Cancelling {fileType} merging");
             }
             return null;
         }
@@ -177,37 +197,53 @@ namespace AemulusModManager.Utilities.FileMerging
 
             if (changedMessages.Count <= 0)
                 return;
+
+            // Modify the current file with the changes
+            string msgFile = Path.ChangeExtension(files[1], "msg");
+            string fileContent;
             try
             {
-                // Modify the current file with the changes
-                string msgFile = Path.ChangeExtension(files[1], "msg");
-                string fileContent = File.ReadAllText(msgFile);
-                foreach (var message in changedMessages)
-                {
-                    if (!ogMessages.TryGetValue(message.Key, out string ogMessage))
-                    {
-                        fileContent += $"{message.Key}\r\n{message.Value}\r\n";
-                    }
-                    else
-                    {
-                        fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
-                    }
-                }
-                // Add a space after the / for any /[...] as the compiler will break otherwise (happens with skill bmds)
-                Regex regex = new Regex(@"/(\[.*?\])");
-                fileContent = regex.Replace(fileContent, @"/ $1");
-
-                // Make a copy of the unmerged file (.file.back)
-                FileIOWrapper.Copy(files[1], files[1] + ".back", true);
-
-                // Write the changes to the msg and compile it
-                File.WriteAllText(msgFile, fileContent);
-                Compile(msgFile, files[1], game);
+                fileContent = File.ReadAllText(msgFile);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error reading {files[1]}. Cancelling {Path.GetExtension(files[0])} merging");
+                Console.WriteLine($"[ERROR] Error reading {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                return;
             }
+            foreach (var message in changedMessages)
+            {
+                if (!ogMessages.TryGetValue(message.Key, out string ogMessage))
+                {
+                    fileContent += $"{message.Key}\r\n{message.Value}\r\n";
+                }
+                else
+                {
+                    fileContent = fileContent.Replace($"{message.Key}\r\n{ogMessage}", $"{message.Key}\r\n{message.Value}");
+                }
+            }
+
+            // Make a copy of the unmerged file (.file.back)
+            try
+            {
+                FileIOWrapper.Copy(files[1], files[1] + ".back", true);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error backing up {files[1]}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                return;
+            }
+
+            // Write the changes to the msg and compile it
+            try
+            {
+                File.WriteAllText(msgFile, fileContent);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error writing changes to {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                return;
+            }
+            Compile(msgFile, files[1], game);
         }
 
         // Restore all of the .*.back files to .* for the next time they will be merged

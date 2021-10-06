@@ -1031,5 +1031,37 @@
       {"Name":"Medea","Value":210},
       {"Name":"Psyche","Value":211}
     ]
-  }
+	},
+	   {
+	  "Name": "Affinity",
+	  "Description": "",
+	  "Members": [
+		{"Name":"Slash","Value":0},
+		{"Name":"Strike","Value":1},
+		{"Name":"Pierce","Value":2},
+		{"Name":"Fire","Value":3},
+		{"Name":"Ice","Value":4},
+		{"Name":"Elec","Value":5},
+		{"Name":"Wind","Value":6},
+		{"Name":"Light","Value":8},
+		{"Name":"Dark","Value":9}
+	  ]
+	 },
+	 {
+	  "Name": "SpecialEffects",
+	  "Description": "",
+	  "Members": [
+		{"Name":"AttackBuff","Value":1},
+		{"Name":"AttackDebuff","Value":2},
+		{"Name":"HitUpBuff","Value":16},
+		{"Name":"HitUpDebuff","Value":32},
+		{"Name":"DefenseBuff","Value":64},
+		{"Name":"DefenseDebuff","Value":128},
+		{"Name":"PowerCharge","Value":1024},
+		{"Name":"MindCharge","Value":2048},
+		{"Name":"Rebellion","Value":16384},
+		{"Name":"Revolution","Value":32768},
+		{"Name":"Downed","Value":1048576}
+	  ]
+	 }
 ]

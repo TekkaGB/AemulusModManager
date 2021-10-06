@@ -63,7 +63,7 @@ namespace AemulusModManager.Utilities.FileMerging
                             continue;
                         }
                     }
-                    if (!Utils.Compile(file, bf, game))
+                    if (!Utils.Compile(file, bf, game, Path.GetFileName(dir)))
                         continue;
                     string[] compiledFile = { filePath, dir, bf };
                     compiledFiles.Add(compiledFile);

@@ -159,5 +159,90 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x600A",
+    "ReturnType": "void",
+    "Name": "CLEAR_PERSONA_SKILLS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x600B",
+    "ReturnType": "int",
+    "Name": "TEST_FUNCTION",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x600C",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SUMMON_UNITS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x600D",
+    "ReturnType": "void",
+    "Name": "AI_SET_TARGETABLE_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x600E",
+    "ReturnType": "void",
+    "Name": "AI_SET_ENID_TARGETABLE_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
   }
 ]

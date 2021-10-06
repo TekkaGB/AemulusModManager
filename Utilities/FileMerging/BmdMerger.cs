@@ -46,10 +46,12 @@ namespace AemulusModManager.Utilities.FileMerging
 
             // Get the contents of the bmds
             Dictionary<string, string>[] messages = new Dictionary<string, string>[2];
-            Dictionary<string, string> ogMessages = new Dictionary<string, string>();
             messages[0] = GetBmdMessages(bmds[0], game);
+            if (messages[0] == null) return;
             messages[1] = GetBmdMessages(bmds[1], game);
-            ogMessages = GetBmdMessages(ogPath, game);
+            if (messages[1] == null) return;
+            Dictionary<string, string> ogMessages = GetBmdMessages(ogPath, game);
+            if (ogMessages == null) return;
 
             // Compare the messages to find any that need to be overwritten
             Utils.MergeFiles(game, bmds, messages, ogMessages);
@@ -57,21 +59,13 @@ namespace AemulusModManager.Utilities.FileMerging
 
         private static Dictionary<string, string> GetBmdMessages(string file, string game)
         {
-            try
-            {
-                // Decompile the bmd to a msg that can be read easily
-                string[] args = Utils.gameArgs[game];
-                string msgFile = Path.ChangeExtension(file, "msg");
-                string compilerArgs = $"\"{file}\" -Decompile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{msgFile}\"";
-                Utils.ScriptCompilerCommand(compilerArgs);
+            // Decompile the bmd to a msg that can be read easily
+            string[] args = Utils.gameArgs[game];
+            string msgFile = Path.ChangeExtension(file, "msg");
+            string compilerArgs = $"\"{file}\" -Decompile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{msgFile}\"";
+            Utils.ScriptCompilerCommand(compilerArgs);
 
-                return Utils.GetMessages(msgFile);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"[ERROR] Couldn't read {file}. Cancelling bmd merging");
-            }
-            return null;
+            return Utils.GetMessages(msgFile, "bmd");
         }
     }
 }
