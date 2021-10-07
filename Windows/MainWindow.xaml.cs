@@ -751,7 +751,7 @@ namespace AemulusModManager
                     }
                     if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
                     {
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                        await Task.Run(() =>
                         {
                             ReplacePackagesXML(game);
                         });
@@ -4112,6 +4112,50 @@ namespace AemulusModManager
                         updatedPackage.hidden = package.hidden;
                         // Add the updated displayed metadata back to the list
                         DisplayedPackages.Add(updatedPackage);
+                    }
+                    else if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                    {
+                        string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
+                        Metadata m;
+                        DisplayedMetadata dm = new DisplayedMetadata();
+                        if (FileIOWrapper.Exists(xml))
+                        {
+                            m = new Metadata();
+                            try
+                            {
+                                using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                {
+                                    try
+                                    {
+                                        m = (Metadata)xsp.Deserialize(streamWriter);
+                                        dm.name = m.name;
+                                        dm.id = m.id;
+                                        dm.author = m.author;
+                                        dm.version = m.version;
+                                        dm.link = m.link;
+                                        dm.description = m.description;
+                                        dm.skippedVersion = m.skippedVersion;
+                                        package.name = m.name;
+                                        package.link = m.link;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                        continue;
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                continue;
+                            }
+                        }
+
+                        dm.path = package.path;
+                        dm.enabled = package.enabled;
+                        dm.hidden = package.hidden;
+                        DisplayedPackages.Add(dm);
                     }
                 }
 
