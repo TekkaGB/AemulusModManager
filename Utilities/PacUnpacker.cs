@@ -286,7 +286,7 @@ namespace AemulusModManager
                 List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
                 // Check if there are any files we want (or files that could have files we want) and unpack them if so
                 bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
-                if(contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || containersFound))
+                if(contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || x.EndsWith(".dat") || x.EndsWith(".ctd") || x.EndsWith(".ftd") || containersFound))
                 {
                     Console.WriteLine($"[INFO] Unpacking {file}");
                     binMerge.PAKPackCMD($"unpack \"{file}\"");
