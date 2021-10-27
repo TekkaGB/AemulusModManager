@@ -117,7 +117,21 @@ namespace AemulusModManager
                                 continue;
                             }
                             var fileBytes = FileIOWrapper.ReadAllBytes(outputFile).ToList();
-                            fileBytes.RemoveRange((int)patch.offset, data.Length);
+                            // Add null bytes if offset is greater than count
+                            if ((int)patch.offset > fileBytes.Count)
+                            {
+                                int count = (int)patch.offset - fileBytes.Count;
+                                while (count > 0)
+                                {
+                                    fileBytes.Add((byte)0);
+                                    count--;
+                                }
+                            }
+                            // Remove only bytes at the end of length exceeds range
+                            else if ((int)patch.offset + data.Length > fileBytes.Count)
+                                fileBytes.RemoveRange((int)patch.offset, fileBytes.Count - (int)patch.offset);
+                            else
+                                fileBytes.RemoveRange((int)patch.offset, data.Length);
                             fileBytes.InsertRange((int)patch.offset, data);
                             FileIOWrapper.WriteAllBytes(outputFile, fileBytes.ToArray());
                             Console.WriteLine($"[INFO] Patched {patch.file} with {Path.GetFileName(t)}");

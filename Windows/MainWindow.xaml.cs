@@ -2627,10 +2627,18 @@ namespace AemulusModManager
 
         private void Add_Enter(object sender, DragEventArgs e)
         {
-            e.Handled = true;
-            e.Effects = DragDropEffects.Move;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Handled = true;
+                e.Effects = DragDropEffects.Move;
+                DropBox.Visibility = Visibility.Visible;
+            }
         }
-
+        private void Add_Leave(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            DropBox.Visibility = Visibility.Collapsed;
+        }
         private async Task ExtractPackages(string[] fileList)
         {
             await Application.Current.Dispatcher.Invoke(async () =>
@@ -2914,6 +2922,7 @@ namespace AemulusModManager
 
                 EnableUI();
             }
+            DropBox.Visibility = Visibility.Collapsed;
         }
 
         private void ContextMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)

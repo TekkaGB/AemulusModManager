@@ -573,7 +573,7 @@
                                 <TextBlock Name="PriorityPopup" Margin="10" Text="Switch Order of Priority" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
                             </Border>
                         </Popup>
-                        <fa5:ImageAwesome Name="NewButton" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="10" Grid.Row="0" Width="37"/>
+                        <fa5:ImageAwesome Name="NewButton" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" Cursor="Hand" PreviewMouseLeftButtonDown="NewClick" VerticalAlignment="Center" Icon="Solid_FolderPlus" Grid.Column="10" Grid.Row="0" Width="37"/>
                         <Popup PlacementTarget="{Binding ElementName=NewButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=NewButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
@@ -584,8 +584,6 @@
                                 </Border.Background>
                                 <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
                                     Create a New Package (Ctrl+N)
-                                    <LineBreak/>
-                                    or Drag Existing Packages Here
                                 </TextBlock>
                             </Border>
                         </Popup>
@@ -644,7 +642,11 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <DataGrid FontSize="12" Name="ModGrid" AutoGenerateColumns="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto"  BorderBrush="#424242"
+                                <Grid Visibility="Collapsed" Name="DropBox" Margin="4,10,0,3" Panel.ZIndex="2" DragLeave="Add_Leave" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" Background="Transparent">
+                                    <Border Opacity="0.7" Background="Black"/>
+                                    <TextBlock Foreground="#f2f2f2" FontSize="40" Panel.ZIndex="3" VerticalAlignment="Center" HorizontalAlignment="Center">Drop existing packages to install</TextBlock>
+                                </Grid>
+                                <DataGrid DragEnter="Add_Enter" FontSize="12" Name="ModGrid" AutoGenerateColumns="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto"  BorderBrush="#424242"
                           EnableColumnVirtualization="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
                           CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" AlternatingRowBackground="#2A2A2A"
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column" HorizontalScrollBarVisibility="Hidden"
