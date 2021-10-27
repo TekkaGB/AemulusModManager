@@ -112,12 +112,42 @@ When Aemulus builds your mod it will see that there is a flow file and then copy
 
 Bmd and Pm1 merging is done entirely automatically, meaning no additional work is required for mod authors. The way it works internally is the pm1s or bmds to be merged are compared with their original version by decompiling them into msg files. Then any messages that are different to the original are added to a list, if both files edit the same message the higher priority one will be added. Then all of the changed messages are replaced in a msg files which is finally recompiled as a bmd or pm1 to be used.
 
-## How Table Patching Works
-New Feature Added in v1.1!
+## How Binary Patching Works
 
+Newly added in v5.5.6, binary patching is a feature that takes .bp files from a binarypatches folder within a package to overwrite/append bytes to any file.
+
+### Structure of .bp Files (for modders)
+An example of the setup of the file is as follows:
+```
+{
+  "Version": 1,
+  "Patches": [
+    {
+      "file": "init_free\\init\\cmpTable\\cmpConfigHelp.ctd",
+      "offset": 69,
+      "data": "42 00 69"
+    }
+  ]
+}
+```
+First and foremost, make sure you have Version set to 1. Otherwise, none of the patches will be read.
+
+Next, there is a list of Patches.
+
+#### Patch
+- file - path of file with the same conventions used for file merging. For Persona 4 Golden, skip the data_e folder
+- offset - Position to start writing data
+- data - The binary data to overwrite at the given offset represented as a space separated hex string
+
+### Common Issues
+
+Binary patching only works on files that are already found in the output folder from perhaps another mod or from the original folder.  If you unpacked files from before v5.5.6, you might need to unpack again. If the file that needs to be patched still isn't unpacked from the Original folder, let me know and I'll add it in
+
+## How Table Patching Works
+  
 Table patching is a feature that was carried over from Inaba Exe Patcher (formerly known as Aemulus Patcher/Exe Patcher).  It takes .tblpatch files from the top layer of your Package folders to modify .tbl files found in init_free.bin for P4G, table.pac for P5, and BTL/BATTLE for P3F.
 
-### NEW - Structure of .tbp Files (for modders)
+### Structure of .tbp Files (for modders)
 
 For more readablity and support of expanding .tbl files (mostly seen in Persona 5) all in one file, I added this new format.  Old .tblpatch files still work for those who don't want to convert yet but I highly recommend switching over. This new file still goes in the tblpatches folder.
 
