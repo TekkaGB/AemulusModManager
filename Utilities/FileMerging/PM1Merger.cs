@@ -52,6 +52,9 @@ namespace AemulusModManager.Utilities.FileMerging
             messages[1] = GetPm1Messages(bmds[1], game);
             ogMessages = GetPm1Messages(ogPath, game);
 
+            if (messages[0] == null || messages[1] == null || ogMessages == null)
+                return;
+
             // Merge the bmds
             Utils.MergeFiles(game, bmds, messages, ogMessages);
         }

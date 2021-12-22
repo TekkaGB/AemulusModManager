@@ -536,6 +536,10 @@ namespace AemulusModManager
                     config.p4gConfig.cpkLang = "data_e.cpk";
                     foreach (var button in buttons)
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                    showHidden = new Prop<bool>();
+                    showHidden.Value = true; 
+                    VisibilityButton.DataContext = showHidden;
+                    ShowHiddenText.DataContext = showHidden;
 
                     // Initialise loadouts
                     loadoutUtils = new Loadouts(game);
@@ -2419,8 +2423,9 @@ namespace AemulusModManager
                     dm.hidden = package.hidden;
                     DisplayedPackages.Add(dm);
                 }
-                showHidden.Value = packages.showHiddenPackages;
+
                 ModGrid.ItemsSource = DisplayedPackages;
+                showHidden.Value = packages.showHiddenPackages;
 
                 Refresh();
                 updateConfig();
@@ -2428,7 +2433,6 @@ namespace AemulusModManager
 
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
                 
-
                 Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                     "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
                     "the package has no description.)");

@@ -47,11 +47,11 @@ namespace AemulusModManager.Utilities.FileMerging
             // Get the contents of the bmds
             Dictionary<string, string>[] messages = new Dictionary<string, string>[2];
             messages[0] = GetBmdMessages(bmds[0], game);
-            if (messages[0] == null) return;
             messages[1] = GetBmdMessages(bmds[1], game);
-            if (messages[1] == null) return;
             Dictionary<string, string> ogMessages = GetBmdMessages(ogPath, game);
-            if (ogMessages == null) return;
+
+            if (messages[0] == null || messages[1] == null || ogMessages == null)
+                return;
 
             // Compare the messages to find any that need to be overwritten
             Utils.MergeFiles(game, bmds, messages, ogMessages);
