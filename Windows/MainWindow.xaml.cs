@@ -3028,6 +3028,7 @@ namespace AemulusModManager
             Console.WriteLine($"[INFO] Checking for updates for {row.name}");
             await packageUpdater.CheckForUpdate(new DisplayedMetadata[] { row }, game, cancellationToken);
             updating = false;
+            Console.WriteLine($"[INFO] Finished checking for updates!");
         }
 
         private async Task UpdateAllAsync()
@@ -3059,6 +3060,7 @@ namespace AemulusModManager
                     updatePackages();
                 }
                 updating = false;
+                Console.WriteLine($"[INFO] Finished checking for updates!");
             }
             EnableUI();
         }

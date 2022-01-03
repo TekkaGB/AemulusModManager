@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -34,7 +35,29 @@ namespace AemulusModManager
             gitHubClient = new GitHubClient(new ProductHeaderValue("Aemulus"));
             assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         }
+        private string ConvertUrl(string oldUrl)
+        {
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(oldUrl);
+            webRequest.AllowAutoRedirect = false;  // IMPORTANT
 
+            webRequest.Timeout = 10000;           // timeout 10s
+            webRequest.Method = "HEAD";
+            // Get the response ...
+            HttpWebResponse webResponse;
+            using (webResponse = (HttpWebResponse)webRequest.GetResponse())
+            {
+                // Now look to see if it's a redirect
+                if ((int)webResponse.StatusCode >= 300 && (int)webResponse.StatusCode <= 399)
+                {
+                    string uriString = webResponse.Headers["Location"];
+                    webResponse.Close(); // don't forget to close it - or bad things happen!
+                    return uriString;
+                }
+                else
+                    return oldUrl;
+
+            }
+        }
         public async Task<bool> CheckForUpdate(DisplayedMetadata[] rows, string game, CancellationTokenSource cancellationToken, bool downloadingMissing = false)
         {
             var updated = false;
@@ -54,6 +77,19 @@ namespace AemulusModManager
                         string MOD_TYPE = uri.Segments[1];
                         MOD_TYPE = char.ToUpper(MOD_TYPE[0]) + MOD_TYPE.Substring(1, MOD_TYPE.Length - 3);
                         string MOD_ID = uri.Segments[2];
+                        switch (MOD_TYPE)
+                        {
+                            case "Gamefile":
+                            case "Skin":
+                            case "Gui":
+                            case "Texture":
+                                var newUrl = ConvertUrl(row.link);
+                                uri = CreateUri(newUrl);
+                                MOD_TYPE = uri.Segments[1];
+                                MOD_TYPE = char.ToUpper(MOD_TYPE[0]) + MOD_TYPE.Substring(1, MOD_TYPE.Length - 3);
+                                MOD_ID = uri.Segments[2];
+                                break;
+                        }
                         if (!urlCounts.ContainsKey(MOD_TYPE))
                             urlCounts.Add(MOD_TYPE, 0);
                         int index = urlCounts[MOD_TYPE];
@@ -561,7 +597,7 @@ namespace AemulusModManager
         {
             if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
             {
-                Directory.CreateDirectory($@"{assemblyLocation}\temp");
+                Directory.CreateDirectory($@"{assemblyLocation}\temp\{Path.GetFileNameWithoutExtension(file)}");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = true;
                 startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
@@ -573,7 +609,7 @@ namespace AemulusModManager
 
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.UseShellExecute = false;
-                startInfo.Arguments = $@"x -y ""{assemblyLocation}\Downloads\{file}"" -o""{assemblyLocation}\temp""";
+                startInfo.Arguments = $@"x -y ""{assemblyLocation}\Downloads\{file}"" -o""{assemblyLocation}\temp\{Path.GetFileNameWithoutExtension(file)}""";
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
@@ -592,12 +628,12 @@ namespace AemulusModManager
                     }
                     MoveDirectory(folder, path);
                 }
-                var packgeSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*.xml", SearchOption.TopDirectoryOnly)
+                var packageSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*.xml", SearchOption.TopDirectoryOnly)
                         .Where(xml => !Path.GetFileName(xml).Equals("Package.xml", StringComparison.InvariantCultureIgnoreCase) && !Path.GetFileName(xml).Equals("Mod.xml", StringComparison.InvariantCultureIgnoreCase)).ToList();
-                if (packgeSetup.Count > 0)
+                if (packageSetup.Count > 0)
                 {
                     Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
-                    foreach (var xml in packgeSetup)
+                    foreach (var xml in packageSetup)
                     {
                         FileIOWrapper.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
                     }
@@ -624,7 +660,8 @@ namespace AemulusModManager
                 foreach (var file in folder)
                 {
                     var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
-                    if (FileIOWrapper.Exists(targetFile)) FileIOWrapper.Delete(targetFile);
+                    if (FileIOWrapper.Exists(targetFile)) 
+                        FileIOWrapper.Delete(targetFile);
                     FileIOWrapper.Move(file, targetFile);
                 }
             }
