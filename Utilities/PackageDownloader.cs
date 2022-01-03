@@ -217,7 +217,7 @@ namespace AemulusModManager.Utilities
             {
                 if (Path.GetExtension(file).ToLower() == ".7z" || Path.GetExtension(file).ToLower() == ".rar" || Path.GetExtension(file).ToLower() == ".zip")
                 {
-                    Directory.CreateDirectory($@"{assemblyLocation}\temp");
+                    Directory.CreateDirectory($@"{assemblyLocation}\temp\{Path.GetFileNameWithoutExtension(file)}");
                     ProcessStartInfo startInfo = new ProcessStartInfo();
                     startInfo.CreateNoWindow = true;
                     startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
@@ -229,7 +229,7 @@ namespace AemulusModManager.Utilities
 
                     startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                     startInfo.UseShellExecute = false;
-                    startInfo.Arguments = $@"x -y ""{file}"" -o""{assemblyLocation}\temp""";
+                    startInfo.Arguments = $@"x -y ""{file}"" -o""{assemblyLocation}\temp\{Path.GetFileNameWithoutExtension(file)}""";
                     using (Process process = new Process())
                     {
                         process.StartInfo = startInfo;
