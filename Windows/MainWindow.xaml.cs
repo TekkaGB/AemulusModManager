@@ -2448,10 +2448,7 @@ namespace AemulusModManager
 
         private void Setup_Click(object sender, MouseButtonEventArgs e)
         {
-            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus_Setup.pdf"))
-                Process.Start($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus_Setup.pdf");
-            else
-                Console.WriteLine("[ERROR] Aemulus_Setup.pdf not found.");
+            Process.Start("https://aemulus.cep.one/install");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

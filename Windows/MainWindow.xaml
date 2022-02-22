@@ -832,7 +832,7 @@
                                                 <Border.Background>
                                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
                                                 </Border.Background>
-                                                <TextBlock Margin="10" Text="Open PDF Guide to Get Started!" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
+                                                <TextBlock Margin="10" Text="Open Guide to Get Started!" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" />
                                             </Border>
                                         </Popup>
                                         <StackPanel Background="Transparent" Name="KofiPanel" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseLeftButtonDown="Kofi_Click" Cursor="Hand">
