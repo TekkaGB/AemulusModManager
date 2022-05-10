@@ -372,9 +372,12 @@ A new QoL feature added in v1.2 is the Launch button.  This is used to be able t
 
 ## AemIgnore
 Creating a new package or building an existing one will create a file called AemIgnore.csv. The purpose of this file is to allow mod creators to keep loose files in their mod without having those files moved and built into the mod output. To make use of this file, open the file in your favorite text editor and add the path to the file (or directory) to the first available line
-  
-![image](https://user-images.githubusercontent.com/89033534/167570530-92fd2193-3976-4b19-b7a1-c5c0be9505d1.png)
-  
+```
+  script\init.flow
+  camp\cardTex\c_card1e.dds
+  scheduler\hook\
+  field\panel\fldPanelLmap\
+```
 ## For Mod Creators - Aemulus Logo Overlay
 If you'd like to include an Aemulus overlay in your mod thumbnails to indicate that it supports Aemulus (which just means having a named folder and a mods.aem if necessary), you can use the file aemulus_overlay.png included in the download.  Thanks to Pixelguin for designing it.
 
