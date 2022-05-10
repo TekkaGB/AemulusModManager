@@ -19,14 +19,14 @@ namespace AemulusModManager.Utilities.FileMerging
                 var flowFiles = Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories)
                     .Where(s => (s.ToLower().EndsWith(".flow") || s.ToLower().EndsWith(".bf")) && !s.ToLower().EndsWith(".bf.flow"));
 
-                // Create new aemIgnore.csv if it doesn't exist
-                if (!FileIOWrapper.Exists($@"{dir}\AemIgnore.csv"))
+                // Create new Ignore.aem if it doesn't exist
+                if (!FileIOWrapper.Exists($@"{dir}\Ignore.aem"))
                 {
-                    Console.WriteLine("[INFO] Creating aemIgnore.csv");
-                    using (FileStream streamWriter = FileIOWrapper.Create($@"{dir}\AemIgnore.csv")) { }
+                    Console.WriteLine("[INFO] Creating Ignore.aem");
+                    using (FileStream streamWriter = FileIOWrapper.Create($@"{dir}\Ignore.aem")) { }
                 }
 
-                string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{dir}\AemIgnore.csv");
+                string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{dir}\Ignore.aem");
 
                 foreach (string file in flowFiles)
                 {

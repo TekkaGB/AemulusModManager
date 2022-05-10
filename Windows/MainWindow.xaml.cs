@@ -1446,6 +1446,7 @@ namespace AemulusModManager
                     try
                     {
                         Directory.CreateDirectory(path);
+                        using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\Ignore.aem")) { }
                         using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\Package.xml"))
                         {
                             try

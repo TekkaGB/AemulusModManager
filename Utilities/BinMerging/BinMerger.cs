@@ -185,13 +185,13 @@ namespace AemulusModManager
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
                         // Create new AemIgnore if missing
-                        if (!FileIOWrapper.Exists($@"{mod}\AemIgnore.csv"))
+                        if (!FileIOWrapper.Exists($@"{mod}\Ignore.aem"))
                         {
-                            Console.WriteLine("[INFO] Creating aemIgnore.csv");
-                            using (FileStream streamWriter = FileIOWrapper.Create($@"{mod}\AemIgnore.csv")) { }
+                            Console.WriteLine("[INFO] Creating Ignore.aem");
+                            using (FileStream streamWriter = FileIOWrapper.Create($@"{mod}\Ignore.aem")) { }
                         }
 
-                        string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{mod}\AemIgnore.csv");
+                        string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{mod}\Ignore.aem");
 
                         if (AemIgnore.Any(file.Contains))
                         {
