@@ -61,7 +61,7 @@ namespace AemulusModManager.Utilities.FileMerging
                         // Get the path of the file in original
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(bf, dir, game, false)}";
 
-                        if (AemIgnore.Any(filePath.Contains))
+                        if (AemIgnore.Any(file.Contains))
                         {
                             continue;
                         }

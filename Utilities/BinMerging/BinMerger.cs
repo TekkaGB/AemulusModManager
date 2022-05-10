@@ -184,6 +184,7 @@ namespace AemulusModManager
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
+                        // Create new AemIgnore if missing
                         if (!FileIOWrapper.Exists($@"{mod}\AemIgnore.csv"))
                         {
                             Console.WriteLine("[INFO] Creating aemIgnore.csv");
@@ -191,6 +192,7 @@ namespace AemulusModManager
                         }
 
                         string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{mod}\AemIgnore.csv");
+
                         if (AemIgnore.Any(file.Contains))
                         {
                             continue;
