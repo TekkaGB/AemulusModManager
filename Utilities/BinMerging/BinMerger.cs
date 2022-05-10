@@ -328,6 +328,10 @@ namespace AemulusModManager
                                 Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
+                        else if (Path.GetFileName(file) == "AemIgnore.csv")
+                        {
+                            continue; //Won't move AemIgnore into the mod folder
+                        }
                         else
                         {
                             if (useCpk)

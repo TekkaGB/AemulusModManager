@@ -1446,6 +1446,7 @@ namespace AemulusModManager
                     try
                     {
                         Directory.CreateDirectory(path);
+                        using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\AemIgnore.csv")) { }
                         using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\Package.xml"))
                         {
                             try
