@@ -176,7 +176,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
+                        && Path.GetExtension(file).ToLower() != ".csv" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
@@ -184,7 +184,18 @@ namespace AemulusModManager
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                        if (Path.GetExtension(file).ToLower() == ".bin"
+                        if (!FileIOWrapper.Exists($@"{mod}\AemIgnore.csv"))
+                        {
+                            Console.WriteLine("[INFO] Creating aemIgnore.csv");
+                            using (FileStream streamWriter = FileIOWrapper.Create($@"{mod}\AemIgnore.csv")) { }
+                        }
+
+                        string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{mod}\AemIgnore.csv");
+                        if (AemIgnore.Any(file.Contains))
+                        {
+                            continue;
+                        }
+                        else if (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".arc"
                             || Path.GetExtension(file).ToLower() == ".pak"
                             || Path.GetExtension(file).ToLower() == ".pac"
@@ -327,10 +338,6 @@ namespace AemulusModManager
                                 FileIOWrapper.Copy(file, binPath, true);
                                 Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
-                        }
-                        else if (Path.GetFileName(file) == "AemIgnore.csv")
-                        {
-                            continue; //Won't move AemIgnore into the mod folder
                         }
                         else
                         {
@@ -799,7 +806,7 @@ namespace AemulusModManager
             {
                 string path = Path.GetDirectoryName(modDir);
                 // Copy original cpk back if different
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && FileIOWrapper.Exists($@"{path}\{cpkLang}") 
+                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && FileIOWrapper.Exists($@"{path}\{cpkLang}")
                     && GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
                 {
                     Console.WriteLine($@"[INFO] Reverting {cpkLang} back to original");

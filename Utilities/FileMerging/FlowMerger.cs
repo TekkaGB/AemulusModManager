@@ -23,11 +23,11 @@ namespace AemulusModManager.Utilities.FileMerging
                 if (!FileIOWrapper.Exists($@"{dir}\AemIgnore.csv"))
                 {
                     Console.WriteLine("[INFO] Creating aemIgnore.csv");
-                    using (FileStream streamWriter = FileIOWrapper.Create($@"{dir}\AemIgnore.csv")){}
+                    using (FileStream streamWriter = FileIOWrapper.Create($@"{dir}\AemIgnore.csv")) { }
                 }
 
                 string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{dir}\AemIgnore.csv");
-                
+
                 foreach (string file in flowFiles)
                 {
                     string bf = Path.ChangeExtension(file, "bf");
@@ -60,7 +60,7 @@ namespace AemulusModManager.Utilities.FileMerging
                     {
                         // Get the path of the file in original
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(bf, dir, game, false)}";
-                        
+
                         if (AemIgnore.Any(filePath.Contains))
                         {
                             continue;
