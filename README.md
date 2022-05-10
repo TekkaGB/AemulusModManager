@@ -370,8 +370,8 @@ Since Aemulus Package Manager deletes the entire mods directory everytime you re
 ## Launching the Game from the Manager
 A new QoL feature added in v1.2 is the Launch button.  This is used to be able to launch your modded game straight from the package manager after building your loadout.  You can setup the paths for this to work in the config menu.  Under <Persona Game> Launch Shortcut Setup click browse to select the paths required.  Once you picked valid exe's, the Launch button on the main window will now start the game for you.
 
-## AemIgnore
-Creating a new package or building an existing one will create a file called AemIgnore.csv. The purpose of this file is to allow mod creators to keep loose files in their mod without having those files moved and built into the mod output. To make use of this file, open the file in your favorite text editor and add the path to the file (or directory) to the first available line
+## Ignore.aem
+Creating a new package or building an existing one will create a file called Ignore.aem. The purpose of this file is to allow mod creators to keep loose files in their mod without having those files moved and built into the mod output. To make use of this file, open the file in your favorite text editor and add the path to the file (or directory) to the first available line
 ```
   script\init.flow
   camp\cardTex\c_card1e.dds
