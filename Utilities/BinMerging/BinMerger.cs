@@ -86,7 +86,7 @@ namespace AemulusModManager
             List<string> mods = new List<string>();
             string line;
             string[] list = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly)
-                    .Where(s => (Path.GetExtension(s).ToLower() == ".aem")).ToArray();
+                    .Where(s => (Path.GetFileName(s) == "mod.aem")).ToArray();
             if (list.Length > 0)
             {
                 using (StreamReader stream = new StreamReader(list[0]))
@@ -176,7 +176,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetExtension(file).ToLower() != ".csv" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
+                        && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
