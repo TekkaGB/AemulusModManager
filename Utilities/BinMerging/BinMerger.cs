@@ -86,7 +86,7 @@ namespace AemulusModManager
             List<string> mods = new List<string>();
             string line;
             string[] list = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly)
-                    .Where(s => (Path.GetFileName(s) == "mod.aem")).ToArray();
+                    .Where(s => (Path.GetFileName(s) == "mods.aem")).ToArray();
             if (list.Length > 0)
             {
                 using (StreamReader stream = new StreamReader(list[0]))
