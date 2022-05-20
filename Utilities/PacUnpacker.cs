@@ -71,6 +71,91 @@ namespace AemulusModManager
             });
         }
 
+        // P3P
+        public static void UnzipAndUnpackCPK(string iso)
+        {
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable");
+            if (!FileIOWrapper.Exists(iso))
+            {
+                Console.Write($"[ERROR] Couldn't find {iso}. Please correct the file path in config.");
+                return;
+            }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
+            if (!FileIOWrapper.Exists(startInfo.FileName))
+            {
+                Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.UseShellExecute = false;
+            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable" + "\" PSP_GAME\\USRDIR\\umd0.cpk";
+            Console.WriteLine($"[INFO] Extracting umd0.cpk from {iso}");
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                process.WaitForExit();
+            }
+
+            string[] umd0Files = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_umd0.csv");
+
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
+            if (!FileIOWrapper.Exists(startInfo.FileName))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+                return;
+            }
+
+            var umd0Path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\PSP_GAME\USRDIR\umd0.cpk";
+            if (FileIOWrapper.Exists(umd0Path))
+            {
+                Console.WriteLine($"[INFO] Extracting files from umd0.cpk");
+                startInfo.RedirectStandardOutput = true;
+                foreach (var file in umd0Files)
+                {
+                    startInfo.Arguments = $@"-X {file} -i ""{umd0Path}"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable""";
+
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        while (!process.HasExited)
+                        {
+                            string text = process.StandardOutput.ReadLine();
+                            if (text != "" && text != null)
+                                Console.WriteLine($"[INFO] {text}");
+                        }
+                    }
+                }
+                Console.WriteLine("[INFO] Removing unwanted extracted files");
+
+                Console.WriteLine("[INFO] Unpacking extracted files");
+                ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\data");
+            }
+            else
+                Console.WriteLine($@"[ERROR] Couldn't find {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\PSP_GAME\USRDIR\umd0.cpk.");
+            if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\PSP_GAME"))
+                Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\PSP_GAME", true);
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
+
         // P4G
         public static void Unpack(string directory, string cpk)
         {
@@ -280,13 +365,13 @@ namespace AemulusModManager
                 return;
 
             var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
-                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak"));
+                Where(s => s.ToLower().EndsWith(".arc") || s.ToLower().EndsWith(".bin") || s.ToLower().EndsWith(".pac") || s.ToLower().EndsWith(".pak") || s.ToLower().EndsWith(".abin"));
             foreach(string file in files)
             {
                 List<string> contents = binMerge.getFileContents(file).Select(x => x.ToLower()).ToList();
                 // Check if there are any files we want (or files that could have files we want) and unpack them if so
-                bool containersFound = contents.Exists(x => x.EndsWith(".bin") || x.EndsWith(".pac") || x.EndsWith(".pak"));
-                if(contents.Exists(x => x.EndsWith(".bf") || x.EndsWith(".bmd") || x.EndsWith(".pm1") || x.EndsWith(".dat") || x.EndsWith(".ctd") || x.EndsWith(".ftd") || containersFound))
+                bool containersFound = contents.Exists(x => x.ToLower().EndsWith(".bin") || x.ToLower().EndsWith(".pac") || x.ToLower().EndsWith(".pak") || x.ToLower().EndsWith(".abin"));
+                if(contents.Exists(x => x.ToLower().EndsWith(".bf") || x.ToLower().EndsWith(".bmd") || x.ToLower().EndsWith(".pm1") || x.ToLower().EndsWith(".dat") || x.ToLower().EndsWith(".ctd") || x.ToLower().EndsWith(".ftd") || containersFound))
                 {
                     Console.WriteLine($"[INFO] Unpacking {file}");
                     binMerge.PAKPackCMD($"unpack \"{file}\"");

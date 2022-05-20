@@ -36,7 +36,8 @@ namespace AemulusModManager.Utilities.FileMerging
         {
             {"Persona 4 Golden", new string[]{ "V1", "P4G", "P4" } },
             {"Persona 3 FES" , new string[]{ "V1", "P3F", "P3" } },
-            {"Persona 5", new string[]{"V3BE", "P5", "P5"} }
+            {"Persona 5", new string[]{"V3BE", "P5", "P5"} },
+            {"Persona 3 Portable", new string[]{"V1", "P3P", "P3P"} }
         };
 
         // Compile a file with script compiler, returning true if it compiled successfully otherwise false
@@ -58,7 +59,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
             // Compile the file
             Console.WriteLine($"[INFO] Compiling {inFile}");
-            if (Path.GetExtension(outFile) == ".pm1")
+            if (Path.GetExtension(outFile).ToLowerInvariant() == ".pm1")
             {
                 string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe";
                 RunCommand(compilerPath, $"\"{inFile}\"");
@@ -67,7 +68,7 @@ namespace AemulusModManager.Utilities.FileMerging
             {
                 string[] args = gameArgs[game];
                 // Persona 5 bmds have a different outformat than their bfs
-                if (game == "Persona 5" && Path.GetExtension(inFile) == ".msg")
+                if (game == "Persona 5" && Path.GetExtension(inFile).ToLowerInvariant() == ".msg")
                     args[0] = "V1BE";
 
                 string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";

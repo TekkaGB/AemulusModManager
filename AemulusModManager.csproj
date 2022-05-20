@@ -182,6 +182,12 @@
     <Compile Include="Utilities\Windows\HiddenTextConverter.cs" />
     <Compile Include="Utilities\Windows\ShowHiddenConverter.cs" />
     <Compile Include="Utilities\Windows\Loadouts.cs" />
+    <Compile Include="Windows\ConfigWindowP3P.xaml.cs">
+      <DependentUpon>ConfigWindowP3P.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ConfigWindowP5R.xaml.cs">
+      <DependentUpon>ConfigWindowP5R.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\CreateLoadout.xaml.cs">
       <DependentUpon>CreateLoadout.xaml</DependentUpon>
     </Compile>
@@ -247,6 +253,14 @@
     <Page Include="Controls\ScrollViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfigWindowP3P.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfigWindowP5R.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\CreateLoadout.xaml">
       <SubType>Designer</SubType>
@@ -353,6 +367,9 @@
     <None Include="Dependencies\MakeCpk\filtered_ps3.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Dependencies\MakeCpk\filtered_umd0.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -401,6 +418,9 @@
     <Resource Include="Assets\p5sicon.png" />
     <Resource Include="Assets\GameBanana.png" />
     <Resource Include="Assets\loading.gif" />
+    <Resource Include="Assets\p3picon.png" />
+    <Resource Include="Assets\p5ricon.png" />
+    <Resource Include="Assets\pq2icon.png" />
     <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll" />
     <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml" />
     <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe" />

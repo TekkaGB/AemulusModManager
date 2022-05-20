@@ -44,7 +44,7 @@ namespace AemulusModManager
                 main.config.p5Config.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Colors.Red);
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }

@@ -1,9 +1,9 @@
-using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace AemulusModManager
@@ -11,11 +11,12 @@ namespace AemulusModManager
     /// <summary>
     /// Interaction logic for ConfigWindow.xaml
     /// </summary>
-    public partial class ConfigWindowP3F : Window
+    public partial class ConfigWindowP3P : Window
     {
         private MainWindow main;
+        private bool handled;
 
-        public ConfigWindowP3F(MainWindow _main)
+        public ConfigWindowP3P(MainWindow _main)
         {
             main = _main;
             InitializeComponent();
@@ -25,88 +26,82 @@ namespace AemulusModManager
             if (main.gamePath != null)
                 ISOTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
-                PCSX2Textbox.Text = main.launcherPath;
-            if (main.elfPath != null)
-                ELFTextbox.Text = main.elfPath;
-            AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
-            BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
-            BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
-            ChangelogBox.IsChecked = main.config.p3fConfig.updateChangelog;
-            DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
-            UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
-            UpdateBox.IsChecked = main.config.p3fConfig.updatesEnabled;
+                PPSSPPTextbox.Text = main.launcherPath;
+            BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
+            BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
+            ChangelogBox.IsChecked = main.config.p3pConfig.updateChangelog;
+            DeleteBox.IsChecked = main.config.p3pConfig.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p3pConfig.updateAll;
+            UpdateBox.IsChecked = main.config.p3pConfig.updatesEnabled;
             Console.WriteLine("[INFO] Config launched");
         }
-
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
             if (directory != null)
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.p3fConfig.modDir = directory;
+                main.config.p3pConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
         }
-
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
-            main.config.p3fConfig.buildWarning = true;
+            main.config.p3pConfig.buildWarning = true;
             main.updateConfig();
         }
 
         private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = false;
-            main.config.p3fConfig.buildWarning = false;
+            main.config.p3pConfig.buildWarning = false;
             main.updateConfig();
         }
         private void BuildFinishedChecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = true;
-            main.config.p3fConfig.buildFinished = true;
+            main.config.p3pConfig.buildFinished = true;
             main.updateConfig();
         }
         private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = false;
-            main.config.p3fConfig.buildFinished = false;
+            main.config.p3pConfig.buildFinished = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
-            main.config.p3fConfig.updateChangelog = true;
+            main.config.p3pConfig.updateChangelog = true;
             main.updateConfig();
         }
         private void ChangelogUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = false;
-            main.config.p3fConfig.updateChangelog = false;
+            main.config.p3pConfig.updateChangelog = false;
             main.updateConfig();
         }
         private void UpdateAllChecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = true;
-            main.config.p3fConfig.updateAll = true;
+            main.config.p3pConfig.updateAll = true;
             main.updateConfig();
         }
-
         private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = false;
-            main.config.p3fConfig.updateAll = false;
+            main.config.p3pConfig.updateAll = false;
             main.updateConfig();
         }
         private void UpdateChecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = true;
-            main.config.p3fConfig.updatesEnabled = true;
+            main.config.p3pConfig.updatesEnabled = true;
             main.updateConfig();
             UpdateAllBox.IsEnabled = true;
         }
@@ -114,7 +109,7 @@ namespace AemulusModManager
         private void UpdateUnchecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = false;
-            main.config.p3fConfig.updatesEnabled = false;
+            main.config.p3pConfig.updatesEnabled = false;
             main.updateConfig();
             UpdateAllBox.IsChecked = false;
             UpdateAllBox.IsEnabled = false;
@@ -122,24 +117,13 @@ namespace AemulusModManager
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;
-            main.config.p3fConfig.deleteOldVersions = true;
+            main.config.p3pConfig.deleteOldVersions = true;
             main.updateConfig();
         }
         private void DeleteUnchecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = false;
-            main.config.p3fConfig.deleteOldVersions = false;
-            main.updateConfig();
-        }
-
-        private void AdvancedLaunchOptionsChecked(object sender, RoutedEventArgs e)
-        {
-            main.p3fConfig.advancedLaunchOptions = true;
-            main.updateConfig();
-        }
-        private void AdvancedLaunchOptionsUnchecked(object sender, RoutedEventArgs e)
-        {
-            main.p3fConfig.advancedLaunchOptions = false;
+            main.config.p3pConfig.deleteOldVersions = false;
             main.updateConfig();
         }
 
@@ -168,75 +152,40 @@ namespace AemulusModManager
 
         private void SetupISOShortcut(object sender, RoutedEventArgs e)
         {
-            string p3fIso = selectExe("Select Persona 3 FES ISO", ".iso");
-            if (p3fIso != null && Path.GetExtension(p3fIso).ToLower() == ".iso")
+            string p3pISO = selectExe("Select Persona 3 Portable ISO", ".iso");
+            if (p3pISO != null)
             {
-                main.gamePath = p3fIso;
-                main.config.p3fConfig.isoPath = p3fIso;
+                main.gamePath = p3pISO;
+                main.config.p3pConfig.isoPath = p3pISO;
                 main.updateConfig();
-                ISOTextbox.Text = p3fIso;
+                ISOTextbox.Text = p3pISO;
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid ISO.");
+                Console.WriteLine("[ERROR] No ISO selected.");
             }
         }
 
-        private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
+        private void SetupPPSSPPShortcut(object sender, RoutedEventArgs e)
         {
-            string pcsx2Exe = selectExe("Select pcsx2.exe", ".exe");
-            if (Path.GetFileName(pcsx2Exe) == "pcsx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64-avx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64.exe")
+            string ppssppExe = selectExe("Select PPSSPPWindows.exe/PPSSPPWindows64.exe", ".exe");
+            if (Path.GetFileName(ppssppExe).ToLowerInvariant() == "ppssppwindows.exe" ||
+                Path.GetFileName(ppssppExe).ToLowerInvariant() == "ppssppwindows64.exe")
             {
-                main.launcherPath = pcsx2Exe;
-                main.config.p3fConfig.launcherPath = pcsx2Exe;
+                main.launcherPath = ppssppExe;
+                main.config.p3pConfig.launcherPath = ppssppExe;
                 main.updateConfig();
-                PCSX2Textbox.Text = pcsx2Exe;
+                PPSSPPTextbox.Text = ppssppExe;
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid EXE.");
-            }
-        }
-
-        private void SetupELFShortcut(object sender, RoutedEventArgs e)
-        {
-            string elf = selectExe("Select ELF/SLUS", "");
-            if (elf != null)
-            {
-                try
-                {
-                    // Read the first four bytes, verify that they end in "ELF"
-                    using BinaryReader reader = new BinaryReader(new FileStream(elf, FileMode.Open));
-                    string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
-                    if (!magic.EndsWith("ELF"))
-                    {
-                        Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
-                        return;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[ERROR] An exception occurred while trying to read the specified ELF/SLUS file: {ex.Message}");
-                }
-
-                main.elfPath = elf;
-                main.config.p3fConfig.elfPath = elf;
-                main.updateConfig();
-                ELFTextbox.Text = elf;
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] No ELF/SLUS file specified.");
+                Console.WriteLine("[ERROR] Invalid exe.");
             }
         }
 
         private string selectExe(string title, string extension)
         {
             string type = "Application";
-            if (extension == ".iso")
-                type = "PS2 Disc";
             var openExe = new CommonOpenFileDialog();
             openExe.Filters.Add(new CommonFileDialogFilter(type, $"*{extension}"));
             openExe.EnsurePathExists = true;
@@ -254,11 +203,11 @@ namespace AemulusModManager
         {
             if (main.gamePath == null || main.gamePath == "")
             {
-                string selectedPath = selectExe("Select P3F's iso to unpack", ".iso");
+                string selectedPath = selectExe("Select P3P ISO to unpack", ".iso");
                 if (selectedPath != null)
                 {
                     main.gamePath = selectedPath;
-                    main.config.p3fConfig.isoPath = main.gamePath;
+                    main.config.p3pConfig.isoPath = main.gamePath;
                     main.updateConfig();
                 }
                 else
@@ -283,6 +232,28 @@ namespace AemulusModManager
         private void NotifBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             NotifBox.SelectedIndex = 0;
+        }
+
+        private void CPKBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!IsLoaded)
+                return;
+            handled = true;
+        }
+
+        private void CPKBox_DropDownClosed(object sender, EventArgs e)
+        {
+            if (handled)
+            {
+                var cpkName = (CPKBox.SelectedValue as ComboBoxItem).Content as String;
+                if (main.config.p3pConfig.cpkName != cpkName)
+                {
+                    Console.WriteLine($"[INFO] Output Cpk changed to {cpkName}.cpk");
+                    main.config.p3pConfig.cpkName = cpkName;
+                    main.updateConfig();
+                }
+                handled = false;
+            }
         }
     }
 }

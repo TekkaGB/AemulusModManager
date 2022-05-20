@@ -38,9 +38,13 @@ namespace AemulusModManager
     {
         public AemulusConfig config;
         public ConfigP3F p3fConfig;
+        public ConfigP3P p3pConfig;
         public ConfigP4G p4gConfig;
+        public ConfigP4GVita p4gVitaConfig;
         public ConfigP5 p5Config;
+        public ConfigP5R p5rConfig;
         public ConfigP5S p5sConfig;
+        public ConfigPQ2 pq2Config;
         public Packages packages;
         public string game;
         private XmlSerializer xs;
@@ -67,6 +71,7 @@ namespace AemulusModManager
         public string cpkLang;
         public string selectedLoadout;
         public string lastUnpacked;
+        public string cpkPath;
         private BitmapImage bitmap;
         public List<FontAwesome5.ImageAwesome> buttons;
         private PackageUpdater packageUpdater;
@@ -232,10 +237,18 @@ namespace AemulusModManager
                 p5sConfig = new ConfigP5S();
                 p4gConfig = new ConfigP4G();
                 p3fConfig = new ConfigP3F();
+                p3pConfig = new ConfigP3P();
+                p4gVitaConfig = new ConfigP4GVita();
+                p5rConfig = new ConfigP5R();
+                pq2Config = new ConfigPQ2();
                 config.p4gConfig = p4gConfig;
                 config.p3fConfig = p3fConfig;
                 config.p5Config = p5Config;
                 config.p5sConfig = p5sConfig;
+                config.p3pConfig = p3pConfig;
+                config.p4gVitaConfig = p4gVitaConfig;
+                config.p5rConfig = p5rConfig;
+                config.pq2Config = pq2Config;
 
                 // Initialize xml serializers
                 XmlSerializer oldConfigSerializer = new XmlSerializer(typeof(Config));
@@ -281,7 +294,8 @@ namespace AemulusModManager
                             else
                                 config = (AemulusConfig)xs.Deserialize(streamWriter);
                             game = config.game;
-                            if (game != "Persona 4 Golden" && game != "Persona 3 FES" && game != "Persona 5" && game != "Persona 5 Strikers")
+                            // Default to P4G
+                            if (String.IsNullOrEmpty(game))
                             {
                                 game = "Persona 4 Golden";
                                 config.game = "Persona 4 Golden";
@@ -290,91 +304,189 @@ namespace AemulusModManager
 
                             bottomUpPriority = config.bottomUpPriority;
 
+                            if (config.p4gConfig == null)
+                                config.p4gConfig = p4gConfig;
+                            if (config.p3fConfig == null)
+                                config.p3fConfig = p3fConfig;
+                            if (config.p5Config == null)
+                                config.p5Config = p5Config;
+                            if (config.p5sConfig == null)
+                                config.p5sConfig = p5sConfig;
+                            if (config.p3pConfig == null) 
+                                config.p3pConfig = p3pConfig;
+                            if (config.p4gVitaConfig == null)
+                                config.p4gVitaConfig = p4gVitaConfig;
+                            if (config.p5rConfig == null)
+                                config.p5rConfig = p5rConfig;
+                            if (config.pq2Config == null)
+                                config.pq2Config = pq2Config;
+
                             if (config.p3fConfig != null)
                                 p3fConfig = config.p3fConfig;
+                            if (config.p3pConfig != null)
+                                p3pConfig = config.p3pConfig;
                             if (config.p4gConfig != null)
-                                p4gConfig = config.p4gConfig;
+                                p4gConfig = config.p4gConfig; 
+                            if (config.p4gVitaConfig != null)
+                                p4gVitaConfig = config.p4gVitaConfig;
                             if (config.p5Config != null)
                                 p5Config = config.p5Config;
-
-                            if (game == "Persona 4 Golden")
+                            if (config.p5sConfig != null)
+                                p5sConfig = config.p5sConfig;
+                            if (config.p5rConfig != null)
+                                p5rConfig = config.p5rConfig;
+                            if (config.pq2Config != null)
+                                pq2Config = config.pq2Config;
+                            switch (game)
                             {
-                                // Default
-                                if (cpkLang == null)
-                                {
-                                    cpkLang = "data_e.cpk";
-                                    config.p4gConfig.cpkLang = "data_e.cpk";
-                                }
-                                modPath = config.p4gConfig.modDir;
-                                selectedLoadout = config.p4gConfig.loadout;
-                                gamePath = config.p4gConfig.exePath;
-                                lastUnpacked = config.p4gConfig.lastUnpacked;
-                                launcherPath = config.p4gConfig.reloadedPath;
-                                emptySND = config.p4gConfig.emptySND;
-                                cpkLang = config.p4gConfig.cpkLang;
-                                useCpk = config.p4gConfig.useCpk;
-                                buildWarning = config.p4gConfig.buildWarning;
-                                buildFinished = config.p4gConfig.buildFinished;
-                                updateChangelog = config.p4gConfig.updateChangelog;
-                                updateAll = config.p4gConfig.updateAll;
-                                updatesEnabled = config.p4gConfig.updatesEnabled;
-                                deleteOldVersions = config.p4gConfig.deleteOldVersions;
-                                foreach (var button in buttons)
-                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                            }
-                            else if (game == "Persona 3 FES")
-                            {
-                                modPath = config.p3fConfig.modDir;
-                                selectedLoadout = config.p3fConfig.loadout;
-                                gamePath = config.p3fConfig.isoPath;
-                                lastUnpacked = config.p3fConfig.lastUnpacked;
-                                elfPath = config.p3fConfig.elfPath;
-                                launcherPath = config.p3fConfig.launcherPath;
-                                buildWarning = config.p3fConfig.buildWarning;
-                                buildFinished = config.p3fConfig.buildFinished;
-                                updateChangelog = config.p3fConfig.updateChangelog;
-                                updateAll = config.p3fConfig.updateAll;
-                                updatesEnabled = config.p3fConfig.updatesEnabled;
-                                deleteOldVersions = config.p3fConfig.deleteOldVersions;
-                                useCpk = false;
-                                ConvertCPK.Visibility = Visibility.Collapsed;
-                                foreach (var button in buttons)
-                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                            }
-                            else if (game == "Persona 5")
-                            {
-                                modPath = config.p5Config.modDir;
-                                selectedLoadout = config.p5Config.loadout;
-                                gamePath = config.p5Config.gamePath;
-                                lastUnpacked = config.p5Config.lastUnpacked;
-                                launcherPath = config.p5Config.launcherPath;
-                                buildWarning = config.p5Config.buildWarning;
-                                buildFinished = config.p5Config.buildFinished;
-                                updateChangelog = config.p5Config.updateChangelog;
-                                updateAll = config.p5Config.updateAll;
-                                updatesEnabled = config.p5Config.updatesEnabled;
-                                deleteOldVersions = config.p5Config.deleteOldVersions;
-                                useCpk = false;
-                                ConvertCPK.Visibility = Visibility.Collapsed;
-                                foreach (var button in buttons)
-                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
-                            }
-                            else if (game == "Persona 5 Strikers")
-                            {
-                                modPath = config.p5sConfig.modDir;
-                                selectedLoadout = config.p5sConfig.loadout;
-                                gamePath = null;
-                                launcherPath = null;
-                                buildWarning = config.p5sConfig.buildWarning;
-                                buildFinished = config.p5sConfig.buildFinished;
-                                updateChangelog = config.p5sConfig.updateChangelog;
-                                updateAll = config.p5sConfig.updateAll;
-                                updatesEnabled = config.p5sConfig.updatesEnabled;
-                                deleteOldVersions = config.p5sConfig.deleteOldVersions;
-                                useCpk = false;
-                                ConvertCPK.Visibility = Visibility.Collapsed;
-                                foreach (var button in buttons)
-                                    button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                                case "Persona 4 Golden":
+                                    // Default
+                                    if (cpkLang == null)
+                                    {
+                                        cpkLang = "data_e.cpk";
+                                        config.p4gConfig.cpkLang = "data_e.cpk";
+                                    }
+                                    modPath = config.p4gConfig.modDir;
+                                    selectedLoadout = config.p4gConfig.loadout;
+                                    gamePath = config.p4gConfig.exePath;
+                                    lastUnpacked = config.p4gConfig.lastUnpacked;
+                                    launcherPath = config.p4gConfig.reloadedPath;
+                                    emptySND = config.p4gConfig.emptySND;
+                                    cpkLang = config.p4gConfig.cpkLang;
+                                    useCpk = config.p4gConfig.useCpk;
+                                    buildWarning = config.p4gConfig.buildWarning;
+                                    buildFinished = config.p4gConfig.buildFinished;
+                                    updateChangelog = config.p4gConfig.updateChangelog;
+                                    updateAll = config.p4gConfig.updateAll;
+                                    updatesEnabled = config.p4gConfig.updatesEnabled;
+                                    deleteOldVersions = config.p4gConfig.deleteOldVersions;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
+                                    break;
+                                case "Persona 4 Golden (Vita)":
+                                    modPath = config.p4gVitaConfig.modDir;
+                                    selectedLoadout = config.p4gVitaConfig.loadout;
+                                    cpkPath = config.p4gVitaConfig.cpkPath;
+                                    gamePath = null;
+                                    launcherPath = null;
+                                    buildWarning = config.p4gVitaConfig.buildWarning;
+                                    buildFinished = config.p4gVitaConfig.buildFinished;
+                                    updateChangelog = config.p4gVitaConfig.updateChangelog;
+                                    updateAll = config.p4gVitaConfig.updateAll;
+                                    updatesEnabled = config.p4gVitaConfig.updatesEnabled;
+                                    deleteOldVersions = config.p4gVitaConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                                    LaunchButton.IsHitTestVisible = false;
+                                    LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                                    break;
+                                case "Persona 3 FES":
+                                    modPath = config.p3fConfig.modDir;
+                                    selectedLoadout = config.p3fConfig.loadout;
+                                    gamePath = config.p3fConfig.isoPath;
+                                    lastUnpacked = config.p3fConfig.lastUnpacked;
+                                    elfPath = config.p3fConfig.elfPath;
+                                    launcherPath = config.p3fConfig.launcherPath;
+                                    buildWarning = config.p3fConfig.buildWarning;
+                                    buildFinished = config.p3fConfig.buildFinished;
+                                    updateChangelog = config.p3fConfig.updateChangelog;
+                                    updateAll = config.p3fConfig.updateAll;
+                                    updatesEnabled = config.p3fConfig.updatesEnabled;
+                                    deleteOldVersions = config.p3fConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
+                                    break;
+                                case "Persona 3 Portable":
+                                    modPath = config.p3pConfig.modDir;
+                                    selectedLoadout = config.p3pConfig.loadout;
+                                    gamePath = config.p3pConfig.isoPath;
+                                    launcherPath = config.p3pConfig.launcherPath;
+                                    buildWarning = config.p3pConfig.buildWarning;
+                                    buildFinished = config.p3pConfig.buildFinished;
+                                    updateChangelog = config.p3pConfig.updateChangelog;
+                                    updateAll = config.p3pConfig.updateAll;
+                                    updatesEnabled = config.p3pConfig.updatesEnabled;
+                                    deleteOldVersions = config.p3pConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                                    break;
+                                case "Persona 5":
+                                    modPath = config.p5Config.modDir;
+                                    selectedLoadout = config.p5Config.loadout;
+                                    gamePath = config.p5Config.gamePath;
+                                    lastUnpacked = config.p5Config.lastUnpacked;
+                                    launcherPath = config.p5Config.launcherPath;
+                                    buildWarning = config.p5Config.buildWarning;
+                                    buildFinished = config.p5Config.buildFinished;
+                                    updateChangelog = config.p5Config.updateChangelog;
+                                    updateAll = config.p5Config.updateAll;
+                                    updatesEnabled = config.p5Config.updatesEnabled;
+                                    deleteOldVersions = config.p5Config.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
+                                    break;
+                                case "Persona 5 Strikers":
+                                    modPath = config.p5sConfig.modDir;
+                                    selectedLoadout = config.p5sConfig.loadout;
+                                    gamePath = null;
+                                    launcherPath = null;
+                                    buildWarning = config.p5sConfig.buildWarning;
+                                    buildFinished = config.p5sConfig.buildFinished;
+                                    updateChangelog = config.p5sConfig.updateChangelog;
+                                    updateAll = config.p5sConfig.updateAll;
+                                    updatesEnabled = config.p5sConfig.updatesEnabled;
+                                    deleteOldVersions = config.p5sConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x25, 0xf4, 0xb8));
+                                    break;
+                                case "Persona 5 Royal":
+                                    modPath = config.p5rConfig.modDir;
+                                    selectedLoadout = config.p5rConfig.loadout;
+                                    cpkPath = config.p5rConfig.cpkPath;
+                                    gamePath = null;
+                                    launcherPath = null;
+                                    buildWarning = config.p5rConfig.buildWarning;
+                                    buildFinished = config.p5rConfig.buildFinished;
+                                    updateChangelog = config.p5rConfig.updateChangelog;
+                                    updateAll = config.p5rConfig.updateAll;
+                                    updatesEnabled = config.p5rConfig.updatesEnabled;
+                                    deleteOldVersions = config.p5rConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                                    LaunchButton.IsHitTestVisible = false;
+                                    LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                                    break;
+                                case "Persona Q2":
+                                    modPath = config.pq2Config.modDir;
+                                    selectedLoadout = config.pq2Config.loadout;
+                                    cpkPath = config.pq2Config.cpkPath;
+                                    gamePath = null;
+                                    launcherPath = null;
+                                    buildWarning = config.pq2Config.buildWarning;
+                                    buildFinished = config.pq2Config.buildFinished;
+                                    updateChangelog = config.pq2Config.updateChangelog;
+                                    updateAll = config.pq2Config.updateAll;
+                                    updatesEnabled = config.pq2Config.updatesEnabled;
+                                    deleteOldVersions = config.pq2Config.deleteOldVersions;
+                                    useCpk = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
+                                    LaunchButton.IsHitTestVisible = false;
+                                    LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                                    break;
                             }
                         }
                         if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
@@ -384,14 +496,22 @@ namespace AemulusModManager
                     {
                     }
 
-                    if (config.p4gConfig == null)
-                        config.p4gConfig = p4gConfig;
-                    if (config.p3fConfig == null)
-                        config.p3fConfig = p3fConfig;
-                    if (config.p5Config == null)
-                        config.p5Config = p5Config;
-                    if (config.p5sConfig == null)
-                        config.p5sConfig = p5sConfig;
+                    if (config.p3fConfig != null)
+                        p3fConfig = config.p3fConfig;
+                    if (config.p3pConfig != null)
+                        p3pConfig = config.p3pConfig;
+                    if (config.p4gConfig != null)
+                        p4gConfig = config.p4gConfig;
+                    if (config.p4gVitaConfig != null)
+                        p4gVitaConfig = config.p4gVitaConfig;
+                    if (config.p5Config != null)
+                        p5Config = config.p5Config;
+                    if (config.p5sConfig != null)
+                        p5sConfig = config.p5sConfig;
+                    if (config.p5rConfig != null)
+                        p5rConfig = config.p5rConfig;
+                    if (config.pq2Config != null)
+                        pq2Config = config.pq2Config;
 
                     SwitchThemes();
 
@@ -402,14 +522,26 @@ namespace AemulusModManager
                         case "Persona 3 FES":
                             GameBox.SelectedIndex = 0;
                             break;
-                        case "Persona 4 Golden":
+                        case "Persona 3 Portable":
                             GameBox.SelectedIndex = 1;
                             break;
-                        case "Persona 5":
+                        case "Persona 4 Golden":
                             GameBox.SelectedIndex = 2;
                             break;
-                        case "Persona 5 Strikers":
+                        case "Persona 4 Golden (Vita)":
                             GameBox.SelectedIndex = 3;
+                            break;
+                        case "Persona 5":
+                            GameBox.SelectedIndex = 4;
+                            break;
+                        case "Persona 5 Royal":
+                            GameBox.SelectedIndex = 5;
+                            break;
+                        case "Persona 5 Strikers":
+                            GameBox.SelectedIndex = 6;
+                            break;
+                        case "Persona Q2":
+                            GameBox.SelectedIndex = 7;
                             break;
                     }
 
@@ -437,14 +569,26 @@ namespace AemulusModManager
                         case "Persona 3 FES":
                             config.p3fConfig.loadout = selectedLoadout;
                             break;
+                        case "Persona 3 Portable":
+                            config.p3pConfig.loadout = selectedLoadout;
+                            break;
                         case "Persona 4 Golden":
                             config.p4gConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona 4 Golden (Vita)":
+                            config.p4gVitaConfig.loadout = selectedLoadout;
                             break;
                         case "Persona 5":
                             config.p5Config.loadout = selectedLoadout;
                             break;
+                        case "Persona 5 Royal":
+                            config.p5rConfig.loadout = selectedLoadout;
+                            break;
                         case "Persona 5 Strikers":
                             config.p5sConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona Q2":
+                            config.pq2Config.loadout = selectedLoadout;
                             break;
                     }
                     updateConfig();
@@ -535,7 +679,7 @@ namespace AemulusModManager
                     cpkLang = "data_e.cpk";
                     config.p4gConfig.cpkLang = "data_e.cpk";
                     foreach (var button in buttons)
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                     showHidden = new Prop<bool>();
                     showHidden.Value = true; 
                     VisibilityButton.DataContext = showHidden;
@@ -549,21 +693,33 @@ namespace AemulusModManager
                     loadoutHandled = false;
                 }
 
-                if (game == "Persona 4 Golden" && config.p4gConfig.modDir != "" && config.p4gConfig.modDir != null)
+                if (game == "Persona 4 Golden" && !String.IsNullOrEmpty(config.p4gConfig.modDir))
                     modPath = config.p4gConfig.modDir;
-                else if (game == "Persona 3 FES" && config.p3fConfig.modDir != "" && config.p3fConfig.modDir != null)
+                else if (game == "Persona 4 Golden (Vita)" && !String.IsNullOrEmpty(config.p4gVitaConfig.modDir))
+                    modPath = config.p4gVitaConfig.modDir;
+                else if (game == "Persona 3 FES" && !String.IsNullOrEmpty(config.p3fConfig.modDir))
                     modPath = config.p3fConfig.modDir;
-                else if (game == "Persona 5" && config.p5Config.modDir != "" && config.p5Config.modDir != null)
+                else if (game == "Persona 3 Portable" && !String.IsNullOrEmpty(config.p3pConfig.modDir))
+                    modPath = config.p3pConfig.modDir;
+                else if (game == "Persona 5" && !String.IsNullOrEmpty(config.p5Config.modDir))
                     modPath = config.p5Config.modDir;
-                else if (game == "Persona 5 Strikers" && config.p5sConfig.modDir != "" && config.p5sConfig.modDir != null)
+                else if (game == "Persona 5 Royal" && !String.IsNullOrEmpty(config.p5rConfig.modDir))
+                    modPath = config.p5rConfig.modDir;
+                else if (game == "Persona 5 Strikers" && !String.IsNullOrEmpty(config.p5sConfig.modDir))
                     modPath = config.p5sConfig.modDir;
+                else if (game == "Persona Q2" && !String.IsNullOrEmpty(config.pq2Config.modDir))
+                    modPath = config.pq2Config.modDir;
 
                 // Create Packages directory if it doesn't exist
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 Portable");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden (Vita)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Strikers");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona Q2");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
 
                 Refresh();
@@ -615,7 +771,6 @@ namespace AemulusModManager
                 if (!oneClick)
                     UpdateAllAsync();
 
-                InitMediaPlayer();
             }
 
         }
@@ -781,6 +936,8 @@ namespace AemulusModManager
                     PacUnpacker.UnpackCPK(directory);
                 else if (game == "Persona 5 Strikers")
                     Merger.Backup(directory);
+                else if (game == "Persona 3 Portable")
+                    PacUnpacker.UnzipAndUnpackCPK(directory);
 
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
@@ -813,6 +970,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 5":
                             config.p5Config.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 3 Portable":
+                            config.p3pConfig.lastUnpacked = lastUnpacked;
                             break;
                     }
                     updateConfig();
@@ -928,6 +1088,15 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
                 }
+                else if (game == "Persona 3 Portable")
+                {
+                    if (!FileIOWrapper.Exists(gamePath))
+                    {
+                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        return;
+                    }
+                    startInfo.Arguments = $"\"{gamePath}\"";
+                }
                 DisableUI();
 
                 try
@@ -957,7 +1126,6 @@ namespace AemulusModManager
 
         private void ConfigWdwCommand()
         {
-
             if (game == "Persona 4 Golden")
             {
                 ConfigWindowP4G cWindow = new ConfigWindowP4G(this) { Owner = this };
@@ -979,6 +1147,12 @@ namespace AemulusModManager
             else if (game == "Persona 5 Strikers")
             {
                 ConfigWindowP5S cWindow = new ConfigWindowP5S(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 3 Portable")
+            {
+                ConfigWindowP3P cWindow = new ConfigWindowP3P(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
@@ -1390,7 +1564,7 @@ namespace AemulusModManager
                 LoadoutBox.IsHitTestVisible = false;
             });
         }
-        private void EnableUI()
+        public void EnableUI()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -1399,19 +1573,36 @@ namespace AemulusModManager
                 {
                     button.IsHitTestVisible = true;
                     if (game == "Persona 3 FES")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
                     else if (game == "Persona 4 Golden")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                     else if (game == "Persona 5 Strikers")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
-                    else
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x25, 0xf4, 0xb8));
+                    else if (game == "Persona 4 Golden (Vita)")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                    else if (game == "Persona 3 Portable")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                    else if (game == "Persona 5 Royal")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                    else if (game == "Persona Q2")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
+                    else if (game == "Persona 5")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
                 }
                 GameBox.IsHitTestVisible = true;
                 if (String.IsNullOrEmpty(modPath))
                 {
                     MergeButton.IsHitTestVisible = false;
                     MergeButton.Foreground = new SolidColorBrush(Colors.Gray);
+                }
+                switch (game)
+                {
+                    case "Persona 4 Golden (Vita)":
+                    case "Persona Q2":
+                    case "Persona 5 Royal":
+                        LaunchButton.IsHitTestVisible = false;
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        break;
                 }
 
                 LoadoutBox.IsHitTestVisible = true;
@@ -1438,9 +1629,9 @@ namespace AemulusModManager
                     return;
                 }
                 if (newPackage.metadata.version != "" && newPackage.metadata.version.Length > 0)
-                    path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{newPackage.metadata.name} {newPackage.metadata.version}";
+                    path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{string.Join("_", newPackage.metadata.name.Split(Path.GetInvalidFileNameChars()))} {string.Join("_", newPackage.metadata.version.Split(Path.GetInvalidFileNameChars()))}";
                 else
-                    path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{newPackage.metadata.name}";
+                    path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{string.Join("_", newPackage.metadata.name.Split(Path.GetInvalidFileNameChars()))}";
                 if (!Directory.Exists(path))
                 {
                     try
@@ -1698,6 +1889,15 @@ namespace AemulusModManager
                     {
                         path = $@"{modPath}\{config.p5Config.CpkName}";
                         Directory.CreateDirectory(path);
+                        if (File.Exists($@"{modPath}\{config.p5Config.CpkName}.cpk"))
+                            File.Delete($@"{modPath}\{config.p5Config.CpkName}.cpk");
+                    }
+                    if (game == "Persona 3 Portable")
+                    {
+                        path = $@"{modPath}\{config.p3pConfig.cpkName.Replace(".cpk", String.Empty)}";
+                        Directory.CreateDirectory(path);
+                        if (config.p3pConfig.cpkName.EndsWith(".cpk") && File.Exists($@"{modPath}\{config.p3pConfig.cpkName}"))
+                            File.Delete($@"{modPath}\{config.p3pConfig.cpkName}");
                     }
 
                     if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
@@ -1751,6 +1951,11 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                     }
 
+                    if (game == "Persona 3 Portable")
+                    {
+                        path = $@"{modPath}\{config.p3pConfig.cpkName.Replace(".cpk", String.Empty)}";
+                        Directory.CreateDirectory(path);
+                    }
                     if (buildWarning && Directory.EnumerateFileSystemEntries(path).Any())
                     {
                         bool YesNo = false;
@@ -1797,7 +2002,15 @@ namespace AemulusModManager
 
                         if (game == "Persona 5")
                         {
-                            binMerge.MakeCpk(path);
+                            binMerge.MakeCpk(path, true);
+                            if (!FileIOWrapper.Exists($@"{path}.cpk"))
+                            {
+                                Console.WriteLine($"[ERROR] Failed to build {path}.cpk!");
+                            }
+                        }
+                        if (game == "Persona 3 Portable" && config.p3pConfig.cpkName != "bind")
+                        {
+                            binMerge.MakeCpk(path, false);
                             if (!FileIOWrapper.Exists($@"{path}.cpk"))
                             {
                                 Console.WriteLine($"[ERROR] Failed to build {path}.cpk!");
@@ -2247,11 +2460,32 @@ namespace AemulusModManager
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
                         {
-                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
                             button.IsHitTestVisible = true;
                         }
                         break;
                     case 1:
+                        game = "Persona 3 Portable";
+                        modPath = config.p3pConfig.modDir;
+                        selectedLoadout = config.p3pConfig.loadout;
+                        gamePath = config.p3pConfig.isoPath;
+                        launcherPath = config.p3pConfig.launcherPath;
+                        buildWarning = config.p3pConfig.buildWarning;
+                        buildFinished = config.p3pConfig.buildFinished;
+                        updateChangelog = config.p3pConfig.updateChangelog;
+                        updateAll = config.p3pConfig.updateAll;
+                        updatesEnabled = config.p3pConfig.updatesEnabled;
+                        deleteOldVersions = config.p3pConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                            button.IsHitTestVisible = true;
+                        }
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        break;
+                    case 2:
                         game = "Persona 4 Golden";
                         modPath = config.p4gConfig.modDir;
                         selectedLoadout = config.p4gConfig.loadout;
@@ -2270,11 +2504,34 @@ namespace AemulusModManager
                         ConvertCPK.Visibility = Visibility.Visible;
                         foreach (var button in buttons)
                         {
-                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 2:
+                    case 3:
+                        game = "Persona 4 Golden (Vita)";
+                        modPath = config.p4gVitaConfig.modDir;
+                        selectedLoadout = config.p4gVitaConfig.loadout;
+                        cpkPath = config.p4gVitaConfig.cpkPath;
+                        gamePath = null;
+                        launcherPath = null;
+                        buildWarning = config.p4gVitaConfig.buildWarning;
+                        buildFinished = config.p4gVitaConfig.buildFinished;
+                        updateChangelog = config.p4gVitaConfig.updateChangelog;
+                        updateAll = config.p4gVitaConfig.updateAll;
+                        updatesEnabled = config.p4gVitaConfig.updatesEnabled;
+                        deleteOldVersions = config.p4gVitaConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                            button.IsHitTestVisible = true;
+                        }
+                        LaunchButton.IsHitTestVisible = false;
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        break;
+                    case 4:
                         game = "Persona 5";
                         modPath = config.p5Config.modDir;
                         selectedLoadout = config.p5Config.loadout;
@@ -2291,11 +2548,34 @@ namespace AemulusModManager
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
                         {
-                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 3:
+                    case 5:
+                        game = "Persona 5 Royal";
+                        modPath = config.p5rConfig.modDir;
+                        selectedLoadout = config.p5rConfig.loadout;
+                        cpkPath = config.p5rConfig.cpkPath;
+                        gamePath = null;
+                        launcherPath = null;
+                        buildWarning = config.p5rConfig.buildWarning;
+                        buildFinished = config.p5rConfig.buildFinished;
+                        updateChangelog = config.p5rConfig.updateChangelog;
+                        updateAll = config.p5rConfig.updateAll;
+                        updatesEnabled = config.p5rConfig.updatesEnabled;
+                        deleteOldVersions = config.p5rConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                            button.IsHitTestVisible = true;
+                        }
+                        LaunchButton.IsHitTestVisible = false;
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        break;
+                    case 6:
                         game = "Persona 5 Strikers";
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();
@@ -2313,9 +2593,32 @@ namespace AemulusModManager
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
                         {
-                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x25, 0xf4, 0xb8));
                             button.IsHitTestVisible = true;
                         }
+                        break;
+                    case 7:
+                        game = "Persona Q2";
+                        modPath = config.pq2Config.modDir;
+                        selectedLoadout = config.pq2Config.loadout;
+                        cpkPath = config.pq2Config.cpkPath;
+                        gamePath = null;
+                        launcherPath = null;
+                        buildWarning = config.pq2Config.buildWarning;
+                        buildFinished = config.pq2Config.buildFinished;
+                        updateChangelog = config.pq2Config.updateChangelog;
+                        updateAll = config.pq2Config.updateAll;
+                        updatesEnabled = config.pq2Config.updatesEnabled;
+                        deleteOldVersions = config.pq2Config.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
+                            button.IsHitTestVisible = true;
+                        }
+                        LaunchButton.IsHitTestVisible = false;
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                         break;
                 }
                 lastGame = game;
@@ -2323,6 +2626,7 @@ namespace AemulusModManager
                 HHH.Visibility = Visibility.Collapsed;
                 Inaba.Visibility = Visibility.Collapsed;
                 config.game = game;
+
                 if (String.IsNullOrEmpty(modPath))
                 {
                     MergeButton.IsHitTestVisible = false;
@@ -2554,16 +2858,28 @@ namespace AemulusModManager
                 switch (game)
                 {
                     case "Persona 3 FES":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x28, 0x52, 0x80));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x37, 0x58, 0x7b));
                         break;
                     case "Persona 4 Golden":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x77, 0x1a));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7a, 0x73, 0x1e));
                         break;
                     case "Persona 5":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x00, 0x00));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7d, 0x28, 0x28));
                         break;
                     case "Persona 5 Strikers":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x80, 0x1c, 0x00));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x12, 0x7a, 0x5c));
+                        break;
+                    case "Persona 3 Portable":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7e, 0x41, 0x71));
+                        break;
+                    case "Persona 4 Golden (Vita)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x5b, 0x41, 0x7e));
+                        break;
+                    case "Persona 5 Royal":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7b, 0x32, 0x42));
+                        break;
+                    case "Persona Q2":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7d, 0x42, 0x35));
                         break;
                 }
             }
@@ -2577,16 +2893,28 @@ namespace AemulusModManager
                 switch (game)
                 {
                     case "Persona 3 FES":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
                         break;
                     case "Persona 4 Golden":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                         break;
                     case "Persona 5":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
                         break;
                     case "Persona 5 Strikers":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x25, 0xf4, 0xb8));
+                        break;
+                    case "Persona 3 Portable":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                        break;
+                    case "Persona 4 Golden (Vita)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                        break;
+                    case "Persona 5 Royal":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                        break;
+                    case "Persona Q2":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
                         break;
                 }
             }
@@ -3227,9 +3555,11 @@ namespace AemulusModManager
             DescPanel.DataContext = button.DataContext;
             MediaPanel.DataContext = button.DataContext;
             DescText.ScrollToHome();
-            var text = "";
+            var text = String.Empty;
+            if (item.IsObsolete)
+                text += $"OBSOLESCENCE NOTICE\n{item.ConvertedObsolesenceNotice}\n\n- - - - -\n\n";
             if (!item.HasDownloads && item.HasAltLinks)
-                text += "This mod can't be installed directly through Aemulus from GameBanana. Use the Alt. Downloads button to download from your browser then manually install it.\n\n";
+                text += "This mod can't be installed directly through Aemulus from GameBanana. Use the Alt. Downloads button to download from your browser then manually install it.\n\n- - - - -\n\n";
             text += item.ConvertedText;
             DescText.Document = ConvertToFlowDocument(text);
             ImageLeft.IsEnabled = true;
@@ -3335,7 +3665,7 @@ namespace AemulusModManager
                 LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
-                var gameIDS = new string[] { "8502", "8263", "7545", "9099" };
+                var gameIDS = new string[] { "8502", "8583", "8263", "15703", "7545", "8464", "9099", "9561" };
                 var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
@@ -3483,6 +3813,7 @@ namespace AemulusModManager
         {
             if (!selected)
             {
+                InitMediaPlayer();
                 InitializeBrowser();
             }
         }
@@ -3512,9 +3843,13 @@ namespace AemulusModManager
             bgs = new List<BitmapImage>();
             var bgUrls = new string[] {
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p4g.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p4g.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
-            "pack://application:,,,/AemulusPackageManager;component/Assets/sophia.png"};
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/sophia.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png"};
             foreach (var bg in bgUrls)
                 bgs.Add(new BitmapImage(new Uri(bg)));
         }
@@ -3635,7 +3970,7 @@ namespace AemulusModManager
                 if (!searched)
                 {
                     FilterBox.ItemsSource = FilterBoxList;
-                    FilterBox.SelectedIndex = 0;
+                    FilterBox.SelectedIndex = 1;
                 }
                 // Set categories
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
@@ -3664,7 +3999,7 @@ namespace AemulusModManager
                 if (!searched)
                 {
                     FilterBox.ItemsSource = FilterBoxList;
-                    FilterBox.SelectedIndex = 0;
+                    FilterBox.SelectedIndex = 1;
                 }
                 // Set categories
                 if (cats[(GameFilter)GameFilterBox.SelectedIndex][(TypeFilter)TypeBox.SelectedIndex].Any(x => x.RootID == 0))
@@ -3693,7 +4028,7 @@ namespace AemulusModManager
                 if (!searched)
                 {
                     FilterBox.ItemsSource = FilterBoxList;
-                    FilterBox.SelectedIndex = 0;
+                    FilterBox.SelectedIndex = 1;
                 }
                 // Set Categories
                 var cat = (GameBananaCategory)CatBox.SelectedValue;
@@ -3741,13 +4076,25 @@ namespace AemulusModManager
                         gameID = "8502";
                         break;
                     case 1:
-                        gameID = "8263";
+                        gameID = "8583";
                         break;
                     case 2:
-                        gameID = "7545";
+                        gameID = "8263";
                         break;
                     case 3:
+                        gameID = "15703";
+                        break;
+                    case 4:
+                        gameID = "7545";
+                        break;
+                    case 5:
+                        gameID = "8464";
+                        break;
+                    case 6:
                         gameID = "9099";
+                        break;
+                    case 7:
+                        gameID = "9561";
                         break;
                 }
                 var ps = new ProcessStartInfo($"https://gamebanana.com/games/{gameID}")

@@ -107,18 +107,7 @@ namespace AemulusModManager
             e.Handled = true;
             App.Current.Dispatcher.Invoke((Action)delegate
             {
-                foreach (var button in ((MainWindow)Current.MainWindow).buttons)
-                {
-                    button.IsHitTestVisible = true;
-                    if (((MainWindow)Current.MainWindow).game == "Persona 3 FES")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x4f, 0xa4, 0xff));
-                    else if (((MainWindow)Current.MainWindow).game == "Persona 4 Golden")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xfe, 0xed, 0x2b));
-                    else if (((MainWindow)Current.MainWindow).game == "Persona 5")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
-                    else
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xff, 0x37, 0x00));
-                }
+                ((MainWindow)Current.MainWindow).EnableUI();
                 ((MainWindow)Current.MainWindow).ModGrid.IsHitTestVisible = true;
                 ((MainWindow)Current.MainWindow).GameBox.IsHitTestVisible = true;
                 Mouse.OverrideCursor = null;

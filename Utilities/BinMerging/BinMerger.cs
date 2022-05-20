@@ -185,6 +185,7 @@ namespace AemulusModManager
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
                         if (Path.GetExtension(file).ToLower() == ".bin"
+                            || Path.GetExtension(file).ToLower() == ".abin"
                             || Path.GetExtension(file).ToLower() == ".arc"
                             || Path.GetExtension(file).ToLower() == ".pak"
                             || Path.GetExtension(file).ToLower() == ".pac"
@@ -210,6 +211,7 @@ namespace AemulusModManager
                                 foreach (var f in Directory.GetFiles(Path.ChangeExtension(file, null), "*", SearchOption.AllDirectories))
                                 {
                                     if (Path.GetExtension(f).ToLower() == ".bin"
+                                    || Path.GetExtension(f).ToLower() == ".abin"
                                     || Path.GetExtension(f).ToLower() == ".arc"
                                     || Path.GetExtension(f).ToLower() == ".pak"
                                     || Path.GetExtension(f).ToLower() == ".pac"
@@ -220,6 +222,7 @@ namespace AemulusModManager
                                         foreach (var f2 in Directory.GetFiles(Path.ChangeExtension(f, null), "*", SearchOption.AllDirectories))
                                         {
                                             if (Path.GetExtension(f2).ToLower() == ".bin"
+                                            || Path.GetExtension(f2).ToLower() == ".abin"
                                             || Path.GetExtension(f2).ToLower() == ".arc"
                                             || Path.GetExtension(f2).ToLower() == ".pak"
                                             || Path.GetExtension(f2).ToLower() == ".pac"
@@ -363,6 +366,7 @@ namespace AemulusModManager
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {
                     if ((Path.GetExtension(file).ToLower() == ".bin"
+                        || Path.GetExtension(file).ToLower() == ".abin"
                         || Path.GetExtension(file).ToLower() == ".arc"
                         || Path.GetExtension(file).ToLower() == ".pak"
                         || Path.GetExtension(file).ToLower() == ".pac"
@@ -450,6 +454,13 @@ namespace AemulusModManager
                             Directory.CreateDirectory(Path.GetDirectoryName(d));
                         FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                     }
+                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".abin")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".abin")))
+                    {
+                        ogPath = Path.ChangeExtension(ogPath, ".abin");
+                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                        Directory.CreateDirectory(Path.GetDirectoryName(d));
+                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    }
                     if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".arc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".arc")))
                     {
                         ogPath = Path.ChangeExtension(ogPath, ".arc");
@@ -525,6 +536,7 @@ namespace AemulusModManager
                 foreach (var file in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))
                 {
                     if (Path.GetExtension(file).ToLower() == ".bin"
+                        || Path.GetExtension(file).ToLower() == ".abin"
                         || Path.GetExtension(file).ToLower() == ".arc"
                         || Path.GetExtension(file).ToLower() == ".pak"
                         || Path.GetExtension(file).ToLower() == ".pac"
@@ -586,6 +598,7 @@ namespace AemulusModManager
                                         {
                                             if ((Path.GetExtension(c).Equals(".spd", StringComparison.InvariantCultureIgnoreCase)
                                                 || Path.GetExtension(c).Equals(".bin", StringComparison.InvariantCultureIgnoreCase)
+                                                || Path.GetExtension(c).Equals(".abin", StringComparison.InvariantCultureIgnoreCase)
                                                 || Path.GetExtension(c).Equals(".arc", StringComparison.InvariantCultureIgnoreCase)
                                                 || Path.GetExtension(c).Equals(".pac", StringComparison.InvariantCultureIgnoreCase)
                                                 || Path.GetExtension(c).Equals(".pak", StringComparison.InvariantCultureIgnoreCase)
@@ -603,6 +616,7 @@ namespace AemulusModManager
                                     }
                                     // Check if we can unpack again
                                     if (Path.GetExtension(longestPrefix).ToLower() == ".bin"
+                                    || Path.GetExtension(longestPrefix).ToLower() == ".abin"
                                     || Path.GetExtension(longestPrefix).ToLower() == ".arc"
                                     || Path.GetExtension(longestPrefix).ToLower() == ".pak"
                                     || Path.GetExtension(longestPrefix).ToLower() == ".pac"
@@ -635,6 +649,7 @@ namespace AemulusModManager
                                             }
                                             // Check if we can unpack again
                                             if (Path.GetExtension(longestPrefix2).ToLower() == ".bin"
+                                            || Path.GetExtension(longestPrefix2).ToLower() == ".abin"
                                             || Path.GetExtension(longestPrefix2).ToLower() == ".arc"
                                             || Path.GetExtension(longestPrefix2).ToLower() == ".pak"
                                             || Path.GetExtension(longestPrefix2).ToLower() == ".pac"
@@ -658,7 +673,7 @@ namespace AemulusModManager
                                             else if (Path.GetExtension(longestPrefix2).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
                                             {
                                                 PAKPackCMD($"unpack \"{file2}\"");
-                                                string spdPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
+                                                string spdPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";                                          
                                                 if (Path.GetExtension(f).ToLower() == ".dds")
                                                     spdUtils.replaceDDS(spdPath, f);
                                                 else
@@ -680,6 +695,8 @@ namespace AemulusModManager
                                     else if (Path.GetExtension(longestPrefix).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
                                     {
                                         string spdPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
+                                        if (FileIOWrapper.Exists(spdPath.Replace("_temp", String.Empty)))
+                                            FileIOWrapper.Copy(spdPath.Replace("_temp", String.Empty), spdPath, true);
                                         if (Path.GetExtension(f).ToLower() == ".dds")
                                             spdUtils.replaceDDS(spdPath, f);
                                         else
@@ -744,6 +761,7 @@ namespace AemulusModManager
             foreach (var file in Directory.GetFiles(modDir, "*", SearchOption.AllDirectories))
             {
                 if ((Path.GetExtension(file).ToLower() == ".bin"
+                    || Path.GetExtension(file).ToLower() == ".abin"
                     || Path.GetExtension(file).ToLower() == ".arc"
                     || Path.GetExtension(file).ToLower() == ".pak"
                     || Path.GetExtension(file).ToLower() == ".pac"
@@ -863,7 +881,7 @@ namespace AemulusModManager
             return checksumString;
         }
 
-        public static void MakeCpk(string modDir)
+        public static void MakeCpk(string modDir, bool crc)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -874,7 +892,9 @@ namespace AemulusModManager
                 return;
             }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME -crc";
+            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME";
+            if (crc)
+                startInfo.Arguments += " -crc";
             Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
             using (Process process = new Process())
             {

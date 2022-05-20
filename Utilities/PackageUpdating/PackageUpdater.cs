@@ -83,6 +83,7 @@ namespace AemulusModManager
                             case "Skin":
                             case "Gui":
                             case "Texture":
+                            case "Effect":
                                 var newUrl = ConvertUrl(row.link);
                                 uri = CreateUri(newUrl);
                                 MOD_TYPE = uri.Segments[1];

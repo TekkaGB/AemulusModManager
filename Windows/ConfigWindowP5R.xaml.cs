@@ -1,8 +1,7 @@
-using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
@@ -11,11 +10,11 @@ namespace AemulusModManager
     /// <summary>
     /// Interaction logic for ConfigWindow.xaml
     /// </summary>
-    public partial class ConfigWindowP3F : Window
+    public partial class ConfigWindowP5R : Window
     {
         private MainWindow main;
 
-        public ConfigWindowP3F(MainWindow _main)
+        public ConfigWindowP5R(MainWindow _main)
         {
             main = _main;
             InitializeComponent();
@@ -23,90 +22,86 @@ namespace AemulusModManager
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
             if (main.gamePath != null)
-                ISOTextbox.Text = main.gamePath;
+                EBOOTTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
-                PCSX2Textbox.Text = main.launcherPath;
-            if (main.elfPath != null)
-                ELFTextbox.Text = main.elfPath;
-            AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
-            BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
-            BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
-            ChangelogBox.IsChecked = main.config.p3fConfig.updateChangelog;
-            DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
-            UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
-            UpdateBox.IsChecked = main.config.p3fConfig.updatesEnabled;
+                RPCS3Textbox.Text = main.launcherPath;
+            if (main.config.p5Config.CpkName != null)
+                CpkNameTextbox.Text = main.config.p5Config.CpkName;
+            BuildFinishedBox.IsChecked = main.config.p5Config.buildFinished;
+            BuildWarningBox.IsChecked = main.config.p5Config.buildWarning;
+            ChangelogBox.IsChecked = main.config.p5Config.updateChangelog;
+            DeleteBox.IsChecked = main.config.p5Config.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p5Config.updateAll;
+            UpdateBox.IsChecked = main.config.p5Config.updatesEnabled;
             Console.WriteLine("[INFO] Config launched");
         }
-
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
             if (directory != null)
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.p3fConfig.modDir = directory;
+                main.config.p5Config.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
+                main.MergeButton.Foreground = new SolidColorBrush(Colors.Red);
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
         }
-
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
-            main.config.p3fConfig.buildWarning = true;
+            main.config.p5Config.buildWarning = true;
             main.updateConfig();
         }
 
         private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = false;
-            main.config.p3fConfig.buildWarning = false;
+            main.config.p5Config.buildWarning = false;
             main.updateConfig();
         }
         private void BuildFinishedChecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = true;
-            main.config.p3fConfig.buildFinished = true;
+            main.config.p5Config.buildFinished = true;
             main.updateConfig();
         }
         private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = false;
-            main.config.p3fConfig.buildFinished = false;
+            main.config.p5Config.buildFinished = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
-            main.config.p3fConfig.updateChangelog = true;
+            main.config.p5Config.updateChangelog = true;
             main.updateConfig();
         }
         private void ChangelogUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = false;
-            main.config.p3fConfig.updateChangelog = false;
+            main.config.p5Config.updateChangelog = false;
             main.updateConfig();
         }
         private void UpdateAllChecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = true;
-            main.config.p3fConfig.updateAll = true;
+            main.config.p5Config.updateAll = true;
             main.updateConfig();
         }
-
         private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = false;
-            main.config.p3fConfig.updateAll = false;
+            main.config.p5Config.updateAll = false;
             main.updateConfig();
         }
         private void UpdateChecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = true;
-            main.config.p3fConfig.updatesEnabled = true;
+            main.config.p5Config.updatesEnabled = true;
             main.updateConfig();
             UpdateAllBox.IsEnabled = true;
         }
@@ -114,7 +109,7 @@ namespace AemulusModManager
         private void UpdateUnchecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = false;
-            main.config.p3fConfig.updatesEnabled = false;
+            main.config.p5Config.updatesEnabled = false;
             main.updateConfig();
             UpdateAllBox.IsChecked = false;
             UpdateAllBox.IsEnabled = false;
@@ -122,29 +117,24 @@ namespace AemulusModManager
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;
-            main.config.p3fConfig.deleteOldVersions = true;
+            main.config.p5Config.deleteOldVersions = true;
             main.updateConfig();
         }
         private void DeleteUnchecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = false;
-            main.config.p3fConfig.deleteOldVersions = false;
-            main.updateConfig();
-        }
-
-        private void AdvancedLaunchOptionsChecked(object sender, RoutedEventArgs e)
-        {
-            main.p3fConfig.advancedLaunchOptions = true;
-            main.updateConfig();
-        }
-        private void AdvancedLaunchOptionsUnchecked(object sender, RoutedEventArgs e)
-        {
-            main.p3fConfig.advancedLaunchOptions = false;
+            main.config.p5Config.deleteOldVersions = false;
             main.updateConfig();
         }
 
         private void onClose(object sender, CancelEventArgs e)
         {
+            if (main.config.p5Config.CpkName != CpkNameTextbox.Text)
+            {
+                Console.WriteLine($"[INFO] Output Cpk changed to {CpkNameTextbox.Text}.cpk");
+                main.config.p5Config.CpkName = CpkNameTextbox.Text;
+                main.updateConfig();
+            }
             Console.WriteLine("[INFO] Config closed");
         }
 
@@ -166,77 +156,43 @@ namespace AemulusModManager
             return null;
         }
 
-        private void SetupISOShortcut(object sender, RoutedEventArgs e)
+        private void SetupEBOOTShortcut(object sender, RoutedEventArgs e)
         {
-            string p3fIso = selectExe("Select Persona 3 FES ISO", ".iso");
-            if (p3fIso != null && Path.GetExtension(p3fIso).ToLower() == ".iso")
+            string p5Eboot = selectExe("Select Persona 5 EBOOT.BIN", ".bin");
+            if (p5Eboot != null && Path.GetFileName(p5Eboot).ToLower() == "eboot.bin")
             {
-                main.gamePath = p3fIso;
-                main.config.p3fConfig.isoPath = p3fIso;
+                main.gamePath = p5Eboot;
+                main.config.p5Config.gamePath = p5Eboot;
                 main.updateConfig();
-                ISOTextbox.Text = p3fIso;
+                EBOOTTextbox.Text = p5Eboot;
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid ISO.");
+                Console.WriteLine("[ERROR] Invalid EBOOT.BIN.");
             }
         }
 
-        private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
+        private void SetupRPCS3Shortcut(object sender, RoutedEventArgs e)
         {
-            string pcsx2Exe = selectExe("Select pcsx2.exe", ".exe");
-            if (Path.GetFileName(pcsx2Exe) == "pcsx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64-avx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64.exe")
+            string rpcs3Exe = selectExe("Select rpcs3.exe", ".exe");
+            if (Path.GetFileName(rpcs3Exe) == "rpcs3.exe")
             {
-                main.launcherPath = pcsx2Exe;
-                main.config.p3fConfig.launcherPath = pcsx2Exe;
+                main.launcherPath = rpcs3Exe;
+                main.config.p5Config.launcherPath = rpcs3Exe;
                 main.updateConfig();
-                PCSX2Textbox.Text = pcsx2Exe;
+                RPCS3Textbox.Text = rpcs3Exe;
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid EXE.");
-            }
-        }
-
-        private void SetupELFShortcut(object sender, RoutedEventArgs e)
-        {
-            string elf = selectExe("Select ELF/SLUS", "");
-            if (elf != null)
-            {
-                try
-                {
-                    // Read the first four bytes, verify that they end in "ELF"
-                    using BinaryReader reader = new BinaryReader(new FileStream(elf, FileMode.Open));
-                    string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
-                    if (!magic.EndsWith("ELF"))
-                    {
-                        Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
-                        return;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[ERROR] An exception occurred while trying to read the specified ELF/SLUS file: {ex.Message}");
-                }
-
-                main.elfPath = elf;
-                main.config.p3fConfig.elfPath = elf;
-                main.updateConfig();
-                ELFTextbox.Text = elf;
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] No ELF/SLUS file specified.");
+                Console.WriteLine("[ERROR] Invalid exe.");
             }
         }
 
         private string selectExe(string title, string extension)
         {
             string type = "Application";
-            if (extension == ".iso")
-                type = "PS2 Disc";
+            if (extension == ".bin")
+                type = "EBOOT";
             var openExe = new CommonOpenFileDialog();
             openExe.Filters.Add(new CommonFileDialogFilter(type, $"*{extension}"));
             openExe.EnsurePathExists = true;
@@ -254,11 +210,11 @@ namespace AemulusModManager
         {
             if (main.gamePath == null || main.gamePath == "")
             {
-                string selectedPath = selectExe("Select P3F's iso to unpack", ".iso");
-                if (selectedPath != null)
+                string selectedPath = selectExe("Select P5's EBOOT.BIN to unpack", ".bin");
+                if (selectedPath != null && Path.GetFileName(selectedPath) == "EBOOT.BIN")
                 {
                     main.gamePath = selectedPath;
-                    main.config.p3fConfig.isoPath = main.gamePath;
+                    main.config.p5Config.gamePath = main.gamePath;
                     main.updateConfig();
                 }
                 else
@@ -275,7 +231,7 @@ namespace AemulusModManager
                 button.Foreground = new SolidColorBrush(Colors.Gray);
             }
             main.GameBox.IsHitTestVisible = false;
-            await main.pacUnpack(main.gamePath);
+            await main.pacUnpack(Path.GetDirectoryName(main.gamePath));
             UnpackButton.IsHitTestVisible = true;
         }
 
