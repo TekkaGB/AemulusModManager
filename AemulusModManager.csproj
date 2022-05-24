@@ -182,6 +182,18 @@
     <Compile Include="Utilities\Windows\HiddenTextConverter.cs" />
     <Compile Include="Utilities\Windows\ShowHiddenConverter.cs" />
     <Compile Include="Utilities\Windows\Loadouts.cs" />
+    <Compile Include="Windows\ConfigWindowPQ2.xaml.cs">
+      <DependentUpon>ConfigWindowPQ2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ConfigWindowP5R.xaml.cs">
+      <DependentUpon>ConfigWindowP5R.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ConfigWindowP4GVita.xaml.cs">
+      <DependentUpon>ConfigWindowP4GVita.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ConfigWindowP3P.xaml.cs">
+      <DependentUpon>ConfigWindowP3P.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\CreateLoadout.xaml.cs">
       <DependentUpon>CreateLoadout.xaml</DependentUpon>
     </Compile>
@@ -245,6 +257,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfigWindowPQ2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ConfigWindowP5R.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ConfigWindowP4GVita.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ConfigWindowP3P.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,9 +370,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Aemulus_Setup.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
@@ -353,7 +378,40 @@
     <None Include="Dependencies\MakeCpk\filtered_data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Dependencies\MakeCpk\filtered_dataR.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_dataR_Localized.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_data_pq2.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_p4gdata.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_patch2R.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_patch2R_F.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_patch2R_G.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_patch2R_I.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_patch2R_S.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Dependencies\MakeCpk\filtered_ps3.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_ps4R.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dependencies\MakeCpk\filtered_umd0.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json">
@@ -395,15 +453,22 @@
     </None>
     <Resource Include="Assets\general.png" />
     <Resource Include="Assets\p3f.png" />
-    <Resource Include="Assets\p4g.png" />
     <Resource Include="Assets\p5.png" />
-    <Resource Include="Assets\sophia.png" />
     <Resource Include="Assets\p3ficon.png" />
     <Resource Include="Assets\p4gicon.png" />
     <Resource Include="Assets\p5icon.png" />
     <Resource Include="Assets\p5sicon.png" />
     <Resource Include="Assets\GameBanana.png" />
     <Resource Include="Assets\loading.gif" />
+    <Resource Include="Assets\p3picon.png" />
+    <Resource Include="Assets\p5ricon.png" />
+    <Resource Include="Assets\pq2icon.png" />
+    <Resource Include="Assets\p4g_vita.png" />
+    <Resource Include="Assets\p3p.png" />
+    <Resource Include="Assets\p4g_pc.png" />
+    <Resource Include="Assets\p5r.png" />
+    <Resource Include="Assets\p5s.png" />
+    <Resource Include="Assets\pq2.png" />
     <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll" />
     <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml" />
     <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe" />

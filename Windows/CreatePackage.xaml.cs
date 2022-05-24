@@ -89,9 +89,10 @@ namespace AemulusModManager
             metadata = new Metadata();
             string dirName;
             if (VersionBox.Text != null)
-                dirName = $@"Packages\{NameBox.Text} {VersionBox.Text}";
+                dirName = $@"{NameBox.Text} {VersionBox.Text}";
             else
-                dirName = $@"Packages\{NameBox.Text}";
+                dirName = NameBox.Text;
+            dirName = $@"Packages\{string.Join("_", dirName.Split(Path.GetInvalidFileNameChars()))}";
             if (!Directory.Exists(dirName) || editing)
             {
                 if ((bool)!AllowUpdates.IsChecked)

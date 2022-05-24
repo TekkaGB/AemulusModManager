@@ -123,6 +123,14 @@ namespace AemulusModManager
         public bool HasDescription => Description.Length > 100;
         [JsonProperty("_sText")]
         public string Text { get; set; }
+        [JsonProperty("_sObsolescenceNotice")]
+        public string ObsolescenceNotice { get; set; }
+        [JsonIgnore]
+        public string ConvertedObsolesenceNotice => String.IsNullOrEmpty(ObsolescenceNotice) ?
+            "This Mod has been marked as obsolete. It may no longer work and/or contain outdated information. It is retained for archival purposes." 
+            : ConvertHtmlToText(ObsolescenceNotice);
+        [JsonProperty("_bIsObsolete")]
+        public bool IsObsolete { get; set; }
         [JsonIgnore]
         public string ConvertedText => ConvertHtmlToText(Text);
         [JsonProperty("_nViewCount")]
