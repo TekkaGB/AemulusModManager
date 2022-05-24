@@ -1,21 +1,20 @@
-﻿<Window x:Class="AemulusModManager.ConfigWindowP5"
+﻿<Window x:Class="AemulusModManager.ConfigWindowPQ2"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 5 Config" Height="290" Width="600" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona Q2 Config" Height="240" Width="670" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
-            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="18"/>
             <RowDefinition Height="40"/>
@@ -23,23 +22,21 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="CPK Name" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="2" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P5 EBOOT Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="4" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">RPCS3.exe<LineBreak />Path</TextBlock>
-
-        <TextBlock Foreground="LightGray" Text="P5 Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="3" Grid.Column="2"/>
-        <TextBox Name="CpkNameTextbox" IsReadOnly="False" Margin="2,0,8,0" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="2" Height="20"/>
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="2" Grid.Column="2" Height ="20" HorizontalAlignment="Stretch"/>
-        <TextBox Name="EBOOTTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Height="20" Grid.Row="4" Grid.Column="2"/>
-        <TextBox Name="RPCS3Textbox" IsReadOnly="True" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="20"  Grid.Row="5" Grid.Column="2"/>
         
-        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="3" Width="60"/>
-        <Button Height="20" Width="60" Content="Browse" Name="EBOOTButton" Click="SetupEBOOTShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="4"/>
-        <Button Height="20" Width="60" Content="Browse" Name="RPCS3Button" Click="SetupRPCS3Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="3" />
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PQ2 .3ds/.app Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">citra-qt.exe Path</TextBlock>
 
-        <Grid Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3">
+        <TextBlock Foreground="LightGray" Text="PQ2 Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"/>
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="1" Grid.Column="2" Height ="20" HorizontalAlignment="Stretch"/>
+        <TextBox Name="ROMTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Height="20"  Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="CitraTextbox" IsReadOnly="True" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="20"  Grid.Row="4" Grid.Column="2"/>
+
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ROMButton" Click="SetupROMShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
+        <Button Height="20" Width="60" Content="Browse" Name="CitraButton" Click="SetupCitraShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" />
+
+        <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>

@@ -11,43 +11,39 @@ namespace AemulusModManager
     /// <summary>
     /// Interaction logic for ConfigWindow.xaml
     /// </summary>
-    public partial class ConfigWindowP3P : Window
+    public partial class ConfigWindowP4GVita : Window
     {
         private MainWindow main;
         private bool handled;
 
-        public ConfigWindowP3P(MainWindow _main)
+        public ConfigWindowP4GVita(MainWindow _main)
         {
             main = _main;
             InitializeComponent();
 
             if (main.modPath != null)
                 OutputTextbox.Text = main.modPath;
-            if (main.gamePath != null)
-                ISOTextbox.Text = main.gamePath;
-            if (main.launcherPath != null)
-                PPSSPPTextbox.Text = main.launcherPath;
-            BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
-            BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
-            ChangelogBox.IsChecked = main.config.p3pConfig.updateChangelog;
-            DeleteBox.IsChecked = main.config.p3pConfig.deleteOldVersions;
-            UpdateAllBox.IsChecked = main.config.p3pConfig.updateAll;
-            UpdateBox.IsChecked = main.config.p3pConfig.updatesEnabled;
-            switch (main.config.p3pConfig.cpkName)
+            BuildFinishedBox.IsChecked = main.config.p4gVitaConfig.buildFinished;
+            BuildWarningBox.IsChecked = main.config.p4gVitaConfig.buildWarning;
+            ChangelogBox.IsChecked = main.config.p4gVitaConfig.updateChangelog;
+            DeleteBox.IsChecked = main.config.p4gVitaConfig.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p4gVitaConfig.updateAll;
+            UpdateBox.IsChecked = main.config.p4gVitaConfig.updatesEnabled;
+            switch (main.config.p4gVitaConfig.cpkName)
             {
-                case "bind":
+                case "mod.cpk":
                     CPKBox.SelectedIndex = 0;
                     break;
-                case "mod.cpk":
+                case "m0.cpk":
                     CPKBox.SelectedIndex = 1;
                     break;
-                case "mod1.cpk":
+                case "m1.cpk":
                     CPKBox.SelectedIndex = 2;
                     break;
-                case "mod2.cpk":
+                case "m2.cpk":
                     CPKBox.SelectedIndex = 3;
                     break;
-                case "mod3.cpk":
+                case "m3.cpk":
                     CPKBox.SelectedIndex = 4;
                     break;
             }
@@ -59,10 +55,10 @@ namespace AemulusModManager
             if (directory != null)
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.p3pConfig.modDir = directory;
+                main.config.p4gVitaConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
@@ -70,56 +66,56 @@ namespace AemulusModManager
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
-            main.config.p3pConfig.buildWarning = true;
+            main.config.p4gVitaConfig.buildWarning = true;
             main.updateConfig();
         }
 
         private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = false;
-            main.config.p3pConfig.buildWarning = false;
+            main.config.p4gVitaConfig.buildWarning = false;
             main.updateConfig();
         }
         private void BuildFinishedChecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = true;
-            main.config.p3pConfig.buildFinished = true;
+            main.config.p4gVitaConfig.buildFinished = true;
             main.updateConfig();
         }
         private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = false;
-            main.config.p3pConfig.buildFinished = false;
+            main.config.p4gVitaConfig.buildFinished = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
-            main.config.p3pConfig.updateChangelog = true;
+            main.config.p4gVitaConfig.updateChangelog = true;
             main.updateConfig();
         }
         private void ChangelogUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = false;
-            main.config.p3pConfig.updateChangelog = false;
+            main.config.p4gVitaConfig.updateChangelog = false;
             main.updateConfig();
         }
         private void UpdateAllChecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = true;
-            main.config.p3pConfig.updateAll = true;
+            main.config.p4gVitaConfig.updateAll = true;
             main.updateConfig();
         }
         private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = false;
-            main.config.p3pConfig.updateAll = false;
+            main.config.p4gVitaConfig.updateAll = false;
             main.updateConfig();
         }
         private void UpdateChecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = true;
-            main.config.p3pConfig.updatesEnabled = true;
+            main.config.p4gVitaConfig.updatesEnabled = true;
             main.updateConfig();
             UpdateAllBox.IsEnabled = true;
         }
@@ -127,7 +123,7 @@ namespace AemulusModManager
         private void UpdateUnchecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = false;
-            main.config.p3pConfig.updatesEnabled = false;
+            main.config.p4gVitaConfig.updatesEnabled = false;
             main.updateConfig();
             UpdateAllBox.IsChecked = false;
             UpdateAllBox.IsEnabled = false;
@@ -135,13 +131,13 @@ namespace AemulusModManager
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;
-            main.config.p3pConfig.deleteOldVersions = true;
+            main.config.p4gVitaConfig.deleteOldVersions = true;
             main.updateConfig();
         }
         private void DeleteUnchecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = false;
-            main.config.p3pConfig.deleteOldVersions = false;
+            main.config.p4gVitaConfig.deleteOldVersions = false;
             main.updateConfig();
         }
 
@@ -168,44 +164,9 @@ namespace AemulusModManager
             return null;
         }
 
-        private void SetupISOShortcut(object sender, RoutedEventArgs e)
-        {
-            string p3pISO = selectExe("Select Persona 3 Portable ISO", ".iso");
-            if (p3pISO != null)
-            {
-                main.gamePath = p3pISO;
-                main.config.p3pConfig.isoPath = p3pISO;
-                main.updateConfig();
-                ISOTextbox.Text = p3pISO;
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] No ISO selected.");
-            }
-        }
-
-        private void SetupPPSSPPShortcut(object sender, RoutedEventArgs e)
-        {
-            string ppssppExe = selectExe("Select PPSSPPWindows.exe/PPSSPPWindows64.exe", ".exe");
-            if (Path.GetFileName(ppssppExe).ToLowerInvariant() == "ppssppwindows.exe" ||
-                Path.GetFileName(ppssppExe).ToLowerInvariant() == "ppssppwindows64.exe")
-            {
-                main.launcherPath = ppssppExe;
-                main.config.p3pConfig.launcherPath = ppssppExe;
-                main.updateConfig();
-                PPSSPPTextbox.Text = ppssppExe;
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] Invalid exe.");
-            }
-        }
-
         private string selectExe(string title, string extension)
         {
-            string type = "Application";
-            if (extension == ".iso")
-                type = "Disk";
+            string type = "File Container";
             var openExe = new CommonOpenFileDialog();
             openExe.Filters.Add(new CommonFileDialogFilter(type, $"*{extension}"));
             openExe.EnsurePathExists = true;
@@ -218,23 +179,13 @@ namespace AemulusModManager
             return null;
         }
 
-        // Use 7zip on iso
         private async void UnpackPacsClick(object sender, RoutedEventArgs e)
         {
-            if (main.gamePath == null || main.gamePath == "")
+            string selectedPath = selectExe("Select P4G Vita data.cpk to unpack", ".cpk");
+            if (selectedPath == null)
             {
-                string selectedPath = selectExe("Select P3P ISO to unpack", ".iso");
-                if (selectedPath != null)
-                {
-                    main.gamePath = selectedPath;
-                    main.config.p3pConfig.isoPath = main.gamePath;
-                    main.updateConfig();
-                }
-                else
-                {
-                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
-                    return;
-                }
+                Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                return;
             }
             main.ModGrid.IsHitTestVisible = false;
             UnpackButton.IsHitTestVisible = false;
@@ -244,7 +195,7 @@ namespace AemulusModManager
                 button.Foreground = new SolidColorBrush(Colors.Gray);
             }
             main.GameBox.IsHitTestVisible = false;
-            await main.pacUnpack(main.gamePath);
+            await main.pacUnpack(selectedPath);
             UnpackButton.IsHitTestVisible = true;
         }
 
@@ -266,10 +217,10 @@ namespace AemulusModManager
             if (handled)
             {
                 var cpkName = (CPKBox.SelectedValue as ComboBoxItem).Content as String;
-                if (main.config.p3pConfig.cpkName != cpkName)
+                if (main.config.p4gVitaConfig.cpkName != cpkName)
                 {
-                    Console.WriteLine($"[INFO] Output changed to {cpkName}");
-                    main.config.p3pConfig.cpkName = cpkName;
+                    Console.WriteLine($"[INFO] Output Cpk changed to {cpkName}");
+                    main.config.p4gVitaConfig.cpkName = cpkName;
                     main.updateConfig();
                 }
                 handled = false;

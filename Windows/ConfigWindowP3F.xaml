@@ -11,7 +11,7 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -30,16 +30,16 @@
         <TextBlock Foreground="LightGray" TextAlignment="Center" Text="P3F ELF Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="4" Height="20"/>
         <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PCSX2.exe Path" FontWeight="Bold" FontSize="13" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
         <TextBlock Foreground="LightGray" Text="P3 FES Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"></TextBlock>
-        
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="White" Grid.Row="1" Grid.Column="2" Height ="20" Width="310"/>
-        <TextBox Name="ISOTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Center" Background="White" Height="20" Width="310" Grid.Row="3" Grid.Column="2"/>
-        <TextBox Name="ELFTextbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="4" Grid.Column="2"/>
-        <TextBox Name="PCSX2Textbox" IsReadOnly="True" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Width="310" Grid.Row="5" Grid.Column="2"/>
+
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="1" Grid.Column="2" Height ="20"/>
+        <TextBox Name="ISOTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Height="20" Grid.Row="3" Grid.Column="2"/>
+        <TextBox Name="ELFTextbox" IsReadOnly="True" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="20" Grid.Row="4" Grid.Column="2"/>
+        <TextBox Name="PCSX2Textbox" IsReadOnly="True" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="20" Grid.Row="5" Grid.Column="2"/>
         
         <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
         <Button Height="20" Width="60" Content="Browse" Name="ISOButton" Click="SetupISOShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
-        <Button Height="20" Width="60" Content="Browse" Name="ELFButton" Click="SetupELFShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" Margin="19,11,18,10"/>
-        <Button Height="20" Width="60" Content="Browse" Name="PCSX2Button" Click="SetupPCSX2Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="3" Margin="19,11,18,10"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ELFButton" Click="SetupELFShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3"/>
+        <Button Height="20" Width="60" Content="Browse" Name="PCSX2Button" Click="SetupPCSX2Shortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="5" Grid.Column="3"/>
         
         <CheckBox Name="AdvancedLaunchOptions" Grid.Row="6" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Checked="AdvancedLaunchOptionsChecked" Unchecked="AdvancedLaunchOptionsUnchecked">
             <TextBlock Text="Prompt for Extra Options when Launching" Foreground="White" FontSize="13"/>

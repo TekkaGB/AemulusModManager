@@ -920,7 +920,13 @@
                                 </Border>
                             </Grid>
 
-
+                            <Button Content="Clear Logs" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Panel.ZIndex="2" Margin="10" FontSize="14" Click="ClearLogs_Click">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="2"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
                             <RichTextBox FontSize="12" FontFamily="{StaticResource Monospace}" x:Name="ConsoleOutput" Background="#202020" BorderBrush="#424242" Margin="4,3,5.5,0" ClipToBounds="False" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto" TextChanged="ScrollToBottom" IsReadOnly="True">
                                 <RichTextBox.Resources>
                                     <Style TargetType="{x:Type Paragraph}">

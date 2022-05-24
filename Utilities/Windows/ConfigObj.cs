@@ -63,7 +63,7 @@ namespace AemulusModManager
     public class ConfigP4GVita
     {
         public string modDir { get; set; }
-        public string cpkPath { get; set; }
+        public string cpkName { get; set; } = "m0.cpk";
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
@@ -130,7 +130,9 @@ namespace AemulusModManager
     public class ConfigP5R
     {
         public string modDir { get; set; }
-        public string cpkPath { get; set; }
+        public string cpkName { get; set; } = "mod.cpk";
+        public string language { get; set; } = "English";
+        public string version { get; set; } = "1.02";
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
@@ -144,7 +146,8 @@ namespace AemulusModManager
     public class ConfigPQ2
     {
         public string modDir { get; set; }
-        public string cpkPath { get; set; }
+        public string ROMPath { get; set; }
+        public string launcherPath { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;

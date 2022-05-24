@@ -184,9 +184,11 @@ namespace AemulusModManager.Utilities
                 }
             }
             var extraProps = type == TypeFilter.Tutorials ? String.Empty : ",_aAlternateFileSources,_nDownloadCount,_aFiles,_aModManagerIntegrations";
+            if (type != TypeFilter.WiPs)
+                extraProps += ",_bIsObsolete,_sObsolescenceNotice";
             // Consistent args
             url += $"_csvProperties=_sName,_sModelName,_sProfileUrl,_aSubmitter,_tsDateUpdated,_tsDateAdded,_aPreviewMedia,_sText,_sDescription,_aCategory,_aRootCategory,_aGame,_nViewCount," +
-                $"_nLikeCount,_bIsObsolete,_sObsolescenceNotice{extraProps}&_aArgs[]=_sbIsNsfw = false&_nPerpage={perPage}";
+                $"_nLikeCount{extraProps}&_aArgs[]=_sbIsNsfw = false&_nPerpage={perPage}";
             // Sorting filter
             switch (filter)
             {
