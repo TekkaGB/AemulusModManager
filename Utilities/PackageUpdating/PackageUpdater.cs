@@ -83,6 +83,7 @@ namespace AemulusModManager
                             case "Skin":
                             case "Gui":
                             case "Texture":
+                            case "Effect":
                                 var newUrl = ConvertUrl(row.link);
                                 uri = CreateUri(newUrl);
                                 MOD_TYPE = uri.Segments[1];
@@ -628,7 +629,7 @@ namespace AemulusModManager
                     }
                     MoveDirectory(folder, path);
                 }
-                var packageSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*.xml", SearchOption.TopDirectoryOnly)
+                var packageSetup = Directory.GetFiles($@"{assemblyLocation}\temp", "*.xml", SearchOption.AllDirectories)
                         .Where(xml => !Path.GetFileName(xml).Equals("Package.xml", StringComparison.InvariantCultureIgnoreCase) && !Path.GetFileName(xml).Equals("Mod.xml", StringComparison.InvariantCultureIgnoreCase)).ToList();
                 if (packageSetup.Count > 0)
                 {

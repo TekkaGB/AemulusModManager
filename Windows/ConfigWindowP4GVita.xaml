@@ -1,0 +1,81 @@
+﻿<Window x:Class="AemulusModManager.ConfigWindowP4GVita"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AemulusModManager"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner"
+        Title="Persona 4 Golden (Vita) Config" Height="150" Width="700" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+    <Grid Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15" />
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"/>
+
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="1" Grid.Column="2" Height ="20" HorizontalAlignment="Stretch"/>
+
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
+
+        <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="0" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="1">
+                <ComboBox x:Name="NotifBox" Width="120" FontSize="15" Text="Notifications" SelectedIndex="0" SelectionChanged="NotifBox_SelectionChanged">
+                    <ComboBoxItem Visibility="Collapsed">Notifications</ComboBoxItem>
+                    <CheckBox x:Name="BuildWarningBox" Foreground="#f2f2f2" Content="Build Warning" Checked="BuildWarningChecked" Unchecked="BuildWarningUnchecked"/>
+                    <CheckBox x:Name="BuildFinishedBox" Foreground="#f2f2f2" Content="Build Finished" Checked="BuildFinishedChecked" Unchecked="BuildFinishedUnchecked"/>
+                    <CheckBox x:Name="ChangelogBox" Foreground="#f2f2f2" Content="Update Changelog" Checked="ChangelogChecked" Unchecked="ChangelogUnchecked"/>
+                </ComboBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
+                <ComboBox x:Name="CPKBox" Width="120" FontSize="15" Text="Notifications" SelectedIndex="0" SelectionChanged="CPKBox_SelectionChanged" DropDownClosed="CPKBox_DropDownClosed">
+                    <ComboBoxItem Foreground="#f2f2f2" Content="mod.cpk"/>
+                    <ComboBoxItem IsSelected="True" Foreground="#f2f2f2" Content="m0.cpk"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="m1.cpk"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="m2.cpk"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="m3.cpk"/>
+                </ComboBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
+                <CheckBox Name="DeleteBox" Foreground ="White" Checked="DeleteChecked" Unchecked="DeleteUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Delete Old<LineBreak/>
+                        Versions
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
+                <CheckBox Name="UpdateBox" Foreground ="White" Checked="UpdateChecked" Unchecked="UpdateUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Enable Mod<LineBreak/>
+                        Updates
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="5">
+                <CheckBox Name="UpdateAllBox" Foreground ="White" Checked="UpdateAllChecked" Unchecked="UpdateAllUnchecked" IsEnabled="False">
+                    <TextBlock TextAlignment="Center">
+                        Update All<LineBreak/>
+                        On Refresh
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+        </Grid>
+    </Grid>
+</Window>

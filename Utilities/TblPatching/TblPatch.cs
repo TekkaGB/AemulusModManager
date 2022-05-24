@@ -25,7 +25,7 @@ namespace AemulusModManager
 
         private static void unpackTbls(string archive, string game)
         {
-            if (game == "Persona 3 FES")
+            if (game == "Persona 3 FES" || game == "Persona 3 Portable")
                 return;
             PAKPackCMD($@"unpack ""{archive}"" ""{tblDir}""");
         }
@@ -54,7 +54,7 @@ namespace AemulusModManager
         private static void repackTbls(string tbl, string archive, string game)
         {
             string parent = null;
-            if (game == "Persona 4 Golden")
+            if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)")
             {
                 parent = "battle";
                 if (Path.GetFileName(tbl).Equals("ITEMTBL.TBL"))
@@ -63,14 +63,15 @@ namespace AemulusModManager
                     tbl = tbl.Replace(@"battle\ITEMTBL.TBL", @"init\itemtbl.bin");
                 }
             }
-            else if (game == "Persona 5")
+            else if (game == "Persona 5" || game == "Persona 5 Royal")
                 parent = "table";
-            else if (game == "Persona 3 FES")
+            else if (game == "Persona 3 FES" || game == "Persona 3 Portable")
                 return;
             PAKPackCMD($@"replace ""{archive}"" {parent}/{Path.GetFileName(tbl)} ""{tbl}""");
         }
 
         private static string[] p4gTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC", "ITEMTBL" };
+        private static string[] p3pTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC" };
         private static string[] p3fTables = { "SKILL", "SKILL_F", "UNIT", "UNIT_F", "MSG", "PERSONA", "PERSONA_F", "ENCOUNT", "ENCOUNT_F", "EFFECT", "MODEL", "AICALC", "AICALC_F" };
         private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL", "NAME" };
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
@@ -109,9 +110,11 @@ namespace AemulusModManager
                     }
                 }
             }
-            else if (game == "Persona 5")
+            else if (game == "Persona 4 Golden (Vita)")
+                archive = $@"init_free.bin";
+            else if (game == "Persona 5" || game == "Persona 5 Royal")
                 archive = @"battle\table.pac";
-            if (game != "Persona 3 FES")
+            if (game != "Persona 3 FES" || game != "Persona 3 Portable")
             {
                 if (!File.Exists($@"{modDir}\{archive}"))
                 {
@@ -170,7 +173,7 @@ namespace AemulusModManager
                             break;
                         case "MSG":
                             tblName = "MSG.TBL";
-                            if (game == "Persona 5")
+                            if (game == "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -184,7 +187,7 @@ namespace AemulusModManager
                             break;
                         case "EFF":
                             tblName = "EFFECT.TBL";
-                            if (game == "Persona 5")
+                            if (game == "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -192,7 +195,7 @@ namespace AemulusModManager
                             break;
                         case "MDL":
                             tblName = "MODEL.TBL";
-                            if (game == "Persona 5")
+                            if (game == "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -243,7 +246,7 @@ namespace AemulusModManager
                             break;
                         case "EAI":
                             tblName = "ELSAI.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -251,7 +254,7 @@ namespace AemulusModManager
                             break;
                         case "EXT":
                             tblName = "EXIST.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -259,7 +262,7 @@ namespace AemulusModManager
                             break;
                         case "ITM":
                             tblName = "ITEM.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -267,7 +270,7 @@ namespace AemulusModManager
                             break;
                         case "NME":
                             tblName = "NAME.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -275,7 +278,7 @@ namespace AemulusModManager
                             break;
                         case "PLY":
                             tblName = "PLAYER.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -283,7 +286,7 @@ namespace AemulusModManager
                             break;
                         case "TKI":
                             tblName = "TALKINFO.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -291,7 +294,7 @@ namespace AemulusModManager
                             break;
                         case "VSL":
                             tblName = "VISUAL.TBL";
-                            if (game != "Persona 5")
+                            if (game != "Persona 5" || game == "Persona 5 Royal")
                             {
                                 Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
@@ -326,18 +329,7 @@ namespace AemulusModManager
                         byte[] fileContents = SliceArray(file, 11, file.Length);
 
                         // TBL file to edit
-                        if (game != "Persona 3 FES")
-                        {
-                            string unpackedTblPath = null;
-                            if (game == "Persona 4 Golden")
-                                unpackedTblPath = $@"{tblDir}\battle\{tblName}";
-                            else
-                                unpackedTblPath = $@"{tblDir}\table\{tblName}";
-                            byte[] tblBytes = File.ReadAllBytes(unpackedTblPath);
-                            fileContents.CopyTo(tblBytes, offset);
-                            File.WriteAllBytes(unpackedTblPath, tblBytes);
-                        }
-                        else
+                        if (game == "Persona 3 FES")
                         {
                             if (!File.Exists($@"{modDir}\BTL\BATTLE\{tblName}"))
                             {
@@ -357,6 +349,38 @@ namespace AemulusModManager
                             byte[] tblBytes = File.ReadAllBytes(tblPath);
                             fileContents.CopyTo(tblBytes, offset);
                             File.WriteAllBytes(tblPath, tblBytes);
+                        }
+                        else if (game == "Persona 3 Portable")
+                        {
+                            if (!File.Exists($@"{modDir}\data\battle\{tblName}"))
+                            {
+                                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{tblName}"))
+                                {
+                                    Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
+                                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{tblName}", $@"{modDir}\data\battle\{tblName}", true);
+                                    Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
+                                }
+                                else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{tblName}"))
+                                {
+                                    Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
+                                    continue;
+                                }
+                            }
+                            string tblPath = $@"{modDir}\data\battle\{tblName}";
+                            byte[] tblBytes = File.ReadAllBytes(tblPath);
+                            fileContents.CopyTo(tblBytes, offset);
+                            File.WriteAllBytes(tblPath, tblBytes);
+                        }
+                        else
+                        {
+                            string unpackedTblPath = null;
+                            if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)")
+                                unpackedTblPath = $@"{tblDir}\battle\{tblName}";
+                            else
+                                unpackedTblPath = $@"{tblDir}\table\{tblName}";
+                            byte[] tblBytes = File.ReadAllBytes(unpackedTblPath);
+                            fileContents.CopyTo(tblBytes, offset);
+                            File.WriteAllBytes(unpackedTblPath, tblBytes);
                         }
                     }
                     else
@@ -403,8 +427,11 @@ namespace AemulusModManager
                             if (!tables.Exists(x => x.tableName == patch.tbl))
                             {
                                 if ((game == "Persona 4 Golden" && !p4gTables.Contains(patch.tbl))
+                                    || (game == "Persona 4 Golden (Vita)" && !p4gTables.Contains(patch.tbl))
                                     || (game == "Persona 3 FES" && !p3fTables.Contains(patch.tbl))
-                                    || (game == "Persona 5" && !p5Tables.Contains(patch.tbl)))
+                                    || (game == "Persona 5" && !p5Tables.Contains(patch.tbl))
+                                    || (game == "Persona 5 Royal" && !p5Tables.Contains(patch.tbl))
+                                    || (game == "Persona 3 Portable" && !p3pTables.Contains(patch.tbl)))
                                 {
                                     Console.WriteLine($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
                                     continue;
@@ -429,10 +456,28 @@ namespace AemulusModManager
                                         }
                                     }
                                 }
-                                else if (game == "Persona 4 Golden")
+                                else if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)")
                                     tablePath = patch.tbl.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{patch.tbl}.TBL";
-                                else
+                                else if (game == "Persona 5" || game == "Persona 5 Royal")
                                     tablePath = $@"{tblDir}\table\{patch.tbl}.TBL";
+                                else if (game == "Persona 3 Portable")
+                                {
+                                    tablePath = $@"{modDir}\data\battle\{patch.tbl}.TBL";
+                                    if (!File.Exists(tablePath))
+                                    {
+                                        if (File.Exists($@"Original\{game}\data\battle\{patch.tbl}.TBL"))
+                                        {
+                                            Directory.CreateDirectory($@"{modDir}\data\battle");
+                                            File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{patch.tbl}.TBL", tablePath, true);
+                                            Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
+                                        }
+                                        else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{patch.tbl}.TBL"))
+                                        {
+                                            Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
+                                            continue;
+                                        }
+                                    }
+                                }
                                 if (patch.tbl == "NAME")
                                     table.nameSections = GetNameSections(tablePath);
                                 else
@@ -455,10 +500,12 @@ namespace AemulusModManager
                     string path = null;
                     if (game == "Persona 3 FES")
                         path = $@"{modDir}\BTL\BATTLE\{table.tableName}.TBL";
-                    else if (game == "Persona 4 Golden")
+                    else if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)")
                         path = table.tableName.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{table.tableName}.TBL";
-                    else
+                    else if (game == "Persona 5" || game == "Persona 5 Royal")
                         path = $@"{tblDir}\table\{table.tableName}.TBL";
+                    else if (game == "Persona 3 Portable")
+                        path = $@"{modDir}\data\battle\{table.tableName}.TBL";
                     if (table.tableName == "NAME")
                         WriteNameTbl(table.nameSections, path);
                     else
@@ -478,7 +525,7 @@ namespace AemulusModManager
                         Console.WriteLine($"[INFO] Replacing itemtbl.bin in {archive}");
                     else
                         Console.WriteLine($"[INFO] Replacing {u} in {archive}");
-                    if (game == "Persona 5")
+                    if (game == "Persona 5" || game == "Persona 5 Royal")
                         repackTbls($@"{tblDir}\table\{u}", $@"{modDir}\{archive}", game);
                     else
                         repackTbls($@"{tblDir}\battle\{u}", $@"{modDir}\{archive}", game);
@@ -505,7 +552,7 @@ namespace AemulusModManager
                 return sections;
             }
             bool bigEndian = false;
-            if (game == "Persona 5")
+            if (game == "Persona 5" || game == "Persona 5 Royal")
                 bigEndian = true;
             using (FileStream
             fileStream = new FileStream(tbl, FileMode.Open))
@@ -543,7 +590,7 @@ namespace AemulusModManager
             int pos = 0;
             NameSection section;
             // 33 sections
-            for (int i = 0; i <= 16; i++)
+            while (pos < tblBytes.Length)
             {
                 section = new NameSection();
                 // Get big endian section size
@@ -810,14 +857,14 @@ namespace AemulusModManager
         private static void WriteTbl(List<Section> sections, string path, string game)
         {
             bool bigEndian = false;
-            if (game == "Persona 5")
+            if (game == "Persona 5" || game == "Persona 5 Royal")
                 bigEndian = true;
             using (FileStream
             fileStream = new FileStream(path, FileMode.Create))
             {
                 using (BinaryWriter bw = new BinaryWriter(fileStream))
                 {
-                    if (game == "Persona 4 Golden" && Path.GetFileName(path).Equals("itemtbl.bin", StringComparison.InvariantCultureIgnoreCase))
+                    if ((game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)") && Path.GetFileName(path).Equals("itemtbl.bin", StringComparison.InvariantCultureIgnoreCase))
                         bw.Write(sections[0].data);
                     else
                     {

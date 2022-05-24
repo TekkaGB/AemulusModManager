@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#121212"
         ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Title="Create New Loadout" Height="105" Width="420">
+        Title="Create New Loadout" Height="110" Width="420">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="75"/>
@@ -18,7 +18,7 @@
             <RowDefinition Height="33"/>
         </Grid.RowDefinitions>
         <TextBlock Foreground="LightGray" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="0" Grid.Column="0">Name</TextBlock>
-        <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="White" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5,0,5,0"></TextBox>
+        <TextBox Name="NameBox" TextChanged="NameBox_TextChanged" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="5,0,5,0"></TextBox>
 
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="ButtonGrid">
             <Grid.ColumnDefinitions>

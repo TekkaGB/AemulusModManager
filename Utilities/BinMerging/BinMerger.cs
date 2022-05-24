@@ -185,10 +185,13 @@ namespace AemulusModManager
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
                         if (Path.GetExtension(file).ToLower() == ".bin"
+                            || Path.GetExtension(file).ToLower() == ".abin"
                             || Path.GetExtension(file).ToLower() == ".arc"
                             || Path.GetExtension(file).ToLower() == ".pak"
                             || Path.GetExtension(file).ToLower() == ".pac"
-                            || Path.GetExtension(file).ToLower() == ".pack")
+                            || Path.GetExtension(file).ToLower() == ".pack"
+                            || Path.GetExtension(file).ToLower() == ".gsd"
+                            || Path.GetExtension(file).ToLower() == ".tpc")
                         {
                             if (FileIOWrapper.Exists(ogBinPath) && modList.Count > 0)
                             {
@@ -210,20 +213,26 @@ namespace AemulusModManager
                                 foreach (var f in Directory.GetFiles(Path.ChangeExtension(file, null), "*", SearchOption.AllDirectories))
                                 {
                                     if (Path.GetExtension(f).ToLower() == ".bin"
+                                    || Path.GetExtension(f).ToLower() == ".abin"
                                     || Path.GetExtension(f).ToLower() == ".arc"
                                     || Path.GetExtension(f).ToLower() == ".pak"
                                     || Path.GetExtension(f).ToLower() == ".pac"
-                                    || Path.GetExtension(f).ToLower() == ".pack")
+                                    || Path.GetExtension(f).ToLower() == ".pack"
+                                    || Path.GetExtension(f).ToLower() == ".gsd"
+                                    || Path.GetExtension(f).ToLower() == ".tpc")
                                     {
                                         Console.WriteLine($@"[INFO] Unpacking {f}...");
                                         PAKPackCMD($"unpack \"{f}\"");
                                         foreach (var f2 in Directory.GetFiles(Path.ChangeExtension(f, null), "*", SearchOption.AllDirectories))
                                         {
                                             if (Path.GetExtension(f2).ToLower() == ".bin"
+                                            || Path.GetExtension(f2).ToLower() == ".abin"
                                             || Path.GetExtension(f2).ToLower() == ".arc"
                                             || Path.GetExtension(f2).ToLower() == ".pak"
                                             || Path.GetExtension(f2).ToLower() == ".pac"
-                                            || Path.GetExtension(f2).ToLower() == ".pack")
+                                            || Path.GetExtension(f2).ToLower() == ".pack"
+                                            || Path.GetExtension(f2).ToLower() == ".gsd"
+                                            || Path.GetExtension(f2).ToLower() == ".tpc")
                                             {
                                                 Console.WriteLine($@"[INFO] Unpacking {f2}...");
                                                 PAKPackCMD($"unpack \"{f2}\"");
@@ -245,7 +254,7 @@ namespace AemulusModManager
                                                     FileIOWrapper.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                                 }
                                             }
-                                            else if (Path.GetExtension(f2) == ".spr")
+                                            else if (Path.GetExtension(f2) == ".spr" && game != "Persona Q2")
                                             {
                                                 Console.WriteLine($@"[INFO] Unpacking {f2}...");
                                                 string sprFolder2 = Path.ChangeExtension(f2, null);
@@ -275,7 +284,7 @@ namespace AemulusModManager
                                             FileIOWrapper.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                         }
                                     }
-                                    else if (Path.GetExtension(f) == ".spr")
+                                    else if (Path.GetExtension(f) == ".spr" && game != "Persona Q2")
                                     {
                                         Console.WriteLine($@"[INFO] Unpacking {f}...");
                                         string sprFolder = Path.ChangeExtension(f, null);
@@ -363,11 +372,15 @@ namespace AemulusModManager
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {
                     if ((Path.GetExtension(file).ToLower() == ".bin"
+                        || Path.GetExtension(file).ToLower() == ".abin"
                         || Path.GetExtension(file).ToLower() == ".arc"
                         || Path.GetExtension(file).ToLower() == ".pak"
                         || Path.GetExtension(file).ToLower() == ".pac"
                         || Path.GetExtension(file).ToLower() == ".pack"
-                        || Path.GetExtension(file).ToLower() == ".spd")
+                        || Path.GetExtension(file).ToLower() == ".gsd"
+                        || Path.GetExtension(file).ToLower() == ".tpc"
+                        || Path.GetExtension(file).ToLower() == ".spd"
+                        || Path.GetExtension(file).ToLower() == ".spr")
                         && Directory.Exists(Path.ChangeExtension(file, null))
                         && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
                         && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel"
@@ -419,331 +432,363 @@ namespace AemulusModManager
         public static void Merge(string modDir, string game)
         {
             Console.WriteLine("[INFO] Beginning to merge...");
-            List<string> dirs = new List<string>();
-            foreach (var dir in Directory.GetDirectories(modDir))
+            // Check if loose folder matches vanilla bin file
+            foreach (var d in Directory.GetDirectories(modDir, "*", SearchOption.AllDirectories))
             {
-                var name = Path.GetFileName(dir);
-                if (name != "patches" || name != "bins" || name != "SND")
-                    dirs.Add($@"{modDir}\{name}");
-            }
-            // Find bins with loose files
-            foreach (var dir in dirs)
-            {
-                // Check if loose folder matches vanilla bin file
-                foreach (var d in Directory.GetDirectories(dir, "*", SearchOption.AllDirectories))
-                {
-                    List<string> folders = new List<string>(d.Split(char.Parse("\\")));
-                    int idx = folders.IndexOf(Path.GetFileName(dir));
-                    folders = folders.Skip(idx).ToList();
-                    string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
+                List<string> folders = new List<string>(d.Split(char.Parse("\\")));
+                int idx = folders.IndexOf(Path.GetFileName(modDir)) + 1;
+                folders = folders.Skip(idx).ToList();
+                string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".bin")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".bin")))
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".bin")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".bin")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".bin");
+                    if (Path.GetFileName(ogPath) == "panel.bin")
                     {
-                        ogPath = Path.ChangeExtension(ogPath, ".bin");
-                        if (Path.GetFileName(ogPath) == "panel.bin")
-                        {
-                            if (!Directory.Exists($@"{d}\panel"))
-                                continue;
-                        }
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        if (!Directory.Exists(Path.GetDirectoryName(d)))
-                            Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                        if (!Directory.Exists($@"{d}\panel"))
+                            continue;
                     }
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".arc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".arc")))
-                    {
-                        ogPath = Path.ChangeExtension(ogPath, ".arc");
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    if (!Directory.Exists(Path.GetDirectoryName(d)))
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
-                    }
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pac")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pac")))
-                    {
-                        ogPath = Path.ChangeExtension(ogPath, ".pac");
-                        if (Path.GetFileName(ogPath) == "result.pac")
-                        {
-                            if (!Directory.Exists($@"{d}\result"))
-                                continue;
-                            if (!Directory.GetFiles($@"{d}\result", "*.GFS", SearchOption.TopDirectoryOnly).Any()
-                                && !Directory.GetFiles($@"{d}\result", "*.GMD", SearchOption.TopDirectoryOnly).Any())
-                                continue;
-                        }
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
-                    }
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pak")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pak")))
-                    {
-                        ogPath = Path.ChangeExtension(ogPath, ".pak");
-                        if (Path.GetFileName(ogPath) == "crossword.pak")
-                        {
-                            if (!Directory.GetFiles(d, "*.dds", SearchOption.AllDirectories).Any()
-                                && !Directory.GetFiles(d, "*.spdspr", SearchOption.AllDirectories).Any()
-                                && !Directory.GetFiles(d, "*.bmd", SearchOption.AllDirectories).Any()
-                                && !Directory.GetFiles(d, "*.plg", SearchOption.AllDirectories).Any())
-                                continue;
-                        }
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
-                    }
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pack")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pack")))
-                    {
-                        ogPath = Path.ChangeExtension(ogPath, ".pack");
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
-                    }
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spr")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spr")))
-                    {
-                        ogPath = Path.ChangeExtension(ogPath, ".spr");
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
-                    }
-                    if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spd")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spd")))
-                    {
-                        ogPath = Path.ChangeExtension(ogPath, ".spd");
-                        if (Path.GetFileName(ogPath) == "result.spd")
-                        {
-                            if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
-                                && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
-                                continue;
-                        }
-                        if (Path.GetFileName(ogPath) == "crossword.spd")
-                        {
-                            if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
-                                && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
-                                continue;
-                        }
-                        Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
-                        Directory.CreateDirectory(Path.GetDirectoryName(d));
-                        FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
-                    }
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-
-                foreach (var file in Directory.GetFiles(dir, "*", SearchOption.AllDirectories))
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".abin")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".abin")))
                 {
-                    if (Path.GetExtension(file).ToLower() == ".bin"
-                        || Path.GetExtension(file).ToLower() == ".arc"
-                        || Path.GetExtension(file).ToLower() == ".pak"
-                        || Path.GetExtension(file).ToLower() == ".pac"
-                        || Path.GetExtension(file).ToLower() == ".pack")
+                    ogPath = Path.ChangeExtension(ogPath, ".abin");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".gsd")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".gsd")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".gsd");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".tpc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".tpc")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".tpc");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".arc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".arc")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".arc");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pac")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pac")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".pac");
+                    if (Path.GetFileName(ogPath) == "result.pac")
                     {
-                        if (Directory.Exists(Path.ChangeExtension(file, null)))
+                        if (!Directory.Exists($@"{d}\result"))
+                            continue;
+                        if (!Directory.GetFiles($@"{d}\result", "*.GFS", SearchOption.TopDirectoryOnly).Any()
+                            && !Directory.GetFiles($@"{d}\result", "*.GMD", SearchOption.TopDirectoryOnly).Any())
+                            continue;
+                    }
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pak")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pak")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".pak");
+                    if (Path.GetFileName(ogPath) == "crossword.pak")
+                    {
+                        if (!Directory.GetFiles(d, "*.dds", SearchOption.AllDirectories).Any()
+                            && !Directory.GetFiles(d, "*.spdspr", SearchOption.AllDirectories).Any()
+                            && !Directory.GetFiles(d, "*.bmd", SearchOption.AllDirectories).Any()
+                            && !Directory.GetFiles(d, "*.plg", SearchOption.AllDirectories).Any())
+                            continue;
+                    }
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pack")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pack")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".pack");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (game != "Persona Q2" && FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spr")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spr")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".spr");
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spd")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spd")))
+                {
+                    ogPath = Path.ChangeExtension(ogPath, ".spd");
+                    if (Path.GetFileName(ogPath) == "result.spd")
+                    {
+                        if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
+                            && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
+                            continue;
+                    }
+                    if (Path.GetFileName(ogPath) == "crossword.spd")
+                    {
+                        if (!Directory.GetFiles(d, "*.dds", SearchOption.TopDirectoryOnly).Any()
+                            && !Directory.GetFiles(d, "*.spdspr", SearchOption.TopDirectoryOnly).Any())
+                            continue;
+                    }
+                    Console.WriteLine($"[INFO] Copying over {ogPath} to use as base.");
+                    Directory.CreateDirectory(Path.GetDirectoryName(d));
+                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                }
+            }
+
+            foreach (var file in Directory.GetFiles(modDir, "*", SearchOption.AllDirectories))
+            {
+                if (Path.GetExtension(file).ToLower() == ".bin"
+                    || Path.GetExtension(file).ToLower() == ".abin"
+                    || Path.GetExtension(file).ToLower() == ".arc"
+                    || Path.GetExtension(file).ToLower() == ".pak"
+                    || Path.GetExtension(file).ToLower() == ".pac"
+                    || Path.GetExtension(file).ToLower() == ".pack"
+                    || Path.GetExtension(file).ToLower() == ".gsd"
+                    || Path.GetExtension(file).ToLower() == ".tpc")
+                {
+                    if (Directory.Exists(Path.ChangeExtension(file, null)))
+                    {
+                        Console.WriteLine($@"[INFO] Merging {file}...");
+                        string bin = file;
+                        string binFolder = Path.ChangeExtension(file, null);
+
+                        // Get contents of init_free
+                        List<string> contents = getFileContents(bin);
+
+                        // Unpack archive for future unpacking
+                        string temp = $"{binFolder}_temp";
+                        PAKPackCMD($"unpack \"{bin}\" \"{temp}\"");
+
+                        foreach (var f in Directory.GetFiles(binFolder, "*", SearchOption.AllDirectories))
                         {
-                            Console.WriteLine($@"[INFO] Merging {file}...");
-                            string bin = file;
-                            string binFolder = Path.ChangeExtension(file, null);
-
-                            // Get contents of init_free
-                            List<string> contents = getFileContents(bin);
-
-                            // Unpack archive for future unpacking
-                            string temp = $"{binFolder}_temp";
-                            PAKPackCMD($"unpack \"{bin}\" \"{temp}\"");
-
-                            foreach (var f in Directory.GetFiles(binFolder, "*", SearchOption.AllDirectories))
+                            // Get bin path used for PAKPack.exe
+                            int numParFolders = Path.ChangeExtension(file, null).Split(char.Parse("\\")).Length;
+                            List<string> folders = new List<string>(f.Split(char.Parse("\\")));
+                            string binPath = string.Join("/", folders.ToArray().Skip(numParFolders).ToArray());
+                            // Case for paths in Persona 5 event paks
+                            if (contents.Contains($"../../../{binPath}"))
                             {
-                                // Get bin path used for PAKPack.exe
-                                int numParFolders = Path.ChangeExtension(file, null).Split(char.Parse("\\")).Length;
-                                List<string> folders = new List<string>(f.Split(char.Parse("\\")));
-                                string binPath = string.Join("/", folders.ToArray().Skip(numParFolders).ToArray());
-
-                                // Case for paths in Persona 5 event paks
-                                if (contents.Contains($"../../../{binPath}"))
+                                string args = $"replace \"{bin}\" ../../../{binPath} \"{f}\" \"{bin}\"";
+                                PAKPackCMD(args);
+                            }
+                            else if (contents.Contains($"../../{binPath}"))
+                            {
+                                string args = $"replace \"{bin}\" ../../{binPath} \"{f}\" \"{bin}\"";
+                                PAKPackCMD(args);
+                            }
+                            else if (contents.Contains($"../{binPath}"))
+                            {
+                                string args = $"replace \"{bin}\" ../{binPath} \"{f}\" \"{bin}\"";
+                                PAKPackCMD(args);
+                            }
+                            // Check if more unpacking needs to be done to replace
+                            else if (!contents.Contains(binPath))
+                            {
+                                string longestPrefix = "";
+                                int longestPrefixLen = 0;
+                                foreach (var c in contents)
                                 {
-                                    string args = $"replace \"{bin}\" ../../../{binPath} \"{f}\" \"{bin}\"";
-                                    PAKPackCMD(args);
-                                }
-                                else if (contents.Contains($"../../{binPath}"))
-                                {
-                                    string args = $"replace \"{bin}\" ../../{binPath} \"{f}\" \"{bin}\"";
-                                    PAKPackCMD(args);
-                                }
-                                else if (contents.Contains($"../{binPath}"))
-                                {
-                                    string args = $"replace \"{bin}\" ../{binPath} \"{f}\" \"{bin}\"";
-                                    PAKPackCMD(args);
-                                }
-                                // Check if more unpacking needs to be done to replace
-                                else if (!contents.Contains(binPath))
-                                {
-                                    string longestPrefix = "";
-                                    int longestPrefixLen = 0;
-                                    foreach (var c in contents)
+                                    int prefixLen = commonPrefixUtil(c, binPath);
+                                    int otherPrefixLen = commonPrefixUtil(c, $"../../{binPath}");
+                                    int otherOtherPrefixLen = commonPrefixUtil(c, $"../{binPath}");
+                                    int maxLen = Math.Max(Math.Max(prefixLen, otherPrefixLen), otherOtherPrefixLen);
+                                    if (maxLen > longestPrefixLen)
                                     {
-                                        int prefixLen = commonPrefixUtil(c, binPath);
-                                        int otherPrefixLen = commonPrefixUtil(c, $"../../{binPath}");
-                                        int otherOtherPrefixLen = commonPrefixUtil(c, $"../{binPath}");
-                                        int maxLen = Math.Max(Math.Max(prefixLen, otherPrefixLen), otherOtherPrefixLen);
-                                        if (maxLen > longestPrefixLen)
+                                        longestPrefix = c;
+                                        longestPrefixLen = maxLen;
+                                    }
+                                    else if (maxLen == longestPrefixLen)
+                                    {
+                                        if ((Path.GetExtension(c).Equals(".spd", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".bin", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".abin", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".gsd", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".tpc", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".arc", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".pac", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".pack", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".pak", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(c).Equals(".spr", StringComparison.InvariantCultureIgnoreCase))
+                                            && !(Path.GetExtension(longestPrefix).Equals(".spd", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".bin", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".abin", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".gsd", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".tpc", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".arc", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".pac", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".pack", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".pak", StringComparison.InvariantCultureIgnoreCase)
+                                            || Path.GetExtension(longestPrefix).Equals(".spr", StringComparison.InvariantCultureIgnoreCase)))
                                         {
                                             longestPrefix = c;
-                                            longestPrefixLen = maxLen;
-                                        }
-                                        else if (maxLen == longestPrefixLen)
-                                        {
-                                            if ((Path.GetExtension(c).Equals(".spd", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(c).Equals(".bin", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(c).Equals(".arc", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(c).Equals(".pac", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(c).Equals(".pak", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(c).Equals(".spr", StringComparison.InvariantCultureIgnoreCase))
-                                                && !(Path.GetExtension(longestPrefix).Equals(".spd", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(longestPrefix).Equals(".bin", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(longestPrefix).Equals(".arc", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(longestPrefix).Equals(".pac", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(longestPrefix).Equals(".pak", StringComparison.InvariantCultureIgnoreCase)
-                                                || Path.GetExtension(longestPrefix).Equals(".spr", StringComparison.InvariantCultureIgnoreCase)))
-                                            {
-                                                longestPrefix = c;
-                                            }
                                         }
                                     }
-                                    // Check if we can unpack again
-                                    if (Path.GetExtension(longestPrefix).ToLower() == ".bin"
-                                    || Path.GetExtension(longestPrefix).ToLower() == ".arc"
-                                    || Path.GetExtension(longestPrefix).ToLower() == ".pak"
-                                    || Path.GetExtension(longestPrefix).ToLower() == ".pac"
-                                    || Path.GetExtension(longestPrefix).ToLower() == ".pack")
+                                }
+                                // Check if we can unpack again
+                                if (Path.GetExtension(longestPrefix).ToLower() == ".bin"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".abin"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".arc"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".pak"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".gsd"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".tpc"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".pac"
+                                || Path.GetExtension(longestPrefix).ToLower() == ".pack")
+                                {
+                                    string file2 = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
+                                    List<string> contents2 = getFileContents(file2);
+
+                                    List<string> split = new List<string>(binPath.Split(char.Parse("/")));
+                                    int numPrefixFolders = longestPrefix.Split(char.Parse("/")).Length;
+                                    string binPath2 = string.Join("/", split.ToArray().Skip(numPrefixFolders).ToArray());
+
+                                    if (contents2.Contains(binPath2))
                                     {
-                                        string file2 = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
-                                        List<string> contents2 = getFileContents(file2);
-
-                                        List<string> split = new List<string>(binPath.Split(char.Parse("/")));
-                                        int numPrefixFolders = longestPrefix.Split(char.Parse("/")).Length;
-                                        string binPath2 = string.Join("/", split.ToArray().Skip(numPrefixFolders).ToArray());
-
-                                        if (contents2.Contains(binPath2))
+                                        PAKPackCMD($"replace \"{file2}\" {binPath2} \"{f}\" \"{file2}\"");
+                                        PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
+                                    }
+                                    else
+                                    {
+                                        string longestPrefix2 = "";
+                                        int longestPrefixLen2 = 0;
+                                        foreach (var c in contents2)
                                         {
-                                            PAKPackCMD($"replace \"{file2}\" {binPath2} \"{f}\" \"{file2}\"");
+                                            int prefixLen = commonPrefixUtil(c, binPath2);
+                                            if (prefixLen > longestPrefixLen2)
+                                            {
+                                                longestPrefix2 = c;
+                                                longestPrefixLen2 = prefixLen;
+                                            }
+                                        }
+                                        // Check if we can unpack again
+                                        if (Path.GetExtension(longestPrefix2).ToLower() == ".bin"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".abin"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".gsd"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".tpc"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".arc"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".pak"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".pac"
+                                        || Path.GetExtension(longestPrefix2).ToLower() == ".pack")
+                                        {
+                                            string file3 = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
+                                            PAKPackCMD($"unpack \"{file2}\"");
+                                            List<string> contents3 = getFileContents(file3);
+
+                                            List<string> split2 = new List<string>(binPath2.Split(char.Parse("/")));
+                                            int numPrefixFolders2 = longestPrefix2.Split(char.Parse("/")).Length;
+                                            string binPath3 = string.Join("/", split2.ToArray().Skip(numPrefixFolders2).ToArray());
+
+                                            if (contents3.Contains(binPath3))
+                                            {
+                                                PAKPackCMD($"replace \"{file3}\" {binPath3} \"{f}\" \"{file3}\"");
+                                                PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{file3}\" \"{file2}\"");
+                                                PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
+                                            }
+                                        }
+                                        else if (Path.GetExtension(longestPrefix2).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
+                                        {
+                                            PAKPackCMD($"unpack \"{file2}\"");
+                                            string spdPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";                                          
+                                            if (Path.GetExtension(f).ToLower() == ".dds")
+                                                spdUtils.replaceDDS(spdPath, f);
+                                            else
+                                                spdUtils.replaceSPDKey(spdPath, f);
+                                            Console.WriteLine($"[INFO] Replacing {spdPath} in {f}");
+                                            PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{spdPath}\" \"{file2}\"");
                                             PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                         }
-                                        else
+                                        else if (game != "Persona Q2" && Path.GetExtension(longestPrefix2).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
                                         {
-                                            string longestPrefix2 = "";
-                                            int longestPrefixLen2 = 0;
-                                            foreach (var c in contents2)
-                                            {
-                                                int prefixLen = commonPrefixUtil(c, binPath2);
-                                                if (prefixLen > longestPrefixLen2)
-                                                {
-                                                    longestPrefix2 = c;
-                                                    longestPrefixLen2 = prefixLen;
-                                                }
-                                            }
-                                            // Check if we can unpack again
-                                            if (Path.GetExtension(longestPrefix2).ToLower() == ".bin"
-                                            || Path.GetExtension(longestPrefix2).ToLower() == ".arc"
-                                            || Path.GetExtension(longestPrefix2).ToLower() == ".pak"
-                                            || Path.GetExtension(longestPrefix2).ToLower() == ".pac"
-                                            || Path.GetExtension(longestPrefix2).ToLower() == ".pack")
-                                            {
-                                                string file3 = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
-                                                PAKPackCMD($"unpack \"{file2}\"");
-                                                List<string> contents3 = getFileContents(file3);
-
-                                                List<string> split2 = new List<string>(binPath2.Split(char.Parse("/")));
-                                                int numPrefixFolders2 = longestPrefix2.Split(char.Parse("/")).Length;
-                                                string binPath3 = string.Join("/", split2.ToArray().Skip(numPrefixFolders2).ToArray());
-
-                                                if (contents3.Contains(binPath3))
-                                                {
-                                                    PAKPackCMD($"replace \"{file3}\" {binPath3} \"{f}\" \"{file3}\"");
-                                                    PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{file3}\" \"{file2}\"");
-                                                    PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
-                                                }
-                                            }
-                                            else if (Path.GetExtension(longestPrefix2).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
-                                            {
-                                                PAKPackCMD($"unpack \"{file2}\"");
-                                                string spdPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
-                                                if (Path.GetExtension(f).ToLower() == ".dds")
-                                                    spdUtils.replaceDDS(spdPath, f);
-                                                else
-                                                    spdUtils.replaceSPDKey(spdPath, f);
-                                                Console.WriteLine($"[INFO] Replacing {spdPath} in {f}");
-                                                PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{spdPath}\" \"{file2}\"");
-                                                PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
-                                            }
-                                            else if (Path.GetExtension(longestPrefix2).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
-                                            {
-                                                PAKPackCMD($"unpack \"{file2}\"");
-                                                string sprPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
-                                                sprUtils.replaceTmx(sprPath, f);
-                                                PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{sprPath}\" \"{file2}\"");
-                                                PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
-                                            }
+                                            PAKPackCMD($"unpack \"{file2}\"");
+                                            string sprPath = $@"{temp}\{Path.ChangeExtension(longestPrefix.Replace("/", "\\"), null)}\{longestPrefix2.Replace("/", "\\")}";
+                                            sprUtils.replaceTmx(sprPath, f);
+                                            PAKPackCMD($"replace \"{file2}\" {longestPrefix2} \"{sprPath}\" \"{file2}\"");
+                                            PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{file2}\" \"{bin}\"");
                                         }
                                     }
-                                    else if (Path.GetExtension(longestPrefix).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
-                                    {
-                                        string spdPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
-                                        if (Path.GetExtension(f).ToLower() == ".dds")
-                                            spdUtils.replaceDDS(spdPath, f);
-                                        else
-                                            spdUtils.replaceSPDKey(spdPath, f);
-                                        Console.WriteLine($"[INFO] Replacing {spdPath} in {f}");
-                                        PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{spdPath}\" \"{bin}\"");
-                                    }
-                                    else if (Path.GetExtension(longestPrefix).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
-                                    {
-                                        string path = longestPrefix.Replace("../", "");
-                                        string sprPath = $@"{temp}\{path.Replace("/", "\\")}";
-                                        sprUtils.replaceTmx(sprPath, f);
-                                        PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");
-                                    }
                                 }
-                                else
+                                else if (Path.GetExtension(longestPrefix).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
                                 {
-                                    string args = $"replace \"{bin}\" {binPath} \"{f}\" \"{bin}\"";
-                                    PAKPackCMD(args);
+                                    string spdPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
+                                    if (FileIOWrapper.Exists(spdPath.Replace("_temp", String.Empty)))
+                                        FileIOWrapper.Copy(spdPath.Replace("_temp", String.Empty), spdPath, true);
+                                    if (Path.GetExtension(f).ToLower() == ".dds")
+                                        spdUtils.replaceDDS(spdPath, f);
+                                    else
+                                        spdUtils.replaceSPDKey(spdPath, f);
+                                    Console.WriteLine($"[INFO] Replacing {spdPath} in {f}");
+                                    PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{spdPath}\" \"{bin}\"");
+                                }
+                                else if (Path.GetExtension(longestPrefix).ToLower() == ".spr" && Path.GetExtension(f).ToLower() == ".tmx")
+                                {
+                                    string path = longestPrefix.Replace("../", "");
+                                    string sprPath = $@"{temp}\{path.Replace("/", "\\")}";
+                                    sprUtils.replaceTmx(sprPath, f);
+                                    PAKPackCMD($"replace \"{bin}\" {longestPrefix} \"{sprPath}\" \"{bin}\"");
                                 }
                             }
-                            DeleteDirectory(temp);
-                        }
-                    }
-                    else if (Path.GetExtension(file).ToLower() == ".spd")
-                    {
-                        Console.WriteLine($@"[INFO] Merging {file}...");
-                        string spdFolder = Path.ChangeExtension(file, null);
-                        if (Directory.Exists(spdFolder))
-                        {
-                            foreach (var spdFile in Directory.GetFiles(spdFolder, "*", SearchOption.AllDirectories))
+                            else
                             {
-                                if (Path.GetExtension(spdFile).ToLower() == ".dds")
-                                {
-                                    Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
-                                    spdUtils.replaceDDS(file, spdFile);
-                                }
-                                else if (Path.GetExtension(spdFile).ToLower() == ".spdspr")
-                                {
-                                    spdUtils.replaceSPDKey(file, spdFile);
-                                    Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
-                                }
+                                string args = $"replace \"{bin}\" {binPath} \"{f}\" \"{bin}\"";
+                                PAKPackCMD(args);
                             }
                         }
+                        DeleteDirectory(temp);
                     }
-                    else if (Path.GetExtension(file).ToLower() == ".spr")
+                }
+                else if (Path.GetExtension(file).ToLower() == ".spd")
+                {
+                    Console.WriteLine($@"[INFO] Merging {file}...");
+                    string spdFolder = Path.ChangeExtension(file, null);
+                    if (Directory.Exists(spdFolder))
                     {
-                        Console.WriteLine($@"[INFO] Merging {file}...");
-                        string sprFolder = Path.ChangeExtension(file, null);
-                        if (Directory.Exists(sprFolder))
+                        foreach (var spdFile in Directory.GetFiles(spdFolder, "*", SearchOption.AllDirectories))
                         {
-                            foreach (var sprFile in Directory.GetFiles(sprFolder, "*", SearchOption.AllDirectories))
+                            if (Path.GetExtension(spdFile).ToLower() == ".dds")
                             {
-                                Console.WriteLine($"[INFO] Replacing {sprFile} in {file}");
-                                sprUtils.replaceTmx(file, sprFile);
+                                Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
+                                spdUtils.replaceDDS(file, spdFile);
+                            }
+                            else if (Path.GetExtension(spdFile).ToLower() == ".spdspr")
+                            {
+                                spdUtils.replaceSPDKey(file, spdFile);
+                                Console.WriteLine($"[INFO] Replacing {spdFile} in {file}");
                             }
                         }
                     }
                 }
+                else if (game != "Persona Q2" && Path.GetExtension(file).ToLower() == ".spr")
+                {
+                    Console.WriteLine($@"[INFO] Merging {file}...");
+                    string sprFolder = Path.ChangeExtension(file, null);
+                    if (Directory.Exists(sprFolder))
+                    {
+                        foreach (var sprFile in Directory.GetFiles(sprFolder, "*", SearchOption.AllDirectories))
+                        {
+                            Console.WriteLine($"[INFO] Replacing {sprFile} in {file}");
+                            sprUtils.replaceTmx(file, sprFile);
+                        }
+                    }
+                }
             }
+            
             // Go through mod directory again to delete unpacked files after bringing them in
             foreach (var file in Directory.GetFiles(modDir, "*", SearchOption.AllDirectories))
             {
                 if ((Path.GetExtension(file).ToLower() == ".bin"
+                    || Path.GetExtension(file).ToLower() == ".abin"
+                    || Path.GetExtension(file).ToLower() == ".gsd"
+                    || Path.GetExtension(file).ToLower() == ".tpc"
                     || Path.GetExtension(file).ToLower() == ".arc"
                     || Path.GetExtension(file).ToLower() == ".pak"
                     || Path.GetExtension(file).ToLower() == ".pac"
@@ -787,7 +832,7 @@ namespace AemulusModManager
             return;
         }
 
-        public static void Restart(string modDir, bool emptySND, string game, string cpkLang)
+        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, string cheats, bool empty = false)
         {
             Console.WriteLine("[INFO] Deleting current mod build...");
             // Revert appended cpks
@@ -842,6 +887,17 @@ namespace AemulusModManager
                     DeleteDirectory(modDir);
                 Directory.CreateDirectory(modDir);
             }
+            if (game == "Persona Q2" && empty)
+            {
+                File.Create($@"{modDir}\dummy.txt");
+                MakeCpk(modDir, true, empty);
+            }
+            // Delete Aemulus pnaches in cheats folder
+            if (game == "Persona 3 FES" && cheats != null && Directory.Exists(cheats))
+            {
+                foreach (var pnach in Directory.GetFiles(cheats, "*_aem.pnach", SearchOption.TopDirectoryOnly))
+                    File.Delete(pnach);
+            }
         }
 
         public static string GetChecksumString(string filePath)
@@ -863,7 +919,7 @@ namespace AemulusModManager
             return checksumString;
         }
 
-        public static void MakeCpk(string modDir)
+        public static void MakeCpk(string modDir, bool crc, bool empty = false)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -874,13 +930,34 @@ namespace AemulusModManager
                 return;
             }
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME -crc";
-            Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
+            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME";
+            if (crc)
+                startInfo.Arguments += " -crc";
+            if (!empty)
+                Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
+            }
+        }
+        public static void LoadCheats(List<string> mods, string cheatsDir)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats in {dir}...");
+                if (!Directory.Exists($@"{dir}\cheats"))
+                {
+                    Console.WriteLine($"[INFO] No cheats folder found in {dir}");
+                    continue;
+                }
+                // Copy over cheats
+                foreach (var cheat in Directory.GetFiles($@"{dir}\cheats", "*.pnach", SearchOption.AllDirectories))
+                {
+                    File.Copy(cheat, $@"{cheatsDir}\{Path.GetFileNameWithoutExtension(cheat)}_aem.pnach", true);
+                    Console.WriteLine($"[INFO] Copied over {Path.GetFileNameWithoutExtension(cheat)}_aem.pnach to {cheatsDir}");
+                }
             }
         }
     }

@@ -75,12 +75,12 @@ namespace AemulusModManager
                 foreach (var file in Directory.GetFiles($@"{path}\mods\preappfile\movie", "*", SearchOption.AllDirectories))
                 {
                     var folders = new List<string>(file.Split(char.Parse("\\")));
-                    int idx = folders.IndexOf("movie00003");
+                    int idx = folders.IndexOf("movie");
                     if (File.Exists($@"{path}\movie00003\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
-                        Console.WriteLine($"[INFO] Validated appended {file}");
+                        Console.WriteLine($@"[INFO] Validated appended {file}");
                     else
                     {
-                        Console.WriteLine($"[Warning] {file} not appended");
+                        Console.WriteLine($@"[WARNING] {file} not appended");
                         validated = false;
                     }
 

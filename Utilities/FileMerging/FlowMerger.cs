@@ -8,7 +8,7 @@ namespace AemulusModManager.Utilities.FileMerging
 {
     public static class FlowMerger
     {
-        public static void Merge(List<string> ModList, string game)
+        public static void Merge(List<string> ModList, string game, string language)
         {
             if (!Utils.CompilerExists()) return;
 
@@ -63,7 +63,7 @@ namespace AemulusModManager.Utilities.FileMerging
                             continue;
                         }
                     }
-                    if (!Utils.Compile(file, bf, game, Path.GetFileName(dir)))
+                    if (!Utils.Compile(file, bf, game, language, Path.GetFileName(dir)))
                         continue;
                     string[] compiledFile = { filePath, dir, bf };
                     compiledFiles.Add(compiledFile);

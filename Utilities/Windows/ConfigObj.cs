@@ -24,9 +24,13 @@ namespace AemulusModManager
         public bool updateAemulus { get; set; } = true;
         public bool darkMode { get; set; } = true;
         public ConfigP3F p3fConfig { get; set; }
+        public ConfigP3P p3pConfig { get; set; }
         public ConfigP4G p4gConfig { get; set; }
+        public ConfigP4GVita p4gVitaConfig { get; set; }
         public ConfigP5 p5Config { get; set; }
+        public ConfigP5R p5rConfig { get; set; }
         public ConfigP5S p5sConfig { get; set; }
+        public ConfigPQ2 pq2Config { get; set; }
         public double? LeftGridWidth { get; set; }
         public double? RightGridWidth { get; set; }
         public double? TopGridHeight { get; set; }
@@ -56,6 +60,20 @@ namespace AemulusModManager
         public string loadout { get; set; }
         public string lastUnpacked { get; set; }
     }
+    public class ConfigP4GVita
+    {
+        public string modDir { get; set; }
+        public string cpkName { get; set; } = "m0.cpk";
+        public bool deleteOldVersions { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
+        public string lastUnpacked { get; set; }
+    }
 
     public class ConfigP3F
     {
@@ -63,6 +81,7 @@ namespace AemulusModManager
         public string isoPath { get; set; }
         public string elfPath { get; set; }
         public string launcherPath { get; set; }
+        public string cheatsPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
         public bool updateConfirm { get; set; } = true;
@@ -74,6 +93,22 @@ namespace AemulusModManager
         public string loadout { get; set; }
         public string lastUnpacked { get; set; }
 
+    }
+    public class ConfigP3P
+    {
+        public string modDir { get; set; }
+        public string isoPath { get; set; }
+        public string cpkName { get; set; } = "mod.cpk";
+        public string launcherPath { get; set; }
+        public bool deleteOldVersions { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
+        public string lastUnpacked { get; set; }
     }
 
     public class ConfigP5
@@ -92,6 +127,37 @@ namespace AemulusModManager
         public string loadout { get; set; }
         public string lastUnpacked { get; set; }
 
+    }
+    public class ConfigP5R
+    {
+        public string modDir { get; set; }
+        public string cpkName { get; set; } = "mod.cpk";
+        public string language { get; set; } = "English";
+        public string version { get; set; } = "1.02";
+        public bool deleteOldVersions { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
+        public string lastUnpacked { get; set; }
+    }
+    public class ConfigPQ2
+    {
+        public string modDir { get; set; }
+        public string ROMPath { get; set; }
+        public string launcherPath { get; set; }
+        public bool deleteOldVersions { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
+        public string lastUnpacked { get; set; }
     }
 
     public class ConfigP5S

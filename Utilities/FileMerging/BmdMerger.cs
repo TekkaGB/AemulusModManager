@@ -7,7 +7,7 @@ namespace AemulusModManager.Utilities.FileMerging
 {
     public static class BmdMerger
     {
-        public static void Merge(List<string> ModList, string game)
+        public static void Merge(List<string> ModList, string game, string language)
         {
             if (!Utils.CompilerExists()) return;
 
@@ -26,7 +26,7 @@ namespace AemulusModManager.Utilities.FileMerging
                     {
                         // Get the path of the file in original
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(file, dir, game, false)}";
-                        MergeBmds(new string[] { previousFile, file }, ogPath, game);
+                        MergeBmds(new string[] { previousFile, file }, ogPath, game, language);
                     }
                     string[] foundBmd = { filePath, dir, file };
                     foundBmds.Add(foundBmd);
@@ -35,7 +35,7 @@ namespace AemulusModManager.Utilities.FileMerging
         }
 
         // Merge two bmds the second one being the higher priority
-        private static void MergeBmds(string[] bmds, string ogPath, string game)
+        private static void MergeBmds(string[] bmds, string ogPath, string game, string language)
         {
             // Check that the original bmd exists
             if (!File.Exists(ogPath))
@@ -54,7 +54,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 return;
 
             // Compare the messages to find any that need to be overwritten
-            Utils.MergeFiles(game, bmds, messages, ogMessages);
+            Utils.MergeFiles(game, bmds, messages, ogMessages, language);
         }
 
         private static Dictionary<string, string> GetBmdMessages(string file, string game)
