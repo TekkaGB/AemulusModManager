@@ -4062,13 +4062,13 @@ namespace AemulusModManager
             bgs = new List<BitmapImage>();
             var bgUrls = new string[] {
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
-            "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
-            "pack://application:,,,/AemulusPackageManager;component/Assets/p4g.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p3p.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p4g_pc.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p4g_vita.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
-            "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
-            "pack://application:,,,/AemulusPackageManager;component/Assets/sophia.png",
-            "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png"};
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p5r.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p5s.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/pq2.png"};
             foreach (var bg in bgUrls)
                 bgs.Add(new BitmapImage(new Uri(bg)));
         }

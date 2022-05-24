@@ -453,9 +453,7 @@
     </None>
     <Resource Include="Assets\general.png" />
     <Resource Include="Assets\p3f.png" />
-    <Resource Include="Assets\p4g.png" />
     <Resource Include="Assets\p5.png" />
-    <Resource Include="Assets\sophia.png" />
     <Resource Include="Assets\p3ficon.png" />
     <Resource Include="Assets\p4gicon.png" />
     <Resource Include="Assets\p5icon.png" />
@@ -466,6 +464,11 @@
     <Resource Include="Assets\p5ricon.png" />
     <Resource Include="Assets\pq2icon.png" />
     <Resource Include="Assets\p4g_vita.png" />
+    <Resource Include="Assets\p3p.png" />
+    <Resource Include="Assets\p4g_pc.png" />
+    <Resource Include="Assets\p5r.png" />
+    <Resource Include="Assets\p5s.png" />
+    <Resource Include="Assets\pq2.png" />
     <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll" />
     <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml" />
     <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe" />
