@@ -81,6 +81,7 @@ namespace AemulusModManager
         public string isoPath { get; set; }
         public string elfPath { get; set; }
         public string launcherPath { get; set; }
+        public string cheatsPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
         public bool updateConfirm { get; set; } = true;

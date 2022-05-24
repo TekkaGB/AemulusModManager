@@ -37,14 +37,26 @@ namespace AemulusModManager.Utilities
                 case GameFilter.P3:
                     gameName = "Persona 3 FES";
                     break;
+                case GameFilter.P3P:
+                    gameName = "Persona 3 Portable";
+                    break;
                 case GameFilter.P4G:
                     gameName = "Persona 4 Golden";
+                    break;
+                case GameFilter.P4GVita:
+                    gameName = "Persona 4 Golden (Vita)";
                     break;
                 case GameFilter.P5:
                     gameName = "Persona 5";
                     break;
+                case GameFilter.P5R:
+                    gameName = "Persona 5 Royal";
+                    break;
                 case GameFilter.P5S:
                     gameName = "Persona 5 Strikers";
+                    break;
+                case GameFilter.PQ2:
+                    gameName = "Persona Q2";
                     break;
             }
             DownloadWindow downloadWindow = new DownloadWindow(record);

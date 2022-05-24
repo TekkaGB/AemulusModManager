@@ -28,6 +28,8 @@ namespace AemulusModManager
                 PCSX2Textbox.Text = main.launcherPath;
             if (main.elfPath != null)
                 ELFTextbox.Text = main.elfPath;
+            if (main.config.p3fConfig.cheatsPath != null)
+                CheatsTextbox.Text = main.config.p3fConfig.cheatsPath;
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
             BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
@@ -50,6 +52,17 @@ namespace AemulusModManager
                 main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
+            }
+        }
+        private void cheatsDirectoryClick(object sender, RoutedEventArgs e)
+        {
+            var directory = openFolder();
+            if (directory != null)
+            {
+                Console.WriteLine($"[INFO] Setting cheats folder to {directory}");
+                main.config.p3fConfig.cheatsPath = directory;
+                main.updateConfig();
+                CheatsTextbox.Text = directory;
             }
         }
 

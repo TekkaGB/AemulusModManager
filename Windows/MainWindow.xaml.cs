@@ -2105,10 +2105,14 @@ namespace AemulusModManager
                         }
                     }
 
+                    string cheats = null;
+                    if (game == "Persona 3 FES")
+                        cheats = config.p3fConfig.cheatsPath;
+
                     if (game == "Persona Q2")
-                        binMerge.Restart(path, emptySND, game, cpkLang, true);
+                        binMerge.Restart(path, emptySND, game, cpkLang, cheats, true);
                     else if (game != "Persona 5 Strikers")
-                        binMerge.Restart(path, emptySND, game, cpkLang);
+                        binMerge.Restart(path, emptySND, game, cpkLang, cheats);
                     else
                         Merger.Restart(path);
                     Console.WriteLine("[INFO] Finished emptying output folder!");
@@ -2199,7 +2203,10 @@ namespace AemulusModManager
 
                         await Task.Run(() =>
                         {
-                            binMerge.Restart(path, emptySND, game, cpkLang);
+                            string cheats = null;
+                            if (game == "Persona 3 FES")
+                                cheats = config.p3fConfig.cheatsPath;
+                            binMerge.Restart(path, emptySND, game, cpkLang, cheats);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
@@ -2209,6 +2216,14 @@ namespace AemulusModManager
                         // Only run if tblpatches exists
                         if (game != "Persona Q2" && packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                             tblPatch.Patch(packages, path, useCpk, cpkLang, game);
+
+                        if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\cheats")))
+                        {
+                            if (config.p3fConfig.cheatsPath != null && Directory.Exists(config.p3fConfig.cheatsPath))
+                                binMerge.LoadCheats(packages, config.p3fConfig.cheatsPath);
+                            else
+                                Console.WriteLine($"[ERROR] Please set up Cheats Path in config to copy over cheats");
+                        }
 
                         if (game == "Persona 4 Golden" && packages.Exists(x => Directory.Exists($@"{x}\preappfile")))
                         {

@@ -832,7 +832,7 @@ namespace AemulusModManager
             return;
         }
 
-        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, bool empty = false)
+        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, string cheats, bool empty = false)
         {
             Console.WriteLine("[INFO] Deleting current mod build...");
             // Revert appended cpks
@@ -892,6 +892,12 @@ namespace AemulusModManager
                 File.Create($@"{modDir}\dummy.txt");
                 MakeCpk(modDir, true, empty);
             }
+            // Delete Aemulus pnaches in cheats folder
+            if (game == "Persona 3 FES" && cheats != null && Directory.Exists(cheats))
+            {
+                foreach (var pnach in Directory.GetFiles(cheats, "*_aem.pnach", SearchOption.TopDirectoryOnly))
+                    File.Delete(pnach);
+            }
         }
 
         public static string GetChecksumString(string filePath)
@@ -934,6 +940,24 @@ namespace AemulusModManager
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
+            }
+        }
+        public static void LoadCheats(List<string> mods, string cheatsDir)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats in {dir}...");
+                if (!Directory.Exists($@"{dir}\cheats"))
+                {
+                    Console.WriteLine($"[INFO] No cheats folder found in {dir}");
+                    continue;
+                }
+                // Copy over cheats
+                foreach (var cheat in Directory.GetFiles($@"{dir}\cheats", "*.pnach", SearchOption.AllDirectories))
+                {
+                    File.Copy(cheat, $@"{cheatsDir}\{Path.GetFileNameWithoutExtension(cheat)}_aem.pnach", true);
+                    Console.WriteLine($"[INFO] Copied over {Path.GetFileNameWithoutExtension(cheat)}_aem.pnach to {cheatsDir}");
+                }
             }
         }
     }
