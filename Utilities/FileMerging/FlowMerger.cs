@@ -19,9 +19,17 @@ namespace AemulusModManager.Utilities.FileMerging
                 var flowFiles = Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories)
                     .Where(s => (s.ToLower().EndsWith(".flow") || s.ToLower().EndsWith(".bf")) && !s.ToLower().EndsWith(".bf.flow"));
 
+                // Create new Ignore.aem if it doesn't exist
+                if (!FileIOWrapper.Exists($@"{dir}\Ignore.aem"))
+                {
+                    Console.WriteLine("[INFO] Creating Ignore.aem");
+                    using (FileStream streamWriter = FileIOWrapper.Create($@"{dir}\Ignore.aem")) { }
+                }
+
+                string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{dir}\Ignore.aem");
+
                 foreach (string file in flowFiles)
                 {
-
                     string bf = Path.ChangeExtension(file, "bf");
                     string filePath = Utils.GetRelativePath(bf, dir, game);
                     // If the current file is a bf check if it has a corresponding flow
@@ -52,8 +60,13 @@ namespace AemulusModManager.Utilities.FileMerging
                     {
                         // Get the path of the file in original
                         string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{Utils.GetRelativePath(bf, dir, game, false)}";
+
+                        if (AemIgnore.Any(file.Contains))
+                        {
+                            continue;
+                        }
                         // Copy the original file to be used as a base
-                        if (FileIOWrapper.Exists(ogPath))
+                        else if (FileIOWrapper.Exists(ogPath))
                         {
                             File.Copy(ogPath, bf, true);
                         }

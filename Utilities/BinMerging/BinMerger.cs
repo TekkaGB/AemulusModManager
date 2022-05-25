@@ -86,7 +86,7 @@ namespace AemulusModManager
             List<string> mods = new List<string>();
             string line;
             string[] list = Directory.GetFiles(dir, "*", SearchOption.TopDirectoryOnly)
-                    .Where(s => (Path.GetExtension(s).ToLower() == ".aem")).ToArray();
+                    .Where(s => (Path.GetFileName(s) == "mods.aem")).ToArray();
             if (list.Length > 0)
             {
                 using (StreamReader stream = new StreamReader(list[0]))
@@ -184,7 +184,20 @@ namespace AemulusModManager
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                        if (Path.GetExtension(file).ToLower() == ".bin"
+                        // Create new AemIgnore if missing
+                        if (!FileIOWrapper.Exists($@"{mod}\Ignore.aem"))
+                        {
+                            Console.WriteLine("[INFO] Creating Ignore.aem");
+                            using (FileStream streamWriter = FileIOWrapper.Create($@"{mod}\Ignore.aem")) { }
+                        }
+
+                        string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{mod}\Ignore.aem");
+
+                        if (AemIgnore.Any(file.Contains))
+                        {
+                            continue;
+                        }
+                        else if (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".abin"
                             || Path.GetExtension(file).ToLower() == ".arc"
                             || Path.GetExtension(file).ToLower() == ".pak"
@@ -840,7 +853,7 @@ namespace AemulusModManager
             {
                 string path = Path.GetDirectoryName(modDir);
                 // Copy original cpk back if different
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && FileIOWrapper.Exists($@"{path}\{cpkLang}") 
+                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && FileIOWrapper.Exists($@"{path}\{cpkLang}")
                     && GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
                 {
                     Console.WriteLine($@"[INFO] Reverting {cpkLang} back to original");

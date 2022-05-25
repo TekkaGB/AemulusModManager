@@ -676,7 +676,7 @@ namespace AemulusModManager
                     foreach (var button in buttons)
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                     showHidden = new Prop<bool>();
-                    showHidden.Value = true; 
+                    showHidden.Value = true;
                     VisibilityButton.DataContext = showHidden;
                     ShowHiddenText.DataContext = showHidden;
 
@@ -957,7 +957,7 @@ namespace AemulusModManager
                 {
                     // Build succeeded, set last unpacked
                     lastUnpacked = aemulusVersion;
-                    switch(game)
+                    switch (game)
                     {
                         case "Persona 4 Golden":
                             config.p4gConfig.lastUnpacked = lastUnpacked;
@@ -1660,6 +1660,7 @@ namespace AemulusModManager
                     try
                     {
                         Directory.CreateDirectory(path);
+                        using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\Ignore.aem")) { }
                         using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\Package.xml"))
                         {
                             try
@@ -2955,7 +2956,7 @@ namespace AemulusModManager
                 updatePackages();
 
                 ImageBehavior.SetAnimatedSource(Preview, bitmap);
-                
+
                 Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
                     "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
                     "the package has no description.)");
