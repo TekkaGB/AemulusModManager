@@ -59,7 +59,6 @@ namespace AemulusModManager
                             process.Start();
                             process.WaitForExit();
                         }
-                        FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM");
                     }));
             tasks.Add(
                 Task.Run(() =>
@@ -73,11 +72,12 @@ namespace AemulusModManager
                         process.Start();
                         process.WaitForExit();
                     }
-                    FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM");
                 }));
             await Task.WhenAll(tasks);
             tasks.Clear();
             ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES");
+            FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\BTL.CVM");
+            FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 FES\DATA.CVM");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {

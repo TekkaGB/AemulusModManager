@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 3 FES Config" Height="370" Width="550" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 3 FES Config" Height="370" Width="570" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="0.6*"/>
         </Grid.ColumnDefinitions>
