@@ -278,25 +278,36 @@ namespace AemulusModManager
             if (!downloadingMissing && item.HasUpdates != null && (bool)item.HasUpdates)
             {
                 GameBananaItemUpdate[] updates = item.Updates;
-                string updateTitle = updates[0].Title;
                 int updateIndex = 0;
-                Match onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                Match onlineVersionMatch;
                 string onlineVersion = null;
-                if (onlineVersionMatch.Success)
+                if (updates[0].Version != null)
                 {
-                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
-                }
-                // GB Api only returns two latest updates, so if the first doesn't have a version try the second
-                else if (updates.Length > 1)
-                {
-                    updateTitle = updates[1].Title;
-                    onlineVersionMatch = Regex.Match(updateTitle, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
-                    updateIndex = 1;
+                    onlineVersionMatch = Regex.Match(updates[0].Version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                     if (onlineVersionMatch.Success)
-                    {
                         onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                    else
+                    {
+                        onlineVersionMatch = Regex.Match(updates[0].Title, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                        if (onlineVersionMatch.Success)
+                            onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                        // GB Api only returns two latest updates, so if the first doesn't have a version try the second
+                        else if (updates.Length > 1)
+                        {
+                            onlineVersionMatch = Regex.Match(updates[1].Version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                            updateIndex = 1;
+                            if (onlineVersionMatch.Success)
+                                onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                            else
+                            {
+                                onlineVersionMatch = Regex.Match(updates[1].Title, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                                if (onlineVersionMatch.Success)
+                                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                            }
+                        }
                     }
                 }
+                // Get local version
                 Match localVersionMatch = Regex.Match(row.version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                 string localVersion = null;
                 if (localVersionMatch.Success)

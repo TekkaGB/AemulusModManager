@@ -26,6 +26,8 @@ namespace AemulusModManager.Windows
             ChangesGrid.ItemsSource = update.Changes;
             Title = $"{packageName} Changelog";
             VersionLabel.Content = update.Title;
+            if (update.Version != null)
+                VersionLabel.Content += $" ({update.Version})";
             Text.Text = text;
             if (OK)
             {
@@ -47,6 +49,8 @@ namespace AemulusModManager.Windows
             ChangesGrid.ItemsSource = update.Changes;
             Title = $"{packageName} Changelog";
             VersionLabel.Content = update.Title;
+            if (update.Version != null)
+                VersionLabel.Content += $" ({update.Version})";
             Text.Text = text;
             if (OK)
             {

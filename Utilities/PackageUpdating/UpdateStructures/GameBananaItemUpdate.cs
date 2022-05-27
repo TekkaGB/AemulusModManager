@@ -9,6 +9,8 @@ namespace AemulusModManager
 
         [JsonProperty("_sTitle")]
         public string Title { get; set; }
+        [JsonProperty("_sVersion")]
+        public string Version { get; set; }
 
         [JsonProperty("_aChangeLog")]
         public GameBananaItemUpdateChange[] Changes { get; set; }

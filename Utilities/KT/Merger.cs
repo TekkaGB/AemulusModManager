@@ -57,7 +57,6 @@ namespace AemulusModManager.Utilities.KT
             }
         }
 
-        // TODO: When people start modifying the original external files, make this faster
         public static string GetChecksumString(string filePath)
         {
             string checksumString = null;
