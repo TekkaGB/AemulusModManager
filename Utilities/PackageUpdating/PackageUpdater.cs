@@ -281,6 +281,7 @@ namespace AemulusModManager
                 int updateIndex = 0;
                 Match onlineVersionMatch;
                 string onlineVersion = null;
+                // Check Version field first, then Title field
                 if (updates[0].Version != null)
                 {
                     onlineVersionMatch = Regex.Match(updates[0].Version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
@@ -294,8 +295,40 @@ namespace AemulusModManager
                         // GB Api only returns two latest updates, so if the first doesn't have a version try the second
                         else if (updates.Length > 1)
                         {
-                            onlineVersionMatch = Regex.Match(updates[1].Version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                             updateIndex = 1;
+                            if (updates[1].Version != null)
+                            {
+                                onlineVersionMatch = Regex.Match(updates[1].Version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                                if (onlineVersionMatch.Success)
+                                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                                else
+                                {
+                                    onlineVersionMatch = Regex.Match(updates[1].Title, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                                    if (onlineVersionMatch.Success)
+                                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                                }
+                            }
+                            else
+                            {
+                                onlineVersionMatch = Regex.Match(updates[1].Title, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                                if (onlineVersionMatch.Success)
+                                    onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    onlineVersionMatch = Regex.Match(updates[0].Title, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                    if (onlineVersionMatch.Success)
+                        onlineVersion = onlineVersionMatch.Groups["version"].Value;
+                    // GB Api only returns two latest updates, so if the first doesn't have a version try the second
+                    else if (updates.Length > 1)
+                    {
+                        updateIndex = 1;
+                        if (updates[1].Version != null)
+                        {
+                            onlineVersionMatch = Regex.Match(updates[1].Version, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
                             if (onlineVersionMatch.Success)
                                 onlineVersion = onlineVersionMatch.Groups["version"].Value;
                             else
@@ -304,6 +337,12 @@ namespace AemulusModManager
                                 if (onlineVersionMatch.Success)
                                     onlineVersion = onlineVersionMatch.Groups["version"].Value;
                             }
+                        }
+                        else
+                        {
+                            onlineVersionMatch = Regex.Match(updates[1].Title, @"(?<version>([0-9]+\.?)+)[^a-zA-Z]*");
+                            if (onlineVersionMatch.Success)
+                                onlineVersion = onlineVersionMatch.Groups["version"].Value;
                         }
                     }
                 }
