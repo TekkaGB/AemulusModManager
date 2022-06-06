@@ -643,9 +643,9 @@ namespace AemulusModManager
                                             || Path.GetExtension(longestPrefix).Equals(".pack", StringComparison.InvariantCultureIgnoreCase)
                                             || Path.GetExtension(longestPrefix).Equals(".pak", StringComparison.InvariantCultureIgnoreCase)
                                             || Path.GetExtension(longestPrefix).Equals(".spr", StringComparison.InvariantCultureIgnoreCase)))
-                                        {
                                             longestPrefix = c;
-                                        }
+                                        else if (c[longestPrefixLen] == '.')
+                                            longestPrefix = c;
                                     }
                                 }
                                 // Check if we can unpack again

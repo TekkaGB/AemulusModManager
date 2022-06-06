@@ -1892,6 +1892,8 @@ namespace AemulusModManager
                     await pacUnpack(selectedPath);
                 else if (game != "Persona 5 Strikers")
                     await pacUnpack(Path.GetDirectoryName(gamePath));
+                else if (game == "Persona 5 Strikers")
+                    await pacUnpack(modPath);
                 fromMain = false;
 
                 if (((game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc"))
