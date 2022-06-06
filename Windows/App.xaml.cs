@@ -82,12 +82,6 @@ namespace AemulusModManager
             var otherProcess = AlreadyRunning();
             var running = otherProcess != null;
             var oneClick = e.Args.Length > 0;
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
-                   | SecurityProtocolType.Tls11
-                   | SecurityProtocolType.Tls12
-                   | (SecurityProtocolType)12288
-                   | SecurityProtocolType.Ssl3;
             MainWindow mw = new MainWindow(running, oneClick);
             if (!running)
             {

@@ -152,9 +152,7 @@ namespace AemulusModManager
                     using (Process process = new Process())
                     {
                         process.StartInfo = ProcessInfo;
-
                         process.Start();
-
                         process.WaitForExit();
                     }
 
@@ -163,6 +161,7 @@ namespace AemulusModManager
 
                 List<string> modList = getModList(mod);
 
+                string[] AemIgnore = FileIOWrapper.Exists($@"{mod}\Ignore.aem") ? FileIOWrapper.ReadAllLines($@"{mod}\Ignore.aem") : null;
                 // Copy and overwrite everything thats not a bin
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {
@@ -176,7 +175,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
+                        && Path.GetExtension(file).ToLower() != ".pnach" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
@@ -184,19 +183,8 @@ namespace AemulusModManager
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                        // Create new AemIgnore if missing
-                        if (!FileIOWrapper.Exists($@"{mod}\Ignore.aem"))
-                        {
-                            Console.WriteLine("[INFO] Creating Ignore.aem");
-                            using (FileStream streamWriter = FileIOWrapper.Create($@"{mod}\Ignore.aem")) { }
-                        }
-
-                        string[] AemIgnore = FileIOWrapper.ReadAllLines($@"{mod}\Ignore.aem");
-
-                        if (AemIgnore.Any(file.Contains))
-                        {
+                        if (AemIgnore != null && AemIgnore.Any(file.Contains))
                             continue;
-                        }
                         else if (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".abin"
                             || Path.GetExtension(file).ToLower() == ".arc"
