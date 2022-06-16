@@ -484,7 +484,7 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            
+
             <TabItem Name="ManagerTab" FontSize="18" HorizontalAlignment="Center" Header="Manage Packages">
                 <TabItem.Content>
                     <Grid Margin="10">
@@ -543,6 +543,21 @@
 
                         <fa5:ImageAwesome Name="MergeButton" Cursor="Hand" MouseEnter="MouseEnterColorChange" MouseLeave="MouseLeaveColorChange" PreviewMouseLeftButtonDown="MergeClick" FlipOrientation="Horizontal"  VerticalAlignment="Center" Icon="Solid_Hammer" Grid.Column="8" Grid.Row="0" Width="35"/>
                         <Popup PlacementTarget="{Binding ElementName=MergeButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=MergeButton, Mode=OneWay}" AllowsTransparency="True">
+                            <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <SolidColorBrush Color="#101010" Opacity="0.9"/>
+                                </Border.Background>
+                                <TextBlock Margin="10" Foreground="#f2f2f2" FontWeight="SemiBold" FontSize="18" VerticalAlignment="Center" >
+                                    Build and Merge Package Loadout
+                                    <LineBreak/>
+                                    (Ctrl+B)
+                                </TextBlock>
+                            </Border>
+                        </Popup>
+                        <Popup PlacementTarget="{Binding ElementName=MergeImagesButton}" IsOpen="{Binding IsMouseDirectlyOver, ElementName=MergeImagesButton, Mode=OneWay}" AllowsTransparency="True">
                             <Border CornerRadius="5" Panel.ZIndex="0" Margin="10">
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="#101010" Opacity="0.9"/>
@@ -1126,54 +1141,54 @@
                         </Grid.ColumnDefinitions>
                         <ComboBox Grid.Column="0" Margin="10,0,0,0"  IsEnabled="False" Name="GameFilterBox" Height="40" Width="75" FontSize="18" FontWeight="SemiBold" SelectionChanged="GameFilterSelectionChanged">
                             <ComboBoxItem>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 3 FES" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p3picon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 3 Portable" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem IsSelected="True">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem IsSelected="True">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 4 Golden (Vita)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p5icon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 5" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p5ricon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 5 Royal" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/p5sicon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona 5 Strikers" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                                <ComboBoxItem>
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <Image Source="../Assets/pq2icon.png" Width="32" Margin="4,0,10,0"/>
-                                        <TextBlock Text="Persona Q2" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
-                                    </StackPanel>
-                                </ComboBoxItem>
-                            </ComboBox>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 3 FES" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p3picon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 3 Portable" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem IsSelected="True">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 4 Golden (Vita)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p5icon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 5" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p5ricon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 5 Royal" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p5sicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 5 Strikers" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/pq2icon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona Q2" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                        </ComboBox>
                         <ComboBox Grid.Column="1" Margin="5,0,5,0" FontFamily="{StaticResource Jost}" IsEnabled="False" Name="FilterBox" Height="40" MinWidth="140" FontSize="18" FontWeight="SemiBold" SelectionChanged="FilterSelectionChanged"/>
                         <ComboBox Grid.Column="2" Margin="0,0,5,0" FontFamily="{StaticResource Jost}" IsEnabled="False" FontWeight="SemiBold" FontSize="18" Name="TypeBox" Height="40" MinWidth="140" SelectionChanged="TypeFilterSelectionChanged">
                             <ComboBoxItem xml:space="preserve" IsSelected="True">Mods</ComboBoxItem>

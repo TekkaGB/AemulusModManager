@@ -67,6 +67,17 @@ namespace AemulusModManager
                 OutputTextbox.Text = directory;
             }
         }
+        private void textureDirectoryClick(object sender, RoutedEventArgs e)
+        {
+            var directory = openFolder();
+            if (directory != null)
+            {
+                Console.WriteLine($"[INFO] Setting textures folder to {directory}");
+                main.config.p3pConfig.texturesPath = directory;
+                main.updateConfig();
+                TexturesTextbox.Text = directory;
+            }
+        }
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
@@ -275,5 +286,6 @@ namespace AemulusModManager
                 handled = false;
             }
         }
+
     }
 }

@@ -30,6 +30,8 @@ namespace AemulusModManager
                 ELFTextbox.Text = main.elfPath;
             if (main.config.p3fConfig.cheatsPath != null)
                 CheatsTextbox.Text = main.config.p3fConfig.cheatsPath;
+            if (main.config.p3fConfig.texturesPath != null)
+                TexturesTextbox.Text = main.config.p3fConfig.texturesPath;
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
             BuildFinishedBox.IsChecked = main.config.p3fConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3fConfig.buildWarning;
@@ -65,7 +67,17 @@ namespace AemulusModManager
                 CheatsTextbox.Text = directory;
             }
         }
-
+        private void texturesDirectoryClick(object sender, RoutedEventArgs e)
+        {
+            var directory = openFolder();
+            if (directory != null)
+            {
+                Console.WriteLine($"[INFO] Setting textures folder to {directory}");
+                main.config.p3fConfig.texturesPath = directory;
+                main.updateConfig();
+                TexturesTextbox.Text = directory;
+            }
+        }
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
@@ -297,5 +309,6 @@ namespace AemulusModManager
         {
             NotifBox.SelectedIndex = 0;
         }
+
     }
 }
