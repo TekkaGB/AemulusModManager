@@ -82,6 +82,7 @@ namespace AemulusModManager
         public string elfPath { get; set; }
         public string launcherPath { get; set; }
         public string cheatsPath { get; set; }
+        public string texturesPath { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
         public bool updateConfirm { get; set; } = true;
@@ -97,6 +98,7 @@ namespace AemulusModManager
     public class ConfigP3P
     {
         public string modDir { get; set; }
+        public string texturesPath { get; set; }
         public string isoPath { get; set; }
         public string cpkName { get; set; } = "mod.cpk";
         public string launcherPath { get; set; }

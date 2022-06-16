@@ -175,7 +175,8 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetExtension(file).ToLower() != ".pnach" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
+                        && Path.GetExtension(file).ToLower() != ".pnach" && Path.GetExtension(file).ToLower() != ".png"
+                        && Path.GetExtension(file).ToLower() != ".dds" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview")
                     {
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
@@ -958,6 +959,29 @@ namespace AemulusModManager
                 {
                     File.Copy(cheat, $@"{cheatsDir}\{Path.GetFileNameWithoutExtension(cheat)}_aem.pnach", true);
                     Console.WriteLine($"[INFO] Copied over {Path.GetFileNameWithoutExtension(cheat)}_aem.pnach to {cheatsDir}");
+                }
+            }
+        }
+        public static void LoadTextures(List<string> mods, string texturesDir)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for textures in {dir}...");
+                if (!Directory.Exists($@"{dir}\textures"))
+                {
+                    Console.WriteLine($"[INFO] No textures folder found in {dir}");
+                    continue;
+                }
+                // Copy over textures
+                foreach (var texture in Directory.GetFiles($@"{dir}\textures", "*", SearchOption.AllDirectories))
+                {
+                    List<string> folders = new List<string>(texture.Split(char.Parse("\\")));
+                    int idx = folders.IndexOf(Path.GetFileName(dir + "\\textures"));
+                    folders = folders.Skip(idx + 1).ToList();
+                    string binPath = $@"{texturesDir}\{string.Join("\\", folders.ToArray())}";
+                    Directory.CreateDirectory(Path.GetDirectoryName(binPath));
+                    FileIOWrapper.Copy(texture, binPath, true);
+                    Console.WriteLine($"[INFO] Copied over {Path.GetFileName(texture)} to {binPath}");
                 }
             }
         }
