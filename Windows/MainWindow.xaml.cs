@@ -2233,14 +2233,14 @@ namespace AemulusModManager
                             else
                                 Console.WriteLine($"[ERROR] Please set up Cheats Path in config to copy over cheats");
                         }
-                        if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\textures")))
+                        if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\texture_override")))
                         {
                             if (config.p3fConfig.texturesPath != null && Directory.Exists(config.p3fConfig.texturesPath))
                                 binMerge.LoadTextures(packages, config.p3fConfig.texturesPath);
                             else
                                 Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
                         }
-                        if (game == "Persona 3 Portable" && packages.Exists(x => Directory.Exists($@"{x}\textures")))
+                        if (game == "Persona 3 Portable" && packages.Exists(x => Directory.Exists($@"{x}\texture_override")))
                         {
                             if (config.p3pConfig.texturesPath != null && Directory.Exists(config.p3pConfig.texturesPath))
                                 binMerge.LoadTextures(packages, config.p3pConfig.texturesPath);
