@@ -1000,6 +1000,10 @@ namespace AemulusModManager
                                         oldIni = oldIni + "\n" + lineToRead;
 
                                     }
+                                    else
+                                    {
+                                        oldIni = oldIni + "\n" + lineToRead;
+                                    }
                                 }
                             }
                             FileIOWrapper.WriteAllText(binPath, oldIni);
