@@ -981,7 +981,7 @@ namespace AemulusModManager
                     int idx = folders.IndexOf(Path.GetFileName(dir + "\\texture_override"));
                     folders = folders.Skip(idx + 1).ToList();
                     string binPath = $@"{texturesDir}\{string.Join("\\", folders.ToArray())}";
-                    if (Path.GetFileName(file).ToLower() == "textures.ini" && dir != mods[0])
+                    if (Path.GetFileName(file).ToLower() == "textures.ini")
                     {
                         
                         if (System.IO.File.Exists(binPath))
@@ -990,30 +990,26 @@ namespace AemulusModManager
                             Console.WriteLine($"[INFO] Merging textures.ini");
                             foreach (string lineToRead in System.IO.File.ReadLines(file))
                             {
-                                if (lineToRead != "" && lineToRead.Trim()[0] != '#')
+                                if (lineToRead != "" && lineToRead.Trim()[0] != '#' && Regex.IsMatch(lineToRead, "^\\s*[A-Za-z0-9]{24}"))
                                 {
                                     var parts = lineToRead.Split('=');
                                     var hash = parts[0].Trim();
-                                    if (!(Regex.IsMatch(oldIni, "^#\\s*" + hash, RegexOptions.Multiline)) && Regex.IsMatch(oldIni, "^\\s*" + hash, RegexOptions.Multiline))
+                                    var match = Regex.Match(oldIni, "^\\s*" + hash + "\\s*=\\s*[^\\n]+\\n", RegexOptions.Multiline);
+                                    if (match.Success && !match.Value.Contains(lineToRead))
                                     {
-                                        oldIni = Regex.Replace(oldIni, "^\\s*" + hash + "\\s*=\\s*[^\\n]+\\n", "");
-                                        oldIni = oldIni + "\n" + lineToRead;
+                                        Console.WriteLine("[INFO] marts");
+                                        oldIni = oldIni.Replace(match.Value, lineToRead + "\n");
 
                                     }
-                                    else
-                                    {
+                                    else if (!match.Success)
                                         oldIni = oldIni + "\n" + lineToRead;
-                                    }
                                 }
                             }
                             FileIOWrapper.WriteAllText(binPath, oldIni);
                         }
                         else
-                        {
-                            Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                             FileIOWrapper.Copy(file, binPath, true);
-                            Console.WriteLine($"[INFO] Copied over {Path.GetFileName(file)} to {binPath}");
-                        }
+
                     }
                     else
                     {
