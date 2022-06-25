@@ -997,7 +997,6 @@ namespace AemulusModManager
                                     var match = Regex.Match(oldIni, "^\\s*" + hash + "\\s*=\\s*[^\\n]+\\n", RegexOptions.Multiline);
                                     if (match.Success && !match.Value.Contains(lineToRead))
                                     {
-                                        Console.WriteLine("[INFO] marts");
                                         oldIni = oldIni.Replace(match.Value, lineToRead + "\n");
 
                                     }
