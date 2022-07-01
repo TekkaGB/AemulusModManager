@@ -105,10 +105,10 @@ namespace AemulusModManager.Utilities
                     {
                         await DownloadFile(URL_TO_ARCHIVE, fileName, new Progress<DownloadProgress>(ReportUpdateProgress),
                             CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
-                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Name.Replace(" (PC)", ""));
+                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Name.Replace(" (PC)", "").Replace(" (PSP)", ""));
                         if (File.Exists($@"{assemblyLocation}\refresh.aem"))
                             FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
-                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Name.Replace(" (PC)", ""));
+                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Name.Replace(" (PC)", "").Replace(" (PSP)", ""));
                     }
                 }
             }

@@ -199,7 +199,7 @@ namespace AemulusModManager
                 InitializeComponent();
                 DataContext = this;
 
-                sw = new StreamWriter($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\AemulusLog.txt", false, Encoding.UTF8, 4096);
+                sw = new StreamWriter($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Aemulus.log", false, Encoding.UTF8, 4096);
                 outputter = new TextBoxOutputter(sw);
                 packages = new Packages();
 
