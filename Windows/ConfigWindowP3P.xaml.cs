@@ -27,6 +27,8 @@ namespace AemulusModManager
                 ISOTextbox.Text = main.gamePath;
             if (main.launcherPath != null)
                 PPSSPPTextbox.Text = main.launcherPath;
+            if (main.config.p3pConfig.texturesPath != null)
+                TexturesTextbox.Text = main.config.p3pConfig.texturesPath;
             BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
             ChangelogBox.IsChecked = main.config.p3pConfig.updateChangelog;
