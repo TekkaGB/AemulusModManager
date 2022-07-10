@@ -2219,6 +2219,8 @@ namespace AemulusModManager
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
                                 BinaryPatcher.Patch(packages, path, useCpk, cpkLang, game);
+                            if (packages.Exists(x => Directory.Exists($@"{x}\spdpatches")))
+                                SpdPatcher.Patch(packages, path, useCpk, cpkLang, game);
                             binMerge.Merge(path, game);
                         });
                         // Only run if tblpatches exists

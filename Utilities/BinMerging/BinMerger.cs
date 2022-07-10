@@ -175,7 +175,8 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetExtension(file).ToLower() != ".pnach" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview" 
+                        && !file.Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
+                        && Path.GetFileNameWithoutExtension(file).ToLower() != "preview" 
                         && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\")) //check if the file is in texture_override folder
                     {
 
