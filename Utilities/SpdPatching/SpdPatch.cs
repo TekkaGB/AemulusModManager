@@ -51,38 +51,11 @@ namespace AemulusModManager
                     {
                         foreach (var patch in patches.Patches)
                         {
-                            var p4gArchive = String.Empty;
-                            if (game == "Persona 4 Golden")
-                            {
-                                if (useCpk)
-                                    p4gArchive = $@"{Path.GetFileNameWithoutExtension(cpkLang)}\";
-                                else
-                                {
-                                    switch (cpkLang)
-                                    {
-                                        case "data_e.cpk":
-                                            p4gArchive = $@"data00004\";
-                                            break;
-                                        case "data.cpk":
-                                            p4gArchive = $@"data00001\";
-                                            break;
-                                        case "data_c.cpk":
-                                            p4gArchive = $@"data00006\";
-                                            break;
-                                        case "data_k.cpk":
-                                            p4gArchive = $@"data00005\";
-                                            break;
-                                        default:
-                                            p4gArchive = $@"data00004\";
-                                            break;
-                                    }
-                                }
-                            }
-                            var outputFile = $@"{modDir}\{p4gArchive}{patch.SpdPath}";
+                            var outputFile = $@"{modDir}\{patch.SpdPath}";
                             // Copy over original file
                             if (!FileIOWrapper.Exists(outputFile))
                             {
-                                var originalFile = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{p4gArchive}{patch.SpdPath}";
+                                var originalFile = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{patch.SpdPath}";
                                 if (FileIOWrapper.Exists(originalFile))
                                 {
                                     Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
