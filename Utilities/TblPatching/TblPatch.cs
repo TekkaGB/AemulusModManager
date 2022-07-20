@@ -114,7 +114,7 @@ namespace AemulusModManager
                 archive = $@"init_free.bin";
             else if (game == "Persona 5" || game == "Persona 5 Royal")
                 archive = @"battle\table.pac";
-            if (game != "Persona 3 FES" || game != "Persona 3 Portable")
+            if (game != "Persona 3 FES" && game != "Persona 3 Portable")
             {
                 if (!File.Exists($@"{modDir}\{archive}"))
                 {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 4 Golden Config" Height="300" Width="800" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 4 Golden Config" Height="300" Width="820" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>

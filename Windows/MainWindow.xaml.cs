@@ -766,48 +766,46 @@ namespace AemulusModManager
                 if (!oneClick)
                     UpdateAllAsync();
 
+                Task.Run(() => InitMediaPlayer());
             }
 
         }
-        private async void InitMediaPlayer()
+        private void InitMediaPlayer()
         {
-            await Task.Run(() =>
+            var currentAssembly = Assembly.GetEntryAssembly();
+            var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
+            // Default installation path of VideoLAN.LibVLC.Windows
+            var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+            string[] options = new string[]
             {
-                var currentAssembly = Assembly.GetEntryAssembly();
-                var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
-                // Default installation path of VideoLAN.LibVLC.Windows
-                var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
-                string[] options = new string[]
+                "--effect-list=spectrum",
+                "--audio-visual=visual",
+                "--no-visual-peaks",
+                "--no-visual-80-bands"
+            };
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
+                MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
+                MusicPlayer.SourceProvider.MediaPlayer.Playing += SetProgressMax;
+                MusicPlayer.SourceProvider.MediaPlayer.PositionChanged += (sender, e) =>
                 {
-                    "--effect-list=spectrum",
-                    "--audio-visual=visual",
-                    "--no-visual-peaks",
-                    "--no-visual-80-bands"
-                };
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    MusicPlayer.SourceProvider.CreatePlayer(libDirectory, options);
-                    MusicPlayer.SourceProvider.MediaPlayer.EndReached += MediaPlayer_EndReached;
-                    MusicPlayer.SourceProvider.MediaPlayer.Playing += SetProgressMax;
-                    MusicPlayer.SourceProvider.MediaPlayer.PositionChanged += (sender, e) =>
+                    Application.Current.Dispatcher.Invoke(() =>
                     {
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            AudioProgress.Value = e.NewPosition * 100;
-                            TimeSpan current = TimeSpan.FromMilliseconds(duration * e.NewPosition);
-                            TimeSpan total = TimeSpan.FromMilliseconds(duration);
-                            AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {2:D1}:{3:D2}",
-                                current.Minutes, current.Seconds,
-                                total.Minutes, total.Seconds);
-                        });
-                    };
-                    VolumeSlider.ApplyTemplate();
-                    Thumb thumb = (VolumeSlider.Template.FindName("PART_Track", VolumeSlider) as Track).Thumb;
-                    thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
-                    AudioProgress.ApplyTemplate();
-                    thumb = (AudioProgress.Template.FindName("PART_Track", AudioProgress) as Track).Thumb;
-                    thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
-                });
+                        AudioProgress.Value = e.NewPosition * 100;
+                        TimeSpan current = TimeSpan.FromMilliseconds(duration * e.NewPosition);
+                        TimeSpan total = TimeSpan.FromMilliseconds(duration);
+                        AudioDuration.Text = string.Format("{0:D1}:{1:D2} / {2:D1}:{3:D2}",
+                            current.Minutes, current.Seconds,
+                            total.Minutes, total.Seconds);
+                    });
+                };
+                VolumeSlider.ApplyTemplate();
+                Thumb thumb = (VolumeSlider.Template.FindName("PART_Track", VolumeSlider) as Track).Thumb;
+                thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
+                AudioProgress.ApplyTemplate();
+                thumb = (AudioProgress.Template.FindName("PART_Track", AudioProgress) as Track).Thumb;
+                thumb.MouseEnter += new MouseEventHandler(thumb_MouseEnter);
             });
         }
         private void thumb_MouseEnter(object sender, MouseEventArgs e)
@@ -1571,7 +1569,7 @@ namespace AemulusModManager
             Refresh();
             updateConfig();
             updatePackages();
-            await UpdateAllAsync();
+            UpdateAllAsync();
             EnableUI();
         }
         private void DisableUI()
@@ -3599,7 +3597,7 @@ namespace AemulusModManager
             Console.WriteLine($"[INFO] Finished checking for updates!");
         }
 
-        private async Task UpdateAllAsync()
+        private async void UpdateAllAsync()
         {
             if (updating)
             {
@@ -4055,10 +4053,7 @@ namespace AemulusModManager
         private void OnTabSelected(object sender, RoutedEventArgs e)
         {
             if (!selected)
-            {
-                InitMediaPlayer();
                 InitializeBrowser();
-            }
         }
         private static int page = 1;
         private void DecrementPage(object sender, RoutedEventArgs e)
