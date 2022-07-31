@@ -2,7 +2,6 @@ battle/event/script/028B.bf
 battle/event/script/02DC.bf
 battle/event/script/02F6.bf
 battle/event/script/0301.bf
-battle/message/datJyokyoHelp.bmd
 battle/resident.pac
 battle/table.pac
 battle/talk/talk_02youngmen.bf
@@ -50,7 +49,6 @@ camp/chat/scriptChat_809.bf
 camp/chat/scriptChat_823.bf
 camp/shared/sharedUI.spd
 combine/cmbFile.pak
-community/event/message/cmmEvent_15.bmd
 event/e000/e000/e000_202.PAK
 event/e000/e000/e000_203.PAK
 event/e000/e070/e070_010.PAK
@@ -447,7 +445,6 @@ event/e800/e880/e880_009.PAK
 event/e800/e880/e880_010.PAK
 event/e800/e880/e880_101.PAK
 facility/mementos_shop.pak
-facility/msg_combine.bmd
 facility/nameEntry/nameEntry_keyboard.spd
 field/atDngPack.pac
 field/dngPack.pac
@@ -733,19 +730,15 @@ field/panel/dng_result_02.pac
 field/panel/dng_result_04.pac
 field/panel/dng_result_10.pac
 field/panel/fldPanelMementos.pac
-field/panel/mission_list/mission_list.tbl
-field/panel/roadmap/roadmap.tbl
 field/telop/fldTelop.pac
 field/tv/tv_program.bf
 game/p5r_dlc.spd
-game/save_data_message.bmd
 init/camp.pak
 init/cmm.bin
 init/facility.pak
 init/mypCommon.pak
 minigame/crossword/crossword_32.pak
 minigame/fugou/fugou.pac
-minigame/migFishingMsg.bmd
 minigame/minigameDarts.pak
 mypalace/award/mypAward.pac
 network/net.pak

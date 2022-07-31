@@ -3,7 +3,6 @@ battle/event/script/0289.bf
 battle/event/script/028B.bf
 battle/event/script/0305.bf
 battle/event/script/0306.bf
-battle/message/datJyokyoHelp.bmd
 battle/resident.pac
 battle/table.pac
 battle/talk/talk_01jigaku_EN.bf
@@ -56,10 +55,6 @@ camp/chat/scriptChat_985.bf
 camp/shared/sharedUI.spd
 combine/chgBtlSelect.pak
 combine/cmbFile.pak
-community/event/message/cmmEvent_15.bmd
-community/event/message/cmmEvent_28.bmd
-community/event/message/cmmEvent_29.bmd
-community/event/message/cmmEvent_30.bmd
 device/saveload/saveload.pak
 event/e000/e070/e070_010.PAK
 event/e000/e090/e090_001.PAK
@@ -459,9 +454,7 @@ event/e800/e840/e840_261.PAK
 event/e800/e880/e880_007.PAK
 event/e800/e880/e880_008.PAK
 event/e800/e880/e880_010.PAK
-facility/datMyth.bmd
 facility/mementos_shop.pak
-facility/msg_combine.bmd
 facility/nameEntry/nameEntry_keyboard.spd
 facility/weapon.pak
 field/atDngPack.pac
@@ -871,7 +864,6 @@ field/kfenpc714_103.pac
 field/kfenpc714_104.pac
 field/kfenpc714_106.pac
 field/kfenpc794_101.pac
-field/my_palace/info/myp_enter_info.bmd
 field/my_palace/mp_all.pac
 field/npc/corp001.bf
 field/npc/corp002.bf
@@ -900,12 +892,9 @@ field/panel/fldPanelLmap.pac
 field/panel/fldPanelMementos.pac
 field/panel/fldPanelMsg.pac
 field/panel/fldPanelToolWindow.pac
-field/panel/mission_list/mission_list.tbl
-field/panel/roadmap/roadmap.tbl
 field/safety_room.pac
 field/tv/tv_program.bf
 game/p5r_dlc.spd
-game/save_data_message.bmd
 init/camp.pak
 init/cmm.bin
 init/facility.pak
@@ -916,7 +905,6 @@ minigame/crossword/crossword_18.pak
 minigame/crossword/crossword_22.pak
 minigame/crossword/crossword_37.pak
 minigame/fugou/fugou.pac
-minigame/migDartsMsg.bmd
 minigame/minigameDarts.pak
 minigame/minigame_01.spd
 minigame/minigame_billiards_technical_rank.spd
