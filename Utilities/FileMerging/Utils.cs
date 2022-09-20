@@ -277,22 +277,47 @@ namespace AemulusModManager.Utilities.FileMerging
         }
 
         /// <summary>
-        /// Checks if two files are the same by comparing their SHA256 hashes
+        /// Checks if two files are the same by comparing their last write time
+        /// This is not perfect as file contents are not actually compared however, it is significantly faster than comparing file contents/hashes
+        /// and will almost always be right (you'd have to actually try to create two different files with the exact same last write time)
+        /// </summary>
+        /// <param name="file1">The full path to the first file to check</param>
+        /// <param name="file2">The full path to the second file to check</param>
+        /// <returns>True if the two files have the same last write time, 
+        /// false if they do not or if an error occurs checking the files (such as one not existing)</returns>
+        public static bool SameFiles(string file1, string file2)
+        {
+            try
+            {
+                FileInfo file1Info = new FileInfo(file1);
+                FileInfo file2Info = new FileInfo(file2);
+                return file1Info.LastWriteTimeUtc.Equals(file2Info.LastWriteTimeUtc);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if two files are the same by comparing their SHA512 hashes
         /// <param name="=file1">The full path to the first file to check</param>
         /// <param name="=file2">The full path to the second file to check</param>
         /// </summary>
         /// <returns>True if the two files have the same hash (they're the same file), 
         /// false if they are different or if an error occurs checking the two files (such as one not existing)</returns>
-        public static bool SameFiles(string file1, string file2)
+        public static bool SameFilesByHash(string file1, string file2)
         {
+            var timer = new Stopwatch();
+            timer.Start();
             try
             {
                 byte[] file1Bytes = File.ReadAllBytes(file1);
                 byte[] file2Bytes = File.ReadAllBytes(file2);
-                var sha256 = new SHA256CryptoServiceProvider();
-                var hash1 = sha256.ComputeHash(file1Bytes);
-                var hash2 = sha256.ComputeHash(file2Bytes);
-                for(int i = 0; i < hash1.Length; i++)
+                var sha512 = new SHA512CryptoServiceProvider();
+                var hash1 = sha512.ComputeHash(file1Bytes);
+                var hash2 = sha512.ComputeHash(file2Bytes);
+                for (int i = 0; i < hash1.Length; i++)
                 {
                     if (hash1[i] == hash2[i])
                         return true;
@@ -302,6 +327,11 @@ namespace AemulusModManager.Utilities.FileMerging
             catch (Exception)
             {
                 return false;
+            }
+            finally
+            {
+                timer.Stop();
+                Console.WriteLine($@"[INFO] Compared file hashes in {timer.ElapsedMilliseconds}ms");
             }
         }
 
