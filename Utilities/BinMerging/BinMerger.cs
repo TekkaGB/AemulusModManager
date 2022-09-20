@@ -1010,6 +1010,7 @@ namespace AemulusModManager
 
         public static void LoadFMVs(List<string> mods, string modDir)
         {
+            List<string> copiedFmvs = new List<string>();
             foreach (string dir in mods)
             {
                 Console.WriteLine($"[INFO] Searching for FMVs in {dir}...");
@@ -1025,6 +1026,7 @@ namespace AemulusModManager
                 // Copy over FMVS
                 foreach(var fmv in Directory.GetFiles($@"{dir}\FMV", "*.pmsf"))
                 {
+                    copiedFmvs.Add(Path.GetFileName(fmv));
                     var destinationFmv = Path.Combine(modDir, "FMV", Path.GetFileName(fmv));
                     if (File.Exists(destinationFmv))
                     {
@@ -1043,7 +1045,18 @@ namespace AemulusModManager
                         Console.WriteLine($"[ERROR] Unable to copy {fmv} to {destinationFmv}: {e.Message}");
                     }
                 }
-            }   
+            } 
+            // Delete any FMVs in the P3P FMV folder that weren't from one of the mods
+            foreach(var file in Directory.EnumerateFiles(Path.Combine(modDir, "FMV")).Where(f => !copiedFmvs.Contains(Path.GetFileName(f)))) {
+                try
+                {
+                    File.Delete(file);
+                    Console.WriteLine($"[INFO] Deleting unwanted FMV {file}");
+                } catch(Exception e)
+                {
+                    Console.WriteLine($"[ERROR] Unable to delete unwatned FMV {file}: {e.Message}");
+                }
+            }
         }
 
         public static void LoadP3PCheats(List<string> mods, string cheatFile)

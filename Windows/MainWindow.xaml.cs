@@ -2039,6 +2039,10 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                         if (config.p3pConfig.cpkName.EndsWith(".cpk") && File.Exists($@"{modPath}\{config.p3pConfig.cpkName}"))
                             File.Delete($@"{modPath}\{config.p3pConfig.cpkName}");
+
+                        string fmvPath = Path.Combine(modPath, "FMV");
+                        if (Directory.Exists(fmvPath))
+                            Directory.Delete(fmvPath, true);
                     }
                     if (game == "Persona 4 Golden (Vita)")
                     {
@@ -2245,7 +2249,8 @@ namespace AemulusModManager
                                 Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
                         }
 
-                        if (game == "Persona 3 Portable" && packages.Exists(x => Directory.Exists($@"{x}\FMV")))
+                        // Unlike other ones we always want to "Load FMVS" for P3P so ones that should be deleted will be
+                        if (game == "Persona 3 Portable")
                         {
                             binMerge.LoadFMVs(packages, config.p3pConfig.modDir);
                         }
