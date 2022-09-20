@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using AemulusModManager.Utilities;
+using AemulusModManager.Utilities.FileMerging;
 
 namespace AemulusModManager
 {
@@ -176,7 +177,9 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
                         && Path.GetExtension(file).ToLower() != ".pnach" && Path.GetFileNameWithoutExtension(file).ToLower() != "preview" 
-                        && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\")) //check if the file is in texture_override folder
+                        && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\") //check if the file is in texture_override folder
+                        && !(game == "Persona 3 Portable" && file.Substring(mod.Length).ToLower().Contains("\\fmv\\")) //check if the file is an FMV for P3P
+                        && !(game == "Persona 3 Portable" && file.Substring(mod.Length).ToLower().Contains("\\cheats\\")))
                     {
 
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
@@ -962,6 +965,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
         }
+
         public static void LoadCheats(List<string> mods, string cheatsDir)
         {
             foreach (string dir in mods)
@@ -1002,6 +1006,89 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] Copied over {Path.GetFileName(texture)} to {binPath}");
                 }
             }
+        }
+
+        public static void LoadFMVs(List<string> mods, string modDir)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for FMVs in {dir}...");
+                if(!Directory.Exists($@"{dir}\FMV"))
+                {
+                    Console.WriteLine($"[INFO] No FMV folder found in {dir}");
+                    continue;
+                }
+
+                if (!Directory.Exists(Path.Combine(modDir, "FMV")))
+                    Directory.CreateDirectory(Path.Combine(modDir, "FMV"));
+
+                // Copy over FMVS
+                foreach(var fmv in Directory.GetFiles($@"{dir}\FMV", "*.pmsf"))
+                {
+                    var destinationFmv = Path.Combine(modDir, "FMV", Path.GetFileName(fmv));
+                    if (File.Exists(destinationFmv))
+                    {
+                        if(Utils.SameFiles(fmv, destinationFmv))
+                        {
+                            Console.WriteLine($"[INFO] Skipping {fmv} as it is already at {destinationFmv}");
+                            continue;
+                        }
+                    }
+                    try
+                    {
+                        File.Copy(fmv, destinationFmv, true);
+                        Console.WriteLine($"[INFO] Copying {fmv} over {destinationFmv}");
+                    } catch(Exception e)
+                    {
+                        Console.WriteLine($"[ERROR] Unable to copy {fmv} to {destinationFmv}: {e.Message}");
+                    }
+                }
+            }   
+        }
+
+        public static void LoadP3PCheats(List<string> mods, string cheatFile)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats in {dir}...");
+                if (!Directory.Exists($@"{dir}\FMV"))
+                {
+                    Console.WriteLine($"[INFO] No cheats folder found in {dir}");
+                    continue;
+                }
+
+                // Work out what cheats should be in the ini
+                var existingCheats = PPSSPPCheatFile.ParseCheats(cheatFile);
+                foreach (var newCheatFile in Directory.GetFiles($@"{dir}\cheats", "*.ini"))
+                {
+                    Console.WriteLine($"[INFO] Applying cheats from {newCheatFile}");
+                    var newCheats = PPSSPPCheatFile.ParseCheats(newCheatFile);
+                    foreach(var cheat in newCheats.Cheats)
+                    {
+                        var existingCheat = existingCheats.Cheats.FirstOrDefault(c => c.Name == cheat.Name);
+                        if (existingCheat != null)
+                            existingCheat.Contents = cheat.Contents;
+                        else
+                            existingCheats.Cheats.Add(cheat);
+                    }
+                }
+
+                // Write the ini with cheats in it
+                using (StreamWriter writer = new StreamWriter(cheatFile))
+                {
+                    writer.WriteLine($"_S {existingCheats.GameID}");
+                    writer.WriteLine($"_G {existingCheats.GameName}");
+                    writer.WriteLine();
+                    foreach(var cheat in existingCheats.Cheats)
+                    {
+                        writer.WriteLine($"_C{(cheat.Enabled ? '1' : '0')} {cheat.Name}");
+                        foreach (var line in cheat.Contents)
+                            writer.WriteLine(line);
+                        writer.WriteLine();
+                    }
+                }
+            }
+
         }
     }
 }

@@ -99,6 +99,7 @@ namespace AemulusModManager
     {
         public string modDir { get; set; }
         public string texturesPath { get; set; }
+        public string cheatsPath { get; set; }
         public string isoPath { get; set; }
         public string cpkName { get; set; } = "mod.cpk";
         public string launcherPath { get; set; }

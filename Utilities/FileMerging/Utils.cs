@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace AemulusModManager.Utilities.FileMerging
@@ -275,6 +276,34 @@ namespace AemulusModManager.Utilities.FileMerging
             }
         }
 
+        /// <summary>
+        /// Checks if two files are the same by comparing their SHA256 hashes
+        /// <param name="=file1">The full path to the first file to check</param>
+        /// <param name="=file2">The full path to the second file to check</param>
+        /// </summary>
+        /// <returns>True if the two files have the same hash (they're the same file), 
+        /// false if they are different or if an error occurs checking the two files (such as one not existing)</returns>
+        public static bool SameFiles(string file1, string file2)
+        {
+            try
+            {
+                byte[] file1Bytes = File.ReadAllBytes(file1);
+                byte[] file2Bytes = File.ReadAllBytes(file2);
+                var sha256 = new SHA256CryptoServiceProvider();
+                var hash1 = sha256.ComputeHash(file1Bytes);
+                var hash2 = sha256.ComputeHash(file2Bytes);
+                for(int i = 0; i < hash1.Length; i++)
+                {
+                    if (hash1[i] == hash2[i])
+                        return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
     }
 }

@@ -175,6 +175,7 @@
     <Compile Include="Utilities\FileMerging\PM1Merger.cs" />
     <Compile Include="Utilities\FeedGenerator.cs" />
     <Compile Include="Utilities\FileMerging\FlowMerger.cs" />
+    <Compile Include="Utilities\FileMerging\PPSSPPCheat.cs" />
     <Compile Include="Utilities\FileMerging\Utils.cs" />
     <Compile Include="Utilities\BinaryPatching\BinaryObj.cs" />
     <Compile Include="Utilities\BinaryPatching\BinaryPatch.cs" />
