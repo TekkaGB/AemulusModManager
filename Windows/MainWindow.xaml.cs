@@ -2200,6 +2200,9 @@ namespace AemulusModManager
                         }
                     }
 
+                    var buildTimer = new Stopwatch();
+                    buildTimer.Start();
+
                     if (game != "Persona 5 Strikers")
                     {
                         var language = game == "Persona 5 Royal" ? config.p5rConfig.language : null;
@@ -2313,7 +2316,9 @@ namespace AemulusModManager
                         Merger.Patch(path);
                     }
 
-                    Console.WriteLine("[INFO] Finished Building!");
+                    buildTimer.Stop();
+                    Console.WriteLine($"[INFO] Finished Building in {buildTimer.ElapsedMilliseconds}ms!");
+
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
