@@ -60,12 +60,13 @@ namespace AemulusModManager.Utilities.FileMerging
         private static Dictionary<string, string> GetBmdMessages(string file, string game)
         {
             // Decompile the bmd to a msg that can be read easily
-            string[] args = Utils.gameArgs[game];
-            string msgFile = Path.ChangeExtension(file, "msg");
-            string compilerArgs = $"\"{file}\" -Decompile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{msgFile}\"";
-            Utils.ScriptCompilerCommand(compilerArgs);
+            // TODO Fix
+            return new Dictionary<string, string>();
+            //string msgFile = Path.ChangeExtension(file, "msg");
+            //string compilerArgs = $"\"{file}\" -Decompile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{msgFile}\"";
+            //Utils.ScriptCompilerCommand(compilerArgs);
 
-            return Utils.GetMessages(msgFile, "bmd");
+            //return Utils.GetMessages(msgFile, "bmd");
         }
     }
 }

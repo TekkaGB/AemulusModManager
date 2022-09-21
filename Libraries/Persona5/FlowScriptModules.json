@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "Common",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona5\\Modules\\Common\\Enums.json",
+    "FunctionsPath": "Persona5\\Modules\\Common\\Functions.json"
+  },
+  {
+    "Name": "Field",
+    "ShortName": "Field",
+    "Description": "Field related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona5\\Modules\\Field\\Enums.json",
+    "FunctionsPath": "Persona5\\Modules\\Field\\Functions.json"
+  },
+  {
+    "Name": "AI",
+    "ShortName": "AI",
+    "Description": "AI related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona5\\Modules\\AI\\Enums.json",
+    "FunctionsPath": "Persona5\\Modules\\AI\\Functions.json"
+  },
+  {
+    "Name": "Social event",
+    "ShortName": "Social",
+    "Description": "Social event related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona5\\Modules\\Social\\Functions.json"
+  },
+  {
+    "Name": "Facility",
+    "ShortName": "Facility",
+    "Description": "Facility related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona5\\Modules\\Facility\\Functions.json"
+  },
+  {
+    "Name": "Net",
+    "ShortName": "Net",
+    "Description": "Net related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Persona5\\Modules\\Net\\Functions.json"
+  }
+]

@@ -1,10 +1,16 @@
-﻿using System;
+﻿using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Text.Encodings;
+using AtlusScriptLibrary.FlowScriptLanguage;
+using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace AemulusModManager.Utilities.FileMerging
@@ -32,22 +38,35 @@ namespace AemulusModManager.Utilities.FileMerging
             return true;
         }
 
-        // List of script compiler args for each game
-        public static Dictionary<string, string[]> gameArgs = new Dictionary<string, string[]>()
+        struct GameCompilerInfo
         {
-            {"Persona 4 Golden", new string[]{ "V1", "P4G", "P4" } },
-            {"Persona 4 Golden (Vita)", new string[]{ "V1", "P4G", "P4" } },
-            {"Persona 3 FES" , new string[]{ "V1", "P3F", "P3" } },
-            {"Persona 5", new string[]{"V3BE", "P5", "P5"} },
-            {"Persona 3 Portable", new string[]{"V1", "P3P", "P3"} },
-            {"Persona 5 Royal", new string[]{"V3BE", "P5R", "P5"} },
-            {"Persona Q2", new string[]{"V2", "PQ2", "SJ"} }
+            internal Library Library { get; }
+            internal Encoding Encoding { get; }
+            internal FormatVersion FormatVersion { get; }
+
+            internal GameCompilerInfo(Library library, Encoding encoding, FormatVersion formatVersion)
+            {
+                Library = library;
+                Encoding = encoding;
+                FormatVersion = formatVersion;
+            }
+        }
+
+        static Dictionary<string, GameCompilerInfo> compilerInfos = new Dictionary<string, GameCompilerInfo>()
+        {
+            {"Persona 4 Golden", new GameCompilerInfo(LibraryLookup.GetLibrary("P4G"), AtlusEncoding.GetByName("P4"), FormatVersion.Version1) },
+            {"Persona 4 Golden (Vita)", new GameCompilerInfo(LibraryLookup.GetLibrary("P4G"), AtlusEncoding.GetByName("P4"), FormatVersion.Version1) },
+            {"Persona 3 FES", new GameCompilerInfo(LibraryLookup.GetLibrary("P3F"), AtlusEncoding.GetByName("P3"), FormatVersion.Version1) },
+            {"Persona 5", new GameCompilerInfo(LibraryLookup.GetLibrary("P5"), AtlusEncoding.GetByName("P5"), FormatVersion.Version3BigEndian) },
+            {"Persona 3 Portable", new GameCompilerInfo(LibraryLookup.GetLibrary("P3P"), AtlusEncoding.GetByName("P3"), FormatVersion.Version1) },
+            {"Persona 5 Royal", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FormatVersion.Version3BigEndian) },
+            {"Persona Q2", new GameCompilerInfo(LibraryLookup.GetLibrary("PQ2"), ShiftJISEncoding.Instance, FormatVersion.Version2) },
         };
 
         // Compile a file with script compiler, returning true if it compiled successfully otherwise false
-        public static bool Compile(string inFile, string outFile, string game, string language, string modName = "")
+        public static bool Compile(string inFilePath, string outFile, string game, string language, string modName = "")
         {
-            if (!File.Exists(inFile))
+            if (!File.Exists(inFilePath))
                 return false;
             // Get the last modified date of the current bf to see if it compiles successfully
             DateTime lastModified;
@@ -62,41 +81,72 @@ namespace AemulusModManager.Utilities.FileMerging
             }
 
             // Compile the file
-            Console.WriteLine($"[INFO] Compiling {inFile}");
-            if (Path.GetExtension(outFile).ToLowerInvariant() == ".pm1")
+            Console.WriteLine($"[INFO] Compiling {inFilePath}");
+            string extension = Path.GetExtension(outFile).ToLowerInvariant();
+            if (extension == ".pm1")
             {
                 string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\PM1MessageScriptEditor\PM1MessageScriptEditor.exe";
-                RunCommand(compilerPath, $"\"{inFile}\"");
+                RunCommand(compilerPath, $"\"{inFilePath}\"");
+            }
+            else if (extension == ".bf")
+            {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
+
+                FormatVersion format = compilerInfos[game].FormatVersion;
+
+                // Persona 5 bmds have a different outformat than their bfs
+                if ((game == "Persona 5" || game == "Persona 5 Royal") && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
+                    format = FormatVersion.Version1BigEndian;
+
+                if (game == "Persona Q2" && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
+                    format = FormatVersion.Version1;
+
+                var compiler = new FlowScriptCompiler(format);
+                
+                compiler.Library = compilerInfos[game].Library;
+                compiler.Encoding = compilerInfos[game].Encoding;
+
+                if (game == "Persona 5 Royal" && language != null && language != "English")
+                    compiler.Encoding = AtlusEncoding.GetByName("P5R_EFIGS");
+
+                var inFile = File.Open(inFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                // TODO make a custom console log listener to get colours and better logging
+                compiler.AddListener(new ConsoleLogListener(true, LogLevel.Error));
+
+                if (!compiler.TryCompile(inFile, out FlowScript flowScript))
+                {
+                    Console.WriteLine($"[ERROR] Error compiling {inFilePath}");
+                    watch.Stop();
+                    return false;
+                }
+
+                flowScript.ToFile(outFile);
+                watch.Stop();
+                Console.WriteLine($"[INFO] {outFile} compiled successfully in {watch.ElapsedMilliseconds}ms");
+                return true;
+
+
+                //string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
+                //ScriptCompilerCommand(compilerArgs);
             }
             else
             {
-                string[] args = gameArgs[game];
-
-                // Persona 5 bmds have a different outformat than their bfs
-                if ((game == "Persona 5" || game == "Persona 5 Royal") && Path.GetExtension(inFile).ToLowerInvariant() == ".msg")
-                    args[0] = "V1BE";
-
-                if (game == "Persona Q2" && Path.GetExtension(inFile).ToLowerInvariant() == ".msg")
-                    args[0] = "V1";
-
-                if (game == "Persona 5 Royal" && language != null && language != "English")
-                    args[2] = "P5R_EFIGS";
-
-                string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
-                ScriptCompilerCommand(compilerArgs);
+                Console.WriteLine($"[ERROR] {extension} is not a supported file type, not compiling");
+                return false;
             }
 
             // Check if the file was written to (successfully compiled)
             if (File.GetLastWriteTime(outFile) > lastModified)
             {
-                Console.WriteLine($"[INFO] Finished compiling {inFile}");
+                Console.WriteLine($"[INFO] Finished compiling {inFilePath}");
                 return true;
             }
             else
             {
                 // Copy over script compiler mod since there was an error
                 string assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                string newLog = $@"{assemblyPath}\Logs\{modName}{(modName == "" ? "" : " - ")}{Path.GetFileName(inFile)}.log";
+                string newLog = $@"{assemblyPath}\Logs\{modName}{(modName == "" ? "" : " - ")}{Path.GetFileName(inFilePath)}.log";
                 if (File.Exists($@"{assemblyPath}\AtlusScriptCompiler.log"))
                 {
                     if (File.Exists(newLog))
@@ -105,7 +155,7 @@ namespace AemulusModManager.Utilities.FileMerging
                         Directory.CreateDirectory($@"{assemblyPath}\Logs");
                     File.Move($@"{assemblyPath}\AtlusScriptCompiler.log", newLog);
                 }
-                Console.WriteLine(@$"[ERROR] Error compiling {inFile}. Check {newLog} for details.");
+                Console.WriteLine(@$"[ERROR] Error compiling {inFilePath}. Check {newLog} for details.");
                 return false;
             }
         }
