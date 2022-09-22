@@ -17,6 +17,7 @@ namespace AemulusModManager.Utilities.FileMerging
 {
     class Utils
     {
+        static AtlusLogListener logListener = new AtlusLogListener(LogLevel.Error);
         public static bool CompilerExists(bool pm1 = false)
         {
             string compilerPath;
@@ -111,8 +112,7 @@ namespace AemulusModManager.Utilities.FileMerging
                     compiler.Encoding = AtlusEncoding.GetByName("P5R_EFIGS");
 
                 var inFile = File.Open(inFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                // TODO make a custom console log listener to get colours and better logging
-                compiler.AddListener(new ConsoleLogListener(true, LogLevel.Error));
+                compiler.AddListener(logListener);
 
                 if (!compiler.TryCompile(inFile, out FlowScript flowScript))
                 {
