@@ -1059,28 +1059,55 @@ namespace AemulusModManager
                         // If the user doesn't want to be prompted for extra options,
                         // just automatically launch the ELF selected in the config.
                         tempElfPath = elfPath;
+                        tempGamePath = gamePath;
                     }
 
-                    // Build the PCSX2 launch arguments based on what we've chosen/what's non-null
-                    startInfo.Arguments = "--nogui";
-                    if (tempElfPath != null)
+                    if (Path.GetFileName(launcherPath).Equals("pcsx2.exe", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (!FileIOWrapper.Exists(tempElfPath))
+                        // Build the PCSX2 launch arguments based on what we've chosen/what's non-null
+                        startInfo.Arguments = "--nogui";
+                        if (tempElfPath != null)
                         {
-                            Console.WriteLine($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
-                            return;
+                            if (!FileIOWrapper.Exists(tempElfPath))
+                            {
+                                Console.WriteLine($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
+                                return;
+                            }
+                            startInfo.Arguments += $" --elf=\"{tempElfPath}\"";
                         }
-                        startInfo.Arguments += $" --elf=\"{tempElfPath}\"";
+                        if (tempGamePath != null)
+                        {
+                            if (!FileIOWrapper.Exists(tempGamePath))
+                            {
+                                Console.WriteLine($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
+                                return;
+                            }
+                            startInfo.Arguments += $" \"{tempGamePath}\"";
+                        }
                     }
-                    if (tempGamePath != null)
+                    else
                     {
-                        if (!FileIOWrapper.Exists(tempGamePath))
+                        if (tempElfPath != null)
                         {
-                            Console.WriteLine($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
-                            return;
+                            if (!FileIOWrapper.Exists(tempElfPath))
+                            {
+                                Console.WriteLine($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
+                                return;
+                            }
+                            startInfo.Arguments += $" -elf \"{tempElfPath}\"";
                         }
-                        startInfo.Arguments += $" \"{tempGamePath}\"";
+                        startInfo.Arguments += " -fastboot";
+                        if (tempGamePath != null)
+                        {
+                            if (!FileIOWrapper.Exists(tempGamePath))
+                            {
+                                Console.WriteLine($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
+                                return;
+                            }
+                            startInfo.Arguments += $" -- \"{tempGamePath}\"";
+                        }
                     }
+                    Console.WriteLine($"[WARNING] Command Issued: {launcherPath} {startInfo.Arguments}");
                 }
                 else if (game == "Persona 5")
                 {
@@ -1584,6 +1611,7 @@ namespace AemulusModManager
                 GameBox.IsHitTestVisible = false;
                 ModGrid.IsHitTestVisible = false;
                 LoadoutBox.IsHitTestVisible = false;
+                ModGridSearchButton.IsEnabled = false;
             });
         }
         public void EnableUI()
@@ -1627,6 +1655,7 @@ namespace AemulusModManager
                 }
 
                 LoadoutBox.IsHitTestVisible = true;
+                ModGridSearchButton.IsEnabled = true;
             });
         }
 
@@ -4566,6 +4595,10 @@ namespace AemulusModManager
                         if (VisibilityButton.IsHitTestVisible)
                             ToggleHiddenCommand();
                         break;
+                    case Key.F:
+                        if (ModGridSearchButton.IsEnabled)
+                            ModGrid_SearchBar.Focus();
+                        break;
                 }
             }
         }
@@ -4927,6 +4960,59 @@ namespace AemulusModManager
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+        private void ModGrid_SearchBar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.IsKeyDown(Key.Enter))
+                ModGridSearch();
+        }
+        private void ModGridSearch()
+        {
+            if (!String.IsNullOrEmpty(ModGrid_SearchBar.Text) && ModGridSearchButton.IsEnabled)
+            {
+                object focusedItem = null;
+                ModGrid.SelectedItems.Clear();
+                string text = ModGrid_SearchBar.Text;
+                for (int i = 0; i < ModGrid.Items.Count; i++)
+                {
+                    object item = ModGrid.Items[i];
+                    ModGrid.ScrollIntoView(item);
+                    DataGridRow row = (DataGridRow)ModGrid.ItemContainerGenerator.ContainerFromIndex(i);
+                    TextBlock cellContent = ModGrid.Columns[1].GetCellContent(row) as TextBlock;
+                    if (cellContent != null && cellContent.Text.ToLowerInvariant().Contains(text))
+                    {
+                        ModGrid.SelectedItems.Add(item);
+                        if (ModGrid.SelectedItems.Count == 1)
+                            focusedItem = item;
+                    }
+                }
+                if (focusedItem != null)
+                {
+                    ModGrid.ScrollIntoView(focusedItem);
+                    if (ModGrid.SelectedItems.Count > 1)
+                        Console.WriteLine($"[INFO] Found {ModGrid.SelectedItems.Count} mods matching \"{text}\"");
+                    else
+                        Console.WriteLine($"[INFO] Found {ModGrid.SelectedItems.Count} mod matching \"{text}\"");
+                }
+                else
+                {
+                    Description.Document = ConvertToFlowDocument("Aemulus means \"Rival\" in Latin. It was chosen since it " +
+                           "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
+                           "the package has no description.)");
+                    ImageBehavior.SetAnimatedSource(Preview, bitmap);
+                    Console.WriteLine($"[INFO] No mods found matching {text}");
+                }
+            }
+        }
+
+        private void ModGridSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            ModGridSearch();
+        }
+
+        private void Clear_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ModGrid_SearchBar.Clear();
         }
     }
 }
