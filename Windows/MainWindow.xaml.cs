@@ -1059,7 +1059,6 @@ namespace AemulusModManager
                         // If the user doesn't want to be prompted for extra options,
                         // just automatically launch the ELF selected in the config.
                         tempElfPath = elfPath;
-                        tempGamePath = gamePath;
                     }
 
                     if (Path.GetFileName(launcherPath).Equals("pcsx2.exe", StringComparison.InvariantCultureIgnoreCase))
@@ -1097,6 +1096,7 @@ namespace AemulusModManager
                             startInfo.Arguments += $" -elf \"{tempElfPath}\"";
                         }
                         startInfo.Arguments += " -fastboot";
+                        tempGamePath = gamePath;
                         if (tempGamePath != null)
                         {
                             if (!FileIOWrapper.Exists(tempGamePath))
@@ -1107,7 +1107,6 @@ namespace AemulusModManager
                             startInfo.Arguments += $" -- \"{tempGamePath}\"";
                         }
                     }
-                    Console.WriteLine($"[WARNING] Command Issued: {launcherPath} {startInfo.Arguments}");
                 }
                 else if (game == "Persona 5")
                 {
