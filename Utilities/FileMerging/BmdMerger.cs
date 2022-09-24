@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AtlusScriptLibrary.MessageScriptLanguage;
+using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -45,28 +47,40 @@ namespace AemulusModManager.Utilities.FileMerging
             }
 
             // Get the contents of the bmds
-            Dictionary<string, string>[] messages = new Dictionary<string, string>[2];
-            messages[0] = GetBmdMessages(bmds[0], game);
-            messages[1] = GetBmdMessages(bmds[1], game);
-            Dictionary<string, string> ogMessages = GetBmdMessages(ogPath, game);
+            MessageScript[] messages = new MessageScript[2];
+            var originalMessages = Utils.MessageScriptFromBmd(ogPath, game);
+            messages[0] = Utils.MessageScriptFromBmd(bmds[0], game);
+            messages[1] = Utils.MessageScriptFromBmd(bmds[1], game);
 
-            if (messages[0] == null || messages[1] == null || ogMessages == null)
+            if (messages[0] == null || messages[1] == null || originalMessages == null)
                 return;
 
-            // Compare the messages to find any that need to be overwritten
-            Utils.MergeFiles(game, bmds, messages, ogMessages, language);
-        }
+            // Compare the messages to find any that need to be overwritten (changes go into originalMessages)
+            int numChanges = Utils.MergeMessageScripts(originalMessages, messages, game);
+            Console.WriteLine($"[INFO] Merged {bmds[0]} with {bmds[1]} with {numChanges} changes");
 
-        private static Dictionary<string, string> GetBmdMessages(string file, string game)
-        {
-            // Decompile the bmd to a msg that can be read easily
-            // TODO Fix
-            return new Dictionary<string, string>();
-            //string msgFile = Path.ChangeExtension(file, "msg");
-            //string compilerArgs = $"\"{file}\" -Decompile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{msgFile}\"";
-            //Utils.ScriptCompilerCommand(compilerArgs);
+            // Make a copy of the unmerged bmd (.bmd.back)
+            try
+            {
+                FileIOWrapper.Copy(bmds[1], bmds[1] + ".back", true);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error backing up {bmds[1]}: {e.Message}. Cancelling bmd merging");
+                return;
+            }
 
-            //return Utils.GetMessages(msgFile, "bmd");
+            // Compile the new bmd
+            try
+            {
+                originalMessages.ToFile(bmds[1]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Error compiling merged bmd to {bmds[1]}: {e.Message}");
+                return;
+            }
+
         }
     }
 }

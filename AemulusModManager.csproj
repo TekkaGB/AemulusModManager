@@ -959,4 +959,5 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\VideoLAN.LibVLC.Windows.3.0.14\build\VideoLAN.LibVLC.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VideoLAN.LibVLC.Windows.3.0.14\build\VideoLAN.LibVLC.Windows.targets'))" />
   </Target>
+  <ProjectExtensions />
 </Project>

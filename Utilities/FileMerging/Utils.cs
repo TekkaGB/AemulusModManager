@@ -1,8 +1,12 @@
-﻿using AtlusScriptLibrary.Common.Libraries;
+﻿using AtlusScriptLibrary.Common.Collections;
+using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+using AtlusScriptLibrary.MessageScriptLanguage;
+using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +16,8 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using FlowFormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
+using MsgFormatVersion = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion;
 
 namespace AemulusModManager.Utilities.FileMerging
 {
@@ -43,25 +49,27 @@ namespace AemulusModManager.Utilities.FileMerging
         {
             internal Library Library { get; }
             internal Encoding Encoding { get; }
-            internal FormatVersion FormatVersion { get; }
+            internal FlowFormatVersion FlowFormatVersion { get; }
+            internal MsgFormatVersion MsgFormatVersion { get; }
 
-            internal GameCompilerInfo(Library library, Encoding encoding, FormatVersion formatVersion)
+            internal GameCompilerInfo(Library library, Encoding encoding, FlowFormatVersion flowFormatVersion, MsgFormatVersion msgFormatVersion)
             {
                 Library = library;
                 Encoding = encoding;
-                FormatVersion = formatVersion;
+                FlowFormatVersion = flowFormatVersion;
+                MsgFormatVersion = msgFormatVersion;
             }
         }
 
         static Dictionary<string, GameCompilerInfo> compilerInfos = new Dictionary<string, GameCompilerInfo>()
         {
-            {"Persona 4 Golden", new GameCompilerInfo(LibraryLookup.GetLibrary("P4G"), AtlusEncoding.GetByName("P4"), FormatVersion.Version1) },
-            {"Persona 4 Golden (Vita)", new GameCompilerInfo(LibraryLookup.GetLibrary("P4G"), AtlusEncoding.GetByName("P4"), FormatVersion.Version1) },
-            {"Persona 3 FES", new GameCompilerInfo(LibraryLookup.GetLibrary("P3F"), AtlusEncoding.GetByName("P3"), FormatVersion.Version1) },
-            {"Persona 5", new GameCompilerInfo(LibraryLookup.GetLibrary("P5"), AtlusEncoding.GetByName("P5"), FormatVersion.Version3BigEndian) },
-            {"Persona 3 Portable", new GameCompilerInfo(LibraryLookup.GetLibrary("P3P"), AtlusEncoding.GetByName("P3"), FormatVersion.Version1) },
-            {"Persona 5 Royal", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FormatVersion.Version3BigEndian) },
-            {"Persona Q2", new GameCompilerInfo(LibraryLookup.GetLibrary("PQ2"), ShiftJISEncoding.Instance, FormatVersion.Version2) },
+            {"Persona 4 Golden", new GameCompilerInfo(LibraryLookup.GetLibrary("P4G"), AtlusEncoding.GetByName("P4"), FlowFormatVersion.Version1, MsgFormatVersion.Version1) },
+            {"Persona 4 Golden (Vita)", new GameCompilerInfo(LibraryLookup.GetLibrary("P4G"), AtlusEncoding.GetByName("P4"), FlowFormatVersion.Version1, MsgFormatVersion.Version1) },
+            {"Persona 3 FES", new GameCompilerInfo(LibraryLookup.GetLibrary("P3F"), AtlusEncoding.GetByName("P3"), FlowFormatVersion.Version1, MsgFormatVersion.Version1) },
+            {"Persona 5", new GameCompilerInfo(LibraryLookup.GetLibrary("P5"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
+            {"Persona 3 Portable", new GameCompilerInfo(LibraryLookup.GetLibrary("P3P"), AtlusEncoding.GetByName("P3"), FlowFormatVersion.Version1, MsgFormatVersion.Version1) },
+            {"Persona 5 Royal", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
+            {"Persona Q2", new GameCompilerInfo(LibraryLookup.GetLibrary("PQ2"), ShiftJISEncoding.Instance, FlowFormatVersion.Version2, MsgFormatVersion.Version1) },
         };
 
         // Compile a file with script compiler, returning true if it compiled successfully otherwise false
@@ -94,17 +102,17 @@ namespace AemulusModManager.Utilities.FileMerging
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
 
-                FormatVersion format = compilerInfos[game].FormatVersion;
+                FlowFormatVersion format = compilerInfos[game].FlowFormatVersion;
 
                 // Persona 5 bmds have a different outformat than their bfs
                 if ((game == "Persona 5" || game == "Persona 5 Royal") && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
-                    format = FormatVersion.Version1BigEndian;
+                    format = FlowFormatVersion.Version1BigEndian;
 
                 if (game == "Persona Q2" && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
-                    format = FormatVersion.Version1;
+                    format = FlowFormatVersion.Version1;
 
                 var compiler = new FlowScriptCompiler(format);
-                
+
                 compiler.Library = compilerInfos[game].Library;
                 compiler.Encoding = compilerInfos[game].Encoding;
 
@@ -121,14 +129,17 @@ namespace AemulusModManager.Utilities.FileMerging
                     return false;
                 }
 
-                flowScript.ToFile(outFile);
+                try
+                {
+                    flowScript.ToFile(outFile);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"[ERROR] Error writing flowscript to {outFile}: {e.Message}");
+                }
                 watch.Stop();
                 Console.WriteLine($"[INFO] {outFile} compiled successfully in {watch.ElapsedMilliseconds}ms");
                 return true;
-
-
-                //string compilerArgs = $"\"{inFile}\" -Compile -OutFormat {args[0]} -Library {args[1]} -Encoding {args[2]} -Hook -Out \"{outFile}\"";
-                //ScriptCompilerCommand(compilerArgs);
             }
             else
             {
@@ -169,12 +180,6 @@ namespace AemulusModManager.Utilities.FileMerging
             if (game == "Persona 4 Golden" && removeData) idx++; // Account for varying data folder names
             folders = folders.Skip(idx).ToList();
             return string.Join("\\", folders.ToArray());
-        }
-
-        public static void ScriptCompilerCommand(string args)
-        {
-            string compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
-            RunCommand(compilerPath, args);
         }
 
         public static void RunCommand(string file, string args)
@@ -225,6 +230,67 @@ namespace AemulusModManager.Utilities.FileMerging
                 Console.WriteLine($"[ERROR] Error reading {file}: {e.Message}. Cancelling {fileType} merging");
             }
             return null;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="MessageScript"/> for a bmd file
+        /// </summary>
+        /// <param name="filePath">The full path to the bmd file</param>
+        /// <param name="game">The game this is for</param>
+        /// <returns>A <see cref="MessageScript"/> for the file or null if the file couldn't be parsed</returns>
+        public static MessageScript MessageScriptFromBmd(string filePath, string game)
+        {
+            try
+            {
+                return MessageScript.FromFile(filePath, compilerInfos[game].MsgFormatVersion, compilerInfos[game].Encoding);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[ERROR] Unable to parse bmd {filePath}: {e.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Merges multiple <see cref="MessageScript"/>s into one
+        /// </summary>
+        /// <param name="baseMessages">The <see cref="MessageScript"/> that <paramref name="newMessages"/> are based off of, the merges will be applied to this</param>
+        /// <param name="newMessages">An array of <see cref="MessageScript"/>s to merge together, the priority of messages is based on the order in the array (the last item will have highest priority)</param>
+        /// <returns>The number of changes that were made</returns>
+        public static int MergeMessageScripts(MessageScript baseMessages, MessageScript[] newMessages, string game)
+        {
+            int numChanges = 0;
+            // Replace and add all of the messages to ogMessages
+            List<IDialog> originalMsgs = new List<IDialog>();
+            var library = compilerInfos[game].Library;
+            foreach (var messageFile in newMessages)
+            {
+                foreach (var newMessage in messageFile.Dialogs)
+                {
+                    var existingMsg = baseMessages.Dialogs.FirstOrDefault(m => m.Name == newMessage.Name);
+                    if (existingMsg == null)
+                    {
+                        numChanges++;
+                        baseMessages.Dialogs.Add(newMessage);
+                    }
+                    else
+                    {
+                        if (!DialogsEqual(existingMsg, newMessage, library))
+                        {
+                            // Only replace the message if it is different from the original one
+                            if (!originalMsgs.Any(m => DialogsEqual(m, newMessage, library)))
+                            {
+                                numChanges++;
+                                originalMsgs.Add(existingMsg);
+                                baseMessages.Dialogs.Insert(baseMessages.Dialogs.IndexOf(existingMsg), newMessage);
+                                baseMessages.Dialogs.Remove(existingMsg);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return numChanges;
         }
 
         public static void MergeFiles(string game, string[] files, Dictionary<string, string>[] messages, Dictionary<string, string> ogMessages, string language)
@@ -308,6 +374,7 @@ namespace AemulusModManager.Utilities.FileMerging
             Compile(msgFile, files[1], game, language);
         }
 
+
         // Restore all of the .*.back files to .* for the next time they will be merged
         public static void RestoreBackups(List<string> modList)
         {
@@ -385,5 +452,95 @@ namespace AemulusModManager.Utilities.FileMerging
             }
         }
 
+        /// <summary>
+        /// Checks if two dialogs are equal
+        /// </summary>
+        /// <param name="dialogA">The first dialog</param>
+        /// <param name="dialogB">The second dialog</param>
+        /// <param name="library">The library that these were decompiled/compiled with</param>
+        /// <returns>True if the two dialogs are exactly the same (excluding "unused" functions), false otherwise</returns>
+        public static bool DialogsEqual(IDialog dialogA, IDialog dialogB, Library library)
+        {
+            if (dialogA.Name != dialogB.Name || dialogA.Lines.Count != dialogB.Lines.Count)
+                return false;
+            for (int i = 0; i < dialogA.Lines.Count; i++)
+            {
+                var lineA = dialogA.Lines[i];
+                var lineB = dialogB.Lines[i];
+                // Remove unused functions
+                lineA.Tokens.RemoveAll(t => t.Kind == TokenKind.Function && IsUnusedMsgFunction((FunctionToken)t, library));
+                lineB.Tokens.RemoveAll(t => t.Kind == TokenKind.Function && IsUnusedMsgFunction((FunctionToken)t, library));
+                if (lineA.Tokens.Count != lineB.Tokens.Count)
+                {
+                    return false;
+                }
+                else
+                {
+                    for (int j = 0; j < lineA.Tokens.Count; j++)
+                    {
+                        var tokenA = lineA.Tokens[j];
+                        var tokenB = lineB.Tokens[j];
+                        if (tokenA.Kind != tokenB.Kind)
+                            return false;
+                        switch (tokenA.Kind)
+                        {
+                            case TokenKind.String:
+                                if (((StringToken)tokenA).Value != ((StringToken)tokenB).Value)
+                                    return false;
+                                break;
+                            case TokenKind.Function:
+                                if (!FunctionTokenEquals((FunctionToken)tokenA, (FunctionToken)tokenB))
+                                    return false;
+                                break;
+                            case TokenKind.CodePoint:
+                                if (((CodePointToken)tokenA).ToString() != ((CodePointToken)tokenB).ToString())
+                                    return false;
+                                break;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if two function tokens are exactly the same (same function with same arguments)
+        /// </summary>
+        /// <param name="a">The first function token</param>
+        /// <param name="b">The second function token</param>
+        /// <returns>True if the two tokens are exactly the saem, false otherwise</returns>
+        public static bool FunctionTokenEquals(FunctionToken a, FunctionToken b)
+        {
+            if (a.FunctionTableIndex != b.FunctionTableIndex
+                || a.FunctionIndex != b.FunctionIndex
+                || a.Arguments.Count != b.Arguments.Count)
+                return false;
+            for (int i = 0; i < a.Arguments.Count; i++)
+            {
+                if (a.Arguments[i] != b.Arguments[i])
+                    return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Check if a message function is an "Unused" one (excluded from decompilation outputs and unneccesary to have in msgs)
+        /// </summary>
+        /// <param name="token">The token to check</param>
+        /// <param name="library">The library the token is from</param>
+        /// <returns>True if the token is marked as Unused, false if the function cannot be found in the library or it is not marked as Unused</returns>
+        public static bool IsUnusedMsgFunction(FunctionToken token, Library library)
+        {
+            var functionTable = library.MessageScriptLibraries.FirstOrDefault(x => x.Index == token.FunctionTableIndex);
+            if (functionTable != null)
+            {
+                var function = functionTable.Functions.FirstOrDefault(x => x.Index == token.FunctionIndex);
+                if (function != null)
+                {
+                    return function.Semantic == MessageScriptLibraryFunctionSemantic.Unused;
+                }
+            }
+            return false;
+        }
     }
 }
