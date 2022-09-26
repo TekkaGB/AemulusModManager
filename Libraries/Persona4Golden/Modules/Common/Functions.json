@@ -185,13 +185,13 @@
   {
     "Index": "0x000e",
     "ReturnType": "float",
-    "Name": "FUNCTION_000E",
-    "Description": "",
+    "Name": "SQRT",
+    "Description": "Returns the square root of x",
     "Parameters": [
       {
         "Type": "float",
-        "Name": "param1",
-        "Description": ""
+        "Name": "x",
+        "Description": "The number to get the square root of"
       }
     ]
   },
@@ -245,39 +245,39 @@
   {
     "Index": "0x0013",
     "ReturnType": "void",
-    "Name": "FUNCTION_0013",
-    "Description": "",
+    "Name": "NOTHING",
+    "Description": "Does nothing, the input isn't read at all and the function immediately returns",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Unknown type; assumed int"
+        "Description": "The input isn't even read although it says it takes one"
       }
     ]
   },
   {
     "Index": "0x0014",
     "ReturnType": "void",
-    "Name": "FUNCTION_0014",
-    "Description": "",
+    "Name": "NOTHING2",
+    "Description": "Does nothing, the input isn't read at all and the function immediately returns",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Unknown type; assumed int"
+        "Description": "The input isn't even read although it says it takes one"
       }
     ]
   },
   {
     "Index": "0x0015",
     "ReturnType": "void",
-    "Name": "FUNCTION_0015",
-    "Description": "",
+    "Name": "FADE_BACK",
+    "Description": "Fades back from a previous FADE using the same fade pattern",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "fadeLength",
+        "Description": "How long it will take to fade back (30 is 1 second)"
       }
     ]
   },
@@ -285,17 +285,17 @@
     "Index": "0x0016",
     "ReturnType": "void",
     "Name": "FADE",
-    "Description": "",
+    "Description": "Fades the screen to black",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "FadeType",
+        "Name": "fadeType",
+        "Description": "The animation used in the fade"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "fadeLength",
+        "Description": "How long it will take to fade to black (30 is 1 second)"
       }
     ]
   },
@@ -358,18 +358,18 @@
   {
     "Index": "0x0019",
     "ReturnType": "int",
-    "Name": "FUNCTION_0019",
-    "Description": "",
+    "Name": "CALL_PROCEDURE",
+    "Description": "Calls a procedure in a bf file based on its index, these procedures are run on a different thread (or something like that) so multiple procedures can be running at once generally causing a mess. You should really just call procedures by name instead of using this, it's clearly a debugging function.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "procedureIndex",
+        "Description": "The index of the procedure to call"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Probably the index of the bf file to call the procedure from, hard to say how this actually works though 0 appears to be the current bf file"
       }
     ]
   },
@@ -428,18 +428,18 @@
   {
     "Index": "0x001e",
     "ReturnType": "void",
-    "Name": "FUNCTION_001E",
-    "Description": "",
+    "Name": "SCREEN_SHAKE",
+    "Description": "Causes the screen to shake. This continues until you switch fields or call it with an intensity of 0.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "duration",
+        "Description": "How long the screen will shake for (0 is forever, 30 is 1 second)"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "intensity",
+        "Description": "How intense the screen shake is (0 is no shake, going too high may cause the camera to clip through the roof)"
       }
     ]
   },
@@ -454,8 +454,8 @@
   {
     "Index": "0x0020",
     "ReturnType": "void",
-    "Name": "FUNCTION_0020",
-    "Description": "",
+    "Name": "NOTHING3",
+    "Description": "Does nothing, the input isn't read at all and the function immediately returns",
     "Parameters": [
       {
         "Type": "int",
@@ -513,41 +513,41 @@
   {
     "Index": "0x0023",
     "ReturnType": "void",
-    "Name": "FUNCTION_0023",
-    "Description": "",
+    "Name": "PLAY_SYS_SOUNDEFFECT",
+    "Description": "Plays a sound effect. The ones in this function are ones generally played by the system like the sound effects for opening and closing menus or getting social stat points. I have no idea how/if the ids you give this relate to their position in the files or anything like that.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "major",
+        "Description": "The major id of the sound effect, similar sound effects have the same major id like ones used in menus."
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "minor",
+        "Description": "The minor id of the sound effect."
       }
     ]
   },
   {
     "Index": "0x0024",
     "ReturnType": "void",
-    "Name": "FUNCTION_0024",
-    "Description": "",
+    "Name": "SET_FADE_COLOUR",
+    "Description": "Sets the colour that you fade to and from with the FADE and FADE_BACK functions. Put this between a FADE and FADE_SYNC to use with a FADE and just before a FADE_BACK to use with that (you can change colour for the fade and fade back separately).",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "r",
+        "Description": "The red component of the colour"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "g",
+        "Description": "The green component of the colour"
       },
       {
         "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "b",
+        "Description": "The blue component of the colour"
       }
     ]
   },
@@ -579,8 +579,8 @@
   {
     "Index": "0x0026",
     "ReturnType": "void",
-    "Name": "FUNCTION_0026",
-    "Description": "",
+    "Name": "NOTHING4",
+    "Description": "Does nothing, just reads all of the inputs (does nothing with them) and returns",
     "Parameters": [
       {
         "Type": "int",
@@ -612,8 +612,8 @@
   {
     "Index": "0x0027",
     "ReturnType": "void",
-    "Name": "FUNCTION_0027",
-    "Description": "",
+    "Name": "NOTHING5",
+    "Description": "Does nothing, just reads all of the inputs (does nothing with them) and returns",
     "Parameters": [
       {
         "Type": "int",
@@ -646,43 +646,45 @@
     "Index": "0x0028",
     "ReturnType": "void",
     "Name": "FUNCTION_0028",
-    "Description": "",
+    "Description": "Appears to log a message to the console. There isn't actually a way to read the messages put through this though.",
     "Parameters": [
       {
         "Type": "string",
-        "Name": "param1",
-        "Description": ""
+        "Name": "message",
+        "Description": "The message to log"
       }
     ]
   },
   {
     "Index": "0x0029",
     "ReturnType": "void",
-    "Name": "FUNCTION_0029",
-    "Description": "Code function name: itfMesManager__sub_8101F4D2",
+    "Name": "WEATHER_FORECAST",
+    "Description": "Displays the weather forecast",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "message",
+        "Description": "The message to display in the black text box below the forecast",
+        "Semantic": "MsgId"
       }
     ]
   },
   {
     "Index": "0x002a",
     "ReturnType": "void",
-    "Name": "FUNCTION_002A",
-    "Description": "Code function name: itfMesManager__sub_8101F182",
+    "Name": "TITLED_HELP_MSG",
+    "Description": "Displays a help message with a title in yellow text",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "message",
+        "Description": "The id of the message to display",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "titleId",
+        "Description": "The id of the message to display as the title. This is pulled from a bmd somewhere (not sure which one)"
       }
     ]
   },
@@ -730,55 +732,55 @@
     "Index": "0x0030",
     "ReturnType": "void",
     "Name": "CALL_FIELD",
-    "Description": "",
+    "Description": "Calls a specified field. Calling the current field will cause the camera to be messed up when leaving it, use CALL_FIELD_SAFE if you want to reload the current field",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "fieldMajor",
+        "Description": "The major id of the field to call"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "fieldMinor",
+        "Description": "The minor id of the field to call"
       },
       {
         "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "fieldLocation",
+        "Description": "The location in the field (most fields have a number of locations that you can spawn in at)"
       },
       {
         "Type": "int",
-        "Name": "param4",
-        "Description": ""
+        "Name": "weather",
+        "Description": "If 0 uses the current weather otherwise it will change the weather in the field called (doesn't actually change the weather just the visuals)"
       }
     ]
   },
   {
     "Index": "0x0031",
     "ReturnType": "void",
-    "Name": "FUNCTION_0031",
-    "Description": "",
+    "Name": "CALL_FIELD_SAFE",
+    "Description": "Calls a specified field. Unlike CALL_FIELD you can use this one to call the current field and reload it with problems",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "fieldMajor",
+        "Description": "The major id of the field to call"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "fieldMinor",
+        "Description": "The minor id of the field to call"
       },
       {
         "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "fieldLocation",
+        "Description": "The location in the field (most fields have a number of locations that you can spawn in at)"
       },
       {
         "Type": "int",
-        "Name": "param4",
-        "Description": ""
+        "Name": "weather",
+        "Description": "If 0 uses the current weather otherwise it will change the weather in the field called (doesn't actually change the weather just the visuals)"
       }
     ]
   },
@@ -1014,17 +1016,17 @@
     "Index": "0x0042",
     "ReturnType": "int",
     "Name": "GET_SOCIAL_STATS",
-    "Description": "Code function name: shdScript_sub_81038D40",
+    "Description": "Gives the player social stat points",
     "Parameters": [
       {
         "Type": "SocialStat",
         "Name": "socialStatId",
-        "Description": ""
+        "Description": "The id of the social stat to increase"
       },
       {
         "Type": "int",
         "Name": "increaseAmount",
-        "Description": ""
+        "Description": "The amount to increase the social stat by"
       }
     ]
   },
@@ -1062,64 +1064,64 @@
   {
     "Index": "0x0045",
     "ReturnType": "void",
-    "Name": "FUNCTION_0045",
-    "Description": "",
+    "Name": "INCREASE_PERSONA_STAT",
+    "Description": "Increases the stats of one of party's Personas (if selecting the protagonist it will affect the currently equipped Persona)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member to increase the stats of"
+      },
+      {
+        "Type": "BattleStat",
+        "Name": "stat",
+        "Description": "The stat to increase"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "increaseAmount",
+        "Description": "The amount to increase the stat by"
       }
     ]
   },
   {
     "Index": "0x0046",
     "ReturnType": "void",
-    "Name": "FUNCTION_0046",
-    "Description": "",
+    "Name": "INCREASE_PERSONA_STAT2",
+    "Description": "Increases the stats of one of party's Personas (if selecting the protagonist it will affect the currently equipped Persona). This function appears to do exactly the same thing as INCREASE_PERSONA_STAT although they do have different code so there may be some difference I'm not seeing.",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member to increase the stats of"
+      },
+      {
+        "Type": "BattleStat",
+        "Name": "stat",
+        "Description": "The stat to increase"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "increaseAmount",
+        "Description": "The amount to increase the stat by"
       }
     ]
   },
   {
     "Index": "0x0047",
     "ReturnType": "int",
-    "Name": "FUNCTION_0047",
-    "Description": "",
+    "Name": "GET_PERSONA_STAT",
+    "Description": "Returns the stat for the specified party member's Persona (if the protagonist is selected it will return the stat for the currently equipped Persona)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose stats to check"
       },
       {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Type": "BattleStat",
+        "Name": "stat",
+        "Description": "The stat to check"
       }
     ]
   },
@@ -1203,8 +1205,8 @@
   {
     "Index": "0x0051",
     "ReturnType": "void",
-    "Name": "FUNCTION_0051",
-    "Description": "",
+    "Name": "SET_NAME",
+    "Description": "Takes the player to the menu where they choose their name",
     "Parameters": [
     ]
   },
@@ -1260,23 +1262,23 @@
   {
     "Index": "0x0055",
     "ReturnType": "void",
-    "Name": "FUNCTION_0055",
-    "Description": "",
+    "Name": "SET_EQUIPMENT",
+    "Description": "Equips a specific piece of equipment to a party member. This replaces the existing equipment so make sure to give player another copy of it otherwise it will be deleted.",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member to change the equipment of"
+      },
+      {
+        "Type": "EquipmentType",
+        "Name": "equipmentType",
+        "Description": "The slot to put the equipment into"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "equipmentId",
+        "Description": "The id of the equipment to equip"
       }
     ]
   },
@@ -1299,16 +1301,16 @@
   {
     "Index": "0x0058",
     "ReturnType": "int",
-    "Name": "FUNCTION_0058",
-    "Description": "",
+    "Name": "LOAD",
+    "Description": "Opens the load menu. Returns 1 if the player selected a save, 0 if they cancelled. This doesn't actually load the game it just makes the screen black another function must be needed",
     "Parameters": [
     ]
   },
   {
     "Index": "0x0059",
     "ReturnType": "void",
-    "Name": "FUNCTION_0059",
-    "Description": "",
+    "Name": "NOTHING6",
+    "Description": "Does nothing, the function immediately returns",
     "Parameters": [
     ]
   },
@@ -1328,13 +1330,13 @@
   {
     "Index": "0x005b",
     "ReturnType": "void",
-    "Name": "FUNCTION_005B",
-    "Description": "",
+    "Name": "FIRST_PERSONA_REBIRTH",
+    "Description": "Changes a party member's Persona into their first reborn form",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose Persona should be reborn"
       }
     ]
   },
@@ -1383,12 +1385,12 @@
     "Index": "0x005e",
     "ReturnType": "int",
     "Name": "GET_CUR_HP",
-    "Description": "",
+    "Description": "Gets the current hp of a party member",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose hp should be returned"
       }
     ]
   },
@@ -1396,12 +1398,12 @@
     "Index": "0x005f",
     "ReturnType": "int",
     "Name": "GET_TOT_HP",
-    "Description": "",
+    "Description": "Gets the total hp of a party member",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose hp should be returned"
       }
     ]
   },
@@ -1409,17 +1411,17 @@
     "Index": "0x0060",
     "ReturnType": "void",
     "Name": "SET_HP",
-    "Description": "",
+    "Description": "Sets the hp of a party member",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose hp should be set"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "newHp",
+        "Description": "The value to set the party member's hp to"
       }
     ]
   },
@@ -1427,12 +1429,12 @@
     "Index": "0x0061",
     "ReturnType": "int",
     "Name": "GET_CUR_SP",
-    "Description": "",
+    "Description": "Gets the current sp of a party member",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose sp should be returned"
       }
     ]
   },
@@ -1440,12 +1442,12 @@
     "Index": "0x0062",
     "ReturnType": "int",
     "Name": "GET_TOT_SP",
-    "Description": "",
+    "Description": "Gets the total sp of a party member",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose sp should be returned"
       }
     ]
   },
@@ -1453,17 +1455,17 @@
     "Index": "0x0063",
     "ReturnType": "void",
     "Name": "SET_SP",
-    "Description": "",
+    "Description": "Sets the sp of a party member",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PartyUnit",
+        "Name": "partyMember",
+        "Description": "The party member whose hp should be set"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "newHp",
+        "Description": "The value to set the party member's sp to"
       }
     ]
   },
@@ -1471,12 +1473,12 @@
     "Index": "0x0064",
     "ReturnType": "void",
     "Name": "PLAY_CUTSCENE",
-    "Description": "",
+    "Description": "Plays a cutscene",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "cutsceneId",
+        "Description": "The id of the cutscene to play"
       }
     ]
   },
@@ -1492,12 +1494,12 @@
     "Index": "0x0066",
     "ReturnType": "void",
     "Name": "SHOW_DATE",
-    "Description": "",
+    "Description": "Changes whether the date is shown in the top right of the screen",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "dateShown",
+        "Description": "If 0 the date is hidden, 1 it's shown"
       }
     ]
   },
@@ -1549,25 +1551,25 @@
   {
     "Index": "0x006c",
     "ReturnType": "void",
-    "Name": "FUNCTION_006C",
-    "Description": "",
+    "Name": "NOTHING7",
+    "Description": "Does nothing, the function immediately returns",
     "Parameters": [
     ]
   },
   {
     "Index": "0x006d",
     "ReturnType": "void",
-    "Name": "FUNCTION_006D",
-    "Description": "",
+    "Name": "PLAY_BTL_SOUNDEFFECT",
+    "Description": "Plays a sound effect. The ones in this function seem to be from battles like hitting enemies and things",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "major",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "minor",
         "Description": ""
       }
     ]
@@ -1575,8 +1577,8 @@
   {
     "Index": "0x006e",
     "ReturnType": "void",
-    "Name": "FUNCTION_006E",
-    "Description": "",
+    "Name": "NOTHING8",
+    "Description": "Does nothing, the function immediately returns",
     "Parameters": [
     ]
   },
@@ -1622,26 +1624,26 @@
   {
     "Index": "0x0072",
     "ReturnType": "void",
-    "Name": "FUNCTION_0072",
-    "Description": "",
+    "Name": "SOUNDEFFECT_FADE",
+    "Description": "Fades the currently playing sound effect out",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "duration",
+        "Description": "How long it takes to fade to nothing"
       }
     ]
   },
   {
     "Index": "0x0073",
     "ReturnType": "void",
-    "Name": "FUNCTION_0073",
-    "Description": "",
+    "Name": "LOOP_SOUNDEFFECT",
+    "Description": "Plays a sound effect on loop",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "id",
+        "Description": "The id of the sound effect to play"
       }
     ]
   },

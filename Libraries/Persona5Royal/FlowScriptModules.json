@@ -4,7 +4,7 @@
     "ShortName": "Common",
     "Description": "",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "Persona5Royal\\Modules\\Common\\Enums.json",
     "FunctionsPath": "Persona5Royal\\Modules\\Common\\Functions.json"
   },
   {

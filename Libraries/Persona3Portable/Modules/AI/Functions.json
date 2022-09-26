@@ -2,8 +2,8 @@
   {
     "Index": "0x2000",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0000",
-    "Description": "Address: 0x089FC3FC",
+    "Name": "AI_CHK_HP_PERCENT",
+    "Description": "True if HP left is under the value, false if over",
     "Parameters": [
       {
         "Type": "int",
@@ -158,12 +158,12 @@
   {
     "Index": "0x200c",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_000C",
+    "Name": "AI_CHK_ENEMY_STATUS",
     "Description": "Address: 0x089FC78C",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -197,12 +197,12 @@
   {
     "Index": "0x200f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_000F",
+    "Name": "AI_CHK_PLAYER_ID",
     "Description": "Address: 0x089FC870",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       }
     ]
@@ -227,8 +227,8 @@
     "Description": "Address: 0x089FC908",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -478,12 +478,12 @@
   {
     "Index": "0x2026",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0026",
-    "Description": "Address: 0x089FCEFC",
+    "Name": "AI_CHK_ENEMY_SKILL",
+    "Description": "True if the opponent uses the skill in the conditional. Used for Armageddon checks",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
@@ -566,12 +566,12 @@
   {
     "Index": "0x2030",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0030",
+    "Name": "AI_TAR_STATUS",
     "Description": "Address: 0x089FF1A0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -658,12 +658,12 @@
   {
     "Index": "0x2038",
     "ReturnType": "void",
-    "Name": "AI_WEAK",
+    "Name": "AI_TAR_WEAK",
     "Description": "Address: 0x089FF3F4",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -750,7 +750,7 @@
   {
     "Index": "0x2040",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0040",
+    "Name": "AI_ACT_WAIT",
     "Description": "Address: 0x089FC2AC",
     "Parameters": []
   },
@@ -805,7 +805,7 @@
   {
     "Index": "0x2047",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0047",
+    "Name": "AI_CHK_ONE_MORE",
     "Description": "Address: 0x089FD0B0",
     "Parameters": []
   },
@@ -1372,12 +1372,12 @@
   {
     "Index": "0x206f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006F",
-    "Description": "Address: 0x089FE7AC",
+    "Name": "AI_CHK_DOWNED_WEAK",
+    "Description": "A combination of checking if an enemy is downed and weak to a given affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1839,12 +1839,12 @@
   {
     "Index": "0x2091",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0091",
-    "Description": "Address: 0x089FF9CC",
+    "Name": "AI_AFFINITY_SWITCH",
+    "Description": "Switches current affinity to the enemy ID called.",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "enemy_ID",
         "Description": ""
       }
     ]
@@ -2083,17 +2083,17 @@
   {
     "Index": "0x20a4",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00A4",
+    "Name": "AI_CHECK_PLAYER_EFFECT",
     "Description": "Address: 0x089FDB94",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -2191,8 +2191,8 @@
   {
     "Index": "0x20aa",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00AA",
-    "Description": "Address: 0x089FE394",
+    "Name": "AI_CHK_ENEMY_SKILL_AFFINITY",
+    "Description": "For Margaret, first int is enemy position, second is affinity ID. True if target is hit with that affinity",
     "Parameters": [
       {
         "Type": "int",
@@ -2200,8 +2200,8 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -2265,7 +2265,7 @@
   },
   {
     "Index": "0x20af",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "AI_FUNCTION_00AF",
     "Description": "Address: 0x08A037F0",
     "Parameters": []
@@ -2277,8 +2277,8 @@
     "Description": "Address: 0x08A03444",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Persona",
+        "Name": "personaID",
         "Description": ""
       },
       {
@@ -2326,11 +2326,11 @@
     "Index": "0x20b5",
     "ReturnType": "void",
     "Name": "AI_ACT_ATTACK",
-    "Description": "Address: 0x08A034B0",
+    "Description": "A seemingly Elizabeth/Theo only weapon attack function",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
@@ -3039,8 +3039,8 @@
   {
     "Index": "0x20e8",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00E8",
-    "Description": "Address: 0x089FEF3C",
+    "Name": "AI_CHK_TURN",
+    "Description": "For enemies with multiple turns, true if it is equivalent to the turn number",
     "Parameters": []
   },
   {
@@ -3410,7 +3410,7 @@
   {
     "Index": "0x2108",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0108",
+    "Name": "AI_CHK_HP_VALUE",
     "Description": "Address: 0x08A00038",
     "Parameters": []
   }

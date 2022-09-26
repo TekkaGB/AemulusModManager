@@ -380,6 +380,8 @@
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
+    <None Include="Libraries\Persona3Portable\FunctionLookUp.flow" />
+    <None Include="Libraries\Persona5Royal\Modules\Common\Enums.json" />
     <None Include="Libraries\Persona5\Modules\Custom\Enums.json" />
     <None Include="Libraries\Persona5\Modules\Custom\Functions.json" />
     <None Include="Dependencies\MakeCpk\filtered_data.csv">
@@ -759,14 +761,6 @@
     <ContentWithTargetPath Include="Libraries\Persona5\Modules\Common\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>Libraries\Persona5\Modules\Common\\Functions.json</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Libraries\Persona5\Modules\Custom\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Libraries\Persona5\Modules\Custom\\Enums.json</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Libraries\Persona5\Modules\Custom\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Libraries\Persona5\Modules\Custom\\Functions.json</TargetPath>
     </ContentWithTargetPath>
     <ContentWithTargetPath Include="Libraries\Persona5\Modules\Facility\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

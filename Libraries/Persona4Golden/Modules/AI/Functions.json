@@ -2,8 +2,8 @@
   {
     "Index": "0x2000",
     "ReturnType": "int",
-    "Name": "AI_MYHP_LESS_THAN",
-    "Description": "",
+    "Name": "AI_MYHP_LESS_OR_EQUAL_THAN",
+    "Description": "Specify if the user's HP percentage is below or equal than the specified",
     "Parameters": [
       {
         "Type": "int",
@@ -15,8 +15,8 @@
   {
     "Index": "0x2001",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0001",
-    "Description": "",
+    "Name": "AI_MYSP_LESS_OR_EQUAL_THAN",
+    "Description": "Specify if the user's SP percentage is below or equal than the specified",
     "Parameters": [
       {
         "Type": "int",
@@ -28,8 +28,8 @@
   {
     "Index": "0x2002",
     "ReturnType": "int",
-    "Name": "AI_FR_HP_LESS_THAN",
-    "Description": "",
+    "Name": "AI_FR_HP_LESS_OR_EQUAL_THAN",
+    "Description": "Specify if the Enemy's (POV from Enemy) companion HP percentage is below or equal than the specified",
     "Parameters": [
       {
         "Type": "int",
@@ -41,8 +41,8 @@
   {
     "Index": "0x2003",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0003",
-    "Description": "",
+    "Name": "AI_EN_HP_LESS_OR_EQUAL_THAN",
+    "Description": "Specify if the Party Members' (POV from Enemy) companion HP percentage is below or equal than the specified",
     "Parameters": [
       {
         "Type": "int",
@@ -54,8 +54,8 @@
   {
     "Index": "0x2004",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0004",
-    "Description": "",
+    "Name": "AI_EN_HP_MORE_OR_EQUAL_THAN",
+    "Description": "Specify if the Party Members' (POV from Enemy) companion HP percentage is more or equal than the specified",
     "Parameters": [
       {
         "Type": "int",
@@ -106,8 +106,8 @@
   {
     "Index": "0x2008",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0008",
-    "Description": "",
+    "Name": "AI_CHK_ENEMY_SURVIVE_LESS_OR_EQUAL_THAN",
+    "Description": "THIS IS CHECKING HOW MANY ENEMY ALIVE REGARDLESS OF THE POV",
     "Parameters": [
       {
         "Type": "int",
@@ -119,8 +119,8 @@
   {
     "Index": "0x2009",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0009",
-    "Description": "",
+    "Name": "AI_CHK_ALLIES_LESS_OR_EQUAL_THAN",
+    "Description": "THIS IS CHECKING HOW MANY PARTY MEMBERS ALIVE REGARDLESS OF THE POV",
     "Parameters": [
       {
         "Type": "int",
@@ -132,8 +132,8 @@
   {
     "Index": "0x200a",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_000A",
-    "Description": "",
+    "Name": "AI_MY_AILMENT_UNKNOWN",
+    "Description": "It may be checking ailment but it still needs testing because another function with similar function has existed",
     "Parameters": [
       {
         "Type": "int",
@@ -146,7 +146,7 @@
     "Index": "0x200b",
     "ReturnType": "int",
     "Name": "AI_FR_HOJO",
-    "Description": "",
+    "Description": "This is checking the buff/debuff from the Enemies' companion (POV from Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -159,7 +159,7 @@
     "Index": "0x200c",
     "ReturnType": "int",
     "Name": "AI_EN_HAS_AILMENT",
-    "Description": "",
+    "Description": "This is checking the ailment from the Party Members' companion (POV from Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -171,8 +171,8 @@
   {
     "Index": "0x200d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_000D",
-    "Description": "",
+    "Name": "AI_FR_HAS_AILMENTUNKNOWN",
+    "Description": "This is checking the ailment from the Enemies' companion (POV from Enemy). However, it needs further testing",
     "Parameters": [
       {
         "Type": "int",
@@ -184,8 +184,8 @@
   {
     "Index": "0x200e",
     "ReturnType": "int",
-    "Name": "AI_FR_IS_PRESENT",
-    "Description": "",
+    "Name": "AI_FRID_IS_PRESENT_OR_ALIVE",
+    "Description": "This is checking if certain Enemy ID is alive or present in the current battle. (POV from Enemy) NOTE: Death also counts towards this",
     "Parameters": [
       {
         "Type": "PartyUnit",
@@ -197,8 +197,8 @@
   {
     "Index": "0x200f",
     "ReturnType": "int",
-    "Name": "AI_IS_ENID_PRESENT",
-    "Description": "",
+    "Name": "AI_ENID_IS_PRESENT_OR_ALIVE",
+    "Description": "This is checking if certain Party Member ID is alive or present in the current battle. (POV from Enemy) NOTE: Death also counts towards this.",
     "Parameters": [
       {
         "Type": "PartyUnit",
@@ -211,7 +211,7 @@
     "Index": "0x2010",
     "ReturnType": "int",
     "Name": "AI_EN_HOJO",
-    "Description": "",
+    "Description": "This is checking the buff/debuff from the Party Members' companion (POV from Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -223,8 +223,8 @@
   {
     "Index": "0x2011",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0011",
-    "Description": "",
+    "Name": "AI_EN_HOJOUNKNOWN",
+    "Description": "This function is checking hojo based on the original flow upon inspection but currently unsure and untested",
     "Parameters": [
       {
         "Type": "int",
@@ -252,8 +252,8 @@
   {
     "Index": "0x2014",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0014",
-    "Description": "",
+    "Name": "AI_CHK_MY_FIRSTTURN",
+    "Description": "This is checking if the user's turn is the first or not. NOTE: This function is only effective if the user has two turns in a row. The function will check out of those two turns if the first turn is current or not. The prime example usage of this function is Shadow Mitsuo",
     "Parameters": [
     ]
   },
@@ -299,8 +299,8 @@
   {
     "Index": "0x2018",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0018",
-    "Description": "",
+    "Name": "AI_CHK_MYWEAKNESS",
+    "Description": "This function checks the user's weakness affinity",
     "Parameters": [
       {
         "Type": "int",
@@ -312,8 +312,8 @@
   {
     "Index": "0x2019",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0019",
-    "Description": "",
+    "Name": "AI_ALLY_HAS_REFLECT",
+    "Description": "This function checks the Enemy's Repel affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -326,7 +326,7 @@
     "Index": "0x201a",
     "ReturnType": "int",
     "Name": "AI_EN_HAS_NULL",
-    "Description": "",
+    "Description": "This function checks the Party Member's Null affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "SkillElement",
@@ -338,8 +338,8 @@
   {
     "Index": "0x201b",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_001B",
-    "Description": "",
+    "Name": "AI_ALLY_HAS_DRAIN",
+    "Description": "This function checks the Enemy's Drain affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -352,7 +352,7 @@
     "Index": "0x201c",
     "ReturnType": "int",
     "Name": "AI_EN_HAS_REFLECT",
-    "Description": "",
+    "Description": "This function checks the Party Member's Repel affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "SkillElement",
@@ -364,8 +364,8 @@
   {
     "Index": "0x201d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_001D",
-    "Description": "",
+    "Name": "AI_ALLY_HAS_NULL",
+    "Description": "This function checks the Enemy's Null affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -378,7 +378,7 @@
     "Index": "0x201e",
     "ReturnType": "int",
     "Name": "AI_EN_HAS_ABSORB",
-    "Description": "",
+    "Description": "This function checks the Party Member's Drain affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "SkillElement",
@@ -390,8 +390,8 @@
   {
     "Index": "0x201f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_001F",
-    "Description": "",
+    "Name": "AI_ALLY_HAS_WEAK",
+    "Description": "This function checks the Enemy's Weak affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -403,8 +403,8 @@
   {
     "Index": "0x2020",
     "ReturnType": "int",
-    "Name": "AI_EN_IS_WEAK_TO",
-    "Description": "",
+    "Name": "AI_EN_HAS_WEAK",
+    "Description": "This function checks the Party Member's Weak affinity (POV From Enemy)",
     "Parameters": [
       {
         "Type": "SkillElement",
@@ -416,8 +416,8 @@
   {
     "Index": "0x2021",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0021",
-    "Description": "",
+    "Name": "AI_MY_USES_ELEMENT_SKILL",
+    "Description": "Check when the user is using Element Skill during its turn",
     "Parameters": [
       {
         "Type": "int",
@@ -429,8 +429,8 @@
   {
     "Index": "0x2022",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0022",
-    "Description": "",
+    "Name": "AI_ALLY_OR_SELF_USES_ELEMENT_SKILL",
+    "Description": "Check when the enemy is using Element Skill during their turn (POV from ENEMY). It can also check SELF",
     "Parameters": [
       {
         "Type": "int",
@@ -442,8 +442,8 @@
   {
     "Index": "0x2023",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0023",
-    "Description": "",
+    "Name": "AI_EN_USES_ELEMENT_SKILL",
+    "Description": "Check when the party member is using Element Skill during their turn (POV from ENEMY).",
     "Parameters": [
       {
         "Type": "int",
@@ -456,7 +456,7 @@
     "Index": "0x2024",
     "ReturnType": "int",
     "Name": "AI_SKILL_WAS_USED",
-    "Description": "",
+    "Description": "This is checking the last skill used from the enemy",
     "Parameters": [
       {
         "Type": "BattleSkill",
@@ -468,8 +468,8 @@
   {
     "Index": "0x2025",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0025",
-    "Description": "",
+    "Name": "AI_ALLY_USES_SKILL",
+    "Description": "This is checking which Skill ID if used from the Enemy (POV from Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -481,8 +481,8 @@
   {
     "Index": "0x2026",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0026",
-    "Description": "",
+    "Name": "AI_EN_USES_SKILL",
+    "Description": "This is checking which Skill ID if used from the Party Member (POV from Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -518,8 +518,8 @@
   {
     "Index": "0x202a",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_002A",
-    "Description": "",
+    "Name": "AI_CHK_MYTURNCOUNT_LESS_OR_EQUAL_THAN",
+    "Description": "This is checking if the turn count specific for that user is less or equal than the specified.",
     "Parameters": [
       {
         "Type": "int",
@@ -531,8 +531,8 @@
   {
     "Index": "0x202b",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_002B",
-    "Description": "",
+    "Name": "AI_CHK_MYTURNCOUNT_MORE_OR_EQUAL_THAN",
+    "Description": "This is checking if the turn count specific for that user is more or equal than the specified",
     "Parameters": [
       {
         "Type": "int",
@@ -545,7 +545,7 @@
     "Index": "0x202c",
     "ReturnType": "void",
     "Name": "AI_TAR_RND",
-    "Description": "",
+    "Description": "Target randomly",
     "Parameters": [
     ]
   },
@@ -553,7 +553,7 @@
     "Index": "0x202d",
     "ReturnType": "void",
     "Name": "AI_TAR_LOWHP",
-    "Description": "",
+    "Description": "Target the lowest HP user",
     "Parameters": [
     ]
   },
@@ -576,8 +576,8 @@
   {
     "Index": "0x2030",
     "ReturnType": "void",
-    "Name": "AI_TAR_EN_HAS_AILMENT",
-    "Description": "",
+    "Name": "AI_TAR_UNI_HAS_AILMENT",
+    "Description": "Target the unit that has ailment",
     "Parameters": [
       {
         "Type": "int",
@@ -589,8 +589,8 @@
   {
     "Index": "0x2031",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0031",
-    "Description": "",
+    "Name": "AI_TAR_NOTAILMENT",
+    "Description": "Target anyone that has no ailment",
     "Parameters": [
       {
         "Type": "int",
@@ -602,8 +602,8 @@
   {
     "Index": "0x2032",
     "ReturnType": "void",
-    "Name": "AI_TAR_ENID",
-    "Description": "",
+    "Name": "AI_TAR_UNIT",
+    "Description": "Target specific unit. Specify the ID",
     "Parameters": [
       {
         "Type": "PartyUnit",
@@ -616,23 +616,23 @@
     "Index": "0x2033",
     "ReturnType": "void",
     "Name": "AI_TAR_SELF",
-    "Description": "",
+    "Description": "Target itself",
     "Parameters": [
     ]
   },
   {
     "Index": "0x2034",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0034",
-    "Description": "",
+    "Name": "AI_TAR_OTHERTHANSELF",
+    "Description": "Target other than itself",
     "Parameters": [
     ]
   },
   {
     "Index": "0x2035",
     "ReturnType": "void",
-    "Name": "AI_TAR_NULL",
-    "Description": "",
+    "Name": "AI_TAR_EN_HAS_NULL",
+    "Description": "Target the Party Members that has Null Affinity. (POV from ENEMY)",
     "Parameters": [
       {
         "Type": "SkillElement",
@@ -644,8 +644,8 @@
   {
     "Index": "0x2036",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0036",
-    "Description": "",
+    "Name": "AI_TAR_EN_HAS_REFLECT",
+    "Description": "Target the Party Members that has Repel Affinity. (POV from ENEMY)",
     "Parameters": [
       {
         "Type": "int",
@@ -657,8 +657,8 @@
   {
     "Index": "0x2037",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0037",
-    "Description": "",
+    "Name": "AI_TAR_EN_HAS_ABSORB",
+    "Description": "Target the Party Members that has Drain Affinity. (POV from ENEMY)",
     "Parameters": [
       {
         "Type": "int",
@@ -670,8 +670,8 @@
   {
     "Index": "0x2038",
     "ReturnType": "void",
-    "Name": "AI_TAR_WEAK",
-    "Description": "",
+    "Name": "AI_TAR_EN_HAS_WEAK",
+    "Description": "Target the Party Members that has Weak Affinity. (POV from ENEMY)",
     "Parameters": [
       {
         "Type": "SkillElement",
@@ -736,7 +736,7 @@
     "Index": "0x203d",
     "ReturnType": "void",
     "Name": "AI_ATTACK",
-    "Description": "",
+    "Description": "Command the enemy to do basic attack only",
     "Parameters": [
     ]
   },
@@ -744,7 +744,7 @@
     "Index": "0x203e",
     "ReturnType": "void",
     "Name": "AI_USE_SKILL",
-    "Description": "",
+    "Description": "Command the enemy to use specific skill ID",
     "Parameters": [
       {
         "Type": "BattleSkill",
@@ -757,7 +757,7 @@
     "Index": "0x203f",
     "ReturnType": "void",
     "Name": "AI_RUN_AWAY",
-    "Description": "",
+    "Description": "Command the enemy to run away",
     "Parameters": [
     ]
   },
@@ -765,7 +765,7 @@
     "Index": "0x2040",
     "ReturnType": "void",
     "Name": "AI_WAIT",
-    "Description": "",
+    "Description": "Command the enemy to waste turn by waiting doing nothing",
     "Parameters": [
     ]
   },
@@ -773,7 +773,7 @@
     "Index": "0x2041",
     "ReturnType": "void",
     "Name": "AI_SUMMON",
-    "Description": "",
+    "Description": "Summon 1 enemy in the battle. Specify the ID",
     "Parameters": [
       {
         "Type": "int",
@@ -801,16 +801,16 @@
   {
     "Index": "0x2044",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0044",
-    "Description": "",
+    "Name": "AI_TAR_DOWN",
+    "Description": "Target party member that have Down ailment condition",
     "Parameters": [
     ]
   },
   {
     "Index": "0x2045",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0045",
-    "Description": "",
+    "Name": "AI_TAR_AILMENT",
+    "Description": "Target party member that have ailment",
     "Parameters": [
     ]
   },
@@ -826,7 +826,7 @@
     "Index": "0x2047",
     "ReturnType": "int",
     "Name": "AI_IS_ENEMY_DOWN",
-    "Description": "",
+    "Description": "This is checking if the party members are DOWN",
     "Parameters": [
     ]
   },
@@ -834,7 +834,7 @@
     "Index": "0x2048",
     "ReturnType": "void",
     "Name": "AI_SKIP_MY_TURN",
-    "Description": "",
+    "Description": "Commands the enemy to skip their turn, doing nothing",
     "Parameters": [
     ]
   },
@@ -880,8 +880,8 @@
   {
     "Index": "0x204c",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_004C",
-    "Description": "",
+    "Name": "AI_TAR_EN_HAS_WEAK_BUTNOTGUARDING_OR_DOWN",
+    "Description": "This is targeting the party members who has Weak Affinity but when they are not guarding or in down condition",
     "Parameters": [
       {
         "Type": "int",
@@ -1036,8 +1036,8 @@
   {
     "Index": "0x2058",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0058",
-    "Description": "",
+    "Name": "AI_CHK_EN_WEAKNESS_STANDING_BUT_NOGUARDING",
+    "Description": "This is checking if the party members has Weak Affinity and standing but when they are not guarding",
     "Parameters": [
       {
         "Type": "int",
@@ -1049,8 +1049,8 @@
   {
     "Index": "0x2059",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0059",
-    "Description": "",
+    "Name": "AI_SUMMONTWO",
+    "Description": "Summon two enemies. Specify their ID",
     "Parameters": [
       {
         "Type": "int",
@@ -1067,8 +1067,8 @@
   {
     "Index": "0x205a",
     "ReturnType": "int",
-    "Name": "AI_FRID_HP_LESS_THAN",
-    "Description": "",
+    "Name": "AI_FRID_HP_LESS_OR_EQUAL_THAN",
+    "Description": "This is checking if the enemy ID's HP is less or equal than the specified (POV from Enemy). Specify ID and then HP %",
     "Parameters": [
       {
         "Type": "int",
@@ -1121,8 +1121,8 @@
   {
     "Index": "0x205d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_005D",
-    "Description": "",
+    "Name": "AI_CHK_FRID_AILMENT",
+    "Description": "This is checking if the enemy ID's HP has ailment (POV from Enemy). Specify ID and then ailment value",
     "Parameters": [
       {
         "Type": "int",
@@ -1140,7 +1140,7 @@
     "Index": "0x205e",
     "ReturnType": "int",
     "Name": "AI_FRID_HOJO",
-    "Description": "",
+    "Description": "This is checking if the enemy ID's HP has buff/debuff (POV from Enemy). Specify ID and then buff/debuff value",
     "Parameters": [
       {
         "Type": "int",
@@ -1193,8 +1193,8 @@
   {
     "Index": "0x2061",
     "ReturnType": "int",
-    "Name": "AI_CHK_FRID_WEAK_TO",
-    "Description": "",
+    "Name": "AI_CHK_FRID_WEAK_TO_UNKNOWN",
+    "Description": "Upon the inspection of original flow, this function is checking if the enemy ID's HP has Weak Affinity (POV from Enemy). Specify ID and then affinity element. However, since another function with similar function has existed, it is unknown if this function is the same or not. Need further testing",
     "Parameters": [
       {
         "Type": "int",
@@ -1212,7 +1212,7 @@
     "Index": "0x2062",
     "ReturnType": "int",
     "Name": "AI_FRID_WEAK_TO",
-    "Description": "",
+    "Description": "This is checking if the enemy ID's HP has Weak Affinity (POV from Enemy). Specify ID and then affinity element",
     "Parameters": [
       {
         "Type": "int",
@@ -1312,8 +1312,8 @@
   {
     "Index": "0x2069",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0069",
-    "Description": "",
+    "Name": "AI_CHK_IF_TURN_ON_ENEMY_OR_PARTYALLY",
+    "Description": "This is checking if the turn is an enemy or party members. First digit is 0 if Party, 1 if Enemy. Second digit is the Enemy or Party member's ID",
     "Parameters": [
       {
         "Type": "int",
@@ -1369,8 +1369,8 @@
   {
     "Index": "0x206d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006D",
-    "Description": "",
+    "Name": "AI_EN_IS_WEAK_TOUNKNOWN",
+    "Description": "This function is checking if party members have weak affinity. However, since other functions with similar function has existed, it needs further testing if this function really does what it says",
     "Parameters": [
       {
         "Type": "int",
@@ -1382,8 +1382,8 @@
   {
     "Index": "0x206e",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006E",
-    "Description": "",
+    "Name": "AI_CHK_EN_HAS_WEAK_BUTNOTGUARDING_OR_DOWN",
+    "Description": "This is checking if the party member has weak affinity but is not guarding or in Down state",
     "Parameters": [
       {
         "Type": "int",
@@ -1395,8 +1395,8 @@
   {
     "Index": "0x206f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006F",
-    "Description": "",
+    "Name": "AI_CHK_EN_HAS_WEAK_BUTNOTGUARDING_OR_DOWN_AFTER1MORE",
+    "Description": "This is checking if the party member has weak affinity but is not guarding or in Down state after getting 1 more",
     "Parameters": [
       {
         "Type": "int",
@@ -1434,8 +1434,8 @@
   {
     "Index": "0x2072",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0072",
-    "Description": "",
+    "Name": "AI_CHK_ELEMENTUNKNOWN",
+    "Description": "UNKNOWN. It is not known what this function does yet",
     "Parameters": [
       {
         "Type": "int",
@@ -1868,7 +1868,7 @@
     "Index": "0x2091",
     "ReturnType": "void",
     "Name": "AI_CHANGE_AFFINITY_SET",
-    "Description": "",
+    "Description": "This function changes the affinity set from the UNIT.TBL. Specify the Enemy ID to change the affinity the same that it has",
     "Parameters": [
       {
         "Type": "int",
@@ -1931,7 +1931,7 @@
     "Index": "0x2097",
     "ReturnType": "int",
     "Name": "AI_GET_RANDOM_NUMBER_BELOW",
-    "Description": "",
+    "Description": "Get the random number below specified",
     "Parameters": [
       {
         "Type": "int",
@@ -1943,8 +1943,8 @@
   {
     "Index": "0x2098",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0098",
-    "Description": "",
+    "Name": "AI_TAR_NOTENID",
+    "Description": "This function targets those who are not specified.",
     "Parameters": [
       {
         "Type": "int",
@@ -2021,8 +2021,8 @@
   {
     "Index": "0x209e",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_009E",
-    "Description": "",
+    "Name": "AI_CHK_ENID_HAS_LESS_OR_EQUAL_HP",
+    "Description": "This function checks Party Member's ID who has less or equal HP percentage specified.",
     "Parameters": [
       {
         "Type": "int",
@@ -2075,8 +2075,8 @@
   {
     "Index": "0x20a1",
     "ReturnType": "int",
-    "Name": "AI_ENID_HOJO",
-    "Description": "",
+    "Name": "AI_CHK_UNIT_AILMENT",
+    "Description": "This function checks any unit that has ailment",
     "Parameters": [
       {
         "Type": "int",
@@ -2272,7 +2272,7 @@
     "Index": "0x20ad",
     "ReturnType": "int",
     "Name": "GET_COUNT",
-    "Description": "",
+    "Description": "This functions gets the stored count value. First digit is the stored count, second digit is the value stored.",
     "Parameters": [
       {
         "Type": "int",
@@ -2285,7 +2285,7 @@
     "Index": "0x20ae",
     "ReturnType": "void",
     "Name": "SET_COUNT",
-    "Description": "",
+    "Description": "This functions sets the stored count value. First digit is the stored count, second digit is the value stored.",
     "Parameters": [
       {
         "Type": "int",
@@ -2626,8 +2626,8 @@
   {
     "Index": "0x20c1",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00C1",
-    "Description": "",
+    "Name": "AI_TEDDIE_MESSAGE_HARDCODE",
+    "Description": "395, 0 is it's going to attack but only when it is Teddie's Navi",
     "Parameters": [
       {
         "Type": "int",
@@ -2676,8 +2676,8 @@
   {
     "Index": "0x20c6",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00C6",
-    "Description": "",
+    "Name": "AI_TAR_EN_HAS_HOJO",
+    "Description": "This function targets the party members that have buff/debuff",
     "Parameters": [
       {
         "Type": "int",
@@ -2689,8 +2689,8 @@
   {
     "Index": "0x20c7",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00C7",
-    "Description": "",
+    "Name": "AI_TAR_EN_NOTHOJO",
+    "Description": "This function targets the party members that have no buff/debuff",
     "Parameters": [
       {
         "Type": "int",
@@ -2770,7 +2770,7 @@
     "Index": "0x20cc",
     "ReturnType": "int",
     "Name": "AI_MY_HOJO",
-    "Description": "",
+    "Description": "This function checks the user's buff/debuff",
     "Parameters": [
       {
         "Type": "int",
@@ -2881,8 +2881,8 @@
   {
     "Index": "0x20d5",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00D5",
-    "Description": "",
+    "Name": "AI_ACT_MSGMOMENTARYCHILD_OR_OKINA",
+    "Description": "This is the function that shows message popup when fighting okina or memomentary child in vanilla.",
     "Parameters": [
       {
         "Type": "int",
@@ -2912,8 +2912,8 @@
   {
     "Index": "0x20d7",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00D7",
-    "Description": "",
+    "Name": "AI_CHK_AILMENT_ON_FRID_DURING_ITS_TURN",
+    "Description": "This checks Enemy's ID if they have ailment during the user's turn. First digit is the ailment value, Second Digit is the Enemy's ID",
     "Parameters": [
       {
         "Type": "int",
@@ -2948,8 +2948,8 @@
   {
     "Index": "0x20d9",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00D9",
-    "Description": "",
+    "Name": "AI_CHK_IS_MYTURN_FIRSTACT",
+    "Description": "Only use this for enemy that has 2 turns act in a row",
     "Parameters": [
     ]
   },
@@ -3173,8 +3173,8 @@
   {
     "Index": "0x20ed",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00ED",
-    "Description": "",
+    "Name": "AI_CHK_EN_HAS_RESIST",
+    "Description": "This checks the Party members affinity if they have Resist affinity",
     "Parameters": [
       {
         "Type": "int",
@@ -3414,8 +3414,8 @@
   {
     "Index": "0x20fe",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_00FE",
-    "Description": "",
+    "Name": "AI_battleposition",
+    "Description": "This function is positioning the enemy in the battle. It is used for Boss battle which uses script file.",
     "Parameters": [
       {
         "Type": "int",
@@ -3498,7 +3498,7 @@
     "Index": "0x2104",
     "ReturnType": "void",
     "Name": "AI_USE_SUMMON_SKILL",
-    "Description": "",
+    "Description": "This function is for Shadow Yukiko. It is unknown what the 2nd, 3rd and 4th digits are for",
     "Parameters": [
       {
         "Type": "BattleSkill",
@@ -3526,7 +3526,7 @@
     "Index": "0x2105",
     "ReturnType": "void",
     "Name": "AI_PERSONA_USE_SKILL",
-    "Description": "",
+    "Description": "This function is for Margaret and Adachi. The function is the same as using skill. Specify Persona ID and then Skill ID",
     "Parameters": [
       {
         "Type": "PersonaUnit",
@@ -3564,8 +3564,8 @@
   {
     "Index": "0x2108",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0108",
-    "Description": "",
+    "Name": "AI_CHK_MITSUO_HAS_BLOCK",
+    "Description": "This function is specific for Mitsuo. This checks if Mitsuo has a block or not",
     "Parameters": [
     ]
   },
@@ -3616,8 +3616,8 @@
   {
     "Index": "0x210c",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_010C",
-    "Description": "",
+    "Name": "AI_TAR_FRID_NOTAILMENT",
+    "Description": "This is targeting the enemy who has no ailment. (POV from Enemy)",
     "Parameters": [
       {
         "Type": "int",
@@ -3652,8 +3652,8 @@
   {
     "Index": "0x210e",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_010E",
-    "Description": "",
+    "Name": "AI_CHK_FRID_HAS_AILMENT",
+    "Description": "This is checking enemy's ID that has ailment. Specify enemy's ID and then ailment value",
     "Parameters": [
       {
         "Type": "int",
@@ -3670,8 +3670,8 @@
   {
     "Index": "0x210f",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_010F",
-    "Description": "",
+    "Name": "AI_TAR_ENID_NOTHOJO",
+    "Description": "This targets Party members ID that has no buff/debuff. Specify Party Member's ID and then ailment value",
     "Parameters": [
       {
         "Type": "int",
@@ -3688,8 +3688,8 @@
   {
     "Index": "0x2110",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0110",
-    "Description": "",
+    "Name": "AI_FRID_HOJOUNKNOWN",
+    "Description": "This function is checking Buff/debuff but is unsure what it does actually since other similar functions have existed. Need further test.",
     "Parameters": [
       {
         "Type": "int",
@@ -3706,8 +3706,8 @@
   {
     "Index": "0x2111",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0111",
-    "Description": "",
+    "Name": "AI_CHK_ENID_HOJO",
+    "Description": "This is checking party member's ID that has buff/debuff. Specify party member's ID and then buff/debuff value",
     "Parameters": [
       {
         "Type": "int",
@@ -3724,8 +3724,8 @@
   {
     "Index": "0x2112",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0112",
-    "Description": "",
+    "Name": "AI_TAR_HIGHESTHP",
+    "Description": "Target the user who has the highest HP value",
     "Parameters": [
     ]
   },
@@ -3758,7 +3758,7 @@
   {
     "Index": "0x2115",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0115",
+    "Name": "AI_ACT_MSGYOSUKE",
     "Description": "",
     "Parameters": [
       {
