@@ -346,6 +346,13 @@ namespace AemulusModManager
                                 Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
+                        else if (Path.GetExtension(file).ToLower() == ".pmsf" && game == "Persona 3 Portable")
+                        {
+                            var fmvPath = $@"{Path.GetDirectoryName(modDir)}\FMV";
+                            Directory.CreateDirectory(fmvPath);
+                            FileIOWrapper.Copy(file, $@"{fmvPath}\{Path.GetFileName(file)}", true);
+                            Console.WriteLine($@"[INFO] Copying over {file} to {fmvPath}\{Path.GetFileName(file)}");
+                        }
                         else
                         {
                             if (useCpk)
