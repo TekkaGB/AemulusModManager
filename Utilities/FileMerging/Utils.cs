@@ -30,7 +30,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Decide which compiler it is
             if (!pm1)
             {
-                compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe";
+                compilerPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.dll";
             }
             else
             {
