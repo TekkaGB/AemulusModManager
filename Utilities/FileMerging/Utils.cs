@@ -115,6 +115,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
                 compiler.Library = compilerInfos[game].Library;
                 compiler.Encoding = compilerInfos[game].Encoding;
+                compiler.ProcedureHookMode = ProcedureHookMode.ImportedOnly;
 
                 if (game == "Persona 5 Royal" && language != null && language != "English")
                     compiler.Encoding = AtlusEncoding.GetByName("P5R_EFIGS");
