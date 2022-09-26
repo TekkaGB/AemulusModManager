@@ -312,7 +312,7 @@ namespace AemulusModManager
                                 config.p5Config = p5Config;
                             if (config.p5sConfig == null)
                                 config.p5sConfig = p5sConfig;
-                            if (config.p3pConfig == null) 
+                            if (config.p3pConfig == null)
                                 config.p3pConfig = p3pConfig;
                             if (config.p4gVitaConfig == null)
                                 config.p4gVitaConfig = p4gVitaConfig;
@@ -326,7 +326,7 @@ namespace AemulusModManager
                             if (config.p3pConfig != null)
                                 p3pConfig = config.p3pConfig;
                             if (config.p4gConfig != null)
-                                p4gConfig = config.p4gConfig; 
+                                p4gConfig = config.p4gConfig;
                             if (config.p4gVitaConfig != null)
                                 p4gVitaConfig = config.p4gVitaConfig;
                             if (config.p5Config != null)
@@ -937,7 +937,7 @@ namespace AemulusModManager
                     await PacUnpacker.UnpackPQ2CPK(directory);
                 else if (game == "Persona 5 Royal")
                     await PacUnpacker.UnpackP5RCPKs(directory, p5rConfig.language, p5rConfig.version);
-                
+
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
                     EnableUI();
@@ -2067,6 +2067,10 @@ namespace AemulusModManager
                         Directory.CreateDirectory(path);
                         if (config.p3pConfig.cpkName.EndsWith(".cpk") && File.Exists($@"{modPath}\{config.p3pConfig.cpkName}"))
                             File.Delete($@"{modPath}\{config.p3pConfig.cpkName}");
+
+                        string fmvPath = Path.Combine(modPath, "FMV");
+                        if (Directory.Exists(fmvPath))
+                            Directory.Delete(fmvPath, true);
                     }
                     if (game == "Persona 4 Golden (Vita)")
                     {
@@ -2224,6 +2228,9 @@ namespace AemulusModManager
                         }
                     }
 
+                    var buildTimer = new Stopwatch();
+                    buildTimer.Start();
+
                     if (game != "Persona 5 Strikers")
                     {
                         var language = game == "Persona 5 Royal" ? config.p5rConfig.language : null;
@@ -2273,6 +2280,40 @@ namespace AemulusModManager
                                 Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
                         }
 
+                        // Unlike other ones we always want to "Load FMVS" for P3P so ones that should be deleted will be
+                        if (game == "Persona 3 Portable")
+                        {
+                            binMerge.LoadFMVs(packages, config.p3pConfig.modDir);
+                        }
+
+                        if (game == "Persona 3 Portable" && packages.Exists(x => Directory.Exists($@"{x}\cheats")))
+                        {
+                            if (config.p3pConfig.cheatsPath == null)
+                            {
+                                // Attempt to set the cheats path automatically
+                                DirectoryInfo modDir = new DirectoryInfo(config.p3pConfig.modDir);
+                                var cheatsDir = modDir.Parent.EnumerateDirectories("Cheats").FirstOrDefault();
+                                if (cheatsDir != null)
+                                {
+                                    var inis = cheatsDir.EnumerateFiles("*.ini");
+                                    var cheatIni = inis.FirstOrDefault(file => file.Name == "ULUS10512.ini" || file.Name == "ULES01523.ini");
+                                    if (cheatIni != null)
+                                    {
+                                        config.p3pConfig.cheatsPath = cheatIni.FullName;
+                                        binMerge.LoadP3PCheats(packages, config.p3pConfig.cheatsPath);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"[ERROR] Unable to automatically determine cheats path, please set up cheats path in config to copy over cheats");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                binMerge.LoadP3PCheats(packages, config.p3pConfig.cheatsPath);
+                            }
+                        }
+
                         if (game == "Persona 4 Golden" && packages.Exists(x => Directory.Exists($@"{x}\preappfile")))
                         {
                             PreappfileAppend.Append(Path.GetDirectoryName(path), cpkLang);
@@ -2303,7 +2344,9 @@ namespace AemulusModManager
                         Merger.Patch(path);
                     }
 
-                    Console.WriteLine("[INFO] Finished Building!");
+                    buildTimer.Stop();
+                    Console.WriteLine($"[INFO] Finished Building in {buildTimer.ElapsedMilliseconds}ms!");
+
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;

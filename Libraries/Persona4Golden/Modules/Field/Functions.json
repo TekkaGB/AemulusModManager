@@ -543,8 +543,8 @@
   {
     "Index": "0x102a",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_002A",
-    "Description": "",
+    "Name": "DNG_MSG",
+    "Description": "Plays a message in the top left of the screen, used in dungeons",
     "Parameters": [
       {
         "Type": "int",

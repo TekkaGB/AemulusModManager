@@ -166,50 +166,133 @@
       }
     ]
   },
-    {
-      "Name": "MessageVarType",
-      "Description": "This enum represents the possible types of message variables (used in [f 2 4 index] in messages)",
-      "Members": [
-        {
-          "Name": "Number",
-          "Value": 0,
-          "Description": ""
-        },
-        {
-          "Name": "Item",
-          "Value": 1,
-          "Description": "Need to use [f 2 5 3 -1 index] in message instead of [f 2 4 index] otherwise the game will crash"
-        },
-        {
-          "Name": "Enemy",
-          "Value": 2,
-          "Description": ""
-        },
-        {
-          "Name": "Arcana",
-          "Value": 3,
-          "Description": ""
-        },
-        {
-          "Name": "ProtagName",
-          "Value": 4,
-          "Description": ""
-        },
-        {
-          "Name": "Weapon",
-          "Value": 5,
-          "Description": ""
-        },
-        {
-          "Name": "??? (Use?)",
-          "Value": 6,
-          "Description": ""
-        },
-        {
-          "Name": "Persona",
-          "Value": 7,
-          "Description": ""
-        }
-      ]
-    }
+  {
+    "Name": "MessageVarType",
+    "Description": "This enum represents the possible types of message variables (used in [f 2 4 index] in messages)",
+    "Members": [
+      {
+        "Name": "Number",
+        "Value": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Item",
+        "Value": 1,
+        "Description": "Need to use [f 2 5 3 -1 index] in message instead of [f 2 4 index] otherwise the game will crash"
+      },
+      {
+        "Name": "Enemy",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Arcana",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "ProtagName",
+        "Value": 4,
+        "Description": ""
+      },
+      {
+        "Name": "Weapon",
+        "Value": 5,
+        "Description": ""
+      },
+      {
+        "Name": "??? (Use?)",
+        "Value": 6,
+        "Description": ""
+      },
+      {
+        "Name": "Persona",
+        "Value": 7,
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Name": "FadeType",
+    "Description": "This enum represents the different fade animations",
+    "Members": [
+      {
+        "Name": "Smooth1",
+        "Value": 0,
+        "Description": "Smoothly fades the entire screen from the edge to the center  (exactly the same as smooth, two numbers do the same thing)"
+      },
+      {
+        "Name": "Smooth",
+        "Value": 1,
+        "Description": "Smoothly fades the entire screen from the edge to the center"
+      },
+      {
+        "Name": "Side",
+        "Value": 2,
+        "Description": "Fades the screen in a rectangle coming from the left side of the screen"
+      },
+      {
+        "Name": "Circle",
+        "Value": 3,
+        "Description": "Fades the screen in to a circle (that's all folks!)"
+      }
+    ]
+  },
+  {
+    "Name": "BattleStat",
+    "Description": "This enum represents the different stats in battle",
+    "Members": [
+      {
+        "Name": "Strength",
+        "Value": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Magic",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "Endurance",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Agility",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "Luck",
+        "Value": 4,
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Name": "EquipmentType",
+    "Description": "This enum represents the different types of equipment",
+    "Members": [
+      {
+        "Name": "Weapon",
+        "Value": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Armor",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "Accessory",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Clothes",
+        "Value": 3,
+        "Description": ""
+      }
+    ]
+  }
 ]

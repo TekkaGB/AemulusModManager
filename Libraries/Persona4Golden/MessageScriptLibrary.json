@@ -1,0 +1,381 @@
+[
+    {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Functions": [
+            {
+                "Index": 1,
+                "Name": "clr",
+                "Description": "Sets the current text color to the color specified by the given color index.",
+                "Parameters": [
+                    {
+                        "Name": "colorIndex",
+                        "Description": "The index of the color to set the current text color to."
+                    }
+                ]
+            },
+            {
+                "Index": 5,
+                "Name": "",
+                "Description": "",
+                "Semantic": "Unused",
+                "Parameters": []
+            }
+        ]
+    },
+    {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Functions": [
+            {
+                "Index": 1,
+                "Name": "w",
+                "Description": "Wait for player input.",
+                "Parameters": []
+            },
+            {
+                "Index": 2,
+                "Name": "auto",
+                "Description": "Automatically advance the text after the specified amount of time",
+                "Parameters": [
+                    {
+                        "Name": "waitTime",
+                        "Description": "How long to wait before advancing automatically (30 is 1 second)"
+                    }
+                ]
+            },
+            {
+                "Index": 3,
+                "Name": "vAuto",
+                "Description": "Lets the game auto advance when the currently playing voice line finishes",
+                "Parameters": [
+                    {
+                        "Name": "waitTime",
+                        "Description": "How long before the dialogue is automatically advanced (30 is 1 second). -1 waits until the voiceline ends"
+                    }
+                ]
+            },
+            {
+                "Index": 4,
+                "Name": "hideSpeaker",
+                "Description": "Hides the name of the speaker displayed at the top of the dialogue box for the current line and waits for player input. If you want to hide it for the rest of the message you can instead set speaker to nothing using [speaker][n]",
+                "Parameters": []
+            },
+            {
+                "Index": 5,
+                "Name": "speaker",
+                "Description": "Changes the name of the person speaking so there can be multiple speakers in a single message. Use at the start of a new dialogue like so:[s][speaker]New Speaker Name[n](Then continue as normal)",
+                "Parameters": []
+            },
+            {
+                "Index": 6,
+                "Name": "vAuto2",
+                "Description": "Lets the game auto advance when the currently playing voice line finishes (seemingly exactly the same as vAuto except this one is used instead for the dungeon messages, like party members being nearly dead)",
+                "Parameters": [
+                    {
+                        "Name": "waitTime",
+                        "Description": "How long before the dialogue is automatically advanced (30 is 1 second). -1 waits until the voiceline ends"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Functions": [
+            {
+                "Index": 1,
+                "Name": "s",
+                "Description": "Indicates the start of a line",
+                "Parameters": []
+            },
+            {
+                "Index": 4,
+                "Name": "var",
+                "Description": "Loads name previously defined by SET_MSG_VAR",
+                "Parameters": [
+                    {
+                        "Name": "VariableID",
+                        "Description": "The ID of the variable set by SET_MSG_VAR function."
+                    }
+                ]
+            },
+            {
+                "Index": 5,
+                "Name": "itemVar",
+                "Description": "Displays an item that was set using SET_MSG_VAR(varId, itemId, 1)",
+                "Parameters": [
+                    {
+                        "Name": "colorIndex",
+                        "Description": "The index of the color to set the item text to. Only has an effect if itemIconId isn't -1"
+                    },
+                    {
+                        "Name": "itemIconId",
+                        "Description": "The id of the icon that is displayed next to the item name, use -1 for the actual icon of the item. Using anything other than -1 also messes up the displayed name (so always use -1)."
+                    },
+                    {
+                        "Name": "VariableId",
+                        "Description": "The ID of the variable set by SET_MSG_VAR function."
+                    }
+                ]
+            },
+            {
+                "Index": 7,
+                "Name": "flag",
+                "Description": "Turns a specified flag on or off, use at the end of a selection option. Does nothing if used in a message",
+                "Parameters": [
+                    {
+                        "Name": "",
+                        "Description": "Always 0, setting to other value stops the flag from being changed although it's possible something else is being changed instead"
+                    },
+                    {
+                        "Name": "",
+                        "Description": "Always 0, setting to other value stops the flag from being changed although it's possible something else is being changed instead"
+                    },
+                    {
+                        "Name": "flagId",
+                        "Description": "The id of the flag to set"
+                    },
+                    {
+                        "Name": "state",
+                        "Description": "The state to set the flag to (1 or 0, on or off)"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Index": 3,
+        "Name": "",
+        "Description": "Voice playing functions.",
+        "Functions": [
+            {
+                "Index": 1,
+                "Name": "vp",
+                "Description": "Plays a voice sound cue from a specified sound bank.",
+                "Parameters": [
+                    {
+                        "Name": "eventIdMajor",
+                        "Description": "Major id of the event."
+                    },
+                    {
+                        "Name": "eventIdMinor",
+                        "Description": "Minor id of the event."
+                    },
+                    {
+                        "Name": "eventIdSub",
+                        "Description": "Sub id of the event."
+                    },
+                    {
+                        "Name": "cueId",
+                        "Description": "The id of the sound que in the sound bank."
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Functions": [
+            {
+                "Index": 1,
+                "Name": "lName",
+                "Description": "The player's last name",
+                "Parameters": []
+            },
+            {
+                "Index": 2,
+                "Name": "fName",
+                "Description": "The player's first name",
+                "Parameters": []
+            },
+            {
+                "Index": 4,
+                "Name": "item",
+                "Description": "Displays the name of an item including the respective item icon and specified colour",
+                "Parameters": [
+                    {
+                        "Name": "colorIndex",
+                        "Description": "The colour that the item text and icon is"
+                    },
+                    {
+                        "Name": "",
+                        "Description": ""
+                    },
+                    {
+                        "Name": "itemId",
+                        "Description": "The id of the item to be displayed"
+                    }
+                ]
+            },
+            {
+                "Index": 5,
+                "Name": "giveitem",
+                "Description": "Gives the player a specified item",
+                "Parameters": [
+                    {
+                        "Name": "itemId",
+                        "Description": "The id of the item to give to the player"
+                    },
+                    {
+                        "Name": "itemAmount",
+                        "Description": "The amount of items to give to the player"
+                    }
+                ]
+            },
+            {
+                "Index": 6,
+                "Name": "bup",
+                "Description": "Sets the bustup to display.",
+                "Parameters": [
+                    {
+                        "Name": "characterId",
+                        "Description": "The id of the character."
+                    },
+                    {
+                        "Name": "expressionId",
+                        "Description": "The id of the character's expression."
+                    },
+                    {
+                        "Name": "costumeId",
+                        "Description": "The id of the character's costume."
+                    },
+                    {
+                        "Name": "position",
+                        "Description": "The character's position on screen (1 is right, 2 middle, 3 left). Using three bustup at once doesn't work although having one on each side does (having one in the center and one on either side causes the center one to slide to the unoccupied side)"
+                    }
+                ]
+            },
+            {
+                "Index": 7,
+                "Name": "remBup",
+                "Description": "Removes the currently displayed bustup",
+                "Parameters": [
+                    {
+                        "Name": "bustupPosition",
+                        "Description": "Which bustup to remove based on the position defined in [bup]. 0 hides all bustups"
+                    }
+                ]
+            },
+            {
+                "Index": 8,
+                "Name": "exp",
+                "Description": "Plays an expression over a character",
+                "Parameters": [
+                    {
+                        "Name": "modelId",
+                        "Description": "The id of the model to play the expression over"
+                    },
+                    {
+                        "Name": "expressionId",
+                        "Description": "The id of the expression to play (these are defined in the common enums.json)"
+                    }
+                ]
+            },
+            {
+                "Index": 9,
+                "Name": "anim",
+                "Description": "Makes a character play an animation (parameters need research)",
+                "Parameters": [
+                    {
+                        "Name": "",
+                        "Description": ""
+                    },
+                    {
+                        "Name": "",
+                        "Description": ""
+                    },
+                    {
+                        "Name": "",
+                        "Description": ""
+                    },
+                    {
+                        "Name": "",
+                        "Description": ""
+                    },
+                    {
+                        "Name": "",
+                        "Description": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Functions": [
+            {
+                "Index": 8,
+                "Name": "slAffinityInvis",
+                "Description": "Adds affinity to the specified social link, increasing how close the player is to ranking up with them. Unlike the slAffinity function, this does not spawn the notes expression but still plays the sound effect",
+                "Parameters": [
+                    {
+                        "Name": "socialLinkId",
+                        "Description": "The id of the social link that will recieve the affinity. If 0 this is based off of the id set in EVT_FUNCTION_0009(0, slId) in a flowscript"
+                    },
+                    {
+                        "Name": "increaseAmount",
+                        "Description": "How many affinity points to give to the social link (the amount of points given is not 1:1 to the entered value)."
+                    }
+                ]
+            },
+            {
+                "Index": 13,
+                "Name": "slAffinity",
+                "Description": "Gives an sl points, playing the correct notes expression and sound effect over the specified model",
+                "Parameters": [
+                    {
+                        "Name": "socialLinkId",
+                        "Description": "The id of the social link that will recieve the affinity. If 0 this is based off of the id set in EVT_FUNCTION_0009(0, slId) in a flowscript"
+                    },
+                    {
+                        "Name": "increaseAmount",
+                        "Description": "How many affinity points to give to the social link"
+                    },
+                    {
+                        "Name": "modelId",
+                        "Description": "The id of the model to play the expression over"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Functions": [
+            {
+                "Index": 1,
+                "Name": "sym",
+                "Description": "Displays a specified symbol such as elemental icons, item icons, etc",
+                "Parameters": [
+                    {
+                        "Name": "",
+                        "Description": "Only 8 seems to work"
+                    },
+                    {
+                        "Name": "",
+                        "Description": "Seems to make no difference"
+                    },
+                    {
+                        "Name": "",
+                        "Description": "Seems to make no difference"
+                    },
+                    {
+                        "Name": "",
+                        "Description": "The id of the character, you can see these by opening data_e/init/system/font/font0.fnt in PersonaEditor. In there the ids go up from the sword icon (0 is sword, 1 is double swords, etc)"
+                    }
+                ]
+            }
+        ]
+    }
+]

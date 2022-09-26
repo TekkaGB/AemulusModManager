@@ -29,6 +29,8 @@ namespace AemulusModManager
                 PPSSPPTextbox.Text = main.launcherPath;
             if (main.config.p3pConfig.texturesPath != null)
                 TexturesTextbox.Text = main.config.p3pConfig.texturesPath;
+            if (main.config.p3pConfig.cheatsPath != null)
+                CheatsTextbox.Text = main.config.p3pConfig.cheatsPath;
             BuildFinishedBox.IsChecked = main.config.p3pConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p3pConfig.buildWarning;
             ChangelogBox.IsChecked = main.config.p3pConfig.updateChangelog;
@@ -78,6 +80,21 @@ namespace AemulusModManager
                 main.config.p3pConfig.texturesPath = directory;
                 main.updateConfig();
                 TexturesTextbox.Text = directory;
+            }
+        }
+        private void cheatDirectoryClick(object sender, RoutedEventArgs e)
+        {
+            var file = selectExe("Select the P3P cheats ini (ULUS10512.ini)", "*.ini");
+            if (file != null)
+            {
+                Console.WriteLine($"[INFO] Setting cheats ini to {file}");
+                main.config.p3pConfig.cheatsPath = file;
+                main.updateConfig();
+                CheatsTextbox.Text = file;
+            }
+            else
+            {
+                Console.WriteLine("[ERROR] No ini selected");
             }
         }
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
