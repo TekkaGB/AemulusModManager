@@ -94,9 +94,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AtlusScriptLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AtlusScriptLibrary, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Atlus-Script-Tools\Build\Release\AtlusScriptLibrary.dll</HintPath>
+      <HintPath>.\AtlusScriptLibrary.dll</HintPath>
     </Reference>
     <Reference Include="FontAwesome5, Version=2.0.8.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome5.2.0.8\lib\net472\FontAwesome5.dll</HintPath>
@@ -448,46 +448,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\Antlr4.Runtime.dll</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\Antlr4.Runtime.xml</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\App.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\App.config</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusFlowScriptExtractor.exe</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusFlowScriptExtractor.exe.config</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusMessageScriptExtractor.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusMessageScriptExtractor.exe</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusMessageScriptExtractor.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusMessageScriptExtractor.exe.config</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusScriptCompiler.exe</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusScriptCompiler.exe.config</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\AtlusScriptLibrary.dll</TargetPath>
-    </ContentWithTargetPath>
     <ContentWithTargetPath Include="Charsets\P3.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>Charsets\\P3.tsv</TargetPath>
@@ -836,14 +796,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>Libraries\PersonaQ2\Modules\Window\\Functions.json</TargetPath>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\Newtonsoft.Json.dll</TargetPath>
-    </ContentWithTargetPath>
-    <ContentWithTargetPath Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Dependencies\AtlusScriptCompiler\\Newtonsoft.Json.xml</TargetPath>
-    </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
     <ContentWithTargetPath Include="Dependencies\PM1MessageScriptEditor\**">
@@ -876,18 +828,13 @@
     <Resource Include="Assets\p5r.png" />
     <Resource Include="Assets\p5s.png" />
     <Resource Include="Assets\pq2.png" />
-    <Content Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.dll" />
-    <Resource Include="Dependencies\AtlusScriptCompiler\Antlr4.Runtime.xml" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.exe" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusFlowScriptExtractor.pdb" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusMessageScriptExtractor.exe" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusMessageScriptExtractor.pdb" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.exe" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptCompiler.pdb" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.dll" />
-    <Content Include="Dependencies\AtlusScriptCompiler\AtlusScriptLibrary.pdb" />
-    <Content Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.dll" />
-    <Resource Include="Dependencies\AtlusScriptCompiler\Newtonsoft.Json.xml" />
+    <None Include="Antlr4.Runtime.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Antlr4.Runtime.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="AtlusScriptLibrary.dll" />
     <Content Include="Dependencies\CpkMakeC\CpkBinder.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -2345,7 +2345,7 @@ namespace AemulusModManager
                     }
 
                     buildTimer.Stop();
-                    Console.WriteLine($"[INFO] Finished Building in {buildTimer.ElapsedMilliseconds}ms!");
+                    Console.WriteLine($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds/1000, 2)}s!");
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
