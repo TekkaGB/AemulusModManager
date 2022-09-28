@@ -1013,24 +1013,19 @@ namespace AemulusModManager
             List<string> copiedFmvs = new List<string>();
             foreach (string dir in mods)
             {
-                Console.WriteLine($"[INFO] Searching for FMVs in {dir}...");
                 if(!Directory.Exists($@"{dir}\FMV"))
-                {
-                    Console.WriteLine($"[INFO] No FMV folder found in {dir}");
                     continue;
-                }
-
                 if (!Directory.Exists(Path.Combine(modDir, "FMV")))
                     Directory.CreateDirectory(Path.Combine(modDir, "FMV"));
 
                 // Copy over FMVS
-                foreach(var fmv in Directory.GetFiles($@"{dir}\FMV", "*.pmsf"))
+                foreach (var fmv in Directory.GetFiles($@"{dir}\FMV", "*.pmsf"))
                 {
                     copiedFmvs.Add(Path.GetFileName(fmv));
                     var destinationFmv = Path.Combine(modDir, "FMV", Path.GetFileName(fmv));
                     if (File.Exists(destinationFmv))
                     {
-                        if(Utils.SameFiles(fmv, destinationFmv))
+                        if (Utils.SameFiles(fmv, destinationFmv))
                         {
                             Console.WriteLine($"[INFO] Skipping {fmv} as it is already at {destinationFmv}");
                             continue;
@@ -1046,6 +1041,7 @@ namespace AemulusModManager
                     }
                 }
             } 
+            if (Directory.Exists(Path.Combine(modDir, "FMV")))
             // Delete any FMVs in the P3P FMV folder that weren't from one of the mods
             foreach(var file in Directory.EnumerateFiles(Path.Combine(modDir, "FMV")).Where(f => !copiedFmvs.Contains(Path.GetFileName(f)))) {
                 try
