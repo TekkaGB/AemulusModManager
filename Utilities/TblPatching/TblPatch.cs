@@ -516,7 +516,7 @@ namespace AemulusModManager
 
             }
 
-            if (game != "Persona 3 FES")
+            if (game != "Persona 3 FES" && game != "Persona 3 Portable")
             {
                 // Replace each edited TBL's
                 foreach (string u in editedTables)
