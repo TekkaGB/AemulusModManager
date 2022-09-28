@@ -30,6 +30,8 @@ namespace AemulusModManager
                 ELFTextbox.Text = main.elfPath;
             if (main.config.p3fConfig.cheatsPath != null)
                 CheatsTextbox.Text = main.config.p3fConfig.cheatsPath;
+            if (main.config.p3fConfig.cheatsWSPath != null)
+                CheatsWSTextbox.Text = main.config.p3fConfig.cheatsWSPath;
             if (main.config.p3fConfig.texturesPath != null)
                 TexturesTextbox.Text = main.config.p3fConfig.texturesPath;
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
@@ -65,6 +67,17 @@ namespace AemulusModManager
                 main.config.p3fConfig.cheatsPath = directory;
                 main.updateConfig();
                 CheatsTextbox.Text = directory;
+            }
+        }
+        private void cheatsWSDirectoryClick(object sender, RoutedEventArgs e)
+        {
+            var directory = openFolder();
+            if (directory != null)
+            {
+                Console.WriteLine($"[INFO] Setting cheats_ws folder to {directory}");
+                main.config.p3fConfig.cheatsWSPath = directory;
+                main.updateConfig();
+                CheatsWSTextbox.Text = directory;
             }
         }
         private void texturesDirectoryClick(object sender, RoutedEventArgs e)

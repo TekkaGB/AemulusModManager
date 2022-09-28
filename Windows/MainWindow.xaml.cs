@@ -2138,16 +2138,20 @@ namespace AemulusModManager
                     }
 
                     string cheats = null;
+                    string cheatsWS = null;
                     if (game == "Persona 3 FES")
+                    {
                         cheats = config.p3fConfig.cheatsPath;
+                        cheatsWS = config.p3fConfig.cheatsWSPath;
+                    }
                     string textures = null;
                     if (game == "Persona 3 FES")
                         textures = config.p3fConfig.texturesPath;
 
                     if (game == "Persona Q2")
-                        binMerge.Restart(path, emptySND, game, cpkLang, cheats, true);
+                        binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS, true);
                     else if (game != "Persona 5 Strikers")
-                        binMerge.Restart(path, emptySND, game, cpkLang, cheats);
+                        binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
                     else
                         Merger.Restart(path);
                     Console.WriteLine("[INFO] Finished emptying output folder!");
@@ -2242,12 +2246,16 @@ namespace AemulusModManager
                         await Task.Run(() =>
                         {
                             string cheats = null;
+                            string cheatsWS = null;
                             if (game == "Persona 3 FES")
+                            {
                                 cheats = config.p3fConfig.cheatsPath;
+                                cheatsWS = config.p3fConfig.cheatsWSPath;
+                            }
                             string textures = null;
                             if (game == "Persona 3 FES" || game == "Persona 3 Portable")
                                 textures = config.p3fConfig.texturesPath;
-                            binMerge.Restart(path, emptySND, game, cpkLang, cheats);
+                            binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
@@ -2264,6 +2272,13 @@ namespace AemulusModManager
                                 binMerge.LoadCheats(packages, config.p3fConfig.cheatsPath);
                             else
                                 Console.WriteLine($"[ERROR] Please set up Cheats Path in config to copy over cheats");
+                        }
+                        if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\cheats_ws")))
+                        {
+                            if (config.p3fConfig.cheatsWSPath != null && Directory.Exists(config.p3fConfig.cheatsWSPath))
+                                binMerge.LoadCheatsWS(packages, config.p3fConfig.cheatsWSPath);
+                            else
+                                Console.WriteLine($"[ERROR] Please set up Cheats WS Path in config to copy over cheats_ws");
                         }
                         if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\texture_override")))
                         {

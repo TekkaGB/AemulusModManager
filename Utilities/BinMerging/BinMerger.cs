@@ -855,7 +855,7 @@ namespace AemulusModManager
             return;
         }
 
-        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, string cheats, bool empty = false)
+        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, string cheats, string cheatsWS, bool empty = false)
         {
             Console.WriteLine("[INFO] Deleting current mod build...");
             // Revert appended cpks
@@ -921,6 +921,12 @@ namespace AemulusModManager
                 foreach (var pnach in Directory.GetFiles(cheats, "*_aem.pnach", SearchOption.TopDirectoryOnly))
                     File.Delete(pnach);
             }
+            // Delete Aemulus pnaches in cheats_ws folder
+            if (game == "Persona 3 FES" && cheatsWS != null && Directory.Exists(cheatsWS))
+            {
+                foreach (var pnach in Directory.GetFiles(cheatsWS, "*_aem.pnach", SearchOption.TopDirectoryOnly))
+                    File.Delete(pnach);
+            }
         }
 
         public static string GetChecksumString(string filePath)
@@ -978,6 +984,24 @@ namespace AemulusModManager
                 }
                 // Copy over cheats
                 foreach (var cheat in Directory.GetFiles($@"{dir}\cheats", "*.pnach", SearchOption.AllDirectories))
+                {
+                    File.Copy(cheat, $@"{cheatsDir}\{Path.GetFileNameWithoutExtension(cheat)}_aem.pnach", true);
+                    Console.WriteLine($"[INFO] Copied over {Path.GetFileNameWithoutExtension(cheat)}_aem.pnach to {cheatsDir}");
+                }
+            }
+        }
+        public static void LoadCheatsWS(List<string> mods, string cheatsDir)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats_ws in {dir}...");
+                if (!Directory.Exists($@"{dir}\cheats_ws"))
+                {
+                    Console.WriteLine($"[INFO] No cheats_ws folder found in {dir}");
+                    continue;
+                }
+                // Copy over cheats
+                foreach (var cheat in Directory.GetFiles($@"{dir}\cheats_ws", "*.pnach", SearchOption.AllDirectories))
                 {
                     File.Copy(cheat, $@"{cheatsDir}\{Path.GetFileNameWithoutExtension(cheat)}_aem.pnach", true);
                     Console.WriteLine($"[INFO] Copied over {Path.GetFileNameWithoutExtension(cheat)}_aem.pnach to {cheatsDir}");
