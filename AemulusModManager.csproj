@@ -402,15 +402,6 @@
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
-    <None Include="Dependencies\p1_bin_tool\P1_BIN_TOOL.deps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\p1_bin_tool\P1_BIN_TOOL.runtimeconfig.dev.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Dependencies\p1_bin_tool\P1_BIN_TOOL.runtimeconfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Libraries\Persona3Portable\FunctionLookUp.flow" />
     <None Include="Libraries\Persona5Royal\Modules\Common\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -880,15 +871,6 @@
     <Content Include="Dependencies\mkisofs\mkisofs.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dependencies\p1_bin_tool\P1_BIN_TOOL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\p1_bin_tool\P1_BIN_TOOL.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\p1_bin_tool\P1_BIN_TOOL.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Dependencies\PM1MessageScriptEditor\Antlr4.Runtime.dll" />
     <Content Include="Dependencies\PM1MessageScriptEditor\AtlusScriptLibrary.dll" />
     <Content Include="Dependencies\PM1MessageScriptEditor\Newtonsoft.Json.dll" />
@@ -941,6 +923,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dependencies\p1_bin_tool\" />
     <Folder Include="Original\" />
   </ItemGroup>
   <ItemGroup>
