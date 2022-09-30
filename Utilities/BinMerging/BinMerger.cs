@@ -1015,21 +1015,54 @@ namespace AemulusModManager
             foreach (string dir in mods)
             {
                 Console.WriteLine($"[INFO] Searching for textures in {dir}...");
-                if (!Directory.Exists($@"{dir}\texture_override"))
+                if (!Directory.Exists($@"{dir}\texture_override".ToLower()))
                 {
                     Console.WriteLine($"[INFO] No textures folder found in {dir}");
                     continue;
                 }
+
                 // Copy over textures
-                foreach (var texture in Directory.GetFiles($@"{dir}\texture_override", "*", SearchOption.AllDirectories))
+                foreach (var file in Directory.GetFiles($@"{dir}\texture_override", "*", SearchOption.AllDirectories))
                 {
-                    List<string> folders = new List<string>(texture.Split(char.Parse("\\")));
+                    List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                     int idx = folders.IndexOf(Path.GetFileName(dir + "\\texture_override"));
                     folders = folders.Skip(idx + 1).ToList();
                     string binPath = $@"{texturesDir}\{string.Join("\\", folders.ToArray())}";
-                    Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                    FileIOWrapper.Copy(texture, binPath, true);
-                    Console.WriteLine($"[INFO] Copied over {Path.GetFileName(texture)} to {binPath}");
+                    if (Path.GetFileName(file).ToLower() == "textures.ini")
+                    {
+                        
+                        if (System.IO.File.Exists(binPath))
+                        {
+                            var oldIni = System.IO.File.ReadAllText(binPath);
+                            Console.WriteLine($"[INFO] Merging textures.ini");
+                            foreach (string lineToRead in System.IO.File.ReadLines(file))
+                            {
+                                if (lineToRead != "" && lineToRead.Trim()[0] != '#' && Regex.IsMatch(lineToRead, "^\\s*[A-Za-z0-9]{24}"))
+                                {
+                                    var parts = lineToRead.Split('=');
+                                    var hash = parts[0].Trim();
+                                    var match = Regex.Match(oldIni, "^\\s*" + hash + "\\s*=\\s*[^\\n]+\\n", RegexOptions.Multiline);
+                                    if (match.Success && !match.Value.Contains(lineToRead))
+                                    {
+                                        oldIni = oldIni.Replace(match.Value, lineToRead + "\n");
+
+                                    }
+                                    else if (!match.Success)
+                                        oldIni = oldIni + "\n" + lineToRead;
+                                }
+                            }
+                            FileIOWrapper.WriteAllText(binPath, oldIni);
+                        }
+                        else
+                            FileIOWrapper.Copy(file, binPath, true);
+
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(binPath));
+                        FileIOWrapper.Copy(file, binPath, true);
+                        Console.WriteLine($"[INFO] Copied over {Path.GetFileName(file)} to {binPath}");
+                    }
                 }
             }
         }
