@@ -31,7 +31,6 @@ namespace AemulusModManager
         public ConfigP5R p5rConfig { get; set; }
         public ConfigP5S p5sConfig { get; set; }
         public ConfigPQ2 pq2Config { get; set; }
-        public ConfigP1PSP p1pspConfig { get; set; }
         public double? LeftGridWidth { get; set; }
         public double? RightGridWidth { get; set; }
         public double? TopGridHeight { get; set; }
@@ -65,24 +64,6 @@ namespace AemulusModManager
     {
         public string modDir { get; set; }
         public string cpkName { get; set; } = "m0.cpk";
-        public bool deleteOldVersions { get; set; }
-        public bool buildWarning { get; set; } = true;
-        public bool buildFinished { get; set; } = true;
-        public bool updateConfirm { get; set; } = true;
-        public bool updateChangelog { get; set; } = true;
-        public bool updateAll { get; set; } = true;
-        public bool updatesEnabled { get; set; } = true;
-        public string loadout { get; set; }
-        public string lastUnpacked { get; set; }
-    }
-
-    public class ConfigP1PSP
-    {
-        public string modDir { get; set; }
-        public string texturesPath { get; set; }
-        public string cheatsPath { get; set; }
-        public string isoPath { get; set; }
-        public string launcherPath { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;
