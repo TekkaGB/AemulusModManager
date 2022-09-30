@@ -1086,7 +1086,7 @@ namespace AemulusModManager
             foreach (string dir in mods)
             {
                 Console.WriteLine($"[INFO] Searching for cheats in {dir}...");
-                if (!Directory.Exists($@"{dir}\FMV"))
+                if (!Directory.Exists($@"{dir}\cheats"))
                 {
                     Console.WriteLine($"[INFO] No cheats folder found in {dir}");
                     continue;
