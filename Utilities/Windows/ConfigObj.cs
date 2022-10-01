@@ -90,6 +90,7 @@ namespace AemulusModManager
         public bool updateChangelog { get; set; } = true;
         public bool updateAll { get; set; } = true;
         public bool updatesEnabled { get; set; } = true;
+        public bool createIso { get; set; } = false;
         public string loadout { get; set; }
         public string lastUnpacked { get; set; }
     }

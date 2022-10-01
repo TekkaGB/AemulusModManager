@@ -66,6 +66,7 @@ namespace AemulusModManager
         public bool deleteOldVersions;
         public bool fromMain;
         public bool bottomUpPriority;
+        public bool createIso;
         public string gamePath;
         public string launcherPath;
         public string elfPath;
@@ -367,6 +368,7 @@ namespace AemulusModManager
                                     updateAll = config.p4gConfig.updateAll;
                                     updatesEnabled = config.p4gConfig.updatesEnabled;
                                     deleteOldVersions = config.p4gConfig.deleteOldVersions;
+                                    createIso = false;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                                     break;
@@ -382,6 +384,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p4gVitaConfig.updatesEnabled;
                                     deleteOldVersions = config.p4gVitaConfig.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
@@ -402,6 +405,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p3fConfig.updatesEnabled;
                                     deleteOldVersions = config.p3fConfig.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
@@ -418,6 +422,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p3pConfig.updatesEnabled;
                                     deleteOldVersions = config.p3pConfig.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
@@ -434,6 +439,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p1pspConfig.updatesEnabled;
                                     deleteOldVersions = config.p1pspConfig.deleteOldVersions;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
+                                    createIso = config.p1pspConfig.createIso;
                                     useCpk = false;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
@@ -451,6 +457,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p5Config.updatesEnabled;
                                     deleteOldVersions = config.p5Config.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
@@ -467,6 +474,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p5sConfig.updatesEnabled;
                                     deleteOldVersions = config.p5sConfig.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x25, 0xf4, 0xb8));
@@ -483,6 +491,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.p5rConfig.updatesEnabled;
                                     deleteOldVersions = config.p5rConfig.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
@@ -501,6 +510,7 @@ namespace AemulusModManager
                                     updatesEnabled = config.pq2Config.updatesEnabled;
                                     deleteOldVersions = config.pq2Config.deleteOldVersions;
                                     useCpk = false;
+                                    createIso = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
@@ -1033,7 +1043,10 @@ namespace AemulusModManager
                 if (game != "Persona 3 FES" && game != "Persona 1 (PSP)")
                     Console.WriteLine($"[INFO] Launching {gamePath} with {launcherPath}");
                 else if(game == "Persona 1 (PSP)")
-                    Console.WriteLine($"[INFO] Launching {modPath}\\P1PSP.iso with {launcherPath}");
+                    if(createIso)
+                        Console.WriteLine($"[INFO] Launching {modPath}\\P1PSP.iso with {launcherPath}");
+                    else
+                        Console.WriteLine($"[INFO] Launching {modPath}\\Persona 1 (PSP) with {launcherPath}");
                 else
                     Console.WriteLine($"[INFO] Launching {elfPath} with {launcherPath}");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -1168,12 +1181,24 @@ namespace AemulusModManager
                 }
                 else if (game == "Persona 1 (PSP)")
                 {
-                    if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
+                    if (createIso)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please build the ISO.");
-                        return;
+                        if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't find {modPath}/P1PSP.iso. Please build the ISO.");
+                            return;
+                        }
+                        startInfo.Arguments = $"\"{modPath}/P1PSP.iso\"";
                     }
-                    startInfo.Arguments = $"\"{modPath}/P1PSP.iso\"";
+                    else
+                    {
+                        if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
+                        {
+                            Console.WriteLine($"[ERROR] Couldn't find \"{modPath}/Persona 1 (PSP)\". Please build the loadout.");
+                            return;
+                        }
+                        startInfo.Arguments = $"\"{modPath}/Persona 1 (PSP)\"";
+                    }
                 }
 
                 DisableUI();
@@ -2169,7 +2194,7 @@ namespace AemulusModManager
                     }
                     if (game == "Persona 1 (PSP)")
                     {
-                        path = $@"{modPath}\iso\PSP_GAME";
+                        path = $@"{modPath}\Persona 1 (PSP)\PSP_GAME";
                         Directory.CreateDirectory(path);
                         if (File.Exists($@"{modPath}\P1PSP.iso"))
                             File.Delete($@"{modPath}\P1PSP.iso");
@@ -2280,7 +2305,7 @@ namespace AemulusModManager
                     }
                     if (game == "Persona 1 (PSP)")
                     {
-                        path = $@"{modPath}\iso\PSP_GAME";
+                        path = $@"{modPath}\Persona 1 (PSP)\PSP_GAME";
                         Directory.CreateDirectory(path);
                     }
                     if (game == "Persona 3 Portable")
@@ -2476,7 +2501,7 @@ namespace AemulusModManager
                                 List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                                 int idx = folders.IndexOf(Path.GetFileName(directory));
                                 folders = folders.Skip(idx + 1).ToList();
-                                string binPath = $@"{modPath}\iso\{string.Join("\\", folders.ToArray())}";
+                                string binPath = $@"{modPath}\Persona 1 (PSP)\{string.Join("\\", folders.ToArray())}";
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                                 if (!FileIOWrapper.Exists(binPath))
                                     FileIOWrapper.Copy(file, binPath, false);
@@ -2515,20 +2540,32 @@ namespace AemulusModManager
                                 binMerge.LoadP1PSPCheats(packages, config.p3pConfig.cheatsPath);
                             }
                         }
-                        Console.WriteLine($"[INFO] Building ISO...");
-                        string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\mkisofs\mkisofs.exe";
-                        ProcessStartInfo startInfo = new ProcessStartInfo();
-                        startInfo.CreateNoWindow = true;
-                        startInfo.UseShellExecute = false;
-                        startInfo.FileName = $"\"{exePath}\"";
-                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        startInfo.Arguments = $"-iso-level 4 -xa -A \"PSP GAME\" -V \"PSP GAME\" -sysid \"PSP GAME\" -volset SSX_PSP -p SSX -o \"{modPath}/P1PSP.iso\" {modPath}/iso";
-                        using (Process process = new Process())
+                        if (packages.Exists(x => Directory.Exists($@"{x}\texture_override")))
                         {
-                            process.StartInfo = startInfo;
-                            process.Start();
-                            // Add this: wait until process does its work
-                            process.WaitForExit();
+                            if (config.p1pspConfig.texturesPath != null && Directory.Exists(config.p1pspConfig.texturesPath))
+                                binMerge.LoadTextures(packages, config.p1pspConfig.texturesPath);
+                            else
+                                Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
+                        }
+                        if (createIso)
+                        { 
+                            if (File.Exists($@"{modPath}\P1PSP.iso"))
+                                File.Delete($@"{modPath}\P1PSP.iso");
+                            Console.WriteLine($"[INFO] Building ISO...");
+                            string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\mkisofs\mkisofs.exe";
+                            ProcessStartInfo startInfo = new ProcessStartInfo();
+                            startInfo.CreateNoWindow = true;
+                            startInfo.UseShellExecute = false;
+                            startInfo.FileName = $"\"{exePath}\"";
+                            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                            startInfo.Arguments = $"-iso-level 4 -xa -A \"PSP GAME\" -V \"PSP GAME\" -sysid \"PSP GAME\" -volset SSX_PSP -p SSX -o \"{modPath}/P1PSP.iso\" \"{modPath}/Persona 1 (PSP)\"";
+                            using (Process process = new Process())
+                            {
+                                process.StartInfo = startInfo;
+                                process.Start();
+                                // Add this: wait until process does its work
+                                process.WaitForExit();
+                            }
                         }
                     }
                     else

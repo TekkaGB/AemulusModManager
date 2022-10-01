@@ -51,6 +51,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="0" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="1">
@@ -62,6 +63,13 @@
                 </ComboBox>
             </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
+                <CheckBox Name="CreateIsoBox" Foreground ="White" Checked="CreateIsoBox_Checked" Unchecked="CreateIsoBox_Unchecked">
+                    <TextBlock TextAlignment="Center">
+                        Create Iso
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
                 <CheckBox Name="DeleteBox" Foreground ="White" Checked="DeleteChecked" Unchecked="DeleteUnchecked">
                     <TextBlock TextAlignment="Center">
                         Delete Old<LineBreak/>
@@ -69,7 +77,7 @@
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
                 <CheckBox Name="UpdateBox" Foreground ="White" Checked="UpdateChecked" Unchecked="UpdateUnchecked">
                     <TextBlock TextAlignment="Center">
                         Enable Mod<LineBreak/>
@@ -77,7 +85,7 @@
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="5">
                 <CheckBox Name="UpdateAllBox" Foreground ="White" Checked="UpdateAllChecked" Unchecked="UpdateAllUnchecked" IsEnabled="False">
                     <TextBlock TextAlignment="Center">
                         Update All<LineBreak/>

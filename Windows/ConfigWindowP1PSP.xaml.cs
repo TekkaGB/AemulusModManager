@@ -34,6 +34,7 @@ namespace AemulusModManager
             BuildWarningBox.IsChecked = main.config.p1pspConfig.buildWarning;
             ChangelogBox.IsChecked = main.config.p1pspConfig.updateChangelog;
             DeleteBox.IsChecked = main.config.p1pspConfig.deleteOldVersions;
+            CreateIsoBox.IsChecked = main.config.p1pspConfig.createIso;
             UpdateAllBox.IsChecked = main.config.p1pspConfig.updateAll;
             UpdateBox.IsChecked = main.config.p1pspConfig.updatesEnabled;
             Console.WriteLine("[INFO] Config launched");
@@ -265,5 +266,18 @@ namespace AemulusModManager
             NotifBox.SelectedIndex = 0;
         }
 
+        private void CreateIsoBox_Checked(object sender, RoutedEventArgs e)
+        {
+            main.createIso = true;
+            main.config.p1pspConfig.createIso = true;
+            main.updateConfig();
+        }
+
+        private void CreateIsoBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            main.createIso = false;
+            main.config.p1pspConfig.createIso = false;
+            main.updateConfig();
+        }
     }
 }
