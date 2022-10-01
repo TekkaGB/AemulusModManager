@@ -34,6 +34,9 @@ namespace AemulusModManager.Utilities
             var gameName = "";
             switch (game)
             {
+                case GameFilter.P1PSP:
+                    gameName = "Persona 1 (PSP)";
+                    break;
                 case GameFilter.P3:
                     gameName = "Persona 3 FES";
                     break;
@@ -105,10 +108,25 @@ namespace AemulusModManager.Utilities
                     {
                         await DownloadFile(URL_TO_ARCHIVE, fileName, new Progress<DownloadProgress>(ReportUpdateProgress),
                             CancellationTokenSource.CreateLinkedTokenSource(cancellationToken.Token));
-                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", response.Game.Name.Replace(" (PC)", "").Replace(" (PSP)", ""));
+                        var gameName = response.Game.Name;
+                        switch (gameName)
+                        {
+                            case "Persona 4 Golden (PC)":
+                                gameName = "Persona 4 Golden";
+                                break;
+                            case "Persona 3 Portable (PSP)":
+                                gameName = "Persona 3 Portable";
+                                break;
+                            case "Shin Megami Tensei: Persona (PSP)":
+                                gameName = "Persona 1 (PSP)";
+                                break;
+                            default:
+                                break;
+                        }
+                        await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", gameName);
                         if (File.Exists($@"{assemblyLocation}\refresh.aem"))
                             FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
-                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", response.Game.Name.Replace(" (PC)", "").Replace(" (PSP)", ""));
+                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", gameName);
                     }
                 }
             }

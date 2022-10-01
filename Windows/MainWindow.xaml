@@ -642,7 +642,7 @@
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p1pspicon.png" Width="32" Margin="4,0,10,0"/>
-                                    <TextBlock Text="Persona 1 PSP" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                    <TextBlock Text="Persona 1 (PSP)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
@@ -657,13 +657,13 @@
                                     <TextBlock Text="Persona 3 Portable" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden (Vita)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
@@ -1184,7 +1184,7 @@
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p1pspicon.png" Width="32" Margin="4,0,10,0"/>
-                                    <TextBlock Text="Persona 1 PSP" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                    <TextBlock Text="Persona 1 (PSP)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
@@ -1199,13 +1199,13 @@
                                     <TextBlock Text="Persona 3 Portable" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden (Vita)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>

@@ -190,7 +190,7 @@ namespace AemulusModManager
 
                         if (AemIgnore != null && AemIgnore.Any(file.Contains))
                             continue;
-                        else if (game != "Persona 1 PSP" 
+                        else if (game != "Persona 1 (PSP)" 
                             && (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".abin"
                             || Path.GetExtension(file).ToLower() == ".fpc"
@@ -321,7 +321,7 @@ namespace AemulusModManager
                                 Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
-                        else if (game != "Persona 1 PSP" && Path.GetExtension(file).ToLower() == ".spd")
+                        else if (game != "Persona 1 (PSP)" && Path.GetExtension(file).ToLower() == ".spd")
                         {
                             if (FileIOWrapper.Exists(ogBinPath) && modList.Count > 0)
                             {
@@ -377,7 +377,7 @@ namespace AemulusModManager
                         Console.WriteLine($@"[INFO] Copying over {mod}\{m} as specified by mods.aem");
                     }
                 }
-                if (game != "Persona 1 PSP")
+                if (game != "Persona 1 (PSP)")
                 {
                     // Go through mod directory again to delete unpacked files after bringing them in
                     foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))

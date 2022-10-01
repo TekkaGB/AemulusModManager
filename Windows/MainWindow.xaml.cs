@@ -384,7 +384,7 @@ namespace AemulusModManager
                                     useCpk = false;
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
-                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                                     LaunchButton.IsHitTestVisible = false;
                                     LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                                     break;
@@ -422,7 +422,7 @@ namespace AemulusModManager
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
                                     break;
-                                case "Persona 1 PSP":
+                                case "Persona 1 (PSP)":
                                     modPath = config.p1pspConfig.modDir;
                                     selectedLoadout = config.p1pspConfig.loadout;
                                     gamePath = config.p1pspConfig.isoPath;
@@ -436,7 +436,7 @@ namespace AemulusModManager
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     useCpk = false;
                                     foreach (var button in buttons)
-                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x52, 0x30, 0x7c));
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
                                     break;
                                 case "Persona 5":
                                     modPath = config.p5Config.modDir;
@@ -537,7 +537,7 @@ namespace AemulusModManager
 
                     switch (game)
                     {
-                        case "Persona 1 PSP":
+                        case "Persona 1 (PSP)":
                             GameBox.SelectedIndex = 0;
                             break;
                         case "Persona 3 FES":
@@ -587,7 +587,7 @@ namespace AemulusModManager
                     selectedLoadout = LoadoutBox.SelectedItem.ToString();
                     switch (game)
                     {
-                        case "Persona 1 PSP":
+                        case "Persona 1 (PSP)":
                             config.p1pspConfig.loadout = selectedLoadout;
                             break;
                         case "Persona 3 FES":
@@ -733,12 +733,12 @@ namespace AemulusModManager
                     modPath = config.p5sConfig.modDir;
                 else if (game == "Persona Q2" && !String.IsNullOrEmpty(config.pq2Config.modDir))
                     modPath = config.pq2Config.modDir;
-                else if (game == "Persona 1 PSP" && !String.IsNullOrEmpty(config.p1pspConfig.modDir))
+                else if (game == "Persona 1 (PSP)" && !String.IsNullOrEmpty(config.p1pspConfig.modDir))
                     modPath = config.p1pspConfig.modDir;
 
                 // Create Packages directory if it doesn't exist
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages");
-                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 1 PSP");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 1 (PSP)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 Portable");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
@@ -969,7 +969,7 @@ namespace AemulusModManager
                     await PacUnpacker.UnpackPQ2CPK(directory);
                 else if (game == "Persona 5 Royal")
                     await PacUnpacker.UnpackP5RCPKs(directory, p5rConfig.language, p5rConfig.version);
-                else if (game == "Persona 1 PSP")
+                else if (game == "Persona 1 (PSP)")
                     await PacUnpacker.UnzipAndUnBin(directory);
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
@@ -982,8 +982,8 @@ namespace AemulusModManager
                     }
                 });
                 if ((game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc"))
-                    || (game == "Persona 1 PSP" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
-                    || (game != "Persona 5 Strikers" && game != "Persona 1 PSP" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
+                    || (game == "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
+                    || (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                 else
                 {
@@ -1012,7 +1012,7 @@ namespace AemulusModManager
                         case "Persona Q2":
                             config.pq2Config.lastUnpacked = lastUnpacked;
                             break;
-                        case "Persona 1 PSP":
+                        case "Persona 1 (PSP)":
                             config.p1pspConfig.lastUnpacked = lastUnpacked;
                             break;
                     }
@@ -1030,9 +1030,9 @@ namespace AemulusModManager
             if ((gamePath != "" && gamePath != null && launcherPath != "" && launcherPath != null)
                 || (elfPath != "" && elfPath != null && launcherPath != "" && launcherPath != null))
             {
-                if (game != "Persona 3 FES" && game != "Persona 1 PSP")
+                if (game != "Persona 3 FES" && game != "Persona 1 (PSP)")
                     Console.WriteLine($"[INFO] Launching {gamePath} with {launcherPath}");
-                else if(game == "Persona 1 PSP")
+                else if(game == "Persona 1 (PSP)")
                     Console.WriteLine($"[INFO] Launching {modPath}\\P1PSP.iso with {launcherPath}");
                 else
                     Console.WriteLine($"[INFO] Launching {elfPath} with {launcherPath}");
@@ -1166,7 +1166,7 @@ namespace AemulusModManager
                     }
                     startInfo.Arguments = $"\"{gamePath}\"";
                 }
-                else if (game == "Persona 1 PSP")
+                else if (game == "Persona 1 (PSP)")
                 {
                     if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
                     {
@@ -1235,7 +1235,7 @@ namespace AemulusModManager
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
-            else if (game == "Persona 1 PSP")
+            else if (game == "Persona 1 (PSP)")
             {
                 ConfigWindowP1PSP cWindow = new ConfigWindowP1PSP(this) { Owner = this };
                 cWindow.DataContext = this;
@@ -1678,14 +1678,14 @@ namespace AemulusModManager
                     button.IsHitTestVisible = true;
                     if (game == "Persona 3 FES")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
-                    else if (game == "Persona 1 PSP")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x52, 0x30, 0x7c));
+                    else if (game == "Persona 1 (PSP)")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
                     else if (game == "Persona 4 Golden")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xe6, 0x3d));
                     else if (game == "Persona 5 Strikers")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x25, 0xf4, 0xb8));
                     else if (game == "Persona 4 Golden (Vita)")
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                     else if (game == "Persona 3 Portable")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
                     else if (game == "Persona 5 Royal")
@@ -1822,8 +1822,8 @@ namespace AemulusModManager
         private async void MergeCommand()
         {
             if ((game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc"))
-                    || (game == "Persona 1 PSP" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
-                    || (game != "Persona 5 Strikers" && game != "Persona 1 PSP" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
+                    || (game == "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
+                    || (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
             {
                 Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
                 Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
@@ -1867,7 +1867,7 @@ namespace AemulusModManager
                         else
                             Console.WriteLine("[ERROR] Incorrect file chosen.");
                     }
-                    else if (game == "Persona 1 PSP")
+                    else if (game == "Persona 1 (PSP)")
                     {
                         selectedPath = selectExe("Select P1PSP's iso to unpack", ".iso");
                         if (selectedPath != null)
@@ -1981,7 +1981,7 @@ namespace AemulusModManager
 
                 fromMain = true;
 
-                if (game == "Persona 3 FES" || game == "Persona 3 Portable" || game == "Persona 4 Golden (Vita)" || game == "Persona 1 PSP")
+                if (game == "Persona 3 FES" || game == "Persona 3 Portable" || game == "Persona 4 Golden (Vita)" || game == "Persona 1 (PSP)")
                     await pacUnpack(gamePath);
                 else if (game == "Persona Q2")
                     await pacUnpack(selectedPath);
@@ -1992,8 +1992,8 @@ namespace AemulusModManager
                 fromMain = false;
 
                 if ((game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc"))
-                    || (game == "Persona 1 PSP" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
-                    || (game != "Persona 5 Strikers" && game != "Persona 1 PSP" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
+                    || (game == "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
+                    || (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
                 {
                     Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                     return;
@@ -2004,7 +2004,7 @@ namespace AemulusModManager
             }
 
             // Check if the games files need to be unpacked again (for flow merging)
-            if (game != "Persona 5 Strikers" && game != "Persona 1 PSP" && lastUnpacked == null)
+            if (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && lastUnpacked == null)
             {
                 var bfFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories);
                 if (bfFiles.Count() == 0)
@@ -2087,7 +2087,7 @@ namespace AemulusModManager
                 }
             }
 
-            if (game == "Persona 1 PSP")
+            if (game == "Persona 1 (PSP)")
             {
                 bool backedUp = true;
                 var binFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories);
@@ -2167,7 +2167,7 @@ namespace AemulusModManager
                         if (Directory.Exists(fmvPath))
                             Directory.Delete(fmvPath, true);
                     }
-                    if (game == "Persona 1 PSP")
+                    if (game == "Persona 1 (PSP)")
                     {
                         path = $@"{modPath}\iso\PSP_GAME";
                         Directory.CreateDirectory(path);
@@ -2278,7 +2278,7 @@ namespace AemulusModManager
                         path = $@"{modPath}\{config.p5Config.CpkName}";
                         Directory.CreateDirectory(path);
                     }
-                    if (game == "Persona 1 PSP")
+                    if (game == "Persona 1 (PSP)")
                     {
                         path = $@"{modPath}\iso\PSP_GAME";
                         Directory.CreateDirectory(path);
@@ -2342,7 +2342,7 @@ namespace AemulusModManager
                     var buildTimer = new Stopwatch();
                     buildTimer.Start();
 
-                    if (game != "Persona 5 Strikers" && game != "Persona 1 PSP")
+                    if (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)")
                     {
                         var language = game == "Persona 5 Royal" ? config.p5rConfig.language : null;
                         // Merge flow, bmd and pm1 files
@@ -2459,7 +2459,7 @@ namespace AemulusModManager
                         if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
                             Console.WriteLine("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");
                     }
-                    else if (game == "Persona 1 PSP")
+                    else if (game == "Persona 1 (PSP)")
                     {
                         await Task.Run(() =>
                         {
@@ -2469,7 +2469,7 @@ namespace AemulusModManager
                             string textures = config.p3fConfig.texturesPath;
                             binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
-                            var directory = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 PSP";
+                            var directory = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)";
                             Console.WriteLine($"[INFO] Adding unchanged files...");
                             foreach (var file in Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories))
                             {
@@ -2953,7 +2953,7 @@ namespace AemulusModManager
                 switch (index)
                 {
                     case 0:
-                        game = "Persona 1 PSP";
+                        game = "Persona 1 (PSP)";
                         modPath = config.p1pspConfig.modDir;
                         selectedLoadout = config.p1pspConfig.loadout;
                         gamePath = config.p1pspConfig.isoPath;
@@ -2968,7 +2968,7 @@ namespace AemulusModManager
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
                         {
-                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x52, 0x30, 0x7c));
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
                             button.IsHitTestVisible = true;
                         }
                         break;
@@ -3053,7 +3053,7 @@ namespace AemulusModManager
                         ConvertCPK.Visibility = Visibility.Collapsed;
                         foreach (var button in buttons)
                         {
-                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                             button.IsHitTestVisible = true;
                         }
                         LaunchButton.IsHitTestVisible = false;
@@ -3381,8 +3381,8 @@ namespace AemulusModManager
             {
                 switch (game)
                 {
-                    case "Persona 1 PSP":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x52, 0x30, 0x7c));
+                    case "Persona 1 (PSP)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x5b, 0x41, 0x7e));
                         break;
                     case "Persona 3 FES":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x37, 0x58, 0x7b));
@@ -3400,7 +3400,7 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7e, 0x41, 0x71));
                         break;
                     case "Persona 4 Golden (Vita)":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x5b, 0x41, 0x7e));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7a, 0x54, 0x1e));
                         break;
                     case "Persona 5 Royal":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7b, 0x32, 0x42));
@@ -3419,8 +3419,8 @@ namespace AemulusModManager
             {
                 switch (game)
                 {
-                    case "Persona 1 PSP":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x52, 0x30, 0x7c));
+                    case "Persona 1 (PSP)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
                         break;
                     case "Persona 3 FES":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x6e, 0xb0, 0xf7));
@@ -3438,7 +3438,7 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
                         break;
                     case "Persona 4 Golden (Vita)":
-                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                         break;
                     case "Persona 5 Royal":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
@@ -4195,7 +4195,7 @@ namespace AemulusModManager
                 LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
-                var gameIDS = new string[] { "8502", "8583", "8263", "15703", "7545", "8464", "9099", "9561" };
+                var gameIDS = new string[] { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "9099", "9561" };
                 var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
@@ -4369,6 +4369,7 @@ namespace AemulusModManager
         {
             bgs = new List<BitmapImage>();
             var bgUrls = new string[] {
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p1psp.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3p.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p4g_pc.png",

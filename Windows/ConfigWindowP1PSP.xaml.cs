@@ -14,7 +14,6 @@ namespace AemulusModManager
     public partial class ConfigWindowP1PSP : Window
     {
         private MainWindow main;
-        private bool handled;
 
         public ConfigWindowP1PSP(MainWindow _main)
         {
@@ -48,7 +47,7 @@ namespace AemulusModManager
                 main.config.p1pspConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
@@ -182,7 +181,7 @@ namespace AemulusModManager
 
         private void SetupISOShortcut(object sender, RoutedEventArgs e)
         {
-            string p1pspISO = selectExe("Select Persona 1 PSP ISO", ".iso");
+            string p1pspISO = selectExe("Select Persona 1 (PSP) ISO", ".iso");
             if (p1pspISO != null)
             {
                 main.gamePath = p1pspISO;

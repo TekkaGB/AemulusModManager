@@ -16,7 +16,7 @@ namespace AemulusModManager
         //P1PSP
         public static async Task UnzipAndUnBin(string iso)
         {
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 PSP");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)");
             if (!FileIOWrapper.Exists(iso))
             {
                 Console.Write($"[ERROR] Couldn't find {iso}. Please correct the file path in config.");
@@ -42,7 +42,7 @@ namespace AemulusModManager
 
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.UseShellExecute = false;
-            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 PSP";
+            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)";
             Console.WriteLine($"[INFO] Extracting files from {iso}");
             using (Process process = new Process())
             {
@@ -52,7 +52,7 @@ namespace AemulusModManager
             }
 
             //Console.WriteLine("[INFO] Unpacking extracted bins");
-            //ExtractWantedBins($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 PSP\");
+            //ExtractWantedBins($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\");
             //if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\PERSONA\PSP_GAME"))
               //  Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\PERSONA\PSP_GAME", true);
 

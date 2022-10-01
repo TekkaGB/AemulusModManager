@@ -58,7 +58,7 @@ namespace AemulusModManager
                 main.config.p4gVitaConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xb6, 0x83, 0xfc));
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                 main.updateConfig();
                 OutputTextbox.Text = directory;
             }
