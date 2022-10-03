@@ -2132,14 +2132,11 @@ namespace AemulusModManager
                     updateConfig();
 
                 }
-
+            }
 
                 DisableUI();
-
                 await unpackThenMerge();
-
                 EnableUI();
-            }
         }
 
         private async Task unpackThenMerge()
