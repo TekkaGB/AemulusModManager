@@ -923,7 +923,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dependencies\p1_bin_tool\" />
     <Folder Include="Original\" />
   </ItemGroup>
   <ItemGroup>

@@ -51,11 +51,6 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
 
-            //Console.WriteLine("[INFO] Unpacking extracted bins");
-            //ExtractWantedBins($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\");
-            //if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\PERSONA\PSP_GAME"))
-              //  Directory.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\PERSONA\PSP_GAME", true);
-
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;
@@ -886,38 +881,6 @@ namespace AemulusModManager
                 }
             }
 
-        }
-        private static void ExtractWantedBins(string directory)
-        {
-            if (!Directory.Exists(directory))
-                return;
-
-            var files = Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories).
-                Where(s => s.EndsWith(".bin"));
-            foreach (string file in files)
-            {
-                Console.WriteLine($"[INFO] Unpacking {file}");
-                P1BinTool($"\"{file}\"");
-            }
-        }
-
-        private static void P1BinTool(string args)
-        {
-            string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\p1_bin_tool\P1_BIN_TOOL.exe";
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.CreateNoWindow = true;
-            startInfo.UseShellExecute = false;
-            startInfo.FileName = $"\"{exePath}\"";
-            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = args;
-            using (Process process = new Process())
-            {
-                process.StartInfo = startInfo;
-                process.Start();
-
-                // Add this: wait until process does its work
-                process.WaitForExit();
-            }
         }
 
         public static IEnumerable<IEnumerable<T>> Split<T>(this T[] array, int size)
