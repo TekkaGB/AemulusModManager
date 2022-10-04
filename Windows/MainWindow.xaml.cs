@@ -2114,7 +2114,6 @@ namespace AemulusModManager
 
             if (game == "Persona 1 (PSP)")
             {
-                bool backedUp = true;
                 var binFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories);
                 if (binFiles.Count() == 0)
                 {
@@ -2134,9 +2133,9 @@ namespace AemulusModManager
                 }
             }
 
-                DisableUI();
-                await unpackThenMerge();
-                EnableUI();
+            DisableUI();
+            await unpackThenMerge();
+            EnableUI();
         }
 
         private async Task unpackThenMerge()
