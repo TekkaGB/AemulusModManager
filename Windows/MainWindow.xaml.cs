@@ -4634,27 +4634,30 @@ namespace AemulusModManager
                 switch (GameFilterBox.SelectedIndex)
                 {
                     case 0:
-                        gameID = "8502";
+                        gameID = "12961";
                         break;
                     case 1:
-                        gameID = "8583";
+                        gameID = "8502";
                         break;
                     case 2:
-                        gameID = "8263";
+                        gameID = "8583";
                         break;
                     case 3:
-                        gameID = "15703";
+                        gameID = "8263";
                         break;
                     case 4:
-                        gameID = "7545";
+                        gameID = "15703";
                         break;
                     case 5:
-                        gameID = "8464";
+                        gameID = "7545";
                         break;
                     case 6:
-                        gameID = "9099";
+                        gameID = "8464";
                         break;
                     case 7:
+                        gameID = "9099";
+                        break;
+                    case 8:
                         gameID = "9561";
                         break;
                 }
