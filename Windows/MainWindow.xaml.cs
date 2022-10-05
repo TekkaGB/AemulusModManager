@@ -1192,12 +1192,12 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
+                        if (!FileIOWrapper.Exists($"{modPath}\\Persona 1 (PSP)\""))
                         {
-                            Console.WriteLine($"[ERROR] Couldn't find \"{modPath}/Persona 1 (PSP)\". Please build the loadout.");
+                            Console.WriteLine($"[ERROR] Couldn't find \"{modPath}\\Persona 1 (PSP)\". Please build the loadout.");
                             return;
                         }
-                        startInfo.Arguments = $"\"{modPath}/Persona 1 (PSP)\"";
+                        startInfo.Arguments = $"\"{modPath}\\Persona 1 (PSP)\"";
                     }
                 }
 
