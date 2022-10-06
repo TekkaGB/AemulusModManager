@@ -176,7 +176,7 @@
   {
     "Index": "0x600B",
     "ReturnType": "int",
-    "Name": "TEST_FUNCTION",
+    "Name": "PLAYER_HAS_INVALID_SKILL",
     "Description": "",
     "Parameters": [
     ]
@@ -243,6 +243,215 @@
         "Name": "param2",
         "Description": ""
       }
+    ]
+  },
+  {
+    "Index": "0x600F",
+    "ReturnType": "void",
+    "Name": "AI_SET_ENID_ENDURE_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6010",
+    "ReturnType": "void",
+    "Name": "SET_JOKER_ENDURE_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6011",
+    "ReturnType": "void",
+    "Name": "SET_ENID_STATS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6012",
+    "ReturnType": "int",
+    "Name": "GET_PLAYER_MAX_HP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6013",
+    "ReturnType": "void",
+    "Name": "SET_ENID_MAX_HP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6014",
+    "ReturnType": "void",
+    "Name": "SET_ENID_TACTICS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6015",
+    "ReturnType": "int",
+    "Name": "PLAYER_HAS_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "BattleSkill",
+        "Name": "skill",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x6016",
+    "ReturnType": "int",
+    "Name": "GET_PERSONA_INHERITANCE_TYPE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PersonaID",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x6017",
+    "ReturnType": "void",
+    "Name": "SET_ENEMY_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "enemyID",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "SkillSlot",
+        "Description": ""
+      },
+      {
+        "Type": "BattleSkill",
+        "Name": "skill",
+        "Description": "Unknown type; assumed int."
+      }
+    ]
+  },
+  {
+    "Index": "0x6018",
+    "ReturnType": "void",
+    "Name": "PREVENT_PLAYER_LOSS",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x6019",
+    "ReturnType": "void",
+    "Name": "FORCE_LOAD_DLC_BGM",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x601A",
+    "ReturnType": "void",
+    "Name": "RESET_PARTY_MEMBER_PERSONA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "PartyMember",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x601B",
+    "ReturnType": "void",
+    "Name": "SET_CHALLENGE_BATTLE",
+    "Description": "",
+    "Parameters": [
     ]
   }
 ]

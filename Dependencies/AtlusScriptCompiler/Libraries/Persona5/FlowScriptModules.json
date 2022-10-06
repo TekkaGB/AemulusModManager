@@ -46,5 +46,13 @@
     "ConstantsPath": "",
     "EnumsPath": "",
     "FunctionsPath": "Persona5\\Modules\\Net\\Functions.json"
+  },
+  {
+    "Name": "Custom",
+    "ShortName": "Custom",
+    "Description": "New custom flowscript functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Persona5\\Modules\\Custom\\Enums.json",
+    "FunctionsPath": "Persona5\\Modules\\Custom\\Functions.json"
   }
 ]
