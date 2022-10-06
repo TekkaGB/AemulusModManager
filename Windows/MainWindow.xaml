@@ -641,6 +641,12 @@
                         <ComboBox FontSize="18" FontWeight="SemiBold" Name="GameBox" Margin="5,0,0,0" VerticalContentAlignment="Center" FontFamily="{StaticResource Jost}" SelectionChanged="GameBox_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="50" Width="75"  Grid.Column="0"  Grid.Row="0" >
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p1pspicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 1 (PSP)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 3 FES" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
@@ -651,13 +657,13 @@
                                     <TextBlock Text="Persona 3 Portable" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden (Vita)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
@@ -705,9 +711,44 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <Grid Visibility="Collapsed" Name="DropBox" Margin="4,10,0,3" Panel.ZIndex="2" DragLeave="Add_Leave" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1" Visibility="Collapsed" Name="DropBox" Margin="4,10,0,3" Panel.ZIndex="2" DragLeave="Add_Leave" DragEnter="Add_Enter" Drop="Add_Drop" AllowDrop="True" Background="Transparent">
                                     <Border Opacity="0.7" Background="Black"/>
                                     <TextBlock Foreground="#f2f2f2" FontSize="40" Panel.ZIndex="3" VerticalAlignment="Center" HorizontalAlignment="Center">Drop existing packages to install</TextBlock>
+                                </Grid>
+                                <Grid Name="ModGridSearchBarGrid" Grid.ColumnSpan="2" Panel.ZIndex="2" Margin="4,10,3,0" Height="35" VerticalAlignment="Center">
+                                    <TextBox Margin="0,0,35,0" FontFamily="{StaticResource Jost}" Background="#353535" Foreground="#f2f2f2" BorderBrush="#353535" x:Name="ModGrid_SearchBar" KeyDown="ModGrid_SearchBar_KeyDown" Padding="5" TextWrapping="NoWrap"/>
+                                    <TextBlock Padding="8,5,5,5" FontFamily="{StaticResource Jost}" Foreground="#f2f2f2" Panel.ZIndex="3" IsHitTestVisible="False" Height="35"  HorizontalAlignment="Left" Text="Search..." VerticalAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=ModGrid_SearchBar, Path=Text.IsEmpty}" Value="False">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <fa5:ImageAwesome Icon="Solid_Times" Foreground="#f2f2f2" HorizontalAlignment="Right" Margin="6,6,40,6" Height="15" PreviewMouseLeftButtonDown="Clear_PreviewMouseLeftButtonDown">
+                                        <fa5:ImageAwesome.Style>
+                                            <Style TargetType="fa5:ImageAwesome">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=ModGrid_SearchBar, Path=Text.IsEmpty}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=ModGrid_SearchBar, Path=Text.IsEmpty}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </fa5:ImageAwesome.Style>
+                                    </fa5:ImageAwesome>
+                                    <Button HorizontalAlignment="Right" Panel.ZIndex="3" Focusable="False" Click="ModGridSearchButton_Click" Name="ModGridSearchButton" Height="35" Width="35">
+                                        <fa5:ImageAwesome Icon="Solid_Search" Foreground="#f2f2f2" Margin="3"/>
+                                    </Button>
                                 </Grid>
                                 <DataGrid DragEnter="Add_Enter" FontSize="12" Name="ModGrid" AutoGenerateColumns="False" GridLinesVisibility="None" VerticalScrollBarVisibility="Auto"  BorderBrush="#424242"
                           EnableColumnVirtualization="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" 
@@ -715,7 +756,7 @@
                           dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" HeadersVisibility="Column" HorizontalScrollBarVisibility="Hidden"
                           SelectionChanged="rowSelected" SelectionMode="Extended" RowBackground="#202020" Foreground="#f2f2f2"
                           LoadingRow="ModGrid_LoadingRow" Background="#202020" ContextMenuOpening="ContextMenu_ContextMenuOpening"
-                          HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="4,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
+                          HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="4,10,0,3" PreviewKeyDown="ModGrid_PreviewKeyDown">
                                     <DataGrid.Resources>
                                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#535353"/>
                                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="White"/>
@@ -798,7 +839,7 @@
                                         </ContextMenu>
                                     </DataGrid.ContextMenu>
                                 </DataGrid>
-                                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#424242" BorderThickness="1" Margin="10,10,3,3">
+                                <Border Grid.Column="1" Grid.Row="1" BorderBrush="#424242" BorderThickness="1" Margin="10,10,3,3">
                                     <Grid x:Name="PriorityBox" Background="#202020">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="15"/>
@@ -1142,6 +1183,12 @@
                         <ComboBox Grid.Column="0" Margin="10,0,0,0"  IsEnabled="False" Name="GameFilterBox" Height="40" Width="75" FontSize="18" FontWeight="SemiBold" SelectionChanged="GameFilterSelectionChanged">
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/p1pspicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona 1 (PSP)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p3ficon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 3 FES" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
@@ -1152,13 +1199,13 @@
                                     <TextBlock Text="Persona 3 Portable" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
-                            <ComboBoxItem IsSelected="True">
+                            <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 4 Golden (Vita)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
@@ -1217,7 +1264,18 @@
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
-                        <TextBox Margin="0,0,40,0" Grid.Column="5" IsEnabled="False" KeyDown="SearchBar_KeyDown" Name="SearchBar" Height="40" MinWidth="100" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <TextBox Margin="5,0,40,0" FontFamily="{StaticResource Jost}" Padding="5" TextWrapping="NoWrap" Background="#353535" BorderBrush="#353535" Foreground="#f2f2f2" Grid.Column="5" IsEnabled="False" KeyDown="SearchBar_KeyDown" Name="SearchBar" Height="40" MinWidth="200" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+                        <TextBlock Margin="5,0,40,0" FontFamily="{StaticResource Jost}" Padding="8" Grid.Column="5" IsHitTestVisible="False" Height="40" MinWidth="200" HorizontalAlignment="Left" Text="Search..." VerticalAlignment="Center" Foreground="#f2f2f2">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=SearchBar, Path=Text.IsEmpty}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                         <Button Grid.Column="5" IsEnabled="False" HorizontalAlignment="Right" Click="SearchButton_Click" Name="SearchButton" Height="40" Width="40">
                             <fa5:ImageAwesome Icon="Solid_Search" Foreground="#f2f2f2" Margin="3"/>
                         </Button>

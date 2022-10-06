@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using AemulusModManager.Utilities;
+using AemulusModManager.Utilities.FileMerging;
 
 namespace AemulusModManager
 {
@@ -175,9 +176,11 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && !file.Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
+                        && Path.GetDirectoryName(file).Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
                         && Path.GetFileNameWithoutExtension(file).ToLower() != "preview" 
-                        && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\")) //check if the file is in texture_override folder
+                        && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\") //check if the file is in texture_override folder
+                        && !(game == "Persona 3 Portable" && file.Substring(mod.Length).ToLower().Contains("\\fmv\\")) //check if the file is an FMV for P3P
+                        && !((game == "Persona 3 Portable" || game == "Persona 1 (PSP)") && file.Substring(mod.Length).ToLower().Contains("\\cheats\\")))
                     {
 
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
@@ -188,7 +191,8 @@ namespace AemulusModManager
 
                         if (AemIgnore != null && AemIgnore.Any(file.Contains))
                             continue;
-                        else if (Path.GetExtension(file).ToLower() == ".bin"
+                        else if (game != "Persona 1 (PSP)" 
+                            && (Path.GetExtension(file).ToLower() == ".bin"
                             || Path.GetExtension(file).ToLower() == ".abin"
                             || Path.GetExtension(file).ToLower() == ".fpc"
                             || Path.GetExtension(file).ToLower() == ".arc"
@@ -196,7 +200,7 @@ namespace AemulusModManager
                             || Path.GetExtension(file).ToLower() == ".pac"
                             || Path.GetExtension(file).ToLower() == ".pack"
                             || Path.GetExtension(file).ToLower() == ".gsd"
-                            || Path.GetExtension(file).ToLower() == ".tpc")
+                            || Path.GetExtension(file).ToLower() == ".tpc"))
                         {
                             if (FileIOWrapper.Exists(ogBinPath) && modList.Count > 0)
                             {
@@ -318,7 +322,7 @@ namespace AemulusModManager
                                 Console.WriteLine($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
-                        else if (Path.GetExtension(file).ToLower() == ".spd")
+                        else if (game != "Persona 1 (PSP)" && Path.GetExtension(file).ToLower() == ".spd")
                         {
                             if (FileIOWrapper.Exists(ogBinPath) && modList.Count > 0)
                             {
@@ -374,65 +378,66 @@ namespace AemulusModManager
                         Console.WriteLine($@"[INFO] Copying over {mod}\{m} as specified by mods.aem");
                     }
                 }
+                if (game != "Persona 1 (PSP)")
+                {
+                    // Go through mod directory again to delete unpacked files after bringing them in
+                    foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
+                    {
+                        if ((Path.GetExtension(file).ToLower() == ".bin"
+                            || Path.GetExtension(file).ToLower() == ".abin"
+                            || Path.GetExtension(file).ToLower() == ".fpc"
+                            || Path.GetExtension(file).ToLower() == ".arc"
+                            || Path.GetExtension(file).ToLower() == ".pak"
+                            || Path.GetExtension(file).ToLower() == ".pac"
+                            || Path.GetExtension(file).ToLower() == ".pack"
+                            || Path.GetExtension(file).ToLower() == ".gsd"
+                            || Path.GetExtension(file).ToLower() == ".tpc"
+                            || Path.GetExtension(file).ToLower() == ".spd"
+                            || Path.GetExtension(file).ToLower() == ".spr")
+                            && Directory.Exists(Path.ChangeExtension(file, null))
+                            && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
+                            && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel"
+                            && Path.GetFileName(Path.ChangeExtension(file, null)) != "crossword")
+                        {
+                            DeleteDirectory(Path.ChangeExtension(file, null));
+                        }
+                    }
 
-                // Go through mod directory again to delete unpacked files after bringing them in
-                foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
-                {
-                    if ((Path.GetExtension(file).ToLower() == ".bin"
-                        || Path.GetExtension(file).ToLower() == ".abin"
-                        || Path.GetExtension(file).ToLower() == ".fpc"
-                        || Path.GetExtension(file).ToLower() == ".arc"
-                        || Path.GetExtension(file).ToLower() == ".pak"
-                        || Path.GetExtension(file).ToLower() == ".pac"
-                        || Path.GetExtension(file).ToLower() == ".pack"
-                        || Path.GetExtension(file).ToLower() == ".gsd"
-                        || Path.GetExtension(file).ToLower() == ".tpc"
-                        || Path.GetExtension(file).ToLower() == ".spd"
-                        || Path.GetExtension(file).ToLower() == ".spr")
-                        && Directory.Exists(Path.ChangeExtension(file, null))
-                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "result"
-                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "panel"
-                        && Path.GetFileName(Path.ChangeExtension(file, null)) != "crossword")
+                    if (FileIOWrapper.Exists($@"{mod}\battle\result.pac") && Directory.Exists($@"{mod}\battle\result\result"))
                     {
-                        DeleteDirectory(Path.ChangeExtension(file, null));
+                        foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
+                        {
+                            if (Path.GetExtension(f).ToLower() == ".gfs" || Path.GetExtension(f).ToLower() == ".gmd")
+                                FileIOWrapper.Delete(f);
+                        }
                     }
-                }
-
-                if (FileIOWrapper.Exists($@"{mod}\battle\result.pac") && Directory.Exists($@"{mod}\battle\result\result"))
-                {
-                    foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
+                    if (FileIOWrapper.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result\result"))
                     {
-                        if (Path.GetExtension(f).ToLower() == ".gfs" || Path.GetExtension(f).ToLower() == ".gmd")
-                            FileIOWrapper.Delete(f);
+                        foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
+                        {
+                            if (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr")
+                                FileIOWrapper.Delete(f);
+                        }
                     }
-                }
-                if (FileIOWrapper.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result\result"))
-                {
-                    foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
+                    if (FileIOWrapper.Exists($@"{mod}\field\panel.bin") && Directory.Exists($@"{mod}\field\panel\panel"))
+                        DeleteDirectory($@"{mod}\field\panel\panel");
+                    if (Directory.Exists($@"{mod}\battle\result\result") && !Directory.GetFiles($@"{mod}\battle\result\result", "*", SearchOption.AllDirectories).Any())
+                        DeleteDirectory($@"{mod}\battle\result\result");
+                    if (Directory.Exists($@"{mod}\battle\result") && !Directory.GetFiles($@"{mod}\battle\result", "*", SearchOption.AllDirectories).Any())
+                        DeleteDirectory($@"{mod}\battle\result");
+                    if (Directory.Exists($@"{mod}\field\panel") && !Directory.EnumerateFileSystemEntries($@"{mod}\field\panel").Any())
+                        DeleteDirectory($@"{mod}\field\panel");
+                    if ((FileIOWrapper.Exists($@"{mod}\minigame\crossword.pak") || FileIOWrapper.Exists($@"{mod}\minigame\crossword.spd")) && Directory.Exists($@"{mod}\minigame\crossword"))
                     {
-                        if (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr")
-                            FileIOWrapper.Delete(f);
+                        foreach (var f in Directory.GetFiles($@"{mod}\minigame\crossword"))
+                        {
+                            if (Path.GetExtension(f).ToLower() != ".pak")
+                                FileIOWrapper.Delete(f);
+                        }
                     }
+                    if (Directory.Exists($@"{mod}\minigame\crossword") && !Directory.GetFiles($@"{mod}\minigame\crossword", "*", SearchOption.AllDirectories).Any())
+                        DeleteDirectory($@"{mod}\minigame\crossword");
                 }
-                if (FileIOWrapper.Exists($@"{mod}\field\panel.bin") && Directory.Exists($@"{mod}\field\panel\panel"))
-                    DeleteDirectory($@"{mod}\field\panel\panel");
-                if (Directory.Exists($@"{mod}\battle\result\result") && !Directory.GetFiles($@"{mod}\battle\result\result", "*", SearchOption.AllDirectories).Any())
-                    DeleteDirectory($@"{mod}\battle\result\result");
-                if (Directory.Exists($@"{mod}\battle\result") && !Directory.GetFiles($@"{mod}\battle\result", "*", SearchOption.AllDirectories).Any())
-                    DeleteDirectory($@"{mod}\battle\result");
-                if (Directory.Exists($@"{mod}\field\panel") && !Directory.EnumerateFileSystemEntries($@"{mod}\field\panel").Any())
-                    DeleteDirectory($@"{mod}\field\panel");
-                if ((FileIOWrapper.Exists($@"{mod}\minigame\crossword.pak") || FileIOWrapper.Exists($@"{mod}\minigame\crossword.spd")) && Directory.Exists($@"{mod}\minigame\crossword"))
-                {
-                    foreach (var f in Directory.GetFiles($@"{mod}\minigame\crossword"))
-                    {
-                        if (Path.GetExtension(f).ToLower() != ".pak")
-                            FileIOWrapper.Delete(f);
-                    }
-                }
-                if (Directory.Exists($@"{mod}\minigame\crossword") && !Directory.GetFiles($@"{mod}\minigame\crossword", "*", SearchOption.AllDirectories).Any())
-                    DeleteDirectory($@"{mod}\minigame\crossword");
-
             }
             Console.WriteLine("[INFO] Finished unpacking!");
         }
@@ -853,7 +858,7 @@ namespace AemulusModManager
             return;
         }
 
-        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, string cheats, bool empty = false)
+        public static void Restart(string modDir, bool emptySND, string game, string cpkLang, string cheats, string cheatsWS, bool empty = false)
         {
             Console.WriteLine("[INFO] Deleting current mod build...");
             // Revert appended cpks
@@ -919,6 +924,12 @@ namespace AemulusModManager
                 foreach (var pnach in Directory.GetFiles(cheats, "*_aem.pnach", SearchOption.TopDirectoryOnly))
                     File.Delete(pnach);
             }
+            // Delete Aemulus pnaches in cheats_ws folder
+            if (game == "Persona 3 FES" && cheatsWS != null && Directory.Exists(cheatsWS))
+            {
+                foreach (var pnach in Directory.GetFiles(cheatsWS, "*_aem.pnach", SearchOption.TopDirectoryOnly))
+                    File.Delete(pnach);
+            }
         }
 
         public static string GetChecksumString(string filePath)
@@ -963,6 +974,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
         }
+
         public static void LoadCheats(List<string> mods, string cheatsDir)
         {
             foreach (string dir in mods)
@@ -981,16 +993,35 @@ namespace AemulusModManager
                 }
             }
         }
+        public static void LoadCheatsWS(List<string> mods, string cheatsDir)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats_ws in {dir}...");
+                if (!Directory.Exists($@"{dir}\cheats_ws"))
+                {
+                    Console.WriteLine($"[INFO] No cheats_ws folder found in {dir}");
+                    continue;
+                }
+                // Copy over cheats
+                foreach (var cheat in Directory.GetFiles($@"{dir}\cheats_ws", "*.pnach", SearchOption.AllDirectories))
+                {
+                    File.Copy(cheat, $@"{cheatsDir}\{Path.GetFileNameWithoutExtension(cheat)}_aem.pnach", true);
+                    Console.WriteLine($"[INFO] Copied over {Path.GetFileNameWithoutExtension(cheat)}_aem.pnach to {cheatsDir}");
+                }
+            }
+        }
         public static void LoadTextures(List<string> mods, string texturesDir)
         {
             foreach (string dir in mods)
             {
                 Console.WriteLine($"[INFO] Searching for textures in {dir}...");
-                if (!Directory.Exists($@"{dir}\texture_override"))
+                if (!Directory.Exists($@"{dir}\texture_override".ToLower()))
                 {
                     Console.WriteLine($"[INFO] No textures folder found in {dir}");
                     continue;
                 }
+
                 // Copy over textures
                 foreach (var texture in Directory.GetFiles($@"{dir}\texture_override", "*", SearchOption.AllDirectories))
                 {
@@ -1001,6 +1032,140 @@ namespace AemulusModManager
                     Directory.CreateDirectory(Path.GetDirectoryName(binPath));
                     FileIOWrapper.Copy(texture, binPath, true);
                     Console.WriteLine($"[INFO] Copied over {Path.GetFileName(texture)} to {binPath}");
+                }
+            }
+        }
+
+        public static void LoadFMVs(List<string> mods, string modDir)
+        {
+            List<string> copiedFmvs = new List<string>();
+            foreach (string dir in mods)
+            {
+                if(!Directory.Exists($@"{dir}\FMV"))
+                    continue;
+                if (!Directory.Exists(Path.Combine(modDir, "FMV")))
+                    Directory.CreateDirectory(Path.Combine(modDir, "FMV"));
+
+                // Copy over FMVS
+                foreach (var fmv in Directory.GetFiles($@"{dir}\FMV", "*.pmsf"))
+                {
+                    copiedFmvs.Add(Path.GetFileName(fmv));
+                    var destinationFmv = Path.Combine(modDir, "FMV", Path.GetFileName(fmv));
+                    if (File.Exists(destinationFmv))
+                    {
+                        if (Utils.SameFiles(fmv, destinationFmv))
+                        {
+                            Console.WriteLine($"[INFO] Skipping {fmv} as it is already at {destinationFmv}");
+                            continue;
+                        }
+                    }
+                    try
+                    {
+                        File.Copy(fmv, destinationFmv, true);
+                        Console.WriteLine($"[INFO] Copying {fmv} over {destinationFmv}");
+                    } catch(Exception e)
+                    {
+                        Console.WriteLine($"[ERROR] Unable to copy {fmv} to {destinationFmv}: {e.Message}");
+                    }
+                }
+            } 
+            if (Directory.Exists(Path.Combine(modDir, "FMV")))
+            // Delete any FMVs in the P3P FMV folder that weren't from one of the mods
+            foreach(var file in Directory.EnumerateFiles(Path.Combine(modDir, "FMV")).Where(f => !copiedFmvs.Contains(Path.GetFileName(f)))) {
+                try
+                {
+                    File.Delete(file);
+                    Console.WriteLine($"[INFO] Deleting unwanted FMV {file}");
+                } catch(Exception e)
+                {
+                    Console.WriteLine($"[ERROR] Unable to delete unwatned FMV {file}: {e.Message}");
+                }
+            }
+        }
+
+        public static void LoadP3PCheats(List<string> mods, string cheatFile)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats in {dir}...");
+                if (!Directory.Exists($@"{dir}\cheats"))
+                {
+                    Console.WriteLine($"[INFO] No cheats folder found in {dir}");
+                    continue;
+                }
+
+                // Work out what cheats should be in the ini
+                var existingCheats = PPSSPPCheatFile.ParseCheats(cheatFile);
+                foreach (var newCheatFile in Directory.GetFiles($@"{dir}\cheats", "*.ini"))
+                {
+                    Console.WriteLine($"[INFO] Applying cheats from {newCheatFile}");
+                    var newCheats = PPSSPPCheatFile.ParseCheats(newCheatFile);
+                    foreach(var cheat in newCheats.Cheats)
+                    {
+                        var existingCheat = existingCheats.Cheats.FirstOrDefault(c => c.Name == cheat.Name);
+                        if (existingCheat != null)
+                            existingCheat.Contents = cheat.Contents;
+                        else
+                            existingCheats.Cheats.Add(cheat);
+                    }
+                }
+
+                // Write the ini with cheats in it
+                using (StreamWriter writer = new StreamWriter(cheatFile))
+                {
+                    writer.WriteLine($"_S {existingCheats.GameID}");
+                    writer.WriteLine($"_G {existingCheats.GameName}");
+                    writer.WriteLine();
+                    foreach(var cheat in existingCheats.Cheats)
+                    {
+                        writer.WriteLine($"_C{(cheat.Enabled ? '1' : '0')} {cheat.Name}");
+                        foreach (var line in cheat.Contents)
+                            writer.WriteLine(line);
+                    }
+                }
+            }
+
+        }
+
+        internal static void LoadP1PSPCheats(List<string> mods, string cheatFile)
+        {
+            foreach (string dir in mods)
+            {
+                Console.WriteLine($"[INFO] Searching for cheats in {dir}...");
+                if (!Directory.Exists($@"{dir}"))
+                {
+                    Console.WriteLine($"[INFO] No cheats folder found in {dir}");
+                    continue;
+                }
+
+                // Work out what cheats should be in the ini
+                var existingCheats = PPSSPPCheatFile.ParseCheats(cheatFile);
+                foreach (var newCheatFile in Directory.GetFiles($@"{dir}\cheats", "*.ini"))
+                {
+                    Console.WriteLine($"[INFO] Applying cheats from {newCheatFile}");
+                    var newCheats = PPSSPPCheatFile.ParseCheats(newCheatFile);
+                    foreach (var cheat in newCheats.Cheats)
+                    {
+                        var existingCheat = existingCheats.Cheats.FirstOrDefault(c => c.Name == cheat.Name);
+                        if (existingCheat != null)
+                            existingCheat.Contents = cheat.Contents;
+                        else
+                            existingCheats.Cheats.Add(cheat);
+                    }
+                }
+
+                // Write the ini with cheats in it
+                using (StreamWriter writer = new StreamWriter(cheatFile))
+                {
+                    writer.WriteLine($"_S {existingCheats.GameID}");
+                    writer.WriteLine($"_G {existingCheats.GameName}");
+                    writer.WriteLine();
+                    foreach (var cheat in existingCheats.Cheats)
+                    {
+                        writer.WriteLine($"_C{(cheat.Enabled ? '1' : '0')} {cheat.Name}");
+                        foreach (var line in cheat.Contents)
+                            writer.WriteLine(line);
+                    }
                 }
             }
         }

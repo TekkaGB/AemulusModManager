@@ -13,6 +13,7 @@ namespace AemulusModManager.Utilities
 
     public enum GameFilter
     {
+        P1PSP,
         P3,
         P3P,
         P4G,
@@ -124,6 +125,9 @@ namespace AemulusModManager.Utilities
                 url += $"ByName?_sName=*{search}*&_idGameRow=";
                 switch (game)
                 {
+                    case GameFilter.P1PSP:
+                        url += "12961&";
+                        break;
                     case GameFilter.P3:
                         url += "8502&";
                         break;
@@ -157,6 +161,9 @@ namespace AemulusModManager.Utilities
                 url += $"ByGame?_aGameRowIds[]=";
                 switch (game)
                 {
+                    case GameFilter.P1PSP:
+                        url += "12961&";
+                        break;
                     case GameFilter.P3:
                         url += "8502&";
                         break;

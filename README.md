@@ -357,6 +357,12 @@ You can create loadouts per game by using the dropdown menu on the top left. Cli
 ## P3F PCSX2 Cheats Support
 
 You can now add a path to the PCSX2 cheats folder in P3F's config. It will copy over all pnach files from a cheats folder within a package to the PCSX2 cheats folder. On rebuild, Aemulus clears only all of the copied over pnach files from that folder.
+  
+## P3P PPSSPP Cheats Support
+  
+You can add PPSSPP cheats to the game by placing `ini` files in a `cheats` folder at the root of a package. Any cheats found in any `ini` files (the name of the file does not matter) will be appended to your PPSSPP cheats file which can be configured in the P3P config.
+  
+If the cheat already exists it will be replaced and its status will be preserved (if it was disabled it will stay disabled, etc). Also, existing cheats will never be removed from the file, if you want to disable a cheat do so from within PPSSPP.
 
 ## Prebuild.bat Support
 

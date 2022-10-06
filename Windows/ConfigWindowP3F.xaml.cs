@@ -30,6 +30,8 @@ namespace AemulusModManager
                 ELFTextbox.Text = main.elfPath;
             if (main.config.p3fConfig.cheatsPath != null)
                 CheatsTextbox.Text = main.config.p3fConfig.cheatsPath;
+            if (main.config.p3fConfig.cheatsWSPath != null)
+                CheatsWSTextbox.Text = main.config.p3fConfig.cheatsWSPath;
             if (main.config.p3fConfig.texturesPath != null)
                 TexturesTextbox.Text = main.config.p3fConfig.texturesPath;
             AdvancedLaunchOptions.IsChecked = main.config.p3fConfig.advancedLaunchOptions;
@@ -65,6 +67,17 @@ namespace AemulusModManager
                 main.config.p3fConfig.cheatsPath = directory;
                 main.updateConfig();
                 CheatsTextbox.Text = directory;
+            }
+        }
+        private void cheatsWSDirectoryClick(object sender, RoutedEventArgs e)
+        {
+            var directory = openFolder();
+            if (directory != null)
+            {
+                Console.WriteLine($"[INFO] Setting cheats_ws folder to {directory}");
+                main.config.p3fConfig.cheatsWSPath = directory;
+                main.updateConfig();
+                CheatsWSTextbox.Text = directory;
             }
         }
         private void texturesDirectoryClick(object sender, RoutedEventArgs e)
@@ -210,9 +223,7 @@ namespace AemulusModManager
         private void SetupPCSX2Shortcut(object sender, RoutedEventArgs e)
         {
             string pcsx2Exe = selectExe("Select pcsx2.exe", ".exe");
-            if (Path.GetFileName(pcsx2Exe) == "pcsx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64-avx2.exe"
-                || Path.GetFileName(pcsx2Exe) == "pcsx2x64.exe")
+            if (Path.GetFileName(pcsx2Exe).ToLower().Contains("pcsx2"))
             {
                 main.launcherPath = pcsx2Exe;
                 main.config.p3fConfig.launcherPath = pcsx2Exe;

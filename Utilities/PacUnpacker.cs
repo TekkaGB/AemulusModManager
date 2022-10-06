@@ -13,6 +13,66 @@ namespace AemulusModManager
 {
     public static class PacUnpacker
     {
+        //P1PSP
+        public static async Task UnzipAndUnBin(string iso)
+        {
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)");
+            if (!FileIOWrapper.Exists(iso))
+            {
+                Console.Write($"[ERROR] Couldn't find {iso}. Please correct the file path in config.");
+                return;
+            }
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
+            if (!FileIOWrapper.Exists(startInfo.FileName))
+            {
+                Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                return;
+            }
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+
+            var tasks = new List<Task>();
+
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.UseShellExecute = false;
+            startInfo.Arguments = $"x -y \"{iso}\" -o\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)";
+            Console.WriteLine($"[INFO] Extracting files from {iso}");
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                process.WaitForExit();
+            }
+            FileIOWrapper.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT.BIN", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT_ENC.BIN");
+            ProcessStartInfo ebootDecoder = new ProcessStartInfo();
+            ebootDecoder.CreateNoWindow = true;
+            ebootDecoder.UseShellExecute = false;
+            ebootDecoder.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\\DecEboot\deceboot.exe";
+            ebootDecoder.WindowStyle = ProcessWindowStyle.Hidden;
+            ebootDecoder.Arguments = "\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT_ENC.BIN" + "\" \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT.BIN" + "\"";
+            Console.WriteLine($"[INFO] Decrypting EBOOT.BIN");
+            using (Process process = new Process())
+            {
+                process.StartInfo = ebootDecoder;
+                process.Start();
+
+                // Add this: wait until process does its work
+                process.WaitForExit();
+            }
+            FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT_ENC.BIN");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
+
         // P3F
         public static async Task Unzip(string iso)
         {
@@ -838,6 +898,7 @@ namespace AemulusModManager
             }
 
         }
+
         public static IEnumerable<IEnumerable<T>> Split<T>(this T[] array, int size)
         {
             for (var i = 0; i < (float)array.Length / size; i++)

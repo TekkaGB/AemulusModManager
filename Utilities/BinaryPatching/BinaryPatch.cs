@@ -79,6 +79,7 @@ namespace AemulusModManager
                                     }
                                 }
                             }
+
                             var outputFile = $@"{modDir}\{p4gArchive}{patch.file}";
                             // Copy over original file
                             if (!FileIOWrapper.Exists(outputFile))
