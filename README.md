@@ -157,7 +157,7 @@ Binary patching only works on files that are already found in the output folder 
 
 ## How Spd Patching Works
 
-Spd Patching is a new feature added to v6.something that allows you to add a modified texture file to a .spd and change the sprite entries of your choosing to use that new texture, all without replacing any original textures. This will allow sprite mods that modify the same texture to be completely compatible if they target different sprites
+Spd Patching is a new feature added to v6.3.1 that allows you to add a modified texture file to a .spd and change the sprite entries of your choosing to use that new texture, all without replacing any original textures. This will allow sprite mods that modify the same texture to be completely compatible if they target different sprites
 
 ### Structure of .spdp Files (for modders)
 An example of the setup of the file is as follows:
@@ -186,7 +186,7 @@ Here is the list of Patches.
 
 ### Common Issues
 
-Spd patching only works on files that are already found in the output folder from perhaps another mod or from the original folder. If you unpacked files from before v6.something, you will need to unpack again. If the file that needs to be patched still isn't unpacked from the Original folder, let me know and I'll add it in.
+Spd patching only works on files that are already found in the output folder from perhaps another mod or from the original folder. If you unpacked files from before v6.3.1, you will need to unpack again. If the file that needs to be patched still isn't unpacked from the Original folder, let me know and I'll add it in.
 
 ## How Table Patching Works
   
