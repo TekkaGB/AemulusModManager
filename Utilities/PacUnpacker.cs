@@ -50,7 +50,23 @@ namespace AemulusModManager
                 process.Start();
                 process.WaitForExit();
             }
+            FileIOWrapper.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT.BIN", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT_ENC.BIN");
+            ProcessStartInfo ebootDecoder = new ProcessStartInfo();
+            ebootDecoder.CreateNoWindow = true;
+            ebootDecoder.UseShellExecute = false;
+            ebootDecoder.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\\DecEboot\deceboot.exe";
+            ebootDecoder.WindowStyle = ProcessWindowStyle.Hidden;
+            ebootDecoder.Arguments = "\"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT_ENC.BIN" + "\" \"" + $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT.BIN" + "\"";
+            Console.WriteLine($"[INFO] Decrypting EBOOT.BIN");
+            using (Process process = new Process())
+            {
+                process.StartInfo = ebootDecoder;
+                process.Start();
 
+                // Add this: wait until process does its work
+                process.WaitForExit();
+            }
+            FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)\PSP_GAME\SYSDIR\EBOOT_ENC.BIN");
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Mouse.OverrideCursor = null;

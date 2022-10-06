@@ -1192,9 +1192,9 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
+                        if (!FileIOWrapper.Exists($@"{modPath}\Persona 1 (PSP)\UMD_DATA.BIN"))
                         {
-                            Console.WriteLine($"[ERROR] Couldn't find \"{modPath}/Persona 1 (PSP)\". Please build the loadout.");
+                            Console.WriteLine($"[ERROR] Couldn't find \"{modPath}\\Persona 1 (PSP)\". Please build the loadout.");
                             return;
                         }
                         startInfo.Arguments = $"\"{modPath}/Persona 1 (PSP)\"";
@@ -2114,6 +2114,7 @@ namespace AemulusModManager
 
             if (game == "Persona 1 (PSP)")
             {
+                bool backedUp = true;
                 var binFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories);
                 if (binFiles.Count() == 0)
                 {
@@ -2131,11 +2132,14 @@ namespace AemulusModManager
                     updateConfig();
 
                 }
-            }
 
-            DisableUI();
-            await unpackThenMerge();
-            EnableUI();
+
+                DisableUI();
+
+                await unpackThenMerge();
+
+                EnableUI();
+            }
         }
 
         private async Task unpackThenMerge()
@@ -2504,7 +2508,7 @@ namespace AemulusModManager
                             }
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
-                                BinaryPatcher.Patch(packages, path, useCpk, cpkLang, game);
+                                BinaryPatcher.Patch(packages, $@"{modPath}\Persona 1 (PSP)", useCpk, cpkLang, game);
                             //binMerge.Merge(path, game);
                             
                         });
@@ -4634,30 +4638,27 @@ namespace AemulusModManager
                 switch (GameFilterBox.SelectedIndex)
                 {
                     case 0:
-                        gameID = "12961";
-                        break;
-                    case 1:
                         gameID = "8502";
                         break;
-                    case 2:
+                    case 1:
                         gameID = "8583";
                         break;
-                    case 3:
+                    case 2:
                         gameID = "8263";
                         break;
-                    case 4:
+                    case 3:
                         gameID = "15703";
                         break;
-                    case 5:
+                    case 4:
                         gameID = "7545";
                         break;
-                    case 6:
+                    case 5:
                         gameID = "8464";
                         break;
-                    case 7:
+                    case 6:
                         gameID = "9099";
                         break;
-                    case 8:
+                    case 7:
                         gameID = "9561";
                         break;
                 }
