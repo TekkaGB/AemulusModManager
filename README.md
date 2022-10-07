@@ -155,6 +155,39 @@ Next, there is a list of Patches.
 
 Binary patching only works on files that are already found in the output folder from perhaps another mod or from the original folder.  If you unpacked files from before v5.5.6, you might need to unpack again. If the file that needs to be patched still isn't unpacked from the Original folder, let me know and I'll add it in
 
+## How Spd Patching Works
+
+Spd Patching is a new feature added to v6.3.1 that allows you to add a modified texture file to a .spd and change the sprite entries of your choosing to use that new texture, all without replacing any original textures. This will allow sprite mods that modify the same texture to be completely compatible if they target different sprites
+
+### Structure of .spdp Files (for modders)
+An example of the setup of the file is as follows:
+```
+{
+  "Version": 1,
+  "Patches": [
+    {
+      "SpdPath": "init\\camp\\p5camp_00SPD.spd",
+      "TextureName": "p5camp_11_patch.dds",
+      "TextureID": 6,
+      "SpriteIDs": "233 234 235 236 237 238 239 240 654 655 658 707 708 709 710 711 712 713 714 715 716 717 718 719 "
+    }
+  ]
+}
+```
+This example was generated with [SecreC.'s Spd Patching tool](https://github.com/Secre-C/P5-SPD-Patcher/releases)
+
+Here is the list of Patches.
+
+#### Patch
+- SpdPath - path of the .spd file with the same conventions used for file merging.
+- TextureName - the name of the modified texture file you want to add to the spd.
+- TextureID - The ID of the original texture you're modifying, which can be found by viewing the spd file in Amicitia.
+- SpriteIDs - The IDs of the sprites you want to change the texture ID of.
+
+### Common Issues
+
+Spd patching only works on files that are already found in the output folder from perhaps another mod or from the original folder. If you unpacked files from before v6.3.1, you will need to unpack again. If the file that needs to be patched still isn't unpacked from the Original folder, let me know and I'll add it in.
+
 ## How Table Patching Works
   
 Table patching is a feature that was carried over from Inaba Exe Patcher (formerly known as Aemulus Patcher/Exe Patcher).  It takes .tblpatch files from the top layer of your Package folders to modify .tbl files found in init_free.bin for P4G, table.pac for P5, and BTL/BATTLE for P3F.
