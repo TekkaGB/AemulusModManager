@@ -176,13 +176,12 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetDirectoryName(file).Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
+                        && !Path.GetDirectoryName(file).Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
                         && Path.GetFileNameWithoutExtension(file).ToLower() != "preview" 
                         && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\") //check if the file is in texture_override folder
                         && !(game == "Persona 3 Portable" && file.Substring(mod.Length).ToLower().Contains("\\fmv\\")) //check if the file is an FMV for P3P
                         && !((game == "Persona 3 Portable" || game == "Persona 1 (PSP)") && file.Substring(mod.Length).ToLower().Contains("\\cheats\\")))
                     {
-
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
                         folders = folders.Skip(idx + 1).ToList();
