@@ -979,6 +979,8 @@ namespace AemulusModManager
                     await PacUnpacker.UnpackPQ2CPK(directory);
                 else if (game == "Persona 5 Royal")
                     await PacUnpacker.UnpackP5RCPKs(directory, p5rConfig.language, p5rConfig.version);
+                else if (game == "Persona 5 Royal")
+                    await PacUnpacker.UnpackP5RSwitchCPKs(directory, p5rSwitchConfig.language);
                 else if (game == "Persona 1 (PSP)")
                     await PacUnpacker.UnzipAndUnBin(directory);
                 App.Current.Dispatcher.Invoke((Action)delegate
@@ -1714,6 +1716,8 @@ namespace AemulusModManager
                     else if (game == "Persona 3 Portable")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
                     else if (game == "Persona 5 Royal")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                    else if (game == "Persona 5 Royal (Switch)")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
                     else if (game == "Persona Q2")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
@@ -3444,6 +3448,9 @@ namespace AemulusModManager
                     case "Persona 5 Royal":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7b, 0x32, 0x42));
                         break;
+                    case "Persona 5 Royal (Switch)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x7b, 0x32, 0x42));
+                        break;
                     case "Persona Q2":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7d, 0x42, 0x35));
                         break;
@@ -3480,6 +3487,9 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                         break;
                     case "Persona 5 Royal":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                        break;
+                    case "Persona 5 Royal (Switch)":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
                         break;
                     case "Persona Q2":
@@ -4234,7 +4244,7 @@ namespace AemulusModManager
                 LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
-                var gameIDS = new string[] { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "9099", "9561" };
+                var gameIDS = new string[] { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "17354", "9099", "9561" };
                 var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
@@ -4658,9 +4668,12 @@ namespace AemulusModManager
                         gameID = "8464";
                         break;
                     case 6:
-                        gameID = "9099";
+                        gameID = "17354";
                         break;
                     case 7:
+                        gameID = "9099";
+                        break;
+                    case 8:
                         gameID = "9561";
                         break;
                 }
