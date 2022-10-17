@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 1 (PSP) Config" Height="335" Width="700" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 1 (PSP) Config" Height="340" Width="700" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -64,7 +64,7 @@
             </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
                 <CheckBox Name="CreateIsoBox" Foreground ="White" Checked="CreateIsoBox_Checked" Unchecked="CreateIsoBox_Unchecked">
-                    <TextBlock TextAlignment="Center">
+                    <TextBlock TextAlignment="Center" FontSize="12" >
                         Create Iso
                     </TextBlock>
                 </CheckBox>
