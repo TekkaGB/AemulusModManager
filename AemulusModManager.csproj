@@ -888,9 +888,9 @@
     <Content Include="Dependencies\DecEboot\deceboot.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Dependencies\DecEboot\LICENSE.txt">
+    <Content Include="Dependencies\DecEboot\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Content Include="Dependencies\mkisofs\mkisofs.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
