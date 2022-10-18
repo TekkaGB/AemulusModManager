@@ -243,6 +243,7 @@ namespace AemulusModManager
                 p3pConfig = new ConfigP3P();
                 p4gVitaConfig = new ConfigP4GVita();
                 p5rConfig = new ConfigP5R();
+                p5rSwitchConfig = new ConfigP5RSwitch();
                 pq2Config = new ConfigPQ2();
                 p1pspConfig = new ConfigP1PSP();
                 config.p4gConfig = p4gConfig;
@@ -305,7 +306,6 @@ namespace AemulusModManager
                             {
                                 game = "Persona 4 Golden";
                                 config.game = "Persona 4 Golden";
-                                GameBox.SelectedIndex = 3;
                             }
                             lastGame = config.game;
 
