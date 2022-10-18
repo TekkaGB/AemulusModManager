@@ -44,6 +44,7 @@ namespace AemulusModManager
         public ConfigP4GVita p4gVitaConfig;
         public ConfigP5 p5Config;
         public ConfigP5R p5rConfig;
+        public ConfigP5RSwitch p5rSwitchConfig;
         public ConfigP5S p5sConfig;
         public ConfigPQ2 pq2Config;
         public Packages packages;
@@ -251,6 +252,7 @@ namespace AemulusModManager
                 config.p3pConfig = p3pConfig;
                 config.p4gVitaConfig = p4gVitaConfig;
                 config.p5rConfig = p5rConfig;
+                config.p5rSwitchConfig = p5rSwitchConfig;
                 config.pq2Config = pq2Config;
                 config.p1pspConfig = p1pspConfig;
 
@@ -303,6 +305,7 @@ namespace AemulusModManager
                             {
                                 game = "Persona 4 Golden";
                                 config.game = "Persona 4 Golden";
+                                GameBox.SelectedIndex = 3;
                             }
                             lastGame = config.game;
 
@@ -322,6 +325,8 @@ namespace AemulusModManager
                                 config.p4gVitaConfig = p4gVitaConfig;
                             if (config.p5rConfig == null)
                                 config.p5rConfig = p5rConfig;
+                            if (config.p5rSwitchConfig == null)
+                                config.p5rSwitchConfig = p5rSwitchConfig;
                             if (config.pq2Config == null)
                                 config.pq2Config = pq2Config;
                             if (config.p1pspConfig == null)
@@ -341,6 +346,8 @@ namespace AemulusModManager
                                 p5sConfig = config.p5sConfig;
                             if (config.p5rConfig != null)
                                 p5rConfig = config.p5rConfig;
+                            if (config.p5rSwitchConfig != null)
+                                p5rSwitchConfig = config.p5rSwitchConfig;
                             if (config.pq2Config != null)
                                 pq2Config = config.pq2Config;
                             if (config.p1pspConfig != null)
@@ -498,6 +505,25 @@ namespace AemulusModManager
                                     LaunchButton.IsHitTestVisible = false;
                                     LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                                     break;
+                                case "Persona 5 Royal (Switch)":
+                                    modPath = config.p5rSwitchConfig.modDir;
+                                    selectedLoadout = config.p5rSwitchConfig.loadout;
+                                    gamePath = config.p5rSwitchConfig.gamePath;
+                                    launcherPath = config.p5rSwitchConfig.launcherPath;
+                                    buildWarning = config.p5rSwitchConfig.buildWarning;
+                                    buildFinished = config.p5rSwitchConfig.buildFinished;
+                                    updateChangelog = config.p5rSwitchConfig.updateChangelog;
+                                    updateAll = config.p5rSwitchConfig.updateAll;
+                                    updatesEnabled = config.p5rSwitchConfig.updatesEnabled;
+                                    deleteOldVersions = config.p5rSwitchConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    createIso = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                                    LaunchButton.IsHitTestVisible = false;
+                                    LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                                    break;
                                 case "Persona Q2":
                                     modPath = config.pq2Config.modDir;
                                     selectedLoadout = config.pq2Config.loadout;
@@ -538,6 +564,8 @@ namespace AemulusModManager
                         p5sConfig = config.p5sConfig;
                     if (config.p5rConfig != null)
                         p5rConfig = config.p5rConfig;
+                    if (config.p5rSwitchConfig != null)
+                        p5rSwitchConfig = config.p5rSwitchConfig;
                     if (config.pq2Config != null)
                         pq2Config = config.pq2Config;
 
@@ -568,11 +596,14 @@ namespace AemulusModManager
                         case "Persona 5 Royal":
                             GameBox.SelectedIndex = 6;
                             break;
-                        case "Persona 5 Strikers":
+                        case "Persona 5 Royal (Switch)":
                             GameBox.SelectedIndex = 7;
                             break;
-                        case "Persona Q2":
+                        case "Persona 5 Strikers":
                             GameBox.SelectedIndex = 8;
+                            break;
+                        case "Persona Q2":
+                            GameBox.SelectedIndex = 9;
                             break;
                     }
 
@@ -617,6 +648,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 5 Royal":
                             config.p5rConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona 5 Royal (Switch)":
+                            config.p5rSwitchConfig.loadout = selectedLoadout;
                             break;
                         case "Persona 5 Strikers":
                             config.p5sConfig.loadout = selectedLoadout;
@@ -739,6 +773,8 @@ namespace AemulusModManager
                     modPath = config.p5Config.modDir;
                 else if (game == "Persona 5 Royal" && !String.IsNullOrEmpty(config.p5rConfig.modDir))
                     modPath = config.p5rConfig.modDir;
+                else if (game == "Persona 5 Royal (Switch)" && !String.IsNullOrEmpty(config.p5rSwitchConfig.modDir))
+                    modPath = config.p5rSwitchConfig.modDir;
                 else if (game == "Persona 5 Strikers" && !String.IsNullOrEmpty(config.p5sConfig.modDir))
                     modPath = config.p5sConfig.modDir;
                 else if (game == "Persona Q2" && !String.IsNullOrEmpty(config.pq2Config.modDir))
@@ -756,6 +792,7 @@ namespace AemulusModManager
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Strikers");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal (Switch)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona Q2");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
 
@@ -979,7 +1016,7 @@ namespace AemulusModManager
                     await PacUnpacker.UnpackPQ2CPK(directory);
                 else if (game == "Persona 5 Royal")
                     await PacUnpacker.UnpackP5RCPKs(directory, p5rConfig.language, p5rConfig.version);
-                else if (game == "Persona 5 Royal")
+                else if (game == "Persona 5 Royal (Switch)")
                     await PacUnpacker.UnpackP5RSwitchCPKs(directory, p5rSwitchConfig.language);
                 else if (game == "Persona 1 (PSP)")
                     await PacUnpacker.UnzipAndUnBin(directory);
@@ -1020,6 +1057,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 5 Royal":
                             config.p5rConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 5 Royal (Switch)":
+                            config.p5rSwitchConfig.lastUnpacked = lastUnpacked;
                             break;
                         case "Persona Q2":
                             config.pq2Config.lastUnpacked = lastUnpacked;
@@ -1172,7 +1212,7 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
                 }
-                else if (game == "Persona 3 Portable" || game == "Persona Q2")
+                else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)")
                 {
                     if (!FileIOWrapper.Exists(gamePath))
                     {
@@ -1277,6 +1317,12 @@ namespace AemulusModManager
             else if (game == "Persona 5 Royal")
             {
                 ConfigWindowP5R cWindow = new ConfigWindowP5R(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 5 Royal (Switch)")
+            {
+                ConfigWindowP5RSwitch cWindow = new ConfigWindowP5RSwitch(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
@@ -2001,7 +2047,26 @@ namespace AemulusModManager
                                 gamePath = selectedPath;
                         }
                     }
+                    else if (game == "Persona 5 Royal (Switch)")
+                    {
+                        selectedPath = openFolder("Select folder with P5R (Switch) cpks");
+                        if (selectedPath != null)
+                        {
+                            var cpksNeeded = new List<string>();
+                            var extraCpk = String.Empty;
+                            cpksNeeded.Add("ALL_USEU.CPK");
+                            cpksNeeded.Add("PATCH1.CPK");
+
+                            var cpks = Directory.GetFiles(selectedPath, "*.cpk", SearchOption.TopDirectoryOnly);
+                            if (cpksNeeded.Except(cpks.Select(x => Path.GetFileName(x))).Any())
+                                Console.WriteLine($"[ERROR] Not all cpks needed (ALL_USEU.CPK and PATCH1.CPK) are found in top directory of {selectedPath}");
+                            else
+                                gamePath = selectedPath;
+                        }
+                    }
+
                 }
+
 
                 if ((game == "Persona Q2" && selectedPath == null) || (String.IsNullOrEmpty(gamePath) && game != "Persona 5 Strikers"))
                     return;
@@ -2243,6 +2308,13 @@ namespace AemulusModManager
                         if (File.Exists($@"{modPath}\{config.p5rConfig.cpkName.Replace(".cpk", String.Empty)}{language}.cpk"))
                             File.Delete($@"{modPath}\{config.p5rConfig.cpkName.Replace(".cpk", String.Empty)}{language}.cpk");
                     }
+                    if (game == "Persona 5 Royal (Switch)")
+                    {
+                        path = $@"{modPath}\mods\romfs\CPK\PATCH1";
+                        Directory.CreateDirectory(path);
+                        if (File.Exists($@"{modPath}\mods\romfs\CPK\PATCH1.CPK"))
+                            File.Delete($@"{modPath}\mods\romfs\CPK\PATCH1.CPK");
+                    }
 
                     if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
                     {
@@ -2348,6 +2420,11 @@ namespace AemulusModManager
                                 break;
                         }
                         path = $@"{modPath}\{config.p5rConfig.cpkName.Replace(".cpk", String.Empty)}{language}";
+                        Directory.CreateDirectory(path);
+                    }
+                    if (game == "Persona 5 Royal (Switch)")
+                    {
+                        path = $@"{modPath}\mods\romfs\CPK\PATCH1";
                         Directory.CreateDirectory(path);
                     }
                     if (buildWarning && Directory.EnumerateFileSystemEntries(path).Any())
@@ -2473,7 +2550,7 @@ namespace AemulusModManager
                             PreappfileAppend.Validate(Path.GetDirectoryName(path), cpkLang);
                         }
 
-                        if (game == "Persona 5" || (game == "Persona 5 Royal" && config.p5rConfig.cpkName != "bind")
+                        if (game == "Persona 5" || (game == "Persona 5 Royal" && config.p5rConfig.cpkName != "bind") || game == "Persona 5 Royal (Switch)"
                         || (game == "Persona 3 Portable" && config.p3pConfig.cpkName != "bind")
                         || game == "Persona 4 Golden (Vita)" || game == "Persona Q2")
                         {
@@ -3146,6 +3223,30 @@ namespace AemulusModManager
                         LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                         break;
                     case 7:
+                        game = "Persona 5 Royal (Switch)";
+                        if (config.p5rSwitchConfig == null)
+                            config.p5rSwitchConfig = new ConfigP5RSwitch();
+                        modPath = config.p5rSwitchConfig.modDir;
+                        selectedLoadout = config.p5rConfig.loadout;
+                        gamePath = config.p5rSwitchConfig.gamePath;
+                        launcherPath = config.p5rSwitchConfig.launcherPath;
+                        buildWarning = config.p5rSwitchConfig.buildWarning;
+                        buildFinished = config.p5rSwitchConfig.buildFinished;
+                        updateChangelog = config.p5rSwitchConfig.updateChangelog;
+                        updateAll = config.p5rSwitchConfig.updateAll;
+                        updatesEnabled = config.p5rSwitchConfig.updatesEnabled;
+                        deleteOldVersions = config.p5rSwitchConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
+                            button.IsHitTestVisible = true;
+                        }
+                        LaunchButton.IsHitTestVisible = false;
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        break;
+                    case 8:
                         game = "Persona 5 Strikers";
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();
@@ -3167,7 +3268,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 8:
+                    case 9:
                         game = "Persona Q2";
                         modPath = config.pq2Config.modDir;
                         selectedLoadout = config.pq2Config.loadout;

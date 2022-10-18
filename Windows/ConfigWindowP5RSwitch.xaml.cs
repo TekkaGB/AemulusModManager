@@ -33,11 +33,11 @@ namespace AemulusModManager
                 EmulatorTextbox.Text = main.launcherPath;
             BuildFinishedBox.IsChecked = main.config.p5rSwitchConfig.buildFinished;
             BuildWarningBox.IsChecked = main.config.p5rSwitchConfig.buildWarning;
-            ChangelogBox.IsChecked = main.config.p5rSwtichConfig.updateChangelog;
-            DeleteBox.IsChecked = main.config.p5rSwtichConfig.deleteOldVersions;
-            UpdateAllBox.IsChecked = main.config.p5rSwtichConfig.updateAll;
-            UpdateBox.IsChecked = main.config.p5rSwtichConfig.updatesEnabled;
-            switch (main.config.p5rSwtichConfig.language)
+            ChangelogBox.IsChecked = main.config.p5rSwitchConfig.updateChangelog;
+            DeleteBox.IsChecked = main.config.p5rSwitchConfig.deleteOldVersions;
+            UpdateAllBox.IsChecked = main.config.p5rSwitchConfig.updateAll;
+            UpdateBox.IsChecked = main.config.p5rSwitchConfig.updatesEnabled;
+            switch (main.config.p5rSwitchConfig.language)
             {
                 case "English":
                     LanguageBox.SelectedIndex = 0;
@@ -63,7 +63,7 @@ namespace AemulusModManager
             if (directory != null)
             {
                 Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.p5rSwtichConfig.modDir = directory;
+                main.config.p5rSwitchConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
                 main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
@@ -77,9 +77,9 @@ namespace AemulusModManager
             if (p5rRom != null)
             {
                 main.gamePath = p5rRom;
-                main.config.p5rSwitchConfig.ROMPath = p5rRom;
+                main.config.p5rSwitchConfig.gamePath = p5rRom;
                 main.updateConfig();
-                ROMTextbox.Text = pq2Rom;
+                ROMTextbox.Text = p5rRom;
             }
             else
             {
@@ -122,56 +122,56 @@ namespace AemulusModManager
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = true;
-            main.config.p5rSwtichConfig.buildWarning = true;
+            main.config.p5rSwitchConfig.buildWarning = true;
             main.updateConfig();
         }
 
         private void BuildWarningUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildWarning = false;
-            main.config.p5rSwtichConfig.buildWarning = false;
+            main.config.p5rSwitchConfig.buildWarning = false;
             main.updateConfig();
         }
         private void BuildFinishedChecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = true;
-            main.config.p5rSwtichConfig.buildFinished = true;
+            main.config.p5rSwitchConfig.buildFinished = true;
             main.updateConfig();
         }
         private void BuildFinishedUnchecked(object sender, RoutedEventArgs e)
         {
             main.buildFinished = false;
-            main.config.p5rSwtichConfig.buildFinished = false;
+            main.config.p5rSwitchConfig.buildFinished = false;
             main.updateConfig();
         }
         private void ChangelogChecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = true;
-            main.config.p5rSwtichConfig.updateChangelog = true;
+            main.config.p5rSwitchConfig.updateChangelog = true;
             main.updateConfig();
         }
         private void ChangelogUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateChangelog = false;
-            main.config.p5rSwtichConfig.updateChangelog = false;
+            main.config.p5rSwitchConfig.updateChangelog = false;
             main.updateConfig();
         }
         private void UpdateAllChecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = true;
-            main.config.p5rSwtichConfig.updateAll = true;
+            main.config.p5rSwitchConfig.updateAll = true;
             main.updateConfig();
         }
         private void UpdateAllUnchecked(object sender, RoutedEventArgs e)
         {
             main.updateAll = false;
-            main.config.p5rSwtichConfig.updateAll = false;
+            main.config.p5rSwitchConfig.updateAll = false;
             main.updateConfig();
         }
         private void UpdateChecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = true;
-            main.config.p5rSwtichConfig.updatesEnabled = true;
+            main.config.p5rSwitchConfig.updatesEnabled = true;
             main.updateConfig();
             UpdateAllBox.IsEnabled = true;
         }
@@ -179,7 +179,7 @@ namespace AemulusModManager
         private void UpdateUnchecked(object sender, RoutedEventArgs e)
         {
             main.updatesEnabled = false;
-            main.config.p5rSwtichConfig.updatesEnabled = false;
+            main.config.p5rSwitchConfig.updatesEnabled = false;
             main.updateConfig();
             UpdateAllBox.IsChecked = false;
             UpdateAllBox.IsEnabled = false;
@@ -187,13 +187,13 @@ namespace AemulusModManager
         private void DeleteChecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = true;
-            main.config.p5rSwtichConfig.deleteOldVersions = true;
+            main.config.p5rSwitchConfig.deleteOldVersions = true;
             main.updateConfig();
         }
         private void DeleteUnchecked(object sender, RoutedEventArgs e)
         {
             main.deleteOldVersions = false;
-            main.config.p5rSwtichConfig.deleteOldVersions = false;
+            main.config.p5rSwitchConfig.deleteOldVersions = false;
             main.updateConfig();
         }
 
@@ -270,10 +270,10 @@ namespace AemulusModManager
             if (language_handled)
             {
                 var language = (LanguageBox.SelectedValue as ComboBoxItem).Content as String;
-                if (main.config.p5rSwtichConfig.language != language)
+                if (main.config.p5rSwitchConfig.language != language)
                 {
                     Console.WriteLine($"[INFO] Language changed to {language}");
-                    main.config.p5rSwtichConfig.language = language;
+                    main.config.p5rSwitchConfig.language = language;
                     main.updateConfig();
                 }
                 language_handled = false;

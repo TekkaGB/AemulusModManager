@@ -739,12 +739,11 @@ namespace AemulusModManager
             }
 
             string[] baseFiles = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ALL_USEU_BASE.csv");
-            var baseFileChunks = dataRFiles.Split(dataRFiles.Length / 2);
             string[] patch1Files = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_PATCH1.csv");
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
-            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\CpkMakeC\cpkmakec.exe";
             if (!FileIOWrapper.Exists(startInfo.FileName))
             {
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
@@ -758,14 +757,12 @@ namespace AemulusModManager
             startInfo.RedirectStandardOutput = true;
             startInfo.UseShellExecute = false;
 
-            var tasks = new List<Task>();
-
             Console.WriteLine($"[INFO] Extracting PATCH1.CPK");
             if (FileIOWrapper.Exists($@"{directory}\PATCH1.CPK"))
             {
-                foreach (var file in chunk)
+                foreach (var file in patch1Files)
                 {
-                    startInfo.Arguments = $@"-X {file} -i ""{directory}\PATCH1.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)""";
+                    startInfo.Arguments = $@"""{directory}\PATCH1.cpk"" -extract=""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)""";
 
                     using (Process process = new Process())
                     {
@@ -782,38 +779,39 @@ namespace AemulusModManager
             }
             else
                 Console.WriteLine($"[ERROR] Couldn't find PATCH1.CPK in {directory}.");
-            Console.WriteLine($"[INFO] Extracting base files from ALL_USEU.CPK");
-            foreach (var chunk in baseFileChunks)
+
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\YACpkTool.exe";
+            if (!FileIOWrapper.Exists(startInfo.FileName))
             {
-                tasks.Add(
-                    Task.Run(() =>
-                    {
-                        if (FileIOWrapper.Exists($@"{directory}\ALL_USEU.CPK"))
-                        {
-                            foreach (var file in chunk)
-                            {
-                                startInfo.Arguments = $@"-X {file} -i ""{directory}\ALL_USEU.CPK"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)""";
-
-                                using (Process process = new Process())
-                                {
-                                    process.StartInfo = startInfo;
-                                    process.Start();
-                                    while (!process.HasExited)
-                                    {
-                                        string text = process.StandardOutput.ReadLine();
-                                        if (text != "" && text != null)
-                                            Console.WriteLine($"[INFO] {text}");
-                                    }
-                                }
-                            }
-                        }
-                        else
-                            Console.WriteLine($"[ERROR] Couldn't find ALL_USEU.CPK in {directory}.");
-                    }));
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+                return;
             }
+            Console.WriteLine($"[INFO] Extracting base files from ALL_USEU.CPK");
+            if (FileIOWrapper.Exists($@"{directory}\ALL_USEU.CPK"))
+            {
+                foreach (var file in baseFiles)
+                {
+                    startInfo.Arguments = $@"-X {file} -i ""{directory}\ALL_USEU.CPK"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)""";
 
-            await Task.WhenAll(tasks);
-            tasks.Clear();
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        while (!process.HasExited)
+                        {
+                            string text = process.StandardOutput.ReadLine();
+                            if (text != "" && text != null)
+                                Console.WriteLine($"[INFO] {text}");
+                        }
+                    }
+                }
+            }
+            else
+                Console.WriteLine($"[ERROR] Couldn't find ALL_USEU.CPK in {directory}.");
 
             var languageSuffix = String.Empty;
             switch (language)
@@ -835,38 +833,28 @@ namespace AemulusModManager
                     break;
             }
             string[] localizedFiles = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ALL_USEU{languageSuffix}.csv");
-            var localizedFileChunks = dataRLocalizedFiles.Split(dataRLocalizedFiles.Length / 2);
             Console.WriteLine($"[INFO] Extracting {language} files from ALL_USEU.CPK");
-            foreach (var chunk in localizedFileChunks)
+            if (FileIOWrapper.Exists($@"{directory}\ALL_USEU.CPK"))
             {
-                tasks.Add(
-                    Task.Run(() =>
-                    {
-                        if (FileIOWrapper.Exists($@"{directory}\ALL_USEU.CPK"))
-                        {
-                            foreach (var file in chunk)
-                            {
-                                startInfo.Arguments = $@"-X {file} -i ""{directory}\ALL_USEU.CPK"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)""";
+                foreach (var file in localizedFiles)
+                {
+                    startInfo.Arguments = $@"-X {file} -i ""{directory}\ALL_USEU.CPK"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)""";
 
-                                using (Process process = new Process())
-                                {
-                                    process.StartInfo = startInfo;
-                                    process.Start();
-                                    while (!process.HasExited)
-                                    {
-                                        string text = process.StandardOutput.ReadLine();
-                                        if (text != "" && text != null)
-                                            Console.WriteLine($"[INFO] {text}");
-                                    }
-                                }
-                            }
+                    using (Process process = new Process())
+                    {
+                        process.StartInfo = startInfo;
+                        process.Start();
+                        while (!process.HasExited)
+                        {
+                            string text = process.StandardOutput.ReadLine();
+                            if (text != "" && text != null)
+                                Console.WriteLine($"[INFO] {text}");
                         }
-                        else
-                            Console.WriteLine($"[ERROR] Couldn't find ALL_USEU.CPK in {directory}.");
-                    }));
+                    }
+                }
             }
-            await Task.WhenAll(tasks);
-            tasks.Clear();
+            else
+                Console.WriteLine($"[ERROR] Couldn't find ALL_USEU.CPK in {directory}.");
 
             ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)");
             Console.WriteLine($"[INFO] Finished unpacking base files!");

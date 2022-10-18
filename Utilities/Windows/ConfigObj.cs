@@ -172,6 +172,8 @@ namespace AemulusModManager
     public class ConfigP5RSwitch
     {
         public string modDir { get; set; }
+        public string gamePath { get; set; }
+        public string launcherPath { get; set; }
         public string language { get; set; } = "English";
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;

@@ -129,6 +129,20 @@ namespace AemulusModManager
                 return;
             }
             Console.WriteLine("[INFO] Beginning to unpack...");
+            // Copy over base PATCH1 file
+            if (game == "Persona 5 Royal (Switch)")
+            {
+                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM"))
+                {
+                    Console.WriteLine($"[INFO] Copying over base PATCH1 file");
+                    Directory.CreateDirectory($@"{modDir}\PATCH1\MOVIE");
+                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM", $@"{modDir}\PATCH1\MOVIE\MOV000.USM", true);
+                    Directory.CreateDirectory($@"{modDir}\EN");
+                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM", $@"{modDir}\EN\MOV000.USM", true);
+                }
+                else
+                    Console.WriteLine($@"[WARNING] {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM not found, try unpacking base files again");
+            }
             foreach (var mod in ModList)
             {
                 if (!Directory.Exists(mod))
@@ -176,7 +190,7 @@ namespace AemulusModManager
                         && Path.GetExtension(file).ToLower() != ".exe" && Path.GetExtension(file).ToLower() != ".dll"
                         && Path.GetExtension(file).ToLower() != ".flow" && Path.GetExtension(file).ToLower() != ".msg"
                         && Path.GetExtension(file).ToLower() != ".back" && Path.GetExtension(file).ToLower() != ".bp"
-                        && Path.GetDirectoryName(file).Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
+                        && !Path.GetDirectoryName(file).Contains("spdpatches") && Path.GetExtension(file).ToLower() != ".pnach" 
                         && Path.GetFileNameWithoutExtension(file).ToLower() != "preview" 
                         && !file.Substring(mod.Length).ToLower().Contains("\\texture_override\\") //check if the file is in texture_override folder
                         && !(game == "Persona 3 Portable" && file.Substring(mod.Length).ToLower().Contains("\\fmv\\")) //check if the file is an FMV for P3P
@@ -961,12 +975,13 @@ namespace AemulusModManager
                 Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
+            var extension = Path.GetFileName(modDir) == "PATCH1" ? "CPK" : "cpk";
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".cpk -mode=FILENAME";
+            startInfo.Arguments = $"\"{modDir}\" \"{modDir}\".{extension} -mode=FILENAME";
             if (crc)
                 startInfo.Arguments += " -crc";
             if (!empty)
-                Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.cpk...");
+                Console.WriteLine($"[INFO] Building {Path.GetFileName(modDir)}.{extension}...");
             using (Process process = new Process())
             {
                 process.StartInfo = startInfo;
