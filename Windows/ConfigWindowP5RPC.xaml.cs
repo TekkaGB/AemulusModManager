@@ -38,6 +38,7 @@ namespace AemulusModManager
             DeleteBox.IsChecked = main.config.p5rPCConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p5rPCConfig.updateAll;
             UpdateBox.IsChecked = main.config.p5rPCConfig.updatesEnabled;
+            CPKBox.IsChecked = main.config.p5rPCConfig.buildCPK;
             switch (main.config.p5rPCConfig.language)
             {
                 case "English":
@@ -56,55 +57,7 @@ namespace AemulusModManager
                     LanguageBox.SelectedIndex = 4;
                     break;
             }
-            switch (main.config.p5rPCConfig.cpkName)
-            {
-                case "BIND":
-                    CPKBox.SelectedIndex = 0;
-                    break;
-                case "1":
-                    CPKBox.SelectedIndex = 1;
-                    break;
-                case "2":
-                    CPKBox.SelectedIndex = 2;
-                    break;
-                case "3":
-                    CPKBox.SelectedIndex = 3;
-                    break;
-                case "MOD.CPK":
-                    CPKBox.SelectedIndex = 4;
-                    break;
-                case "1.CPK":
-                    CPKBox.SelectedIndex = 5;
-                    break;
-                case "2.CPK":
-                    CPKBox.SelectedIndex = 6;
-                    break;
-                case "3.CPK":
-                    CPKBox.SelectedIndex = 7;
-                    break;
-            }
             Console.WriteLine("[INFO] Config launched");
-        }
-        private void CPKBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!IsLoaded)
-                return;
-            handled = true;
-        }
-
-        private void CPKBox_DropDownClosed(object sender, EventArgs e)
-        {
-            if (handled)
-            {
-                var cpkName = (CPKBox.SelectedValue as ComboBoxItem).Content as String;
-                if (main.config.p5rConfig.cpkName != cpkName)
-                {
-                    Console.WriteLine($"[INFO] Output changed to {cpkName}");
-                    main.config.p5rPCConfig.cpkName = cpkName;
-                    main.updateConfig();
-                }
-                handled = false;
-            }
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
@@ -244,6 +197,16 @@ namespace AemulusModManager
             main.config.p5rPCConfig.deleteOldVersions = false;
             main.updateConfig();
         }
+        private void CPKChecked(object sender, RoutedEventArgs e)
+        {
+            main.config.p5rPCConfig.buildCPK = true;
+            main.updateConfig();
+        }
+        private void CPKUnchecked(object sender, RoutedEventArgs e)
+        {
+            main.config.p5rPCConfig.buildCPK = false;
+            main.updateConfig();
+        }
 
         private void onClose(object sender, CancelEventArgs e)
         {
@@ -271,7 +234,7 @@ namespace AemulusModManager
         {
             string directory;
             if (main.gamePath != null && FileIOWrapper.Exists($@"{Directory.GetParent(main.gamePath)}\CPK\BASE.CPK"))
-                directory = Directory.GetParent(main.modPath).ToString();
+                directory = $@"{Directory.GetParent(main.gamePath)}\CPK";
             else
             {
                 string p5rexe = selectExe("Select P5R.exe", "*.exe");

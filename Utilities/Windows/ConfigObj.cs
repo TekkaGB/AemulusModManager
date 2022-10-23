@@ -192,7 +192,7 @@ namespace AemulusModManager
         public string exePath { get; set; }
         public string reloadedPath { get; set; }
         public string language { get; set; } = "English";
-        public string cpkName { get; set; } = "BIND";
+        public bool buildCPK { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;

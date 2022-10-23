@@ -52,19 +52,14 @@
                     <CheckBox x:Name="ChangelogBox" Foreground="#f2f2f2" Content="Update Changelog" Checked="ChangelogChecked" Unchecked="ChangelogUnchecked"/>
                 </ComboBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
-                <ComboBox x:Name="CPKBox" Width="120" FontSize="15" SelectionChanged="CPKBox_SelectionChanged" DropDownClosed="CPKBox_DropDownClosed">
-                    <ComboBoxItem Foreground="#f2f2f2" Content="BIND"/>
-                    <ComboBoxItem Foreground="#f2f2f2" Content="1"/>
-                    <ComboBoxItem Foreground="#f2f2f2" Content="2"/>
-                    <ComboBoxItem Foreground="#f2f2f2" Content="3"/>
-                    <ComboBoxItem IsSelected="True" Foreground="#f2f2f2" Content="MOD.CPK"/>
-                    <ComboBoxItem Foreground="#f2f2f2" Content="1.CPK"/>
-                    <ComboBoxItem Foreground="#f2f2f2" Content="2.CPK"/>
-                    <ComboBoxItem Foreground="#f2f2f2" Content="3.CPK"/>
-                </ComboBox>
-            </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
+                <CheckBox Name="CPKBox" Foreground ="White" Checked="CPKChecked" Unchecked="CPKUnchecked">
+                    <TextBlock TextAlignment="Center">
+                        Build CPK
+                    </TextBlock>
+                </CheckBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
                 <ComboBox x:Name="LanguageBox" Width="120" FontSize="15" SelectionChanged="LanguageBox_SelectionChanged" DropDownClosed="LanguageBox_DropDownClosed">
                     <ComboBoxItem IsSelected="True" Foreground="#f2f2f2" Content="English"/>
                     <ComboBoxItem Foreground="#f2f2f2" Content="French"/>
