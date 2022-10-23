@@ -433,6 +433,7 @@ namespace AemulusModManager
                                     || (game == "Persona 3 FES" && !p3fTables.Contains(patch.tbl))
                                     || (game == "Persona 5" && !p5Tables.Contains(patch.tbl))
                                     || (game == "Persona 5 Royal" && !p5Tables.Contains(patch.tbl))
+                                    || (game == "Persona 5 Royal (Switch)" && !p5Tables.Contains(patch.tbl))
                                     || (game == "Persona 3 Portable" && !p3pTables.Contains(patch.tbl)))
                                 {
                                     Console.WriteLine($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
@@ -458,28 +459,30 @@ namespace AemulusModManager
                                         }
                                     }
                                 }
+                                else if (game == "Persona 5 Royal (Switch)")
+                                {
+                                    tablePath = patch.tbl.Equals("NAME", StringComparison.InvariantCultureIgnoreCase) ? $@"{modDir}\EN\BATTLE\TABLE\{patch.tbl}.TBL" : $@"{modDir}\BASE\BATTLE\TABLE\{patch.tbl}.TBL";
+                                    var originalPath = patch.tbl.Equals("NAME", StringComparison.InvariantCultureIgnoreCase) ? 
+                                        $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\EN\BATTLE\TABLE\{patch.tbl}.TBL" : $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BASE\BATTLE\TABLE\{patch.tbl}.TBL";
+                                    if (!File.Exists(tablePath))
+                                    {
+                                        if (File.Exists(originalPath))
+                                        {
+                                            Directory.CreateDirectory(Path.GetDirectoryName(tablePath));
+                                            File.Copy(originalPath, tablePath, true);
+                                            Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
+                                        }
+                                        else if (!File.Exists(originalPath))
+                                        {
+                                            Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
+                                            continue;
+                                        }
+                                    }
+                                }
                                 else if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)" || game == "Persona 3 Portable")
                                     tablePath = patch.tbl.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{patch.tbl}.TBL";
                                 else if (game == "Persona 5" || game == "Persona 5 Royal")
                                     tablePath = $@"{tblDir}\table\{patch.tbl}.TBL";
-                                //else if (game == "Persona 3 Portable")
-                                //{
-                                //    tablePath = $@"{modDir}\data\battle\{patch.tbl}.TBL";
-                                //    if (!File.Exists(tablePath))
-                                //    {
-                                //        if (File.Exists($@"Original\{game}\data\battle\{patch.tbl}.TBL"))
-                                //        {
-                                //            Directory.CreateDirectory($@"{modDir}\data\battle");
-                                //            File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{patch.tbl}.TBL", tablePath, true);
-                                //            Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
-                                //        }
-                                //        else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\data\battle\{patch.tbl}.TBL"))
-                                //        {
-                                //            Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
-                                //            continue;
-                                //        }
-                                //    }
-                                //}
                                 if (patch.tbl == "NAME")
                                     table.nameSections = GetNameSections(tablePath);
                                 else
@@ -502,12 +505,12 @@ namespace AemulusModManager
                     string path = null;
                     if (game == "Persona 3 FES")
                         path = $@"{modDir}\BTL\BATTLE\{table.tableName}.TBL";
+                    else if (game == "Persona 5 Royal (Switch)")
+                        path = table.tableName.Equals("NAME", StringComparison.InvariantCultureIgnoreCase) ? $@"{modDir}\EN\BATTLE\TABLE\{table.tableName}.TBL" : $@"{modDir}\BASE\BATTLE\TABLE\{table.tableName}.TBL";
                     else if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)" || game == "Persona 3 Portable")
                         path = table.tableName.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{table.tableName}.TBL";
                     else if (game == "Persona 5" || game == "Persona 5 Royal")
                         path = $@"{tblDir}\table\{table.tableName}.TBL";
-                    //else if (game == "Persona 3 Portable")
-                    //    path = $@"{modDir}\data\battle\{table.tableName}.TBL";
                     if (table.tableName == "NAME")
                         WriteNameTbl(table.nameSections, path);
                     else
@@ -518,7 +521,7 @@ namespace AemulusModManager
 
             }
 
-            if (game != "Persona 3 FES")
+            if (game != "Persona 3 FES" && game != "Persona 5 Royal (Switch)")
             {
                 // Replace each edited TBL's
                 foreach (string u in editedTables)
@@ -591,7 +594,6 @@ namespace AemulusModManager
             byte[] tblBytes = File.ReadAllBytes(tbl);
             int pos = 0;
             NameSection section;
-            // 33 sections
             while (pos < tblBytes.Length)
             {
                 section = new NameSection();

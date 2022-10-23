@@ -137,8 +137,6 @@ namespace AemulusModManager
                     Console.WriteLine($"[INFO] Copying over base PATCH1 file");
                     Directory.CreateDirectory($@"{modDir}\PATCH1\MOVIE");
                     FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM", $@"{modDir}\PATCH1\MOVIE\MOV000.USM", true);
-                    Directory.CreateDirectory($@"{modDir}\EN");
-                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM", $@"{modDir}\EN\MOV000.USM", true);
                 }
                 else
                     Console.WriteLine($@"[WARNING] {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM not found, try unpacking base files again");
