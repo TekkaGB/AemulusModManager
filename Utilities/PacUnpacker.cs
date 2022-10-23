@@ -837,6 +837,93 @@ namespace AemulusModManager
                 Mouse.OverrideCursor = null;
             });
         }
+        public static async Task UnpackP5RPCCPKs(string directory, string language)
+        {
+            if (!Directory.Exists(directory))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {directory}. Please correct the file path.");
+                return;
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PC)");
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.CreateNoWindow = true;
+            startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\CpkMakeC\cpkmakec.exe";
+            if (!FileIOWrapper.Exists(startInfo.FileName))
+            {
+                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+                return;
+            }
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+
+            Console.WriteLine($"[INFO] Extracting BASE.CPK (This will take awhile)");
+            if (FileIOWrapper.Exists($@"{directory}\BASE.CPK"))
+            {
+                startInfo.Arguments = $@"""{directory}\BASE.CPK"" -extract=""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PC)""";
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+            }
+            else
+                Console.WriteLine($"[ERROR] Couldn't find BASE.CPK in {directory}.");
+
+            var localCPK = String.Empty;
+            switch (language)
+            {
+                case "English":
+                    localCPK = "EN.CPK";
+                    break;
+                case "French":
+                    localCPK = "FR.CPK";
+                    break;
+                case "Italian":
+                    localCPK = "IT.CPK";
+                    break;
+                case "German":
+                    localCPK = "DE.CPK";
+                    break;
+                case "Spanish":
+                    localCPK = "ES.CPK";
+                    break;
+            }
+
+            Console.WriteLine($"[INFO] Extracting {localCPK} (This will take awhile)");
+            if (FileIOWrapper.Exists($@"{directory}\BASE.CPK"))
+            {
+                startInfo.Arguments = $@"""{directory}\{localCPK}"" -extract=""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PC)""";
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+            }
+            else
+                Console.WriteLine($"[ERROR] Couldn't find {localCPK} in {directory}.");
+
+            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)");
+            Console.WriteLine($"[INFO] Finished unpacking base files!");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
         public static async Task UnpackP4GCPK(string cpk)
         {
             if (!FileIOWrapper.Exists(cpk))

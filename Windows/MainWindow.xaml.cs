@@ -1053,7 +1053,7 @@ namespace AemulusModManager
                 else if (game == "Persona 5 Royal (Switch)")
                     await PacUnpacker.UnpackP5RSwitchCPKs(directory, p5rSwitchConfig.language);
                 else if (game == "Persona 5 Royal (PC)")
-                    await PacUnpacker.UnpackP5RSwitchCPKs(directory, p5rPCConfig.language);
+                    await PacUnpacker.UnpackP5RPCCPKs(directory, p5rPCConfig.language);
                 else if (game == "Persona 1 (PSP)")
                     await PacUnpacker.UnzipAndUnBin(directory);
                 App.Current.Dispatcher.Invoke((Action)delegate
@@ -1364,7 +1364,7 @@ namespace AemulusModManager
             }
             else if (game == "Persona 5 Royal (PC)")
             {
-                ConfigWindowP5RSwitch cWindow = new ConfigWindowP5RSwitch(this) { Owner = this };
+                ConfigWindowP5RPC cWindow = new ConfigWindowP5RPC(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
