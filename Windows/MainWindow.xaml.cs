@@ -2507,6 +2507,11 @@ namespace AemulusModManager
                         path = $@"{modPath}\{config.p5rConfig.cpkName.Replace(".cpk", String.Empty)}{language}";
                         Directory.CreateDirectory(path);
                     }
+                    if (game == "Persona 5 Royal (PC)")
+                    {
+                        path = $@"{modPath}\{config.p5rPCConfig.cpkName}";
+                        Directory.CreateDirectory(path);
+                    }
                     if (game == "Persona 5 Royal (Switch)")
                     {
                         path = $@"{modPath}\mods\romfs\CPK\PATCH1";
