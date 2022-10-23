@@ -2395,7 +2395,7 @@ namespace AemulusModManager
                     }
                     if (game == "Persona 5 Royal (PC)")
                     {
-                        path = $@"{modPath}\{config.p5rPCConfig.cpkName.Replace(".cpk", String.Empty)}{language}";
+                        path = $@"{modPath}\{config.p5rPCConfig.cpkName}";
                         Directory.CreateDirectory(path);
                         if (File.Exists($@"{modPath}\{config.p5rPCConfig.cpkName}"))
                             File.Delete($@"{modPath}\{config.p5rPCConfig.cpkName}");
