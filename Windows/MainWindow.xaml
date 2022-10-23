@@ -678,7 +678,7 @@
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p5ricon.png" Width="32" Margin="4,0,10,0"/>
-                                    <TextBlock Text="Persona 5 Royal" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                    <TextBlock Text="Persona 5 Royal (PS4)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
@@ -1232,7 +1232,7 @@
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p5ricon.png" Width="32" Margin="4,0,10,0"/>
-                                    <TextBlock Text="Persona 5 Royal" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                    <TextBlock Text="Persona 5 Royal (PS4)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>

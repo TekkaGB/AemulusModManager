@@ -68,7 +68,7 @@ namespace AemulusModManager.Utilities.FileMerging
             {"Persona 3 FES", new GameCompilerInfo(LibraryLookup.GetLibrary("P3F"), AtlusEncoding.GetByName("P3"), FlowFormatVersion.Version1, MsgFormatVersion.Version1) },
             {"Persona 5", new GameCompilerInfo(LibraryLookup.GetLibrary("P5"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
             {"Persona 3 Portable", new GameCompilerInfo(LibraryLookup.GetLibrary("P3P"), AtlusEncoding.GetByName("P3"), FlowFormatVersion.Version1, MsgFormatVersion.Version1) },
-            {"Persona 5 Royal", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
+            {"Persona 5 Royal (PS4)", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
             {"Persona 5 Royal (Switch)", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
             {"Persona 5 Royal (PC)", new GameCompilerInfo(LibraryLookup.GetLibrary("P5R"), AtlusEncoding.GetByName("P5"), FlowFormatVersion.Version3BigEndian, MsgFormatVersion.Version1BigEndian) },
             {"Persona Q2", new GameCompilerInfo(LibraryLookup.GetLibrary("PQ2"), ShiftJISEncoding.Instance, FlowFormatVersion.Version2, MsgFormatVersion.Version1) },
@@ -107,7 +107,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 FlowFormatVersion format = compilerInfos[game].FlowFormatVersion;
 
                 // Persona 5 bmds have a different outformat than their bfs
-                if ((game == "Persona 5" || game == "Persona 5 Royal" || game == "Persona 5 Royal (Switch)" || game == "Persona 5 Royal (PC)") && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
+                if ((game == "Persona 5" || game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)" || game == "Persona 5 Royal (PC)") && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
                     format = FlowFormatVersion.Version1BigEndian;
 
                 if (game == "Persona Q2" && Path.GetExtension(inFilePath).ToLowerInvariant() == ".msg")
@@ -119,7 +119,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 compiler.Encoding = compilerInfos[game].Encoding;
                 compiler.ProcedureHookMode = ProcedureHookMode.ImportedOnly;
 
-                if ((game == "Persona 5 Royal" || game == "Persona 5 Royal (Switch)" || game == "Persona 5 Royal (PC)") && language != null && language != "English")
+                if ((game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)" || game == "Persona 5 Royal (PC)") && language != null && language != "English")
                     compiler.Encoding = AtlusEncoding.GetByName("P5R_EFIGS");
 
                 var inFile = File.Open(inFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);

@@ -464,7 +464,7 @@ namespace AemulusModManager
                 Mouse.OverrideCursor = Cursors.Wait;
             });
 
-            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal");
+            Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)");
 
             if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_dataR.csv")
                 || !FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps4R.csv"))
@@ -510,7 +510,7 @@ namespace AemulusModManager
                         {
                             foreach (var file in chunk)
                             {
-                                startInfo.Arguments = $@"-X {file} -i ""{directory}\dataR.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal""";
+                                startInfo.Arguments = $@"-X {file} -i ""{directory}\dataR.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)""";
 
                                 using (Process process = new Process())
                                 {
@@ -540,7 +540,7 @@ namespace AemulusModManager
                         {
                             foreach (var file in chunk)
                             {
-                                startInfo.Arguments = $@"-X {file} -i ""{directory}\ps4R.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal""";
+                                startInfo.Arguments = $@"-X {file} -i ""{directory}\ps4R.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)""";
 
                                 using (Process process = new Process())
                                 {
@@ -593,7 +593,7 @@ namespace AemulusModManager
                             {
                                 foreach (var file in chunk)
                                 {
-                                    startInfo.Arguments = $@"-X {file} -i ""{directory}\{localizedCpk}"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal""";
+                                    startInfo.Arguments = $@"-X {file} -i ""{directory}\{localizedCpk}"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)""";
 
                                     using (Process process = new Process())
                                     {
@@ -631,7 +631,7 @@ namespace AemulusModManager
                             {
                                 foreach (var file in chunk)
                                 {
-                                    startInfo.Arguments = $@"-X {file} -i ""{directory}\patch2R.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal""";
+                                    startInfo.Arguments = $@"-X {file} -i ""{directory}\patch2R.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)""";
 
                                     using (Process process = new Process())
                                     {
@@ -682,7 +682,7 @@ namespace AemulusModManager
                                 {
                                     foreach (var file in chunk)
                                     {
-                                        startInfo.Arguments = $@"-X {file} -i ""{directory}\patch2R{patchSuffix}.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal""";
+                                        startInfo.Arguments = $@"-X {file} -i ""{directory}\patch2R{patchSuffix}.cpk"" -o ""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)""";
 
                                         using (Process process = new Process())
                                         {
@@ -706,7 +706,7 @@ namespace AemulusModManager
                 }
             }
 
-            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal");
+            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
