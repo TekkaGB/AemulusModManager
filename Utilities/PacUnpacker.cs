@@ -727,20 +727,6 @@ namespace AemulusModManager
 
             Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)");
 
-            if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ALL_USEU_BASE.csv")
-                || !FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_PATCH1.csv"))
-            {
-                Console.WriteLine($@"[ERROR] Couldn't find CSV files used for unpacking in Dependencies\MakeCpk");
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    Mouse.OverrideCursor = null;
-                });
-                return;
-            }
-
-            string[] baseFiles = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ALL_USEU_BASE.csv");
-            string[] patch1Files = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_PATCH1.csv");
-
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\CpkMakeC\cpkmakec.exe";
@@ -766,12 +752,6 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-                    //while (!process.HasExited)
-                    //{
-                    //    string text = process.StandardOutput.ReadLine();
-                    //    if (text != "" && text != null)
-                    //        Console.WriteLine($"[INFO] {text}");
-                    //}
                     process.WaitForExit();
                 }
             }
@@ -787,48 +767,11 @@ namespace AemulusModManager
                 {
                     process.StartInfo = startInfo;
                     process.Start();
-                    //while (!process.HasExited)
-                    //{
-                    //    string text = process.StandardOutput.ReadLine();
-                    //    if (text != "" && text != null)
-                    //        Console.WriteLine($"[INFO] {text}");
-                    //}
                     process.WaitForExit();
                 }
             }
             else
                 Console.WriteLine($"[ERROR] Couldn't find ALL_USEU.CPK in {directory}.");
-
-            //var languageSuffix = String.Empty;
-            //switch (language)
-            //{
-            //    case "English":
-            //        languageSuffix = "_E";
-            //        break;
-            //    case "French":
-            //        languageSuffix = "_F";
-            //        break;
-            //    case "Italian":
-            //        languageSuffix = "_I";
-            //        break;
-            //    case "German":
-            //        languageSuffix = "_G";
-            //        break;
-            //    case "Spanish":
-            //        languageSuffix = "_S";
-            //        break;
-            //}
-            //string[] localizedFiles = FileIOWrapper.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ALL_USEU{languageSuffix}.csv");
-            //var allFiles = new HashSet<string>(baseFiles.Concat(localizedFiles).Concat(patch1Files));
-            //foreach (var file in Directory.GetFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)", "*.*", SearchOption.AllDirectories))
-            //{
-            //    var fileCheck = file.Replace($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)\", String.Empty).Replace(@"\", "/");
-            //    if (!allFiles.Contains(fileCheck))
-            //    {
-            //        FileIOWrapper.Delete(file);
-            //        Console.WriteLine($"[INFO] Deleting unneeded file {file}");
-            //    }
-            //}
 
             ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
@@ -903,7 +846,7 @@ namespace AemulusModManager
             }
 
             Console.WriteLine($"[INFO] Extracting {localCPK} (This will take awhile)");
-            if (FileIOWrapper.Exists($@"{directory}\BASE.CPK"))
+            if (FileIOWrapper.Exists($@"{directory}\{localCPK}"))
             {
                 startInfo.Arguments = $@"""{directory}\{localCPK}"" -extract=""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PC)""";
 
@@ -917,7 +860,7 @@ namespace AemulusModManager
             else
                 Console.WriteLine($"[ERROR] Couldn't find {localCPK} in {directory}.");
 
-            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (Switch)");
+            ExtractWantedFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PC)");
             Console.WriteLine($"[INFO] Finished unpacking base files!");
             Application.Current.Dispatcher.Invoke(() =>
             {
