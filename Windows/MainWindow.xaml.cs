@@ -2393,6 +2393,13 @@ namespace AemulusModManager
                         if (File.Exists($@"{modPath}\mods\romfs\CPK\PATCH1.CPK"))
                             File.Delete($@"{modPath}\mods\romfs\CPK\PATCH1.CPK");
                     }
+                    if (game == "Persona 5 Royal (PC)")
+                    {
+                        path = $@"{modPath}\{config.p5rPCConfig.cpkName.Replace(".cpk", String.Empty)}{language}";
+                        Directory.CreateDirectory(path);
+                        if (File.Exists($@"{modPath}\{config.p5rPCConfig.cpkName}"))
+                            File.Delete($@"{modPath}\{config.p5rPCConfig.cpkName}");
+                    }
 
                     if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
                     {
@@ -2629,6 +2636,7 @@ namespace AemulusModManager
                         }
 
                         if (game == "Persona 5" || (game == "Persona 5 Royal" && config.p5rConfig.cpkName != "bind") || game == "Persona 5 Royal (Switch)"
+                        || (game == "Persona 5 Royal (PC)" && (config.p5rConfig.cpkName != "bind" && config.p5rConfig.cpkName != "1" && config.p5rConfig.cpkName != "2" && config.p5rConfig.cpkName != "3"))
                         || (game == "Persona 3 Portable" && config.p3pConfig.cpkName != "bind")
                         || game == "Persona 4 Golden (Vita)" || game == "Persona Q2")
                         {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona 5 Royal (Switch) Config" Height="250" Width="800" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona 5 Royal (Switch) Config" Height="250" Width="820" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -41,6 +41,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Height="30" Width="110" Content="Unpack Base Files" Name="UnpackButton" Grid.Column="0" Click="UnpackPacsClick" Background ="White" VerticalAlignment="Center"/>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="1">
@@ -52,6 +53,18 @@
                 </ComboBox>
             </Viewbox>
             <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="2">
+                <ComboBox x:Name="CPKBox" Width="120" FontSize="15" SelectionChanged="CPKBox_SelectionChanged" DropDownClosed="CPKBox_DropDownClosed">
+                    <ComboBoxItem Foreground="#f2f2f2" Content="BIND"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="1"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="2"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="3"/>
+                    <ComboBoxItem IsSelected="True" Foreground="#f2f2f2" Content="MOD.CPK"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="1.CPK"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="2.CPK"/>
+                    <ComboBoxItem Foreground="#f2f2f2" Content="3.CPK"/>
+                </ComboBox>
+            </Viewbox>
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
                 <ComboBox x:Name="LanguageBox" Width="120" FontSize="15" SelectionChanged="LanguageBox_SelectionChanged" DropDownClosed="LanguageBox_DropDownClosed">
                     <ComboBoxItem IsSelected="True" Foreground="#f2f2f2" Content="English"/>
                     <ComboBoxItem Foreground="#f2f2f2" Content="French"/>
@@ -60,7 +73,7 @@
                     <ComboBoxItem Foreground="#f2f2f2" Content="Spanish"/>
                 </ComboBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="3">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
                 <CheckBox Name="DeleteBox" Foreground ="White" Checked="DeleteChecked" Unchecked="DeleteUnchecked">
                     <TextBlock TextAlignment="Center">
                         Delete Old<LineBreak/>
@@ -68,7 +81,7 @@
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="4">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="5">
                 <CheckBox Name="UpdateBox" Foreground ="White" Checked="UpdateChecked" Unchecked="UpdateUnchecked">
                     <TextBlock TextAlignment="Center">
                         Enable Mod<LineBreak/>
@@ -76,7 +89,7 @@
                     </TextBlock>
                 </CheckBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="5">
+            <Viewbox Stretch="Uniform" VerticalAlignment="Center" MinHeight="35" MaxHeight="35" Width="100" Grid.Column="6">
                 <CheckBox Name="UpdateAllBox" Foreground ="White" Checked="UpdateAllChecked" Unchecked="UpdateAllUnchecked" IsEnabled="False">
                     <TextBlock TextAlignment="Center">
                         Update All<LineBreak/>
