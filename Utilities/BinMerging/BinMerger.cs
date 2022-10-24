@@ -194,7 +194,6 @@ namespace AemulusModManager
                         && !(game == "Persona 3 Portable" && file.Substring(mod.Length).ToLower().Contains("\\fmv\\")) //check if the file is an FMV for P3P
                         && !((game == "Persona 3 Portable" || game == "Persona 1 (PSP)") && file.Substring(mod.Length).ToLower().Contains("\\cheats\\")))
                     {
-
                         List<string> folders = new List<string>(file.Split(char.Parse("\\")));
                         int idx = folders.IndexOf(Path.GetFileName(mod));
                         folders = folders.Skip(idx + 1).ToList();
