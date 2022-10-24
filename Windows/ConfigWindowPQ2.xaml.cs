@@ -161,7 +161,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] No ISO selected.");
+                Console.WriteLine("[ERROR] No ROM selected.");
             }
         }
 

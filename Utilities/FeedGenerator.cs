@@ -20,6 +20,7 @@ namespace AemulusModManager.Utilities
         P4GVita,
         P5,
         P5R,
+        P5RSwitch,
         P5S,
         PQ2
     }
@@ -146,6 +147,9 @@ namespace AemulusModManager.Utilities
                     case GameFilter.P5R:
                         url += "8464&";
                         break;
+                    case GameFilter.P5RSwitch:
+                        url += "17354&";
+                        break;
                     case GameFilter.P5S:
                         url += "9099&";
                         break;
@@ -181,6 +185,9 @@ namespace AemulusModManager.Utilities
                         break;
                     case GameFilter.P5R:
                         url += "8464&";
+                        break;
+                    case GameFilter.P5RSwitch:
+                        url += "17354&";
                         break;
                     case GameFilter.P5S:
                         url += "9099&";

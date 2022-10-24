@@ -53,7 +53,10 @@ namespace AemulusModManager.Utilities
                     gameName = "Persona 5";
                     break;
                 case GameFilter.P5R:
-                    gameName = "Persona 5 Royal";
+                    gameName = "Persona 5 Royal (PS4)";
+                    break;
+                case GameFilter.P5RSwitch:
+                    gameName = "Persona 5 Royal (Switch)";
                     break;
                 case GameFilter.P5S:
                     gameName = "Persona 5 Strikers";
@@ -119,6 +122,9 @@ namespace AemulusModManager.Utilities
                                 break;
                             case "Shin Megami Tensei: Persona (PSP)":
                                 gameName = "Persona 1 (PSP)";
+                                break;
+                            case "Persona 5 Royal":
+                                gameName = "Persona 5 Royal (PS4)";
                                 break;
                             default:
                                 break;
