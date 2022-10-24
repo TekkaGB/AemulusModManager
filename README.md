@@ -18,7 +18,9 @@ For Persona 3 Portable, [setup the proper patches for mod loading from bind/mod.
 
 For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
-For Persona 5 Royal, [setup the proper patches for mod loading from bind/mod.cpk/mod1.cpk/mod2.cpk/mod3.cpk](https://github.com/zarroboogs/ppp)
+For Persona 5 Royal (PS4), [setup the proper patches for mod loading from bind/mod.cpk/mod1.cpk/mod2.cpk/mod3.cpk](https://github.com/zarroboogs/ppp)
+
+For Persona 5 Royal (Switch), nothing is need other than Aemulus!
 
 For Persona 5 Strikers, nothing is need other than Aemulus!
 
@@ -36,6 +38,9 @@ The first thing you'll want to do is click the Config button on the top left.  F
 - **For Persona 3 Portable**, select ...\PSP\P3P in the memstick of the PSP or any folder for FTPing later.
 - **For Persona 5**, select \PS3_GAME\USRDIR found by right clicking the game in RPCS3 and selecting Open Install Folder.
 - **For Persona 5 Royal**, select \data\p5r or any other folder for FTPing later.
+- **For Persona 5 Royal (Switch)**:
+    - On emulator by right clicking the game and selecting "Open Mods Directory" for Ryujinx or "Open Mod Data Location" for Yuzu. The folder that opens is the output folder
+    - For hardware, you'll have to setup a folder called atmosphere\contents[title id]in your SD card and select that as the output.
 - **For Persona 5 Strikers**, select ...\P5S\data\motor_rsc.
 - **For Persona Q2**, select sd:/luma/titles/<title_id>/romfs/ or <citra_vfs>/load/mods/<title_id>/romfs/.
 
