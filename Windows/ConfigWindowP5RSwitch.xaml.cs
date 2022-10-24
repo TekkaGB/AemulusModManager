@@ -16,9 +16,7 @@ namespace AemulusModManager
     public partial class ConfigWindowP5RSwitch : Window
     {
         private MainWindow main;
-        private bool handled;
         private bool language_handled;
-        private bool version_handled;
 
         public ConfigWindowP5RSwitch(MainWindow _main)
         {

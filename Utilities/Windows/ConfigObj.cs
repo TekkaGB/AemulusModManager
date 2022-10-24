@@ -30,7 +30,6 @@ namespace AemulusModManager
         public ConfigP5 p5Config { get; set; }
         public ConfigP5R p5rConfig { get; set; }
         public ConfigP5RSwitch p5rSwitchConfig { get; set; }
-        public ConfigP5RPC p5rPCConfig { get; set; }
         public ConfigP5S p5sConfig { get; set; }
         public ConfigPQ2 pq2Config { get; set; }
         public ConfigP1PSP p1pspConfig { get; set; }
@@ -176,23 +175,6 @@ namespace AemulusModManager
         public string gamePath { get; set; }
         public string launcherPath { get; set; }
         public string language { get; set; } = "English";
-        public bool deleteOldVersions { get; set; }
-        public bool buildWarning { get; set; } = true;
-        public bool buildFinished { get; set; } = true;
-        public bool updateConfirm { get; set; } = true;
-        public bool updateChangelog { get; set; } = true;
-        public bool updateAll { get; set; } = true;
-        public bool updatesEnabled { get; set; } = true;
-        public string loadout { get; set; }
-        public string lastUnpacked { get; set; }
-    }
-    public class ConfigP5RPC
-    {
-        public string modDir { get; set; }
-        public string exePath { get; set; }
-        public string reloadedPath { get; set; }
-        public string language { get; set; } = "English";
-        public bool buildCPK { get; set; }
         public bool deleteOldVersions { get; set; }
         public bool buildWarning { get; set; } = true;
         public bool buildFinished { get; set; } = true;

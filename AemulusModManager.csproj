@@ -209,9 +209,6 @@
     <Compile Include="Windows\ConfigWindowP1PSP.xaml.cs">
       <DependentUpon>ConfigWindowP1PSP.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ConfigWindowP5RPC.xaml.cs">
-      <DependentUpon>ConfigWindowP5RPC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\ConfigWindowP5RSwitch.xaml.cs">
       <DependentUpon>ConfigWindowP5RSwitch.xaml</DependentUpon>
     </Compile>
@@ -294,10 +291,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ConfigWindowP1PSP.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP5RPC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

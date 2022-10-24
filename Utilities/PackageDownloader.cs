@@ -58,9 +58,6 @@ namespace AemulusModManager.Utilities
                 case GameFilter.P5RSwitch:
                     gameName = "Persona 5 Royal (Switch)";
                     break;
-                case GameFilter.P5RPC:
-                    gameName = "Persona 5 Royal (PC)";
-                    break;
                 case GameFilter.P5S:
                     gameName = "Persona 5 Strikers";
                     break;
