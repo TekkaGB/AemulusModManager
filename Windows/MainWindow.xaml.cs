@@ -2420,8 +2420,6 @@ namespace AemulusModManager
                     {
                         path = modPath;
                         Directory.CreateDirectory(path);
-                        if (File.Exists($@"{modPath}.cpk"))
-                            File.Delete($@"{modPath}.cpk");
                     }
 
                     if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
@@ -4943,21 +4941,13 @@ namespace AemulusModManager
         private void UniformGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var grid = sender as UniformGrid;
-            if (grid.ActualWidth > 2000)
-                grid.Columns = 6;
-            else if (grid.ActualWidth > 1600)
-                grid.Columns = 5;
-            else if (grid.ActualWidth > 1200)
-                grid.Columns = 4;
-            else
-                grid.Columns = 3;
+            grid.Columns = (int)grid.ActualWidth / 400 + 1;
         }
         private void GameBanana_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var gameID = "";
-                // { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "17354", "16951", "9099", "9561" };
                 switch (GameFilterBox.SelectedIndex)
                 {
                     case 0:

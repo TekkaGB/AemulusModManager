@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Linq;
 using AemulusModManager.Utilities;
+using System.Reflection;
 
 namespace AemulusModManager
 {
@@ -26,8 +27,6 @@ namespace AemulusModManager
             main = _main;
             InitializeComponent();
 
-            if (main.modPath != null)
-                OutputTextbox.Text = main.modPath;
             if (main.gamePath != null)
                 EXETextbox.Text = main.gamePath;
             if (main.launcherPath != null)
@@ -38,7 +37,6 @@ namespace AemulusModManager
             DeleteBox.IsChecked = main.config.p5rPCConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p5rPCConfig.updateAll;
             UpdateBox.IsChecked = main.config.p5rPCConfig.updatesEnabled;
-            CPKBox.IsChecked = main.config.p5rPCConfig.buildCPK;
             switch (main.config.p5rPCConfig.language)
             {
                 case "English":
@@ -58,20 +56,6 @@ namespace AemulusModManager
                     break;
             }
             Console.WriteLine("[INFO] Config launched");
-        }
-        private void modDirectoryClick(object sender, RoutedEventArgs e)
-        {
-            var directory = openFolder("Select output folder");
-            if (directory != null)
-            {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
-                main.config.p5rPCConfig.modDir = directory;
-                main.modPath = directory;
-                main.MergeButton.IsHitTestVisible = true;
-                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
-                main.updateConfig();
-                OutputTextbox.Text = directory;
-            }
         }
         private void SetupEXEShortcut(object sender, RoutedEventArgs e)
         {
@@ -112,6 +96,13 @@ namespace AemulusModManager
             {
                 main.launcherPath = reloadedExe;
                 main.config.p5rPCConfig.reloadedPath = reloadedExe;
+                var directory = $"{Path.GetDirectoryName(reloadedExe)}/Mods/p5rpc.aemulusoutput";
+                foreach (var file in Directory.GetFiles($"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Dependencies/p5rpc.aemulusoutput", "*", SearchOption.AllDirectories))
+                    FileIOWrapper.Copy(file, $"{directory}/{Path.GetFileName(file)}", true);
+                main.config.p5rPCConfig.modDir = directory;
+                main.modPath = directory;
+                main.MergeButton.IsHitTestVisible = true;
+                main.MergeButton.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
                 main.updateConfig();
                 ReloadedTextbox.Text = reloadedExe;
             }

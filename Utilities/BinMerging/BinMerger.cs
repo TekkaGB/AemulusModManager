@@ -919,6 +919,13 @@ namespace AemulusModManager
                         FileIOWrapper.Delete(file);
                 }
             }
+            else if (game == "Persona 5 Royal (PC)")
+            {
+                if (Directory.Exists($"{modDir}/P5REssentials"))
+                    DeleteDirectory($"{modDir}/P5REssentials");
+                if (Directory.Exists($"{modDir}/FEmulator"))
+                    DeleteDirectory($"{modDir}/FEmulator");
+            }
             else
             {
                 if (Directory.Exists(modDir))

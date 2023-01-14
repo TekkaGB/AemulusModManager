@@ -418,6 +418,9 @@
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
+    <Content Include="Dependencies\p5rpc.aemulusoutput\ModConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Dependencies\SpdPatcher\SPD Patcher.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -851,6 +854,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dependencies\p5rpc.aemulusoutput\Preview.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dependencies\SpdPatcher\Amicitia.IO.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
