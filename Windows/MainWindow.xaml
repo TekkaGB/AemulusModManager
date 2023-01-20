@@ -660,7 +660,7 @@
                             <ComboBoxItem IsSelected="True">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
-                                    <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                    <TextBlock Text="Persona 4 Golden (PC 32 Bit)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>
@@ -1208,7 +1208,7 @@
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p4gicon.png" Width="32" Margin="4,0,10,0"/>
-                                    <TextBlock Text="Persona 4 Golden" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                    <TextBlock Text="Persona 4 Golden (PC 32 Bit)" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>

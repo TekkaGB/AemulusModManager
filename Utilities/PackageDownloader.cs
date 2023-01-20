@@ -114,7 +114,7 @@ namespace AemulusModManager.Utilities
                         var gameName = response.Game.Name;
                         switch (gameName)
                         {
-                            case "Persona 4 Golden (PC)":
+                            case "Persona 4 Golden PC (32 Bit)":
                                 gameName = "Persona 4 Golden";
                                 break;
                             case "Persona 3 Portable (PSP)":
