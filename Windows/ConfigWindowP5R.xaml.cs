@@ -78,14 +78,14 @@ namespace AemulusModManager
                     VersionBox.SelectedIndex = 1;
                     break;
             }
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder("Select output folder");
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p5rConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -174,7 +174,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -255,13 +255,13 @@ namespace AemulusModManager
                 var cpks = Directory.GetFiles(selectedPath, "*.cpk", SearchOption.TopDirectoryOnly);
                 if (cpksNeeded.Except(cpks.Select(x => Path.GetFileName(x))).Any())
                 {
-                    Console.WriteLine($"[ERROR] Not all cpks needed (dataR.cpk, ps4R.cpk{extraCpk}) are found in top directory of {selectedPath}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Not all cpks needed (dataR.cpk, ps4R.cpk{extraCpk}) are found in top directory of {selectedPath}");
                     return;
                 }
             }
             else
             {
-                Console.WriteLine("[ERROR] No folder chosen");
+                Utilities.ParallelLogger.Log("[ERROR] No folder chosen");
                 return;
             }
             main.ModGrid.IsHitTestVisible = false;
@@ -296,7 +296,7 @@ namespace AemulusModManager
                 var cpkName = (CPKBox.SelectedValue as ComboBoxItem).Content as String;
                 if (main.config.p5rConfig.cpkName != cpkName)
                 {
-                    Console.WriteLine($"[INFO] Output changed to {cpkName}");
+                    Utilities.ParallelLogger.Log($"[INFO] Output changed to {cpkName}");
                     main.config.p5rConfig.cpkName = cpkName;
                     main.updateConfig();
                 }
@@ -317,7 +317,7 @@ namespace AemulusModManager
                 var language = (LanguageBox.SelectedValue as ComboBoxItem).Content as String;
                 if (main.config.p5rConfig.language != language)
                 {
-                    Console.WriteLine($"[INFO] Language changed to {language}");
+                    Utilities.ParallelLogger.Log($"[INFO] Language changed to {language}");
                     main.config.p5rConfig.language = language;
                     main.updateConfig();
                 }
@@ -338,7 +338,7 @@ namespace AemulusModManager
                 var version = VersionBox.SelectedIndex == 0 ? ">= 1.02" : "< 1.02";
                 if (main.config.p5rConfig.version != version)
                 {
-                    Console.WriteLine($"[INFO] Version changed to {version}");
+                    Utilities.ParallelLogger.Log($"[INFO] Version changed to {version}");
                     main.config.p5rConfig.version = version;
                     main.updateConfig();
                 }

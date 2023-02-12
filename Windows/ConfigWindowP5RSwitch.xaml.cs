@@ -53,14 +53,14 @@ namespace AemulusModManager
                     LanguageBox.SelectedIndex = 4;
                     break;
             }
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder("Select output folder");
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p5rSwitchConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -81,7 +81,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] No ROM selected.");
+                Utilities.ParallelLogger.Log("[ERROR] No ROM selected.");
             }
         }
 
@@ -114,7 +114,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid exe.");
             }
         }
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
@@ -197,7 +197,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -229,13 +229,13 @@ namespace AemulusModManager
                 var cpks = Directory.GetFiles(selectedPath, "*.cpk", SearchOption.TopDirectoryOnly);
                 if (cpksNeeded.Except(cpks.Select(x => Path.GetFileName(x))).Any())
                 {
-                    Console.WriteLine($"[ERROR] Not all cpks needed (ALL_USEU.CPK and PATCH1.CPK) are found in top directory of {selectedPath}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Not all cpks needed (ALL_USEU.CPK and PATCH1.CPK) are found in top directory of {selectedPath}");
                     return;
                 }
             }
             else
             {
-                Console.WriteLine("[ERROR] No folder chosen");
+                Utilities.ParallelLogger.Log("[ERROR] No folder chosen");
                 return;
             }
             main.ModGrid.IsHitTestVisible = false;
@@ -270,7 +270,7 @@ namespace AemulusModManager
                 var language = (LanguageBox.SelectedValue as ComboBoxItem).Content as String;
                 if (main.config.p5rSwitchConfig.language != language)
                 {
-                    Console.WriteLine($"[INFO] Language changed to {language}");
+                    Utilities.ParallelLogger.Log($"[INFO] Language changed to {language}");
                     main.config.p5rSwitchConfig.language = language;
                     main.updateConfig();
                 }

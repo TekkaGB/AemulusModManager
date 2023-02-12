@@ -132,14 +132,14 @@ namespace AemulusModManager
                                 }
                                 catch (Exception e)
                                 {
-                                    Console.WriteLine($"[ERROR] {e.Message}");
+                                    Utilities.ParallelLogger.Log($"[ERROR] {e.Message}");
                                 }
                             }
                         }
                     }
                     if (response == null)
                     {
-                        Console.WriteLine("[ERROR] Error whilst checking for package updates: No response from GameBanana API");
+                        Utilities.ParallelLogger.Log("[ERROR] Error whilst checking for package updates: No response from GameBanana API");
                     }
                     else
                     {
@@ -162,7 +162,7 @@ namespace AemulusModManager
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {convertedModList[i].name}: {e.Message}");
+                                Utilities.ParallelLogger.Log($"[ERROR] Error whilst updating/checking for updates for {convertedModList[i].name}: {e.Message}");
                             }
                         }
                     }
@@ -182,18 +182,18 @@ namespace AemulusModManager
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine($"[ERROR] Error whilst updating/checking for updates for {row.name}: {e.Message}");
+                            Utilities.ParallelLogger.Log($"[ERROR] Error whilst updating/checking for updates for {row.name}: {e.Message}");
                         }
                     }
                 }
             }
             catch (HttpRequestException e)
             {
-                Console.WriteLine($"[ERROR] Connection error whilst checking for updates: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Connection error whilst checking for updates: {e.Message}");
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Error whilst checking for updates: {e.Message}");
             }
             return updated;
         }
@@ -212,7 +212,7 @@ namespace AemulusModManager
                 }
                 if (UpdateAvailable(onlineVersion, aemulusVersion))
                 {
-                    Console.WriteLine($"[INFO] An update is available for Aemulus ({onlineVersion})");
+                    Utilities.ParallelLogger.Log($"[INFO] An update is available for Aemulus ({onlineVersion})");
                     NotificationBox notification = new NotificationBox($"Aemulus has a new update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
                     notification.ShowDialog();
                     notification.Activate();
@@ -232,7 +232,7 @@ namespace AemulusModManager
                         UpdateManager updateManager = new UpdateManager(new LocalPackageResolver(@$"{assemblyLocation}\Downloads\AemulusUpdate"), new Zip7Extractor());
                         if (!Version.TryParse(onlineVersion, out Version version))
                         {
-                            Console.WriteLine("[ERROR] Error parsing Aemulus version, cancelling update");
+                            Utilities.ParallelLogger.Log("[ERROR] Error parsing Aemulus version, cancelling update");
                             // TODO Delete the downloaded stuff
                             return false;
                         }
@@ -249,12 +249,12 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine($"[INFO] No updates available for Aemulus");
+                    Utilities.ParallelLogger.Log($"[INFO] No updates available for Aemulus");
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst checking for updates: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Error whilst checking for updates: {e.Message}");
             }
             return false;
         }
@@ -357,20 +357,20 @@ namespace AemulusModManager
                 {
                     if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
                     {
-                        Console.WriteLine($"[INFO] No updates available for {row.name}");
+                        Utilities.ParallelLogger.Log($"[INFO] No updates available for {row.name}");
                         return false;
                     }
                 }
                 if (UpdateAvailable(onlineVersion, localVersion))
                 {
-                    Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion})");
+                    Utilities.ParallelLogger.Log($"[INFO] An update is available for {row.name} ({onlineVersion})");
                     // Display the changelog and confirm they want to update
                     ChangelogBox changelogBox = new ChangelogBox(updates[updateIndex], row.name, $"Would you like to update {row.name} to version {onlineVersion}?", row, onlineVersion, $@"{assemblyLocation}\Packages\{game}\{row.path}\Package.xml", false);
                     changelogBox.Activate();
                     changelogBox.ShowDialog();
                     if (!changelogBox.YesNo)
                     {
-                        Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                        Utilities.ParallelLogger.Log($"[INFO] Cancelled update for {row.name}");
                         return false;
                     }
 
@@ -380,7 +380,7 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine($"[INFO] No updates available for {row.name}");
+                    Utilities.ParallelLogger.Log($"[INFO] No updates available for {row.name}");
                 }
             }
             else if (downloadingMissing)
@@ -395,7 +395,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine($"[INFO] No updates available for {row.name}");
+                Utilities.ParallelLogger.Log($"[INFO] No updates available for {row.name}");
 
             }
             return updated;
@@ -422,7 +422,7 @@ namespace AemulusModManager
             }
             else if (!downloadingMissing)
             {
-                Console.WriteLine($"[INFO] An update is available for {row.name} ({onlineVersion}) but there are no downloads directly from GameBanana.");
+                Utilities.ParallelLogger.Log($"[INFO] An update is available for {row.name} ({onlineVersion}) but there are no downloads directly from GameBanana.");
                 new AltLinkWindow(item.AlternateFileSources, row.name, game, true).ShowDialog();
                 return;
             }
@@ -432,7 +432,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                Utilities.ParallelLogger.Log($"[INFO] Cancelled update for {row.name}");
             }
         }
 
@@ -467,13 +467,13 @@ namespace AemulusModManager
                 {
                     if (row.skippedVersion == "all" || !UpdateAvailable(onlineVersion, row.skippedVersion))
                     {
-                        Console.WriteLine($"[INFO] No updates available for {row.name}");
+                        Utilities.ParallelLogger.Log($"[INFO] No updates available for {row.name}");
                         return false;
                     }
                 }
                 if (UpdateAvailable(onlineVersion, localVersion))
                 {
-                    Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName})");
+                    Utilities.ParallelLogger.Log($"[INFO] An update is available for {row.name} ({release.TagName})");
                     NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}):\n{release.Body}\n\nWould you like to update?", false);
                     notification.ShowDialog();
                     notification.Activate();
@@ -484,7 +484,7 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine($"[INFO] No updates available for {row.name}");
+                    Utilities.ParallelLogger.Log($"[INFO] No updates available for {row.name}");
                 }
             }
             return updated;
@@ -508,7 +508,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine($"[INFO] An update is available for {row.name} ({release.TagName}) but no downloadable files are available.");
+                Utilities.ParallelLogger.Log($"[INFO] An update is available for {row.name} ({release.TagName}) but no downloadable files are available.");
                 NotificationBox notification = new NotificationBox($"{row.name} has an update ({release.TagName}) but no downloadable files.\nWould you like to go to the page to manually download the update?", false);
                 notification.ShowDialog();
                 notification.Activate();
@@ -524,7 +524,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine($"[INFO] Cancelled update for {row.name}");
+                Utilities.ParallelLogger.Log($"[INFO] Cancelled update for {row.name}");
             }
 
         }
@@ -548,19 +548,19 @@ namespace AemulusModManager
                     progressBox.Title = $"{row.name} {(downloadingMissing ? "Download" : "Update")} Progress";
                     progressBox.Show();
                     progressBox.Activate();
-                    Console.WriteLine($"[INFO] Downloading {fileName}");
+                    Utilities.ParallelLogger.Log($"[INFO] Downloading {fileName}");
                     // Write and download the file
                     using (var fs = new FileStream(
                         $@"{assemblyLocation}\Downloads\{fileName}", System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
                     {
                         await client.DownloadAsync(uri, fs, fileName, progress, cancellationToken.Token);
                     }
-                    Console.WriteLine($"[INFO] Finished downloading {fileName}");
+                    Utilities.ParallelLogger.Log($"[INFO] Finished downloading {fileName}");
                     progressBox.Close();
                 }
                 else
                 {
-                    Console.WriteLine($"[INFO] {fileName} already exists in downloads, using this instead");
+                    Utilities.ParallelLogger.Log($"[INFO] {fileName} already exists in downloads, using this instead");
                 }
                 ExtractFile(fileName, game);
             }
@@ -577,7 +577,7 @@ namespace AemulusModManager
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Error whilst downloading {fileName}: {e.Message}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -607,14 +607,14 @@ namespace AemulusModManager
                 progressBox.finished = false;
                 progressBox.Show();
                 progressBox.Activate();
-                Console.WriteLine($"[INFO] Downloading {fileName}");
+                Utilities.ParallelLogger.Log($"[INFO] Downloading {fileName}");
                 // Write and download the file
                 using (var fs = new FileStream(
                     $@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await client.DownloadAsync(uri, fs, fileName, progress, cancellationToken.Token);
                 }
-                Console.WriteLine($"[INFO] Finished downloading {fileName}");
+                Utilities.ParallelLogger.Log($"[INFO] Finished downloading {fileName}");
                 // Rename the file
                 if (!FileIOWrapper.Exists($@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z"))
                 {
@@ -635,7 +635,7 @@ namespace AemulusModManager
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error whilst downloading {fileName}: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Error whilst downloading {fileName}: {e.Message}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -759,12 +759,12 @@ namespace AemulusModManager
             {
                 if (!int.TryParse(onlineVersionParts[i], out _))
                 {
-                    Console.WriteLine($"[ERROR] Couldn't parse {onlineVersion}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Couldn't parse {onlineVersion}");
                     return false;
                 }
                 if (!int.TryParse(localVersionParts[i], out _))
                 {
-                    Console.WriteLine($"[ERROR] Couldn't parse {localVersion}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Couldn't parse {localVersion}");
                     return false;
                 }
                 if (int.Parse(onlineVersionParts[i]) > int.Parse(localVersionParts[i]))

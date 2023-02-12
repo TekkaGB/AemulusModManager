@@ -42,7 +42,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Check that the original bmd exists
             if (!File.Exists(ogPath))
             {
-                Console.WriteLine($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed.");
+                Utilities.ParallelLogger.Log($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed.");
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
             // Compare the messages to find any that need to be overwritten (changes go into originalMessages)
             int numChanges = Utils.MergeMessageScripts(originalMessages, messages, game);
-            Console.WriteLine($"[INFO] Merged {bmds[0]} with {bmds[1]} with {numChanges} changes");
+            Utilities.ParallelLogger.Log($"[INFO] Merged {bmds[0]} with {bmds[1]} with {numChanges} changes");
 
             // Make a copy of the unmerged bmd (.bmd.back)
             try
@@ -66,7 +66,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error backing up {bmds[1]}: {e.Message}. Cancelling bmd merging");
+                Utilities.ParallelLogger.Log($"[ERROR] Error backing up {bmds[1]}: {e.Message}. Cancelling bmd merging");
                 return;
             }
 
@@ -77,7 +77,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error compiling merged bmd to {bmds[1]}: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Error compiling merged bmd to {bmds[1]}: {e.Message}");
                 return;
             }
 

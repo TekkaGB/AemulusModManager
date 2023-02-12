@@ -200,6 +200,7 @@
     <Compile Include="Utilities\FileMerging\Utils.cs" />
     <Compile Include="Utilities\BinaryPatching\BinaryObj.cs" />
     <Compile Include="Utilities\BinaryPatching\BinaryPatch.cs" />
+    <Compile Include="Utilities\ParallelLogger.cs" />
     <Compile Include="Utilities\SpdPatching\SpdObj.cs" />
     <Compile Include="Utilities\SpdPatching\SpdPatch.cs" />
     <Compile Include="Utilities\Windows\HiddenIconConverter.cs" />
@@ -359,7 +360,7 @@
     </Compile>
     <Compile Include="Utilities\PacUnpacker.cs" />
     <Compile Include="Utilities\BinMerging\SprUtils.cs" />
-    <Compile Include="Utilities\TblPatching\TblPatch.cs" />
+    <Compile Include="Utilities\TblPatch.cs" />
     <Compile Include="Utilities\Windows\TextBoxOutputter.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

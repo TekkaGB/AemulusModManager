@@ -56,7 +56,7 @@ namespace AemulusModManager
                     main.updateConfig();
                     break;
             }
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
 
 
@@ -169,7 +169,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         private void modDirectoryClick(object sender, RoutedEventArgs e)
@@ -177,7 +177,7 @@ namespace AemulusModManager
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p4gConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -216,7 +216,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid exe.");
             }
         }
 
@@ -233,7 +233,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid exe.");
             }
         }
         private string selectExe(string title)
@@ -273,7 +273,7 @@ namespace AemulusModManager
                     UnpackButton.IsHitTestVisible = true;
                 }
                 else
-                    Console.WriteLine($"[ERROR] Invalid folder cannot find {main.cpkLang}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Invalid folder cannot find {main.cpkLang}");
             }
         }
 

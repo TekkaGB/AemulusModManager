@@ -39,7 +39,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Check if it exists
             if (!File.Exists(compilerPath))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {compilerPath}. Please check if it was blocked by your anti-virus.");
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {compilerPath}. Please check if it was blocked by your anti-virus.");
                 return false;
             }
             return true;
@@ -86,12 +86,12 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error getting last write time for {outFile}: {e.Message}. Cancelling {Path.GetExtension(outFile)} merging");
+                Utilities.ParallelLogger.Log($"[ERROR] Error getting last write time for {outFile}: {e.Message}. Cancelling {Path.GetExtension(outFile)} merging");
                 return false;
             }
 
             // Compile the file
-            Console.WriteLine($"[INFO] Compiling {inFilePath}");
+            Utilities.ParallelLogger.Log($"[INFO] Compiling {inFilePath}");
             string extension = Path.GetExtension(outFile).ToLowerInvariant();
             if (extension == ".pm1")
             {
@@ -126,7 +126,7 @@ namespace AemulusModManager.Utilities.FileMerging
 
                 if (!compiler.TryCompile(inFile, out FlowScript flowScript))
                 {
-                    Console.WriteLine($"[ERROR] Error compiling {inFilePath}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Error compiling {inFilePath}");
                     watch.Stop();
                     return false;
                 }
@@ -137,22 +137,22 @@ namespace AemulusModManager.Utilities.FileMerging
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"[ERROR] Error writing flowscript to {outFile}: {e.Message}");
+                    Utilities.ParallelLogger.Log($"[ERROR] Error writing flowscript to {outFile}: {e.Message}");
                 }
                 watch.Stop();
-                Console.WriteLine($"[INFO] {outFile} compiled successfully in {watch.ElapsedMilliseconds}ms");
+                Utilities.ParallelLogger.Log($"[INFO] {outFile} compiled successfully in {watch.ElapsedMilliseconds}ms");
                 return true;
             }
             else
             {
-                Console.WriteLine($"[ERROR] {extension} is not a supported file type, not compiling");
+                Utilities.ParallelLogger.Log($"[ERROR] {extension} is not a supported file type, not compiling");
                 return false;
             }
 
             // Check if the file was written to (successfully compiled)
             if (File.GetLastWriteTime(outFile) > lastModified)
             {
-                Console.WriteLine($"[INFO] Finished compiling {inFilePath}");
+                Utilities.ParallelLogger.Log($"[INFO] Finished compiling {inFilePath}");
                 return true;
             }
             else
@@ -168,7 +168,7 @@ namespace AemulusModManager.Utilities.FileMerging
                         Directory.CreateDirectory($@"{assemblyPath}\Logs");
                     File.Move($@"{assemblyPath}\AtlusScriptCompiler.log", newLog);
                 }
-                Console.WriteLine(@$"[ERROR] Error compiling {inFilePath}. Check {newLog} for details.");
+                Utilities.ParallelLogger.Log(@$"[ERROR] Error compiling {inFilePath}. Check {newLog} for details.");
                 return false;
             }
         }
@@ -188,7 +188,7 @@ namespace AemulusModManager.Utilities.FileMerging
         {
             if (!File.Exists(file))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {file}. Please check if it was blocked by your anti-virus.");
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {file}. Please check if it was blocked by your anti-virus.");
                 return;
             }
 
@@ -229,7 +229,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error reading {file}: {e.Message}. Cancelling {fileType} merging");
+                Utilities.ParallelLogger.Log($"[ERROR] Error reading {file}: {e.Message}. Cancelling {fileType} merging");
             }
             return null;
         }
@@ -248,7 +248,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Unable to parse bmd {filePath}: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Unable to parse bmd {filePath}: {e.Message}");
                 return null;
             }
         }
@@ -337,7 +337,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error reading {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                Utilities.ParallelLogger.Log($"[ERROR] Error reading {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
                 return;
             }
             foreach (var message in changedMessages)
@@ -359,7 +359,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error backing up {files[1]}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                Utilities.ParallelLogger.Log($"[ERROR] Error backing up {files[1]}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
                 return;
             }
 
@@ -370,7 +370,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Error writing changes to {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
+                Utilities.ParallelLogger.Log($"[ERROR] Error writing changes to {msgFile}: {e.Message}. Cancelling {Path.GetExtension(files[0])} merging");
                 return;
             }
             Compile(msgFile, files[1], game, language);
@@ -450,7 +450,7 @@ namespace AemulusModManager.Utilities.FileMerging
             finally
             {
                 timer.Stop();
-                Console.WriteLine($@"[INFO] Compared file hashes in {timer.ElapsedMilliseconds}ms");
+                Utilities.ParallelLogger.Log($@"[INFO] Compared file hashes in {timer.ElapsedMilliseconds}ms");
             }
         }
 

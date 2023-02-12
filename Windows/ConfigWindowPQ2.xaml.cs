@@ -32,14 +32,14 @@ namespace AemulusModManager
             DeleteBox.IsChecked = main.config.pq2Config.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.pq2Config.updateAll;
             UpdateBox.IsChecked = main.config.pq2Config.updatesEnabled;
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.pq2Config.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -128,7 +128,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -161,7 +161,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] No ROM selected.");
+                Utilities.ParallelLogger.Log("[ERROR] No ROM selected.");
             }
         }
 
@@ -177,7 +177,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid exe.");
             }
         }
 
@@ -205,7 +205,7 @@ namespace AemulusModManager
             string selectedPath = selectExe("Select PQ2 data.cpk to unpack", ".cpk");
             if (selectedPath == null)
             {
-                Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen for unpacking.");
                 return;
             }
             main.ModGrid.IsHitTestVisible = false;

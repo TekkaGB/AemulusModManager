@@ -16,15 +16,15 @@ namespace AemulusModManager
     {
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
-            Console.WriteLine("[INFO] Patching files...");
+            Utilities.ParallelLogger.Log("[INFO] Patching files...");
 
             // Load EnabledPatches in order
             foreach (string dir in ModList)
             {
-                Console.WriteLine($"[INFO] Searching for/applying spd patches in {dir}...");
+                Utilities.ParallelLogger.Log($"[INFO] Searching for/applying spd patches in {dir}...");
                 if (!Directory.Exists($@"{dir}\spdpatches"))
                 {
-                    Console.WriteLine($"[INFO] No spdpatches folder found in {dir}");
+                    Utilities.ParallelLogger.Log($"[INFO] No spdpatches folder found in {dir}");
                     continue;
                 }
 
@@ -39,12 +39,12 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
                         continue;
                     }
                     if (patches.Version != 1)
                     {
-                        Console.WriteLine($"[ERROR] Invalid version for {t}, skipping...");
+                        Utilities.ParallelLogger.Log($"[ERROR] Invalid version for {t}, skipping...");
                         continue;
                     }
                     if (patches.Patches != null)
@@ -63,7 +63,7 @@ namespace AemulusModManager
                                 }
                                 else
                                 {
-                                    Console.WriteLine($"[WARNING] {patch.SpdPath} not found in output directory or Original directory.");
+                                    Utilities.ParallelLogger.Log($"[WARNING] {patch.SpdPath} not found in output directory or Original directory.");
                                     continue;
                                 }
                             }
@@ -75,7 +75,7 @@ namespace AemulusModManager
                             startInfo.Arguments = $"\"{t}\" " + $"\"{outputFile}\" " + $"\"{outputFile}\"";
                             process.StartInfo = startInfo;
                             process.Start();
-                            Console.WriteLine($"[INFO] Patched {patch.SpdPath} with {Path.GetFileName(t)}");
+                            Utilities.ParallelLogger.Log($"[INFO] Patched {patch.SpdPath} with {Path.GetFileName(t)}");
                             process.WaitForExit();
                             break;
                         }

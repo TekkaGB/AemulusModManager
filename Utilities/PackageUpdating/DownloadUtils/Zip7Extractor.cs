@@ -21,12 +21,12 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             startInfo.FileName = @$"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
             if (!FileIOWrapper.Exists(startInfo.FileName))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
             }
             // Extract the file
             startInfo.Arguments = $"x -y \"{sourceFilePath}\" -o\"{destDirPath}\"";
-            Console.WriteLine($"[INFO] Extracting {sourceFilePath}");
+            Utilities.ParallelLogger.Log($"[INFO] Extracting {sourceFilePath}");
 
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.UseShellExecute = false;
@@ -38,9 +38,9 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
                 process.WaitForExit();
             }
             // TODO Check if it actually succeeded (by reading the command output I guess)
-            Console.WriteLine($"[INFO] Done Extracting {sourceFilePath}");
+            Utilities.ParallelLogger.Log($"[INFO] Done Extracting {sourceFilePath}");
             FileIOWrapper.Delete(@$"{sourceFilePath}");
-            Console.WriteLine(@$"[INFO] Deleted {sourceFilePath}");
+            Utilities.ParallelLogger.Log(@$"[INFO] Deleted {sourceFilePath}");
             // Move the folders to the right place
             string parentPath = Directory.GetParent(destDirPath).FullName;
             Directory.Move(Directory.GetDirectories(destDirPath)[0], $@"{parentPath}\Aemulus");

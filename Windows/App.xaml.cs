@@ -20,6 +20,8 @@ namespace AemulusModManager
     public partial class App : Application
     {
 
+
+
         [DllImport("User32.dll")]
         private static extern bool IsIconic(IntPtr hWnd);
 
@@ -97,6 +99,7 @@ namespace AemulusModManager
                 if (IsIconic(hFound)) // If application is in ICONIC mode then  
                     ShowWindow(hFound, SW_RESTORE);
                 SetForegroundWindow(hFound); // Activate the window, if process is already running  
+                //Utilities.ParallelLogger.Exit();
                 Application.Current.Shutdown(0);
             }
         }

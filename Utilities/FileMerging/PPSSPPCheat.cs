@@ -78,7 +78,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Unable to parse cheats of {cheatFilePath}: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Unable to parse cheats of {cheatFilePath}: {e.Message}");
             }
             return cheatFile;
         }
