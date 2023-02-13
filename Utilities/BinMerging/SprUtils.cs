@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using AemulusModManager.Utilities;
+using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager
 {

@@ -31,6 +31,11 @@ using System.Xml.Serialization;
 using Vlc.DotNet.Core;
 using WpfAnimatedGif;
 using TypeFilter = AemulusModManager.Utilities.TypeFilter;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
+using FileInfo = Pri.LongPath.FileInfo;
+using DirectoryInfo = Pri.LongPath.DirectoryInfo;
 
 namespace AemulusModManager
 {
@@ -877,7 +882,7 @@ namespace AemulusModManager
             var currentAssembly = Assembly.GetEntryAssembly();
             var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
             // Default installation path of VideoLAN.LibVLC.Windows
-            var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+            var libDirectory = new System.IO.DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
             string[] options = new string[]
             {
                 "--effect-list=spectrum",
@@ -2701,8 +2706,8 @@ namespace AemulusModManager
                     }
 
                     buildTimer.Stop();
-                    Utilities.ParallelLogger.Log($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds / 1000, 2)}s!");
                     Utilities.ParallelLogger.Log($"[INFO] Using output directory with length {modPath.Length}: {modPath}!");
+                    Utilities.ParallelLogger.Log($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds / 1000, 2)}s!");
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;

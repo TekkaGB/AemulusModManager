@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using AemulusModManager.Utilities;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
 
 namespace AemulusModManager
 {

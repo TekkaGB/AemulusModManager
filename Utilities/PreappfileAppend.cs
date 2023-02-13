@@ -6,6 +6,9 @@ using System.Reflection;
 using AemulusModManager.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager
 {

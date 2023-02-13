@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
 
 namespace AemulusModManager.Utilities.Windows
 {

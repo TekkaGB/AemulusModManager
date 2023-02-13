@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Pri.LongPath;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.FileMerging
 {

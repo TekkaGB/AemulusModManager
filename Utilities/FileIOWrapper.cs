@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager.Utilities
 {

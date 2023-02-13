@@ -11,6 +11,10 @@ using System.Reflection;
 using AemulusModManager.Utilities.BinaryPatching;
 using AemulusModManager.Utilities;
 
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+
 namespace AemulusModManager
 {
     public static class BinaryPatcher

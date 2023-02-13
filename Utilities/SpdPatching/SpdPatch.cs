@@ -9,6 +9,11 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using AemulusModManager.Utilities.SpdPatching;
 using AemulusModManager.Utilities;
+using Pri.LongPath;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+
 
 namespace AemulusModManager
 {

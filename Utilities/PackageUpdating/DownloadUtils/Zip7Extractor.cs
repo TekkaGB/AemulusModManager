@@ -5,6 +5,9 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
 {

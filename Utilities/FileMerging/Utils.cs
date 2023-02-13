@@ -18,6 +18,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using FlowFormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
 using MsgFormatVersion = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using FileInfo = Pri.LongPath.FileInfo;
 
 namespace AemulusModManager.Utilities.FileMerging
 {

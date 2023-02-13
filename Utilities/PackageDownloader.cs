@@ -14,6 +14,11 @@ using AemulusModManager.Windows;
 using System.Threading;
 using AemulusModManager.Utilities.PackageUpdating;
 using System.Diagnostics;
+using Pri.LongPath;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using DirectoryInfo = Pri.LongPath.DirectoryInfo;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager.Utilities
 {

@@ -19,6 +19,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
+using Pri.LongPath;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using DirectoryInfo = Pri.LongPath.DirectoryInfo;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager
 {
