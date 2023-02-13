@@ -6,8 +6,13 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
 using AemulusModManager.Utilities;
 using AemulusModManager.Utilities.FileMerging;
+using Pri.LongPath;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager
 {
@@ -102,24 +107,30 @@ namespace AemulusModManager
         }
         public static void DeleteDirectory(string path)
         {
-
-            foreach (string directory in Directory.GetDirectories(path))
-            {
-                DeleteDirectory(directory);
-            }
             try
             {
-                Directory.Delete(path, true);
+                // Delete the contents of the directory
+                foreach (string fileSystemEntry in Directory.EnumerateFileSystemEntries(path))
+                {
+                    if (File.Exists(fileSystemEntry))
+                    {
+                        File.Delete(fileSystemEntry);
+                    }
+                    else if (Directory.Exists(fileSystemEntry))
+                    {
+                        Directory.Delete(fileSystemEntry, true);
+                    }
+                }
+
+                // Delete the directory
+                Directory.Delete(path);
             }
-            catch (IOException)
+            catch (Exception ex)
             {
-                Directory.Delete(path, true);
+                Utilities.ParallelLogger.Log("An error occurred: " + ex.Message);
             }
-            catch (UnauthorizedAccessException)
-            {
-                Directory.Delete(path, true);
-            }
-        }
+        
+    }
 
         public static void Unpack(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
@@ -150,7 +161,7 @@ namespace AemulusModManager
                 }
 
                 // Run prebuild.bat
-                if (FileIOWrapper.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0)
+                if (FileIOWrapper.Exists($@"{mod}\prebuild.bat") && new Pri.LongPath.FileInfo($@"{mod}\prebuild.bat").Length > 0)
                 {
                     Utilities.ParallelLogger.Log($@"[INFO] Running {mod}\prebuild.bat...");
 
@@ -591,7 +602,7 @@ namespace AemulusModManager
                 {
                     if (Directory.Exists(Path.ChangeExtension(file, null)))
                     {
-                        //Utilities.ParallelLogger.Log($@"[INFO] Merging {file}...");
+                        Utilities.ParallelLogger.Log($@"[INFO] Merging {file}...");
                         string bin = file;
                         string binFolder = Path.ChangeExtension(file, null);
 
@@ -784,7 +795,7 @@ namespace AemulusModManager
                 }
                 else if (Path.GetExtension(file).ToLower() == ".spd")
                 {
-                    //Utilities.ParallelLogger.Log($@"[INFO] Merging {file}...");
+                    Utilities.ParallelLogger.Log($@"[INFO] Merging {file}...");
                     string spdFolder = Path.ChangeExtension(file, null);
                     if (Directory.Exists(spdFolder))
                     {
@@ -805,7 +816,7 @@ namespace AemulusModManager
                 }
                 else if (game != "Persona Q2" && Path.GetExtension(file).ToLower() == ".spr")
                 {
-                    //Utilities.ParallelLogger.Log($@"[INFO] Merging {file}...");
+                    Utilities.ParallelLogger.Log($@"[INFO] Merging {file}...");
                     string sprFolder = Path.ChangeExtension(file, null);
                     if (Directory.Exists(sprFolder))
                     {
@@ -905,7 +916,7 @@ namespace AemulusModManager
 
             if (!emptySND || game == "Persona 3 FES")
             {
-                //Utilities.ParallelLogger.Log("[INFO] Keeping SND folder.");
+                Utilities.ParallelLogger.Log("[INFO] Keeping SND folder.");
                 foreach (var dir in Directory.GetDirectories(modDir))
                 {
                     if (Path.GetFileName(dir).ToLower() != "snd")

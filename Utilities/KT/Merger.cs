@@ -189,7 +189,7 @@ namespace AemulusModManager.Utilities.KT
                     string fileName = Path.GetFileName(file);
                     if (Path.GetExtension(file).ToLower() != ".file")
                         fileName = Hash(Path.GetFileName(file));
-                        //ParallelLogger.Log($@"[INFO] Copying over {file} to {modDir}\data\{fileName}");
+                        ParallelLogger.Log($@"[INFO] Copying over {file} to {modDir}\data\{fileName}");
                     try
                     {
                         FileIOWrapper.Copy(file, $@"{modDir}\data\{fileName.ToLower()}", true);

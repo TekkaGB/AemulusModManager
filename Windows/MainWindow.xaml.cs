@@ -2702,6 +2702,7 @@ namespace AemulusModManager
 
                     buildTimer.Stop();
                     Utilities.ParallelLogger.Log($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds / 1000, 2)}s!");
+                    Utilities.ParallelLogger.Log($"[INFO] Using output directory with length {modPath.Length}: {modPath}!");
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;

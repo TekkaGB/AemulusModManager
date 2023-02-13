@@ -104,7 +104,7 @@ namespace AemulusModManager
             int offset = findTmx(spr, tmxPattern);
             if (offset > -1)
             {
-                //Utilities.ParallelLogger.Log($"[INFO] Merging {tmx} onto {spr}");
+                Utilities.ParallelLogger.Log($"[INFO] Merging {tmx} onto {spr}");
                 byte[] tmxBytes = FileIOWrapper.ReadAllBytes(tmx);
                 int repTmxLen = tmxBytes.Length;
                 int ogTmxLen = BitConverter.ToInt32(FileIOWrapper.ReadAllBytes(spr), (offset + 4));
