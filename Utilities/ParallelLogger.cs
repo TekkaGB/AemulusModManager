@@ -46,9 +46,17 @@ namespace AemulusModManager.Utilities
             thread.Start();
         }
 
-        public static void Log(string value)
-        {
-            _Queue.Add(value);
+        [Conditional("DEBUG")]
+        public static void AddDebugInfo(string caller, int line, ref string message) {
+            if(line != -1) message =  $"({caller}-{line}){message}";
+        }
+        
+        public static void Log(string message, 
+            [System.Runtime.CompilerServices.CallerMemberName] string caller = "",
+            [System.Runtime.CompilerServices.CallerLineNumber] int line = -1)
+        { 
+            AddDebugInfo(caller, line, ref message);
+            _Queue.Add(message);
         }
     }
 
