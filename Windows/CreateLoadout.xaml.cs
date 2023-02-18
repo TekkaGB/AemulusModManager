@@ -63,7 +63,7 @@ namespace AemulusModManager.Windows
             // TODO check for invalid symbols
             if(NameBox.Text == "Add new loadout")
             {
-                Console.WriteLine("[ERROR] Invalid loadout name, try another one.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid loadout name, try another one.");
                 NotificationBox notification = new NotificationBox($"Invalid loadout name, try another one.");
                 notification.ShowDialog();
             }
@@ -73,7 +73,7 @@ namespace AemulusModManager.Windows
             }
             else
             {
-                Console.WriteLine($"[ERROR] Loadout name {NameBox.Text} already exists, try another one.");
+                Utilities.ParallelLogger.Log($"[ERROR] Loadout name {NameBox.Text} already exists, try another one.");
                 NotificationBox notification = new NotificationBox($"Loadout name {NameBox.Text} already exists, try another one.");
                 notification.ShowDialog();
             }
@@ -93,7 +93,7 @@ namespace AemulusModManager.Windows
             if(loadoutFiles.Length == 1)
             {
                 NotificationBox notification = new NotificationBox($"You cannot delete the last loadout");
-                Console.WriteLine("[ERROR] You cannot delete the last loadout");
+                Utilities.ParallelLogger.Log("[ERROR] You cannot delete the last loadout");
                 notification.ShowDialog();
             } 
             // Confirm that the user wants to delete the loadout

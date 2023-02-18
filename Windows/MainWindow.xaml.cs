@@ -31,6 +31,11 @@ using System.Xml.Serialization;
 using Vlc.DotNet.Core;
 using WpfAnimatedGif;
 using TypeFilter = AemulusModManager.Utilities.TypeFilter;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
+using FileInfo = Pri.LongPath.FileInfo;
+using DirectoryInfo = Pri.LongPath.DirectoryInfo;
 
 namespace AemulusModManager
 {
@@ -151,7 +156,7 @@ namespace AemulusModManager
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ERROR] Invalid Mod Page link. Perhaps missing \'www\' ({ex.Message})");
+                    Utilities.ParallelLogger.Log($"[ERROR] Invalid Mod Page link. Perhaps missing \'www\' ({ex.Message})");
                 }
 
             }
@@ -576,23 +581,23 @@ namespace AemulusModManager
 
                     SwitchThemes();
 
-                    Console.WriteLine($"[INFO] Launched Aemulus v{version}!");
+                    Utilities.ParallelLogger.Log($"[INFO] Launched Aemulus v{version}!");
 
                     // Move Persona 5 Royal to Persona 5 Royal (PS4)
                     if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal"))
                     {
-                        Console.WriteLine($@"[INFO] Transferring {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal (PS4). It may take awhile");
+                        Utilities.ParallelLogger.Log($@"[INFO] Transferring {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal (PS4). It may take awhile");
                         Directory.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal (PS4)");
                     }
                     if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal"))
                     {
 
-                        Console.WriteLine($@"[INFO] Transferring {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4). It may take awhile");
+                        Utilities.ParallelLogger.Log($@"[INFO] Transferring {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4). It may take awhile");
                         Directory.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)");
                     }
                     if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal"))
                     {
-                        Console.WriteLine($@"[INFO] Transferring {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal (PS4)");
+                        Utilities.ParallelLogger.Log($@"[INFO] Transferring {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal to {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal (PS4)");
                         Directory.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Persona 5 Royal (PS4)");
                     }
 
@@ -698,7 +703,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                            Utilities.ParallelLogger.Log($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                         }
                     }
 
@@ -710,7 +715,7 @@ namespace AemulusModManager
 
                     if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                     {
-                        Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                        Utilities.ParallelLogger.Log($@"[INFO] Creating Packages\{game}");
                         Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}");
                     }
 
@@ -733,7 +738,7 @@ namespace AemulusModManager
                                     }
                                     catch (Exception ex)
                                     {
-                                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                        Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                         continue;
                                     }
                                     dm.name = m.name;
@@ -749,7 +754,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                 continue;
                             }
                         }
@@ -877,7 +882,7 @@ namespace AemulusModManager
             var currentAssembly = Assembly.GetEntryAssembly();
             var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
             // Default installation path of VideoLAN.LibVLC.Windows
-            var libDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+            var libDirectory = new System.IO.DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
             string[] options = new string[]
             {
                 "--effect-list=spectrum",
@@ -978,7 +983,7 @@ namespace AemulusModManager
                             }
                             else
                             {
-                                Console.WriteLine($"[ERROR] Couldn't access {filename} ({e.Message})");
+                                Utilities.ParallelLogger.Log($"[ERROR] Couldn't access {filename} ({e.Message})");
                                 break;
                             }
                         }
@@ -1001,7 +1006,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($@"[ERROR] Couldn't delete refresh.aem ({ex.Message})");
+                        Utilities.ParallelLogger.Log($@"[ERROR] Couldn't delete refresh.aem ({ex.Message})");
                     }
                     if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\temp"))
                     {
@@ -1056,7 +1061,7 @@ namespace AemulusModManager
                 if ((game == "Persona 5 Strikers" && !Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc"))
                     || (game == "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
                     || (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
-                    Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
+                    Utilities.ParallelLogger.Log($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                 else
                 {
                     // Build succeeded, set last unpacked
@@ -1106,21 +1111,21 @@ namespace AemulusModManager
                 || (elfPath != "" && elfPath != null && launcherPath != "" && launcherPath != null))
             {
                 if (game != "Persona 3 FES" && game != "Persona 1 (PSP)")
-                    Console.WriteLine($"[INFO] Launching {gamePath} with {launcherPath}");
+                    Utilities.ParallelLogger.Log($"[INFO] Launching {gamePath} with {launcherPath}");
                 else if(game == "Persona 1 (PSP)")
                     if(createIso)
-                        Console.WriteLine($"[INFO] Launching {modPath}\\P1PSP.iso with {launcherPath}");
+                        Utilities.ParallelLogger.Log($"[INFO] Launching {modPath}\\P1PSP.iso with {launcherPath}");
                     else
-                        Console.WriteLine($"[INFO] Launching {modPath}\\Persona 1 (PSP) with {launcherPath}");
+                        Utilities.ParallelLogger.Log($"[INFO] Launching {modPath}\\Persona 1 (PSP) with {launcherPath}");
                 else
-                    Console.WriteLine($"[INFO] Launching {elfPath} with {launcherPath}");
+                    Utilities.ParallelLogger.Log($"[INFO] Launching {elfPath} with {launcherPath}");
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = true;
                 startInfo.UseShellExecute = false;
                 startInfo.FileName = launcherPath;
                 if (!FileIOWrapper.Exists(launcherPath))
                 {
-                    Console.WriteLine($"[ERROR] Couldn't find {launcherPath}. Please correct the file path in config.");
+                    Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {launcherPath}. Please correct the file path in config.");
                     return;
                 }
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -1128,7 +1133,7 @@ namespace AemulusModManager
                 {
                     if (!FileIOWrapper.Exists(gamePath))
                     {
-                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
                     }
                     startInfo.Arguments = $"--launch \"{gamePath}\"";
@@ -1186,7 +1191,7 @@ namespace AemulusModManager
                         {
                             if (!FileIOWrapper.Exists(tempElfPath))
                             {
-                                Console.WriteLine($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
                                 return;
                             }
                             startInfo.Arguments += $" --elf=\"{tempElfPath}\"";
@@ -1195,7 +1200,7 @@ namespace AemulusModManager
                         {
                             if (!FileIOWrapper.Exists(tempGamePath))
                             {
-                                Console.WriteLine($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
                                 return;
                             }
                             startInfo.Arguments += $" \"{tempGamePath}\"";
@@ -1207,7 +1212,7 @@ namespace AemulusModManager
                         {
                             if (!FileIOWrapper.Exists(tempElfPath))
                             {
-                                Console.WriteLine($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
                                 return;
                             }
                             startInfo.Arguments += $" -elf \"{tempElfPath}\"";
@@ -1218,7 +1223,7 @@ namespace AemulusModManager
                         {
                             if (!FileIOWrapper.Exists(tempGamePath))
                             {
-                                Console.WriteLine($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
                                 return;
                             }
                             startInfo.Arguments += $" -- \"{tempGamePath}\"";
@@ -1229,17 +1234,17 @@ namespace AemulusModManager
                 {
                     if (!FileIOWrapper.Exists(gamePath))
                     {
-                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
                     }
-                    Console.WriteLine($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
+                    Utilities.ParallelLogger.Log($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
                 }
                 else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)")
                 {
                     if (!FileIOWrapper.Exists(gamePath))
                     {
-                        Console.WriteLine($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
                     }
                     startInfo.Arguments = $"\"{gamePath}\"";
@@ -1250,7 +1255,7 @@ namespace AemulusModManager
                     {
                         if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
                         {
-                            Console.WriteLine($"[ERROR] Couldn't find {modPath}/P1PSP.iso. Please build the ISO.");
+                            Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {modPath}/P1PSP.iso. Please build the ISO.");
                             return;
                         }
                         startInfo.Arguments = $"\"{modPath}/P1PSP.iso\"";
@@ -1259,7 +1264,7 @@ namespace AemulusModManager
                     {
                         if (!FileIOWrapper.Exists($@"{modPath}\Persona 1 (PSP)\UMD_DATA.BIN"))
                         {
-                            Console.WriteLine($"[ERROR] Couldn't find \"{modPath}\\Persona 1 (PSP)\". Please build the loadout.");
+                            Utilities.ParallelLogger.Log($"[ERROR] Couldn't find \"{modPath}\\Persona 1 (PSP)\". Please build the loadout.");
                             return;
                         }
                         startInfo.Arguments = $"\"{modPath}/Persona 1 (PSP)\"";
@@ -1279,14 +1284,14 @@ namespace AemulusModManager
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ERROR] {ex.Message}");
+                    Utilities.ParallelLogger.Log($"[ERROR] {ex.Message}");
                 }
                 EnableUI();
             }
             else if (game == "Persona 5 Strikers")
                 Process.Start("steam://rungameid/1382330/option0");
             else
-                Console.WriteLine("[ERROR] Please setup shortcut in config menu.");
+                Utilities.ParallelLogger.Log("[ERROR] Please setup shortcut in config menu.");
         }
         private void ConfigWdwClick(object sender, RoutedEventArgs e)
         {
@@ -1376,7 +1381,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                 continue;
                             }
                             package.name = metadata.name;
@@ -1390,7 +1395,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                        Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                         continue;
                     }
                 }
@@ -1444,7 +1449,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                 continue;
                             }
                             package.id = metadata.id;
@@ -1452,7 +1457,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                        Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                         continue;
                     }
                 }
@@ -1473,7 +1478,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                            Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                             continue;
                         }
                         // Add package to list if it doesn't exist
@@ -1524,7 +1529,7 @@ namespace AemulusModManager
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
                     if (FileIOWrapper.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
-                        Console.WriteLine($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium structure...");
+                        Utilities.ParallelLogger.Log($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium structure...");
                         //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
                         string modXml = $@"{package}\Mod.xml";
                         using (FileStream streamWriter = FileIOWrapper.Open(modXml, FileMode.Open))
@@ -1542,7 +1547,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"[ERROR] Invalid Mod.xml for {package} ({ex.Message})");
+                                Utilities.ParallelLogger.Log($"[ERROR] Invalid Mod.xml for {package} ({ex.Message})");
                                 continue;
                             }
                         }
@@ -1564,7 +1569,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($@"[ERROR] Couldn't delete temp ({ex.Message})");
+                                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't delete temp ({ex.Message})");
                             }
                         }
                         //Make sure Data folder is gone
@@ -1600,15 +1605,15 @@ namespace AemulusModManager
                                 ProcessStartInfo StartInformation = new ProcessStartInfo();
                                 StartInformation.FileName = package;
                                 Process process = Process.Start(StartInformation);
-                                Console.WriteLine($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
+                                Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}\{Path.GetFileName(package)}.");
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
+                                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't open Packages\{game}\{Path.GetFileName(package)} ({ex.Message})");
                             }
                         }
 
-                        Console.WriteLine($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
+                        Utilities.ParallelLogger.Log($"[WARNING] No Package.xml found for {Path.GetFileName(package)}, creating one...");
                         newMetadata.author = "";
                         newMetadata.version = "";
                         newMetadata.link = "";
@@ -1622,7 +1627,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                            Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                         }
                     }
                     if (!PackageList.ToList().Any(x => x.path == Path.GetFileName(package))
@@ -1660,7 +1665,7 @@ namespace AemulusModManager
                     ModGrid.SetSelectedItem(ModGrid.GetSelectedItem());
                 });
             });
-            Console.WriteLine($"[INFO] Refreshed!");
+            Utilities.ParallelLogger.Log($"[INFO] Refreshed!");
             UpdateStats();
         }
         private async void UpdateStats()
@@ -1724,12 +1729,12 @@ namespace AemulusModManager
                     {
                         try
                         {
-                            Console.WriteLine($"[INFO] Deleting {package}...");
+                            Utilities.ParallelLogger.Log($"[INFO] Deleting {package}...");
                             Directory.Delete(package, true);
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine($"[ERROR] Couldn't delete {package} ({e.Message})");
+                            Utilities.ParallelLogger.Log($"[ERROR] Couldn't delete {package} ({e.Message})");
                         }
                     }
             }
@@ -1820,7 +1825,7 @@ namespace AemulusModManager
 
         private void NewCommand()
         {
-            Console.WriteLine("[INFO] Creating new package!");
+            Utilities.ParallelLogger.Log("[INFO] Creating new package!");
             CreatePackage newPackage = new CreatePackage(null);
             newPackage.ShowDialog();
             if (newPackage.metadata != null)
@@ -1829,7 +1834,7 @@ namespace AemulusModManager
                 if (DisplayedPackages.Where(p => Version.TryParse(newPackage.metadata.version, out Version version1) && Version.TryParse(p.version, out Version version2) && p.id == newPackage.metadata.id)
                     .Any(x => Version.Parse(x.version) > Version.Parse(newPackage.metadata.version)))
                 {
-                    Console.WriteLine($"[ERROR] Package ID {newPackage.metadata.id} already exists with a higher version number");
+                    Utilities.ParallelLogger.Log($"[ERROR] Package ID {newPackage.metadata.id} already exists with a higher version number");
                     return;
                 }
                 if (newPackage.metadata.version != "" && newPackage.metadata.version.Length > 0)
@@ -1849,7 +1854,7 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($@"[ERROR] Couldn't create {path}\Package.xml. ({ex.Message})");
+                                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't create {path}\Package.xml. ({ex.Message})");
                             }
                         }
                         if (FileIOWrapper.Exists(newPackage.thumbnailPath))
@@ -1863,16 +1868,16 @@ namespace AemulusModManager
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
                         StartInformation.FileName = path;
                         Process process = Process.Start(StartInformation);
-                        Console.WriteLine("[INFO] Opened new package folder.");
+                        Utilities.ParallelLogger.Log("[INFO] Opened new package folder.");
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't create directory/Package.xml. ({ex.Message})");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't create directory/Package.xml. ({ex.Message})");
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"[ERROR] {newPackage.metadata.name} already exists, not creating new package.");
+                    Utilities.ParallelLogger.Log($"[ERROR] {newPackage.metadata.name} already exists, not creating new package.");
                 }
             }
         }
@@ -1923,8 +1928,8 @@ namespace AemulusModManager
                     || (game == "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
                     || (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
             {
-                Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
-                Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
+                Utilities.ParallelLogger.Log("[WARNING] Aemulus can't find your Base files in the Original folder.");
+                Utilities.ParallelLogger.Log($"[WARNING] Attempting to unpack/backup base files first.");
 
                 string selectedPath = null;
                 if (gamePath == "" || gamePath == null)
@@ -1939,7 +1944,7 @@ namespace AemulusModManager
                             updateConfig();
                         }
                         else
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona 3 FES")
                     {
@@ -1951,7 +1956,7 @@ namespace AemulusModManager
                             updateConfig();
                         }
                         else
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona 5")
                     {
@@ -1963,7 +1968,7 @@ namespace AemulusModManager
                             updateConfig();
                         }
                         else
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona 1 (PSP)")
                     {
@@ -1975,7 +1980,7 @@ namespace AemulusModManager
                             updateConfig();
                         }
                         else
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona 3 Portable")
                     {
@@ -1987,7 +1992,7 @@ namespace AemulusModManager
                             updateConfig();
                         }
                         else
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona 4 Golden (Vita)")
                     {
@@ -1997,13 +2002,13 @@ namespace AemulusModManager
                             gamePath = selectedPath;
                         }
                         else
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona Q2")
                     {
                         selectedPath = selectExe("Select PQ2's data.cpk to unpack", ".cpk");
                         if (selectedPath == null)
-                            Console.WriteLine("[ERROR] Incorrect file chosen.");
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
                     else if (game == "Persona 5 Royal (PS4)")
                     {
@@ -2065,7 +2070,7 @@ namespace AemulusModManager
 
                             var cpks = Directory.GetFiles(selectedPath, "*.cpk", SearchOption.TopDirectoryOnly);
                             if (cpksNeeded.Except(cpks.Select(x => Path.GetFileName(x))).Any())
-                                Console.WriteLine($"[ERROR] Not all cpks needed (dataR.cpk, ps4R.cpk{extraCpk}) are found in top directory of {selectedPath}");
+                                Utilities.ParallelLogger.Log($"[ERROR] Not all cpks needed (dataR.cpk, ps4R.cpk{extraCpk}) are found in top directory of {selectedPath}");
                             else
                                 gamePath = selectedPath;
                         }
@@ -2082,7 +2087,7 @@ namespace AemulusModManager
 
                             var cpks = Directory.GetFiles(selectedPath, "*.cpk", SearchOption.TopDirectoryOnly);
                             if (cpksNeeded.Except(cpks.Select(x => Path.GetFileName(x))).Any())
-                                Console.WriteLine($"[ERROR] Not all cpks needed (ALL_USEU.CPK and PATCH1.CPK) are found in top directory of {selectedPath}");
+                                Utilities.ParallelLogger.Log($"[ERROR] Not all cpks needed (ALL_USEU.CPK and PATCH1.CPK) are found in top directory of {selectedPath}");
                             else
                                 gamePath = selectedPath;
                         }
@@ -2112,7 +2117,7 @@ namespace AemulusModManager
                     || (game == "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories).Count() == 0)
                     || (game != "Persona 5 Strikers" && game != "Persona 1 (PSP)" && Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories).Count() == 0))
                 {
-                    Console.WriteLine($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
+                    Utilities.ParallelLogger.Log($@"[ERROR] Failed to unpack everything from {game}! Please check if you have all prerequisites installed!");
                     return;
                 }
 
@@ -2126,7 +2131,7 @@ namespace AemulusModManager
                 var bfFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bf", SearchOption.AllDirectories);
                 if (bfFiles.Count() == 0)
                 {
-                    Console.WriteLine($"[INFO] Unpacking game files to allow bf merging for {game}.");
+                    Utilities.ParallelLogger.Log($"[INFO] Unpacking game files to allow bf merging for {game}.");
                     DisableUI();
                     fromMain = true;
                     await pacUnpack(Path.GetDirectoryName(gamePath));
@@ -2187,8 +2192,8 @@ namespace AemulusModManager
 
                 if (!backedUp)
                 {
-                    Console.WriteLine("[WARNING] Aemulus can't find your Base files in the Original folder.");
-                    Console.WriteLine($"[WARNING] Attempting to unpack/backup base files first.");
+                    Utilities.ParallelLogger.Log("[WARNING] Aemulus can't find your Base files in the Original folder.");
+                    Utilities.ParallelLogger.Log($"[WARNING] Attempting to unpack/backup base files first.");
 
                     fromMain = true;
                     await pacUnpack(modPath);
@@ -2198,13 +2203,13 @@ namespace AemulusModManager
                     {
                         if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc\data\{file}"))
                         {
-                            Console.WriteLine($@"[ERROR] Failed to backup {file} from {game}!, cancelling build...");
+                            Utilities.ParallelLogger.Log($@"[ERROR] Failed to backup {file} from {game}!, cancelling build...");
                             return;
                         }
                     }
                     if (!Directory.EnumerateFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc").Any(x => Path.GetExtension(x).ToLower() == ".rdb"))
                     {
-                        Console.WriteLine($@"[ERROR] Failed to backup any rdbs from {game}, cancelling build...");
+                        Utilities.ParallelLogger.Log($@"[ERROR] Failed to backup any rdbs from {game}, cancelling build...");
                         return;
                     }
                 }
@@ -2215,7 +2220,7 @@ namespace AemulusModManager
                 var binFiles = Directory.EnumerateFiles($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}", "*.bin", SearchOption.AllDirectories);
                 if (binFiles.Count() == 0)
                 {
-                    Console.WriteLine($"[INFO] Unpacking game files to allow bin merging for {game}.");
+                    Utilities.ParallelLogger.Log($"[INFO] Unpacking game files to allow bin merging for {game}.");
                     DisableUI();
                     fromMain = true;
                     await pacUnpack(Path.GetDirectoryName(gamePath));
@@ -2238,7 +2243,7 @@ namespace AemulusModManager
                 Refresh();
                 if (!Directory.Exists(modPath))
                 {
-                    Console.WriteLine("[ERROR] Current output folder doesn't exist! Please select it again.");
+                    Utilities.ParallelLogger.Log("[ERROR] Current output folder doesn't exist! Please select it again.");
                     return;
                 }
                 List<string> packages = new List<string>();
@@ -2247,11 +2252,11 @@ namespace AemulusModManager
                     if (m.enabled)
                     {
                         packages.Add($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{m.path}");
-                        Console.WriteLine($@"[INFO] Using {m.path} in loadout");
+                        Utilities.ParallelLogger.Log($@"[INFO] Using {m.path} in loadout");
                         if (game == "Persona 4 Golden" && (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{m.path}\{Path.GetFileNameWithoutExtension(cpkLang)}")
                             || Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{m.path}\movie") || Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{m.path}\preappfile")) && !useCpk)
                         {
-                            Console.WriteLine($"[WARNING] {m.path} is using CPK folder paths, setting Use CPK Structure to true");
+                            Utilities.ParallelLogger.Log($"[WARNING] {m.path} is using CPK folder paths, setting Use CPK Structure to true");
                             useCpk = true;
                         }
                     }
@@ -2260,7 +2265,7 @@ namespace AemulusModManager
                     packages.Reverse();
                 if (packages.Count == 0)
                 {
-                    Console.WriteLine("[WARNING] No packages enabled in loadout, emptying output folder...");
+                    Utilities.ParallelLogger.Log("[WARNING] No packages enabled in loadout, emptying output folder...");
                     string path = modPath;
 
                     if (game == "Persona 5")
@@ -2338,7 +2343,7 @@ namespace AemulusModManager
 
                     if (!Directory.EnumerateFileSystemEntries(path).Any() && game != "Persona 5 Strikers")
                     {
-                        Console.WriteLine($"[INFO] Output folder already empty");
+                        Utilities.ParallelLogger.Log($"[INFO] Output folder already empty");
                         return;
                     }
 
@@ -2356,7 +2361,7 @@ namespace AemulusModManager
                         });
                         if (!YesNo)
                         {
-                            Console.WriteLine($"[INFO] Cancelled emptying output folder");
+                            Utilities.ParallelLogger.Log($"[INFO] Cancelled emptying output folder");
                             return;
                         }
                     }
@@ -2378,7 +2383,7 @@ namespace AemulusModManager
                         binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
                     else
                         Merger.Restart(path);
-                    Console.WriteLine("[INFO] Finished emptying output folder!");
+                    Utilities.ParallelLogger.Log("[INFO] Finished emptying output folder!");
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
@@ -2460,7 +2465,7 @@ namespace AemulusModManager
                         });
                         if (!YesNo)
                         {
-                            Console.WriteLine($"[INFO] Cancelled build");
+                            Utilities.ParallelLogger.Log($"[INFO] Cancelled build");
                             return;
                         }
                     }
@@ -2528,28 +2533,28 @@ namespace AemulusModManager
                             if (config.p3fConfig.cheatsPath != null && Directory.Exists(config.p3fConfig.cheatsPath))
                                 binMerge.LoadCheats(packages, config.p3fConfig.cheatsPath);
                             else
-                                Console.WriteLine($"[ERROR] Please set up Cheats Path in config to copy over cheats");
+                                Utilities.ParallelLogger.Log($"[ERROR] Please set up Cheats Path in config to copy over cheats");
                         }
                         if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\cheats_ws")))
                         {
                             if (config.p3fConfig.cheatsWSPath != null && Directory.Exists(config.p3fConfig.cheatsWSPath))
                                 binMerge.LoadCheatsWS(packages, config.p3fConfig.cheatsWSPath);
                             else
-                                Console.WriteLine($"[ERROR] Please set up Cheats WS Path in config to copy over cheats_ws");
+                                Utilities.ParallelLogger.Log($"[ERROR] Please set up Cheats WS Path in config to copy over cheats_ws");
                         }
                         if (game == "Persona 3 FES" && packages.Exists(x => Directory.Exists($@"{x}\texture_override")))
                         {
                             if (config.p3fConfig.texturesPath != null && Directory.Exists(config.p3fConfig.texturesPath))
                                 binMerge.LoadTextures(packages, config.p3fConfig.texturesPath);
                             else
-                                Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
+                                Utilities.ParallelLogger.Log($"[ERROR] Please set up Textures Path in config to copy over textures");
                         }
                         if (game == "Persona 3 Portable" && packages.Exists(x => Directory.Exists($@"{x}\texture_override")))
                         {
                             if (config.p3pConfig.texturesPath != null && Directory.Exists(config.p3pConfig.texturesPath))
                                 binMerge.LoadTextures(packages, config.p3pConfig.texturesPath);
                             else
-                                Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
+                                Utilities.ParallelLogger.Log($"[ERROR] Please set up Textures Path in config to copy over textures");
                         }
 
                         // Unlike other ones we always want to "Load FMVS" for P3P so ones that should be deleted will be
@@ -2576,7 +2581,7 @@ namespace AemulusModManager
                                     }
                                     else
                                     {
-                                        Console.WriteLine($"[ERROR] Unable to automatically determine cheats path, please set up cheats path in config to copy over cheats");
+                                        Utilities.ParallelLogger.Log($"[ERROR] Unable to automatically determine cheats path, please set up cheats path in config to copy over cheats");
                                     }
                                 }
                             }
@@ -2599,7 +2604,7 @@ namespace AemulusModManager
                             binMerge.MakeCpk(path, true);
                             if (!FileIOWrapper.Exists($@"{path}.cpk"))
                             {
-                                Console.WriteLine($"[ERROR] Failed to build {path}.cpk!");
+                                Utilities.ParallelLogger.Log($"[ERROR] Failed to build {path}.cpk!");
                             }
                         }
 
@@ -2607,7 +2612,7 @@ namespace AemulusModManager
                         Utils.RestoreBackups(packages);
 
                         if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
-                            Console.WriteLine("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");
+                            Utilities.ParallelLogger.Log("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");
                     }
                     else if (game == "Persona 1 (PSP)")
                     {
@@ -2620,7 +2625,7 @@ namespace AemulusModManager
                             binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                             var directory = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 1 (PSP)";
-                            Console.WriteLine($"[INFO] Adding unchanged files...");
+                            Utilities.ParallelLogger.Log($"[INFO] Adding unchanged files...");
                             foreach (var file in Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories))
                             {
                                 List<string> folders = new List<string>(file.Split(char.Parse("\\")));
@@ -2656,7 +2661,7 @@ namespace AemulusModManager
                                     }
                                     else
                                     {
-                                        Console.WriteLine($"[ERROR] Unable to automatically determine cheats path, please set up cheats path in config to copy over cheats");
+                                        Utilities.ParallelLogger.Log($"[ERROR] Unable to automatically determine cheats path, please set up cheats path in config to copy over cheats");
                                     }
                                 }
                             }
@@ -2670,13 +2675,13 @@ namespace AemulusModManager
                             if (config.p1pspConfig.texturesPath != null && Directory.Exists(config.p1pspConfig.texturesPath))
                                 binMerge.LoadTextures(packages, config.p1pspConfig.texturesPath);
                             else
-                                Console.WriteLine($"[ERROR] Please set up Textures Path in config to copy over textures");
+                                Utilities.ParallelLogger.Log($"[ERROR] Please set up Textures Path in config to copy over textures");
                         }
                         if (createIso)
                         { 
                             if (File.Exists($@"{modPath}\P1PSP.iso"))
                                 File.Delete($@"{modPath}\P1PSP.iso");
-                            Console.WriteLine($"[INFO] Building ISO...");
+                            Utilities.ParallelLogger.Log($"[INFO] Building ISO...");
                             string exePath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\mkisofs\mkisofs.exe";
                             ProcessStartInfo startInfo = new ProcessStartInfo();
                             startInfo.CreateNoWindow = true;
@@ -2701,8 +2706,8 @@ namespace AemulusModManager
                     }
 
                     buildTimer.Stop();
-                    Console.WriteLine($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds / 1000, 2)}s!");
-
+                    Utilities.ParallelLogger.Log($"[INFO] Using output directory with length {modPath.Length}: {modPath}!");
+                    Utilities.ParallelLogger.Log($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds / 1000, 2)}s!");
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         Mouse.OverrideCursor = null;
@@ -2727,7 +2732,7 @@ namespace AemulusModManager
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($@"[ERROR] Couldn't update Config\Config.xml ({ex.Message})");
+                    Utilities.ParallelLogger.Log($@"[ERROR] Couldn't update Config\Config.xml ({ex.Message})");
                 }
             }
         }
@@ -2748,7 +2753,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($@"[ERROR] Couldn't update Config\{game}\{loadout}.xml ({ex.Message})");
+                        Utilities.ParallelLogger.Log($@"[ERROR] Couldn't update Config\{game}\{loadout}.xml ({ex.Message})");
                     }
                 }
             }
@@ -2825,7 +2830,7 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] {ex.Message}");
+                        Utilities.ParallelLogger.Log($"[ERROR] {ex.Message}");
                     }
                 }
                 else
@@ -2916,11 +2921,11 @@ namespace AemulusModManager
                             ProcessStartInfo StartInformation = new ProcessStartInfo();
                             StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
                             Process process = Process.Start(StartInformation);
-                            Console.WriteLine($@"[INFO] Opened Packages\{game}\{row.path}.");
+                            Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}\{row.path}.");
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($@"[ERROR] Couldn't open Packages\{game}\{row.path} ({ex.Message})");
+                            Utilities.ParallelLogger.Log($@"[ERROR] Couldn't open Packages\{game}\{row.path} ({ex.Message})");
                         }
                     }
                 }
@@ -2940,7 +2945,7 @@ namespace AemulusModManager
                     Activate();
                     if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}") && notification.YesNo)
                     {
-                        Console.WriteLine($@"[INFO] Deleted Packages\{game}\{row.path}.");
+                        Utilities.ParallelLogger.Log($@"[INFO] Deleted Packages\{game}\{row.path}.");
                         try
                         {
                             setAttributesNormal(new DirectoryInfo($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}"));
@@ -2948,7 +2953,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($@"[ERROR] Couldn't delete Packages\{game}\{row.path} ({ex.Message})");
+                            Utilities.ParallelLogger.Log($@"[ERROR] Couldn't delete Packages\{game}\{row.path} ({ex.Message})");
                         }
                         deleted = true;
                     }
@@ -2996,7 +3001,7 @@ namespace AemulusModManager
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine($@"[ERROR] Couldn't serialize Packages\{game}\{row.path}\Package.xml ({ex.Message})");
+                                    Utilities.ParallelLogger.Log($@"[ERROR] Couldn't serialize Packages\{game}\{row.path}\Package.xml ({ex.Message})");
                                 }
                             }
                             if (FileIOWrapper.Exists(createPackage.thumbnailPath))
@@ -3011,7 +3016,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] {ex.Message}");
+                            Utilities.ParallelLogger.Log($"[ERROR] {ex.Message}");
                         }
                     }
                 }
@@ -3049,7 +3054,7 @@ namespace AemulusModManager
                 startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
                 if (!FileIOWrapper.Exists(startInfo.FileName))
                 {
-                    Console.WriteLine($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
+                    Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                     return;
                 }
 
@@ -3060,7 +3065,7 @@ namespace AemulusModManager
                 startInfo.UseShellExecute = false;
                 startInfo.WorkingDirectory = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}";
                 startInfo.Arguments = $@"a ""{output}"" ""{Path.GetFileName(path)}/*""";
-                Console.WriteLine($@"[INFO] Zipping {path} into {output}");
+                Utilities.ParallelLogger.Log($@"[INFO] Zipping {path} into {output}");
                 using (Process process = new Process())
                 {
                     process.StartInfo = startInfo;
@@ -3345,14 +3350,14 @@ namespace AemulusModManager
                 LaunchPopup.Text = $"Launch {game}\n(Ctrl+L)";
                 if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                 {
-                    Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                    Utilities.ParallelLogger.Log($@"[INFO] Creating Packages\{game}");
                     Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}");
                 }
-                Console.WriteLine($"[INFO] Game set to {game}.");
+                Utilities.ParallelLogger.Log($"[INFO] Game set to {game}.");
 
                 if (!Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
                 {
-                    Console.WriteLine($@"[INFO] Creating Packages\{game}");
+                    Utilities.ParallelLogger.Log($@"[INFO] Creating Packages\{game}");
                     Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}");
                 }
 
@@ -3382,13 +3387,13 @@ namespace AemulusModManager
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($@"[ERROR] Couldn't deseralize Config\{game}\{LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't deseralize Config\{game}\{LoadoutBox.SelectedItem}.xml ({ex.Message})");
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                        Utilities.ParallelLogger.Log($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                     }
                 }
 
@@ -3420,14 +3425,14 @@ namespace AemulusModManager
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                    Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                     continue;
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                            Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                             continue;
                         }
                     }
@@ -3469,7 +3474,7 @@ namespace AemulusModManager
         {
             if (updating)
             {
-                Console.WriteLine($@"[WARNING] User attempted to close window while updates were still running");
+                Utilities.ParallelLogger.Log($@"[WARNING] User attempted to close window while updates were still running");
                 NotificationBox notification = new NotificationBox("Aemulus hasn't finished updating everything.\nAre you sure you want to exit?", false);
                 notification.ShowDialog();
                 notification.Activate();
@@ -3522,11 +3527,11 @@ namespace AemulusModManager
                     ProcessStartInfo StartInformation = new ProcessStartInfo();
                     StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}";
                     Process process = Process.Start(StartInformation);
-                    Console.WriteLine($@"[INFO] Opened Packages\{game}.");
+                    Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}.");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($@"[ERROR] Couldn't open Packages\{game} ({ex.Message})");
+                    Utilities.ParallelLogger.Log($@"[ERROR] Couldn't open Packages\{game} ({ex.Message})");
                 }
             }
         }
@@ -3556,7 +3561,7 @@ namespace AemulusModManager
                 PackageList.Move(PackageList.Count - 1, i);
             }
             updatePackages();
-            Console.WriteLine("[INFO] Switched priority.");
+            Utilities.ParallelLogger.Log("[INFO] Switched priority.");
 
         }
 
@@ -3696,7 +3701,7 @@ namespace AemulusModManager
                 {
                     if (Directory.Exists(file))
                     {
-                        Console.WriteLine($@"[INFO] Moving {file} into Packages\{game}");
+                        Utilities.ParallelLogger.Log($@"[INFO] Moving {file} into Packages\{game}");
                         string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{Path.GetFileName(file)}";
                         int index = 2;
                         while (Directory.Exists(path))
@@ -3723,7 +3728,7 @@ namespace AemulusModManager
                         startInfo.UseShellExecute = false;
                         startInfo.Arguments = $@"x -y ""{file}"" -o""{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp""";
                         startInfo.RedirectStandardOutput = true;
-                        Console.WriteLine($@"[INFO] Extracting {file} into Packages\{game}");
+                        Utilities.ParallelLogger.Log($@"[INFO] Extracting {file} into Packages\{game}");
                         using (Process process = new Process())
                         {
                             process.StartInfo = startInfo;
@@ -3763,7 +3768,7 @@ namespace AemulusModManager
                     else if (Path.GetExtension(file) == ".xml")
                     {
                         var oldPackageList = PackageList;
-                        Console.WriteLine($"[INFO] Trying to import {Path.GetFileName(file)} as a loadout xml");
+                        Utilities.ParallelLogger.Log($"[INFO] Trying to import {Path.GetFileName(file)} as a loadout xml");
                         try
                         {
                             packages = new Packages();
@@ -3779,7 +3784,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Invalid loadout xml ({ex.Message})");
+                            Utilities.ParallelLogger.Log($"Invalid loadout xml ({ex.Message})");
                         }
 
                         loadout = Path.GetFileNameWithoutExtension(file);
@@ -3787,14 +3792,14 @@ namespace AemulusModManager
                         // Ask to rename the loadout if one with the same name already exists
                         if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
                         {
-                            Console.WriteLine("[INFO] A loadout with the same name already exists, please enter a new name for it.");
+                            Utilities.ParallelLogger.Log("[INFO] A loadout with the same name already exists, please enter a new name for it.");
                             NotificationBox notification = new NotificationBox("A loadout with the same name already exists, please enter a new name for it.");
                             notification.ShowDialog();
                             CreateLoadout createLoadout = new CreateLoadout(game, loadout, true);
                             createLoadout.ShowDialog();
                             if (createLoadout.name == "")
                             {
-                                Console.WriteLine($"[INFO] Cancelled importing {Path.GetFileName(file)}");
+                                Utilities.ParallelLogger.Log($"[INFO] Cancelled importing {Path.GetFileName(file)}");
                                 return;
                             }
                             loadout = createLoadout.name;
@@ -3821,7 +3826,7 @@ namespace AemulusModManager
                                         }
                                         catch (Exception ex)
                                         {
-                                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                            Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                             continue;
                                         }
                                         dm.name = m.name;
@@ -3837,7 +3842,7 @@ namespace AemulusModManager
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                    Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                     continue;
                                 }
                                 dm.path = package.path;
@@ -3900,7 +3905,7 @@ namespace AemulusModManager
                                                 }
                                                 catch (Exception ex)
                                                 {
-                                                    Console.WriteLine($"[ERROR] Invalid Package.xml for {package.Value.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                                    Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.Value.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                                     continue;
                                                 }
                                                 dm.name = m.name;
@@ -3916,7 +3921,7 @@ namespace AemulusModManager
                                         }
                                         catch (Exception ex)
                                         {
-                                            Console.WriteLine($"[ERROR] Invalid Package.xml for {package.Value.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                            Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.Value.path} ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                             continue;
                                         }
                                         dm.path = package.Value.path;
@@ -3935,7 +3940,7 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        Console.WriteLine($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, or {game.Replace(" ", "")} loadout xml, skipping...");
+                        Utilities.ParallelLogger.Log($"[WARNING] {file} isn't a folder, .zip, .7z, or .rar, or {game.Replace(" ", "")} loadout xml, skipping...");
                     }
                 }
                 if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp"))
@@ -3995,7 +4000,7 @@ namespace AemulusModManager
                 .Where(xml => !Path.GetFileName(xml).Equals("Package.xml", StringComparison.InvariantCultureIgnoreCase) && !Path.GetFileName(xml).Equals("Mod.xml", StringComparison.InvariantCultureIgnoreCase)).ToList();
             if (xmls.Count > 0)
             {
-                Console.WriteLine("[INFO] Switching over to downloaded loadout... (May take a bit)");
+                Utilities.ParallelLogger.Log("[INFO] Switching over to downloaded loadout... (May take a bit)");
                 var lastXml = String.Empty;
                 foreach (var xml in xmls)
                 {
@@ -4086,17 +4091,17 @@ namespace AemulusModManager
             }
             cancellationToken = new CancellationTokenSource();
             updating = true;
-            Console.WriteLine($"[INFO] Checking for updates for {row.name}");
+            Utilities.ParallelLogger.Log($"[INFO] Checking for updates for {row.name}");
             await packageUpdater.CheckForUpdate(new DisplayedMetadata[] { row }, game, cancellationToken);
             updating = false;
-            Console.WriteLine($"[INFO] Finished checking for updates!");
+            Utilities.ParallelLogger.Log($"[INFO] Finished checking for updates!");
         }
 
         private async void UpdateAllAsync()
         {
             if (updating)
             {
-                Console.WriteLine($"[INFO] Packages are already being updated, ignoring request to check for updates");
+                Utilities.ParallelLogger.Log($"[INFO] Packages are already being updated, ignoring request to check for updates");
                 return;
             }
             DisableUI();
@@ -4111,7 +4116,7 @@ namespace AemulusModManager
             {
                 updating = true;
                 cancellationToken = new CancellationTokenSource();
-                Console.WriteLine($"[INFO] Checking for updates for all applicable packages");
+                Utilities.ParallelLogger.Log($"[INFO] Checking for updates for all applicable packages");
                 DisplayedMetadata[] updatableRows = DisplayedPackages.Where(RowUpdatable).ToArray();
                 if (await packageUpdater.CheckForUpdate(updatableRows, game, cancellationToken))
                 {
@@ -4121,7 +4126,7 @@ namespace AemulusModManager
                     updatePackages();
                 }
                 updating = false;
-                Console.WriteLine($"[INFO] Finished checking for updates!");
+                Utilities.ParallelLogger.Log($"[INFO] Finished checking for updates!");
             }
             EnableUI();
         }
@@ -4130,7 +4135,7 @@ namespace AemulusModManager
         {
             updating = true;
             cancellationToken = new CancellationTokenSource();
-            Console.WriteLine($"[INFO] Checking for updates for Aemulus");
+            Utilities.ParallelLogger.Log($"[INFO] Checking for updates for Aemulus");
             if (await packageUpdater.CheckForAemulusUpdate(aemulusVersion, cancellationToken))
             {
                 updating = false;
@@ -4215,9 +4220,9 @@ namespace AemulusModManager
             updateConfig();
             SwitchThemes();
             if (!config.darkMode)
-                Console.WriteLine("[INFO] Switched to light mode.");
+                Utilities.ParallelLogger.Log("[INFO] Switched to light mode.");
             else
-                Console.WriteLine("[INFO] Switched to dark mode.");
+                Utilities.ParallelLogger.Log("[INFO] Switched to dark mode.");
         }
 
         // Mod browser
@@ -4883,7 +4888,7 @@ namespace AemulusModManager
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[ERROR] Couldn't open up GameBanana ({ex.Message})");
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't open up GameBanana ({ex.Message})");
             }
         }
         private void PageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -5130,14 +5135,14 @@ namespace AemulusModManager
                 if (createLoadout.name == "")
                 {
                     LoadoutBox.SelectedItem = lastLoadout;
-                    Console.WriteLine("[INFO] Cancelled loadout creation");
+                    Utilities.ParallelLogger.Log("[INFO] Cancelled loadout creation");
                 }
                 else
                 {
                     // Copy existing loadout
                     if ((bool)createLoadout.CopyLoadout.IsChecked)
                     {
-                        Console.WriteLine($"[INFO] Copying {lastLoadout} loadout to {createLoadout.name}");
+                        Utilities.ParallelLogger.Log($"[INFO] Copying {lastLoadout} loadout to {createLoadout.name}");
                         string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
                         FileIOWrapper.Copy($@"{configPath}\{game}\{lastLoadout}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
                     }
@@ -5221,7 +5226,7 @@ namespace AemulusModManager
                         break;
                 }
                 updateConfig();
-                Console.WriteLine($"[INFO] Loadout changed to {LoadoutBox.SelectedItem}");
+                Utilities.ParallelLogger.Log($"[INFO] Loadout changed to {LoadoutBox.SelectedItem}");
             }
             UpdateDisplay();
         }
@@ -5243,13 +5248,13 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($@"[ERROR] Couldn't deseralize Config\{game}\{LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                            Utilities.ParallelLogger.Log($@"[ERROR] Couldn't deseralize Config\{game}\{LoadoutBox.SelectedItem}.xml ({ex.Message})");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
+                    Utilities.ParallelLogger.Log($"Invalid package loadout {LoadoutBox.SelectedItem}.xml ({ex.Message})");
                 }
 
                 showHidden.Value = packages.showHiddenPackages;
@@ -5299,14 +5304,14 @@ namespace AemulusModManager
                                     }
                                     catch (Exception ex)
                                     {
-                                        Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                        Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                         continue;
                                     }
                                 }
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
+                                Utilities.ParallelLogger.Log($"[ERROR] Invalid Package.xml for {package.path}. ({ex.Message}) Fix or delete the current Package.xml then refresh to use.");
                                 continue;
                             }
                         }
@@ -5330,7 +5335,7 @@ namespace AemulusModManager
                 DisplayedMetadata package = (DisplayedMetadata)item;
                 if (package != null)
                 {
-                    Console.WriteLine($"[INFO] Hiding {package.name}");
+                    Utilities.ParallelLogger.Log($"[INFO] Hiding {package.name}");
                     package.hidden = true;
                     foreach (var p in PackageList.ToList())
                     {
@@ -5353,7 +5358,7 @@ namespace AemulusModManager
 
         private void ToggleHiddenCommand()
         {
-            Console.WriteLine($"[INFO] {(showHidden.Value ? "Hiding" : "Showing")} hidden packages");
+            Utilities.ParallelLogger.Log($"[INFO] {(showHidden.Value ? "Hiding" : "Showing")} hidden packages");
             showHidden.Value = !showHidden.Value;
             packages.showHiddenPackages = showHidden.Value;
             updatePackages();
@@ -5384,7 +5389,7 @@ namespace AemulusModManager
                 DisplayedMetadata package = (DisplayedMetadata)item;
                 if (package != null)
                 {
-                    Console.WriteLine($"[INFO] Showing {package.name}");
+                    Utilities.ParallelLogger.Log($"[INFO] Showing {package.name}");
                     package.hidden = false;
                     foreach (var p in PackageList.ToList())
                     {
@@ -5401,7 +5406,7 @@ namespace AemulusModManager
 
         private void EditLoadoutButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Console.WriteLine($"[INFO] Began editing of {LoadoutBox.SelectedItem} loadout");
+            Utilities.ParallelLogger.Log($"[INFO] Began editing of {LoadoutBox.SelectedItem} loadout");
             CreateLoadout createLoadout = new CreateLoadout(game, LoadoutBox.SelectedItem.ToString());
             createLoadout.ShowDialog();
             string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
@@ -5409,7 +5414,7 @@ namespace AemulusModManager
             if (createLoadout.deleteLoadout)
             {
                 FileIOWrapper.Delete($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml");
-                Console.WriteLine($"[INFO] Successfully deleted {LoadoutBox.SelectedItem} loadout");
+                Utilities.ParallelLogger.Log($"[INFO] Successfully deleted {LoadoutBox.SelectedItem} loadout");
                 loadoutUtils.LoadoutItems.Remove(LoadoutBox.SelectedItem.ToString());
                 LoadoutBox.SelectedIndex = 0;
             }
@@ -5436,11 +5441,11 @@ namespace AemulusModManager
                 loadoutUtils.LoadoutItems.Add("Add new loadout");
                 LoadoutBox.SelectedItem = createLoadout.name;
 
-                Console.WriteLine($"[INFO] Finished editing loadout");
+                Utilities.ParallelLogger.Log($"[INFO] Finished editing loadout");
             }
             else
             {
-                Console.WriteLine($"[INFO] Cancelled editing of {LoadoutBox.SelectedItem} loadout");
+                Utilities.ParallelLogger.Log($"[INFO] Cancelled editing of {LoadoutBox.SelectedItem} loadout");
             }
 
         }
@@ -5520,9 +5525,9 @@ namespace AemulusModManager
                 {
                     ModGrid.ScrollIntoView(focusedItem);
                     if (ModGrid.SelectedItems.Count > 1)
-                        Console.WriteLine($"[INFO] Found {ModGrid.SelectedItems.Count} mods matching \"{text}\"");
+                        Utilities.ParallelLogger.Log($"[INFO] Found {ModGrid.SelectedItems.Count} mods matching \"{text}\"");
                     else
-                        Console.WriteLine($"[INFO] Found {ModGrid.SelectedItems.Count} mod matching \"{text}\"");
+                        Utilities.ParallelLogger.Log($"[INFO] Found {ModGrid.SelectedItems.Count} mod matching \"{text}\"");
                 }
                 else
                 {
@@ -5530,7 +5535,7 @@ namespace AemulusModManager
                            "was made to rival Mod Compendium.\n\n(You are seeing this message because no package is selected or " +
                            "the package has no description.)");
                     ImageBehavior.SetAnimatedSource(Preview, bitmap);
-                    Console.WriteLine($"[INFO] No mods found matching {text}");
+                    Utilities.ParallelLogger.Log($"[INFO] No mods found matching {text}");
                 }
             }
         }

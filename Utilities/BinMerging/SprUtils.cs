@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using AemulusModManager.Utilities;
+using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager
 {
@@ -104,7 +105,7 @@ namespace AemulusModManager
             int offset = findTmx(spr, tmxPattern);
             if (offset > -1)
             {
-                Console.WriteLine($"[INFO] Merging {tmx} onto {spr}");
+                Utilities.ParallelLogger.Log($"[INFO] Merging {tmx} onto {spr}");
                 byte[] tmxBytes = FileIOWrapper.ReadAllBytes(tmx);
                 int repTmxLen = tmxBytes.Length;
                 int ogTmxLen = BitConverter.ToInt32(FileIOWrapper.ReadAllBytes(spr), (offset + 4));
@@ -129,7 +130,7 @@ namespace AemulusModManager
                 }
             }
             else
-                Console.WriteLine($"[WARNING] Couldn't find {tmx} in {spr}");
+                Utilities.ParallelLogger.Log($"[WARNING] Couldn't find {tmx} in {spr}");
         }
 
         private static void updateOffsets(string spr, List<int> offsets)

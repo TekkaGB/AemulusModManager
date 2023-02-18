@@ -92,13 +92,13 @@ namespace AemulusModManager.Windows
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($@"[ERROR] Couldn't serialize {path} ({ex.Message})");
+                        Utilities.ParallelLogger.Log($@"[ERROR] Couldn't serialize {path} ({ex.Message})");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[ERROR] Error trying to set skipped version for {row.name}: {ex.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Error trying to set skipped version for {row.name}: {ex.Message}");
             }
             Close();
         }

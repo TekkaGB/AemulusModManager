@@ -55,14 +55,14 @@ namespace AemulusModManager
                     CPKBox.SelectedIndex = 4;
                     break;
             }
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p3pConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -76,7 +76,7 @@ namespace AemulusModManager
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting textures folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting textures folder to {directory}");
                 main.config.p3pConfig.texturesPath = directory;
                 main.updateConfig();
                 TexturesTextbox.Text = directory;
@@ -87,14 +87,14 @@ namespace AemulusModManager
             var file = selectExe("Select the P3P cheats ini (ULUS10512.ini)", "*.ini");
             if (file != null)
             {
-                Console.WriteLine($"[INFO] Setting cheats ini to {file}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting cheats ini to {file}");
                 main.config.p3pConfig.cheatsPath = file;
                 main.updateConfig();
                 CheatsTextbox.Text = file;
             }
             else
             {
-                Console.WriteLine("[ERROR] No ini selected");
+                Utilities.ParallelLogger.Log("[ERROR] No ini selected");
             }
         }
         private void BuildWarningChecked(object sender, RoutedEventArgs e)
@@ -177,7 +177,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -210,7 +210,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] No ISO selected.");
+                Utilities.ParallelLogger.Log("[ERROR] No ISO selected.");
             }
         }
 
@@ -227,7 +227,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid exe.");
             }
         }
 
@@ -262,7 +262,7 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                    Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen for unpacking.");
                     return;
                 }
             }
@@ -298,7 +298,7 @@ namespace AemulusModManager
                 var cpkName = (CPKBox.SelectedValue as ComboBoxItem).Content as String;
                 if (main.config.p3pConfig.cpkName != cpkName)
                 {
-                    Console.WriteLine($"[INFO] Output changed to {cpkName}");
+                    Utilities.ParallelLogger.Log($"[INFO] Output changed to {cpkName}");
                     main.config.p3pConfig.cpkName = cpkName;
                     main.updateConfig();
                 }

@@ -27,7 +27,7 @@ namespace AemulusModManager
             DeleteBox.IsChecked = main.config.p5sConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p5sConfig.updateAll;
             UpdateBox.IsChecked = main.config.p5sConfig.updatesEnabled;
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
@@ -36,10 +36,10 @@ namespace AemulusModManager
             {
                 if (Path.GetFileName(directory).ToLower() != "motor_rsc")
                 {
-                    Console.WriteLine(@"[ERROR] Please select P5S\data\motor_rsc as your output path");
+                    Utilities.ParallelLogger.Log(@"[ERROR] Please select P5S\data\motor_rsc as your output path");
                     return;
                 }
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p5sConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -128,7 +128,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
