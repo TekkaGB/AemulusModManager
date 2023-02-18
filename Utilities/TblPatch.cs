@@ -560,7 +560,7 @@ namespace AemulusModManager
                 return sections;
             }
             bool bigEndian = false;
-            if (game == "Persona 5" || game == "Persona 5 Royal (PS4)")
+            if (game == "Persona 5" || game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)")
                 bigEndian = true;
             using (FileStream
             fileStream = new FileStream(tbl, FileMode.Open))
