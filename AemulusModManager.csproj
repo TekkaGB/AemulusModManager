@@ -17,6 +17,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -144,6 +144,9 @@
     <Reference Include="Onova, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Onova.2.6.2\lib\net461\Onova.dll</HintPath>
     </Reference>
+    <Reference Include="Pri.LongPath, Version=2.0.53.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Pri.LongPath.2.0.53\lib\net45\Pri.LongPath.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -161,6 +164,7 @@
       <HintPath>packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Thread" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -200,6 +204,7 @@
     <Compile Include="Utilities\FileMerging\Utils.cs" />
     <Compile Include="Utilities\BinaryPatching\BinaryObj.cs" />
     <Compile Include="Utilities\BinaryPatching\BinaryPatch.cs" />
+    <Compile Include="Utilities\ParallelLogger.cs" />
     <Compile Include="Utilities\SpdPatching\SpdObj.cs" />
     <Compile Include="Utilities\SpdPatching\SpdPatch.cs" />
     <Compile Include="Utilities\Windows\HiddenIconConverter.cs" />
@@ -359,7 +364,7 @@
     </Compile>
     <Compile Include="Utilities\PacUnpacker.cs" />
     <Compile Include="Utilities\BinMerging\SprUtils.cs" />
-    <Compile Include="Utilities\TblPatching\TblPatch.cs" />
+    <Compile Include="Utilities\TblPatch.cs" />
     <Compile Include="Utilities\Windows\TextBoxOutputter.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

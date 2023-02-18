@@ -124,7 +124,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine($"[ERROR] Package name {NameBox.Text} already exists, try another one.");
+                Utilities.ParallelLogger.Log($"[ERROR] Package name {NameBox.Text} already exists, try another one.");
             }
         }
 

@@ -20,6 +20,8 @@ namespace AemulusModManager
     public partial class App : Application
     {
 
+
+
         [DllImport("User32.dll")]
         private static extern bool IsIconic(IntPtr hWnd);
 

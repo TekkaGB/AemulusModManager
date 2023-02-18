@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager.Utilities.FileMerging
 {
@@ -78,7 +79,7 @@ namespace AemulusModManager.Utilities.FileMerging
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[ERROR] Unable to parse cheats of {cheatFilePath}: {e.Message}");
+                Utilities.ParallelLogger.Log($"[ERROR] Unable to parse cheats of {cheatFilePath}: {e.Message}");
             }
             return cheatFile;
         }

@@ -11,21 +11,25 @@ using System.Reflection;
 using AemulusModManager.Utilities.BinaryPatching;
 using AemulusModManager.Utilities;
 
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+
 namespace AemulusModManager
 {
     public static class BinaryPatcher
     {
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
-            Console.WriteLine("[INFO] Patching files...");
+            Utilities.ParallelLogger.Log("[INFO] Patching files...");
             
             // Load EnabledPatches in order
             foreach (string dir in ModList)
             {
-                Console.WriteLine($"[INFO] Searching for/applying binary patches in {dir}...");
+                Utilities.ParallelLogger.Log($"[INFO] Searching for/applying binary patches in {dir}...");
                 if (!Directory.Exists($@"{dir}\binarypatches"))
                 {
-                    Console.WriteLine($"[INFO] No binarypatches folder found in {dir}");
+                    Utilities.ParallelLogger.Log($"[INFO] No binarypatches folder found in {dir}");
                     continue;
                 }
 
@@ -40,12 +44,12 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
                         continue;
                     }
                     if (patches.Version != 1)
                     {
-                        Console.WriteLine($"[ERROR] Invalid version for {t}, skipping...");
+                        Utilities.ParallelLogger.Log($"[ERROR] Invalid version for {t}, skipping...");
                         continue;
                     }
                     if (patches.Patches != null)
@@ -92,7 +96,7 @@ namespace AemulusModManager
                                 }
                                 else
                                 {
-                                    Console.WriteLine($"[WARNING] {patch.file} not found in output directory or Original directory.");
+                                    Utilities.ParallelLogger.Log($"[WARNING] {patch.file} not found in output directory or Original directory.");
                                     continue;
                                 }
                             }
@@ -107,7 +111,7 @@ namespace AemulusModManager
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine($"[ERROR] Couldn't parse hex string {stringData[i]} ({ex.Message}), skipping...");
+                                    Utilities.ParallelLogger.Log($"[ERROR] Couldn't parse hex string {stringData[i]} ({ex.Message}), skipping...");
                                     handled = true;
                                     break;
                                 }
@@ -135,7 +139,7 @@ namespace AemulusModManager
                                 fileBytes.RemoveRange((int)patch.offset, data.Length);
                             fileBytes.InsertRange((int)patch.offset, data);
                             FileIOWrapper.WriteAllBytes(outputFile, fileBytes.ToArray());
-                            Console.WriteLine($"[INFO] Patched {patch.file} with {Path.GetFileName(t)}");
+                            Utilities.ParallelLogger.Log($"[INFO] Patched {patch.file} with {Path.GetFileName(t)}");
                         }
                     }
                 }

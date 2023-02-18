@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager
 {
@@ -78,10 +81,10 @@ namespace AemulusModManager
         {
             if (!File.Exists(exePath))
             {
-                Console.WriteLine($"[ERROR] Couldn't find {exePath}. Please check if it was blocked by your anti-virus.");
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {exePath}. Please check if it was blocked by your anti-virus.");
                 return;
             }
-            Console.WriteLine("[INFO] Patching TBLs...");
+            Utilities.ParallelLogger.Log("[INFO] Patching TBLs...");
             // Check if init_free exists and return if not
             string archive = null;
             if (game == "Persona 4 Golden")
@@ -124,18 +127,18 @@ namespace AemulusModManager
                     {
                         Directory.CreateDirectory($@"{modDir}\{Path.GetDirectoryName(archive)}");
                         File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{archive}", $@"{modDir}\{archive}", true);
-                        Console.WriteLine($"[INFO] Copied over {archive} from Original directory.");
+                        Utilities.ParallelLogger.Log($"[INFO] Copied over {archive} from Original directory.");
                     }
                     else
                     {
-                        Console.WriteLine($"[WARNING] {archive} not found in output directory or Original directory.");
+                        Utilities.ParallelLogger.Log($"[WARNING] {archive} not found in output directory or Original directory.");
                         return;
                     }
                 }
 
                 tblDir = $@"{modDir}\{Path.ChangeExtension(archive, null)}_tbls";
                 // Unpack archive
-                Console.WriteLine($"[INFO] Unpacking TBLs from {archive}...");
+                Utilities.ParallelLogger.Log($"[INFO] Unpacking TBLs from {archive}...");
                 unpackTbls($@"{modDir}\{archive}", game);
             }
             // Keep track of which tables are edited
@@ -144,10 +147,10 @@ namespace AemulusModManager
             // Load EnabledPatches in order
             foreach (string dir in ModList)
             {
-                Console.WriteLine($"[INFO] Searching for/applying tblpatches in {dir}...");
+                Utilities.ParallelLogger.Log($"[INFO] Searching for/applying tblpatches in {dir}...");
                 if (!Directory.Exists($@"{dir}\tblpatches"))
                 {
-                    Console.WriteLine($"[INFO] No tblpatches folder found in {dir}");
+                    Utilities.ParallelLogger.Log($"[INFO] No tblpatches folder found in {dir}");
                     continue;
                 }
                 // Apply original tblpatch files
@@ -155,10 +158,10 @@ namespace AemulusModManager
                 {
                     byte[] file = File.ReadAllBytes(t);
                     string fileName = Path.GetFileName(t);
-                    Console.WriteLine($"[INFO] Loading {fileName}");
+                    Utilities.ParallelLogger.Log($"[INFO] Loading {fileName}");
                     if (file.Length < 3)
                     {
-                        Console.WriteLine("[ERROR] Improper .tblpatch format.");
+                        Utilities.ParallelLogger.Log("[ERROR] Improper .tblpatch format.");
                         continue;
                     }
 
@@ -177,7 +180,7 @@ namespace AemulusModManager
                             tblName = "MSG.TBL";
                             if (game == "Persona 5" || game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -191,7 +194,7 @@ namespace AemulusModManager
                             tblName = "EFFECT.TBL";
                             if (game == "Persona 5" || game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -199,7 +202,7 @@ namespace AemulusModManager
                             tblName = "MODEL.TBL";
                             if (game == "Persona 5" || game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -210,7 +213,7 @@ namespace AemulusModManager
                             tblName = "AICALC_F.TBL";
                             if (game != "Persona 3 FES")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -218,7 +221,7 @@ namespace AemulusModManager
                             tblName = "ENCOUNT_F.TBL";
                             if (game != "Persona 3 FES")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -226,7 +229,7 @@ namespace AemulusModManager
                             tblName = "PERSONA_F.TBL";
                             if (game != "Persona 3 FES")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -234,7 +237,7 @@ namespace AemulusModManager
                             tblName = "SKILL_F.TBL";
                             if (game != "Persona 3 FES")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -242,7 +245,7 @@ namespace AemulusModManager
                             tblName = "UNIT_F.TBL";
                             if (game != "Persona 3 FES")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -250,7 +253,7 @@ namespace AemulusModManager
                             tblName = "ELSAI.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -258,7 +261,7 @@ namespace AemulusModManager
                             tblName = "EXIST.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -266,7 +269,7 @@ namespace AemulusModManager
                             tblName = "ITEM.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -274,7 +277,7 @@ namespace AemulusModManager
                             tblName = "NAME.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -282,7 +285,7 @@ namespace AemulusModManager
                             tblName = "PLAYER.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal(Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -290,7 +293,7 @@ namespace AemulusModManager
                             tblName = "TALKINFO.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
@@ -298,12 +301,12 @@ namespace AemulusModManager
                             tblName = "VISUAL.TBL";
                             if (game != "Persona 5" && game != "Persona 5 Royal (PS4)" && game != "Persona 5 Royal (Switch)")
                             {
-                                Console.WriteLine($"[WARNING] {tblName} not found in {game}, skipping");
+                                Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in {game}, skipping");
                                 continue;
                             }
                             break;
                         default:
-                            Console.WriteLine($"[ERROR] Unknown tbl name for {t}.");
+                            Utilities.ParallelLogger.Log($"[ERROR] Unknown tbl name for {t}.");
                             continue;
                     }
 
@@ -319,7 +322,7 @@ namespace AemulusModManager
                     {
                         if (file.Length < 12)
                         {
-                            Console.WriteLine("[ERROR] Improper .tblpatch format.");
+                            Utilities.ParallelLogger.Log("[ERROR] Improper .tblpatch format.");
                             continue;
                         }
                         // Offset to start overwriting at
@@ -339,11 +342,11 @@ namespace AemulusModManager
                                 {
                                     Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
                                     File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{tblName}", $@"{modDir}\BTL\BATTLE\{tblName}", true);
-                                    Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
+                                    Utilities.ParallelLogger.Log($"[INFO] Copied over {tblName} from Original directory.");
                                 }
                                 else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{tblName}"))
                                 {
-                                    Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
+                                    Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in output directory or Original directory.");
                                     continue;
                                 }
                             }
@@ -360,11 +363,11 @@ namespace AemulusModManager
                                 {
                                     Directory.CreateDirectory($@"{modDir}\BASE\BATTLE\TABLE");
                                     File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BASE\BATTLE\TABLE\{tblName}", $@"{modDir}\BASE\BATTLE\TABLE\{tblName}", true);
-                                    Console.WriteLine($"[INFO] Copied over {tblName} from Original directory.");
+                                    Utilities.ParallelLogger.Log($"[INFO] Copied over {tblName} from Original directory.");
                                 }
                                 else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BASE\BATTLE\TABLE\{tblName}"))
                                 {
-                                    Console.WriteLine($"[WARNING] {tblName} not found in output directory or Original directory.");
+                                    Utilities.ParallelLogger.Log($"[WARNING] {tblName} not found in output directory or Original directory.");
                                     continue;
                                 }
                             }
@@ -390,7 +393,7 @@ namespace AemulusModManager
                         sections = GetNameSections($@"{tblDir}\table\{tblName}");
                         if (file.Length < 6)
                         {
-                            Console.WriteLine("[ERROR] Improper .tblpatch format.");
+                            Utilities.ParallelLogger.Log("[ERROR] Improper .tblpatch format.");
                             continue;
                         }
                         var temp = ReplaceName(sections, file, null);
@@ -413,12 +416,12 @@ namespace AemulusModManager
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
+                        Utilities.ParallelLogger.Log($"[ERROR] Couldn't deserialize {t} ({ex.Message}), skipping...");
                         continue;
                     }
                     if (tablePatches.Version != 1)
                     {
-                        Console.WriteLine($"[ERROR] Invalid version for {t}, skipping...");
+                        Utilities.ParallelLogger.Log($"[ERROR] Invalid version for {t}, skipping...");
                         continue;
                     }
                     if (tablePatches.Patches != null)
@@ -436,7 +439,7 @@ namespace AemulusModManager
                                     || (game == "Persona 5 Royal (Switch)" && !p5Tables.Contains(patch.tbl))
                                     || (game == "Persona 3 Portable" && !p3pTables.Contains(patch.tbl)))
                                 {
-                                    Console.WriteLine($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
+                                    Utilities.ParallelLogger.Log($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
                                     continue;
                                 }
                                 Table table = new Table();
@@ -450,11 +453,11 @@ namespace AemulusModManager
                                         {
                                             Directory.CreateDirectory($@"{modDir}\BTL\BATTLE");
                                             File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{patch.tbl}.TBL", tablePath, true);
-                                            Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
+                                            Utilities.ParallelLogger.Log($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
                                         }
                                         else if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BTL\BATTLE\{patch.tbl}.TBL"))
                                         {
-                                            Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
+                                            Utilities.ParallelLogger.Log($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
                                             continue;
                                         }
                                     }
@@ -470,11 +473,11 @@ namespace AemulusModManager
                                         {
                                             Directory.CreateDirectory(Path.GetDirectoryName(tablePath));
                                             File.Copy(originalPath, tablePath, true);
-                                            Console.WriteLine($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
+                                            Utilities.ParallelLogger.Log($"[INFO] Copied over {patch.tbl}.TBL from Original directory.");
                                         }
                                         else if (!File.Exists(originalPath))
                                         {
-                                            Console.WriteLine($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
+                                            Utilities.ParallelLogger.Log($"[WARNING] {patch.tbl}.TBL not found in output directory or Original directory.");
                                             continue;
                                         }
                                     }
@@ -517,7 +520,7 @@ namespace AemulusModManager
                         WriteTbl(table.sections, path, game);
                 }
 
-                Console.WriteLine($"[INFO] Applied patches from {dir}");
+                Utilities.ParallelLogger.Log($"[INFO] Applied patches from {dir}");
 
             }
 
@@ -527,20 +530,20 @@ namespace AemulusModManager
                 foreach (string u in editedTables)
                 {
                     if (u == "ITEMTBL.TBL")
-                        Console.WriteLine($"[INFO] Replacing itemtbl.bin in {archive}");
+                        Utilities.ParallelLogger.Log($"[INFO] Replacing itemtbl.bin in {archive}");
                     else
-                        Console.WriteLine($"[INFO] Replacing {u} in {archive}");
+                        Utilities.ParallelLogger.Log($"[INFO] Replacing {u} in {archive}");
                     if (game == "Persona 5" || game == "Persona 5 Royal (PS4)")
                         repackTbls($@"{tblDir}\table\{u}", $@"{modDir}\{archive}", game);
                     else
                         repackTbls($@"{tblDir}\battle\{u}", $@"{modDir}\{archive}", game);
                 }
 
-                Console.WriteLine($"[INFO] Deleting temp tbl folder...");
+                Utilities.ParallelLogger.Log($"[INFO] Deleting temp tbl folder...");
                 // Delete all unpacked files
                 Directory.Delete(tblDir, true);
             }
-            Console.WriteLine("[INFO] Finished patching TBLs!");
+            Utilities.ParallelLogger.Log("[INFO] Finished patching TBLs!");
         }
 
         private static List<Section> GetSections(string tbl, string game)
@@ -663,7 +666,7 @@ namespace AemulusModManager
             {
                 if (namePatch.section == null || namePatch.index == null || namePatch.name == null)
                 {
-                    Console.WriteLine($"[ERROR] Incomplete patch, skipping...");
+                    Utilities.ParallelLogger.Log($"[ERROR] Incomplete patch, skipping...");
                     return sections;
                 }
                 section = (int)namePatch.section;
@@ -674,19 +677,19 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine($"[ERROR] No patch passed to replace function, skipping...");
+                Utilities.ParallelLogger.Log($"[ERROR] No patch passed to replace function, skipping...");
                 return sections;
             }
 
             if (section >= sections.Count)
             {
-                Console.WriteLine($"[ERROR] Section chosen is out of bounds, skipping...");
+                Utilities.ParallelLogger.Log($"[ERROR] Section chosen is out of bounds, skipping...");
                 return sections;
             }
 
             if (index < 0)
             {
-                Console.WriteLine($"[ERROR] Index cannot be negative, skipping...");
+                Utilities.ParallelLogger.Log($"[ERROR] Index cannot be negative, skipping...");
                 return sections;
             }
 
@@ -737,7 +740,7 @@ namespace AemulusModManager
                     {
                         if (hex.Length != 2)
                         {
-                            Console.WriteLine($"[ERROR] Couldn't parse hex string, skipping...");
+                            Utilities.ParallelLogger.Log($"[ERROR] Couldn't parse hex string, skipping...");
                             return null;
                         }
                         try
@@ -746,7 +749,7 @@ namespace AemulusModManager
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
+                            Utilities.ParallelLogger.Log($"[ERROR] Couldn't parse hex string ({ex.Message}), skipping...");
                             return null;
                         }
                     }
@@ -759,7 +762,7 @@ namespace AemulusModManager
         {
             if (patch.offset == null || patch.section == null || patch.data == null)
             {
-                Console.WriteLine($"[ERROR] Incomplete patch, skipping...");
+                Utilities.ParallelLogger.Log($"[ERROR] Incomplete patch, skipping...");
                 return sections;
             }
             // Get info from json patch
@@ -775,18 +778,18 @@ namespace AemulusModManager
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ERROR] Couldn't parse hex string {stringData[i]} ({ex.Message}), skipping...");
+                    Utilities.ParallelLogger.Log($"[ERROR] Couldn't parse hex string {stringData[i]} ({ex.Message}), skipping...");
                     return sections;
                 }
             }
             if (offset < 0)
             {
-                Console.WriteLine($"[ERROR] Offset cannot be negative, skipping...");
+                Utilities.ParallelLogger.Log($"[ERROR] Offset cannot be negative, skipping...");
                 return sections;
             }
             if (section >= sections.Count)
             {
-                Console.WriteLine($"[ERROR] Section chosen is out of bounds, skipping...");
+                Utilities.ParallelLogger.Log($"[ERROR] Section chosen is out of bounds, skipping...");
                 return sections;
             }
             if (offset + data.Length >= sections[section].data.Length)

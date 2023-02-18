@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
 
 namespace AemulusModManager.Utilities.Windows
 {
@@ -23,12 +25,12 @@ namespace AemulusModManager.Utilities.Windows
         public void LoadLoadouts(string game)
         {
             string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
-            Console.WriteLine($"[INFO] Loading loadouts for {game}");
+            Utilities.ParallelLogger.Log($"[INFO] Loading loadouts for {game}");
             Directory.CreateDirectory($@"{configPath}\{game}");
             // If the old single loadout file existed, convert it to the new one with a name of default
             if (FileIOWrapper.Exists($@"{configPath}\{game.Replace(" ", "")}Packages.xml") && !FileIOWrapper.Exists($@"{configPath}\{game}\Default.xml"))
             {
-                Console.WriteLine("[INFO] Old loadout detected, converting to new one with name \"Default\"");
+                Utilities.ParallelLogger.Log("[INFO] Old loadout detected, converting to new one with name \"Default\"");
                 FileIOWrapper.Move($@"{configPath}\{game.Replace(" ", "")}Packages.xml", $@"{configPath}\{game}\Default.xml");
             }
 

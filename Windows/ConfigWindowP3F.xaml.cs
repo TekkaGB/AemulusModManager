@@ -41,7 +41,7 @@ namespace AemulusModManager
             DeleteBox.IsChecked = main.config.p3fConfig.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p3fConfig.updateAll;
             UpdateBox.IsChecked = main.config.p3fConfig.updatesEnabled;
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
 
         private void modDirectoryClick(object sender, RoutedEventArgs e)
@@ -49,7 +49,7 @@ namespace AemulusModManager
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p3fConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -63,7 +63,7 @@ namespace AemulusModManager
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting cheats folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting cheats folder to {directory}");
                 main.config.p3fConfig.cheatsPath = directory;
                 main.updateConfig();
                 CheatsTextbox.Text = directory;
@@ -74,7 +74,7 @@ namespace AemulusModManager
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting cheats_ws folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting cheats_ws folder to {directory}");
                 main.config.p3fConfig.cheatsWSPath = directory;
                 main.updateConfig();
                 CheatsWSTextbox.Text = directory;
@@ -85,7 +85,7 @@ namespace AemulusModManager
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting textures folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting textures folder to {directory}");
                 main.config.p3fConfig.texturesPath = directory;
                 main.updateConfig();
                 TexturesTextbox.Text = directory;
@@ -183,7 +183,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -216,7 +216,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid ISO.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid ISO.");
             }
         }
 
@@ -232,7 +232,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid EXE.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid EXE.");
             }
         }
 
@@ -248,13 +248,13 @@ namespace AemulusModManager
                     string magic = Encoding.ASCII.GetString(reader.ReadBytes(4));
                     if (!magic.EndsWith("ELF"))
                     {
-                        Console.WriteLine("[ERROR] Invalid ELF/SLUS.");
+                        Utilities.ParallelLogger.Log("[ERROR] Invalid ELF/SLUS.");
                         return;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[ERROR] An exception occurred while trying to read the specified ELF/SLUS file: {ex.Message}");
+                    Utilities.ParallelLogger.Log($"[ERROR] An exception occurred while trying to read the specified ELF/SLUS file: {ex.Message}");
                 }
 
                 main.elfPath = elf;
@@ -264,7 +264,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] No ELF/SLUS file specified.");
+                Utilities.ParallelLogger.Log("[ERROR] No ELF/SLUS file specified.");
             }
         }
 
@@ -299,7 +299,7 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                    Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen for unpacking.");
                     return;
                 }
             }

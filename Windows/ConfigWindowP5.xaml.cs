@@ -33,14 +33,14 @@ namespace AemulusModManager
             DeleteBox.IsChecked = main.config.p5Config.deleteOldVersions;
             UpdateAllBox.IsChecked = main.config.p5Config.updateAll;
             UpdateBox.IsChecked = main.config.p5Config.updatesEnabled;
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p5Config.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -131,11 +131,11 @@ namespace AemulusModManager
         {
             if (main.config.p5Config.CpkName != CpkNameTextbox.Text)
             {
-                Console.WriteLine($"[INFO] Output Cpk changed to {CpkNameTextbox.Text}.cpk");
+                Utilities.ParallelLogger.Log($"[INFO] Output Cpk changed to {CpkNameTextbox.Text}.cpk");
                 main.config.p5Config.CpkName = CpkNameTextbox.Text;
                 main.updateConfig();
             }
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -168,7 +168,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid EBOOT.BIN.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid EBOOT.BIN.");
             }
         }
 
@@ -184,7 +184,7 @@ namespace AemulusModManager
             }
             else
             {
-                Console.WriteLine("[ERROR] Invalid exe.");
+                Utilities.ParallelLogger.Log("[ERROR] Invalid exe.");
             }
         }
 
@@ -219,7 +219,7 @@ namespace AemulusModManager
                 }
                 else
                 {
-                    Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                    Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen for unpacking.");
                     return;
                 }
             }

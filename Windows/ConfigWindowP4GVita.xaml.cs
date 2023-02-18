@@ -47,14 +47,14 @@ namespace AemulusModManager
                     CPKBox.SelectedIndex = 4;
                     break;
             }
-            Console.WriteLine("[INFO] Config launched");
+            Utilities.ParallelLogger.Log("[INFO] Config launched");
         }
         private void modDirectoryClick(object sender, RoutedEventArgs e)
         {
             var directory = openFolder();
             if (directory != null)
             {
-                Console.WriteLine($"[INFO] Setting output folder to {directory}");
+                Utilities.ParallelLogger.Log($"[INFO] Setting output folder to {directory}");
                 main.config.p4gVitaConfig.modDir = directory;
                 main.modPath = directory;
                 main.MergeButton.IsHitTestVisible = true;
@@ -143,7 +143,7 @@ namespace AemulusModManager
 
         private void onClose(object sender, CancelEventArgs e)
         {
-            Console.WriteLine("[INFO] Config closed");
+            Utilities.ParallelLogger.Log("[INFO] Config closed");
         }
 
         // Used for selecting
@@ -184,7 +184,7 @@ namespace AemulusModManager
             string selectedPath = selectExe("Select P4G Vita data.cpk to unpack", ".cpk");
             if (selectedPath == null)
             {
-                Console.WriteLine("[ERROR] Incorrect file chosen for unpacking.");
+                Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen for unpacking.");
                 return;
             }
             main.ModGrid.IsHitTestVisible = false;
@@ -219,7 +219,7 @@ namespace AemulusModManager
                 var cpkName = (CPKBox.SelectedValue as ComboBoxItem).Content as String;
                 if (main.config.p4gVitaConfig.cpkName != cpkName)
                 {
-                    Console.WriteLine($"[INFO] Output Cpk changed to {cpkName}");
+                    Utilities.ParallelLogger.Log($"[INFO] Output Cpk changed to {cpkName}");
                     main.config.p4gVitaConfig.cpkName = cpkName;
                     main.updateConfig();
                 }

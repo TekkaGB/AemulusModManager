@@ -6,6 +6,9 @@ using System.Reflection;
 using AemulusModManager.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using Path = Pri.LongPath.Path;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
 
 namespace AemulusModManager
 {
@@ -52,10 +55,10 @@ namespace AemulusModManager
                     var folders = new List<string>(file.Split(char.Parse("\\")));
                     int idx = folders.IndexOf(Path.GetFileNameWithoutExtension(cpkLang));
                     if (File.Exists($@"{path}\data00007\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
-                        Console.WriteLine($"[INFO] Validated that {file} was appended");
+                        Utilities.ParallelLogger.Log($"[INFO] Validated that {file} was appended");
                     else
                     {
-                        Console.WriteLine($"[WARNING] {file} not appended");
+                        Utilities.ParallelLogger.Log($"[WARNING] {file} not appended");
                         validated = false;
                     }
 
@@ -77,10 +80,10 @@ namespace AemulusModManager
                     var folders = new List<string>(file.Split(char.Parse("\\")));
                     int idx = folders.IndexOf("movie");
                     if (File.Exists($@"{path}\movie00003\{string.Join("\\", folders.Skip(idx + 1).ToArray())}"))
-                        Console.WriteLine($@"[INFO] Validated appended {file}");
+                        Utilities.ParallelLogger.Log($@"[INFO] Validated appended {file}");
                     else
                     {
-                        Console.WriteLine($@"[WARNING] {file} not appended");
+                        Utilities.ParallelLogger.Log($@"[WARNING] {file} not appended");
                         validated = false;
                     }
 
@@ -90,7 +93,7 @@ namespace AemulusModManager
             }
             if (!validated)
             {
-                Console.WriteLine($"[WARNING] Not all appended files were validated, trying again");
+                Utilities.ParallelLogger.Log($"[WARNING] Not all appended files were validated, trying again");
                 Append(path, cpkLang);
                 Validate(path, cpkLang);
             }
@@ -100,47 +103,47 @@ namespace AemulusModManager
             // Check if required files are there
             if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\preappfile\preappfile.exe"))
             {
-                Console.WriteLine($@"[ERROR] Couldn't find Dependencies\preappfile\preappfile.exe. Please check if it was blocked by your anti-virus.");
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find Dependencies\preappfile\preappfile.exe. Please check if it was blocked by your anti-virus.");
                 return;
             }
 
             if (!FileIOWrapper.Exists($@"{path}\{cpkLang}"))
             {
-                Console.WriteLine($@"[ERROR] Couldn't find {path}\{cpkLang} for appending.");
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find {path}\{cpkLang} for appending.");
                 return;
             }
             // Backup cpk if not backed up already
             if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}"))
             {
-                Console.WriteLine($@"[INFO] Backing up {cpkLang}.cpk");
+                Utilities.ParallelLogger.Log($@"[INFO] Backing up {cpkLang}.cpk");
                 FileIOWrapper.Copy($@"{path}\{cpkLang}", $@"Original\Persona 4 Golden\{cpkLang}");
             }
             // Copy original cpk back if different
             if (GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
             {
-                Console.WriteLine($@"[INFO] Reverting {cpkLang} back to original");
+                Utilities.ParallelLogger.Log($@"[INFO] Reverting {cpkLang} back to original");
                 FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
             }
             if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk"))
             {
-                Console.WriteLine($@"[INFO] Backing up movie.cpk");
+                Utilities.ParallelLogger.Log($@"[INFO] Backing up movie.cpk");
                 FileIOWrapper.Copy($@"{path}\movie.cpk", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk");
             }
             // Copy original cpk back if different
             if (GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
             {
-                Console.WriteLine($@"[INFO] Reverting movie.cpk back to original");
+                Utilities.ParallelLogger.Log($@"[INFO] Reverting movie.cpk back to original");
                 FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
             }
             // Delete modified pacs
             if (FileIOWrapper.Exists($@"{path}\data00007.pac"))
             {
-                Console.WriteLine($"[INFO] Deleting data00007.pac");
+                Utilities.ParallelLogger.Log($"[INFO] Deleting data00007.pac");
                 FileIOWrapper.Delete($@"{path}\data00007.pac");
             }
             if (FileIOWrapper.Exists($@"{path}\movie00003.pac"))
             {
-                Console.WriteLine($"[INFO] Deleting movie00003.pac");
+                Utilities.ParallelLogger.Log($"[INFO] Deleting movie00003.pac");
                 FileIOWrapper.Delete($@"{path}\movie00003.pac");
             }
 
@@ -151,7 +154,7 @@ namespace AemulusModManager
             startInfo.UseShellExecute = false;
             if (Directory.Exists($@"{path}\mods\preappfile\{Path.GetFileNameWithoutExtension(cpkLang)}"))
             {
-                Console.WriteLine($@"[INFO] Appending to {cpkLang}");
+                Utilities.ParallelLogger.Log($@"[INFO] Appending to {cpkLang}");
                 startInfo.Arguments = $@"-i  ""{path}\mods\preappfile\{Path.GetFileNameWithoutExtension(cpkLang)}"" -a ""{path}\{cpkLang}"" -o ""{path}\{cpkLang}"" --pac-index 7";
                 using (Process process = new Process())
                 {
@@ -162,7 +165,7 @@ namespace AemulusModManager
             }
             if (Directory.Exists($@"{path}\mods\preappfile\movie"))
             {
-                Console.WriteLine($@"[INFO] Appending to movie");
+                Utilities.ParallelLogger.Log($@"[INFO] Appending to movie");
                 startInfo.Arguments = $@"-i  ""{path}\mods\preappfile\movie"" -a ""{path}\movie.cpk"" -o ""{path}\movie.cpk"" --pac-index 3";
                 using (Process process = new Process())
                 {

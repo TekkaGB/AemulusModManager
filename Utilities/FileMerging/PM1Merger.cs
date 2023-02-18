@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Pri.LongPath;
+using Directory = Pri.LongPath.Directory;
+using File = Pri.LongPath.File;
+using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.FileMerging
 {
@@ -41,7 +45,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Check that the original bmd exists
             if (!File.Exists(ogPath))
             {
-                Console.WriteLine($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed");
+                Utilities.ParallelLogger.Log($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed");
                 return;
             }
 

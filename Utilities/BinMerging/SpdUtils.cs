@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using AemulusModManager.Utilities;
+using Path = Pri.LongPath.Path;
+
 
 namespace AemulusModManager
 {

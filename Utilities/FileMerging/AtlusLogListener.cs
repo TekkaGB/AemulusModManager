@@ -17,7 +17,7 @@ namespace AemulusModManager.Utilities.FileMerging
         {
             // Ignore message script name conflicts as they're rarely a real problem
             if (!Regex.IsMatch(e.Message, "Compiler generated constant for MessageScript dialog .+ conflicts with another variable"))
-                Console.WriteLine($"[{e.Level.ToString().ToUpper()}] {e.Message}");
+                Utilities.ParallelLogger.Log($"[{e.Level.ToString().ToUpper()}] {e.Message}");
         }
     }
 }
