@@ -236,6 +236,45 @@ namespace AemulusModManager.Utilities.KT
             }
         }
 
+        public static void UpperAll(string modDir)
+        {
+            Utilities.ParallelLogger.Log($"[INFO] Attempting to rename all in {modDir} to uppercase for platform support.");
+            Stack<string> directoryStack = new Stack<string>();
+            directoryStack.Push(modDir);
+            while (directoryStack.Count > 0)
+            {
+                string currentDir = directoryStack.Pop();
+                if (Directory.Exists(currentDir))
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(currentDir);
+                    foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
+                    {
+                        string newName = subdir.FullName.ToUpper();
+                        if (newName != subdir.FullName)
+                        {
+                            Directory.Move(subdir.FullName, newName);
+                        }
+                        directoryStack.Push(newName);
+                    }
+                    foreach (FileInfo file in directoryInfo.GetFiles())
+                    {
+                        string name = Path.GetFileNameWithoutExtension(file.Name);
+                        string extension = Path.GetExtension(file.Name);
+
+                        string newName = Path.Combine(directoryInfo.FullName, name.ToUpper() + extension.ToUpper());
+                        if (newName != file.FullName)
+                        {
+                            File.Move(file.FullName, newName);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new DirectoryNotFoundException("Directory not found: " + currentDir);
+                }
+            }
+        }
+
         public static string Hash(string file)
         {
             string fileName = Path.GetFileNameWithoutExtension(file);

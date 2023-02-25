@@ -2704,7 +2704,10 @@ namespace AemulusModManager
                         Merger.Merge(packages, path);
                         Merger.Patch(path);
                     }
-
+                    if(game== "Persona 3 FES")
+                    {
+                        Merger.UpperAll(path);
+                    }
                     buildTimer.Stop();
                     Utilities.ParallelLogger.Log($"[INFO] Using output directory with length {modPath.Length}: {modPath}!");
                     Utilities.ParallelLogger.Log($"[INFO] Finished Building in {Math.Round((double)buildTimer.ElapsedMilliseconds / 1000, 2)}s!");
