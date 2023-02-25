@@ -41,7 +41,7 @@ namespace AemulusModManager.Utilities
         [Conditional("DEBUG")]
         public static void AddDebugInfo(string caller, int line, ref string message)
         {
-            if (line != -1) message = $"({caller}-{line}){message}
+            if (line != -1) message = $"({caller}-{line}){message}";
         }
 
         public static void Log(string message,
