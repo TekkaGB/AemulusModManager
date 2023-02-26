@@ -8,7 +8,7 @@ namespace AemulusModManager.Utilities
 {
     public static class ParallelLogger
     {
-        private const int FlushInterval = 10;
+        private const int FlushInterval = 100;
         private static readonly BlockingCollection<string> _Queue = new BlockingCollection<string>();
         private static readonly object _QueueLock = new object();
         private static bool _IsFlushing = false;
