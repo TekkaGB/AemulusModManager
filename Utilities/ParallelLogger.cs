@@ -8,7 +8,7 @@ namespace AemulusModManager.Utilities
 {
     public static class ParallelLogger
     {
-        private const int FlushInterval = 100;
+        private const int FlushInterval = 10;
         private static readonly BlockingCollection<string> _Queue = new BlockingCollection<string>();
         private static readonly object _QueueLock = new object();
         private static bool _IsFlushing = false;
@@ -25,11 +25,21 @@ namespace AemulusModManager.Utilities
 
             StringBuilder builder = new StringBuilder();
             int count = _Queue.Count;
+
+            string lastHeader = "[INFO]";
             for (int i = 0; i < count; i++)
             {
-                builder.AppendLine(_Queue.Take());
+                string next = _Queue.Take();
+                string checkHeader = next.Split(']')[0]; 
+                if (lastHeader != checkHeader)
+                {
+                    Console.Write(builder.ToString());
+                    builder.Clear();
+                    lastHeader = checkHeader;
+                }
+                builder.AppendLine($"[{DateTime.Now}]{next}");
             }
-            Console.WriteLine(builder.ToString());
+            Console.Write(builder.ToString());
             builder.Clear();
 
             lock (_QueueLock)
@@ -41,7 +51,8 @@ namespace AemulusModManager.Utilities
         [Conditional("DEBUG")]
         public static void AddDebugInfo(string caller, int line, ref string message)
         {
-            if (line != -1) message = $"({caller}-{line}){message}";
+            int offset = message.IndexOf(']');
+            if (line != -1) message = $"{message.Substring(0,offset)}]({caller}-{line}){message.Substring(offset+1)}";
         }
 
         public static void Log(string message,
