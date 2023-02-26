@@ -125,7 +125,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 if ((game == "Persona 5 Royal (PS4)" || game == "Persona 5 Royal (Switch)") && language != null && language != "English")
                     compiler.Encoding = AtlusEncoding.GetByName("P5R_EFIGS");
 
-                var inFile = File.Open(inFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+                var inFile = System.IO.File.Open(inFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 compiler.AddListener(logListener);
 
                 if (!compiler.TryCompile(inFile, out FlowScript flowScript))

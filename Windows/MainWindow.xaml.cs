@@ -172,28 +172,23 @@ namespace AemulusModManager
 
         void consoleWriter_WriteLineEvent(object sender, ConsoleWriterEventArgs e)
         {
-            string[] lines = ((string)e.Value).Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-            this.Dispatcher.Invoke(() =>
-            {
-                foreach (var text in lines)
-                {
-                    if (text.StartsWith("[INFO]"))
-                        ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", infoColor);
-                    else if (text.StartsWith("[WARNING]"))
-                        ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", warningColor);
-                    else if (text.StartsWith("[ERROR]"))
-                        ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", errorColor);
-                    else if (text.Length != 0)
-                        ConsoleOutput.AppendText($"[{DateTime.Now}] {text}\n", normalColor);
-                }
-            });
+            Console.Write(e.Value + "\n");
         }
 
         void consoleWriter_WriteEvent(object sender, ConsoleWriterEventArgs e)
         {
+            string text = (string)e.Value;
             this.Dispatcher.Invoke(() =>
             {
-                ConsoleOutput.AppendText(e.Value);
+                if (text.Contains("[INFO]"))
+                    ConsoleOutput.AppendText(text, infoColor);
+                else if (text.Contains("[WARNING]")) 
+                    ConsoleOutput.AppendText(text, warningColor);
+                else if (text.Contains("[ERROR]"))
+                    ConsoleOutput.AppendText(text, errorColor);
+                else
+                    ConsoleOutput.AppendText(text, normalColor);
+
             });
         }
 
