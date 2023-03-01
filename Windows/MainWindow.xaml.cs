@@ -1184,7 +1184,7 @@ namespace AemulusModManager
                     if (Path.GetFileName(launcherPath).Equals("pcsx2.exe", StringComparison.InvariantCultureIgnoreCase))
                     {
                         // Build the PCSX2 launch arguments based on what we've chosen/what's non-null
-                        startInfo.Arguments = "-nogui";
+                        startInfo.Arguments = "--nogui";
                         if (tempElfPath != null)
                         {
                             if (!FileIOWrapper.Exists(tempElfPath))
@@ -1206,6 +1206,7 @@ namespace AemulusModManager
                     }
                     else
                     {
+                        startInfo.Arguments = "-nogui";
                         if (tempElfPath != null)
                         {
                             if (!FileIOWrapper.Exists(tempElfPath))
