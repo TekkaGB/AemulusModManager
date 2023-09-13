@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
 using AemulusModManager.Utilities;
+using AemulusModManager.Utilities.AwbMerging;
 using AemulusModManager.Utilities.FileMerging;
 using Pri.LongPath;
 using Directory = Pri.LongPath.Directory;
@@ -211,7 +212,7 @@ namespace AemulusModManager
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                        if (AemIgnore != null && AemIgnore.Any(file.Contains))
+                        if ((AemIgnore != null && AemIgnore.Any(file.Contains)) || AwbMerger.AcbExists(Path.GetDirectoryName(ogBinPath)))
                             continue;
                         else if (game != "Persona 1 (PSP)" 
                             && (Path.GetExtension(file).ToLower() == ".bin"

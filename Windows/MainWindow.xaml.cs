@@ -1,4 +1,5 @@
 using AemulusModManager.Utilities;
+using AemulusModManager.Utilities.AwbMerging;
 using AemulusModManager.Utilities.FileMerging;
 using AemulusModManager.Utilities.KT;
 using AemulusModManager.Utilities.PackageUpdating;
@@ -2493,6 +2494,7 @@ namespace AemulusModManager
                             if (game == "Persona 3 FES" || game == "Persona 3 Portable")
                                 textures = config.p3fConfig.texturesPath;
                             binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
+                            AwbMerger.Merge(packages, game, path);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
