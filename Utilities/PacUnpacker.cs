@@ -17,6 +17,7 @@ using CriFsV2Lib.Definitions.Structs;
 using CriFsV2Lib.Definitions.Interfaces;
 using CriFsV2Lib.Definitions.Utilities;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using CriFsV2Lib.Encryption.Game;
 
 namespace AemulusModManager
 {
@@ -688,7 +689,7 @@ namespace AemulusModManager
             fileStream.Close();
 
             bool extractAll = fileList == null;
-            using var extractor = CriFsLib.Instance.CreateBatchExtractor<FileToExtract>(cpk);
+            using var extractor = CriFsLib.Instance.CreateBatchExtractor<FileToExtract>(cpk, P5RCrypto.DecryptionFunction);
             for (int x = 0; x < files.Length; x++)
             {
                 string filePath = string.IsNullOrEmpty(files[x].Directory) ? files[x].FileName : $@"{files[x].Directory}/{files[x].FileName}";

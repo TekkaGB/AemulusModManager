@@ -2924,6 +2924,7 @@ namespace AemulusModManager
                         {
                             ProcessStartInfo StartInformation = new ProcessStartInfo();
                             StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
+                            StartInformation.UseShellExecute = true;
                             Process process = Process.Start(StartInformation);
                             Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}\{row.path}.");
                         }
@@ -3530,6 +3531,7 @@ namespace AemulusModManager
                 {
                     ProcessStartInfo StartInformation = new ProcessStartInfo();
                     StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}";
+                    StartInformation.UseShellExecute = true;
                     Process process = Process.Start(StartInformation);
                     Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}.");
                 }

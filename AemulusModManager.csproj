@@ -18,7 +18,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
@@ -46,14 +46,15 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
-    <Title>$(AssemblyName)</Title>
+    <Title>Aemulus Package Manager</Title>
     <Description>Manage modding packages for Persona games</Description>
-    <Copyright>Copyright ©  2020-2021</Copyright>
-    <FileVersion>6.5.0.0</FileVersion>
+    <Copyright>Copyright © 2020-2021</Copyright>
+    <FileVersion></FileVersion>
     <Authors>Tekka</Authors>
     <Version>6.5.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion></AssemblyVersion>
     <Company></Company>
+    <Product>Aemulus Package Manager</Product>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
