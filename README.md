@@ -355,6 +355,10 @@ For reference, here's the section numbers in NAME.TBL in Persona 5:
 3. Repacks the edited .tbl files into init_free.bin or table.pac (unneccesary for Persona 3 FES).
 Deletes the temporarily extracted/edited tbl files.
 
+## Acb/Awb Merging
+
+Currently only for Q2 until filelists for unpacking base files can be updated. To support awb merging, simply make a folder with the awb's name (without extension) inside your package folder where the awb would go, then place your modded audio inside. The way these are merged is that Aemulus copies the original acb + awb into your build directory and unpacks it with [Sonic Audio Tools](https://github.com/blueskythlikesclouds/SonicAudioTools), copies the loose audio files into the resulting folder, then repacks the folder back into an acb/awb and deletes it. Note that the merging process assumes awbs will always come with an acb of the same name; if this isn't the case file an issue or a pr.
+
 ## Loadouts
 
 You can create loadouts per game by using the dropdown menu on the top left. Clicking Add new loadout... will create a new loadout with the option to copy over your current one. You can also right click to hide/unhide packages and use the eye button to actually hide/unhide them.
