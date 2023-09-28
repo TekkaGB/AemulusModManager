@@ -212,7 +212,7 @@ namespace AemulusModManager
                         string binPath = $@"{modDir}\{string.Join("\\", folders.ToArray())}";
                         string ogBinPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                        if ((AemIgnore != null && AemIgnore.Any(file.Contains)) || AwbMerger.AcbExists(Path.GetDirectoryName(ogBinPath)))
+                        if ((AemIgnore != null && AemIgnore.Any(file.Contains)) || AwbMerger.SoundArchiveExists(Path.GetDirectoryName(ogBinPath)))
                             continue;
                         else if (game != "Persona 1 (PSP)" 
                             && (Path.GetExtension(file).ToLower() == ".bin"
