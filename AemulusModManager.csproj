@@ -51,7 +51,7 @@
     <Copyright>Copyright © 2020-2021</Copyright>
     <FileVersion></FileVersion>
     <Authors>Tekka</Authors>
-    <Version>6.5.1.0</Version>
+    <Version>6.5.2.0</Version>
     <AssemblyVersion></AssemblyVersion>
     <Company></Company>
     <Product>Aemulus Package Manager</Product>
@@ -73,6 +73,12 @@
     <Content Include="Dependencies\SonicAudioTools\AcbEditor.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Update="Dependencies\AwbTools\AWB_repacker.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Dependencies\AwbTools\AWB_unpacker.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Dependencies\SpdPatcher\SPD Patcher.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
