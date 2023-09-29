@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using File = Pri.LongPath.File;
+//using File = Pri.LongPath.File;
 
 namespace AemulusModManager.Utilities
 {
@@ -18,9 +18,9 @@ namespace AemulusModManager.Utilities
         {
             File.Delete($@"\\?\{input}");
         }
-        public static void Move(string input, string output)
+        public static void Move(string input, string output, bool overwrite = false)
         {
-            File.Move($@"\\?\{input}", $@"\\?\{output}");
+            File.Move($@"\\?\{input}", $@"\\?\{output}", overwrite);
         }
         public static bool Exists(string input)
         {

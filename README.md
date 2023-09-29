@@ -357,7 +357,7 @@ Deletes the temporarily extracted/edited tbl files.
 
 ## ACB/AWB Merging
 
-Currently only for Q2 and P4G Vita until filelists for unpacking base files can be updated. To support merging, make a folder with the archive's name (without extension) inside your package folder where the archive would go, then place your modded audio inside. **For paired archives, create ONE folder with the name of the acb, and place your audio for both archives inside.** Awb audio must have *_streaming* at the end of its filename.
+Currently only for Q2 and P4G Vita until filelists for unpacking base files can be updated. To support merging, make a folder with the archive's name (without extension) inside your package folder where the archive would go, then place your modded audio inside. **For paired archives, create ONE folder with the name of the acb, and place your audio for both archives inside.** Awb audio should be named in the format *index_streaming.extension*.
 
 The way these are merged is that Aemulus copies the original acb and/or awb into your build directory and unpacks it, either with [Sonic Audio Tools](https://github.com/blueskythlikesclouds/SonicAudioTools) for lone acbs and paired archives, or [Awb Tools](https://steamcommunity.com/sharedfiles/filedetails/?id=632355452) for lone awbs. It then copies your modded audio into the resulting folder, repacks the folder back into an acb and/or awb and deletes the folder. Note that the merging process assumes paired awbs will always either have the same name as the acb or be named *acbname_streamfiles.awb*; if this isn't the case file an issue or a pr.
 

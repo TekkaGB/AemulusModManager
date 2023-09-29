@@ -1867,6 +1867,7 @@ namespace AemulusModManager
                         updatePackages();
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
                         StartInformation.FileName = path;
+                        StartInformation.UseShellExecute = true;
                         Process process = Process.Start(StartInformation);
                         Utilities.ParallelLogger.Log("[INFO] Opened new package folder.");
                     }

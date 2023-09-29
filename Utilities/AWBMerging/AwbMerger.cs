@@ -8,11 +8,11 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Globalization;
-using AemulusModManager.Utilities;
-using Pri.LongPath;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
-using Path = Pri.LongPath.Path;
+//using AemulusModManager.Utilities;
+//using Pri.LongPath;
+//using Directory = Pri.LongPath.Directory;
+//using File = Pri.LongPath.File;
+//using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.AwbMerging
 {
@@ -79,9 +79,9 @@ namespace AemulusModManager.Utilities.AwbMerging
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.UseShellExecute = false;
 
-            List<string> files = new List<string>(Directory.EnumerateFiles(args));
-            files.Sort();
-            startInfo.Arguments = string.Join(" ", files);
+            //List<string> files = new List<string>(Directory.EnumerateFiles(args));
+            //files.Sort();
+            startInfo.Arguments = $@"{args}\*";
 
             using (Process process = new Process())
             {
@@ -90,7 +90,7 @@ namespace AemulusModManager.Utilities.AwbMerging
                 process.WaitForExit();
             }
 
-            FileIOWrapper.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AwbTools\OUT.AWB", Path.ChangeExtension(args, ".awb"));
+            FileIOWrapper.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\OUT.AWB", Path.ChangeExtension(args, ".awb"), true);
         }
         public static bool AcbExists(string path)
         {
@@ -110,23 +110,23 @@ namespace AemulusModManager.Utilities.AwbMerging
             acbPath = Path.ChangeExtension(acbPath, ".acb");
             string ogAwbPath = Path.ChangeExtension(ogAcbPath, ".awb");
             string awbPath = Path.ChangeExtension(acbPath, ".awb");
+            Directory.CreateDirectory(Path.GetDirectoryName(acbPath));
 
-            if (FileIOWrapper.Exists(ogAwbPath))
+            if (AwbExists(ogAwbPath))
             {
                 Utilities.ParallelLogger.Log($"[INFO] Copying over {ogAwbPath} to use as base.");
                 FileIOWrapper.Copy(ogAwbPath, awbPath, true);
             }
-            else if (FileIOWrapper.Exists(ogAwbPath = $@"{Path.GetDirectoryName(ogAwbPath)}\{Path.GetFileNameWithoutExtension(ogAwbPath)}_streamfiles.awb"))
+            else if (AwbExists(ogAwbPath = $@"{Path.GetDirectoryName(ogAwbPath)}\{Path.GetFileNameWithoutExtension(ogAwbPath)}_streamfiles.awb"))
             {
-                awbPath = $@"{Path.GetDirectoryName(awbPath)}\{Path.GetFileNameWithoutExtension(ogAwbPath)}_streamfiles.awb";
+                awbPath = $@"{Path.GetDirectoryName(acbPath)}\{Path.GetFileName(ogAwbPath)}";
                 Utilities.ParallelLogger.Log($"[INFO] Copying over {ogAwbPath} to use as base.");
                 FileIOWrapper.Copy(ogAwbPath, awbPath, true);
             }
 
-            if (FileIOWrapper.Exists(ogAcbPath))
+            if (AcbExists(ogAcbPath))
             {
                 Utilities.ParallelLogger.Log($"[INFO] Copying over {ogAcbPath} to use as base.");
-                Directory.CreateDirectory(Path.GetDirectoryName(acbPath));
                 FileIOWrapper.Copy(ogAcbPath, acbPath, true);
                 Utilities.ParallelLogger.Log($"[INFO] Unpacking {acbPath}");
                 RunAcbEditor(acbPath);
