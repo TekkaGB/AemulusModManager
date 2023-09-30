@@ -35,6 +35,7 @@ namespace AemulusModManager
         {
             int end = Search(tmx, new byte[] { 0x00 });
             byte[] name = tmx.Take(end).ToArray();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             return Encoding.GetEncoding(932).GetString(name);
         }
 

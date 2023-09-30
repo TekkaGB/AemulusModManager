@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Globalization;
-//using AemulusModManager.Utilities;
+using AemulusModManager.Utilities;
 //using Pri.LongPath;
 //using Directory = Pri.LongPath.Directory;
 //using File = Pri.LongPath.File;
