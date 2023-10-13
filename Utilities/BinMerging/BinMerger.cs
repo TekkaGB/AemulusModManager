@@ -10,10 +10,10 @@ using System.Threading;
 using AemulusModManager.Utilities;
 using AemulusModManager.Utilities.AwbMerging;
 using AemulusModManager.Utilities.FileMerging;
-using Pri.LongPath;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
-using Path = Pri.LongPath.Path;
+//using Pri.LongPath;
+//using Directory = Pri.LongPath.Directory;
+//using File = Pri.LongPath.File;
+//using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager
 {
@@ -119,6 +119,8 @@ namespace AemulusModManager
                     }
                     else if (Directory.Exists(fileSystemEntry))
                     {
+                        foreach (string file in Directory.EnumerateFiles(fileSystemEntry, "*", SearchOption.AllDirectories))
+                            File.SetAttributes(file, FileAttributes.Normal);
                         Directory.Delete(fileSystemEntry, true);
                     }
                 }
@@ -128,10 +130,10 @@ namespace AemulusModManager
             }
             catch (Exception ex)
             {
-                Utilities.ParallelLogger.Log("An error occurred: " + ex.Message);
+                Utilities.ParallelLogger.Log("[ERROR] An error occurred: " + ex.Message);
             }
-        
-    }
+
+        }
 
         public static void Unpack(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
