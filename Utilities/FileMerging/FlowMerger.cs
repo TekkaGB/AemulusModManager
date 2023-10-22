@@ -69,7 +69,7 @@ namespace AemulusModManager.Utilities.FileMerging
                         }
                         else
                         {
-                            Utilities.ParallelLogger.Log($@"[WARNING] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed");
+                            Utilities.ParallelLogger.Log($@"[INFO] Cannot find {ogPath}. Make sure you have unpacked the game's files if merging is needed");
                             continue;
                         }
                     }

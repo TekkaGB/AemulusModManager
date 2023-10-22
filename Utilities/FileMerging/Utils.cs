@@ -137,6 +137,8 @@ namespace AemulusModManager.Utilities.FileMerging
 
                 try
                 {
+                    var outFileInfo = new FileInfo(outFile);
+                    while (IsFileLocked(outFileInfo)) ;
                     flowScript.ToFile(outFile);
                 }
                 catch (Exception e)
@@ -176,7 +178,23 @@ namespace AemulusModManager.Utilities.FileMerging
                 return false;
             }
         }
+        public static bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
 
+            //file is not locked
+            return false;
+        }
         // Gets the path for a file relative to the game's file system
         // e.g. field/script/...
         public static string GetRelativePath(string file, string dir, string game, bool removeData = true)
