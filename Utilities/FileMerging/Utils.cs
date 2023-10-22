@@ -107,6 +107,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
 
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 FlowFormatVersion format = compilerInfos[game].FlowFormatVersion;
 
                 // Persona 5 bmds have a different outformat than their bfs
