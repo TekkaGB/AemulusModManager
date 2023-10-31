@@ -250,7 +250,8 @@ namespace AemulusModManager.Utilities.KT
                         string newName = subdir.FullName.ToUpper();
                         if (newName != subdir.FullName)
                         {
-                            Directory.Move(subdir.FullName, newName);
+                            Directory.Move(subdir.FullName, $@"{subdir.FullName}temp");
+                            Directory.Move($@"{subdir.FullName}temp", newName);
                         }
                         directoryStack.Push(newName);
                     }
@@ -262,7 +263,8 @@ namespace AemulusModManager.Utilities.KT
                         string newName = Path.Combine(directoryInfo.FullName, name.ToUpper() + extension.ToUpper());
                         if (newName != file.FullName)
                         {
-                            File.Move(file.FullName, newName);
+                            File.Move(file.FullName, $@"{file.FullName}temp");
+                            File.Move($@"{file.FullName}temp", newName);
                         }
                     }
                 }
