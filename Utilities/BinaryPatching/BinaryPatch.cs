@@ -11,10 +11,6 @@ using System.Reflection;
 using AemulusModManager.Utilities.BinaryPatching;
 using AemulusModManager.Utilities;
 
-using Path = Pri.LongPath.Path;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
-
 namespace AemulusModManager
 {
     public static class BinaryPatcher
@@ -86,13 +82,13 @@ namespace AemulusModManager
 
                             var outputFile = $@"{modDir}\{p4gArchive}{patch.file}";
                             // Copy over original file
-                            if (!FileIOWrapper.Exists(outputFile))
+                            if (!File.Exists(outputFile))
                             {
                                 var originalFile = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{p4gArchive}{patch.file}";
-                                if (FileIOWrapper.Exists(originalFile))
+                                if (File.Exists(originalFile))
                                 {
                                     Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
-                                    FileIOWrapper.Copy(originalFile, outputFile, true);
+                                    File.Copy(originalFile, outputFile, true);
                                 }
                                 else
                                 {
@@ -121,7 +117,7 @@ namespace AemulusModManager
                                 handled = false;
                                 continue;
                             }
-                            var fileBytes = FileIOWrapper.ReadAllBytes(outputFile).ToList();
+                            var fileBytes = File.ReadAllBytes(outputFile).ToList();
                             // Add null bytes if offset is greater than count
                             if ((int)patch.offset > fileBytes.Count)
                             {
@@ -138,7 +134,7 @@ namespace AemulusModManager
                             else
                                 fileBytes.RemoveRange((int)patch.offset, data.Length);
                             fileBytes.InsertRange((int)patch.offset, data);
-                            FileIOWrapper.WriteAllBytes(outputFile, fileBytes.ToArray());
+                            File.WriteAllBytes(outputFile, fileBytes.ToArray());
                             Utilities.ParallelLogger.Log($"[INFO] Patched {patch.file} with {Path.GetFileName(t)}");
                         }
                     }

@@ -4,10 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Pri.LongPath;
-using Directory = Pri.LongPath.Directory;
-using Path = Pri.LongPath.Path;
-using File = Pri.LongPath.File;
 
 namespace AemulusModManager.Utilities.FileMerging
 {
@@ -66,7 +62,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Make a copy of the unmerged bmd (.bmd.back)
             try
             {
-                FileIOWrapper.Copy(bmds[1], bmds[1] + ".back", true);
+                File.Copy(bmds[1], bmds[1] + ".back", true);
             }
             catch (Exception e)
             {

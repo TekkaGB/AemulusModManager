@@ -19,11 +19,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
-using Pri.LongPath;
-using Path = Pri.LongPath.Path;
-using Directory = Pri.LongPath.Directory;
-using DirectoryInfo = Pri.LongPath.DirectoryInfo;
-using File = Pri.LongPath.File;
 
 namespace AemulusModManager
 {
@@ -544,7 +539,7 @@ namespace AemulusModManager
                     Directory.CreateDirectory($@"{assemblyLocation}\Downloads");
                 }
                 // Download the file if it doesn't already exist
-                if (!FileIOWrapper.Exists($@"{assemblyLocation}\Downloads\{fileName}"))
+                if (!File.Exists($@"{assemblyLocation}\Downloads\{fileName}"))
                 {
                     progressBox = new UpdateProgressBox(cancellationToken);
                     progressBox.progressBar.Value = 0;
@@ -572,7 +567,7 @@ namespace AemulusModManager
             catch (OperationCanceledException)
             {
                 // Remove the file is it will be a partially downloaded one and close up
-                FileIOWrapper.Delete(@$"Downloads\{fileName}");
+                File.Delete(@$"Downloads\{fileName}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -621,16 +616,16 @@ namespace AemulusModManager
                 }
                 Utilities.ParallelLogger.Log($"[INFO] Finished downloading {fileName}");
                 // Rename the file
-                if (!FileIOWrapper.Exists($@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z"))
+                if (!File.Exists($@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z"))
                 {
-                    FileIOWrapper.Move($@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", $@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z");
+                    File.Move($@"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}", $@"{assemblyLocation}\Downloads\AemulusUpdate\{version}.7z");
                 }
                 progressBox.Close();
             }
             catch (OperationCanceledException)
             {
                 // Remove the file is it will be a partially downloaded one and close up
-                FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}");
+                File.Delete(@$"{assemblyLocation}\Downloads\AemulusUpdate\{fileName}");
                 if (progressBox != null)
                 {
                     progressBox.finished = true;
@@ -657,7 +652,7 @@ namespace AemulusModManager
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = true;
                 startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-                if (!FileIOWrapper.Exists(startInfo.FileName))
+                if (!File.Exists(startInfo.FileName))
                 {
                     MessageBox.Show($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
@@ -691,10 +686,10 @@ namespace AemulusModManager
                     Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
                     foreach (var xml in packageSetup)
                     {
-                        FileIOWrapper.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
+                        File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
                     }
                 }
-                FileIOWrapper.Delete(@$"{assemblyLocation}\Downloads\{file}");
+                File.Delete(@$"{assemblyLocation}\Downloads\{file}");
             }
             else
             {
@@ -716,9 +711,9 @@ namespace AemulusModManager
                 foreach (var file in folder)
                 {
                     var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
-                    if (FileIOWrapper.Exists(targetFile)) 
-                        FileIOWrapper.Delete(targetFile);
-                    FileIOWrapper.Move(file, targetFile);
+                    if (File.Exists(targetFile)) 
+                        File.Delete(targetFile);
+                    File.Move(file, targetFile);
                 }
             }
             Directory.Delete(source, true);

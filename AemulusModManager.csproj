@@ -512,9 +512,6 @@
     <Content Include="Dependencies\SonicAudioTools\AcbEditor.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Dependencies\SonicAudioTools\AcbEditor.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Dependencies\SonicAudioTools\at3plusdecoder.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -525,9 +522,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Dependencies\SonicAudioTools\SonicAudioLib.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\SonicAudioTools\SonicAudioLib.pdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Dependencies\SonicAudioTools\vgmstream.dll">
@@ -669,7 +663,6 @@
     <PackageReference Include="NVorbis" Version="0.10.3" />
     <PackageReference Include="Octokit" Version="0.49.0" />
     <PackageReference Include="Onova" Version="2.6.2" />
-    <PackageReference Include="Pri.LongPath" Version="2.0.53" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.14" />
     <PackageReference Include="Vlc.DotNet.Core" Version="3.1.0" />

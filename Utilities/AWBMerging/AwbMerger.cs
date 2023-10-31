@@ -9,10 +9,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Globalization;
 using AemulusModManager.Utilities;
-//using Pri.LongPath;
-//using Directory = Pri.LongPath.Directory;
-//using File = Pri.LongPath.File;
-//using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.AwbMerging
 {
@@ -23,7 +19,7 @@ namespace AemulusModManager.Utilities.AwbMerging
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\SonicAudioTools\AcbEditor.exe";
-            if (!FileIOWrapper.Exists(startInfo.FileName))
+            if (!File.Exists(startInfo.FileName))
             {
                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -43,7 +39,7 @@ namespace AemulusModManager.Utilities.AwbMerging
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AwbTools\AWB_unpacker.exe";
-            if (!FileIOWrapper.Exists(startInfo.FileName))
+            if (!File.Exists(startInfo.FileName))
             {
                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -63,7 +59,7 @@ namespace AemulusModManager.Utilities.AwbMerging
 
             List<string> files = new List<string>(Directory.EnumerateFiles($@"{args}_extracted_files"));
             foreach(var file in files)
-                FileIOWrapper.Move(file, $@"{awbPath}\{Convert.ToString(int.Parse(Path.GetFileNameWithoutExtension(file), NumberStyles.HexNumber)).PadLeft(5, '0')}_streaming{extension}");
+                File.Move(file, $@"{awbPath}\{Convert.ToString(int.Parse(Path.GetFileNameWithoutExtension(file), NumberStyles.HexNumber)).PadLeft(5, '0')}_streaming{extension}");
             Directory.Delete($@"{args}_extracted_files", true);
         }
         private static void RunAwbRepacker(string args)
@@ -71,7 +67,7 @@ namespace AemulusModManager.Utilities.AwbMerging
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\AwbTools\AWB_repacker.exe";
-            if (!FileIOWrapper.Exists(startInfo.FileName))
+            if (!File.Exists(startInfo.FileName))
             {
                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -90,15 +86,15 @@ namespace AemulusModManager.Utilities.AwbMerging
                 process.WaitForExit();
             }
 
-            FileIOWrapper.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\OUT.AWB", Path.ChangeExtension(args, ".awb"), true);
+            File.Move($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\OUT.AWB", Path.ChangeExtension(args, ".awb"), true);
         }
         public static bool AcbExists(string path)
         {
-            return FileIOWrapper.Exists(Path.ChangeExtension(path, ".acb"));
+            return File.Exists(Path.ChangeExtension(path, ".acb"));
         }
         public static bool AwbExists(string path)
         {
-            return FileIOWrapper.Exists(Path.ChangeExtension(path, ".awb"));
+            return File.Exists(Path.ChangeExtension(path, ".awb"));
         }
         public static bool SoundArchiveExists(string path)
         {
@@ -115,19 +111,19 @@ namespace AemulusModManager.Utilities.AwbMerging
             if (AwbExists(ogAwbPath))
             {
                 Utilities.ParallelLogger.Log($"[INFO] Copying over {ogAwbPath} to use as base.");
-                FileIOWrapper.Copy(ogAwbPath, awbPath, true);
+                File.Copy(ogAwbPath, awbPath, true);
             }
             else if (AwbExists(ogAwbPath = $@"{Path.GetDirectoryName(ogAwbPath)}\{Path.GetFileNameWithoutExtension(ogAwbPath)}_streamfiles.awb"))
             {
                 awbPath = $@"{Path.GetDirectoryName(acbPath)}\{Path.GetFileName(ogAwbPath)}";
                 Utilities.ParallelLogger.Log($"[INFO] Copying over {ogAwbPath} to use as base.");
-                FileIOWrapper.Copy(ogAwbPath, awbPath, true);
+                File.Copy(ogAwbPath, awbPath, true);
             }
 
             if (AcbExists(ogAcbPath))
             {
                 Utilities.ParallelLogger.Log($"[INFO] Copying over {ogAcbPath} to use as base.");
-                FileIOWrapper.Copy(ogAcbPath, acbPath, true);
+                File.Copy(ogAcbPath, acbPath, true);
                 Utilities.ParallelLogger.Log($"[INFO] Unpacking {acbPath}");
                 RunAcbEditor(acbPath);
             }
@@ -143,7 +139,7 @@ namespace AemulusModManager.Utilities.AwbMerging
             foreach(string mod in ModList)
             {
                 List<string> directories = new List<string>(Directory.EnumerateDirectories(mod, "*", SearchOption.AllDirectories));
-                string[] AemIgnore = FileIOWrapper.Exists($@"{mod}\Ignore.aem") ? FileIOWrapper.ReadAllLines($@"{mod}\Ignore.aem") : null;
+                string[] AemIgnore = File.Exists($@"{mod}\Ignore.aem") ? File.ReadAllLines($@"{mod}\Ignore.aem") : null;
 
                 foreach (string dir in directories)
                 {
@@ -167,7 +163,7 @@ namespace AemulusModManager.Utilities.AwbMerging
                                 acbs.Add(acbPath);
                             }
                             string fileName = Path.GetFileNameWithoutExtension(file).IndexOf('_') == -1 ? $@"{Path.GetFileNameWithoutExtension(file).PadLeft(5, '0')}{Path.GetExtension(file)}" : $@"{Path.GetFileName(file).Substring(0, Path.GetFileName(file).IndexOf('_')).PadLeft(5, '0')}_streaming{Path.GetExtension(file)}";
-                            FileIOWrapper.Copy(file, $@"{acbPath}\{fileName}", true);
+                            File.Copy(file, $@"{acbPath}\{fileName}", true);
                             Utilities.ParallelLogger.Log($"[INFO] Copying over {file} to {acbPath}");
                         }
                     }

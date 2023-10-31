@@ -10,10 +10,6 @@ using System.Threading;
 using AemulusModManager.Utilities;
 using AemulusModManager.Utilities.AwbMerging;
 using AemulusModManager.Utilities.FileMerging;
-//using Pri.LongPath;
-//using Directory = Pri.LongPath.Directory;
-//using File = Pri.LongPath.File;
-//using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager
 {
@@ -137,7 +133,7 @@ namespace AemulusModManager
 
         public static void Unpack(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
-            if (!FileIOWrapper.Exists(exePath))
+            if (!File.Exists(exePath))
             {
                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {exePath}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -146,11 +142,11 @@ namespace AemulusModManager
             // Copy over base PATCH1 file
             if (game == "Persona 5 Royal (Switch)")
             {
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM"))
                 {
                     Utilities.ParallelLogger.Log($"[INFO] Copying over base PATCH1 file");
                     Directory.CreateDirectory($@"{modDir}\PATCH1\MOVIE");
-                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM", $@"{modDir}\PATCH1\MOVIE\MOV000.USM", true);
+                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM", $@"{modDir}\PATCH1\MOVIE\MOV000.USM", true);
                 }
                 else
                     Utilities.ParallelLogger.Log($@"[WARNING] {Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\PATCH1\MOVIE\MOV000.USM not found, try unpacking base files again");
@@ -164,7 +160,7 @@ namespace AemulusModManager
                 }
 
                 // Run prebuild.bat
-                if (FileIOWrapper.Exists($@"{mod}\prebuild.bat") && new Pri.LongPath.FileInfo($@"{mod}\prebuild.bat").Length > 0)
+                if (File.Exists($@"{mod}\prebuild.bat") && new FileInfo($@"{mod}\prebuild.bat").Length > 0)
                 {
                     Utilities.ParallelLogger.Log($@"[INFO] Running {mod}\prebuild.bat...");
 
@@ -188,7 +184,7 @@ namespace AemulusModManager
 
                 List<string> modList = getModList(mod);
 
-                string[] AemIgnore = FileIOWrapper.Exists($@"{mod}\Ignore.aem") ? FileIOWrapper.ReadAllLines($@"{mod}\Ignore.aem") : null;
+                string[] AemIgnore = File.Exists($@"{mod}\Ignore.aem") ? File.ReadAllLines($@"{mod}\Ignore.aem") : null;
                 // Copy and overwrite everything thats not a bin
                 foreach (var file in Directory.GetFiles(mod, "*", SearchOption.AllDirectories))
                 {
@@ -227,7 +223,7 @@ namespace AemulusModManager
                             || Path.GetExtension(file).ToLower() == ".gsd"
                             || Path.GetExtension(file).ToLower() == ".tpc"))
                         {
-                            if (FileIOWrapper.Exists(ogBinPath) && modList.Count > 0)
+                            if (File.Exists(ogBinPath) && modList.Count > 0)
                             {
                                 // Check if mods.aem contains the modified parts of a bin
                                 if (!modList.Exists(x => x.Contains($@"{Path.GetDirectoryName(string.Join("\\", folders.ToArray()))}\{Path.GetFileNameWithoutExtension(binPath)}\")))
@@ -236,7 +232,7 @@ namespace AemulusModManager
                                     if (useCpk)
                                         binPath = Regex.Replace(binPath, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
                                     Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                                    FileIOWrapper.Copy(file, binPath, true);
+                                    File.Copy(file, binPath, true);
                                     continue;
                                 }
 
@@ -281,13 +277,13 @@ namespace AemulusModManager
                                                 foreach (var ddsFile in ddsFiles)
                                                 {
                                                     string spdFolder = Path.ChangeExtension(f2, null);
-                                                    FileIOWrapper.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
+                                                    File.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
                                                 }
                                                 List<SPDKey> spdKeys = spdUtils.getSPDKeys(f2);
                                                 foreach (var spdKey in spdKeys)
                                                 {
                                                     string spdFolder = Path.ChangeExtension(f2, null);
-                                                    FileIOWrapper.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
+                                                    File.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                                 }
                                             }
                                             else if (Path.GetExtension(f2) == ".spr" && game != "Persona Q2")
@@ -299,7 +295,7 @@ namespace AemulusModManager
                                                 foreach (string name in tmxNames.Keys)
                                                 {
                                                     byte[] tmx = sprUtils.extractTmx(f2, name);
-                                                    FileIOWrapper.WriteAllBytes($@"{sprFolder2}\{name}.tmx", tmx);
+                                                    File.WriteAllBytes($@"{sprFolder2}\{name}.tmx", tmx);
                                                 }
                                             }
                                         }
@@ -311,13 +307,13 @@ namespace AemulusModManager
                                         foreach (var ddsFile in ddsFiles)
                                         {
                                             string spdFolder = Path.ChangeExtension(f, null);
-                                            FileIOWrapper.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
+                                            File.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
                                         }
                                         List<SPDKey> spdKeys = spdUtils.getSPDKeys(f);
                                         foreach (var spdKey in spdKeys)
                                         {
                                             string spdFolder = Path.ChangeExtension(f, null);
-                                            FileIOWrapper.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
+                                            File.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                         }
                                     }
                                     else if (Path.GetExtension(f) == ".spr" && game != "Persona Q2")
@@ -329,7 +325,7 @@ namespace AemulusModManager
                                         foreach (string name in tmxNames.Keys)
                                         {
                                             byte[] tmx = sprUtils.extractTmx(f, name);
-                                            FileIOWrapper.WriteAllBytes($@"{sprFolder}\{name}.tmx", tmx);
+                                            File.WriteAllBytes($@"{sprFolder}\{name}.tmx", tmx);
                                         }
                                     }
 
@@ -343,13 +339,13 @@ namespace AemulusModManager
                                     binPath = Regex.Replace(binPath, "movie0000[0-2]", "movie");
                                 }
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                                FileIOWrapper.Copy(file, binPath, true);
+                                File.Copy(file, binPath, true);
                                 Utilities.ParallelLogger.Log($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
                         else if (game != "Persona 1 (PSP)" && Path.GetExtension(file).ToLower() == ".spd")
                         {
-                            if (FileIOWrapper.Exists(ogBinPath) && modList.Count > 0)
+                            if (File.Exists(ogBinPath) && modList.Count > 0)
                             {
                                 Utilities.ParallelLogger.Log($@"[INFO] Unpacking {file}...");
                                 Directory.CreateDirectory(Path.ChangeExtension(file, null));
@@ -357,19 +353,19 @@ namespace AemulusModManager
                                 foreach (var ddsFile in ddsFiles)
                                 {
                                     string spdFolder = Path.ChangeExtension(file, null);
-                                    FileIOWrapper.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
+                                    File.WriteAllBytes($@"{spdFolder}\{ddsFile.name}.dds", ddsFile.file);
                                 }
                                 List<SPDKey> spdKeys = spdUtils.getSPDKeys(file);
                                 foreach (var spdKey in spdKeys)
                                 {
                                     string spdFolder = Path.ChangeExtension(file, null);
-                                    FileIOWrapper.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
+                                    File.WriteAllBytes($@"{spdFolder}\{spdKey.id}.spdspr", spdKey.file);
                                 }
                             }
                             else
                             {
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                                FileIOWrapper.Copy(file, binPath, true);
+                                File.Copy(file, binPath, true);
                                 Utilities.ParallelLogger.Log($"[INFO] Copying over {file} to {binPath}");
                             }
                         }
@@ -381,7 +377,7 @@ namespace AemulusModManager
                                 binPath = Regex.Replace(binPath, "movie0000[0-2]", "movie");
                             }
                             Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                            FileIOWrapper.Copy(file, binPath, true);
+                            File.Copy(file, binPath, true);
                             Utilities.ParallelLogger.Log($"[INFO] Copying over {file} to {binPath}");
                         }
                     }
@@ -390,7 +386,7 @@ namespace AemulusModManager
                 // Copy over loose files specified by mods.aem
                 foreach (var m in modList)
                 {
-                    if (FileIOWrapper.Exists($@"{mod}\{m}"))
+                    if (File.Exists($@"{mod}\{m}"))
                     {
                         string dir = $@"{modDir}\{m}";
                         if (useCpk)
@@ -399,7 +395,7 @@ namespace AemulusModManager
                             dir = Regex.Replace(dir, "movie0000[0-2]", "movie");
                         }
                         Directory.CreateDirectory(Path.GetDirectoryName(dir));
-                        FileIOWrapper.Copy($@"{mod}\{m}", dir, true);
+                        File.Copy($@"{mod}\{m}", dir, true);
                         Utilities.ParallelLogger.Log($@"[INFO] Copying over {mod}\{m} as specified by mods.aem");
                     }
                 }
@@ -428,23 +424,23 @@ namespace AemulusModManager
                         }
                     }
 
-                    if (FileIOWrapper.Exists($@"{mod}\battle\result.pac") && Directory.Exists($@"{mod}\battle\result\result"))
+                    if (File.Exists($@"{mod}\battle\result.pac") && Directory.Exists($@"{mod}\battle\result\result"))
                     {
                         foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
                         {
                             if (Path.GetExtension(f).ToLower() == ".gfs" || Path.GetExtension(f).ToLower() == ".gmd")
-                                FileIOWrapper.Delete(f);
+                                File.Delete(f);
                         }
                     }
-                    if (FileIOWrapper.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result\result"))
+                    if (File.Exists($@"{mod}\battle\result\result.spd") && Directory.Exists($@"{mod}\battle\result\result"))
                     {
                         foreach (var f in Directory.GetFiles($@"{mod}\battle\result\result"))
                         {
                             if (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr")
-                                FileIOWrapper.Delete(f);
+                                File.Delete(f);
                         }
                     }
-                    if (FileIOWrapper.Exists($@"{mod}\field\panel.bin") && Directory.Exists($@"{mod}\field\panel\panel"))
+                    if (File.Exists($@"{mod}\field\panel.bin") && Directory.Exists($@"{mod}\field\panel\panel"))
                         DeleteDirectory($@"{mod}\field\panel\panel");
                     if (Directory.Exists($@"{mod}\battle\result\result") && !Directory.GetFiles($@"{mod}\battle\result\result", "*", SearchOption.AllDirectories).Any())
                         DeleteDirectory($@"{mod}\battle\result\result");
@@ -452,12 +448,12 @@ namespace AemulusModManager
                         DeleteDirectory($@"{mod}\battle\result");
                     if (Directory.Exists($@"{mod}\field\panel") && !Directory.EnumerateFileSystemEntries($@"{mod}\field\panel").Any())
                         DeleteDirectory($@"{mod}\field\panel");
-                    if ((FileIOWrapper.Exists($@"{mod}\minigame\crossword.pak") || FileIOWrapper.Exists($@"{mod}\minigame\crossword.spd")) && Directory.Exists($@"{mod}\minigame\crossword"))
+                    if ((File.Exists($@"{mod}\minigame\crossword.pak") || File.Exists($@"{mod}\minigame\crossword.spd")) && Directory.Exists($@"{mod}\minigame\crossword"))
                     {
                         foreach (var f in Directory.GetFiles($@"{mod}\minigame\crossword"))
                         {
                             if (Path.GetExtension(f).ToLower() != ".pak")
-                                FileIOWrapper.Delete(f);
+                                File.Delete(f);
                         }
                     }
                     if (Directory.Exists($@"{mod}\minigame\crossword") && !Directory.GetFiles($@"{mod}\minigame\crossword", "*", SearchOption.AllDirectories).Any())
@@ -478,7 +474,7 @@ namespace AemulusModManager
                 folders = folders.Skip(idx).ToList();
                 string ogPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{string.Join("\\", folders.ToArray())}";
 
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".bin")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".bin")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".bin")) && !File.Exists(Path.ChangeExtension(d, ".bin")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".bin");
                     if (Path.GetFileName(ogPath) == "panel.bin")
@@ -489,44 +485,44 @@ namespace AemulusModManager
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     if (!Directory.Exists(Path.GetDirectoryName(d)))
                         Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".abin")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".abin")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".abin")) && !File.Exists(Path.ChangeExtension(d, ".abin")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".abin");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".fpc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".fpc")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".fpc")) && !File.Exists(Path.ChangeExtension(d, ".fpc")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".fpc");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".gsd")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".gsd")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".gsd")) && !File.Exists(Path.ChangeExtension(d, ".gsd")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".gsd");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".tpc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".tpc")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".tpc")) && !File.Exists(Path.ChangeExtension(d, ".tpc")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".tpc");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".arc")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".arc")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".arc")) && !File.Exists(Path.ChangeExtension(d, ".arc")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".arc");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pac")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pac")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".pac")) && !File.Exists(Path.ChangeExtension(d, ".pac")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".pac");
                     if (Path.GetFileName(ogPath) == "result.pac")
@@ -539,9 +535,9 @@ namespace AemulusModManager
                     }
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pak")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pak")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".pak")) && !File.Exists(Path.ChangeExtension(d, ".pak")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".pak");
                     if (Path.GetFileName(ogPath) == "crossword.pak")
@@ -554,23 +550,23 @@ namespace AemulusModManager
                     }
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".pack")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".pack")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".pack")) && !File.Exists(Path.ChangeExtension(d, ".pack")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".pack");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (game != "Persona Q2" && FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spr")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spr")))
+                if (game != "Persona Q2" && File.Exists(Path.ChangeExtension(ogPath, ".spr")) && !File.Exists(Path.ChangeExtension(d, ".spr")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".spr");
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
-                if (FileIOWrapper.Exists(Path.ChangeExtension(ogPath, ".spd")) && !FileIOWrapper.Exists(Path.ChangeExtension(d, ".spd")))
+                if (File.Exists(Path.ChangeExtension(ogPath, ".spd")) && !File.Exists(Path.ChangeExtension(d, ".spd")))
                 {
                     ogPath = Path.ChangeExtension(ogPath, ".spd");
                     if (Path.GetFileName(ogPath) == "result.spd")
@@ -587,7 +583,7 @@ namespace AemulusModManager
                     }
                     Utilities.ParallelLogger.Log($"[INFO] Copying over {ogPath} to use as base.");
                     Directory.CreateDirectory(Path.GetDirectoryName(d));
-                    FileIOWrapper.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
+                    File.Copy(ogPath, $@"{Path.GetDirectoryName(d)}\{Path.GetFileName(ogPath)}");
                 }
             }
 
@@ -770,8 +766,8 @@ namespace AemulusModManager
                                 else if (Path.GetExtension(longestPrefix).ToLower() == ".spd" && (Path.GetExtension(f).ToLower() == ".dds" || Path.GetExtension(f).ToLower() == ".spdspr"))
                                 {
                                     string spdPath = $@"{temp}\{longestPrefix.Replace("/", "\\")}";
-                                    if (FileIOWrapper.Exists(spdPath.Replace("_temp", String.Empty)))
-                                        FileIOWrapper.Copy(spdPath.Replace("_temp", String.Empty), spdPath, true);
+                                    if (File.Exists(spdPath.Replace("_temp", String.Empty)))
+                                        File.Copy(spdPath.Replace("_temp", String.Empty), spdPath, true);
                                     if (Path.GetExtension(f).ToLower() == ".dds")
                                         spdUtils.replaceDDS(spdPath, f);
                                     else
@@ -857,7 +853,7 @@ namespace AemulusModManager
 
             // Hardcoded cases TODO: reimplement extracted folders to have file extensions as part of the name, although would need to refactor every aemulus mod
 
-            if (FileIOWrapper.Exists($@"{modDir}\battle\result.pac") && !FileIOWrapper.Exists($@"{modDir}\battle\result\result.spd") && Directory.Exists($@"{modDir}\battle\result"))
+            if (File.Exists($@"{modDir}\battle\result.pac") && !File.Exists($@"{modDir}\battle\result\result.spd") && Directory.Exists($@"{modDir}\battle\result"))
                 DeleteDirectory($@"{modDir}\battle\result");
             if (Directory.Exists($@"{modDir}\battle\result\result"))
                 DeleteDirectory($@"{modDir}\battle\result\result");
@@ -874,7 +870,7 @@ namespace AemulusModManager
             {
                 foreach (var file in Directory.GetFiles($@"{modDir}\minigame\crossword", "*", SearchOption.AllDirectories))
                     if (Path.GetExtension(file).ToLower() != ".pak")
-                        FileIOWrapper.Delete(file);
+                        File.Delete(file);
             }
             if (Directory.Exists($@"{modDir}\minigame\crossword") && !Directory.EnumerateFileSystemEntries($@"{modDir}\minigame\crossword").Any())
                 DeleteDirectory($@"{modDir}\minigame\crossword");
@@ -891,29 +887,29 @@ namespace AemulusModManager
             {
                 string path = Path.GetDirectoryName(modDir);
                 // Copy original cpk back if different
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && FileIOWrapper.Exists($@"{path}\{cpkLang}")
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") && File.Exists($@"{path}\{cpkLang}")
                     && GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
                 {
                     Utilities.ParallelLogger.Log($@"[INFO] Reverting {cpkLang} back to original");
-                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
+                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
                 }
                 // Copy original cpk back if different
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") && FileIOWrapper.Exists($@"{path}\{cpkLang}")
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") && File.Exists($@"{path}\{cpkLang}")
                     && GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
                 {
                     Utilities.ParallelLogger.Log($@"[INFO] Reverting movie.cpk back to original");
-                    FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
+                    File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
                 }
                 // Delete modified pacs
-                if (FileIOWrapper.Exists($@"{path}\data00007.pac"))
+                if (File.Exists($@"{path}\data00007.pac"))
                 {
                     Utilities.ParallelLogger.Log($"[INFO] Deleting data00007.pac");
-                    FileIOWrapper.Delete($@"{path}\data00007.pac");
+                    File.Delete($@"{path}\data00007.pac");
                 }
-                if (FileIOWrapper.Exists($@"{path}\movie00003.pac"))
+                if (File.Exists($@"{path}\movie00003.pac"))
                 {
                     Utilities.ParallelLogger.Log($"[INFO] Deleting movie00003.pac");
-                    FileIOWrapper.Delete($@"{path}\movie00003.pac");
+                    File.Delete($@"{path}\movie00003.pac");
                 }
             }
 
@@ -929,7 +925,7 @@ namespace AemulusModManager
                 foreach (var file in Directory.GetFiles(modDir))
                 {
                     if (Path.GetExtension(file).ToLower() != ".elf" && Path.GetExtension(file).ToLower() != ".iso")
-                        FileIOWrapper.Delete(file);
+                        File.Delete(file);
                 }
             }
             else
@@ -964,7 +960,7 @@ namespace AemulusModManager
             // get md5 checksum of file
             using (var md5 = MD5.Create())
             {
-                using (var stream = FileIOWrapper.OpenRead(filePath))
+                using (var stream = File.OpenRead(filePath))
                 {
                     // get hash
                     byte[] currentFileSum = md5.ComputeHash(stream);
@@ -981,7 +977,7 @@ namespace AemulusModManager
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\CpkMakeC\cpkmakec.exe";
-            if (!FileIOWrapper.Exists(startInfo.FileName))
+            if (!File.Exists(startInfo.FileName))
             {
                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -1056,7 +1052,7 @@ namespace AemulusModManager
                     folders = folders.Skip(idx + 1).ToList();
                     string binPath = $@"{texturesDir}\{string.Join("\\", folders.ToArray())}";
                     Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                    FileIOWrapper.Copy(texture, binPath, true);
+                    File.Copy(texture, binPath, true);
                     Utilities.ParallelLogger.Log($"[INFO] Copied over {Path.GetFileName(texture)} to {binPath}");
                 }
             }

@@ -5,9 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
-using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
 {
@@ -22,7 +19,7 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.FileName = @$"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-            if (!FileIOWrapper.Exists(startInfo.FileName))
+            if (!File.Exists(startInfo.FileName))
             {
                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                 return;
@@ -42,7 +39,7 @@ namespace AemulusModManager.Utilities.PackageUpdating.DownloadUtils
             }
             // TODO Check if it actually succeeded (by reading the command output I guess)
             Utilities.ParallelLogger.Log($"[INFO] Done Extracting {sourceFilePath}");
-            FileIOWrapper.Delete(@$"{sourceFilePath}");
+            File.Delete(@$"{sourceFilePath}");
             Utilities.ParallelLogger.Log(@$"[INFO] Deleted {sourceFilePath}");
             // Move the folders to the right place
             string parentPath = Directory.GetParent(destDirPath).FullName;

@@ -14,11 +14,6 @@ using AemulusModManager.Windows;
 using System.Threading;
 using AemulusModManager.Utilities.PackageUpdating;
 using System.Diagnostics;
-using Pri.LongPath;
-using Path = Pri.LongPath.Path;
-using Directory = Pri.LongPath.Directory;
-using DirectoryInfo = Pri.LongPath.DirectoryInfo;
-using File = Pri.LongPath.File;
 
 namespace AemulusModManager.Utilities
 {
@@ -97,8 +92,8 @@ namespace AemulusModManager.Utilities
                     {
                         await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", gameName);
                         if (File.Exists($@"{assemblyLocation}\refresh.aem"))
-                            FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
-                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", gameName);
+                            File.Delete($@"{assemblyLocation}\refresh.aem");
+                        File.WriteAllText($@"{assemblyLocation}\refresh.aem", gameName);
                     }
                 }
             }
@@ -136,8 +131,8 @@ namespace AemulusModManager.Utilities
                         }
                         await ExtractFile($@"{assemblyLocation}\Downloads\{fileName}", gameName);
                         if (File.Exists($@"{assemblyLocation}\refresh.aem"))
-                            FileIOWrapper.Delete($@"{assemblyLocation}\refresh.aem");
-                        FileIOWrapper.WriteAllText($@"{assemblyLocation}\refresh.aem", gameName);
+                            File.Delete($@"{assemblyLocation}\refresh.aem");
+                        File.WriteAllText($@"{assemblyLocation}\refresh.aem", gameName);
                     }
                 }
             }
@@ -262,7 +257,7 @@ namespace AemulusModManager.Utilities
                     ProcessStartInfo startInfo = new ProcessStartInfo();
                     startInfo.CreateNoWindow = true;
                     startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-                    if (!FileIOWrapper.Exists(startInfo.FileName))
+                    if (!File.Exists(startInfo.FileName))
                     {
                         MessageBox.Show($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
@@ -296,10 +291,10 @@ namespace AemulusModManager.Utilities
                         Directory.CreateDirectory($@"{assemblyLocation}\Config\temp");
                         foreach (var xml in packgeSetup)
                         {
-                            FileIOWrapper.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
+                            File.Copy(xml, $@"{assemblyLocation}\Config\temp\{Path.GetFileName(xml)}", true);
                         }
                     }
-                    FileIOWrapper.Delete(file);
+                    File.Delete(file);
                 }
                 else
                 {
@@ -322,8 +317,8 @@ namespace AemulusModManager.Utilities
                 foreach (var file in folder)
                 {
                     var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
-                    if (FileIOWrapper.Exists(targetFile)) FileIOWrapper.Delete(targetFile);
-                    FileIOWrapper.Move(file, targetFile);
+                    if (File.Exists(targetFile)) File.Delete(targetFile);
+                    File.Move(file, targetFile);
                 }
             }
             Directory.Delete(source, true);

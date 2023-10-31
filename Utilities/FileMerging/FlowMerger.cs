@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Pri.LongPath;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
-using Path = Pri.LongPath.Path;
 
 namespace AemulusModManager.Utilities.FileMerging
 {
@@ -23,7 +19,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 var flowFiles = Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories)
                     .Where(s => (s.ToLower().EndsWith(".flow") || s.ToLower().EndsWith(".bf")) && !s.ToLower().EndsWith(".bf.flow"));
 
-                string[] AemIgnore = FileIOWrapper.Exists($@"{dir}\Ignore.aem") ? FileIOWrapper.ReadAllLines($@"{dir}\Ignore.aem") : null;
+                string[] AemIgnore = File.Exists($@"{dir}\Ignore.aem") ? File.ReadAllLines($@"{dir}\Ignore.aem") : null;
 
                 foreach (string file in flowFiles)
                 {
@@ -63,7 +59,7 @@ namespace AemulusModManager.Utilities.FileMerging
                             continue;
                         }
                         // Copy the original file to be used as a base
-                        else if (FileIOWrapper.Exists(ogPath))
+                        else if (File.Exists(ogPath))
                         {
                             File.Copy(ogPath, bf, true);
                         }
