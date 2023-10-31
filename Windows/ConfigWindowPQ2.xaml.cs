@@ -151,7 +151,7 @@ namespace AemulusModManager
 
         private void SetupROMShortcut(object sender, RoutedEventArgs e)
         {
-            string pq2Rom = selectExe("Select Persona Q2 ROM", "*.3ds;*.app");
+            string pq2Rom = selectExe("Select Persona Q2 ROM", "*.3ds;*.app;*.cxi");
             if (pq2Rom != null)
             {
                 main.gamePath = pq2Rom;
@@ -184,7 +184,7 @@ namespace AemulusModManager
         private string selectExe(string title, string extension)
         {
             string type = "Application";
-            if (extension == "*.3ds;*.app")
+            if (extension == "*.3ds;*.app;*.cxi")
                 type = "ROM";
             if (extension == "*.cpk")
                 type = "File Container";

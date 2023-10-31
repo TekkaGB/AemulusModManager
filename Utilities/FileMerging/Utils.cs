@@ -18,10 +18,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using FlowFormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
 using MsgFormatVersion = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion;
-using File = Pri.LongPath.File;
-using Path = Pri.LongPath.Path;
-using Directory = Pri.LongPath.Directory;
-using FileInfo = Pri.LongPath.FileInfo;
 
 namespace AemulusModManager.Utilities.FileMerging
 {
@@ -107,6 +103,7 @@ namespace AemulusModManager.Utilities.FileMerging
                 Stopwatch watch = new Stopwatch();
                 watch.Start();
 
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 FlowFormatVersion format = compilerInfos[game].FlowFormatVersion;
 
                 // Persona 5 bmds have a different outformat than their bfs
@@ -377,7 +374,7 @@ namespace AemulusModManager.Utilities.FileMerging
             // Make a copy of the unmerged file (.file.back)
             try
             {
-                FileIOWrapper.Copy(files[1], files[1] + ".back", true);
+                File.Copy(files[1], files[1] + ".back", true);
             }
             catch (Exception e)
             {

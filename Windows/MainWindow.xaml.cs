@@ -1,4 +1,5 @@
 using AemulusModManager.Utilities;
+using AemulusModManager.Utilities.AwbMerging;
 using AemulusModManager.Utilities.FileMerging;
 using AemulusModManager.Utilities.KT;
 using AemulusModManager.Utilities.PackageUpdating;
@@ -31,11 +32,6 @@ using System.Xml.Serialization;
 using Vlc.DotNet.Core;
 using WpfAnimatedGif;
 using TypeFilter = AemulusModManager.Utilities.TypeFilter;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
-using Path = Pri.LongPath.Path;
-using FileInfo = Pri.LongPath.FileInfo;
-using DirectoryInfo = Pri.LongPath.DirectoryInfo;
 
 namespace AemulusModManager
 {
@@ -90,7 +86,7 @@ namespace AemulusModManager
         private string lastLoadout;
         private string lastGame;
         public Prop<bool> showHidden { get; set; }
-
+        public FileSystemWatcher fileSystemWatcher;
         public DisplayedMetadata InitDisplayedMetadata(Metadata m)
         {
             DisplayedMetadata dm = new DisplayedMetadata();
@@ -267,26 +263,28 @@ namespace AemulusModManager
                 xsp = new XmlSerializer(typeof(Metadata));
                 xsm = new XmlSerializer(typeof(ModXmlMetadata));
 
-                buttons = new List<FontAwesome5.ImageAwesome>();
-                buttons.Add(NewButton);
-                buttons.Add(SwapButton);
-                buttons.Add(FolderButton);
-                buttons.Add(MergeButton);
-                buttons.Add(ConfigButton);
-                buttons.Add(LaunchButton);
-                buttons.Add(RefreshButton);
-                buttons.Add(DarkMode);
-                buttons.Add(VisibilityButton);
-                buttons.Add(EditLoadoutButton);
+                buttons = new List<FontAwesome5.ImageAwesome>
+                {
+                    NewButton,
+                    SwapButton,
+                    FolderButton,
+                    MergeButton,
+                    ConfigButton,
+                    LaunchButton,
+                    RefreshButton,
+                    DarkMode,
+                    VisibilityButton,
+                    EditLoadoutButton
+                };
 
                 // Load in Config if it exists
 
                 string file = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml";
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml") || FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml") || File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Open(file, FileMode.Open))
+                        using (FileStream streamWriter = File.Open(file, FileMode.Open))
                         {
                             // Call the Deserialize method and cast to the object type.
                             if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
@@ -552,7 +550,7 @@ namespace AemulusModManager
                             }
                         }
                         if (file == $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config.xml")
-                            FileIOWrapper.Delete(file);
+                            File.Delete(file);
                     }
                     catch (Exception)
                     {
@@ -688,11 +686,11 @@ namespace AemulusModManager
                     updateConfig();
 
                     // Load the current loadout
-                    if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
+                    if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
                     {
                         try
                         {
-                            using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
+                            using (FileStream streamWriter = File.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
                             {
                                 // Call the Deserialize method and cast to the object type.
                                 packages = (Packages)xp.Deserialize(streamWriter);
@@ -723,12 +721,12 @@ namespace AemulusModManager
                         string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
                         Metadata m;
                         DisplayedMetadata dm = new DisplayedMetadata();
-                        if (FileIOWrapper.Exists(xml))
+                        if (File.Exists(xml))
                         {
                             m = new Metadata();
                             try
                             {
-                                using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                                 {
                                     try
                                     {
@@ -864,7 +862,7 @@ namespace AemulusModManager
                     RightGrid.RowDefinitions[2].Height = new GridLength((double)config.RightBottomGridHeight, GridUnitType.Star);
 
                 LaunchPopup.Text = $"Launch {game}\n(Ctrl+L)";
-                FileSystemWatcher fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
+                fileSystemWatcher = new FileSystemWatcher($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}");
                 fileSystemWatcher.Filter = "refresh.aem";
                 fileSystemWatcher.EnableRaisingEvents = true;
                 fileSystemWatcher.Created += FileSystemWatcher_Created;
@@ -993,14 +991,14 @@ namespace AemulusModManager
         private async void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
         {
             var game = "";
-            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
+            if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
             {
                 if (await IsFileReady($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem"))
                 {
-                    game = FileIOWrapper.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
+                    game = File.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
                     try
                     {
-                        FileIOWrapper.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
+                        File.Delete($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\refresh.aem");
                     }
                     catch (Exception ex)
                     {
@@ -1121,7 +1119,7 @@ namespace AemulusModManager
                 startInfo.CreateNoWindow = true;
                 startInfo.UseShellExecute = false;
                 startInfo.FileName = launcherPath;
-                if (!FileIOWrapper.Exists(launcherPath))
+                if (!File.Exists(launcherPath))
                 {
                     Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {launcherPath}. Please correct the file path in config.");
                     return;
@@ -1129,7 +1127,7 @@ namespace AemulusModManager
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (game == "Persona 4 Golden")
                 {
-                    if (!FileIOWrapper.Exists(gamePath))
+                    if (!File.Exists(gamePath))
                     {
                         Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
@@ -1187,7 +1185,7 @@ namespace AemulusModManager
                         startInfo.Arguments = "--nogui";
                         if (tempElfPath != null)
                         {
-                            if (!FileIOWrapper.Exists(tempElfPath))
+                            if (!File.Exists(tempElfPath))
                             {
                                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
                                 return;
@@ -1196,7 +1194,7 @@ namespace AemulusModManager
                         }
                         if (tempGamePath != null)
                         {
-                            if (!FileIOWrapper.Exists(tempGamePath))
+                            if (!File.Exists(tempGamePath))
                             {
                                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
                                 return;
@@ -1209,7 +1207,7 @@ namespace AemulusModManager
                         startInfo.Arguments = "-nogui";
                         if (tempElfPath != null)
                         {
-                            if (!FileIOWrapper.Exists(tempElfPath))
+                            if (!File.Exists(tempElfPath))
                             {
                                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempElfPath}. Please correct the file path in config.");
                                 return;
@@ -1220,7 +1218,7 @@ namespace AemulusModManager
                         tempGamePath = gamePath;
                         if (tempGamePath != null)
                         {
-                            if (!FileIOWrapper.Exists(tempGamePath))
+                            if (!File.Exists(tempGamePath))
                             {
                                 Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {tempGamePath}. Please correct the file path in config.");
                                 return;
@@ -1231,7 +1229,7 @@ namespace AemulusModManager
                 }
                 else if (game == "Persona 5")
                 {
-                    if (!FileIOWrapper.Exists(gamePath))
+                    if (!File.Exists(gamePath))
                     {
                         Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
@@ -1241,7 +1239,7 @@ namespace AemulusModManager
                 }
                 else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)")
                 {
-                    if (!FileIOWrapper.Exists(gamePath))
+                    if (!File.Exists(gamePath))
                     {
                         Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {gamePath}. Please correct the file path in config.");
                         return;
@@ -1252,7 +1250,7 @@ namespace AemulusModManager
                 {
                     if (createIso)
                     {
-                        if (!FileIOWrapper.Exists($@"{modPath}\P1PSP.iso"))
+                        if (!File.Exists($@"{modPath}\P1PSP.iso"))
                         {
                             Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {modPath}/P1PSP.iso. Please build the ISO.");
                             return;
@@ -1261,7 +1259,7 @@ namespace AemulusModManager
                     }
                     else
                     {
-                        if (!FileIOWrapper.Exists($@"{modPath}\Persona 1 (PSP)\UMD_DATA.BIN"))
+                        if (!File.Exists($@"{modPath}\Persona 1 (PSP)\UMD_DATA.BIN"))
                         {
                             Utilities.ParallelLogger.Log($"[ERROR] Couldn't find \"{modPath}\\Persona 1 (PSP)\". Please build the loadout.");
                             return;
@@ -1367,11 +1365,11 @@ namespace AemulusModManager
             List<DisplayedMetadata> temp = DisplayedPackages.ToList();
             foreach (var package in temp)
             {
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml", FileMode.Open))
+                        using (FileStream streamWriter = File.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml", FileMode.Open))
                         {
                             Metadata metadata = null;
                             try
@@ -1415,8 +1413,8 @@ namespace AemulusModManager
                 foreach (var file in folder)
                 {
                     var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
-                    if (FileIOWrapper.Exists(targetFile)) FileIOWrapper.Delete(targetFile);
-                    FileIOWrapper.Move(file, targetFile);
+                    if (File.Exists(targetFile)) File.Delete(targetFile);
+                    File.Move(file, targetFile);
                 }
             }
             Directory.Delete(source, true);
@@ -1436,11 +1434,11 @@ namespace AemulusModManager
                     temp.RemoveAll(x => x.path == package.path);
                     DisplayedPackages = new ObservableCollection<DisplayedMetadata>(temp);
                 }
-                else if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                else if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml", FileMode.Open))
+                        using (FileStream streamWriter = File.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml", FileMode.Open))
                         {
                             try
                             {
@@ -1467,9 +1465,9 @@ namespace AemulusModManager
             // Get all packages from Packages folder (Adding packages)
             foreach (var package in Directory.GetDirectories($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}"))
             {
-                if (FileIOWrapper.Exists($@"{package}\Package.xml"))
+                if (File.Exists($@"{package}\Package.xml"))
                 {
-                    using (FileStream streamWriter = FileIOWrapper.Open($@"{package}\Package.xml", FileMode.Open))
+                    using (FileStream streamWriter = File.Open($@"{package}\Package.xml", FileMode.Open))
                     {
                         try
                         {
@@ -1526,12 +1524,12 @@ namespace AemulusModManager
                     List<string> dirFiles = Directory.GetFiles(package).ToList();
                     List<string> dirFolders = Directory.GetDirectories(package, "*", SearchOption.TopDirectoryOnly).ToList();
                     dirFiles = dirFiles.Concat(dirFolders).ToList();
-                    if (FileIOWrapper.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
+                    if (File.Exists($@"{package}\Mod.xml") && Directory.Exists($@"{package}\Data"))
                     {
                         Utilities.ParallelLogger.Log($"[INFO] Converting {Path.GetFileName(package)} from Mod Compendium structure...");
                         //If mod folder contains Data folder and mod.xml, import mod compendium mod.xml...
                         string modXml = $@"{package}\Mod.xml";
-                        using (FileStream streamWriter = FileIOWrapper.Open(modXml, FileMode.Open))
+                        using (FileStream streamWriter = File.Open(modXml, FileMode.Open))
                         {
                             //Deserialize Mod.xml & Use metadata
                             ModXmlMetadata m = null;
@@ -1575,7 +1573,7 @@ namespace AemulusModManager
                         if (Directory.Exists(dataDir) && !Directory.EnumerateFileSystemEntries(dataDir).Any())
                             DeleteDirectory(dataDir);
                         //Goodbye old friend
-                        FileIOWrapper.Delete(modXml);
+                        File.Delete(modXml);
                     }
                     else
                     {
@@ -1618,7 +1616,7 @@ namespace AemulusModManager
                         newMetadata.link = "";
                         newMetadata.description = "";
                     }
-                    using (FileStream streamWriter = FileIOWrapper.Create($@"{package}\Package.xml"))
+                    using (FileStream streamWriter = File.Create($@"{package}\Package.xml"))
                     {
                         try
                         {
@@ -1845,7 +1843,7 @@ namespace AemulusModManager
                     try
                     {
                         Directory.CreateDirectory(path);
-                        using (FileStream streamWriter = FileIOWrapper.Create($@"{path}\Package.xml"))
+                        using (FileStream streamWriter = File.Create($@"{path}\Package.xml"))
                         {
                             try
                             {
@@ -1856,16 +1854,17 @@ namespace AemulusModManager
                                 Utilities.ParallelLogger.Log($@"[ERROR] Couldn't create {path}\Package.xml. ({ex.Message})");
                             }
                         }
-                        if (FileIOWrapper.Exists(newPackage.thumbnailPath))
+                        if (File.Exists(newPackage.thumbnailPath))
                         {
                             string extension = Path.GetExtension(newPackage.thumbnailPath).ToLower();
-                            FileIOWrapper.Copy(newPackage.thumbnailPath, $@"{path}\Preview{extension}", true);
+                            File.Copy(newPackage.thumbnailPath, $@"{path}\Preview{extension}", true);
                         }
                         Refresh();
                         updateConfig();
                         updatePackages();
                         ProcessStartInfo StartInformation = new ProcessStartInfo();
                         StartInformation.FileName = path;
+                        StartInformation.UseShellExecute = true;
                         Process process = Process.Start(StartInformation);
                         Utilities.ParallelLogger.Log("[INFO] Opened new package folder.");
                     }
@@ -2177,7 +2176,7 @@ namespace AemulusModManager
                 bool backedUp = true;
                 foreach (var file in Merger.original_data)
                 {
-                    if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc\data\{file}"))
+                    if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc\data\{file}"))
                     {
                         backedUp = false;
                         break;
@@ -2200,7 +2199,7 @@ namespace AemulusModManager
 
                     foreach (var file in Merger.original_data)
                     {
-                        if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc\data\{file}"))
+                        if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\motor_rsc\data\{file}"))
                         {
                             Utilities.ParallelLogger.Log($@"[ERROR] Failed to backup {file} from {game}!, cancelling build...");
                             return;
@@ -2493,6 +2492,7 @@ namespace AemulusModManager
                             if (game == "Persona 3 FES" || game == "Persona 3 Portable")
                                 textures = config.p3fConfig.texturesPath;
                             binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
+                            AwbMerger.Merge(packages, game, path);
                             binMerge.Unpack(packages, path, useCpk, cpkLang, game);
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
@@ -2601,7 +2601,7 @@ namespace AemulusModManager
                         || game == "Persona 4 Golden (Vita)" || game == "Persona Q2")
                         {
                             binMerge.MakeCpk(path, true);
-                            if (!FileIOWrapper.Exists($@"{path}.cpk"))
+                            if (!File.Exists($@"{path}.cpk"))
                             {
                                 Utilities.ParallelLogger.Log($"[ERROR] Failed to build {path}.cpk!");
                             }
@@ -2610,7 +2610,7 @@ namespace AemulusModManager
                         // Restore the bmd and pm1 backups
                         Utils.RestoreBackups(packages);
 
-                        if (game == "Persona 4 Golden" && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Base.patch") && FileIOWrapper.Exists($@"{modPath}\patches\BGME_Main.patch"))
+                        if (game == "Persona 4 Golden" && File.Exists($@"{modPath}\patches\BGME_Base.patch") && File.Exists($@"{modPath}\patches\BGME_Main.patch"))
                             Utilities.ParallelLogger.Log("[WARNING] BGME_Base.patch and BGME_Main.patch found in your patches folder which will result in no music in battles.");
                     }
                     else if (game == "Persona 1 (PSP)")
@@ -2632,8 +2632,8 @@ namespace AemulusModManager
                                 folders = folders.Skip(idx + 1).ToList();
                                 string binPath = $@"{modPath}\Persona 1 (PSP)\{string.Join("\\", folders.ToArray())}";
                                 Directory.CreateDirectory(Path.GetDirectoryName(binPath));
-                                if (!FileIOWrapper.Exists(binPath))
-                                    FileIOWrapper.Copy(file, binPath, false);
+                                if (!File.Exists(binPath))
+                                    File.Copy(file, binPath, false);
                             }
                             // Patch files before merging
                             if (packages.Exists(x => Directory.Exists($@"{x}\binarypatches")))
@@ -2726,7 +2726,7 @@ namespace AemulusModManager
 
         public void updateConfig()
         {
-            using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml"))
+            using (FileStream streamWriter = File.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\Config.xml"))
             {
                 try
                 {
@@ -2747,7 +2747,7 @@ namespace AemulusModManager
             // Don't update packages if the current loadout is invalid
             if (loadout != null)
             {
-                using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
+                using (FileStream streamWriter = File.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
                 {
                     try
                     {
@@ -2783,11 +2783,11 @@ namespace AemulusModManager
                     Inaba.Visibility = Visibility.Visible;
                 else
                     Inaba.Visibility = Visibility.Collapsed;
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\SND\HeeHeeHo.uwus"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\SND\HeeHeeHo.uwus"))
                     HHH.Visibility = Visibility.Visible;
                 else
                     HHH.Visibility = Visibility.Collapsed;
-                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\patches") || FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\SND\HeeHeeHo.uwus"))
+                if (Directory.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\patches") || File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\SND\HeeHeeHo.uwus"))
                     Reqs.Visibility = Visibility.Visible;
                 else
                     Reqs.Visibility = Visibility.Collapsed;
@@ -2820,7 +2820,7 @@ namespace AemulusModManager
                 {
                     try
                     {
-                        byte[] imageBytes = FileIOWrapper.ReadAllBytes(previewFiles[0].FullName);
+                        byte[] imageBytes = File.ReadAllBytes(previewFiles[0].FullName);
                         var stream = new MemoryStream(imageBytes);
                         var img = new BitmapImage();
 
@@ -2922,6 +2922,7 @@ namespace AemulusModManager
                         {
                             ProcessStartInfo StartInformation = new ProcessStartInfo();
                             StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
+                            StartInformation.UseShellExecute = true;
                             Process process = Process.Start(StartInformation);
                             Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}\{row.path}.");
                         }
@@ -2979,7 +2980,7 @@ namespace AemulusModManager
             foreach (var item in ModGrid.SelectedItems)
             {
                 DisplayedMetadata row = (DisplayedMetadata)item;
-                if (row != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
+                if (row != null && File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
                 {
                     Metadata m = new Metadata();
                     m.name = row.name;
@@ -2995,7 +2996,7 @@ namespace AemulusModManager
                     {
                         try
                         {
-                            using (FileStream streamWriter = FileIOWrapper.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
+                            using (FileStream streamWriter = File.Create($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Package.xml"))
                             {
                                 try
                                 {
@@ -3006,14 +3007,14 @@ namespace AemulusModManager
                                     Utilities.ParallelLogger.Log($@"[ERROR] Couldn't serialize Packages\{game}\{row.path}\Package.xml ({ex.Message})");
                                 }
                             }
-                            if (FileIOWrapper.Exists(createPackage.thumbnailPath))
+                            if (File.Exists(createPackage.thumbnailPath))
                             {
                                 string path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}";
                                 FileInfo[] previewFiles = new DirectoryInfo(path).GetFiles("Preview.*");
                                 foreach (var p in previewFiles)
-                                    FileIOWrapper.Delete(p.FullName);
+                                    File.Delete(p.FullName);
                                 string extension = Path.GetExtension(createPackage.thumbnailPath).ToLower();
-                                FileIOWrapper.Copy(createPackage.thumbnailPath, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Preview{extension}", true);
+                                File.Copy(createPackage.thumbnailPath, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\Preview{extension}", true);
                             }
                         }
                         catch (Exception ex)
@@ -3054,14 +3055,14 @@ namespace AemulusModManager
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.CreateNoWindow = true;
                 startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-                if (!FileIOWrapper.Exists(startInfo.FileName))
+                if (!File.Exists(startInfo.FileName))
                 {
                     Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                     return;
                 }
 
-                if (FileIOWrapper.Exists(output))
-                    FileIOWrapper.Delete(output);
+                if (File.Exists(output))
+                    File.Delete(output);
 
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.UseShellExecute = false;
@@ -3091,11 +3092,11 @@ namespace AemulusModManager
                         MoveDirectory(folder, $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\movie");
                 }
                 // Convert the mods.aem file too
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem"))
                 {
-                    string text = FileIOWrapper.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem");
+                    string text = File.ReadAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem");
                     text = Regex.Replace(text, "data0000[0-6]", Path.GetFileNameWithoutExtension(cpkLang));
-                    FileIOWrapper.WriteAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem", text);
+                    File.WriteAllText($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{row.path}\mods.aem", text);
                 }
             }
         }
@@ -3375,11 +3376,11 @@ namespace AemulusModManager
                 else
                     LoadoutBox.SelectedIndex = 0;
                 loadoutHandled = false;
-                if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
+                if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml"))
                 {
                     try
                     {
-                        using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
+                        using (FileStream streamWriter = File.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
                         {
                             try
                             {
@@ -3405,12 +3406,12 @@ namespace AemulusModManager
                     string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
                     Metadata m;
                     DisplayedMetadata dm = new DisplayedMetadata();
-                    if (FileIOWrapper.Exists(xml))
+                    if (File.Exists(xml))
                     {
                         m = new Metadata();
                         try
                         {
-                            using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                            using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                             {
                                 try
                                 {
@@ -3528,6 +3529,7 @@ namespace AemulusModManager
                 {
                     ProcessStartInfo StartInformation = new ProcessStartInfo();
                     StartInformation.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}";
+                    StartInformation.UseShellExecute = true;
                     Process process = Process.Start(StartInformation);
                     Utilities.ParallelLogger.Log($@"[INFO] Opened Packages\{game}.");
                 }
@@ -3720,7 +3722,7 @@ namespace AemulusModManager
                         ProcessStartInfo startInfo = new ProcessStartInfo();
                         startInfo.CreateNoWindow = true;
                         startInfo.FileName = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\7z\7z.exe";
-                        if (!FileIOWrapper.Exists(startInfo.FileName))
+                        if (!File.Exists(startInfo.FileName))
                         {
                             Console.Write($"[ERROR] Couldn't find {startInfo.FileName}. Please check if it was blocked by your anti-virus.");
                             return;
@@ -3763,7 +3765,7 @@ namespace AemulusModManager
                             }
                             MoveDirectory(Directory.GetFileSystemEntries($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\temp")[0], path);
                         }
-                        //FileIOWrapper.Delete(file);
+                        //File.Delete(file);
                         dropped = true;
                     }
                     // Import loadout xml
@@ -3777,7 +3779,7 @@ namespace AemulusModManager
                             DisplayedPackages = new ObservableCollection<DisplayedMetadata>();
                             PackageList = new ObservableCollection<Package>();
 
-                            using (FileStream streamWriter = FileIOWrapper.Open(file, FileMode.Open))
+                            using (FileStream streamWriter = File.Open(file, FileMode.Open))
                             {
                                 // Call the Deserialize method and cast to the object type.
                                 packages = (Packages)xp.Deserialize(streamWriter);
@@ -3792,7 +3794,7 @@ namespace AemulusModManager
                         loadout = Path.GetFileNameWithoutExtension(file);
 
                         // Ask to rename the loadout if one with the same name already exists
-                        if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
+                        if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{loadout}.xml"))
                         {
                             Utilities.ParallelLogger.Log("[INFO] A loadout with the same name already exists, please enter a new name for it.");
                             NotificationBox notification = new NotificationBox("A loadout with the same name already exists, please enter a new name for it.");
@@ -3815,12 +3817,12 @@ namespace AemulusModManager
                             string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
                             Metadata m;
                             DisplayedMetadata dm = new DisplayedMetadata();
-                            if (FileIOWrapper.Exists(xml))
+                            if (File.Exists(xml))
                             {
                                 m = new Metadata();
                                 try
                                 {
-                                    using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                    using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                                     {
                                         try
                                         {
@@ -3892,14 +3894,14 @@ namespace AemulusModManager
                                 {
                                     // Only add them if they were downloaded
                                     string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.Value.path}\Package.xml";
-                                    if (FileIOWrapper.Exists(xml))
+                                    if (File.Exists(xml))
                                     {
                                         // Add the package (copy pasted from above, I know I should make it a seperate function)
                                         var m = new Metadata();
                                         DisplayedMetadata dm = new DisplayedMetadata();
                                         try
                                         {
-                                            using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                            using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                                             {
                                                 try
                                                 {
@@ -5146,7 +5148,7 @@ namespace AemulusModManager
                     {
                         Utilities.ParallelLogger.Log($"[INFO] Copying {lastLoadout} loadout to {createLoadout.name}");
                         string configPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config";
-                        FileIOWrapper.Copy($@"{configPath}\{game}\{lastLoadout}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                        File.Copy($@"{configPath}\{game}\{lastLoadout}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
                     }
                     else
                     {
@@ -5236,11 +5238,11 @@ namespace AemulusModManager
         private void UpdateDisplay()
         {
             // Load the new loadout xml
-            if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml") && LoadoutBox.SelectedItem != null && lastGame == game)
+            if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml") && LoadoutBox.SelectedItem != null && lastGame == game)
             {
                 try
                 {
-                    using (FileStream streamWriter = FileIOWrapper.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
+                    using (FileStream streamWriter = File.Open($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Config\{game}\{LoadoutBox.SelectedItem}.xml", FileMode.Open))
                     {
                         try
                         {
@@ -5271,7 +5273,7 @@ namespace AemulusModManager
                 {
                     // Get the current displayed metadata for the package
                     var updatedPackage = oldDisplayedPackages.Find(dp => dp.id == package.id);
-                    if (updatedPackage != null && FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{updatedPackage.path}\Package.xml"))
+                    if (updatedPackage != null && File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{updatedPackage.path}\Package.xml"))
                     {
                         // Change the displayed metadata from the old loadout to match the new one
                         updatedPackage.enabled = package.enabled;
@@ -5279,17 +5281,17 @@ namespace AemulusModManager
                         // Add the updated displayed metadata back to the list
                         DisplayedPackages.Add(updatedPackage);
                     }
-                    else if (FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
+                    else if (File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml"))
                     {
                         string xml = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\{game}\{package.path}\Package.xml";
                         Metadata m;
                         DisplayedMetadata dm = new DisplayedMetadata();
-                        if (FileIOWrapper.Exists(xml))
+                        if (File.Exists(xml))
                         {
                             m = new Metadata();
                             try
                             {
-                                using (FileStream streamWriter = FileIOWrapper.Open(xml, FileMode.Open))
+                                using (FileStream streamWriter = File.Open(xml, FileMode.Open))
                                 {
                                     try
                                     {
@@ -5415,7 +5417,7 @@ namespace AemulusModManager
 
             if (createLoadout.deleteLoadout)
             {
-                FileIOWrapper.Delete($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml");
+                File.Delete($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml");
                 Utilities.ParallelLogger.Log($"[INFO] Successfully deleted {LoadoutBox.SelectedItem} loadout");
                 loadoutUtils.LoadoutItems.Remove(LoadoutBox.SelectedItem.ToString());
                 LoadoutBox.SelectedIndex = 0;
@@ -5423,7 +5425,7 @@ namespace AemulusModManager
             else if (createLoadout.name != "")
             {
                 // Rename the current loadout to match the new name
-                FileIOWrapper.Move($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
+                File.Move($@"{configPath}\{game}\{LoadoutBox.SelectedItem}.xml", $@"{configPath}\{game}\{createLoadout.name}.xml");
 
                 // Add the new loadout
                 var currentLoadout = LoadoutBox.SelectedItem;

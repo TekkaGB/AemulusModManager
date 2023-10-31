@@ -1,22 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C36E486D-E952-4E70-A55A-C3DF388A47C0}</ProjectGuid>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AemulusModManager</RootNamespace>
     <AssemblyName>AemulusPackageManager</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -32,461 +18,132 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Assets\Aemulus.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
     <LangVersion>8.0</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
     <LangVersion>8.0</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
+    <Title>Aemulus Package Manager</Title>
+    <Description>Manage modding packages for Persona games</Description>
+    <Copyright>Copyright © 2020-2021</Copyright>
+    <FileVersion></FileVersion>
+    <Authors>Tekka</Authors>
+    <Version>6.5.0.0</Version>
+    <AssemblyVersion></AssemblyVersion>
+    <Company></Company>
+    <Product>Aemulus Package Manager</Product>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
     <LangVersion>8.0</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
     <LangVersion>8.0</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AtlusScriptLibrary, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\AtlusScriptLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="FontAwesome5, Version=2.0.8.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
-      <HintPath>packages\FontAwesome5.2.0.8\lib\net472\FontAwesome5.dll</HintPath>
-    </Reference>
-    <Reference Include="FontAwesome5.Net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=9cfaf01297a008f8, processorArchitecture=MSIL">
-      <HintPath>packages\FontAwesome5.2.0.8\lib\net472\FontAwesome5.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="GongSolutions.WPF.DragDrop, Version=2.0.0.0, Culture=neutral, PublicKeyToken=91f1945125b7a587, processorArchitecture=MSIL">
-      <HintPath>packages\gong-wpf-dragdrop.2.3.1\lib\net47\GongSolutions.WPF.DragDrop.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NVorbis, Version=0.10.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\NVorbis.0.10.3\lib\net45\NVorbis.dll</HintPath>
-    </Reference>
-    <Reference Include="Octokit, Version=0.49.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Octokit.0.49.0\lib\net46\Octokit.dll</HintPath>
-    </Reference>
-    <Reference Include="Onova, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Onova.2.6.2\lib\net461\Onova.dll</HintPath>
-    </Reference>
-    <Reference Include="Pri.LongPath, Version=2.0.53.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Pri.LongPath.2.0.53\lib\net45\Pri.LongPath.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Drawing.Common.4.5.0\lib\net461\System.Drawing.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Linq" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.InteropServices" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
-    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Thread" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
-      <HintPath>packages\Vlc.DotNet.Core.3.1.0\lib\net45\Vlc.DotNet.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Core.Interops, Version=3.1.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
-      <HintPath>packages\Vlc.DotNet.Core.Interops.3.1.0\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
-    </Reference>
-    <Reference Include="Vlc.DotNet.Wpf, Version=3.1.0.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
-      <HintPath>packages\Vlc.DotNet.Wpf.3.1.0\lib\net45\Vlc.DotNet.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
-      <HintPath>packages\WpfAnimatedGif.2.0.0\lib\net40\WpfAnimatedGif.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="Windows\App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Utilities\FileMerging\AtlusLogListener.cs" />
-    <Compile Include="Utilities\FileMerging\PM1Merger.cs" />
-    <Compile Include="Utilities\FeedGenerator.cs" />
-    <Compile Include="Utilities\FileMerging\FlowMerger.cs" />
-    <Compile Include="Utilities\FileMerging\PPSSPPCheat.cs" />
-    <Compile Include="Utilities\FileMerging\Utils.cs" />
-    <Compile Include="Utilities\BinaryPatching\BinaryObj.cs" />
-    <Compile Include="Utilities\BinaryPatching\BinaryPatch.cs" />
-    <Compile Include="Utilities\ParallelLogger.cs" />
-    <Compile Include="Utilities\SpdPatching\SpdObj.cs" />
-    <Compile Include="Utilities\SpdPatching\SpdPatch.cs" />
-    <Compile Include="Utilities\Windows\HiddenIconConverter.cs" />
-    <Compile Include="Utilities\Windows\HiddenTextConverter.cs" />
-    <Compile Include="Utilities\Windows\ShowHiddenConverter.cs" />
-    <Compile Include="Utilities\Windows\Loadouts.cs" />
-    <Compile Include="Windows\ConfigWindowP1PSP.xaml.cs">
-      <DependentUpon>ConfigWindowP1PSP.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP5RSwitch.xaml.cs">
-      <DependentUpon>ConfigWindowP5RSwitch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowPQ2.xaml.cs">
-      <DependentUpon>ConfigWindowPQ2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP5R.xaml.cs">
-      <DependentUpon>ConfigWindowP5R.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP4GVita.xaml.cs">
-      <DependentUpon>ConfigWindowP4GVita.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP3P.xaml.cs">
-      <DependentUpon>ConfigWindowP3P.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\CreateLoadout.xaml.cs">
-      <DependentUpon>CreateLoadout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\DownloadWindow.xaml.cs">
-      <DependentUpon>DownloadWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\FileMerging\BmdMerger.cs" />
-    <Compile Include="Utilities\FileIOWrapper.cs" />
-    <Compile Include="Utilities\KT\Merger.cs" />
-    <Compile Include="Utilities\PackageDownloader.cs" />
-    <Compile Include="Utilities\PackageUpdating\DownloadUtils\Zip7Extractor.cs" />
-    <Compile Include="Utilities\PackageUpdating\DownloadUtils\DownloadProgress.cs" />
-    <Compile Include="Utilities\PackageUpdating\StringConverters.cs" />
-    <Compile Include="Utilities\PackageUpdating\DownloadUtils\HttpClientExtensions.cs" />
-    <Compile Include="Utilities\PackageUpdating\DownloadUtils\StreamExtensions.cs" />
-    <Compile Include="Utilities\PackageUpdating\PackageUpdater.cs" />
-    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItem.cs" />
-    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemFile.cs" />
-    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemUpdate.cs" />
-    <Compile Include="Utilities\PackageUpdating\UpdateStructures\GameBananaItemUpdateChange.cs" />
-    <Compile Include="Utilities\PreappfileAppend.cs" />
-    <Compile Include="Utilities\TblPatching\TblObj.cs" />
-    <Compile Include="Utilities\Windows\CategoryColourConverter.cs" />
-    <Compile Include="Utilities\Windows\TimeSinceConverter.cs" />
-    <Compile Include="Windows\ChangelogBox.xaml.cs">
-      <DependentUpon>ChangelogBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP5S.xaml.cs">
-      <DependentUpon>ConfigWindowP5S.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP5.xaml.cs">
-      <DependentUpon>ConfigWindowP5.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ConfigWindowP4G.xaml.cs">
-      <DependentUpon>ConfigWindowP4G.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\CreatePackage.xaml.cs">
-      <DependentUpon>CreatePackage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\NotificationBox.xaml.cs">
-      <DependentUpon>NotificationBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\PackageFolderBox.xaml.cs">
-      <DependentUpon>PackageFolderBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\AltLinkWindow.xaml.cs">
-      <DependentUpon>AltLinkWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\UpdateFileBox.xaml.cs">
-      <DependentUpon>UpdateFileBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\UpdateProgressBox.xaml.cs">
-      <DependentUpon>UpdateProgressBox.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\Button.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ScrollViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ConfigWindowP1PSP.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP5RSwitch.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowPQ2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP5R.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP4GVita.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP3P.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\CreateLoadout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\DownloadWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ChangelogBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\ConfigWindowP5S.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP5.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP4G.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\ConfigWindowP3F.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Windows\App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\BinMerging\BinMerger.cs" />
-    <Compile Include="Utilities\BinMerging\SpdUtils.cs" />
-    <Compile Include="Utilities\Windows\UrlConverter.cs" />
-    <Compile Include="Utilities\Windows\ConfigObj.cs" />
-    <Compile Include="Windows\ConfigWindowP3F.xaml.cs">
-      <DependentUpon>ConfigWindowP3F.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\PacUnpacker.cs" />
-    <Compile Include="Utilities\BinMerging\SprUtils.cs" />
-    <Compile Include="Utilities\TblPatch.cs" />
-    <Compile Include="Utilities\Windows\TextBoxOutputter.cs" />
-    <Compile Include="Windows\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Windows\CreatePackage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\NotificationBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\PackageFolderBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\AltLinkWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\UpdateFileBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\UpdateProgressBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <Resource Include="Assets\Jost-Regular.ttf" />
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
-    <None Include="Dependencies\SpdPatcher\SPD Patcher.deps.json">
+    <Content Include="Dependencies\SonicAudioTools\AcbEditor.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Update="Dependencies\AwbTools\AWB_repacker.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\SpdPatcher\SPD Patcher.runtimeconfig.json">
+    <None Update="Dependencies\AwbTools\AWB_unpacker.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Libraries\Persona3Portable\FunctionLookUp.flow" />
-    <None Include="Libraries\Persona5Royal\Modules\Common\Enums.json">
+    <None Update="Dependencies\SpdPatcher\SPD Patcher.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Libraries\Persona5\Modules\Custom\Enums.json">
+    <None Update="Dependencies\SpdPatcher\SPD Patcher.runtimeconfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Libraries\Persona5\Modules\Custom\Functions.json">
+    <None Update="Libraries\Persona5Royal\Modules\Common\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_data.csv">
+    <None Update="Libraries\Persona5\Modules\Custom\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_dataR.csv">
+    <None Update="Libraries\Persona5\Modules\Custom\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_dataR_Localized.csv">
+    <None Update="Dependencies\MakeCpk\filtered_data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_data_pq2.csv">
+    <None Update="Dependencies\MakeCpk\filtered_dataR.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_p4gdata.csv">
+    <None Update="Dependencies\MakeCpk\filtered_dataR_Localized.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_patch2R.csv">
+    <None Update="Dependencies\MakeCpk\filtered_data_pq2.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_patch2R_F.csv">
+    <None Update="Dependencies\MakeCpk\filtered_p4gdata.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_patch2R_G.csv">
+    <None Update="Dependencies\MakeCpk\filtered_patch2R.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_patch2R_I.csv">
+    <None Update="Dependencies\MakeCpk\filtered_patch2R_F.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_patch2R_S.csv">
+    <None Update="Dependencies\MakeCpk\filtered_patch2R_G.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_ps3.csv">
+    <None Update="Dependencies\MakeCpk\filtered_patch2R_I.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_ps4R.csv">
+    <None Update="Dependencies\MakeCpk\filtered_patch2R_S.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\MakeCpk\filtered_umd0.csv">
+    <None Update="Dependencies\MakeCpk\filtered_ps3.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\Preappfile\Amicitia.IO.deps.json">
+    <None Update="Dependencies\MakeCpk\filtered_ps4R.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\Preappfile\preappfile.deps.json">
+    <None Update="Dependencies\MakeCpk\filtered_umd0.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\Preappfile\preappfile.runtimeconfig.json">
+    <None Update="Dependencies\Preappfile\Amicitia.IO.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Dependencies\Preappfile\PreappPartnersLib.deps.json">
+    <None Update="Dependencies\Preappfile\preappfile.deps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    <None Update="Dependencies\Preappfile\preappfile.runtimeconfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Dependencies\Preappfile\PreappPartnersLib.deps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -846,9 +503,30 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Page Remove="Windows\App.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <ApplicationDefinition Include="Windows\App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dependencies\SonicAudioTools\AcbEditor.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\SonicAudioTools\at3plusdecoder.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\SonicAudioTools\NAudio.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\SonicAudioTools\NAudio.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\SonicAudioTools\SonicAudioLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dependencies\SonicAudioTools\vgmstream.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Dependencies\SpdPatcher\Amicitia.IO.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -858,7 +536,7 @@
     <Content Include="Dependencies\SpdPatcher\SPD Patcher.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="aemulus_overlay.png">
+    <None Update="aemulus_overlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Assets\general.png" />
@@ -879,11 +557,15 @@
     <Resource Include="Assets\p5r.png" />
     <Resource Include="Assets\p5s.png" />
     <Resource Include="Assets\pq2.png" />
-    <None Include="Antlr4.Runtime.dll">
+    <None Update="Antlr4.Runtime.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Antlr4.Runtime.xml">
+    <None Update="Antlr4.Runtime.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="Assets\p1psp.png" />
     <Resource Include="Assets\p1pspicon.png" />
@@ -957,7 +639,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
       <Visible>False</Visible>
@@ -970,13 +654,42 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\VideoLAN.LibVLC.Windows.3.0.14\build\VideoLAN.LibVLC.Windows.targets" Condition="Exists('packages\VideoLAN.LibVLC.Windows.3.0.14\build\VideoLAN.LibVLC.Windows.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\VideoLAN.LibVLC.Windows.3.0.14\build\VideoLAN.LibVLC.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\VideoLAN.LibVLC.Windows.3.0.14\build\VideoLAN.LibVLC.Windows.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="CriFsV2Lib" Version="2.1.0" />
+    <PackageReference Include="FontAwesome5" Version="2.0.8" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="2.3.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
+    <PackageReference Include="NVorbis" Version="0.10.3" />
+    <PackageReference Include="Octokit" Version="0.49.0" />
+    <PackageReference Include="Onova" Version="2.6.2" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.14" />
+    <PackageReference Include="Vlc.DotNet.Core" Version="3.1.0" />
+    <PackageReference Include="Vlc.DotNet.Core.Interops" Version="3.1.0" />
+    <PackageReference Include="Vlc.DotNet.Wpf" Version="3.1.0" />
+    <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.1" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Security.AccessControl" Version="6.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="7.0.0" />
+    <PackageReference Include="System.Text.Json" Version="7.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AtlusScriptLibrary">
+      <HintPath>AtlusScriptLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <ProjectExtensions />
 </Project>

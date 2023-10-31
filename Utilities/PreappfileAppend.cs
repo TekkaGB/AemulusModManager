@@ -6,9 +6,6 @@ using System.Reflection;
 using AemulusModManager.Utilities;
 using System.Collections.Generic;
 using System.Linq;
-using Path = Pri.LongPath.Path;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
 
 namespace AemulusModManager
 {
@@ -21,7 +18,7 @@ namespace AemulusModManager
             // get md5 checksum of file
             using (var md5 = MD5.Create())
             {
-                using (var stream = FileIOWrapper.OpenRead(filePath))
+                using (var stream = File.OpenRead(filePath))
                 {
                     // get hash
                     byte[] currentFileSum = md5.ComputeHash(stream);
@@ -41,7 +38,7 @@ namespace AemulusModManager
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.UseShellExecute = false;
             startInfo.RedirectStandardOutput = true;
-            if (FileIOWrapper.Exists($@"{path}\data00007.pac"))
+            if (File.Exists($@"{path}\data00007.pac"))
             {
                 startInfo.Arguments = $@"""{path}\data00007.pac""";
                 using (Process process = new Process())
@@ -66,7 +63,7 @@ namespace AemulusModManager
                 if (Directory.Exists($@"{path}\data00007"))
                     Directory.Delete($@"{path}\data00007", true);
             }
-            if (FileIOWrapper.Exists($@"{path}\movie00003.pac"))
+            if (File.Exists($@"{path}\movie00003.pac"))
             {
                 startInfo.Arguments = $@"""{path}\movie00003.pac""";
                 using (Process process = new Process())
@@ -101,50 +98,50 @@ namespace AemulusModManager
         public static void Append(string path, string cpkLang)
         {
             // Check if required files are there
-            if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\preappfile\preappfile.exe"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\preappfile\preappfile.exe"))
             {
                 Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find Dependencies\preappfile\preappfile.exe. Please check if it was blocked by your anti-virus.");
                 return;
             }
 
-            if (!FileIOWrapper.Exists($@"{path}\{cpkLang}"))
+            if (!File.Exists($@"{path}\{cpkLang}"))
             {
                 Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find {path}\{cpkLang} for appending.");
                 return;
             }
             // Backup cpk if not backed up already
-            if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}"))
             {
                 Utilities.ParallelLogger.Log($@"[INFO] Backing up {cpkLang}.cpk");
-                FileIOWrapper.Copy($@"{path}\{cpkLang}", $@"Original\Persona 4 Golden\{cpkLang}");
+                File.Copy($@"{path}\{cpkLang}", $@"Original\Persona 4 Golden\{cpkLang}");
             }
             // Copy original cpk back if different
             if (GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}") != GetChecksumString($@"{path}\{cpkLang}"))
             {
                 Utilities.ParallelLogger.Log($@"[INFO] Reverting {cpkLang} back to original");
-                FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
+                File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\{cpkLang}", $@"{path}\{cpkLang}", true);
             }
-            if (!FileIOWrapper.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk"))
             {
                 Utilities.ParallelLogger.Log($@"[INFO] Backing up movie.cpk");
-                FileIOWrapper.Copy($@"{path}\movie.cpk", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk");
+                File.Copy($@"{path}\movie.cpk", $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk");
             }
             // Copy original cpk back if different
             if (GetChecksumString($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk") != GetChecksumString($@"{path}\movie.cpk"))
             {
                 Utilities.ParallelLogger.Log($@"[INFO] Reverting movie.cpk back to original");
-                FileIOWrapper.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
+                File.Copy($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden\movie.cpk", $@"{path}\movie.cpk", true);
             }
             // Delete modified pacs
-            if (FileIOWrapper.Exists($@"{path}\data00007.pac"))
+            if (File.Exists($@"{path}\data00007.pac"))
             {
                 Utilities.ParallelLogger.Log($"[INFO] Deleting data00007.pac");
-                FileIOWrapper.Delete($@"{path}\data00007.pac");
+                File.Delete($@"{path}\data00007.pac");
             }
-            if (FileIOWrapper.Exists($@"{path}\movie00003.pac"))
+            if (File.Exists($@"{path}\movie00003.pac"))
             {
                 Utilities.ParallelLogger.Log($"[INFO] Deleting movie00003.pac");
-                FileIOWrapper.Delete($@"{path}\movie00003.pac");
+                File.Delete($@"{path}\movie00003.pac");
             }
 
             ProcessStartInfo startInfo = new ProcessStartInfo();

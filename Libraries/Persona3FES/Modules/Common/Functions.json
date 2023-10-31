@@ -1381,7 +1381,7 @@
     "Description": "002CC940",
     "Parameters": [
       {
-		"Type": "Affinity",
+        "Type": "Affinity",
         "Name": "affinityID",
         "Description": ""
       }

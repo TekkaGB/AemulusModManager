@@ -9,10 +9,6 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using AemulusModManager.Utilities.SpdPatching;
 using AemulusModManager.Utilities;
-using Pri.LongPath;
-using Path = Pri.LongPath.Path;
-using Directory = Pri.LongPath.Directory;
-using File = Pri.LongPath.File;
 
 
 namespace AemulusModManager
@@ -58,13 +54,13 @@ namespace AemulusModManager
                         {
                             var outputFile = $@"{modDir}\{patch.SpdPath}";
                             // Copy over original file
-                            if (!FileIOWrapper.Exists(outputFile))
+                            if (!File.Exists(outputFile))
                             {
                                 var originalFile = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{patch.SpdPath}";
-                                if (FileIOWrapper.Exists(originalFile))
+                                if (File.Exists(originalFile))
                                 {
                                     Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
-                                    FileIOWrapper.Copy(originalFile, outputFile, true);
+                                    File.Copy(originalFile, outputFile, true);
                                 }
                                 else
                                 {
