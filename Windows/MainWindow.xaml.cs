@@ -148,7 +148,12 @@ namespace AemulusModManager
             {
                 try
                 {
-                    Process.Start(destination.ToString());
+                    var ps = new ProcessStartInfo(destination.ToString())
+                    {
+                        UseShellExecute = true,
+                        Verb = "open"
+                    };
+                    Process.Start(ps);
                 }
                 catch (Exception ex)
                 {
