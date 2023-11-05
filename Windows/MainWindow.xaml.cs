@@ -1291,7 +1291,14 @@ namespace AemulusModManager
                 EnableUI();
             }
             else if (game == "Persona 5 Strikers")
-                Process.Start("steam://rungameid/1382330/option0");
+            {
+                var ps = new ProcessStartInfo("steam://rungameid/1382330/option0")
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                };
+                Process.Start(ps);
+            }
             else
                 Utilities.ParallelLogger.Log("[ERROR] Please setup shortcut in config menu.");
         }
