@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <AssemblyName>AemulusPackageManager</AssemblyName>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -49,10 +49,10 @@
     <Title>Aemulus Package Manager</Title>
     <Description>Manage modding packages for Persona games</Description>
     <Copyright>Copyright © 2020-2021</Copyright>
-    <FileVersion></FileVersion>
+    <FileVersion>6.5.3.0</FileVersion>
     <Authors>Tekka</Authors>
     <Version>6.5.2.0</Version>
-    <AssemblyVersion></AssemblyVersion>
+    <AssemblyVersion>6.5.3.0</AssemblyVersion>
     <Company></Company>
     <Product>Aemulus Package Manager</Product>
   </PropertyGroup>
@@ -94,43 +94,43 @@
     <None Update="Libraries\Persona5\Modules\Custom\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_data.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_data.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_dataR.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_dataR.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_dataR_Localized.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_dataR_Localized.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_data_pq2.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_data_pq2.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_p4gdata.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_p4gdata.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_patch2R.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_patch2R.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_patch2R_F.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_patch2R_F.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_patch2R_G.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_patch2R_G.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_patch2R_I.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_patch2R_I.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_patch2R_S.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_patch2R_S.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_ps3.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_ps3.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_ps4R.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_ps4R.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Dependencies\MakeCpk\filtered_umd0.csv">
+    <None Update="Dependencies\FilteredCpkCsv\filtered_umd0.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Dependencies\Preappfile\Amicitia.IO.deps.json">
@@ -605,12 +605,6 @@
     <Resource Include="Dependencies\7z\License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include="Dependencies\MakeCpk\CpkMaker.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Dependencies\MakeCpk\YACpkTool.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Dependencies\Preappfile\Amicitia.IO.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

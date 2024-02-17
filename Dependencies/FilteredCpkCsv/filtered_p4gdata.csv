@@ -450,8 +450,8 @@ field/table/n039_003.bin
 field/table/opmap.bin
 field/table/shadow.bin
 font/window.bin
-/init.bin
-/init_free.bin
+init.bin
+init_free.bin
 oped/p4gstaff.bin
 scheduler/date_change.bin
 shader/output_cnv_f_effect.bin

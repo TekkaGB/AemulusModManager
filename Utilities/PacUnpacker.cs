@@ -187,8 +187,7 @@ namespace AemulusModManager
                 process.WaitForExit();
             }
 
-            string[] umd0Files = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_umd0.csv");
-            //var umd0FileChunks = umd0Files.Split(umd0Files.Length / 2);
+            string[] umd0Files = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_umd0.csv");
 
             var umd0Path = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable\PSP_GAME\USRDIR\umd0.cpk";
 
@@ -329,10 +328,10 @@ namespace AemulusModManager
             string pathToExtract = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5";
             Directory.CreateDirectory(pathToExtract);
 
-            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_data.csv") 
-                || !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps3.csv"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_data.csv") 
+                || !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_ps3.csv"))
             {
-                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV files used for unpacking in Dependencies\MakeCpk");
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV files used for unpacking in Dependencies\FilteredCpkCsv");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
@@ -340,10 +339,8 @@ namespace AemulusModManager
                 return;
             }
 
-            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_data.csv");
-            //var dataFileChunks = dataFiles.Split(dataFiles.Length / 2);
-            string[] ps3Files = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps3.csv");
-            //var ps3FileChunks = ps3Files.Split(ps3Files.Length / 2);
+            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_data.csv");
+            string[] ps3Files = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_ps3.csv");
 
             Utilities.ParallelLogger.Log($"[INFO] Extracting data.cpk");
             if (File.Exists($@"{directory}\data.cpk"))
@@ -379,10 +376,10 @@ namespace AemulusModManager
             string pathToExtract = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 5 Royal (PS4)";
             Directory.CreateDirectory(pathToExtract);
 
-            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_dataR.csv")
-                || !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps4R.csv"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_dataR.csv")
+                || !File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_ps4R.csv"))
             {
-                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV files used for unpacking in Dependencies\MakeCpk");
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV files used for unpacking in Dependencies\FilteredCpkCsv");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
@@ -390,10 +387,8 @@ namespace AemulusModManager
                 return;
             }
 
-            string[] dataRFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_dataR.csv");
-            //var dataRFileChunks = dataRFiles.Split(dataRFiles.Length / 2);
-            string[] ps4RFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_ps4R.csv");
-            //var ps4RFileChunks = ps4RFiles.Split(ps4RFiles.Length / 2);
+            string[] dataRFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_dataR.csv");
+            string[] ps4RFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_ps4R.csv");
 
             Utilities.ParallelLogger.Log($"[INFO] Extracting dataR.cpk");
             if (File.Exists($@"{directory}\dataR.cpk"))
@@ -409,8 +404,7 @@ namespace AemulusModManager
 
             if (language != "English")
             {
-                string[] dataRLocalizedFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_dataR_Localized.csv");
-                //var dataRLocalizedFileChunks = dataRLocalizedFiles.Split(dataRLocalizedFiles.Length / 2);
+                string[] dataRLocalizedFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_dataR_Localized.csv");
                 var localizedCpk = String.Empty;
                 switch (language)
                 {
@@ -437,8 +431,7 @@ namespace AemulusModManager
             // Extract patch2R.cpk files
             if (version == ">= 1.02")
             {
-                string[] patch2RFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_patch2R.csv");
-                //var patch2RFileChunks = patch2RFiles.Split(patch2RFiles.Length / 2);
+                string[] patch2RFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_patch2R.csv");
                 Utilities.ParallelLogger.Log($"[INFO] Extracting patch2R.cpk");
                 if (File.Exists($@"{directory}\patch2R.cpk"))
                     CriFsUnpack($@"{directory}\patch2R.cpk", pathToExtract, patch2RFiles);
@@ -462,8 +455,7 @@ namespace AemulusModManager
                             patchSuffix = "_S";
                             break;
                     }
-                    string[] patch2RLocalizedFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_patch2R{patchSuffix}.csv");
-                    //var patch2RLocalizedFileChunks = patch2RFiles.Split(patch2RLocalizedFiles.Length / 2);
+                    string[] patch2RLocalizedFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_patch2R{patchSuffix}.csv");
                     Utilities.ParallelLogger.Log($"[INFO] Extracting patch2R{patchSuffix}.cpk");
                     if (File.Exists($@"{directory}\patch2R{patchSuffix}.cpk"))
                         CriFsUnpack($@"{directory}\patch2R{patchSuffix}.cpk", pathToExtract, patch2RLocalizedFiles);
@@ -615,9 +607,9 @@ namespace AemulusModManager
             string pathToExtract = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 4 Golden (Vita)";
             Directory.CreateDirectory(pathToExtract);
 
-            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_p4gdata.csv"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_p4gdata.csv"))
             {
-                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV file used for unpacking in Dependencies\MakeCpk");
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV file used for unpacking in Dependencies\FilteredCpkCsv");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
@@ -625,8 +617,7 @@ namespace AemulusModManager
                 return;
             }
 
-            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_p4gdata.csv");
-            //var dataFileChunks = dataFiles.Split(dataFiles.Length / 2);
+            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_p4gdata.csv");
 
             Utilities.ParallelLogger.Log($"[INFO] Extracting data.cpk");
             CriFsUnpack(cpk, pathToExtract, dataFiles);
@@ -654,9 +645,9 @@ namespace AemulusModManager
             string pathToExtract = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona Q2";
             Directory.CreateDirectory(pathToExtract);
 
-            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_data_pq2.csv"))
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_data_pq2.csv"))
             {
-                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV file used for unpacking in Dependencies\MakeCpk");
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV file used for unpacking in Dependencies\FilteredCpkCsv");
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Mouse.OverrideCursor = null;
@@ -664,8 +655,7 @@ namespace AemulusModManager
                 return;
             }
 
-            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\MakeCpk\filtered_data_pq2.csv");
-            //var dataFileChunks = dataFiles.Split(dataFiles.Length / 4);
+            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_data_pq2.csv");
 
             Utilities.ParallelLogger.Log($"[INFO] Extracting data.cpk");
             CriFsUnpack(cpk, pathToExtract, dataFiles);
