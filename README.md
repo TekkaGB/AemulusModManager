@@ -24,7 +24,7 @@ For Persona 5 Royal (Switch), nothing is need other than Aemulus!
 
 For Persona 5 Strikers, nothing is need other than Aemulus!
 
-For Persona Q2, [setup the proper patches for mod loading from mod.cpk](https://github.com/DeathChaos25/PQ_Patches)
+For Persona Q and Q2, [setup the proper patches for mod loading from mod.cpk](https://github.com/DeathChaos25/PQ_Patches)
 
 To easily download all prerequisites at once, I recommend using Pixelguin's [All-in-One Installer](https://gamebanana.com/tools/6928).
 
@@ -37,12 +37,12 @@ The first thing you'll want to do is click the Config button on the top left.  F
 - **For Persona 3 FES**, select the same folder that SLUS_216.21.ELF is located.
 - **For Persona 3 Portable**, select ...\PSP\P3P in the memstick of the PSP or any folder for FTPing later.
 - **For Persona 5**, select \PS3_GAME\USRDIR found by right clicking the game in RPCS3 and selecting Open Install Folder.
-- **For Persona 5 Royal**, select \data\p5r or any other folder for FTPing later.
+- **For Persona 5 Royal (PS4)**, select \data\p5r or any other folder for FTPing later.
 - **For Persona 5 Royal (Switch)**:
     - On emulator by right clicking the game and selecting "Open Mods Directory" for Ryujinx or "Open Mod Data Location" for Yuzu. The folder that opens is the output folder
     - For hardware, you'll have to setup a folder called atmosphere\contents[title id]in your SD card and select that as the output.
 - **For Persona 5 Strikers**, select ...\P5S\data\motor_rsc.
-- **For Persona Q2**, select sd:/luma/titles/<title_id>/romfs/ or <citra_vfs>/load/mods/<title_id>/romfs/.
+- **For Persona Q and Q2**, select sd:/luma/titles/<title_id>/romfs/ or <citra_vfs>/load/mods/<title_id>/romfs/.
 
 ### Unpacking Base Files
 
@@ -357,7 +357,7 @@ Deletes the temporarily extracted/edited tbl files.
 
 ## ACB/AWB Merging
 
-Currently only for Q2 and P4G Vita until filelists for unpacking base files can be updated. To support merging, make a folder with the archive's name (without extension) inside your package folder where the archive would go, then place your modded audio inside. **For paired archives, create ONE folder with the name of the acb, and place your audio for both archives inside.** Awb audio should be named in the format *index_streaming.extension*.
+Currently only for Q, Q2 and P4G Vita until filelists for unpacking base files can be updated. To support merging, make a folder with the archive's name (without extension) inside your package folder where the archive would go, then place your modded audio inside. **For paired archives, create ONE folder with the name of the acb, and place your audio for both archives inside.** Awb audio should be named in the format *index_streaming.extension*.
 
 The way these are merged is that Aemulus copies the original acb and/or awb into your build directory and unpacks it, either with [Sonic Audio Tools](https://github.com/blueskythlikesclouds/SonicAudioTools) for lone acbs and paired archives, or [Awb Tools](https://steamcommunity.com/sharedfiles/filedetails/?id=632355452) for lone awbs. It then copies your modded audio into the resulting folder, repacks the folder back into an acb and/or awb and deletes the folder. Note that the merging process assumes paired awbs will always either have the same name as the acb or be named *acbname_streamfiles.awb*; if this isn't the case file an issue or a pr.
 
