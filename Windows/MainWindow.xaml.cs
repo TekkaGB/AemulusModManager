@@ -842,7 +842,7 @@ namespace AemulusModManager
                 else if (game == "Persona Q2" && !String.IsNullOrEmpty(config.pq2Config.modDir))
                     modPath = config.pq2Config.modDir;
                 else if (game == "Persona Q" && !String.IsNullOrEmpty(config.pqConfig.modDir))
-                    modPath += config.pqConfig.modDir;
+                    modPath = config.pqConfig.modDir;
                 else if (game == "Persona 1 (PSP)" && !String.IsNullOrEmpty(config.p1pspConfig.modDir))
                     modPath = config.p1pspConfig.modDir;
 
