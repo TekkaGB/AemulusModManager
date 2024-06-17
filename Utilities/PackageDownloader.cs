@@ -61,6 +61,9 @@ namespace AemulusModManager.Utilities
                 case GameFilter.P5S:
                     gameName = "Persona 5 Strikers";
                     break;
+                case GameFilter.PQ:
+                    gameName = "Persona Q";
+                    break;
                 case GameFilter.PQ2:
                     gameName = "Persona Q2";
                     break;

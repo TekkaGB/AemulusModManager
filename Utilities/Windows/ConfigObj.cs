@@ -31,6 +31,7 @@ namespace AemulusModManager
         public ConfigP5R p5rConfig { get; set; }
         public ConfigP5RSwitch p5rSwitchConfig { get; set; }
         public ConfigP5S p5sConfig { get; set; }
+        public ConfigPQ pqConfig { get; set; }
         public ConfigPQ2 pq2Config { get; set; }
         public ConfigP1PSP p1pspConfig { get; set; }
         public double? LeftGridWidth { get; set; }
@@ -186,6 +187,21 @@ namespace AemulusModManager
         public string lastUnpacked { get; set; }
     }
     public class ConfigPQ2
+    {
+        public string modDir { get; set; }
+        public string ROMPath { get; set; }
+        public string launcherPath { get; set; }
+        public bool deleteOldVersions { get; set; }
+        public bool buildWarning { get; set; } = true;
+        public bool buildFinished { get; set; } = true;
+        public bool updateConfirm { get; set; } = true;
+        public bool updateChangelog { get; set; } = true;
+        public bool updateAll { get; set; } = true;
+        public bool updatesEnabled { get; set; } = true;
+        public string loadout { get; set; }
+        public string lastUnpacked { get; set; }
+    }
+    public class ConfigPQ
     {
         public string modDir { get; set; }
         public string ROMPath { get; set; }

@@ -695,6 +695,12 @@
                             </ComboBoxItem>
                             <ComboBoxItem>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/pqicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona Q" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/pq2icon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona Q2" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
@@ -1239,6 +1245,12 @@
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Image Source="../Assets/p5sicon.png" Width="32" Margin="4,0,10,0"/>
                                     <TextBlock Text="Persona 5 Strikers" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
+                                </StackPanel>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../Assets/pqicon.png" Width="32" Margin="4,0,10,0"/>
+                                    <TextBlock Text="Persona Q" VerticalAlignment="Center" FontFamily="{StaticResource Jost}"/>
                                 </StackPanel>
                             </ComboBoxItem>
                             <ComboBoxItem>

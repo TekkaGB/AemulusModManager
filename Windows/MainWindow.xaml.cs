@@ -47,6 +47,7 @@ namespace AemulusModManager
         public ConfigP5R p5rConfig;
         public ConfigP5RSwitch p5rSwitchConfig;
         public ConfigP5S p5sConfig;
+        public ConfigPQ pqConfig;
         public ConfigPQ2 pq2Config;
         public Packages packages;
         public string game;
@@ -248,6 +249,7 @@ namespace AemulusModManager
                 p4gVitaConfig = new ConfigP4GVita();
                 p5rConfig = new ConfigP5R();
                 p5rSwitchConfig = new ConfigP5RSwitch();
+                pqConfig = new ConfigPQ();
                 pq2Config = new ConfigPQ2();
                 p1pspConfig = new ConfigP1PSP();
                 config.p4gConfig = p4gConfig;
@@ -258,6 +260,7 @@ namespace AemulusModManager
                 config.p4gVitaConfig = p4gVitaConfig;
                 config.p5rConfig = p5rConfig;
                 config.p5rSwitchConfig = p5rSwitchConfig;
+                config.pqConfig = pqConfig;
                 config.pq2Config = pq2Config;
                 config.p1pspConfig = p1pspConfig;
 
@@ -342,6 +345,8 @@ namespace AemulusModManager
                                 config.pq2Config = pq2Config;
                             if (config.p1pspConfig == null)
                                 config.p1pspConfig = p1pspConfig;
+                            if (config.pqConfig == null)
+                                config.pqConfig = pqConfig;
 
                             if (config.p3fConfig != null)
                                 p3fConfig = config.p3fConfig;
@@ -363,6 +368,9 @@ namespace AemulusModManager
                                 pq2Config = config.pq2Config;
                             if (config.p1pspConfig != null)
                                 p1pspConfig = config.p1pspConfig;
+                            if (config.pqConfig != null)
+                                pqConfig = config.pqConfig;
+
                             switch (game)
                             {
                                 case "Persona 4 Golden":
@@ -535,6 +543,23 @@ namespace AemulusModManager
                                     LaunchButton.IsHitTestVisible = false;
                                     LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                                     break;
+                                case "Persona Q":
+                                    modPath = config.pqConfig.modDir;
+                                    selectedLoadout = config.pqConfig.loadout;
+                                    gamePath = config.pqConfig.ROMPath;
+                                    launcherPath = config.pqConfig.launcherPath;
+                                    buildWarning = config.pqConfig.buildWarning;
+                                    buildFinished = config.pqConfig.buildFinished;
+                                    updateChangelog = config.pqConfig.updateChangelog;
+                                    updateAll = config.pqConfig.updateAll;
+                                    updatesEnabled = config.pqConfig.updatesEnabled;
+                                    deleteOldVersions = config.pqConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    createIso = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x90, 0x00, 0xfd));
+                                    break;
                                 case "Persona Q2":
                                     modPath = config.pq2Config.modDir;
                                     selectedLoadout = config.pq2Config.loadout;
@@ -577,6 +602,8 @@ namespace AemulusModManager
                         p5rConfig = config.p5rConfig;
                     if (config.p5rSwitchConfig != null)
                         p5rSwitchConfig = config.p5rSwitchConfig;
+                    if (config.pqConfig != null)
+                        pqConfig = config.pqConfig;
                     if (config.pq2Config != null)
                         pq2Config = config.pq2Config;
 
@@ -631,8 +658,11 @@ namespace AemulusModManager
                         case "Persona 5 Strikers":
                             GameBox.SelectedIndex = 8;
                             break;
-                        case "Persona Q2":
+                        case "Persona Q":
                             GameBox.SelectedIndex = 9;
+                            break;
+                        case "Persona Q2":
+                            GameBox.SelectedIndex = 10;
                             break;
                     }
 
@@ -683,6 +713,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 5 Strikers":
                             config.p5sConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona Q":
+                            config.pqConfig.loadout = selectedLoadout;
                             break;
                         case "Persona Q2":
                             config.pq2Config.loadout = selectedLoadout;
@@ -808,6 +841,8 @@ namespace AemulusModManager
                     modPath = config.p5sConfig.modDir;
                 else if (game == "Persona Q2" && !String.IsNullOrEmpty(config.pq2Config.modDir))
                     modPath = config.pq2Config.modDir;
+                else if (game == "Persona Q" && !String.IsNullOrEmpty(config.pqConfig.modDir))
+                    modPath += config.pqConfig.modDir;
                 else if (game == "Persona 1 (PSP)" && !String.IsNullOrEmpty(config.p1pspConfig.modDir))
                     modPath = config.p1pspConfig.modDir;
 
@@ -822,6 +857,7 @@ namespace AemulusModManager
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Strikers");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal (PS4)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5 Royal (Switch)");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona Q");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona Q2");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original");
 
@@ -1047,6 +1083,8 @@ namespace AemulusModManager
                     await PacUnpacker.UnpackP5RCPKs(directory, p5rConfig.language, p5rConfig.version);
                 else if (game == "Persona 5 Royal (Switch)")
                     await PacUnpacker.UnpackP5RSwitchCPKs(directory, p5rSwitchConfig.language);
+                else if (game == "Persona Q")
+                    await PacUnpacker.UnpackPQCPK(directory);
                 else if (game == "Persona 1 (PSP)")
                     await PacUnpacker.UnzipAndUnBin(directory);
                 App.Current.Dispatcher.Invoke((Action)delegate
@@ -1092,6 +1130,9 @@ namespace AemulusModManager
                             break;
                         case "Persona Q2":
                             config.pq2Config.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona Q":
+                            config.pqConfig.lastUnpacked = lastUnpacked;
                             break;
                         case "Persona 1 (PSP)":
                             config.p1pspConfig.lastUnpacked = lastUnpacked;
@@ -1242,7 +1283,7 @@ namespace AemulusModManager
                     Utilities.ParallelLogger.Log($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
                 }
-                else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)")
+                else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)" || game == "Persona Q")
                 {
                     if (!File.Exists(gamePath))
                     {
@@ -1366,6 +1407,12 @@ namespace AemulusModManager
             else if (game == "Persona Q2")
             {
                 ConfigWindowPQ2 cWindow = new ConfigWindowPQ2(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona Q")
+            {
+                ConfigWindowPQ cWindow = new ConfigWindowPQ(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
@@ -1806,6 +1853,8 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
                     else if (game == "Persona 5")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x51, 0x51));
+                    else if (game == "Persona Q")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x90, 0x00, 0xfd));
                 }
                 GameBox.IsHitTestVisible = true;
                 if (String.IsNullOrEmpty(modPath))
@@ -2020,6 +2069,12 @@ namespace AemulusModManager
                         if (selectedPath == null)
                             Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
+                    else if (game == "Persona Q")
+                    {
+                        selectedPath = selectExe("Select PQ's data.cpk to unpack", ".cpk");
+                        if (selectedPath == null)
+                            Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
+                    }
                     else if (game == "Persona 5 Royal (PS4)")
                     {
                         selectedPath = openFolder("Select folder with P5R cpks");
@@ -2106,7 +2161,7 @@ namespace AemulusModManager
                 }
 
 
-                if ((game == "Persona Q2" && selectedPath == null) || (String.IsNullOrEmpty(gamePath) && game != "Persona 5 Strikers"))
+                if (((game == "Persona Q2" || game == "Persona Q") && selectedPath == null) || (String.IsNullOrEmpty(gamePath) && game != "Persona 5 Strikers"))
                     return;
 
                 DisableUI();
@@ -2115,7 +2170,7 @@ namespace AemulusModManager
 
                 if (game == "Persona 3 FES" || game == "Persona 3 Portable" || game == "Persona 4 Golden (Vita)" || game == "Persona 1 (PSP)")
                     await pacUnpack(gamePath);
-                else if (game == "Persona Q2")
+                else if (game == "Persona Q2" || game == "Persona Q")
                     await pacUnpack(selectedPath);
                 else if (game != "Persona 5 Strikers")
                     await pacUnpack(Path.GetDirectoryName(gamePath));
@@ -2176,6 +2231,9 @@ namespace AemulusModManager
                             break;
                         case "Persona Q2":
                             config.pq2Config.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona Q":
+                            config.pqConfig.lastUnpacked = lastUnpacked;
                             break;
                     }
                     updateConfig();
@@ -2311,7 +2369,7 @@ namespace AemulusModManager
                         if (File.Exists($@"{modPath}\{config.p4gVitaConfig.cpkName}"))
                             File.Delete($@"{modPath}\{config.p4gVitaConfig.cpkName}");
                     }
-                    if (game == "Persona Q2")
+                    if (game == "Persona Q2" || game == "Persona Q")
                     {
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
@@ -2387,7 +2445,7 @@ namespace AemulusModManager
                     if (game == "Persona 3 FES")
                         textures = config.p3fConfig.texturesPath;
 
-                    if (game == "Persona Q2")
+                    if (game == "Persona Q2" || game == "Persona Q")
                         binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS, true);
                     else if (game != "Persona 5 Strikers")
                         binMerge.Restart(path, emptySND, game, cpkLang, cheats, cheatsWS);
@@ -2429,7 +2487,7 @@ namespace AemulusModManager
                         path = $@"{modPath}\{config.p4gVitaConfig.cpkName.Replace(".cpk", String.Empty)}";
                         Directory.CreateDirectory(path);
                     }
-                    if (game == "Persona Q2")
+                    if (game == "Persona Q2" || game == "Persona Q")
                     {
                         path = $@"{modPath}\mod";
                         Directory.CreateDirectory(path);
@@ -2610,7 +2668,7 @@ namespace AemulusModManager
 
                         if (game == "Persona 5" || (game == "Persona 5 Royal (PS4)" && config.p5rConfig.cpkName != "bind") || game == "Persona 5 Royal (Switch)"
                         || (game == "Persona 3 Portable" && config.p3pConfig.cpkName != "bind")
-                        || game == "Persona 4 Golden (Vita)" || game == "Persona Q2")
+                        || game == "Persona 4 Golden (Vita)" || game == "Persona Q2" || game == "Persona Q")
                         {
                             binMerge.MakeCpk(path, true);
                             if (!File.Exists($@"{path}.cpk"))
@@ -3331,6 +3389,26 @@ namespace AemulusModManager
                         }
                         break;
                     case 9:
+                        game = "Persona Q";
+                        modPath = config.pqConfig.modDir;
+                        selectedLoadout = config.pqConfig.loadout;
+                        gamePath = config.pqConfig.ROMPath;
+                        launcherPath = config.pqConfig.launcherPath;
+                        buildWarning = config.pqConfig.buildWarning;
+                        buildFinished = config.pqConfig.buildFinished;
+                        updateChangelog = config.pqConfig.updateChangelog;
+                        updateAll = config.pqConfig.updateAll;
+                        updatesEnabled = config.pqConfig.updatesEnabled;
+                        deleteOldVersions = config.pqConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0x90, 0x00, 0xfd));
+                            button.IsHitTestVisible = true;
+                        }
+                        break;
+                    case 10:
                         game = "Persona Q2";
                         modPath = config.pq2Config.modDir;
                         selectedLoadout = config.pq2Config.loadout;
@@ -3616,6 +3694,9 @@ namespace AemulusModManager
                     case "Persona Q2":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7d, 0x42, 0x35));
                         break;
+                    case "Persona Q":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x56, 0x00, 0x52));
+                        break;
                 }
             }
         }
@@ -3654,6 +3735,9 @@ namespace AemulusModManager
                         break;
                     case "Persona Q2":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfb, 0x84, 0x6a));
+                        break;
+                    case "Persona Q":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0x90, 0x00, 0xfd));
                         break;
                 }
             }
@@ -4079,6 +4163,9 @@ namespace AemulusModManager
                         case "Persona Royal (Switch)":
                             config.p5rSwitchConfig.loadout = lastXml;
                             break;
+                        case "Persona Q":
+                            config.pqConfig.loadout = lastXml;
+                            break;
                     }
                 }
             }
@@ -4283,6 +4370,9 @@ namespace AemulusModManager
                     case GameFilter.P5RSwitch:
                         game = "Persona 5 Royal (Switch)";
                         break;
+                    case GameFilter.PQ:
+                        game = "Persona Q";
+                        break;
                 }
                 new AltLinkWindow(item.AlternateFileSources, item.Title, game).ShowDialog();
             }
@@ -4324,6 +4414,9 @@ namespace AemulusModManager
                     break;
                 case GameFilter.P5RSwitch:
                     game = "Persona 5 Royal (Switch)";
+                    break;
+                case GameFilter.PQ:
+                    game = "Persona Q";
                     break;
             }
             new AltLinkWindow(item.AlternateFileSources, item.Title, game).ShowDialog();
@@ -4458,7 +4551,7 @@ namespace AemulusModManager
                 LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
-                var gameIDS = new string[] { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "17354", "9099", "9561" };
+                var gameIDS = new string[] { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "17354", "9099", "9561", "14377" };
                 var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
@@ -4641,6 +4734,7 @@ namespace AemulusModManager
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5r.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5r.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5s.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/pq.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/pq2.png"};
             foreach (var bg in bgUrls)
                 bgs.Add(new BitmapImage(new Uri(bg)));
@@ -4892,6 +4986,9 @@ namespace AemulusModManager
                         gameID = "9099";
                         break;
                     case 9:
+                        gameID = "14377";
+                        break;
+                    case 10:
                         gameID = "9561";
                         break;
                 }
@@ -5239,6 +5336,9 @@ namespace AemulusModManager
                         break;
                     case "Persona 5 Royal (Switch)":
                         config.p5rSwitchConfig.loadout = selectedLoadout;
+                        break;
+                    case "Persona Q":
+                        config.pqConfig.loadout = selectedLoadout;
                         break;
                 }
                 updateConfig();
