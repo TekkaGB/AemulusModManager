@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -167,8 +168,10 @@ namespace AemulusModManager
 
         private void SetupCitraShortcut(object sender, RoutedEventArgs e)
         {
+            string[] ctrEmus = {"citra-qt.exe", "lime-qt.exe"};
+
             string citraExe = selectExe("Select citra-qt.exe", "*.exe");
-            if (Path.GetFileName(citraExe).ToLowerInvariant() == "citra-qt.exe")
+            if (ctrEmus.Contains(Path.GetFileName(citraExe).ToLowerInvariant()))
             {
                 main.launcherPath = citraExe;
                 main.config.pqConfig.launcherPath = citraExe;
