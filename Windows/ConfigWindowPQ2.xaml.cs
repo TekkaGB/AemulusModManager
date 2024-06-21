@@ -168,7 +168,7 @@ namespace AemulusModManager
 
         private void SetupCitraShortcut(object sender, RoutedEventArgs e)
         {
-            string[] ctrEmus = { "citra-qt.exe", "lime-qt.exe" };
+            string[] ctrEmus = { "citra-qt.exe", "lime-qt.exe", "lime3ds-gui.exe" };
 
             string citraExe = selectExe("Select citra-qt.exe", "*.exe");
             if (ctrEmus.Contains(Path.GetFileName(citraExe).ToLowerInvariant()))
