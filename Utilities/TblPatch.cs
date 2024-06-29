@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using AtlusScriptLibrary.Common.Collections;
 
 namespace AemulusModManager
 {
@@ -74,6 +75,8 @@ namespace AemulusModManager
         private static string[] p3pTables = { "SKILL", "UNIT", "MSG", "PERSONA", "ENCOUNT", "EFFECT", "MODEL", "AICALC" };
         private static string[] p3fTables = { "SKILL", "SKILL_F", "UNIT", "UNIT_F", "MSG", "PERSONA", "PERSONA_F", "ENCOUNT", "ENCOUNT_F", "EFFECT", "MODEL", "AICALC", "AICALC_F" };
         private static string[] p5Tables = { "AICALC", "ELSAI", "ENCOUNT", "EXIST", "ITEM", "NAME", "PERSONA", "PLAYER", "SKILL", "TALKINFO", "UNIT", "VISUAL" };
+        private static string[] pqNameTbls = { "battle/table/personanametable.tbl", "battle/table/enemynametable.tbl", "battle/table/skillnametable.tbl" };
+
         public static void Patch(List<string> ModList, string modDir, bool useCpk, string cpkLang, string game)
         {
             if (!File.Exists(exePath))
@@ -116,7 +119,7 @@ namespace AemulusModManager
                 archive = $@"data\init_free.bin";
             else if (game == "Persona 5" || game == "Persona 5 Royal (PS4)")
                 archive = @"battle\table.pac";
-            if (game != "Persona 3 FES" && game != "Persona 5 Royal (Switch)")
+            if (game != "Persona 3 FES" && game != "Persona 5 Royal (Switch)" && game != "Persona Q" && game != "Persona Q2")
             {
                 if (!File.Exists($@"{modDir}\{archive}"))
                 {
@@ -425,6 +428,7 @@ namespace AemulusModManager
                     {
                         foreach (var patch in tablePatches.Patches)
                         {
+                            Utilities.ParallelLogger.Log($"[INFO] Current patch: tbl={patch.tbl}, section={patch.section}, offset={patch.offset}, index={patch.index}"); //debug message
                             // Keep track of which TBL's were edited and get sections
                             if (!tables.Exists(x => x.tableName == patch.tbl))
                             {
@@ -434,7 +438,8 @@ namespace AemulusModManager
                                     || (game == "Persona 5" && !p5Tables.Contains(patch.tbl))
                                     || (game == "Persona 5 Royal (PS4)" && !p5Tables.Contains(patch.tbl))
                                     || (game == "Persona 5 Royal (Switch)" && !p5Tables.Contains(patch.tbl))
-                                    || (game == "Persona 3 Portable" && !p3pTables.Contains(patch.tbl)))
+                                    || (game == "Persona 3 Portable" && !p3pTables.Contains(patch.tbl))
+                                    || ((game == "Persona Q" || game == "Persona Q2") && !QTblExists(game, patch.tbl)))
                                 {
                                     Utilities.ParallelLogger.Log($"[ERROR] {patch.tbl} doesn't exist in {game}, skipping...");
                                     continue;
@@ -462,7 +467,7 @@ namespace AemulusModManager
                                 else if (game == "Persona 5 Royal (Switch)")
                                 {
                                     tablePath = patch.tbl.Equals("NAME", StringComparison.InvariantCultureIgnoreCase) ? $@"{modDir}\{cpkLang}\BATTLE\TABLE\{patch.tbl}.TBL" : $@"{modDir}\BASE\BATTLE\TABLE\{patch.tbl}.TBL";
-                                    var originalPath = patch.tbl.Equals("NAME", StringComparison.InvariantCultureIgnoreCase) ? 
+                                    var originalPath = patch.tbl.Equals("NAME", StringComparison.InvariantCultureIgnoreCase) ?
                                         $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\{cpkLang}\BATTLE\TABLE\{patch.tbl}.TBL" : $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\{game}\BASE\BATTLE\TABLE\{patch.tbl}.TBL";
                                     if (!File.Exists(tablePath))
                                     {
@@ -479,19 +484,41 @@ namespace AemulusModManager
                                         }
                                     }
                                 }
+                                else if (game == "Persona Q" || game == "Persona Q2")
+                                {
+                                    tablePath = $@"{modDir}/{patch.tbl}";
+                                    var originalPath = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Original/{game}/{patch.tbl}";
+                                    if (!File.Exists(tablePath))
+                                    {
+                                        if (File.Exists(originalPath))
+                                        {
+                                            Directory.CreateDirectory(Path.GetDirectoryName(tablePath));
+                                            File.Copy(originalPath, tablePath, true);
+                                            Utilities.ParallelLogger.Log($"[INFO] Copied over {patch.tbl} from Original directory.");
+                                        }
+                                        else
+                                        {
+                                            Utilities.ParallelLogger.Log($"[WARNING] {patch.tbl} not found in output directory or Original directory.");
+                                            continue;
+                                        }
+                                    }
+                                }
                                 else if (game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)" || game == "Persona 3 Portable")
                                     tablePath = patch.tbl.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{patch.tbl}.TBL";
                                 else if (game == "Persona 5" || game == "Persona 5 Royal (PS4)")
                                     tablePath = $@"{tblDir}\table\{patch.tbl}.TBL";
+
                                 if (patch.tbl == "NAME")
                                     table.nameSections = GetNameSections(tablePath);
+                                else if (pqNameTbls.Contains(patch.tbl))
+                                    table.nameSections = GetNameSectionQ(tablePath);
                                 else
                                     table.sections = GetSections(tablePath, game);
                                 table.tableName = patch.tbl;
                                 tables.Add(table);
                             }
-                            if (patch.tbl == "NAME")
-                                tables.Find(x => x.tableName == "NAME").nameSections = ReplaceName(tables.Find(x => x.tableName == "NAME").nameSections, null, patch);
+                            if (patch.tbl == "NAME" || pqNameTbls.Contains(patch.tbl))
+                                tables.Find(x => x.tableName == patch.tbl).nameSections = ReplaceName(tables.Find(x => x.tableName == patch.tbl).nameSections, null, patch);
                             else
                                 tables.Find(x => x.tableName == patch.tbl).sections = ReplaceSection(tables.Find(x => x.tableName == patch.tbl).sections, patch);
                         }
@@ -502,6 +529,9 @@ namespace AemulusModManager
                     // Keep track of which TBL's were edited
                     if (!editedTables.Contains($"{table.tableName}.TBL"))
                         editedTables.Add($"{table.tableName}.TBL");
+                    else if((game == "Persona Q" || game == "Persona Q2") && !editedTables.Contains($@"{table.tableName}"))
+                        editedTables.Add($"{table.tableName}");
+
                     string path = null;
                     if (game == "Persona 3 FES")
                         path = $@"{modDir}\BTL\BATTLE\{table.tableName}.TBL";
@@ -511,8 +541,13 @@ namespace AemulusModManager
                         path = table.tableName.Equals("ITEMTBL") ? $@"{tblDir}\init\itemtbl.bin" : $@"{tblDir}\battle\{table.tableName}.TBL";
                     else if (game == "Persona 5" || game == "Persona 5 Royal (PS4)")
                         path = $@"{tblDir}\table\{table.tableName}.TBL";
+                    else if (game == "Persona Q" ||  game == "Persona Q2")
+                        path = $@"{modDir}/{table.tableName}";
+
                     if (table.tableName == "NAME")
                         WriteNameTbl(table.nameSections, path);
+                    else if (pqNameTbls.Contains(table.tableName))
+                        WriteNameTblQ(table.nameSections, path);
                     else
                         WriteTbl(table.sections, path, game);
                 }
@@ -521,7 +556,7 @@ namespace AemulusModManager
 
             }
 
-            if (game != "Persona 3 FES" && game != "Persona 5 Royal (Switch)")
+            if (game != "Persona 3 FES" && game != "Persona 5 Royal (Switch)" && game != "Persona Q" && game != "Persona Q2")
             {
                 // Replace each edited TBL's
                 foreach (string u in editedTables)
@@ -573,6 +608,7 @@ namespace AemulusModManager
                             Array.Reverse(data);
                             section.size = BitConverter.ToInt32(data, 0);
                         }
+                        else if (game == "Persona Q" || game == "Persona Q2") { section.size = (int)fileStream.Length; }
                         else
                             section.size = br.ReadInt32();
                         section.data = br.ReadBytes(section.size);
@@ -599,7 +635,7 @@ namespace AemulusModManager
                 section = new NameSection();
                 // Get big endian section size
                 section.pointersSize = BitConverter.ToInt32(SliceArray(tblBytes, pos, pos + 4).Reverse().ToArray(), 0);
-
+                
                 // Get pointers
                 byte[] segment = SliceArray(tblBytes, pos + 4, pos + 4 + section.pointersSize);
                 section.pointers = new List<UInt16>();
@@ -644,6 +680,44 @@ namespace AemulusModManager
                 }
                 sections.Add(section);
             }
+            return sections;
+        }
+
+        private static List<NameSection> GetNameSectionQ(string tbl)
+        {
+            List<NameSection> sections = new List<NameSection>();
+            byte[] tblBytes = File.ReadAllBytes(tbl);
+            int pos = 0;
+            NameSection section = new NameSection();
+
+            section.pointersSize = BitConverter.ToInt16(SliceArray(tblBytes, pos, pos + 2), 0); //actually number of pointers in q2 nametbls
+            byte[] segment = SliceArray(tblBytes, pos + 2, pos + 2 + section.pointersSize * 2);
+            section.pointers = new List<ushort>();
+            for (int i = 0; i < segment.Length; i += 2)
+            {
+                section.pointers.Add(BitConverter.ToUInt16(SliceArray(segment, i, i+2), 0));
+            }
+
+            pos += section.pointersSize * 2 + 2;
+            section.namesSize = tblBytes.Length - pos;
+            segment = SliceArray(tblBytes, pos, pos + section.namesSize);
+            section.names = new List<byte[]>();
+            List<byte> name = new List<byte>();
+            foreach(var segmentByte in segment)
+            {
+                if (segmentByte == (byte)0)
+                {
+                    section.names.Add(name.ToArray());
+                    name = new List<byte>();
+                }
+                else
+                {
+                    name.Add(segmentByte);
+                }
+            }
+            section.names.Add(Encoding.ASCII.GetBytes("owo what\'s this")); // last ptr goes past eof, add dummy name for convenience later
+
+            sections.Add(section);
             return sections;
         }
 
@@ -858,6 +932,20 @@ namespace AemulusModManager
                 }
             }
         }
+
+        private static void WriteNameTblQ(List<NameSection> sections, string path)
+        {
+            using FileStream fStream = new FileStream(path, FileMode.Create);
+            using BinaryWriter bw = new BinaryWriter(fStream);
+            bw.Write(BitConverter.GetBytes((short)sections[0].pointersSize));
+            foreach (var pointer in sections[0].pointers) { bw.Write(BitConverter.GetBytes(pointer)); }
+            foreach (var name in sections[0].names)
+            {
+                bw.Write(name);
+                bw.Write((byte)0);
+            }
+        }
+
         private static void WriteTbl(List<Section> sections, string path, string game)
         {
             bool bigEndian = false;
@@ -868,7 +956,8 @@ namespace AemulusModManager
             {
                 using (BinaryWriter bw = new BinaryWriter(fileStream))
                 {
-                    if ((game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)") && Path.GetFileName(path).Equals("itemtbl.bin", StringComparison.InvariantCultureIgnoreCase))
+                    if (((game == "Persona 4 Golden" || game == "Persona 4 Golden (Vita)") && Path.GetFileName(path).Equals("itemtbl.bin", StringComparison.InvariantCultureIgnoreCase))
+                        || (game == "Persona Q" || game == "Persona Q2"))
                         bw.Write(sections[0].data);
                     else
                     {
@@ -887,7 +976,25 @@ namespace AemulusModManager
                 }
             }
         }
+
+        private static bool QTblExists(string game, string tblPath)
+        {
+            if (game != "Persona Q" && game != "Persona Q2") { return false; }
+
+            string csv = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}/Dependencies/FilteredCpkCsv/filtered_data_pq";
+            if (game == "Persona Q2") { csv += "2"; }
+            csv += ".csv";
+
+            if (!File.Exists(csv))
+            {
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV file in Dependencies\FilteredCpkCsv");
+                return false;
+            }
+
+            List<string> qTbls = File.ReadAllLines(csv).Where(t => Path.GetExtension(t) == ".tbl").ToList();
+
+            return qTbls.Contains(tblPath);
+        }
+
     }
-
-
 }
