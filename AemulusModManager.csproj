@@ -68,6 +68,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Assets\Jost-Regular.ttf" />
+    <Resource Include="Assets\pq.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\pqicon.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\RobotoMono-Regular.ttf" />
     <Resource Include="Assets\Jost-SemiBold.ttf" />
     <Content Include="Dependencies\SonicAudioTools\AcbEditor.exe.config">
@@ -77,6 +83,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Dependencies\AwbTools\AWB_unpacker.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Dependencies\FilteredCpkCsv\filtered_data_pq.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Dependencies\SpdPatcher\SPD Patcher.deps.json">
@@ -501,6 +510,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>Dependencies\PM1MessageScriptEditor\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
     </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\pq.png" />
+    <None Remove="Assets\pqicon.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="Windows\App.xaml" />
