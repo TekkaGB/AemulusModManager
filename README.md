@@ -199,7 +199,7 @@ Table patching is a feature that was carried over from Inaba Exe Patcher (former
 
 ### Structure of .tbp Files (for modders)
 
-For more readablity and support of expanding .tbl files (mostly seen in Persona 5) all in one file, I added this new format.  Old .tblpatch files still work for those who don't want to convert yet but I highly recommend switching over. This new file still goes in the tblpatches folder.
+For more readablity and support of expanding .tbl files (mostly seen in Persona 5) all in one file, I added this new format.  Old .tblpatch files still work for those who don't want to convert yet but I highly recommend switching over. This new file still goes in the tblpatches folder. Q/Q2 patches can **only** use this format.
 
 An example is show below:
 ```
@@ -250,14 +250,14 @@ First and foremost, make sure you have Version set to 1. Otherwise, none of the 
 Next, there is a list of Patches. Note that NAME.TBL patches have different members from every other tbl.
 
 #### Normal Patch
-- tbl - Name of .tbl file without the extension
-- section - Index of section in the specified .tbl file
+- tbl - Name of .tbl file without the extension. For Q/Q2 .tbls it will instead be the path to the .tbl within the CPK, with extension (eg. battle/table/datpersonaformat.tbl).
+- section - Index of section in the specified .tbl file. For Q/Q2, should always be 0.
 - offset - Position to start writing data at in relation to the specified section
 - data - The binary data to overwrite at the given offset represented as a space separated hex string
 
 #### NAME.TBL Patch
-- tbl - Name of .tbl file without the extension
-- section - Section of NAME.TBL seen in the list below
+- tbl - Name of .tbl file without the extension. For Q/Q2 .tbls it will instead be the path to the .tbl within the CPK, with extension (eg. battle/table/personanametable.tbl).
+- section - For P5R, section of NAME.TBL seen in the list below. For Q/Q2, should always be 0.
 - index - Index of name to replace
 - name - String to replace the name at the given index of the given section. Use square brackets to use hex instead of strings to use with Atlus's special encoding.
 
