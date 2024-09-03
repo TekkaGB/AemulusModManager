@@ -681,7 +681,7 @@ namespace AemulusModManager
             {
                 string filePath = string.IsNullOrEmpty(files[x].Directory) ? files[x].FileName : $@"{files[x].Directory}/{files[x].FileName}";
 
-                if (fileList.Contains(filePath) || extractAll)
+                if (extractAll || fileList.Contains(filePath))
                 {
                     extractor.QueueItem(new FileToExtract(Path.Combine(dir, filePath), files[x]));
                     Utilities.ParallelLogger.Log($@"[INFO] Extracting {filePath}");
