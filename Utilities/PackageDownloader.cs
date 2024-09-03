@@ -129,6 +129,9 @@ namespace AemulusModManager.Utilities
                             case "Persona 5 Royal":
                                 gameName = "Persona 5 Royal (PS4)";
                                 break;
+                            case "Persona Q: Shadow of the Labryinth":
+                                gameName = "Persona Q";
+                                break;
                             default:
                                 break;
                         }
