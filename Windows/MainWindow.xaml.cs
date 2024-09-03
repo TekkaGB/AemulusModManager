@@ -2572,7 +2572,7 @@ namespace AemulusModManager
                             binMerge.Merge(path, game);
                         });
                         // Only run if tblpatches exists
-                        if (game != "Persona Q2" && packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
+                        if (packages.Exists(x => Directory.Exists($@"{x}\tblpatches")))
                         {
                             var tbllanguage = cpkLang;
                             if (game == "Persona 5 Royal (Switch)")
