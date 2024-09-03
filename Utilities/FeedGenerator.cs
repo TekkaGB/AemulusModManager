@@ -23,6 +23,7 @@ namespace AemulusModManager.Utilities
         P5R,
         P5RSwitch,
         P5S,
+        PQ,
         PQ2
     }
     public enum FeedFilter
@@ -154,6 +155,9 @@ namespace AemulusModManager.Utilities
                     case GameFilter.P5S:
                         url += "9099&";
                         break;
+                    case GameFilter.PQ:
+                        url += "14377&";
+                        break;
                     case GameFilter.PQ2:
                         url += "9561&";
                         break;
@@ -192,6 +196,9 @@ namespace AemulusModManager.Utilities
                         break;
                     case GameFilter.P5S:
                         url += "9099&";
+                        break;
+                    case GameFilter.PQ:
+                        url += "14377&";
                         break;
                     case GameFilter.PQ2:
                         url += "9561&";

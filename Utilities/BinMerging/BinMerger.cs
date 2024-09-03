@@ -934,7 +934,7 @@ namespace AemulusModManager
                     DeleteDirectory(modDir);
                 Directory.CreateDirectory(modDir);
             }
-            if (game == "Persona Q2" && empty)
+            if ((game == "Persona Q2" || game == "Persona Q") && empty)
             {
                 File.Create($@"{modDir}\dummy.txt");
                 MakeCpk(modDir, true, empty);

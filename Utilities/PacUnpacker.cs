@@ -668,6 +668,44 @@ namespace AemulusModManager
                 Mouse.OverrideCursor = null;
             });
         }
+        public static async Task UnpackPQCPK(string cpk)
+        {
+            if (!File.Exists(cpk))
+            {
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {cpk}. Please correct the file path.");
+                return;
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+            string pathToExtract = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona Q";
+            Directory.CreateDirectory(pathToExtract);
+
+            if (!File.Exists($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_data_pq.csv"))
+            {
+                Utilities.ParallelLogger.Log($@"[ERROR] Couldn't find CSV file used for unpacking in Dependencies\FilteredCpkCsv");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Mouse.OverrideCursor = null;
+                });
+                return;
+            }
+
+            string[] dataFiles = File.ReadAllLines($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Dependencies\FilteredCpkCsv\filtered_data_pq.csv");
+
+            Utilities.ParallelLogger.Log($"[INFO] Extracting data.cpk");
+            CriFsUnpack(cpk, pathToExtract, dataFiles);
+
+            Utilities.ParallelLogger.Log("[INFO] Unpacking extracted files");
+            ExtractWantedFiles(pathToExtract);
+            Utilities.ParallelLogger.Log($"[INFO] Finished unpacking base files!");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
         private static void CriFsUnpack(string cpk, string dir, string[] fileList = null)
         {
             using var fileStream = new FileStream(cpk, FileMode.Open);

@@ -1,17 +1,20 @@
-﻿<Window x:Class="AemulusModManager.ConfigWindowPQ2"
+﻿<Window x:Class="AemulusModManager.ConfigWindowPQ"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AemulusModManager"
         mc:Ignorable="d" WindowStartupLocation="CenterOwner"
-        Title="Persona Q2 Config" Height="250" Width="670" ResizeMode="NoResize" Background="#121212" Closing="onClose">
+        Title="Persona Q Config" Height="250" Width="670" ResizeMode="NoResize" Background="#121212" Closing="onClose">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="440*"/>
+            <ColumnDefinition Width="73*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15" />
@@ -22,21 +25,21 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PQ2 .3ds/.app Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20"/>
-        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Emulator Path"/>
 
-        <TextBlock Foreground="LightGray" Text="PQ2 Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="2"/>
-        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="1" Grid.Column="2" Height ="20" HorizontalAlignment="Stretch"/>
-        <TextBox Name="ROMTextbox" IsReadOnly="True" VerticalAlignment="Center" HorizontalAlignment="Stretch" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Height="20"  Grid.Row="3" Grid.Column="2"/>
-        <TextBox Name="CitraTextbox" IsReadOnly="True" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="20"  Grid.Row="4" Grid.Column="2"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="Output Folder" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="1" Height="20" Grid.ColumnSpan="4"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" Text="PQ .3ds/.app Path" VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Column="1" Grid.Row="3" Height="20" Grid.ColumnSpan="4"/>
+        <TextBlock Foreground="LightGray" TextAlignment="Center" FontWeight="Bold" FontSize="13" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="1,0,0,0" Grid.ColumnSpan="2" Text="Emulator Path"/>
 
-        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="3" Width="60"/>
-        <Button Height="20" Width="60" Content="Browse" Name="ROMButton" Click="SetupROMShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="4"/>
-        <Button Height="20" Width="60" Content="Browse" Name="CitraButton" Click="SetupCitraShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="3" />
+        <TextBlock Foreground="LightGray" Text="PQ Launch Shortcut Setup" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20" Grid.Row="2" Grid.Column="5"/>
+        <TextBox Name="OutputTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Grid.Row="1" Grid.Column="5" Height ="20"/>
+        <TextBox Name="ROMTextbox" IsReadOnly="True" VerticalAlignment="Center" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" Height="20"  Grid.Row="3" Grid.Column="5"/>
+        <TextBox Name="CitraTextbox" IsReadOnly="True" Background="#202020" BorderBrush="#424242" Foreground="#f2f2f2" VerticalAlignment="Center" Height="20"  Grid.Row="4" Grid.Column="5"/>
 
-        <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3">
+        <Button Height="20" Content="Browse" Name="PathButton" Click="modDirectoryClick" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="6" Width="60"/>
+        <Button Height="20" Width="60" Content="Browse" Name="ROMButton" Click="SetupROMShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="6"/>
+        <Button Height="20" Width="60" Content="Browse" Name="CitraButton" Click="SetupCitraShortcut" Background ="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="6" />
+
+        <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
