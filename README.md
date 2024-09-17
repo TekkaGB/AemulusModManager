@@ -16,7 +16,7 @@ For Persona 3 FES, [setup HostFS for mod loading.](https://shrinefox.com/guides/
 
 For Persona 3 Portable, [setup the proper patches for mod loading from bind/mod.cpk/mod1.cpk/mod2.cpk/mod3.cpk](https://github.com/zarroboogs/p3p-patches)
 
-For Persona 3 Portable, [setup the proper patches for mod loading from mod.cpk/mod_bgm.cpk/mod_extra.cpk](https://gamebanana.com/mods/509317)
+For Persona 3 Portable (Switch), [setup the proper patches for mod loading from mod.cpk/mod_bgm.cpk/mod_extra.cpk](https://gamebanana.com/mods/509317)
 
 For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
