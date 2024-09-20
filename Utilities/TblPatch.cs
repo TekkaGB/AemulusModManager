@@ -395,7 +395,7 @@ namespace AemulusModManager
                             Utilities.ParallelLogger.Log("[ERROR] Improper .tblpatch format.");
                             continue;
                         }
-                        var temp = ReplaceName(sections, file, null);
+                        var temp = ReplaceName(sections, file, null, game);
                         if (temp != null)
                         {
                             sections = temp;
@@ -517,7 +517,7 @@ namespace AemulusModManager
                                 tables.Add(table);
                             }
                             if (patch.tbl == "NAME" || pqNameTbls.Contains(patch.tbl))
-                                tables.Find(x => x.tableName == patch.tbl).nameSections = ReplaceName(tables.Find(x => x.tableName == patch.tbl).nameSections, null, patch);
+                                tables.Find(x => x.tableName == patch.tbl).nameSections = ReplaceName(tables.Find(x => x.tableName == patch.tbl).nameSections, null, patch, game);
                             else
                                 tables.Find(x => x.tableName == patch.tbl).sections = ReplaceSection(tables.Find(x => x.tableName == patch.tbl).sections, patch);
                         }
@@ -720,7 +720,7 @@ namespace AemulusModManager
             return sections;
         }
 
-        private static List<NameSection> ReplaceName(List<NameSection> sections, byte[] patch, TablePatch namePatch)
+        private static List<NameSection> ReplaceName(List<NameSection> sections, byte[] patch, TablePatch namePatch, string game)
         {
             int section = 0;
             int index = 0;
@@ -785,7 +785,7 @@ namespace AemulusModManager
                 int delta = fileContents.Length - sections[section].names[index].Length;
                 sections[section].names[index] = fileContents;
                 sections[section].namesSize += delta;
-                for (int i = index + 1; i < sections[section].pointers.Count; i++)
+                for (int i = (game == "Persona Q" || game == "Persona Q2" ? index : index + 1); i < sections[section].pointers.Count; i++)
                 {
                     sections[section].pointers[i] += (UInt16)delta;
                 }
