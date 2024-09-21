@@ -68,6 +68,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="Assets\Jost-Regular.ttf" />
+    <Resource Include="Assets\p3p_switch.png" />
     <Resource Include="Assets\pq.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
@@ -512,6 +513,7 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\p3p_switch.png" />
     <None Remove="Assets\pq.png" />
     <None Remove="Assets\pqicon.png" />
   </ItemGroup>

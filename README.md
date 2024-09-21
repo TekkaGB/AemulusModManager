@@ -16,6 +16,8 @@ For Persona 3 FES, [setup HostFS for mod loading.](https://shrinefox.com/guides/
 
 For Persona 3 Portable, [setup the proper patches for mod loading from bind/mod.cpk/mod1.cpk/mod2.cpk/mod3.cpk](https://github.com/zarroboogs/p3p-patches)
 
+For Persona 3 Portable (Switch), [setup the proper patches for mod loading from mod.cpk/mod_bgm.cpk/mod_extra.cpk](https://gamebanana.com/mods/509317)
+
 For Persona 5, [setup the proper patches for mod loading from mod.cpk.](https://shrinefox.com/guides/2019/04/19/persona-5-rpcs3-modding-guide-1-downloads-and-setup/) Just ignore the Setting Up Mod Compendium section since you'll be using Aemulus instead.
 
 For Persona 5 Royal (PS4), [setup the proper patches for mod loading from bind/mod.cpk/mod1.cpk/mod2.cpk/mod3.cpk](https://github.com/zarroboogs/ppp)
@@ -36,6 +38,9 @@ The first thing you'll want to do is click the Config button on the top left.  F
 - **For Persona 4 Golden (Vita)**, select the data folder within the Vita game folder or any folder for FTPing later.
 - **For Persona 3 FES**, select the same folder that SLUS_216.21.ELF is located.
 - **For Persona 3 Portable**, select ...\PSP\P3P in the memstick of the PSP or any folder for FTPing later.
+- **For Persona 3 Portable (Switch)**:
+    - On emulator by right clicking the game and selecting "Open Mods Directory" for Ryujinx or "Open Mod Data Location" for Yuzu. Inside, create the path <current_dir>\<folder name of choice>\romfs\data\. Select the data folder as your output.
+    - For hardware, you'll have to setup a folder called atmosphere\contents[title id]\romfs\data in your SD card and select that as the output.
 - **For Persona 5**, select \PS3_GAME\USRDIR found by right clicking the game in RPCS3 and selecting Open Install Folder.
 - **For Persona 5 Royal (PS4)**, select \data\p5r or any other folder for FTPing later.
 - **For Persona 5 Royal (Switch)**:
