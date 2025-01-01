@@ -15,6 +15,16 @@ namespace AemulusModManager
     {
         private static string tblDir;
 
+        private static void RegisterEncodings()
+        {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+        }
+
+        static tblPatch()
+        {
+            RegisterEncodings();
+        }
+
         private static byte[] SliceArray(byte[] source, int start, int end)
         {
             int length = end - start;
@@ -714,7 +724,7 @@ namespace AemulusModManager
                     name.Add(segmentByte);
                 }
             }
-            section.names.Add(Encoding.ASCII.GetBytes("owo what\'s this")); // last ptr goes past eof, add dummy name for convenience later
+            section.names.Add(Encoding.GetEncoding("shift-jis").GetBytes("owo what\'s this")); // last ptr goes past eof, add dummy name for convenience later
 
             sections.Add(section);
             return sections;
@@ -741,7 +751,7 @@ namespace AemulusModManager
                 }
                 section = (int)namePatch.section;
                 index = (int)namePatch.index;
-                fileContents = ConvertName(namePatch.name);
+                fileContents = ConvertName(namePatch.name, game);
                 if (fileContents == null)
                     return sections;
             }
@@ -765,7 +775,12 @@ namespace AemulusModManager
 
             if (index >= sections[section].names.Count)
             {
-                byte[] dummy = Encoding.ASCII.GetBytes("RESERVE");
+                Encoding encoding = (game == "Persona Q" || game == "Persona Q2")
+                    ? Encoding.GetEncoding("shift-jis")
+                    : Encoding.ASCII;
+
+                byte[] dummy = encoding.GetBytes("RESERVE");
+
                 // Add RESERVE names if index is further down
                 while (sections[section].names.Count < index)
                 {
@@ -793,15 +808,19 @@ namespace AemulusModManager
             return sections;
         }
 
-        private static byte[] ConvertName(string name)
+        private static byte[] ConvertName(string name, string game)
         {
+            Encoding encoding = (game == "Persona Q" || game == "Persona Q2")
+                ? Encoding.GetEncoding("shift-jis")
+                : Encoding.ASCII;
+            
             string[] stringData = Regex.Split(name, @"(\[.*?\])");
             List<byte> byteName = new List<byte>();
             foreach (var part in stringData)
             {
                 if (!part.Contains('['))
                 {
-                    foreach (byte b in Encoding.ASCII.GetBytes(part))
+                    foreach (byte b in encoding.GetBytes(part))
                         byteName.Add(b);
                 }
                 else
