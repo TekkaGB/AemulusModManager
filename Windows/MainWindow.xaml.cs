@@ -41,6 +41,7 @@ namespace AemulusModManager
         public ConfigP1PSP p1pspConfig;
         public ConfigP3F p3fConfig;
         public ConfigP3P p3pConfig;
+        public ConfigP3PSwitch p3pSwitchConfig;
         public ConfigP4G p4gConfig;
         public ConfigP4GVita p4gVitaConfig;
         public ConfigP5 p5Config;
@@ -246,6 +247,7 @@ namespace AemulusModManager
                 p4gConfig = new ConfigP4G();
                 p3fConfig = new ConfigP3F();
                 p3pConfig = new ConfigP3P();
+                p3pSwitchConfig = new ConfigP3PSwitch();
                 p4gVitaConfig = new ConfigP4GVita();
                 p5rConfig = new ConfigP5R();
                 p5rSwitchConfig = new ConfigP5RSwitch();
@@ -257,6 +259,7 @@ namespace AemulusModManager
                 config.p5Config = p5Config;
                 config.p5sConfig = p5sConfig;
                 config.p3pConfig = p3pConfig;
+                config.p3pSwitchConfig = p3pSwitchConfig;
                 config.p4gVitaConfig = p4gVitaConfig;
                 config.p5rConfig = p5rConfig;
                 config.p5rSwitchConfig = p5rSwitchConfig;
@@ -335,6 +338,8 @@ namespace AemulusModManager
                                 config.p5sConfig = p5sConfig;
                             if (config.p3pConfig == null)
                                 config.p3pConfig = p3pConfig;
+                            if (config.p3pSwitchConfig == null)
+                                config.p3pSwitchConfig = p3pSwitchConfig;
                             if (config.p4gVitaConfig == null)
                                 config.p4gVitaConfig = p4gVitaConfig;
                             if (config.p5rConfig == null)
@@ -352,6 +357,8 @@ namespace AemulusModManager
                                 p3fConfig = config.p3fConfig;
                             if (config.p3pConfig != null)
                                 p3pConfig = config.p3pConfig;
+                            if (config.p3pSwitchConfig != null)
+                                p3pSwitchConfig = config.p3pSwitchConfig;
                             if (config.p4gConfig != null)
                                 p4gConfig = config.p4gConfig;
                             if (config.p4gVitaConfig != null)
@@ -452,6 +459,23 @@ namespace AemulusModManager
                                     ConvertCPK.Visibility = Visibility.Collapsed;
                                     foreach (var button in buttons)
                                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                                    break;
+                                case "Persona 3 Portable (Switch)":
+                                    modPath = config.p3pSwitchConfig.modDir;
+                                    selectedLoadout = config.p3pSwitchConfig.loadout;
+                                    gamePath = config.p3pSwitchConfig.gamePath;
+                                    launcherPath = config.p3pSwitchConfig.launcherPath;
+                                    buildWarning = config.p3pSwitchConfig.buildWarning;
+                                    buildFinished = config.p3pSwitchConfig.buildFinished;
+                                    updateChangelog = config.p3pSwitchConfig.updateChangelog;
+                                    updateAll = config.p3pSwitchConfig.updateAll;
+                                    updatesEnabled = config.p3pSwitchConfig.updatesEnabled;
+                                    deleteOldVersions = config.p3pSwitchConfig.deleteOldVersions;
+                                    useCpk = false;
+                                    createIso = false;
+                                    ConvertCPK.Visibility = Visibility.Collapsed;
+                                    foreach (var button in buttons)
+                                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xc9, 0x53, 0x81));
                                     break;
                                 case "Persona 1 (PSP)":
                                     modPath = config.p1pspConfig.modDir;
@@ -590,6 +614,8 @@ namespace AemulusModManager
                         p3fConfig = config.p3fConfig;
                     if (config.p3pConfig != null)
                         p3pConfig = config.p3pConfig;
+                    if (config.p3pSwitchConfig != null)
+                        p3pSwitchConfig = config.p3pSwitchConfig;
                     if (config.p4gConfig != null)
                         p4gConfig = config.p4gConfig;
                     if (config.p4gVitaConfig != null)
@@ -640,29 +666,32 @@ namespace AemulusModManager
                         case "Persona 3 Portable":
                             GameBox.SelectedIndex = 2;
                             break;
-                        case "Persona 4 Golden":
+                        case "Persona 3 Portable (Switch)":
                             GameBox.SelectedIndex = 3;
                             break;
-                        case "Persona 4 Golden (Vita)":
+                        case "Persona 4 Golden":
                             GameBox.SelectedIndex = 4;
                             break;
-                        case "Persona 5":
+                        case "Persona 4 Golden (Vita)":
                             GameBox.SelectedIndex = 5;
                             break;
-                        case "Persona 5 Royal (PS4)":
+                        case "Persona 5":
                             GameBox.SelectedIndex = 6;
                             break;
-                        case "Persona 5 Royal (Switch)":
+                        case "Persona 5 Royal (PS4)":
                             GameBox.SelectedIndex = 7;
                             break;
-                        case "Persona 5 Strikers":
+                        case "Persona 5 Royal (Switch)":
                             GameBox.SelectedIndex = 8;
                             break;
-                        case "Persona Q":
+                        case "Persona 5 Strikers":
                             GameBox.SelectedIndex = 9;
                             break;
-                        case "Persona Q2":
+                        case "Persona Q":
                             GameBox.SelectedIndex = 10;
+                            break;
+                        case "Persona Q2":
+                            GameBox.SelectedIndex = 11;
                             break;
                     }
 
@@ -695,6 +724,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 3 Portable":
                             config.p3pConfig.loadout = selectedLoadout;
+                            break;
+                        case "Persona 3 Portable (Switch)":
+                            config.p3pSwitchConfig.loadout = selectedLoadout;
                             break;
                         case "Persona 4 Golden":
                             config.p4gConfig.loadout = selectedLoadout;
@@ -831,6 +863,8 @@ namespace AemulusModManager
                     modPath = config.p3fConfig.modDir;
                 else if (game == "Persona 3 Portable" && !String.IsNullOrEmpty(config.p3pConfig.modDir))
                     modPath = config.p3pConfig.modDir;
+                else if (game == "Persona 3 Portable (Switch)" && !String.IsNullOrEmpty(config.p3pSwitchConfig.modDir))
+                    modPath = config.p3pSwitchConfig.modDir;
                 else if (game == "Persona 5" && !String.IsNullOrEmpty(config.p5Config.modDir))
                     modPath = config.p5Config.modDir;
                 else if (game == "Persona 5 Royal (PS4)" && !String.IsNullOrEmpty(config.p5rConfig.modDir))
@@ -851,6 +885,7 @@ namespace AemulusModManager
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 1 (PSP)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 FES");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 Portable");
+                Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 3 Portable (Switch)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 4 Golden (Vita)");
                 Directory.CreateDirectory($@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Packages\Persona 5");
@@ -1075,6 +1110,8 @@ namespace AemulusModManager
                     Merger.Backup(directory);
                 else if (game == "Persona 3 Portable")
                     await PacUnpacker.UnzipAndUnpackCPK(directory);
+                else if (game == "Persona 3 Portable (Switch)")
+                    await PacUnpacker.UnpackP3PSwitchCPKs(directory, p3pSwitchConfig.language);
                 else if (game == "Persona 4 Golden (Vita)")
                     await PacUnpacker.UnpackP4GCPK(directory);
                 else if (game == "Persona Q2")
@@ -1118,6 +1155,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 3 Portable":
                             config.p3pConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 3 Portable (Switch)":
+                            config.p3pSwitchConfig.lastUnpacked = lastUnpacked;
                             break;
                         case "Persona 4 Golden (Vita)":
                             config.p4gVitaConfig.lastUnpacked = lastUnpacked;
@@ -1283,7 +1323,7 @@ namespace AemulusModManager
                     Utilities.ParallelLogger.Log($"[INFO] If the game is lagging set the global config to your special config for Persona 5.");
                     startInfo.Arguments = $"--no-gui \"{gamePath}\"";
                 }
-                else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)" || game == "Persona Q")
+                else if (game == "Persona 3 Portable" || game == "Persona Q2" || game == "Persona 5 Royal (Switch)" || game == "Persona Q" || game == "Persona 3 Portable (Switch)")
                 {
                     if (!File.Exists(gamePath))
                     {
@@ -1377,6 +1417,12 @@ namespace AemulusModManager
             else if (game == "Persona 3 Portable")
             {
                 ConfigWindowP3P cWindow = new ConfigWindowP3P(this) { Owner = this };
+                cWindow.DataContext = this;
+                cWindow.ShowDialog();
+            }
+            else if (game == "Persona 3 Portable (Switch)")
+            {
+                ConfigWindowP3PSwitch cWindow = new ConfigWindowP3PSwitch(this) { Owner = this };
                 cWindow.DataContext = this;
                 cWindow.ShowDialog();
             }
@@ -1845,6 +1891,8 @@ namespace AemulusModManager
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
                     else if (game == "Persona 3 Portable")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                    else if (game == "Persona 3 Portable (Switch)")
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xc9, 0x53, 0x81));
                     else if (game == "Persona 5 Royal (PS4)")
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf7, 0x64, 0x84));
                     else if (game == "Persona 5 Royal (Switch)")
@@ -2053,6 +2101,41 @@ namespace AemulusModManager
                         else
                             Utilities.ParallelLogger.Log("[ERROR] Incorrect file chosen.");
                     }
+                    else if (game == "Persona 3 Portable (Switch)")
+                    {
+                        selectedPath = openFolder("Select your P3P romfs dump folder, called romfs");
+                        if (selectedPath != null)
+                        {
+                            var cpksNeeded = new List<string>();
+                            var extraCpk = String.Empty;
+                            cpksNeeded.Add("data/umd0.cpk");
+                            cpksNeeded.Add("data/umd1.cpk");
+                            cpksNeeded.Add("sysdat.cpk");
+                            switch (config.p3pSwitchConfig.language)
+                            {
+                                case "English":
+                                    cpksNeeded.Add("data_EN/umd0.cpk");
+                                    extraCpk = ", umd0.cpk";
+                                    break;
+                                case "French":
+                                    cpksNeeded.Add("data_FR/umd0.cpk");
+                                    extraCpk = ", umd0.cpk";
+                                    break;
+                                case "Italian":
+                                    cpksNeeded.Add("data_IT/umd0.cpk");
+                                    extraCpk = ", umd0.cpk";
+                                    break;
+                                case "German":
+                                    cpksNeeded.Add("data_DE/umd0.cpk");
+                                    extraCpk = ", umd0.cpk";
+                                    break;
+                                case "Spanish":
+                                    cpksNeeded.Add("data_ES/umd0.cpk");
+                                    extraCpk = ", umd0.cpk";
+                                    break;
+                            }
+                        }
+                    }
                     else if (game == "Persona 4 Golden (Vita)")
                     {
                         selectedPath = selectExe("Select P4G's data.cpk to unpack", ".cpk");
@@ -2168,7 +2251,7 @@ namespace AemulusModManager
 
                 fromMain = true;
 
-                if (game == "Persona 3 FES" || game == "Persona 3 Portable" || game == "Persona 4 Golden (Vita)" || game == "Persona 1 (PSP)")
+                if (game == "Persona 3 FES" || game == "Persona 3 Portable" || game == "Persona 4 Golden (Vita)" || game == "Persona 1 (PSP)" || game == "Persona 3 Portable (Switch)")
                     await pacUnpack(gamePath);
                 else if (game == "Persona Q2" || game == "Persona Q")
                     await pacUnpack(selectedPath);
@@ -2219,6 +2302,9 @@ namespace AemulusModManager
                             break;
                         case "Persona 3 Portable":
                             config.p3pConfig.lastUnpacked = lastUnpacked;
+                            break;
+                        case "Persona 3 Portable (Switch)":
+                            config.p3pSwitchConfig.lastUnpacked = lastUnpacked;
                             break;
                         case "Persona 4 Golden (Vita)":
                             config.p3pConfig.lastUnpacked = lastUnpacked;
@@ -2354,6 +2440,13 @@ namespace AemulusModManager
                         if (Directory.Exists(fmvPath))
                             Directory.Delete(fmvPath, true);
                     }
+                    if (game == "Persona 3 Portable (Switch)")
+                    {
+                        path = $@"{modPath}\{config.p3pSwitchConfig.cpkName.Replace(".cpk", String.Empty)}";
+                        Directory.CreateDirectory(path);
+                        if (config.p3pSwitchConfig.cpkName.EndsWith(".cpk") && File.Exists($@"{modPath}\{config.p3pSwitchConfig.cpkName}"))
+                            File.Delete($@"{modPath}\{config.p3pSwitchConfig.cpkName}");
+                    }
                     if (game == "Persona 1 (PSP)")
                     {
                         path = $@"{modPath}\Persona 1 (PSP)\PSP_GAME";
@@ -2480,6 +2573,11 @@ namespace AemulusModManager
                     if (game == "Persona 3 Portable")
                     {
                         path = $@"{modPath}\{config.p3pConfig.cpkName.Replace(".cpk", String.Empty)}";
+                        Directory.CreateDirectory(path);
+                    }
+                    if (game == "Persona 3 Portable (Switch)")
+                    {
+                        path = $@"{modPath}\{config.p3pSwitchConfig.cpkName.Replace(".cpk", String.Empty)}";
                         Directory.CreateDirectory(path);
                     }
                     if (game == "Persona 4 Golden (Vita)")
@@ -2668,7 +2766,7 @@ namespace AemulusModManager
 
                         if (game == "Persona 5" || (game == "Persona 5 Royal (PS4)" && config.p5rConfig.cpkName != "bind") || game == "Persona 5 Royal (Switch)"
                         || (game == "Persona 3 Portable" && config.p3pConfig.cpkName != "bind")
-                        || game == "Persona 4 Golden (Vita)" || game == "Persona Q2" || game == "Persona Q")
+                        || game == "Persona 4 Golden (Vita)" || game == "Persona Q2" || game == "Persona Q" || game == "Persona 3 Portable (Switch)")
                         {
                             binMerge.MakeCpk(path, true);
                             if (!File.Exists($@"{path}.cpk"))
@@ -3255,6 +3353,30 @@ namespace AemulusModManager
                         }
                         break;
                     case 3:
+                        game = "Persona 3 Portable (Switch)";
+                        if (config.p3pSwitchConfig == null)
+                            config.p3pSwitchConfig = new ConfigP3PSwitch();
+                        modPath = config.p3pSwitchConfig.modDir;
+                        selectedLoadout = config.p3pSwitchConfig.loadout;
+                        gamePath = config.p3pSwitchConfig.gamePath;
+                        launcherPath = config.p3pSwitchConfig.launcherPath;
+                        buildWarning = config.p3pSwitchConfig.buildWarning;
+                        buildFinished = config.p3pSwitchConfig.buildFinished;
+                        updateChangelog = config.p3pSwitchConfig.updateChangelog;
+                        updateAll = config.p3pSwitchConfig.updateAll;
+                        updatesEnabled = config.p3pSwitchConfig.updatesEnabled;
+                        deleteOldVersions = config.p3pSwitchConfig.deleteOldVersions;
+                        useCpk = false;
+                        ConvertCPK.Visibility = Visibility.Collapsed;
+                        foreach (var button in buttons)
+                        {
+                            button.Foreground = new SolidColorBrush(Color.FromRgb(0xc9, 0x53, 0x81));
+                            button.IsHitTestVisible = true;
+                        }
+                        LaunchButton.IsHitTestVisible = false;
+                        LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
+                        break;
+                    case 4:
                         game = "Persona 4 Golden";
                         modPath = config.p4gConfig.modDir;
                         selectedLoadout = config.p4gConfig.loadout;
@@ -3277,7 +3399,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 4:
+                    case 5:
                         game = "Persona 4 Golden (Vita)";
                         modPath = config.p4gVitaConfig.modDir;
                         selectedLoadout = config.p4gVitaConfig.loadout;
@@ -3299,7 +3421,7 @@ namespace AemulusModManager
                         LaunchButton.IsHitTestVisible = false;
                         LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                         break;
-                    case 5:
+                    case 6:
                         game = "Persona 5";
                         modPath = config.p5Config.modDir;
                         selectedLoadout = config.p5Config.loadout;
@@ -3320,7 +3442,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 6:
+                    case 7:
                         game = "Persona 5 Royal (PS4)";
                         modPath = config.p5rConfig.modDir;
                         selectedLoadout = config.p5rConfig.loadout;
@@ -3342,7 +3464,7 @@ namespace AemulusModManager
                         LaunchButton.IsHitTestVisible = false;
                         LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                         break;
-                    case 7:
+                    case 8:
                         game = "Persona 5 Royal (Switch)";
                         if (config.p5rSwitchConfig == null)
                             config.p5rSwitchConfig = new ConfigP5RSwitch();
@@ -3366,7 +3488,7 @@ namespace AemulusModManager
                         LaunchButton.IsHitTestVisible = false;
                         LaunchButton.Foreground = new SolidColorBrush(Colors.Gray);
                         break;
-                    case 8:
+                    case 9:
                         game = "Persona 5 Strikers";
                         if (config.p5sConfig == null)
                             config.p5sConfig = new ConfigP5S();
@@ -3388,7 +3510,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 9:
+                    case 10:
                         game = "Persona Q";
                         modPath = config.pqConfig.modDir;
                         selectedLoadout = config.pqConfig.loadout;
@@ -3408,7 +3530,7 @@ namespace AemulusModManager
                             button.IsHitTestVisible = true;
                         }
                         break;
-                    case 10:
+                    case 11:
                         game = "Persona Q2";
                         modPath = config.pq2Config.modDir;
                         selectedLoadout = config.pq2Config.loadout;
@@ -3684,6 +3806,9 @@ namespace AemulusModManager
                     case "Persona 3 Portable":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7e, 0x41, 0x71));
                         break;
+                    case "Persona 3 Portable (Switch)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xc9, 0x53, 0x81));
+                        break;
                     case "Persona 4 Golden (Vita)":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0x7a, 0x54, 0x1e));
                         break;
@@ -3725,6 +3850,9 @@ namespace AemulusModManager
                         break;
                     case "Persona 3 Portable":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xfc, 0x83, 0xe3));
+                        break;
+                    case "Persona 3 Portable (Switch)":
+                        button.Foreground = new SolidColorBrush(Color.FromRgb(0xc9, 0x53, 0x81));
                         break;
                     case "Persona 4 Golden (Vita)":
                         button.Foreground = new SolidColorBrush(Color.FromRgb(0xf5, 0xa8, 0x3d));
@@ -4148,6 +4276,9 @@ namespace AemulusModManager
                         case "Persona 3 Portable":
                             config.p3pConfig.loadout = lastXml;
                             break;
+                        case "Persona 3 Portable (Switch)":
+                            config.p3pSwitchConfig.loadout = lastXml;
+                            break;
                         case "Persona 4 Golden (Vita)":
                             config.p4gVitaConfig.loadout = lastXml;
                             break;
@@ -4355,6 +4486,9 @@ namespace AemulusModManager
                     case GameFilter.P3P:
                         game = "Persona 3 Portable";
                         break;
+                    case GameFilter.P3PSwitch:
+                        game = "Persona 3 Portable (Switch)";
+                        break;
                     case GameFilter.P4GVita:
                         game = "Persona 4 Golden (Vita)";
                         break;
@@ -4399,6 +4533,9 @@ namespace AemulusModManager
                     break;
                 case GameFilter.P3P:
                     game = "Persona 3 Portable";
+                    break;
+                case GameFilter.P3PSwitch:
+                    game = "Persona 3 Portable (Switch)";
                     break;
                 case GameFilter.P4GVita:
                     game = "Persona 4 Golden (Vita)";
@@ -4551,7 +4688,7 @@ namespace AemulusModManager
                 LoadingBar.Visibility = Visibility.Visible;
                 ErrorPanel.Visibility = Visibility.Collapsed;
                 // Initialize games
-                var gameIDS = new string[] { "12961", "8502", "8583", "8263", "15703", "7545", "8464", "17354", "9099", "9561", "14377" };
+                var gameIDS = new string[] { "12961", "8502", "8583", "17434", "8263", "15703", "7545", "8464", "17354", "9099", "9561", "14377" };
                 var types = new string[] { "Mod", "Wip", "Sound", "Tool", "Tutorial" };
                 var gameCounter = 0;
                 foreach (var gameID in gameIDS)
@@ -4728,6 +4865,7 @@ namespace AemulusModManager
             "pack://application:,,,/AemulusPackageManager;component/Assets/p1psp.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3f.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p3p.png",
+            "pack://application:,,,/AemulusPackageManager;component/Assets/p3p_switch.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p4g_pc.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p4g_vita.png",
             "pack://application:,,,/AemulusPackageManager;component/Assets/p5.png",
@@ -4971,24 +5109,27 @@ namespace AemulusModManager
                         gameID = "8263";
                         break;
                     case 4:
-                        gameID = "15703";
+                        gameID = "17434";
                         break;
                     case 5:
-                        gameID = "7545";
+                        gameID = "15703";
                         break;
                     case 6:
-                        gameID = "8464";
+                        gameID = "7545";
                         break;
                     case 7:
-                        gameID = "17354";
+                        gameID = "8464";
                         break;
                     case 8:
-                        gameID = "9099";
+                        gameID = "17354";
                         break;
                     case 9:
-                        gameID = "14377";
+                        gameID = "9099";
                         break;
                     case 10:
+                        gameID = "14377";
+                        break;
+                    case 11:
                         gameID = "9561";
                         break;
                 }
@@ -5321,6 +5462,9 @@ namespace AemulusModManager
                         break;
                     case "Persona 3 Portable":
                         config.p3pConfig.loadout = selectedLoadout;
+                        break;
+                    case "Persona 3 Portable (Switch)":
+                        config.p3pSwitchConfig.loadout = selectedLoadout;
                         break;
                     case "Persona 4 Golden (Vita)":
                         config.p4gVitaConfig.loadout = selectedLoadout;

@@ -17,6 +17,7 @@ namespace AemulusModManager.Utilities
         P1PSP,
         P3,
         P3P,
+        P3PSwitch,
         P4G,
         P4GVita,
         P5,
@@ -137,6 +138,9 @@ namespace AemulusModManager.Utilities
                     case GameFilter.P3P:
                         url += "8583&";
                         break;
+                    case GameFilter.P3PSwitch:
+                        url += "17434&";
+                        break;
                     case GameFilter.P4G:
                         url += "8263&";
                         break;
@@ -178,6 +182,9 @@ namespace AemulusModManager.Utilities
                         break;
                     case GameFilter.P3P:
                         url += "8583&";
+                        break;
+                    case GameFilter.P3PSwitch:
+                        url += "17434&";
                         break;
                     case GameFilter.P4G:
                         url += "8263&";

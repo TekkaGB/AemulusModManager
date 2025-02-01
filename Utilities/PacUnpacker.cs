@@ -706,6 +706,67 @@ namespace AemulusModManager
                 Mouse.OverrideCursor = null;
             });
         }
+        public static async Task UnpackP3PSwitchCPKs(string directory, string language)
+        {
+            if (!Directory.Exists(directory))
+            {
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find {directory}. Please correct the file path.");
+                return;
+            }
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+            });
+
+            var localdir = String.Empty;
+            switch (language)
+            {
+                case "English":
+                    localdir = "data_EN";
+                    break;
+                case "French":
+                    localdir = "data_FR";
+                    break;
+                case "Italian":
+                    localdir = "data_IT";
+                    break;
+                case "German":
+                    localdir = "data_DE";
+                    break;
+                case "Spanish":
+                    localdir = "data_ES";
+                    break;
+            }
+
+            string pathToExtract = $@"{Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)}\Original\Persona 3 Portable (Switch)";
+            Directory.CreateDirectory(pathToExtract);
+
+            Utilities.ParallelLogger.Log($"[INFO] Extracting umd0.cpk (This will take awhile)");
+            if (File.Exists($@"{directory}\data\umd0.cpk"))
+                CriFsUnpack($@"{directory}\data\umd0.cpk", pathToExtract);
+            else
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find umd0.cpk in {directory}/data.");
+
+            Utilities.ParallelLogger.Log($"[INFO] Extracting umd1.cpk");
+            if (File.Exists($@"{directory}\data\umd1.cpk"))
+                CriFsUnpack($@"{directory}\data\umd1.cpk", pathToExtract);
+            else
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find umd1.cpk in {directory}/data.");
+
+            Utilities.ParallelLogger.Log($"[INFO] Extracting language variant of umd0.cpk");
+            
+            if (File.Exists($@"{directory}\{localdir}\umd0.cpk"))
+                CriFsUnpack($@"{directory}\{localdir}\umd0.cpk", pathToExtract);
+            else
+                Utilities.ParallelLogger.Log($"[ERROR] Couldn't find umd0.cpk in {directory}/{localdir}.");
+
+            ExtractWantedFiles(pathToExtract);
+            Utilities.ParallelLogger.Log($"[INFO] Finished unpacking base files!");
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Mouse.OverrideCursor = null;
+            });
+        }
         private static void CriFsUnpack(string cpk, string dir, string[] fileList = null)
         {
             using var fileStream = new FileStream(cpk, FileMode.Open);
