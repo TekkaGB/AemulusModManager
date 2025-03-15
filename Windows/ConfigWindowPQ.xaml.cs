@@ -152,7 +152,7 @@ namespace AemulusModManager
 
         private void SetupROMShortcut(object sender, RoutedEventArgs e)
         {
-            string pqRom = selectExe("Select Persona Q ROM", "*.3ds;*.app;*.cxi");
+            string pqRom = selectExe("Select Persona Q ROM", "*.3ds;*.app;*.cxi;*.cci");
             if (pqRom != null)
             {
                 main.gamePath = pqRom;
@@ -168,7 +168,7 @@ namespace AemulusModManager
 
         private void SetupCitraShortcut(object sender, RoutedEventArgs e)
         {
-            string[] ctrEmus = {"citra-qt.exe", "lime-qt.exe", "lime3ds-gui.exe" };
+            string[] ctrEmus = {"citra-qt.exe", "lime-qt.exe", "lime3ds-gui.exe", "lime3ds.exe", "azahar.exe" };
 
             string citraExe = selectExe("Select citra-qt.exe", "*.exe");
             if (ctrEmus.Contains(Path.GetFileName(citraExe).ToLowerInvariant()))
@@ -187,7 +187,7 @@ namespace AemulusModManager
         private string selectExe(string title, string extension)
         {
             string type = "Application";
-            if (extension == "*.3ds;*.app;*.cxi")
+            if (extension == "*.3ds;*.app;*.cxi;*.cci")
                 type = "ROM";
             if (extension == "*.cpk")
                 type = "File Container";
