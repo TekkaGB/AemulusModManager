@@ -3560,7 +3560,7 @@ namespace AemulusModManager
 
         private void Setup_Click(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("https://aemulus.cep.one/install");
+            Process.Start("https://github.com/TekkaGB/AemulusModManager/blob/master/README.md");
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
